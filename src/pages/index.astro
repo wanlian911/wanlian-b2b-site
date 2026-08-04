@@ -1,0 +1,311 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { products } from '../utils/products';
+import InquiryForm from '../components/inquiry/InquiryForm.astro';
+
+// Featured products for the homepage (Real Wanlian Products)
+const featuredProducts = products.filter(p => [
+  'resilient-seat-flanged-gate-valve-z41x',
+  'indoor-fire-hydrant-head-sn65',
+  'wet-alarm-check-valve-zsfz-150',
+  'signal-grooved-wafer-butterfly-valve-dn80',
+  'sliding-ball-check-valve-hq41x',
+  'hydraulic-water-level-control-valve-f745x',
+  'telescopic-y-strainer-sgl41h',
+  'anti-collision-pressure-regulating-outdoor-hydrant-ssft100'
+].includes(p.slug));
+
+const categories = [
+  { name: 'Valves & Parts', count: '150+', image: 'https://s.alicdn.com/@sc04/kf/H484c5fb59c5c4816bab9e792877e6395g/Wanlian-Z41X-16Q-OEM-ODM-Customized-Ductile.jpg', link: '/products?category=Valves%20&%20Parts' },
+  { name: 'Hydrants & Pump Connections', count: '80+', image: 'https://s.alicdn.com/@sc04/kf/Hafe69f2538c44327956335b67a911b16I/17-Bar-Ductile-Iron-Flexible-Indoor-Fire.jpg', link: '/products?category=Hydrants%20&%20Pump%20Connections' },
+  { name: 'Sprinklers & Alarm Valves', count: '120+', image: 'https://s.alicdn.com/@sc04/kf/H82d57eb132e942ecba6023697838d6afn/Water-Alarm-Valves-ZSFZ-150-Flexible-Cast.png', link: '/products?category=Sprinklers%20&%20Alarm%20Valves' },
+  { name: 'Hydraulic Safety', count: '60+', image: 'https://s.alicdn.com/@sc04/kf/H7cdb5264c72447e8b7c744342168553eJ/Wanlian-500X-DN20-ANSI-JIS-Hydraulic-Operated.jpg', link: '/products?category=Hydraulic%20Safety' },
+  { name: 'Extinguishing Water Cannons', count: '40+', image: 'https://s.alicdn.com/@sc04/kf/H7e8afe00dc9243bcae6dd3f7590f88422/Wanlian-JPSO-8-19-Carbon-Steel-Fire.png_480x480.jpg', link: '/products?category=Extinguishing%20Water%20Cannons' },
+  { name: 'Fire Cabinets & Interfaces', count: '90+', image: 'https://s.alicdn.com/@sc04/kf/H80d61ef3659d492db259a9a170394377l/Wanlian-DN50-DN65-HS-Aluminum-Firefighting-Hydrant.jpg_480x480.jpg', link: '/products?category=Fire%20Cabinets%20&%20Interfaces' }
+];
+
+const productionSteps = [
+  { step: '01', title: 'Precision Weaving', desc: 'High-strength polyester weaving for durable fire hose jackets.', icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10' },
+  { step: '02', title: 'Lining Bonding', desc: 'Advanced vulcanization process for bubble-tight rubber lining.', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
+  { step: '03', title: 'CNC Machining', desc: 'Precision machining for ductile iron valve bodies and components.', icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z' },
+  { step: '04', title: 'Safety Testing', desc: '100% shell pressure and air leakage testing for every unit.', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
+  { step: '05', title: 'Epoxy Coating', desc: 'Non-toxic epoxy resin coating for superior corrosion resistance.', icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4' }
+];
+
+const industries = [
+  { name: 'Oil & Gas', desc: 'Secure fluid transport under extreme industrial conditions.', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
+  { name: 'Water Treatment', desc: 'Municipal water supply, drainage, and filtration systems.', icon: 'M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3' },
+  { name: 'Fire Protection', desc: 'Certified hydrants, sprinkler valves, and suppression systems.', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' }
+];
+---
+
+<Layout title="Wanlian Fluid | Premium B2B Valve & Fire Protection Manufacturer">
+  <!-- Hero Section with Diagonal Aesthetic -->
+  <section class="relative bg-gray-900 text-white min-h-[85vh] flex items-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/80 to-transparent z-10"></div>
+      <img 
+        src="https://images.unsplash.com/photo-1518152006812-edab29b069ac?auto=format&fit=crop&q=80&w=1600" 
+        alt="Wanlian Fluid Industrial" 
+        class="w-full h-full object-cover object-center opacity-40"
+      />
+    </div>
+    
+    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div class="max-w-3xl space-y-8">
+        <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
+          <span class="flex h-2 w-2 rounded-full bg-brand-red animate-pulse"></span>
+          <span class="text-sm font-bold tracking-widest uppercase">Certified B2B Industrial Manufacturer</span>
+        </div>
+        
+        <h1 class="text-5xl sm:text-7xl font-black tracking-tight leading-[1.1]">
+          Precision Flow <br/>
+          <span class="text-brand-red italic">Link Global Safety.</span>
+        </h1>
+        
+        <p class="text-lg sm:text-xl text-gray-300 max-w-2xl leading-relaxed">
+          Quanzhou Wanlian Fluid Equipment is a specialized enterprise integrating R&D, production, and sales of high-performance industrial valves and fire protection equipment.
+        </p>
+        
+        <div class="flex flex-wrap gap-4 pt-4">
+          <a href="/products" class="px-8 py-4 bg-brand-red hover:opacity-90 text-white font-bold rounded-lg transition shadow-xl shadow-brand-red/20 transform hover:-translate-y-1">
+            Explore Catalog
+          </a>
+          <a href="#inquiry" class="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-bold rounded-lg border border-white/30 transition">
+            Request RFQ
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certification Wall -->
+  <div class="bg-gray-100 py-8 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition duration-500">
+        <span class="text-gray-900 font-black text-2xl tracking-tighter">UL LISTED</span>
+        <span class="text-gray-900 font-black text-2xl tracking-tighter">FM APPROVED</span>
+        <span class="text-gray-900 font-black text-2xl tracking-tighter">CE CERTIFIED</span>
+        <span class="text-gray-900 font-black text-2xl tracking-tighter">ISO 9001</span>
+        <span class="text-gray-900 font-black text-2xl tracking-tighter">LPCB</span>
+        <span class="text-gray-900 font-black text-2xl tracking-tighter">GB STANDARD</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Section: Factory Strength -->
+  <section class="py-24 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row items-center gap-16">
+        <div class="flex-1 space-y-8">
+          <div class="space-y-4">
+            <h2 class="text-sm font-black tracking-[0.3em] text-brand-red uppercase flex items-center gap-2">
+              <span class="w-8 h-[2px] bg-brand-red"></span>
+              About Wanlian Fluid
+            </h2>
+            <h3 class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight leading-tight">
+              Leading Fluid Solutions <br/><span class="text-gray-400">Since 2000.</span>
+            </h3>
+          </div>
+          
+          <div class="space-y-6 text-gray-600 text-lg leading-relaxed">
+            <p>
+              Based in Quanzhou, Fujian—the core of China's water heating and valve industry cluster—Quanzhou Wanlian Fluid Equipment Co., Ltd. has deep-rooted manufacturing experience in industrial, municipal, and firefighting sectors.
+            </p>
+            <p>
+              Our production base follows strict <strong>ISO9001:2015</strong> quality management, integrating advanced CNC machining, automated pressure testing, and professional assembly to deliver zero-leakage fluid control systems.
+            </p>
+          </div>
+
+          <!-- Metric Cards -->
+          <div class="grid grid-cols-2 gap-6 pt-4">
+            <div class="p-6 bg-gray-50 rounded-xl border border-gray-100">
+              <span class="block text-3xl font-black text-brand-red">37,300+</span>
+              <span class="text-sm font-bold text-gray-500 uppercase tracking-widest">Total Area (m²)</span>
+            </div>
+            <div class="p-6 bg-gray-50 rounded-xl border border-gray-100">
+              <span class="block text-3xl font-black text-brand-blue">25+ Years</span>
+              <span class="text-sm font-bold text-gray-500 uppercase tracking-widest">Industry Expertise</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-1 relative">
+          <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-100 rounded-full blur-3xl opacity-50 z-0"></div>
+          <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl shadow-gray-200">
+            <img 
+              src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800" 
+              alt="Wanlian Fluid Engineering" 
+              class="w-full h-auto object-cover"
+            />
+            <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
+              <p class="text-sm font-bold tracking-wide">Professional Industrial Excellence | B2B Fluid Solutions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Classification Grid -->
+  <section class="py-24 bg-gray-50 border-y border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <h2 class="text-4xl font-black text-gray-900 tracking-tight uppercase">Core Product Categories</h2>
+        <div class="h-1.5 w-20 bg-brand-red mx-auto"></div>
+        <p class="text-gray-500 font-medium italic">High-precision engineering for global fire and water networks.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {categories.map(cat => (
+          <a href={cat.link} class="group relative bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200">
+            <div class="aspect-[4/3] overflow-hidden bg-gray-50 p-6 flex items-center justify-center">
+              <img src={cat.image} alt={cat.name} class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 p-6 bg-white/95 backdrop-blur-sm flex justify-between items-center group-hover:bg-brand-red group-hover:text-white transition-colors">
+              <div>
+                <h4 class="font-black text-lg">{cat.name}</h4>
+                <p class="text-[10px] font-black uppercase tracking-widest opacity-60">{cat.count} Variants Available</p>
+              </div>
+              <span class="text-2xl font-light">→</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Production Excellence -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+        <div class="space-y-4">
+          <h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Quality Control Workflow</h2>
+          <h3 class="text-4xl font-black text-gray-900 tracking-tight">How We Guarantee Zero-Leakage</h3>
+        </div>
+        <p class="text-gray-500 max-w-md text-right hidden md:block">Rigorous testing at every stage ensures Wanlian products withstand extreme pipeline pressures.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+        {productionSteps.map((step, idx) => (
+          <div class="relative group">
+            <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 space-y-4 h-full group-hover:bg-blue-50 transition-colors">
+              <div class="text-4xl font-black text-gray-200 group-hover:text-brand-blue/20 transition-colors">{step.step}</div>
+              <h4 class="font-bold text-gray-900">{step.title}</h4>
+              <p class="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+            </div>
+            {idx < productionSteps.length - 1 && (
+              <div class="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                <svg class="w-8 h-8 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="py-24 bg-gray-50 border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-end mb-16">
+        <h2 class="text-4xl font-black text-gray-900 tracking-tight">Global <span class="text-brand-red">Best Sellers</span></h2>
+        <a href="/products" class="text-brand-blue font-bold hover:underline">Full Catalog →</a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {featuredProducts.map(product => (
+          <div class="group bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+            <div class="aspect-square relative overflow-hidden bg-gray-50 p-6">
+              <img src={product.image} alt={product.name} class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
+              <div class="absolute top-4 left-4 flex gap-2">
+                <span class="px-2 py-1 bg-gray-900/80 text-white text-[10px] font-black uppercase tracking-widest rounded">
+                  {product.category}
+                </span>
+                <span class="px-2 py-1 bg-brand-blue/80 text-white text-[10px] font-black uppercase tracking-widest rounded">
+                  VERIFIED
+                </span>
+              </div>
+            </div>
+            <div class="p-6 space-y-4">
+              <h4 class="font-bold text-gray-900 line-clamp-2 min-h-[3rem] group-hover:text-brand-red transition-colors tracking-tight">{product.name}</h4>
+              <div class="pt-4 border-t border-gray-100 flex gap-2">
+                <a href={`/products/${product.slug}`} class="flex-1 py-2 text-center text-xs font-black border border-gray-200 rounded hover:bg-gray-50 transition">DETAILS</a>
+                <a href={`/contact?product=${encodeURIComponent(product.name)}`} class="flex-1 py-2 text-center text-xs font-black bg-brand-red text-white rounded hover:opacity-90 transition">INQUIRE</a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Industry Scenarios -->
+  <section class="py-24 bg-gray-900 text-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 items-center">
+        <div class="space-y-6">
+          <h2 class="text-4xl font-black tracking-tight leading-tight">Built for <br/><span class="text-brand-blue">High-Pressure Duty.</span></h2>
+          <p class="text-gray-400">Our engineering focuses on durability and reliability in hazardous and critical infrastructures.</p>
+          <div class="pt-4">
+            <a href="/certificates" class="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-lg font-bold hover:bg-white/10 transition">
+              View Certifications & Specs
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {industries.map(ind => (
+            <div class="p-8 bg-white/5 border border-white/10 rounded-2xl hover:border-brand-blue/50 transition-colors">
+               <div class="w-12 h-12 bg-brand-blue/20 rounded-lg flex items-center justify-center text-brand-blue mb-6">
+                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={ind.icon}/></svg>
+               </div>
+               <h4 class="font-bold mb-2 uppercase tracking-wide">{ind.name}</h4>
+               <p class="text-xs text-gray-400 leading-relaxed">{ind.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Inquiry Section -->
+  <section id="inquiry" class="py-24 bg-white scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div class="space-y-8">
+          <div class="space-y-4">
+             <h2 class="text-4xl font-black text-gray-900 tracking-tight uppercase">Get a Professional Quote</h2>
+             <div class="h-1.5 w-20 bg-brand-red"></div>
+          </div>
+          <p class="text-lg text-gray-600 leading-relaxed">
+            Submit your technical drawings or product requirements. Our senior engineers will review your request and provide a comprehensive proposal within <strong>12 hours</strong>.
+          </p>
+          <ul class="space-y-4">
+            {['Factory Direct Pricing', 'Customized Engineering Solutions', 'Global Shipping Support', 'Technical Design Consultation'].map(item => (
+              <li class="flex items-center gap-3 text-gray-700 font-bold">
+                <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <InquiryForm />
+      </div>
+    </div>
+  </section>
+  
+  <!-- Final CTA -->
+  <section class="py-24 bg-brand-red text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+      <h2 class="text-4xl sm:text-6xl font-black tracking-tight leading-tight">Ready to Link Global Safety?</h2>
+      <p class="text-xl text-white/80 max-w-2xl mx-auto">Contact our technical team for professional fluid control drawings and quotations within 12 hours.</p>
+      <div class="flex justify-center gap-4">
+        <a href="#inquiry" class="px-10 py-5 bg-white text-brand-red font-black rounded-xl shadow-2xl hover:bg-gray-50 transition-transform hover:scale-105">
+          Submit RFQ Now
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

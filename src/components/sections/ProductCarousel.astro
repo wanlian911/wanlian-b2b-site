@@ -1,0 +1,76 @@
+---
+// src/components/sections/ProductCarousel.astro
+import { products } from '../../utils/products';
+---
+
+<section class="py-20 bg-white overflow-hidden">
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-end mb-12">
+      <div>
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Product Showcase</h2>
+        <p class="text-slate-600 max-w-2xl">Explore our wide range of high-performance fluid control equipment and fire protection systems.</p>
+      </div>
+      <div class="hidden md:flex gap-2">
+        <button class="swiper-prev-btn p-3 rounded-full border border-slate-200 hover:bg-slate-50 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button class="swiper-next-btn p-3 rounded-full border border-slate-200 hover:bg-slate-50 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="swiper product-swiper">
+      <div class="swiper-wrapper">
+        {products.map((product) => (
+          <div class="swiper-slide h-auto">
+            <div class="group bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 h-full flex flex-col">
+              <div class="aspect-square rounded-xl overflow-hidden mb-6 bg-white flex items-center justify-center p-4">
+                <img 
+                  src={product.image} 
+                  alt={product.name}
+                  class="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div class="flex-grow">
+                <span class="text-blue-600 text-xs font-bold tracking-wider uppercase mb-2 block">{product.category}</span>
+                <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">{product.name}</h3>
+                <p class="text-slate-500 text-sm line-clamp-2 mb-6">{product.description}</p>
+              </div>
+              <a 
+                href={`/products/${product.slug}`} 
+                class="w-full py-3 rounded-lg bg-white border border-slate-200 text-slate-900 font-semibold text-center hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all duration-300"
+              >
+                View Details
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="swiper-pagination mt-10 md:hidden"></div>
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script is:inline src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof Swiper !== 'undefined') {
+      new Swiper('.product-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        loop: true,
+        autoplay: { delay: 3000, disableOnInteraction: false },
+        navigation: { nextEl: '.swiper-next-btn', prevEl: '.swiper-prev-btn' },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        breakpoints: {
+          640: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+          1280: { slidesPerView: 4 }
+        }
+      });
+    }
+  });
+</script>

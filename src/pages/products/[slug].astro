@@ -1,0 +1,136 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import WhatsAppButton from '../../components/shared/WhatsAppButton.astro';
+import { products } from '../../utils/products';
+
+export async function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+---
+
+<Layout 
+  title={product.seoTitle} 
+  description={product.seoDescription}
+  productData={product}
+  type="product"
+>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mb-20">
+    <!-- Breadcrumbs -->
+    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-8 flex gap-2">
+      <a href="/" class="hover:text-blue-600">Home</a>
+      <span>/</span>
+      <a href="/products" class="hover:text-blue-600">Products</a>
+      <span>/</span>
+      <span class="text-gray-600">{product.category}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <!-- Product Image -->
+      <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+        <img 
+          src={product.image} 
+          alt={product.name} 
+          class="w-full h-auto rounded-xl object-cover aspect-square"
+        />
+      </div>
+
+      <!-- Product Details -->
+      <div class="space-y-6">
+        <div>
+          <span class="text-blue-600 font-semibold uppercase tracking-wider text-sm">{product.category}</span>
+          <h1 class="text-4xl font-bold text-gray-900 mt-2">{product.name}</h1>
+        </div>
+
+        <p class="text-lg text-gray-600 leading-relaxed">
+          {product.description}
+        </p>
+
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold border-b pb-2">Key Features</h2>
+          <ul class="grid grid-cols-1 gap-2">
+            {product.features.map(feature => (
+              <li class="flex items-start">
+                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-gray-700">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-gray-100 p-6 rounded-xl space-y-4">
+          <h2 class="text-xl font-bold">Technical Specifications</h2>
+          <dl class="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+            {Object.entries(product.specs).map(([key, value]) => (
+              <div class="border-b border-gray-200 py-2">
+                <dt class="text-sm font-medium text-gray-500">{key}</dt>
+                <dd class="mt-1 text-sm font-bold text-gray-900">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        {product.materials && (
+          <div class="bg-gray-50 p-6 rounded-xl border border-gray-200/60 space-y-4">
+            <h2 class="text-xl font-bold text-gray-900">Parts & Materials List</h2>
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+              {Object.entries(product.materials).map(([part, material]) => (
+                <div class="border-b border-gray-200/60 py-2 flex justify-between items-center text-sm">
+                  <dt class="font-medium text-gray-500">{part}</dt>
+                  <dd class="font-bold text-gray-900 text-right">{material}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )}
+
+        {product.dimensions && (
+          <div class="bg-white p-6 rounded-xl border border-gray-100 space-y-4 shadow-sm overflow-x-auto">
+            <h2 class="text-xl font-bold text-gray-900">Standard Dimensions Guide</h2>
+            <table class="min-w-full divide-y divide-gray-200 text-sm">
+              <thead class="bg-gray-50">
+                <tr>
+                  {product.dimensions.headers.map(header => (
+                    <th class="px-3 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">{header}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                {product.dimensions.rows.map(row => (
+                  <tr class="hover:bg-gray-50/50">
+                    {row.map(cell => (
+                      <td class="px-3 py-3 text-gray-700 font-medium whitespace-nowrap">{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-6">
+          <a 
+            href={`/contact?product=${encodeURIComponent(product.name)}`} 
+            class="flex-1 text-center py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-600/20"
+          >
+            Inquire Now
+          </a>
+          <a 
+            href="/contact"
+            class="flex-1 text-center py-4 bg-white text-blue-600 font-bold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition"
+          >
+            Request Catalog PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+

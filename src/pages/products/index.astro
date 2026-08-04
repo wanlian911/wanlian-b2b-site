@@ -1,0 +1,109 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { products } from '../../utils/products';
+
+// Get all unique categories
+const categories = ['All', ...new Set(products.map(p => p.category))];
+---
+
+<Layout title="Product Catalog | Quanzhou Wanlian Fluid Equipment | Industrial Valves">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mb-20">
+    <div class="text-center mb-16 space-y-4">
+      <span class="text-xs font-bold tracking-widest text-blue-600 uppercase">Product Center</span>
+      <h1 class="text-4xl font-black text-gray-900 tracking-tight">Our Premium Fluid Systems Catalog</h1>
+      <p class="mt-4 text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+        High-performance components engineered for maximum reliability, durability, and safety across industrial networks.
+      </p>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="flex flex-wrap justify-center gap-2 mb-12" id="filter-container">
+      {categories.map((category) => (
+        <button
+          data-category={category}
+          class="px-5 py-2.5 rounded-lg text-sm font-semibold tracking-wide border border-gray-200 text-gray-600 bg-white hover:border-blue-500 hover:text-blue-600 transition cursor-pointer filter-btn [&.active]:bg-blue-600 [&.active]:text-white [&.active]:border-blue-600"
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+
+    <!-- Products Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
+      {products.map((product) => (
+        <div 
+          data-product-category={product.category}
+          class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300 flex flex-col product-card"
+        >
+          <div class="aspect-video relative overflow-hidden bg-gray-50">
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold tracking-widest bg-gray-900/90 text-white rounded-md uppercase">
+              {product.category}
+            </span>
+          </div>
+          <div class="p-6 flex-grow flex flex-col space-y-3">
+            <h2 class="text-lg font-bold text-gray-900 line-clamp-2 min-h-[3rem] group-hover:text-blue-600 transition">
+              {product.name}
+            </h2>
+            <p class="text-gray-500 text-xs line-clamp-3 leading-relaxed flex-grow">
+              {product.description}
+            </p>
+            <div class="pt-6 border-t border-gray-100 flex items-center justify-between gap-4">
+              <a 
+                href={`/products/${product.slug}`} 
+                class="text-blue-600 text-sm font-bold hover:text-blue-700 inline-flex items-center gap-1 group/btn"
+              >
+                View Specs
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </a>
+              <a 
+                href={`/contact?product=${encodeURIComponent(product.name)}`} 
+                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition"
+              >
+                Inquire
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </main>
+
+  <!-- Client-side filtering script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.product-card');
+
+      // Set 'All' button as active initially
+      const allBtn = document.querySelector('[data-category="All"]');
+      if (allBtn) allBtn.classList.add('active');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remove active class from all buttons
+          buttons.forEach(b => b.classList.remove('active'));
+          // Add active class to clicked button
+          btn.classList.add('active');
+
+          const category = btn.getAttribute('data-category');
+
+          cards.forEach(card => {
+            const cardCategory = card.getAttribute('data-product-category');
+            if (category === 'All' || cardCategory === category) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+</Layout>

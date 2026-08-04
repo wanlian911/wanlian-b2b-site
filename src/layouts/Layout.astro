@@ -1,0 +1,124 @@
+---
+import Header from '../components/shared/Header.astro';
+import Footer from '../components/shared/Footer.astro';
+import WhatsAppButton from '../components/shared/WhatsAppButton.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+	image?: string;
+	canonicalURL?: string;
+	type?: 'website' | 'article' | 'product';
+	productData?: any; // 用于传递产品数据生成 JSON-LD
+}
+
+const { 
+	title, 
+	description = "Wanlian Fluid - Professional B2B industrial fluid system solutions.", 
+	image = "/og-image.jpg",
+	canonicalURL = Astro.url.href,
+	type = 'website',
+	productData
+} = Astro.props;
+
+// 全局机构信息 (JSON-LD)
+const organizationJsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	"name": "Wanlian Fluid Equipment",
+	"url": "https://wanlian911.com",
+	"logo": "https://wanlian911.com/favicon.svg",
+	"contactPoint": {
+		"@type": "ContactPoint",
+		"telephone": "+86-18684324501",
+		"contactType": "sales",
+		"areaServed": "Global",
+		"availableLanguage": ["English", "Chinese"]
+	},
+	"sameAs": [
+		"https://wa.me/8618684324501"
+	]
+};
+
+// 生成 Product 类型的结构化数据 (JSON-LD)
+const productJsonLd = productData ? {
+	"@context": "https://schema.org/",
+	"@type": "Product",
+	"name": productData.name,
+	"image": productData.image,
+	"description": productData.description,
+	"brand": {
+		"@type": "Brand",
+		"name": "Wanlian Fluid"
+	},
+	"offers": {
+		"@type": "AggregateOffer",
+		"offerCount": "1",
+		"lowPrice": "0",
+		"priceCurrency": "USD",
+		"availability": "https://schema.org/InStock"
+	}
+} : null;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+
+		<!-- Primary Meta Tags -->
+		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+		<meta name="keywords" content="fire protection equipment, industrial valves, gate valve, hydrant head, sprinkler valve, Wanlian Fluid, B2B valve manufacturer" />
+		<meta name="robots" content="index, follow" />
+		<link rel="canonical" href={canonicalURL} />
+
+		<!-- Google Fonts: Roboto -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content={type} />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(image, Astro.url)} />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+		<!-- JSON-LD Structured Data -->
+		<script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+		{productJsonLd && (
+			<script type="application/ld+json" set:html={JSON.stringify(productJsonLd)} />
+		)}
+	</head>
+	<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
+		<Header />
+		<div class="flex-grow">
+			<slot />
+		</div>
+		<Footer />
+		<WhatsAppButton phone="+8618684324501" message="Hi, I am interested in your valves and firefighting equipment." />
+	</body>
+</html>
+<style is:global>
+	:root {
+		--accent-blue: #004797;
+		--accent-red: #cc2128;
+		--industrial-gray: #333333;
+	}
+	html {
+		scroll-behavior: smooth;
+		font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+	}
+</style>
