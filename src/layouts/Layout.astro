@@ -10,6 +10,7 @@ interface Props {
 	canonicalURL?: string;
 	type?: 'website' | 'article' | 'product';
 	productData?: any; // 用于传递产品数据生成 JSON-LD
+	faq?: { question: string; answer: string }[]; // FAQ 区块 + FAQPage JSON-LD
 }
 
 const { 
@@ -18,7 +19,8 @@ const {
 	image = "/og-image.jpg",
 	canonicalURL = Astro.url.href,
 	type = 'website',
-	productData
+	productData,
+	faq = []
 } = Astro.props;
 
 // 全局机构信息 (JSON-LD)
@@ -53,6 +55,20 @@ const productJsonLd = productData ? {
 		"@type": "Brand",
 		"name": "Wanlian Fluid"
 	}
+} : null;
+
+// FAQPage 结构化数据 (JSON-LD)
+const faqJsonLd = faq.length ? {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"mainEntity": faq.map(item => ({
+		"@type": "Question",
+		"name": item.question,
+		"acceptedAnswer": {
+			"@type": "Answer",
+			"text": item.answer
+		}
+	}))
 } : null;
 ---
 
@@ -95,6 +111,9 @@ const productJsonLd = productData ? {
 		<script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
 		{productJsonLd && (
 			<script type="application/ld+json" set:html={JSON.stringify(productJsonLd)} />
+		)}
+		{faqJsonLd && (
+			<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
 		)}
 	</head>
 	<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
