@@ -349,7 +349,7 @@ export const products: Product[] = [
       'Sealing Element': 'Stainless Steel O-Ring with Teflon Layer',
       'Deflector/Splat': 'Copper Alloy / Stainless Steel'
     },
-    image: '/assets/05_sprinklers_alarms/sprinkler_p32.png?v=20260729',
+    image: '/assets/05_sprinklers_alarms/sprinkler_p32_head_white.png',
     seoTitle: 'Automatic Fire Sprinkler Head ZST | Wanlian Fire Protection',
     seoDescription: 'Glass bulb automatic fire sprinklers ZST series. High sensitivity, corrosion resistant brass frame. Factory price from Wanlian China.'
   },
@@ -550,7 +550,7 @@ export const products: Product[] = [
       'Locking Knobs': 'Stainless Steel / Brass',
       'Nozzle Tip': 'Precision Hardened Alloy'
     },
-    image: '/assets/06_extinguishing_cannons/cannon_p43.png?v=20260729',
+    image: 'https://sc02.alicdn.com/kf/A192331c7a7d948a6927a9221489369dcz.png',
     seoTitle: 'Manual Fire Water Monitor PS Series | Long Range | Wanlian Fluid',
     seoDescription: 'High volume manual fire water cannon PS. Supports water and foam spray. Heavy-duty construction, suitable for industrial storage and petrochemical yards.'
   },
@@ -607,7 +607,7 @@ export const products: Product[] = [
       'Wedge Core': 'Ductile Iron QT450 with EPDM rubber fully coated',
       'Sealing Glands': 'NBR / Brass / Stainless Steel'
     },
-    image: '/assets/02_valves_parts/valves_p4.png?v=20260729',
+    image: '/assets/02_valves_parts/valves_p4_telescopic_white.png',
     seoTitle: 'Telescopic Resilient Wedge Gate Valve | Quanzhou Wanlian Fluid',
     seoDescription: 'Integrated Telescopic Resilient Seated Gate Valve. Fully EPDM encapsulated wedge, ductile iron QT450. Ideal for pipelines requiring expansion compensation.'
   },
