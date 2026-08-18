@@ -11,6 +11,7 @@ interface Props {
 	type?: 'website' | 'article' | 'product';
 	productData?: any; // 用于传递产品数据生成 JSON-LD
 	faq?: { question: string; answer: string }[]; // FAQ 区块 + FAQPage JSON-LD
+	breadcrumbs?: { name: string; href?: string }[]; // 面包屑 + BreadcrumbList JSON-LD
 }
 
 const { 
@@ -20,7 +21,8 @@ const {
 	canonicalURL = Astro.url.href,
 	type = 'website',
 	productData,
-	faq = []
+	faq = [],
+	breadcrumbs = []
 } = Astro.props;
 
 // 全局机构信息 (JSON-LD)
@@ -70,6 +72,26 @@ const faqJsonLd = faq.length ? {
 		}
 	}))
 } : null;
+
+// BreadcrumbList 结构化数据 (JSON-LD)
+const breadcrumbJsonLd = breadcrumbs.length ? {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+		{
+			"@type": "ListItem",
+			"position": 1,
+			"name": "Home",
+			"item": "https://wanlian911.com/"
+		},
+		...breadcrumbs.map((item, index) => ({
+			"@type": "ListItem",
+			"position": index + 2,
+			"name": item.name,
+			...(item.href ? { "item": new URL(item.href, "https://wanlian911.com/").href } : {})
+		}))
+	]
+} : null;
 ---
 
 <!doctype html>
@@ -114,6 +136,9 @@ const faqJsonLd = faq.length ? {
 		)}
 		{faqJsonLd && (
 			<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+		)}
+		{breadcrumbJsonLd && (
+			<script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 		)}
 	</head>
 	<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
