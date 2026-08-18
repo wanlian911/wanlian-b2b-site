@@ -99,13 +99,39 @@ const { productName = "" } = Astro.props;
   const statusEl = document.getElementById('formStatus');
   const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
 
+  // 等待 Turnstile 脚本与组件加载完成
+  const getTurnstileToken = () => {
+    const w = window as any;
+    if (typeof w.turnstile !== 'undefined') {
+      const token = w.turnstile.getResponse();
+      if (token) return token;
+      // 显式渲染模式下需要 widgetId
+      const widget = document.querySelector('.cf-turnstile') as HTMLElement | null;
+      if (widget && widget.getAttribute('data-turnstile-widget-id')) {
+        return w.turnstile.getResponse(widget.getAttribute('data-turnstile-widget-id'));
+      }
+    }
+    return '';
+  };
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    const turnstileToken = getTurnstileToken();
+    if (!turnstileToken) {
+      statusEl!.innerText = "Please complete the verification check before sending.";
+      statusEl!.className = "text-center text-sm mt-4 text-red-600 font-bold block";
+      return;
+    }
+
     submitBtn.disabled = true;
     submitBtn.innerText = 'Sending...';
-    
+    statusEl!.className = "text-center text-sm mt-4 hidden";
+
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
+    // Formspree 服务端验证依赖 cf-turnstile-response 字段
+    (data as any)['cf-turnstile-response'] = turnstileToken;
 
     try {
       const response = await fetch('https://formspree.io/f/mvzeyopz', {
@@ -123,8 +149,10 @@ const { productName = "" } = Astro.props;
         statusEl!.innerText = "Success! Your inquiry has been sent. We'll contact you shortly.";
         statusEl!.className = "text-center text-sm mt-4 text-green-600 font-bold block";
         form.reset();
+        const w = window as any;
+        if (typeof w.turnstile !== 'undefined') w.turnstile.reset();
       } else {
-        throw new Error(result.message || 'Submission failed');
+        throw new Error(result.errors?.map((e: any) => e.message).join(', ') || result.message || 'Submission failed. Please try again or contact us via WhatsApp.');
       }
     } catch (err) {
       statusEl!.innerText = "Error: " + (err as Error).message;
