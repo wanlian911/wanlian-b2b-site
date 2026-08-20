@@ -10,15 +10,19 @@ interface Props {
 	canonicalURL?: string;
 	type?: 'website' | 'article' | 'product';
 	productData?: any; // 用于传递产品数据生成 JSON-LD
+	faq?: { question: string; answer: string }[]; // FAQ 区块 + FAQPage JSON-LD
+	breadcrumbs?: { name: string; href?: string }[]; // 面包屑 + BreadcrumbList JSON-LD
 }
 
 const { 
 	title, 
 	description = "Wanlian Fluid - Professional B2B industrial fluid system solutions.", 
-	image = "https://sc02.alicdn.com/kf/H58b7bfc7098343e5971ddd5397a49169l.jpg",
+	image = "/og-image.jpg",
 	canonicalURL,
 	type = 'website',
-	productData
+	productData,
+	faq = [],
+	breadcrumbs = []
 } = Astro.props;
 
 const siteBase = Astro.site ?? Astro.url;
@@ -30,9 +34,11 @@ const organizationJsonLd = {
 	"@context": "https://schema.org",
 	"@type": "Organization",
 	"@id": "https://wanlian911.com/#organization",
-	"name": "Wanlian Fluid Equipment",
+	"name": "Quanzhou Wanlian Fluid Equipment Co., Ltd.",
+	"alternateName": "Wanlian Fluid",
+	"description": "Quanzhou Wanlian Fluid Equipment Co., Ltd. supplies valves, fire protection equipment, hydraulic control products and fluid system components for international B2B projects.",
 	"url": "https://wanlian911.com",
-	"logo": "https://sc02.alicdn.com/kf/H58b7bfc7098343e5971ddd5397a49169l.jpg",
+	"logo": "https://wanlian911.com/favicon.svg",
 	"email": "dhuog77@gmail.com",
 	"contactPoint": {
 		"@type": "ContactPoint",
@@ -57,7 +63,7 @@ const websiteJsonLd = {
 	"publisher": { "@id": "https://wanlian911.com/#organization" }
 };
 
-// 按询盘报价的产品不输出 offers/price，避免产生错误的免费或零价商品信号。
+// 按询盘报价的产品不输出 offers/price，避免产生错误的零价商品信号。
 const productJsonLd = productData ? {
 	"@context": "https://schema.org/",
 	"@type": "Product",
@@ -76,6 +82,40 @@ const productJsonLd = productData ? {
 		value
 	}))
 } : null;
+
+// FAQPage 结构化数据 (JSON-LD)
+const faqJsonLd = faq.length ? {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"mainEntity": faq.map(item => ({
+		"@type": "Question",
+		"name": item.question,
+		"acceptedAnswer": {
+			"@type": "Answer",
+			"text": item.answer
+		}
+	}))
+} : null;
+
+// BreadcrumbList 结构化数据 (JSON-LD)
+const breadcrumbJsonLd = breadcrumbs.length ? {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+		{
+			"@type": "ListItem",
+			"position": 1,
+			"name": "Home",
+			"item": "https://wanlian911.com/"
+		},
+		...breadcrumbs.map((item, index) => ({
+			"@type": "ListItem",
+			"position": index + 2,
+			"name": item.name,
+			...(item.href ? { "item": new URL(item.href, "https://wanlian911.com/").href } : {})
+		}))
+	]
+} : null;
 ---
 
 <!doctype html>
@@ -83,7 +123,7 @@ const productJsonLd = productData ? {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/jpeg" href="https://sc02.alicdn.com/kf/H58b7bfc7098343e5971ddd5397a49169l.jpg" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 
 		<!-- Primary Meta Tags -->
@@ -120,6 +160,12 @@ const productJsonLd = productData ? {
 		<script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
 		{productJsonLd && (
 			<script type="application/ld+json" set:html={JSON.stringify(productJsonLd)} />
+		)}
+		{faqJsonLd && (
+			<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+		)}
+		{breadcrumbJsonLd && (
+			<script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 		)}
 	</head>
 	<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">

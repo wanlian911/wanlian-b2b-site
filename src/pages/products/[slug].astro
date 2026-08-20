@@ -11,6 +11,78 @@ export async function getStaticPaths() {
 }
 
 const { product } = Astro.props;
+
+// 按分类生成通用采购 FAQ（数据来源：产品规格与常见询盘问题）
+const faqByCategory: Record<string, { question: string; answer: string }[]> = {
+  'Valves & Parts': [
+    { question: 'What standards and connection types are available for Wanlian valves?', answer: 'Wanlian valves are manufactured to GB, ANSI, DIN and JIS standards on request. Flanged, grooved, wafer and threaded connections are available depending on the model. Tell our engineers your DN/PN and connection type in the inquiry and we will confirm the matching configuration.' },
+    { question: 'What materials are used for the valve body and sealing?', answer: 'Bodies are typically ductile iron (QT450), cast iron or cast/forged steel depending on the model. Sealing elements use EPDM or NBR rubber, and stems are stainless steel (2Cr13/304). Material options can be customized for specific media and temperature ranges.' },
+    { question: 'What is the MOQ and lead time?', answer: 'Standard MOQ is typically 20 units per model for stock sizes, with production lead times of 15-30 days depending on quantity and customization. Sample orders are available for pre-shipment testing.' },
+    { question: 'How are the valves tested before shipment?', answer: 'Every valve undergoes 100% shell and seat pressure testing in accordance with the applicable standard (e.g. GB/T13927, EN 12266-1). Test reports and third-party inspection can be arranged on request.' }
+  ],
+  'Hydrants & Pump Connections': [
+    { question: 'What outlet connection standards are available for export fire hydrants?', answer: 'Common outlet connections include BS336 (UK/Commonwealth), NIST (Middle East), KWS (Germany) and flexible flange options. We can supply hydrants with the connection type specified for your market.' },
+    { question: 'What pressure rating should a municipal fire hydrant have?', answer: 'Standard municipal hydrants are rated at PN16 (1.6 MPa), which covers most urban and industrial water supply networks. High-rise or high-demand industrial zones may require PN25 hydrants.' },
+    { question: 'Are Wanlian hydrants available with UL or FM certification?', answer: 'Yes, depending on the model and destination market. Contact our sales team with your project specification and target region so we can match the correct certification package.' },
+    { question: 'Do outdoor hydrants have antifreeze protection?', answer: 'Models such as the SS100 overground hydrant feature an automatic frost-drainage mechanism for cold climates. Anti-collision (SSFT100) and IoT smart (SS100ZN) variants are also available.' }
+  ],
+  'Sprinklers & Alarm Valves': [
+    { question: 'What is the difference between a wet alarm valve and a deluge valve?', answer: 'A wet alarm valve (ZSFZ) keeps the sprinkler piping filled with water and triggers the alarm on water flow. A deluge valve (ZSFM) stays closed under air or water pressure and floods the system only when a fire detection signal opens it - used for high-hazard areas requiring immediate large water discharge.' },
+    { question: 'What standards do the sprinkler system components comply with?', answer: 'Components are manufactured and tested in accordance with GB 5135 series and, on request, other international standards. Confirm the applicable standard for your project with our engineers.' },
+    { question: 'What is the working pressure of the alarm valves?', answer: 'Standard working pressure is 1.6 MPa with a testing pressure of 3.2 MPa. Size ranges typically cover DN50 to DN300 depending on the model.' },
+    { question: 'Can the alarm valve groups be integrated with existing fire detection systems?', answer: 'Yes. Deluge and pre-action valves support mechanical, pneumatic or electrical (DC24V solenoid) remote triggers and can be integrated with most fire alarm control panels.' }
+  ],
+  'Hydraulic Safety': [
+    { question: 'Do hydraulic control valves require electrical power?', answer: 'Most hydraulic control valves (e.g. F745X level control, 500X pressure reducing) are fully self-operated by pipeline pressure and require no external power. Solenoid-controlled models such as GKZF-1 use AC220V or DC24V.' },
+    { question: 'What is the pressure adjustment range of the 500X valve?', answer: 'The 500X pressure reducing valve adjusts downstream pressure from 0.1 MPa to 1.6 MPa and works with inlet pressures up to the nominal rating (PN10/PN16/PN25).' },
+    { question: 'What materials are used for potable water applications?', answer: 'For drinking water networks, models such as the HS41X backflow preventer use ductile iron bodies with EPDM seals and stainless steel internals, compliant with GB/T17219 sanitary requirements.' },
+    { question: 'How is water hammer prevented in hydraulic valves?', answer: 'Pilot-controlled valves close smoothly and slowly, which avoids sudden pressure surges. Needle valves allow adjustment of the closing speed to match the specific pipeline conditions.' }
+  ],
+  'Extinguishing Water Cannons': [
+    { question: 'What flow rates and jet ranges are available for fire water cannons?', answer: 'Manual cannons (PS series) cover 20-200 L/s with jet distances of 50-110 meters. Auto-tracking cannons (ZDMS series) offer 5-30 L/s (customizable up to 150 L/s) with a 40-65m monitoring radius.' },
+    { question: 'How does the auto-tracking fire cannon detect fires?', answer: 'The ZDMS cannon combines infrared and ultraviolet sensors to detect and track flames, then automatically aims and discharges water. It supports manual remote override via PC/mobile APP or a central cabinet.' },
+    { question: 'Are explosion-proof versions available?', answer: 'Yes, explosion-proof options (e.g. Exde II BT4 Gb) are available for petrochemical and hazardous environments.' },
+    { question: 'What is the working pressure for the cannons?', answer: 'Manual cannons work at 0.8-1.2 MPa, and auto-tracking cannons at 0.6-0.8 MPa. Confirm the inlet flange size (DN100/DN150/DN200) for your system.' }
+  ],
+  'Fire Cabinets & Interfaces': [
+    { question: 'What is included in a fire hose reel set?', answer: 'The JPS series set includes a carbon steel swivel-mount reel, flexible layflat PVC hose (20/25/30m), and a brass/alloy spray nozzle supporting straight jet and fog modes.' },
+    { question: 'Are foam fire cabinets available for chemical fires?', answer: 'Yes. The PSG30 foam cabinet packages a foam concentrate tank, proportioner, hose reel and foam nozzle in one wall-mounted unit - effective against fuel, chemical and solvent (Class B) fires.' },
+    { question: 'What connection standards do the hose coupling adapters support?', answer: 'HS series adapters are available in DN50/DN65 with internal threads compatible with international firefighting couplings, manufactured to GB12514 or factory standards.' },
+    { question: 'What materials are used for the cabinets and reels?', answer: 'Cabinets and reels use cold-rolled carbon steel with anti-corrosion red powder coating. Nozzles and proportioners are brass or anodized aluminum alloy.' }
+  ]
+};
+
+// 按分类映射应用场景与测试标准
+const categoryInfo: Record<string, { applications: string[]; testing: string }> = {
+  'Valves & Parts': {
+    applications: ['Water supply & distribution', 'Wastewater and sewage networks', 'Industrial process pipelines', 'HVAC systems'],
+    testing: '100% shell and seat pressure testing per GB/T13927 or EN 12266-1; epoxy resin coating tested for corrosion resistance.'
+  },
+  'Hydrants & Pump Connections': {
+    applications: ['Municipal fire protection networks', 'Industrial and warehouse yards', 'Indoor standpipe systems', 'Cold-climate outdoor installations'],
+    testing: 'Hydrostatic pressure testing (2.4 MPa typical) and flow testing per GB 4452 or applicable export standards.'
+  },
+  'Sprinklers & Alarm Valves': {
+    applications: ['Automatic sprinkler systems', 'Commercial and residential buildings', 'Industrial warehouses', 'High-hazard deluge and pre-action systems'],
+    testing: 'Pressure and leakage testing per GB 5135 series; alarm sensitivity verified with flow switches and alarm gongs.'
+  },
+  'Hydraulic Safety': {
+    applications: ['Water reservoir level control', 'Pressure management in water networks', 'Drinking water backflow protection', 'Pump suction protection'],
+    testing: 'Function and pressure tests per applicable standards; diaphragm and seal assemblies tested for durability.'
+  },
+  'Extinguishing Water Cannons': {
+    applications: ['Petrochemical plants and tank farms', 'Airports and exhibition centers', 'Large warehouses', 'Fire trucks and marine firefighting'],
+    testing: 'Flow, jet range and rotation tests; explosion-proof models verified per Ex standards (optional).'
+  },
+  'Fire Cabinets & Interfaces': {
+    applications: ['Indoor firefighting stations', 'Chemical and fuel storage areas', 'Building fire hose systems', 'Marine and offshore installations'],
+    testing: 'Pressure and function testing of reels, nozzles and proportioners; foam expansion ratio verified per model.'
+  }
+};
+
+const faqs = faqByCategory[product.category] || [];
+const info = categoryInfo[product.category];
+const relatedProducts = products.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 4);
 ---
 
 <Layout 
@@ -18,15 +90,19 @@ const { product } = Astro.props;
   description={product.seoDescription}
   productData={product}
   type="product"
+  faq={faqs}
+  breadcrumbs={[{ name: 'Products', href: '/products/' }, { name: product.category, href: `/products/?category=${encodeURIComponent(product.category)}` }, { name: product.name }]}
 >
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mb-20">
     <!-- Breadcrumbs -->
     <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-8 flex gap-2">
       <a href="/" class="hover:text-blue-600">Home</a>
       <span>/</span>
-      <a href="/products" class="hover:text-blue-600">Products</a>
+      <a href="/products/" class="hover:text-blue-600">Products</a>
       <span>/</span>
-      <span class="text-gray-600">{product.category}</span>
+      <a href={`/products/?category=${encodeURIComponent(product.category)}`} class="hover:text-blue-600">{product.category}</a>
+      <span>/</span>
+      <span class="text-gray-600">{product.name}</span>
     </nav>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -114,16 +190,37 @@ const { product } = Astro.props;
           </div>
         )}
 
+        {info && (
+          <div class="space-y-4">
+            <div class="bg-blue-50/50 p-6 rounded-xl border border-blue-100/50">
+              <h2 class="text-xl font-bold text-gray-900 mb-3">Applications</h2>
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {info.applications.map(app => (
+                  <li class="flex items-start text-sm text-gray-700">
+                    <svg class="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {app}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200/60">
+              <h2 class="text-xl font-bold text-gray-900 mb-3">Quality & Testing</h2>
+              <p class="text-sm text-gray-700 leading-relaxed">{info.testing}</p>
+            </div>
+          </div>
+        )}
 
         <div class="flex flex-col sm:flex-row gap-4 pt-6">
           <a 
-            href={`/contact?product=${encodeURIComponent(product.name)}`} 
+            href={`/contact/?product=${encodeURIComponent(product.name)}`} 
             class="flex-1 text-center py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-600/20"
           >
             Inquire Now
           </a>
           <a 
-            href="/contact"
+            href="/contact/?product=Request%20Catalog%20PDF"
             class="flex-1 text-center py-4 bg-white text-blue-600 font-bold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition"
           >
             Request Product Documentation
@@ -131,6 +228,47 @@ const { product } = Astro.props;
         </div>
       </div>
     </div>
+
+    <!-- FAQ Section -->
+    {faqs.length > 0 && (
+      <section class="mt-20 max-w-4xl">
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          {faqs.map((faq, index) => (
+            <details class="group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer px-6 py-5 font-bold text-gray-900 hover:bg-gray-50 transition list-none">
+                <span>{faq.question}</span>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-45 transition-transform flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                {faq.answer}
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related Products -->
+    {relatedProducts.length > 0 && (
+      <section class="mt-20">
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Related Products</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {relatedProducts.map(related => (
+            <a href={`/products/${related.slug}/`} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-blue/30 transition p-6 flex flex-col">
+              <img src={related.image} alt={related.name} class="w-full h-40 object-contain rounded-lg bg-gray-50 p-2 mb-4" loading="lazy" />
+              <span class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">{related.category}</span>
+              <h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-blue transition leading-snug">{related.name}</h3>
+              <span class="mt-4 inline-flex items-center text-brand-red font-bold text-xs group-hover:gap-1 transition-all">
+                View Details
+                <svg class="w-3.5 h-3.5 ml-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
   </main>
 </Layout>
-

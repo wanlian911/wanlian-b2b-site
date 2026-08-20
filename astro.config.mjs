@@ -4,8 +4,12 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://wanlian911.com',
-  integrations: [tailwind(), sitemap()],
+  integrations: [
+    tailwind(),
+    sitemap()
+  ],
   output: 'static',
+  trailingSlash: 'always',
   build: {
     format: 'directory'
   }
