@@ -15,19 +15,25 @@ interface Props {
 const { 
 	title, 
 	description = "Wanlian Fluid - Professional B2B industrial fluid system solutions.", 
-	image = "/og-image.jpg",
-	canonicalURL = Astro.url.href,
+	image = "https://sc02.alicdn.com/kf/H58b7bfc7098343e5971ddd5397a49169l.jpg",
+	canonicalURL,
 	type = 'website',
 	productData
 } = Astro.props;
+
+const siteBase = Astro.site ?? Astro.url;
+const canonical = canonicalURL ?? new URL(Astro.url.pathname, siteBase).href;
+const absoluteUrl = (value: string) => new URL(value, siteBase).href;
 
 // 全局机构信息 (JSON-LD)
 const organizationJsonLd = {
 	"@context": "https://schema.org",
 	"@type": "Organization",
+	"@id": "https://wanlian911.com/#organization",
 	"name": "Wanlian Fluid Equipment",
 	"url": "https://wanlian911.com",
-	"logo": "https://wanlian911.com/favicon.svg",
+	"logo": "https://sc02.alicdn.com/kf/H58b7bfc7098343e5971ddd5397a49169l.jpg",
+	"email": "dhuog77@gmail.com",
 	"contactPoint": {
 		"@type": "ContactPoint",
 		"telephone": "+86-18684324501",
@@ -36,28 +42,39 @@ const organizationJsonLd = {
 		"availableLanguage": ["English", "Chinese"]
 	},
 	"sameAs": [
-		"https://wa.me/8618684324501"
+		"https://wa.me/8618684324501",
+		"https://www.linkedin.com/company/wanlian-fluid-equipment",
+		"https://qzwlequipment.en.alibaba.com/"
 	]
 };
 
-// 生成 Product 类型的结构化数据 (JSON-LD)
+const websiteJsonLd = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"@id": "https://wanlian911.com/#website",
+	"url": "https://wanlian911.com",
+	"name": "Wanlian Fluid Equipment",
+	"publisher": { "@id": "https://wanlian911.com/#organization" }
+};
+
+// 按询盘报价的产品不输出 offers/price，避免产生错误的免费或零价商品信号。
 const productJsonLd = productData ? {
 	"@context": "https://schema.org/",
 	"@type": "Product",
 	"name": productData.name,
-	"image": productData.image,
+	"image": absoluteUrl(productData.image),
 	"description": productData.description,
+	"sku": productData.id,
+	"category": productData.category,
 	"brand": {
 		"@type": "Brand",
 		"name": "Wanlian Fluid"
 	},
-	"offers": {
-		"@type": "AggregateOffer",
-		"offerCount": "1",
-		"lowPrice": "0",
-		"priceCurrency": "USD",
-		"availability": "https://schema.org/InStock"
-	}
+	"additionalProperty": Object.entries(productData.specs ?? {}).map(([name, value]) => ({
+		"@type": "PropertyValue",
+		name,
+		value
+	}))
 } : null;
 ---
 
@@ -66,7 +83,7 @@ const productJsonLd = productData ? {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/jpeg" href="https://sc02.alicdn.com/kf/H58b7bfc7098343e5971ddd5397a49169l.jpg" />
 		<meta name="generator" content={Astro.generator} />
 
 		<!-- Primary Meta Tags -->
@@ -75,7 +92,8 @@ const productJsonLd = productData ? {
 		<meta name="description" content={description} />
 		<meta name="keywords" content="fire protection equipment, industrial valves, gate valve, hydrant head, sprinkler valve, Wanlian Fluid, B2B valve manufacturer" />
 		<meta name="robots" content="index, follow" />
-		<link rel="canonical" href={canonicalURL} />
+		<meta name="theme-color" content="#004797" />
+		<link rel="canonical" href={canonical} />
 
 		<!-- Google Fonts: Roboto -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -84,20 +102,22 @@ const productJsonLd = productData ? {
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content={type} />
-		<meta property="og:url" content={Astro.url} />
+		<meta property="og:site_name" content="Wanlian Fluid Equipment" />
+		<meta property="og:url" content={canonical} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content={new URL(image, Astro.url)} />
+		<meta property="og:image" content={absoluteUrl(image)} />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:url" content={canonical} />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content={new URL(image, Astro.url)} />
+		<meta property="twitter:image" content={absoluteUrl(image)} />
 
 		<!-- JSON-LD Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+		<script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
 		{productJsonLd && (
 			<script type="application/ld+json" set:html={JSON.stringify(productJsonLd)} />
 		)}

@@ -86,7 +86,7 @@ export const products: Product[] = [
     },
     image: 'https://s.alicdn.com/@sc04/kf/Hafe69f2538c44327956335b67a911b16I/17-Bar-Ductile-Iron-Flexible-Indoor-Fire.jpg?v=20260729',
     seoTitle: 'Indoor Fire Hydrant Valve SN65 Manufacturer | Wanlian Fluid',
-    seoDescription: 'Factory price for Ductile Iron SN65 Indoor Fire Hydrant Head. 1.6 MPa high pressure rating, grooved or flanged connection. Durable, safety certified fire protection equipment.'
+    seoDescription: 'Ductile Iron SN65 Indoor Fire Hydrant Head for fire protection pipelines. 1.6 MPa pressure rating with grooved or flanged connection options. Contact Wanlian Fluid for product details and quotation.'
   },
   {
     id: '3',
@@ -294,7 +294,7 @@ export const products: Product[] = [
     },
     image: 'https://s.alicdn.com/@sc04/kf/H4424c6c6fd7547c79fef5c3a059b9903K/China-Factory-Price-Cast-Iron-Outdoor-Fire.png?v=20260729',
     seoTitle: 'Anti-collision Outdoor Fire Hydrant SSFT100 | Wanlian Fluid',
-    seoDescription: 'Premium Anti-collision and Pressure-regulating outdoor fire hydrant SSFT100. Double safety shut-off mechanism. Certified by national fire standards.'
+    seoDescription: 'Anti-collision and pressure-regulating outdoor fire hydrant SSFT100 with a double safety shut-off mechanism for fire protection applications. Contact Wanlian Fluid for product details and quotation.'
   },
   {
     id: '10',
