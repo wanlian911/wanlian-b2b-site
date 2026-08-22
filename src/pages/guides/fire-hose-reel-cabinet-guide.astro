@@ -1,0 +1,193 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'What is the difference between a fire hose reel and a fire hose cabinet?',
+		answer: 'A fire hose reel (such as the JPS0.8-19) is a permanently connected, semi-automatic suppression unit: a reel with a flexible layflat hose that draws water directly from the building supply. A fire cabinet is the enclosure that houses the reel, hydrant valve, hose and nozzle — or, in the case of a foam cabinet (PSG30), a self-contained foam proportioning unit. Many projects specify a hydrant cabinet containing both the SN65 hydrant valve and a hose reel.'
+	},
+	{
+		question: 'What hose length and diameter should I specify?',
+		answer: 'Indoor hose reels are typically supplied with 20 m, 25 m or 30 m of 19 mm (3/4") layflat hose. The required length is set by the coverage radius of the reel station — building codes commonly require every point of the floor area to be within reach of a reel (e.g. within 6 m of the nozzle throw). Confirm the code in force (NFPA 14, EN 671, GB 15090 / XF180) for your market.'
+	},
+	{
+		question: 'When should I choose a foam fire cabinet instead of a water reel?',
+		answer: 'Foam units (PSG30 with 3% AFFF) are specified where Class B flammable liquid fires are expected: fuel storage, chemical plants, paint shops, transformer rooms and vehicle depots. Water is ineffective on burning liquids; low-expansion foam blankets the surface and smothers the fire. For general commercial occupancy with only Class A fire loads, a standard water hose reel is sufficient and cheaper.'
+	},
+	{
+		question: 'What pressure does a hose reel need to operate?',
+		answer: 'The JPS0.8-19 reel operates at 0.8–1.0 MPa with a jet range of at least 6 metres. The building supply or fire pump must deliver this pressure at the reel inlet during demand. If the supply is marginal, add a booster or confirm the nozzle pressure with the hydraulic calculation — a reel that cannot reach 6 m is not code compliant.'
+	},
+	{
+		question: 'Are hose reels and cabinets available in export-compatible configurations?',
+		answer: 'Yes. Wanlian supplies reels with 20/25/30 m hose lengths, brass or alloy nozzles, rotary wall brackets, and cabinets with matching hydrant valve interfaces (SN65 or BS336 couplings via the HS series adapters). Specify your market standard and we will match the connection and documentation package.'
+	}
+];
+
+const products = [
+	{ slug: 'fire-hose-reel-jpso8-19', name: 'JPS0.8-19 Fire Hose Reel Set', img: '/assets/products/fire-hose-reel-jpso8-19.jpg', desc: 'Carbon steel reel, 20-30m PVC hose, brass nozzle' },
+	{ slug: 'foam-fire-hydrant-cabinet-psg30', name: 'PSG30 Foam Fire Cabinet', img: '/assets/06_extinguishing_cannons/cannon_p42.png?v=20260729', desc: 'Consolidated 3% AFFF foam unit for Class B fires' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Indoor Fire Hydrant Head SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'PN16 ductile iron hydrant valve for cabinets' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'HS Hose Coupling Adapter', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'Aluminum couplings for hydrant-hose-nozzle connections' }
+];
+
+const toc = [
+	{ id: 'role', label: 'The Role of Hose Reels and Cabinets' },
+	{ id: 'reel-vs-cabinet', label: 'Hose Reel vs Fire Cabinet: Definitions' },
+	{ id: 'hose-specs', label: 'Hose Length, Diameter and Pressure' },
+	{ id: 'nozzle', label: 'Nozzle Types and Jet Modes' },
+	{ id: 'foam', label: 'Foam Cabinets for Class B Fires' },
+	{ id: 'materials', label: 'Materials and Corrosion Resistance' },
+	{ id: 'compliance', label: 'Codes, Testing and Export Notes' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+---
+
+<Layout
+	title="Fire Hose Reel & Fire Cabinet Selection Guide: JPS0.8-19, PSG30 & SN65"
+	description="How to specify indoor fire hose reels and cabinets: hose length and diameter, nozzle modes, foam units for Class B fires, materials, code compliance (EN 671, NFPA 14, GB 15090) and export notes."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Fire Hose Reel & Cabinet Guide' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Hose Reels &amp; Cabinets</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Fire Protection Equipment Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Fire Hose Reel &amp; Fire Cabinet Selection Guide</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Hose reels and fire cabinets are the equipment a building occupant actually uses in the first minutes of a fire — before the fire brigade arrives. They must be simple enough for untrained staff, robust enough for years of standby, and specified to deliver the required jet at the required pressure. This guide walks through hose specifications, nozzle modes, foam options, materials and the codes that govern them.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="role" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. The Role of Hose Reels and Cabinets</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A fire hose reel gives an untrained occupant a fixed-water suppression capability: open the valve, pull out the hose, and a stream is available immediately. It is the first line of defence for incipient fires in commercial, hospitality, office and industrial buildings, complementing automatic sprinklers which handle suppression while occupants evacuate. Fire cabinets organise the equipment — hydrant valve, hose, reel, nozzle — into a predictable, accessible unit that inspectors and users can both rely on.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">For B2B procurement, the practical questions are: what coverage does the code require, what supply pressure is available, and what fire classes exist on site. Those three answers drive the specification below.</p>
+
+			<h2 id="reel-vs-cabinet" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Hose Reel vs Fire Cabinet: Definitions</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Unit</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What it contains</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical use</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hose reel set (JPS0.8-19)</td>
+							<td class="px-4 py-3 text-gray-700">Swivel bracket, drum, layflat hose, nozzle</td>
+							<td class="px-4 py-3 text-gray-700">Standalone stations, water supply connected</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hydrant cabinet</td>
+							<td class="px-4 py-3 text-gray-700">SN65 valve + reel/hose + nozzle in an enclosure</td>
+							<td class="px-4 py-3 text-gray-700">Standard indoor firefighting stations</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Foam cabinet (PSG30)</td>
+							<td class="px-4 py-3 text-gray-700">Foam tank + proportioner + hose reel + foam nozzle</td>
+							<td class="px-4 py-3 text-gray-700">Class B liquid-fire areas</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">The <a href="/products/fire-hose-reel-jpso8-19/" class="text-brand-blue font-semibold hover:underline">JPS0.8-19 reel set</a> is the core component; the <a href="/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">SN65 indoor hydrant head</a> is the valve interface that feeds it from the standpipe, and the <a href="/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS coupling adapters</a> standardise the hose-to-hydrant and hose-to-nozzle connections.</p>
+
+			<h2 id="hose-specs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Hose Length, Diameter and Pressure</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Three numbers define a reel: hose length, internal diameter and working pressure.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Length (20 / 25 / 30 m).</strong> Determined by the coverage radius. Codes such as EN 671-1 require every point of the protected area to be within the reel's reach, commonly defined as the hose length plus a nominal nozzle throw. Longer hose raises friction loss, so the pressure calculation must follow the length.</li>
+				<li><strong>Diameter (19 mm / 3/4").</strong> The standard indoor reel bore. Larger bores deliver more flow but heavier hose that is harder for occupants to pull; 19 mm balances reach and ease of use for Class A incipient fires.</li>
+				<li><strong>Pressure (0.8–1.0 MPa).</strong> The JPS0.8-19 operates at 0.8–1.0 MPa with a jet range of at least 6 m. Confirm the standpipe or supply pressure at the reel inlet under simultaneous demand — a common failure is specifying a reel where the hydraulic calculation was never run.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">For export projects, specify the hose standard (EN 694 for Europe, NFPA 1962 for North America, GB 15090 / XF180 for China-based certification) so the documentation package matches your market.</p>
+
+			<h2 id="nozzle" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Nozzle Types and Jet Modes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The nozzle is the user interface — it decides whether an occupant can fight the fire at all. Reel nozzles support two modes:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Straight jet.</strong> Maximum reach for attacking a fire from a distance. Required minimum reach is typically 6 m at rated pressure.</li>
+				<li><strong>Spray/fog.</strong> A wide cone for shielding the operator, cooling the area and wetting surfaces. Spray mode consumes more air and is less efficient at distance, so the operator switches modes by situation.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Material matters: brass nozzles resist corrosion and hold their geometry; die-cast alloy nozzles are lighter but specify anodised finishes for humid or coastal environments. The JPS0.8-19 ships with a brass/alloy spray nozzle supporting both modes, with a shut-off handle so the flow can be stopped at the nozzle.</p>
+
+			<h2 id="foam" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Foam Cabinets for Class B Fires</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Water cannot extinguish a burning liquid: it spreads the fire. Where Class B hazards exist — fuel storage, chemical process areas, transformer rooms, paint and solvent stores, vehicle depots — the code calls for foam. The <a href="/products/foam-fire-hydrant-cabinet-psg30/" class="text-brand-blue font-semibold hover:underline">PSG30 foam fire cabinet</a> consolidates the whole system in one wall-mounted unit: a foam concentrate tank, a 3% AFFF proportioner, a hose reel and a foam nozzle.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">When the reel is opened, the proportioner inducts foam concentrate into the water stream at 3%, generating low-expansion foam with an expansion ratio of at least 4.5:1 and a jet range of 6+ metres. Low-expansion foam blankets the burning liquid surface, cutting off oxygen and vapours — effective on fuel, chemical and solvent fires.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Specification notes for foam cabinets:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Foam type.</strong> AFFF (aqueous film forming foam) is the standard for mixed hydrocarbon hazards; confirm the concentrate class (AR-AFFF for polar solvents) with the fire consultant.</li>
+				<li><strong>Capacity.</strong> Match the tank volume to the expected discharge duration — check the local code for minimum run time at rated flow.</li>
+				<li><strong>Inlet pressure.</strong> PSG30 works at 0.5–0.8 MPa; the supply must sustain this during discharge.</li>
+			</ul>
+
+			<h2 id="materials" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Materials and Corrosion Resistance</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Standby equipment lives for years in humid corridors, boiler rooms and coastal plants. Material selection is a lifecycle cost decision:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Reel drum and bracket.</strong> Cold-rolled carbon steel with anti-corrosion red powder coating (JPS0.8-19) — economical and code-standard; specify stainless steel for marine or chemical environments.</li>
+				<li><strong>Hose.</strong> NBR/PVC blends with multi-braided polyester reinforcement resist kinking and abrasion; confirm UV stability if the reel is in direct sunlight.</li>
+				<li><strong>Nozzle and proportioner.</strong> Brass for corrosion resistance and precise metering; the PSG30 proportioner is solid brass with a corrosion-resistant body.</li>
+				<li><strong>Cabinet housing.</strong> Powder-coated steel is standard; glazed or stainless fronts are used in architecturally rated lobbies. Always specify a breakable-glass or keyed access matching the local fire brigade's preference.</li>
+			</ul>
+
+			<h2 id="compliance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Codes, Testing and Export Notes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Hose reel and cabinet compliance is typically verified by: pressure testing of the assembly, jet-range and flow testing at rated pressure, and material/coating inspection. Relevant standards include EN 671 (Europe), NFPA 14 (North America, standpipe and hose systems), GB 15090 and XF180 (China), plus BS 5306 for UK practice.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Export checklist:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Confirm the hose coupling standard for your market — the HS series adapters cover common international couplings (BS336, NIST, KWS) and can be shipped with the order.</li>
+				<li>Request the batch pressure test report for the reels and cabinets.</li>
+				<li>Verify the cabinet door access type and signage match local fire brigade expectations.</li>
+				<li>For foam units, confirm the concentrate type and expiry handling — AFFF concentrate has a shelf life and must be replaced on schedule.</li>
+				<li>Clarify spare parts (nozzles, hose, seals, test cocks) and lead time before ordering.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Wanlian tests every reel and cabinet before shipment, and provides the documentation package — pressure test reports, material certificates and operating instructions — with the container.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need Hose Reels or Cabinets for Your Project?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send us the coverage area, supply pressure and fire classes — our engineers reply with a reel/cabinet layout recommendation and quotation within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Hose%20Reel%20%26%20Cabinet%20Selection" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20help%20selecting%20fire%20hose%20reels%20and%20cabinets" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

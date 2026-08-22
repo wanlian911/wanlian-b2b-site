@@ -1,0 +1,27 @@
+---
+interface Props {
+  title?: string;
+  headings: { id: string; label: string }[];
+}
+
+const { title = 'Table of Contents', headings } = Astro.props;
+---
+
+<nav class="mt-8 mb-10 rounded-xl border border-gray-100 bg-gray-50 p-6" aria-label="Table of contents">
+  <p class="text-xs font-black uppercase tracking-widest text-brand-red mb-4">{title}</p>
+  <ol class="space-y-2">
+    {headings.map((item, index) => (
+      <li>
+        <a
+          href={`#${item.id}`}
+          class="group flex items-baseline gap-3 text-sm text-gray-600 hover:text-brand-blue transition-colors"
+        >
+          <span class="font-black text-gray-300 group-hover:text-brand-blue/40 text-xs w-4 shrink-0 tabular-nums">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <span class="font-medium leading-snug">{item.label}</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</nav>
