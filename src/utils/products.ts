@@ -847,5 +847,189 @@ export const products: Product[] = [
     image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg',
     seoTitle: 'GKZF-1 Groove Solenoid Control Gate Valve | Fire System | Wanlian Fluid',
     seoDescription: 'Ductile iron 300PSI solenoid control valve GKZF-1. Grooved connection for easy installation. Highly responsive automated fire protection control.'
+  },
+  {
+    id: '29',
+    slug: 'fire-hose-pvc-rubber-lining-8-65',
+    name: 'PVC Rubber Lining Layflat Fire Hose (Model 8-65)',
+    category: 'Fire Cabinets & Interfaces',
+    description: 'Wanlian layflat fire hose with PVC rubber lining, designed for firefighting, industrial water transfer and airport fire protection. Flexible, portable and durable with woven corner reinforcement and woven edge sealing for long service life.',
+    features: [
+      'Easy installation with standard fire hose couplings',
+      'Flexible and portable for fast deployment',
+      'Durable woven construction with corner reinforcement',
+      'Recyclable and easy to operate',
+      'Customizable length, diameter and logo (OEM)'
+    ],
+    specs: {
+      'Size Range': '19mm - 400mm inner diameter',
+      'Model': '8-65 (standard coupling size)',
+      'Material': 'PVC Rubber Lining',
+      'Bearing Capacity': '50 - 200 kN',
+      'Application': 'Class A & B Fires, Airport Fire Protection, Industrial Water Transfer',
+      'Edge Sealing': 'Woven Edge Sealing'
+    },
+    materials: {
+      'Hose Body': 'Woven Synthetic Fiber with PVC Rubber Lining',
+      'Couplings': 'Standard Aluminum / Brass Fire Hose Couplings'
+    },
+    image: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg',
+    seoTitle: 'PVC Rubber Lining Layflat Fire Hose | Fire Fighting Hose | Wanlian Fluid',
+    seoDescription: 'High quality layflat fire hose with PVC rubber lining for firefighting and industrial water transfer. Durable woven construction, customizable sizes. Contact Wanlian Fluid for quotation.'
+  },
+  {
+    id: '30',
+    slug: 'adjustable-pistol-grip-fire-nozzle',
+    name: 'Adjustable Pistol Grip Firefighting Nozzle',
+    category: 'Fire Cabinets & Interfaces',
+    description: 'Professional adjustable pistol grip fire nozzle in aluminum alloy with variable flow control (150-500 LPM) and multiple spray patterns from straight stream to fog. Ergonomic grip with no-recoil operation for reliable firefighting use.',
+    features: [
+      'Adjustable spray patterns: straight stream to wide fog',
+      'Variable flow control 150-500 LPM',
+      'Ergonomic pistol grip with finger contours for secure hold',
+      'Lightweight aluminum alloy with durable construction',
+      'Easy operation, no recoil design'
+    ],
+    specs: {
+      'Size': '1.5" / 2" / 2.5" inlet',
+      'Flow Range': '150 - 500 LPM',
+      'Material': 'Aluminum Alloy',
+      'Model': 'QLD6.0/8III-B Series',
+      'Application': 'Fire Fighting, Industrial Fire Protection',
+      'Customization': 'Logo & Graphic Design (OEM)'
+    },
+    materials: {
+      'Body': 'Aluminum Alloy',
+      'Adjustment Ring': 'Aluminum / High Impact Plastic',
+      'Grip': 'High Impact Rubber Coating'
+    },
+    image: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg',
+    seoTitle: 'Adjustable Pistol Grip Fire Nozzle | 150-500LPM | Wanlian Fluid',
+    seoDescription: 'Professional adjustable fire hose nozzle with pistol grip. Variable flow and spray patterns, aluminum alloy body. Factory price from Wanlian Fluid Equipment.'
+  },
+  {
+    id: '31',
+    slug: 'abc-dry-powder-fire-extinguisher-5kg',
+    name: 'ABC Dry Powder Fire Extinguisher (5kg)',
+    category: 'Fire Cabinets & Interfaces',
+    description: 'Portable 5kg ABC dry powder fire extinguisher with ISO 7165 certification. Effective against Class A (solids), B (liquids), C (gases) and E (electrical) fires. Carbon steel cylinder with pressure gauge and safety pin, suitable for residential, office and commercial use.',
+    features: [
+      'ISO 7165 certified portable dry powder extinguisher',
+      'Multi-purpose: Class A, B, C and E fire coverage',
+      'Carbon steel cylinder with anti-corrosion red coating',
+      'Pressure gauge with color-coded ready indicator',
+      'Available in 3kg / 4kg / 5kg net weight options'
+    ],
+    specs: {
+      'Capacity': '5kg (3kg / 4kg options available)',
+      'Standard': 'ISO 7165 / CCCF',
+      'Extinguishing Agent': 'ABC Dry Powder (90% active content)',
+      'Fire Classes': 'Class A (Solids), B (Liquids), C (Gases), E (Electrical)',
+      'Discharge Time': '8 - 15 seconds',
+      'Cylinder Material': 'Carbon Steel',
+      'Warranty': '1 Year'
+    },
+    materials: {
+      'Cylinder': 'Carbon Steel',
+      'Valve Assembly': 'Brass',
+      'Discharge Hose': 'PVC with Plastic Nozzle'
+    },
+    image: '/assets/products/abc-dry-powder-fire-extinguisher-5kg.png',
+    seoTitle: '5kg ABC Dry Powder Fire Extinguisher | ISO 7165 | Wanlian Fluid',
+    seoDescription: 'Portable ABC dry powder fire extinguisher 5kg with ISO 7165 certification. Suitable for Class A/B/C/E fires. Factory price from Wanlian Fluid Equipment.'
+  },
+  {
+    id: '32',
+    slug: 'sqd100-1-6-fire-pump-adapter',
+    name: 'SQD100-1.6 Fire Pump Adapter (Siamese Connection)',
+    category: 'Hydrants & Pump Connections',
+    description: 'SQD100-1.6 fire department siamese connection with twin DN65 inlets (SQS65 / KWS65) and DN100 flanged outlet. Powder coated ductile iron body with integrated control valve for reliable fire pump water supply connection.',
+    features: [
+      'Twin inlet design for dual fire engine water supply',
+      'Integrated control valve with handwheel for flow regulation',
+      'Powder coated corrosion resistant finish',
+      'Safety cables on caps prevent loss during operation',
+      'Compact design suitable for airport and municipal fire protection'
+    ],
+    specs: {
+      'Model': 'SQD100-1.6',
+      'Inlet': '2 × DN65 (2.5") with caps (SQS65 / KWS65)',
+      'Outlet': 'DN100 (4") Flanged',
+      'Pressure Rating': '1.6 MPa',
+      'Length': '120 mm',
+      'Finish': 'Powder Coated Red'
+    },
+    materials: {
+      'Body': 'Ductile Iron / Cast Iron',
+      'Handwheel Stem': 'Brass / Stainless Steel',
+      'Safety Cables': 'Braided Steel'
+    },
+    image: '/assets/products/sqd100-1-6-fire-pump-adapter.png',
+    seoTitle: 'SQD100-1.6 Fire Pump Adapter Siamese Connection | Wanlian Fluid',
+    seoDescription: 'Fire department siamese connection SQD100-1.6 with twin DN65 inlets and DN100 flanged outlet. Durable powder coated body for reliable fire pump supply. Factory price.'
+  },
+  {
+    id: '33',
+    slug: 'sp45f-flange-digital-balancing-valve',
+    name: 'SP45F Flange Digital Balancing Valve',
+    category: 'Valves & Parts',
+    description: 'SP45F flanged digital balancing valve in nodular cast iron (QT450) with digital lock display for precise HVAC hydraulic balancing. Y-pattern globe structure with dual pressure test points for accurate flow measurement.',
+    features: [
+      'Digital lock display for precise flow balancing',
+      'Dual pressure test points for accurate measurement',
+      'Nodular cast iron (QT450) body for durability',
+      'Y-pattern globe structure with low pressure loss',
+      'Suitable for HVAC and water regulation systems'
+    ],
+    specs: {
+      'Size Range': 'DN50 - DN300',
+      'Material': 'Nodular Cast Iron (QT450)',
+      'Pressure': 'Medium Pressure',
+      'Media': 'Water, Oil, Gas',
+      'Structure': 'Balancing Valve (Y-Pattern Globe)',
+      'Media Temperature': 'Normal Temperature',
+      'Warranty': '1 Year',
+      'Customization': 'OEM / ODM'
+    },
+    materials: {
+      'Valve Body': 'Nodular Cast Iron (QT450)',
+      'Handwheel': 'Ductile Iron',
+      'Test Points': 'Stainless Steel'
+    },
+    image: '/assets/products/sp45f-flange-digital-balancing-valve.jpg',
+    seoTitle: 'SP45F Flange Digital Balancing Valve | HVAC Balancing Valve | Wanlian Fluid',
+    seoDescription: 'SP45F digital balancing valve DN50-DN300 with digital lock and test points for precise HVAC hydraulic balancing. QT450 ductile iron. Factory price from Wanlian.'
+  },
+  {
+    id: '34',
+    slug: 'z85x-stainless-steel-grooved-gate-valve',
+    name: 'Z85X Stainless Steel Grooved Gate Valve',
+    category: 'Valves & Parts',
+    description: 'Z85X stainless steel clamp-type non-rising stem grooved gate valve for water service. Cast 316 stainless steel (CF8M) body with grooved ends for fast installation. Suitable for gas, oil and water pipelines requiring corrosion resistance.',
+    features: [
+      'Cast 316 stainless steel (CF8M) body for corrosion resistance',
+      'Grooved clamp connection for fast, easy installation',
+      'Non-rising stem design with manual operation',
+      'Suitable for gas, oil and water media',
+      'OEM / OBM customization support'
+    ],
+    specs: {
+      'Model': 'Z85X',
+      'Size Range': 'DN40 - DN300 (2" - 12")',
+      'Material': 'Stainless Steel (CF8M)',
+      'Media': 'Gas, Oil, Water',
+      'Operation': 'Manual (Non-Rising Stem)',
+      'Structure': 'Gate Valve',
+      'Warranty': '1 Year',
+      'Customization': 'OEM / OBM'
+    },
+    materials: {
+      'Valve Body': 'Cast 316 Stainless Steel (CF8M)',
+      'Stem': 'Stainless Steel',
+      'Handwheel': 'Ductile Iron / Stainless Steel'
+    },
+    image: '/assets/products/z85x-stainless-steel-grooved-gate-valve.png',
+    seoTitle: 'Z85X Stainless Steel Grooved Gate Valve | CF8M | Wanlian Fluid',
+    seoDescription: 'Z85X stainless steel grooved gate valve DN40-DN300 with CF8M body for gas, oil and water pipelines. Corrosion resistant with fast clamp installation. Factory price.'
   }
 ];
