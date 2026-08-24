@@ -1031,5 +1031,103 @@ export const products: Product[] = [
     image: '/assets/products/z85x-stainless-steel-grooved-gate-valve.png',
     seoTitle: 'Z85X Stainless Steel Grooved Gate Valve | CF8M | Wanlian Fluid',
     seoDescription: 'Z85X stainless steel grooved gate valve DN40-DN300 with CF8M body for gas, oil and water pipelines. Corrosion resistant with fast clamp installation. Factory price.'
+  },
+  {
+    id: '35',
+    slug: 'brass-gate-valve-z15w-16t',
+    name: 'ANSI Forged Brass Gate Valve (Z15W-16T)',
+    category: 'Valves & Parts',
+    description: 'Z15W-16T forged brass gate valve with NPT threaded connection, manual operated for oil and water applications. Compact design with reliable sealing, widely used in water supply, HVAC and industrial pipelines.',
+    features: [
+      'Forged brass body with sand-cast texture for durability',
+      'NPT threaded ends for quick and leak-free installation',
+      'Non-rising stem design with red handwheel',
+      'Rated 200 WOG (Water, Oil, Gas)',
+      'OEM / ODM customization available'
+    ],
+    specs: {
+      'Size Range': 'DN15 - DN100 (1/2" - 4")',
+      'Pressure': 'PN1.6 MPa (200 WOG)',
+      'Material': 'Forged Brass',
+      'Connection': 'NPT Thread',
+      'Media': 'Oil, Water',
+      'Operation': 'Manual',
+      'Temperature': 'Normal Temperature',
+      'Warranty': '1 Year',
+      'Standard': 'ANSI'
+    },
+    materials: {
+      'Valve Body': 'Forged Brass',
+      'Stem': 'Brass',
+      'Handwheel': 'Cast Iron with Red Paint'
+    },
+    image: '/assets/products/brass-gate-valve-z15w-16t.png',
+    seoTitle: 'Z15W-16T Forged Brass Gate Valve | NPT Thread | Wanlian Fluid',
+    seoDescription: 'ANSI forged brass gate valve Z15W-16T with NPT threaded ends for oil and water systems. PN1.6MPa, manual operation. Factory price from Wanlian Fluid.'
+  },
+  {
+    id: '36',
+    slug: 'stainless-steel-fire-extinguisher-box',
+    name: 'Stainless Steel Fire Extinguisher Box (with Hose Reel)',
+    category: 'Fire Cabinets & Interfaces',
+    description: 'Customized stainless steel fire extinguisher box with integrated fire hose reel storage. Powder coated finish with viewing window, suitable for airport, commercial and industrial fire protection installations.',
+    features: [
+      'Stainless steel 304 / 201 construction with powder coating',
+      'Recessed door with clear viewing window',
+      'Stores fire hose reel or fire extinguisher',
+      'Durable, portable and easy to install',
+      'Red or silver color options, fully customizable (OEM)'
+    ],
+    specs: {
+      'Material': 'Stainless Steel 304 / 201 / Iron',
+      'Type': 'Fire Extinguisher Box / Fire Hose Reel Cabinet',
+      'Function': 'Storage of fire reel hose or fire extinguisher',
+      'Application': 'Airport Fire Protection, Commercial Buildings',
+      'Color': 'Red, Silver',
+      'Bearing Capacity': '15 - 30 kN',
+      'Finish': 'Powder Coating',
+      'Customization': 'Size & Logo (OEM)'
+    },
+    materials: {
+      'Cabinet Body': 'Stainless Steel 304 / 201',
+      'Viewing Window': 'Tempered Glass / Plastic',
+      'Latch': 'Stainless Steel'
+    },
+    image: '/assets/products/stainless-steel-fire-extinguisher-box.jpg',
+    seoTitle: 'Stainless Steel Fire Extinguisher Box with Hose Reel | Wanlian Fluid',
+    seoDescription: 'Customized stainless steel fire extinguisher box with fire hose reel storage. Powder coated, durable design for airport and commercial fire protection. Factory price.'
+  },
+  {
+    id: '37',
+    slug: 'remote-control-float-valve-100x',
+    name: 'Stainless Steel Remote Control Float Valve (100X-16P)',
+    category: 'Hydraulic Safety',
+    description: '100X-16P remote control float valve in cast stainless steel (CF8), flanged connection for automatic water level control in water tanks and reservoirs. Hydraulic operated with pilot float control for reliable level regulation.',
+    features: [
+      'Stainless steel CF8 body for corrosion resistance',
+      'Hydraulic float pilot control for automatic level regulation',
+      'Flanged connection DN40-DN300 for easy installation',
+      'Wide operating temperature range -50°C to 100°C',
+      'OEM / ODM customization available'
+    ],
+    specs: {
+      'Model': '100X-16P',
+      'Size Range': 'DN40 - DN300',
+      'Pressure': '0 - 1.0 MPa (0 - 10 bar)',
+      'Material': 'Stainless Steel (CF8)',
+      'Connection': 'Flanged',
+      'Media': 'Water',
+      'Operation': 'Hydraulic (Float Pilot Controlled)',
+      'Temperature': '-50°C to 100°C',
+      'Warranty': '1 Year'
+    },
+    materials: {
+      'Valve Body': 'Cast Stainless Steel (CF8)',
+      'Pilot & Tubing': 'Stainless Steel',
+      'Top Valve': 'Ball Valve with Plastic Handle'
+    },
+    image: '/assets/products/remote-control-float-valve-100x.png',
+    seoTitle: '100X-16P Stainless Steel Remote Control Float Valve | Wanlian Fluid',
+    seoDescription: 'Remote control float valve 100X-16P in stainless steel CF8 for automatic water level control. DN40-DN300 flanged, hydraulic pilot operated. Factory price from Wanlian.'
   }
 ];
