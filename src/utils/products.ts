@@ -1129,5 +1129,197 @@ export const products: Product[] = [
     image: '/assets/products/remote-control-float-valve-100x.png',
     seoTitle: '100X-16P Stainless Steel Remote Control Float Valve | Wanlian Fluid',
     seoDescription: 'Remote control float valve 100X-16P in stainless steel CF8 for automatic water level control. DN40-DN300 flanged, hydraulic pilot operated. Factory price from Wanlian.'
+  },
+  {
+    id: '38',
+    slug: 'ul-fm-resilient-seat-osy-gate-valve',
+    name: 'UL/FM Fire Protection Resilient Seated OS&Y Gate Valve',
+    category: 'Valves & Parts',
+    description: 'UL and FM certified resilient seated OS&Y (Outside Screw and Yoke) gate valve with grooved ends for fire protection systems. Nodular cast iron body with rising stem indicator for clear open/closed position visibility.',
+    features: [
+      'UL and FM certified for fire protection service',
+      'OS&Y rising stem design with clear position indication',
+      'Grooved-end connections for fast mechanical coupling',
+      'Nodular cast iron body with resilient seat for drip-tight closure',
+      'OEM / ODM customization available'
+    ],
+    specs: {
+      'Size Range': '2" - 10" (DN50 - DN250)',
+      'Material': 'Nodular Cast Iron',
+      'Connection': 'Grooved Ends',
+      'Media': 'Water',
+      'Operation': 'Manual (OS&Y Rising Stem)',
+      'Structure': 'Gate Valve',
+      'Temperature': 'Normal Temperature',
+      'Certification': 'UL / FM Listed',
+      'Customization': 'OEM / ODM'
+    },
+    materials: {
+      'Valve Body': 'Nodular Cast Iron',
+      'Stem': 'Brass / Stainless Steel',
+      'Seat': 'Resilient (EPDM)',
+      'Handwheel': 'Ductile Iron'
+    },
+    image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.jpg',
+    seoTitle: 'UL/FM Resilient Seated OS&Y Gate Valve | Grooved Ends | Wanlian Fluid',
+    seoDescription: 'UL/FM listed resilient seated OS&Y gate valve with grooved ends for fire protection systems. Nodular cast iron, rising stem. Factory price from Wanlian Fluid.'
+  },
+  {
+    id: '39',
+    slug: 'metal-fire-extinguisher-box-red',
+    name: 'Metal Fire Extinguisher Box / Hose Reel Cabinet (Red)',
+    category: 'Fire Cabinets & Interfaces',
+    description: 'Customized metal fire extinguisher box with fire hose reel storage, powder coated red with operating instructions printed on the door. Suitable for airport, commercial and industrial fire protection installations.',
+    features: [
+      'Red powder coated metal construction',
+      'Stores fire hose reel or fire extinguisher',
+      'Operating instruction panel on the door',
+      'Durable, easy installation and easy operation',
+      'Customizable structure, size and logo (OEM)'
+    ],
+    specs: {
+      'Material': 'Stainless Steel 304 / 201 / Iron',
+      'Type': 'Fire Extinguisher Box / Fire Hose Reel Cabinet',
+      'Application': 'Airport Fire Protection, Commercial Buildings',
+      'Color': 'Red Powder Coating',
+      'Inner Diameter': '350mm',
+      'Length': '500mm',
+      'Customization': 'Structure & Logo (OEM)'
+    },
+    materials: {
+      'Cabinet Body': 'Metal (Iron / Stainless Steel)',
+      'Door Glass': 'Tempered Glass',
+      'Lock': 'Brass / Zinc Alloy'
+    },
+    image: '/assets/products/metal-fire-extinguisher-box-red.jpg',
+    seoTitle: 'Metal Fire Extinguisher Box with Hose Reel Cabinet | Red | Wanlian Fluid',
+    seoDescription: 'Customized metal fire extinguisher box with fire hose reel storage, red powder coated with instruction panel. Airport and commercial fire protection. Factory price.'
+  },
+  {
+    id: '40',
+    slug: 'horizontal-sidewall-fire-sprinkler-t-zstbs',
+    name: 'Horizontal Sidewall Fire Sprinkler (T-ZSTBS)',
+    category: 'Sprinklers & Alarm Valves',
+    description: 'Horizontal sidewall fire sprinkler (T-ZSTBS) with chrome plated finish and red 68°C glass bulb. Designed for wall-mounted installation along the perimeter of rooms, providing fast response fire suppression coverage.',
+    features: [
+      'Horizontal sidewall design for perimeter coverage',
+      'Red glass bulb 68°C (155°F) temperature rating',
+      'Chrome plated polished finish',
+      'Compact deflector with directional water distribution',
+      'Suitable for light and ordinary hazard occupancies'
+    ],
+    specs: {
+      'Model': 'T-ZSTBS',
+      'Temperature Rating': '68°C (155°F)',
+      'Bulb Color': 'Red (Q5 response)',
+      'Material': 'Chrome Plated Brass / Stainless Steel',
+      'Connection': '1/2" NPT Threaded',
+      'Response': 'Standard Response',
+      'Application': 'Fire Sprinkler Systems (Light / Ordinary Hazard)'
+    },
+    materials: {
+      'Frame': 'Chrome Plated Brass',
+      'Bulb': 'Glass (Red Liquid, 68°C)',
+      'Deflector': 'Metal with Directional Notches'
+    },
+    image: '/assets/products/horizontal-sidewall-fire-sprinkler-t-zstbs.png',
+    seoTitle: 'Horizontal Sidewall Fire Sprinkler T-ZSTBS | 68°C | Wanlian Fluid',
+    seoDescription: 'Horizontal sidewall fire sprinkler T-ZSTBS with 68°C red glass bulb, chrome plated finish for wall-mounted fire suppression. Factory price from Wanlian Fluid.'
+  },
+  {
+    id: '41',
+    slug: 'd381x-16q-grooved-butterfly-valve',
+    name: 'D381X-16Q Grooved Butterfly Valve (Worm Gear)',
+    category: 'Valves & Parts',
+    description: 'D381X-16Q grooved-end butterfly valve with worm gear operator for fire and water pipelines. Nodular cast iron (QT450) body with electrophoretic coating, PN16 pressure rating and signal lock option for status indication.',
+    features: [
+      'Worm gear operator with handwheel for smooth control',
+      'Grooved ends for fast mechanical coupling installation',
+      'Nodular cast iron (QT450) body with electrophoretic coating',
+      'Signal locking device option for open/closed status indication',
+      'Suitable for fire protection and water pipelines'
+    ],
+    specs: {
+      'Model': 'D381X',
+      'Size Range': 'DN50 - DN300',
+      'Material': 'Nodular Cast Iron (QT450)',
+      'Pressure': 'PN16',
+      'Connection': 'Grooved Ends',
+      'Operation': 'Worm Gear with Handwheel',
+      'Bearing Capacity': '10 - 50 kN',
+      'Coating': 'Electrophoretic',
+      'Customization': 'OEM'
+    },
+    materials: {
+      'Valve Body': 'Nodular Cast Iron (QT450)',
+      'Disc': 'Ductile Iron / Stainless Steel',
+      'Seat': 'EPDM Rubber Lining',
+      'Operator': 'Cast Iron Worm Gear Box'
+    },
+    image: '/assets/products/d381x-16q-grooved-butterfly-valve.jpg',
+    seoTitle: 'D381X-16Q Grooved Butterfly Valve | PN16 Worm Gear | Wanlian Fluid',
+    seoDescription: 'D381X-16Q grooved butterfly valve DN50-DN300 with worm gear operator for fire and water pipelines. QT450 ductile iron, PN16. Factory price from Wanlian.'
+  },
+  {
+    id: '42',
+    slug: 'zstdy-concealed-fire-sprinkler',
+    name: 'ZSTDY Concealed Fire Sprinkler (Recessed)',
+    category: 'Sprinklers & Alarm Valves',
+    description: 'ZSTDY concealed (recessed) fire sprinkler with electroplated chrome finish and decorative cover plate for high-end ceiling installations. Stainless steel construction with 68°C red glass bulb, UL listed.',
+    features: [
+      'Concealed design with decorative cover plate for premium ceilings',
+      'Electroplated chrome finish, stainless steel construction',
+      '68°C (155°F) red glass bulb temperature rating',
+      'Thread & gasket sealing for leak-free installation',
+      'UL listed, ideal for high-end ceiling applications'
+    ],
+    specs: {
+      'Model': 'ZSTDY',
+      'Size Range': 'DN15 - DN20 (1/2" - 3/4")',
+      'Material': 'Stainless Steel',
+      'Temperature Rating': '68°C (155°F)',
+      'Finish': 'Electroplated Chrome',
+      'Certification': 'UL Listed',
+      'Application': 'Concealed Ceiling Fire Sprinkler Systems'
+    },
+    materials: {
+      'Sprinkler Body': 'Stainless Steel',
+      'Bulb': 'Glass (Red Liquid, 68°C)',
+      'Escutcheon / Cover': 'Brass with Chrome Finish'
+    },
+    image: '/assets/products/zstdy-concealed-fire-sprinkler.png',
+    seoTitle: 'ZSTDY Concealed Fire Sprinkler | Recessed Chrome | Wanlian Fluid',
+    seoDescription: 'ZSTDY concealed fire sprinkler DN15-DN20 with decorative cover for high-end ceilings. Chrome electroplated stainless steel, UL listed. Factory price from Wanlian.'
+  },
+  {
+    id: '43',
+    slug: 'storz-coupling-2-5inch-aluminum',
+    name: '2.5" Aluminum Storz Coupling (German Standard)',
+    category: 'Fire Cabinets & Interfaces',
+    description: 'German standard Storz fire hose coupling in aluminum with self-sealing edge. Quick-connect design for reliable hose-to-hose and hose-to-nozzle connection, suitable for clear water and foam mixture firefighting applications.',
+    features: [
+      'German standard Storz quick-connect design',
+      'Self-sealing edge for leak-free connection',
+      'Aluminum construction with optional brass/chrome plating',
+      'Suitable for water and foam mixture media',
+      'Easy installation, durable and portable'
+    ],
+    specs: {
+      'Size': '2.5" (DN50 / DN65 / DN80 / DN100 / DN150)',
+      'Material': 'Aluminum (Brass / Chrome Plated options)',
+      'Pressure': '1.6 MPa',
+      'Standard': 'German Storz Standard',
+      'Maximum Range': '28m',
+      'Applicable Medium': 'Clear Water and Foam Mixture',
+      'Connection': 'Storz Quick Connect with Barbs'
+    },
+    materials: {
+      'Coupling Body': 'Aluminum Alloy',
+      'Gasket': 'Self-Sealing Rubber',
+      'Options': 'Brass / Chrome Plated'
+    },
+    image: '/assets/products/storz-coupling-2-5inch-aluminum.jpg',
+    seoTitle: '2.5" Aluminum Storz Coupling | German Standard | Wanlian Fluid',
+    seoDescription: 'German standard Storz fire hose coupling 2.5" in aluminum with self-sealing edge for water and foam firefighting. 1.6MPa. Factory price from Wanlian Fluid.'
   }
 ];
