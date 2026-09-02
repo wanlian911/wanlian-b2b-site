@@ -378,7 +378,7 @@ export const products: Product[] = [
       'Sensor Enclosure': 'Anti-UV High Strength Engineered ABS IP66',
       'Nozzle Head': 'Stainless Steel 316'
     },
-    image: '/assets/06_extinguishing_cannons/cannon_p45.png?v=20260729',
+    image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.png',
     seoTitle: 'ZDMS Automatic Tracking Fire Water Cannon | IR/UV Detection | Wanlian Fluid',
     seoDescription: 'Smart auto-tracking fire monitor ZDMS. Multi-band IR/UV flame detection, rapid autonomous suppression. Best choice for large spatial indoor protection.'
   },
@@ -463,7 +463,7 @@ export const products: Product[] = [
       'Internal Support Legs': 'Stainless Steel 304',
       'Fasteners & Bolts': 'Stainless Steel 304'
     },
-    image: '/assets/02_valves_parts/valves_p21.png?v=20260729',
+    image: '/assets/products/suction-vortex-preventer-en12845.png',
     seoTitle: 'EN12845 Suction Vortex Preventer | SS304/SS316 | Wanlian Fluid',
     seoDescription: 'High efficiency SS304/SS316 Suction Vortex Preventer EN12845. Eliminates vortexes, protects water pumps from cavitation, increases tank capacity utilization.'
   },
@@ -492,7 +492,7 @@ export const products: Product[] = [
       'Intermediate Drain Valve': 'Solid Brass / Stainless Steel 304',
       'Main Springs': 'Stainless Steel 304'
     },
-    image: '/assets/products/anti-pollution-backflow-preventer-hs41x.jpg',
+    image: '/assets/products/anti-pollution-backflow-preventer-hs41x.png',
     seoTitle: 'HS41X Anti-Pollution Backflow Preventer | Potable Water | Wanlian Fluid',
     seoDescription: 'Durable Anti-pollution backflow preventer HS41X. Double check valves with intermediate automatic drainage cavity. Ensures potable water network safety.'
   },
@@ -521,7 +521,7 @@ export const products: Product[] = [
       'Proportioner & Nozzle': 'Solid Brass Alloy / Heavy Duty Aluminum',
       'Hose Pipe': 'EPDM Rubber Reinforced with High-tensile Polyester'
     },
-    image: '/assets/06_extinguishing_cannons/cannon_p42.png?v=20260729',
+    image: '/assets/products/foam-fire-hydrant-cabinet-psg30.png',
     seoTitle: 'PSG30 Foam Fire Hydrant Cabinet | 3% AFFF | Wanlian Fluid',
     seoDescription: 'Consolidated Foam Fire Cabinet PSG30 with 3% AFFF foam tank. Highly effective against fuel and chemical class B fires. Buy directly from China manufacturer.'
   },
