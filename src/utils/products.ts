@@ -85,7 +85,7 @@ export const products: Product[] = [
       'Coupling Interface': 'Anodized Aluminum / Brass'
     },
     image: '/assets/products/indoor-fire-hydrant-head-sn65.jpg',
-    seoTitle: 'SN65 Indoor Fire Hydrant Valve | Factory Price Manufacturer | Wanlian Fluid',
+    seoTitle: 'SN65 Indoor Fire Hydrant Valve | Factory Price Supplier | Wanlian Fluid',
     seoDescription: 'Ductile Iron SN65 Indoor Fire Hydrant Head for fire protection pipelines. 1.6 MPa pressure rating with grooved or flanged connection options. Contact Wanlian Fluid for product details and quotation.'
   },
   {
@@ -116,7 +116,7 @@ export const products: Product[] = [
     },
     image: '/assets/products/wet-alarm-check-valve-zsfz-150.png',
     seoTitle: 'ZSFZ-150 Wet Alarm Check Valve | Sprinkler System | Wanlian Fluid',
-    seoDescription: 'Professional Wet Alarm Valve ZSFZ 150 for automatic fire sprinkler systems. High durability, reliable performance, fast alarm response. Buy directly from China manufacturer.'
+    seoDescription: 'Professional Wet Alarm Valve ZSFZ 150 for automatic fire sprinkler systems. High durability, reliable performance, fast alarm response. Buy directly from our partner factories in China.'
   },
   {
     id: '4',
@@ -233,7 +233,7 @@ export const products: Product[] = [
       'Enclosure Converter': 'Die-cast Aluminum Alloy IP65/IP67'
     },
     image: '/assets/products/smart-electromagnetic-flow-meter.png?v=20260902',
-    seoTitle: 'Electromagnetic Flow Meter Manufacturer | Digital MODBUS | Wanlian Fluid',
+    seoTitle: 'Electromagnetic Flow Meter Supplier | Digital MODBUS | Wanlian Fluid',
     seoDescription: 'Digital high accuracy electromagnetic flow meters for water, sewage, and conductive industrial fluid measurement. MODBUS communication supported.'
   },
   {
@@ -523,7 +523,7 @@ export const products: Product[] = [
     },
     image: '/assets/products/foam-fire-hydrant-cabinet-psg30.png?v=20260902',
     seoTitle: 'PSG30 Foam Fire Hydrant Cabinet | 3% AFFF | Wanlian Fluid',
-    seoDescription: 'Consolidated Foam Fire Cabinet PSG30 with 3% AFFF foam tank. Highly effective against fuel and chemical class B fires. Buy directly from China manufacturer.'
+    seoDescription: 'Consolidated Foam Fire Cabinet PSG30 with 3% AFFF foam tank. Highly effective against fuel and chemical class B fires. Buy directly from our partner factories in China.'
   },
   {
     id: '18',
@@ -815,7 +815,7 @@ export const products: Product[] = [
       'Yoke Nut': 'Copper Alloy'
     },
     image: '/assets/products/flange-manual-bellows-gate-valve.jpg',
-    seoTitle: 'Flanged Bellows Seal Gate Valve Manufacturer | Wanlian Fluid',
+    seoTitle: 'Flanged Bellows Seal Gate Valve Supplier | Wanlian Fluid',
     seoDescription: 'High quality metal bellows seal gate valves for high temperature thermal oil and steam pipelines. Leak-free design. Approved by DIN, ANSI and GB.'
   },
   {
