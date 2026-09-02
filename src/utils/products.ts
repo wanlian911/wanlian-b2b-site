@@ -232,7 +232,7 @@ export const products: Product[] = [
       'Electrodes': 'Stainless Steel 316L / Hastelloy C',
       'Enclosure Converter': 'Die-cast Aluminum Alloy IP65/IP67'
     },
-    image: '/assets/02_valves_parts/valves_p18.png?v=20260729',
+    image: '/assets/products/smart-electromagnetic-flow-meter.png',
     seoTitle: 'Electromagnetic Flow Meter Manufacturer | Digital MODBUS | Wanlian Fluid',
     seoDescription: 'Digital high accuracy electromagnetic flow meters for water, sewage, and conductive industrial fluid measurement. MODBUS communication supported.'
   },
