@@ -232,7 +232,7 @@ export const products: Product[] = [
       'Electrodes': 'Stainless Steel 316L / Hastelloy C',
       'Enclosure Converter': 'Die-cast Aluminum Alloy IP65/IP67'
     },
-    image: '/assets/products/smart-electromagnetic-flow-meter.png',
+    image: '/assets/products/smart-electromagnetic-flow-meter.png?v=20260902',
     seoTitle: 'Electromagnetic Flow Meter Manufacturer | Digital MODBUS | Wanlian Fluid',
     seoDescription: 'Digital high accuracy electromagnetic flow meters for water, sewage, and conductive industrial fluid measurement. MODBUS communication supported.'
   },
@@ -262,7 +262,7 @@ export const products: Product[] = [
       'Stem Seals': 'NBR / Graphite',
       'Telescopic Bolts': 'Medium Carbon Steel Zinc Plated'
     },
-    image: '/assets/products/telescopic-y-strainer-sgl41h.png',
+    image: '/assets/products/telescopic-y-strainer-sgl41h.png?v=20260902',
     seoTitle: 'SGL41H Telescopic Y Strainer | SS304 Screen | Wanlian Fluid',
     seoDescription: 'Integrated Telescopic Y Strainer SGL41H for industrial water and HVAC pipelines. Easy maintenance, solid SS304 screen. Buy directly from China factory.'
   },
@@ -349,7 +349,7 @@ export const products: Product[] = [
       'Sealing Element': 'Stainless Steel O-Ring with Teflon Layer',
       'Deflector/Splat': 'Copper Alloy / Stainless Steel'
     },
-    image: '/assets/products/glass-bulb-fire-sprinkler-zst.png',
+    image: '/assets/products/glass-bulb-fire-sprinkler-zst.png?v=20260902',
     seoTitle: 'ZST Glass Bulb Fire Sprinkler Head | Automatic | Wanlian Fluid',
     seoDescription: 'Glass bulb automatic fire sprinklers ZST series. High sensitivity, corrosion resistant brass frame. Factory price from Wanlian China.'
   },
@@ -378,7 +378,7 @@ export const products: Product[] = [
       'Sensor Enclosure': 'Anti-UV High Strength Engineered ABS IP66',
       'Nozzle Head': 'Stainless Steel 316'
     },
-    image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.png',
+    image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.png?v=20260902',
     seoTitle: 'ZDMS Automatic Tracking Fire Water Cannon | IR/UV Detection | Wanlian Fluid',
     seoDescription: 'Smart auto-tracking fire monitor ZDMS. Multi-band IR/UV flame detection, rapid autonomous suppression. Best choice for large spatial indoor protection.'
   },
@@ -407,7 +407,7 @@ export const products: Product[] = [
       'Solenoid Pilot': 'Solid Brass / Stainless Steel 304',
       'Pipes & Trims': 'Stainless Steel / Brass'
     },
-    image: '/assets/products/deluge-alarm-valve-zsfm.png',
+    image: '/assets/products/deluge-alarm-valve-zsfm.png?v=20260902',
     seoTitle: 'ZSFM Deluge Alarm Valve | Diaphragm Type | Wanlian Fluid',
     seoDescription: 'Diaphragm-operated deluge alarm valve ZSFM. Highly reliable, fast response times. Ideal for deluge, water mist, and foam firefighting system setups.'
   },
@@ -463,7 +463,7 @@ export const products: Product[] = [
       'Internal Support Legs': 'Stainless Steel 304',
       'Fasteners & Bolts': 'Stainless Steel 304'
     },
-    image: '/assets/products/suction-vortex-preventer-en12845.png',
+    image: '/assets/products/suction-vortex-preventer-en12845.png?v=20260902',
     seoTitle: 'EN12845 Suction Vortex Preventer | SS304/SS316 | Wanlian Fluid',
     seoDescription: 'High efficiency SS304/SS316 Suction Vortex Preventer EN12845. Eliminates vortexes, protects water pumps from cavitation, increases tank capacity utilization.'
   },
@@ -492,7 +492,7 @@ export const products: Product[] = [
       'Intermediate Drain Valve': 'Solid Brass / Stainless Steel 304',
       'Main Springs': 'Stainless Steel 304'
     },
-    image: '/assets/products/anti-pollution-backflow-preventer-hs41x.png',
+    image: '/assets/products/anti-pollution-backflow-preventer-hs41x.png?v=20260902',
     seoTitle: 'HS41X Anti-Pollution Backflow Preventer | Potable Water | Wanlian Fluid',
     seoDescription: 'Durable Anti-pollution backflow preventer HS41X. Double check valves with intermediate automatic drainage cavity. Ensures potable water network safety.'
   },
@@ -521,7 +521,7 @@ export const products: Product[] = [
       'Proportioner & Nozzle': 'Solid Brass Alloy / Heavy Duty Aluminum',
       'Hose Pipe': 'EPDM Rubber Reinforced with High-tensile Polyester'
     },
-    image: '/assets/products/foam-fire-hydrant-cabinet-psg30.png',
+    image: '/assets/products/foam-fire-hydrant-cabinet-psg30.png?v=20260902',
     seoTitle: 'PSG30 Foam Fire Hydrant Cabinet | 3% AFFF | Wanlian Fluid',
     seoDescription: 'Consolidated Foam Fire Cabinet PSG30 with 3% AFFF foam tank. Highly effective against fuel and chemical class B fires. Buy directly from China manufacturer.'
   },
@@ -550,7 +550,7 @@ export const products: Product[] = [
       'Locking Knobs': 'Stainless Steel / Brass',
       'Nozzle Tip': 'Precision Hardened Alloy'
     },
-    image: '/assets/products/manual-fire-water-cannon-ps.png',
+    image: '/assets/products/manual-fire-water-cannon-ps.png?v=20260902',
     seoTitle: 'PS Series Manual Fire Water Monitor | Long Range | Wanlian Fluid',
     seoDescription: 'High volume manual fire water cannon PS. Supports water and foam spray. Heavy-duty construction, suitable for industrial storage and petrochemical yards.'
   },
@@ -607,7 +607,7 @@ export const products: Product[] = [
       'Wedge Core': 'Ductile Iron QT450 with EPDM rubber fully coated',
       'Sealing Glands': 'NBR / Brass / Stainless Steel'
     },
-    image: '/assets/products/telescopic-resilient-seat-gate-valve-z41x-t.png',
+    image: '/assets/products/telescopic-resilient-seat-gate-valve-z41x-t.png?v=20260902',
     seoTitle: 'Z41X-T Telescopic Resilient Seat Gate Valve | Factory Price | Wanlian Fluid',
     seoDescription: 'Integrated Telescopic Resilient Seated Gate Valve. Fully EPDM encapsulated wedge, ductile iron QT450. Ideal for pipelines requiring expansion compensation.'
   },
@@ -1287,7 +1287,7 @@ export const products: Product[] = [
       'Bulb': 'Glass (Red Liquid, 68°C)',
       'Escutcheon / Cover': 'Brass with Chrome Finish'
     },
-    image: '/assets/products/zstdy-concealed-fire-sprinkler.png',
+    image: '/assets/products/zstdy-concealed-fire-sprinkler.png?v=20260902',
     seoTitle: 'ZSTDY Concealed Fire Sprinkler | Recessed Chrome | Wanlian Fluid',
     seoDescription: 'ZSTDY concealed fire sprinkler DN15-DN20 with decorative cover for high-end ceilings. Chrome electroplated stainless steel, UL listed. Factory price from Wanlian.'
   },
