@@ -39,6 +39,7 @@ const categories = ['All', ...new Set(products.map(p => p.category))];
             <img 
               src={product.image} 
               alt={product.name} 
+              loading="lazy"
               class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
             />
             <span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold tracking-widest bg-gray-900/90 text-white rounded-md uppercase">
@@ -81,27 +82,29 @@ const categories = ['All', ...new Set(products.map(p => p.category))];
       const buttons = document.querySelectorAll('.filter-btn');
       const cards = document.querySelectorAll('.product-card');
 
+      const applyFilter = (category) => {
+        buttons.forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === category));
+        cards.forEach(card => {
+          const cardCategory = card.getAttribute('data-product-category');
+          card.style.display = (category === 'All' || cardCategory === category) ? 'flex' : 'none';
+        });
+      };
+
       // Set 'All' button as active initially
-      const allBtn = document.querySelector('[data-category="All"]');
-      if (allBtn) allBtn.classList.add('active');
+      applyFilter('All');
+
+      // Support /products/#category=xxx deep links (keeps URLs out of the indexable query string)
+      const hashMatch = window.location.hash.match(/^#category=(.+)$/);
+      if (hashMatch) {
+        const target = decodeURIComponent(hashMatch[1]);
+        if ([...buttons].some(b => b.getAttribute('data-category') === target)) {
+          applyFilter(target);
+        }
+      }
 
       buttons.forEach(btn => {
         btn.addEventListener('click', () => {
-          // Remove active class from all buttons
-          buttons.forEach(b => b.classList.remove('active'));
-          // Add active class to clicked button
-          btn.classList.add('active');
-
-          const category = btn.getAttribute('data-category');
-
-          cards.forEach(card => {
-            const cardCategory = card.getAttribute('data-product-category');
-            if (category === 'All' || cardCategory === category) {
-              card.style.display = 'flex';
-            } else {
-              card.style.display = 'none';
-            }
-          });
+          applyFilter(btn.getAttribute('data-category'));
         });
       });
     });
