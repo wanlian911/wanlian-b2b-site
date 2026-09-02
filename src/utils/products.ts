@@ -262,7 +262,7 @@ export const products: Product[] = [
       'Stem Seals': 'NBR / Graphite',
       'Telescopic Bolts': 'Medium Carbon Steel Zinc Plated'
     },
-    image: '/assets/products/telescopic-y-strainer-sgl41h.jpg',
+    image: '/assets/products/telescopic-y-strainer-sgl41h.png',
     seoTitle: 'SGL41H Telescopic Y Strainer | SS304 Screen | Wanlian Fluid',
     seoDescription: 'Integrated Telescopic Y Strainer SGL41H for industrial water and HVAC pipelines. Easy maintenance, solid SS304 screen. Buy directly from China factory.'
   },
@@ -349,7 +349,7 @@ export const products: Product[] = [
       'Sealing Element': 'Stainless Steel O-Ring with Teflon Layer',
       'Deflector/Splat': 'Copper Alloy / Stainless Steel'
     },
-    image: '/assets/05_sprinklers_alarms/sprinkler_p32_head_white.png',
+    image: '/assets/products/glass-bulb-fire-sprinkler-zst.png',
     seoTitle: 'ZST Glass Bulb Fire Sprinkler Head | Automatic | Wanlian Fluid',
     seoDescription: 'Glass bulb automatic fire sprinklers ZST series. High sensitivity, corrosion resistant brass frame. Factory price from Wanlian China.'
   },
@@ -607,7 +607,7 @@ export const products: Product[] = [
       'Wedge Core': 'Ductile Iron QT450 with EPDM rubber fully coated',
       'Sealing Glands': 'NBR / Brass / Stainless Steel'
     },
-    image: '/assets/02_valves_parts/valves_p4_telescopic_white.png',
+    image: '/assets/products/telescopic-resilient-seat-gate-valve-z41x-t.png',
     seoTitle: 'Z41X-T Telescopic Resilient Seat Gate Valve | Factory Price | Wanlian Fluid',
     seoDescription: 'Integrated Telescopic Resilient Seated Gate Valve. Fully EPDM encapsulated wedge, ductile iron QT450. Ideal for pipelines requiring expansion compensation.'
   },
