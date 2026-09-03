@@ -507,7 +507,7 @@ export const products: Product[] = [
     id: '17',
     slug: 'foam-fire-hydrant-cabinet-psg30',
     name: 'Foam Fire Hydrant Cabinet (PSG30 Series)',
-    category: 'Extinguishing Water Cannons',
+    category: 'Fire Cabinets & Interfaces',
     description: 'A highly efficient and consolidated low-expansion foam firefighting unit. It packages a storage tank, foam concentrate proportioner, hose reel, and specialized foam nozzle into a wall-mounted cabinet. Exceptionally powerful for fuel, chemical, and solvent fires.',
     features: [
       'Generates and sprays heavy low-expansion foam to smother chemical and oil fires',
@@ -747,7 +747,7 @@ export const products: Product[] = [
     id: '25',
     slug: 'fire-hose-reel-jpso8-19',
     name: 'Carbon Steel Fire Hose Reel Accessories Set (JPS0.8-19)',
-    category: 'Extinguishing Water Cannons',
+    category: 'Fire Cabinets & Interfaces',
     description: 'JPS series carbon steel fire hose reel set designed for rapid indoor fire suppression. Includes highly flexible layflat PVC hose, brass/alloy spray nozzle, and heavy-duty swivel mount reel.',
     features: [
       'Sturdy carbon steel rotary mounting bracket supports 180° swing rotation',
