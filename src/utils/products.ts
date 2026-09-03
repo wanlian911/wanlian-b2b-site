@@ -56,7 +56,7 @@ export const products: Product[] = [
     },
     image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.jpg',
     seoTitle: 'Z41X Resilient Seat Gate Valve | UL Listed Ductile Iron | Wanlian Fluid',
-    seoDescription: 'High quality Ductile Iron Resilient Seated Gate Valve Z41X for industrial fluid systems. Low pressure drop, bubble-tight seal. Contact Quanzhou Wanlian Fluid for factory price.'
+    seoDescription: 'Ductile iron resilient seat gate valve Z41X: low pressure drop, bubble-tight seal for industrial fluid systems. Factory price from Quanzhou Wanlian Fluid.'
   },
   {
     id: '2',
@@ -86,7 +86,7 @@ export const products: Product[] = [
     },
     image: '/assets/products/indoor-fire-hydrant-head-sn65.jpg',
     seoTitle: 'SN65 Indoor Fire Hydrant Valve | Factory Price Supplier | Wanlian Fluid',
-    seoDescription: 'Ductile Iron SN65 Indoor Fire Hydrant Head for fire protection pipelines. 1.6 MPa pressure rating with grooved or flanged connection options. Contact Wanlian Fluid for product details and quotation.'
+    seoDescription: 'Ductile iron SN65 indoor fire hydrant head for fire protection pipelines: 1.6 MPa rating, grooved or flanged connections. Factory direct from Wanlian.'
   },
   {
     id: '3',
@@ -116,7 +116,7 @@ export const products: Product[] = [
     },
     image: '/assets/products/wet-alarm-check-valve-zsfz-150.png',
     seoTitle: 'ZSFZ-150 Wet Alarm Check Valve | Sprinkler System | Wanlian Fluid',
-    seoDescription: 'Professional Wet Alarm Valve ZSFZ 150 for automatic fire sprinkler systems. High durability, reliable performance, fast alarm response. Buy directly from our partner factories in China.'
+    seoDescription: 'ZSFZ-150 wet alarm check valve for automatic fire sprinkler systems: durable ductile iron, fast alarm response, high reliability. Factory direct from China.'
   },
   {
     id: '4',
@@ -294,7 +294,7 @@ export const products: Product[] = [
     },
     image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.png',
     seoTitle: 'SSFT100 Anti-Collision Outdoor Fire Hydrant | Pressure Regulating | Wanlian Fluid',
-    seoDescription: 'Anti-collision and pressure-regulating outdoor fire hydrant SSFT100 with a double safety shut-off mechanism for fire protection applications. Contact Wanlian Fluid for product details and quotation.'
+    seoDescription: 'SSFT100 anti-collision, pressure-regulating fire hydrant with double safety shut-off for municipal and industrial fire protection. Factory price from Wanlian.'
   },
   {
     id: '10',
@@ -523,7 +523,7 @@ export const products: Product[] = [
     },
     image: '/assets/products/foam-fire-hydrant-cabinet-psg30.png?v=20260902',
     seoTitle: 'PSG30 Foam Fire Hydrant Cabinet | 3% AFFF | Wanlian Fluid',
-    seoDescription: 'Consolidated Foam Fire Cabinet PSG30 with 3% AFFF foam tank. Highly effective against fuel and chemical class B fires. Buy directly from our partner factories in China.'
+    seoDescription: 'PSG30 foam fire hydrant cabinet with 3% AFFF tank, effective against Class B fuel and chemical fires. Factory direct from Wanlian Fluid China.'
   },
   {
     id: '18',
@@ -846,7 +846,7 @@ export const products: Product[] = [
     },
     image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg',
     seoTitle: 'GKZF-1 Grooved Solenoid Control Gate Valve 300PSI | Wanlian Fluid',
-    seoDescription: 'GKZF-1 grooved solenoid control gate valve, DN50-DN300, 300 PSI (2.0 MPa), AC220V/DC24V. Ductile iron with grooved ends for automatic municipal and fire water control.'
+    seoDescription: 'GKZF-1 grooved solenoid control gate valve, DN50-DN300, 300 PSI (2.0 MPa), AC220V/DC24V, ductile iron, ideal for municipal and fire water control systems.'
   },
   {
     id: '29',
@@ -875,7 +875,7 @@ export const products: Product[] = [
     },
     image: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg',
     seoTitle: 'PVC Rubber Lining Layflat Fire Hose | Fire Fighting Hose | Wanlian Fluid',
-    seoDescription: 'High quality layflat fire hose with PVC rubber lining for firefighting and industrial water transfer. Durable woven construction, customizable sizes. Contact Wanlian Fluid for quotation.'
+    seoDescription: 'Layflat fire hose with PVC rubber lining for firefighting and industrial water transfer: durable woven jacket, customizable sizes. Factory price from Wanlian.'
   },
   {
     id: '30',
@@ -966,7 +966,7 @@ export const products: Product[] = [
     },
     image: '/assets/products/sqd100-1-6-fire-pump-adapter.png',
     seoTitle: 'SQD100-1.6 Fire Pump Adapter Siamese Connection | Wanlian Fluid',
-    seoDescription: 'Fire department siamese connection SQD100-1.6 with twin DN65 inlets and DN100 flanged outlet. Durable powder coated body for reliable fire pump supply. Factory price.'
+    seoDescription: 'SQD100-1.6 fire department siamese connection: twin DN65 inlets, DN100 flanged outlet, powder-coated body for reliable fire pump supply. Factory direct.'
   },
   {
     id: '33',
@@ -1095,7 +1095,7 @@ export const products: Product[] = [
     },
     image: '/assets/products/stainless-steel-fire-extinguisher-box.jpg',
     seoTitle: 'Stainless Steel Fire Extinguisher Box with Hose Reel | Wanlian Fluid',
-    seoDescription: 'Customized stainless steel fire extinguisher box with fire hose reel storage. Powder coated, durable design for airport and commercial fire protection. Factory price.'
+    seoDescription: 'Custom stainless steel fire extinguisher box with fire hose reel storage: powder coated, durable for airports and commercial fire protection. Factory price.'
   },
   {
     id: '37',
@@ -1128,7 +1128,7 @@ export const products: Product[] = [
     },
     image: '/assets/products/remote-control-float-valve-100x.png',
     seoTitle: '100X-16P Stainless Steel Remote Control Float Valve | Wanlian Fluid',
-    seoDescription: 'Remote control float valve 100X-16P in stainless steel CF8 for automatic water level control. DN40-DN300 flanged, hydraulic pilot operated. Factory price from Wanlian.'
+    seoDescription: '100X-16P remote control float valve in stainless steel CF8, DN40-DN300 flanged. Hydraulic pilot operated for automatic water level control. Factory price.'
   },
   {
     id: '38',

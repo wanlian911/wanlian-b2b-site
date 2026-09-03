@@ -41,7 +41,7 @@ export const tags: Tag[] = [
     slug: 'backflow-prevention',
     name: 'Backflow Prevention',
     seoTitle: 'Backflow Preventers & Hydraulic Control Valves | Wanlian Fluid',
-    description: 'HS41X anti-pollution backflow preventers, pressure reducing valves, level control valves and solenoid control valves for potable water protection and hydraulic safety.',
+    description: 'HS41X anti-pollution backflow preventers, pressure reducing, level control and solenoid valves for potable water protection and hydraulic safety.',
     guideHrefs: ['/guides/backflow-prevention-guide/'],
     productSlugs: ['anti-pollution-backflow-preventer-hs41x', 'adjustable-pressure-reducing-valve-500x', 'hydraulic-water-level-control-valve-f745x', 'groove-solenoid-control-gate-valve-gkzf1', 'suction-vortex-preventer-en12845'],
     relatedTags: ['industrial-valves', 'potable-water']
