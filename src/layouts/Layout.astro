@@ -8,6 +8,7 @@ interface Props {
 	description?: string;
 	image?: string;
 	canonicalURL?: string;
+	noindex?: boolean;
 	type?: 'website' | 'article' | 'product';
 	productData?: any; // 用于传递产品数据生成 JSON-LD
 	faq?: { question: string; answer: string }[]; // FAQ 区块 + FAQPage JSON-LD
@@ -19,6 +20,7 @@ const {
 	description = "Wanlian Fluid - Professional B2B industrial fluid system solutions.", 
 	image = "/og-image.jpg",
 	canonicalURL,
+	noindex = false,
 	type = 'website',
 	productData,
 	faq = [],
@@ -131,9 +133,13 @@ const breadcrumbJsonLd = breadcrumbs.length ? {
 		<meta name="title" content={title} />
 		<meta name="description" content={description} />
 		<meta name="keywords" content="fire protection equipment, industrial valves, gate valve, hydrant head, sprinkler valve, Wanlian Fluid, B2B valve supplier" />
-		<meta name="robots" content="index, follow" />
+		{noindex ? (
+			<meta name="robots" content="noindex, nofollow" />
+		) : (
+			<meta name="robots" content="index, follow" />
+		)}
 		<meta name="theme-color" content="#004797" />
-		<link rel="canonical" href={canonical} />
+		{!noindex && <link rel="canonical" href={canonical} />}
 
 		<!-- Google Fonts: Roboto -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
