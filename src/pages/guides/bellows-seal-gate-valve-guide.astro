@@ -1,0 +1,188 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'What is the difference between a bellows seal gate valve and a standard gate valve?',
+		answer: 'A standard gate valve relies on stem packing alone to seal around the moving stem. A bellows seal gate valve adds a welded metallic bellows between the stem and the bonnet, creating a second, leak-proof barrier. If the bellows ever fails, the packing still holds — that is why it is described as a double sealing design with zero fugitive leakage.'
+	},
+	{
+		question: 'Which media require bellows seal gate valves?',
+		answer: 'Bellows seal gate valves are typically specified for thermal oil, steam and high-temperature water, where stem leakage is a safety and efficiency problem. They are also commonly chosen for toxic, flammable or hazardous media where fugitive emissions must be minimized and for systems subject to strict environmental regulation.'
+	},
+	{
+		question: 'What sizes and pressure classes are available for Wanlian bellows gate valves?',
+		answer: 'Our flanged manual bellows seal gate valve covers DN15-DN300 (1/2" to 12") at working pressures of 1.6-4.0 MPa (Class 150/300), with a working temperature range of -29°C to 425°C. Bodies are forged steel (A105) or cast steel (WCB), and the bellows is stainless steel 304 or 316Ti.'
+	},
+	{
+		question: 'Do bellows seal gate valves comply with international standards?',
+		answer: 'Wanlian bellows seal gate valves are manufactured to conform to GB, ANSI, DIN and JIS standards, with pressure ratings expressed in both metric (MPa) and ANSI Class terms. Confirm the exact dimensional and pressure standard required by your project before ordering.'
+	},
+	{
+		question: 'How do I verify bellows gate valve quality before ordering?',
+		answer: 'Request shell and seat pressure test reports for the actual batch, material certificates for the body and bellows, and confirm the bellows material (304/316Ti) and welding standard in the quotation. Third-party inspection before shipment can be arranged.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'what-is-bellows-gate-valve', label: '1. What Is a Bellows Seal Gate Valve?' },
+	{ id: 'how-bellows-seal-works', label: '2. How the Double Seal Works' },
+	{ id: 'where-bellows-valves-are-specified', label: '3. Where Bellows Valves Are Specified' },
+	{ id: 'standards-and-pressure-classes', label: '4. Standards and Pressure Classes' },
+	{ id: 'bellows-vs-standard-gate-valve', label: '5. Bellows vs Standard Gate Valve' },
+	{ id: 'specification-checklist', label: '6. B2B Specification Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'flange-manual-bellows-gate-valve', name: 'Flanged Manual Bellows Seal Gate Valve', img: '/assets/products/flange-manual-bellows-gate-valve.jpg', desc: 'Forged/cast steel, DN15-DN300, Class 150/300' },
+	{ slug: 'z85x-stainless-steel-grooved-gate-valve', name: 'Z85X Stainless Steel Grooved Gate Valve', img: '/assets/products/z85x-stainless-steel-grooved-gate-valve.png', desc: 'Cast 316 (CF8M) gate valve for corrosive services' },
+	{ slug: 'brass-gate-valve-z15w-16t', name: 'ANSI Forged Brass Gate Valve (Z15W-16T)', img: '/assets/products/brass-gate-valve-z15w-16t.png', desc: 'NPT threaded gate valve for oil and water lines' }
+];
+---
+
+<Layout
+	title="Bellows Seal Gate Valve Guide: ANSI Flanged Types for Steam & Thermal Oil | Wanlian Fluid"
+	description="Bellows seal gate valve guide for steam and thermal oil service: how the double seal works, ANSI standards, sizes and a B2B specification checklist."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Bellows Seal Gate Valve Guide' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Bellows Seal Gate Valve Guide</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Industrial Valve Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Bellows Seal Gate Valve Guide: ANSI Flanged Types for Steam &amp; Thermal Oil</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a bellows seal gate valve is a gate valve with a welded metallic bellows as a second sealing barrier behind the stem packing, giving zero fugitive leakage at the stem. It is the valve to specify for thermal oil, steam and high-temperature water — and for any service where stem leakage is unacceptable. This guide covers how it works, where it belongs and how to specify it.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="what-is-bellows-gate-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. What Is a Bellows Seal Gate Valve?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A bellows seal gate valve is a rising-stem gate valve in which the stem is enclosed by a welded metal bellows. The bellows expands and contracts with the stem travel, sealing the stem completely from the media — while a conventional packing gland above it provides a second line of defense. The result is a double sealing system: even if the bellows fatigues, the packing still prevents leakage to atmosphere.</p>
+			<p class="text-gray-700 leading-relaxed">This design is what makes the bellows gate valve the standard answer for <a href="/products/flange-manual-bellows-gate-valve/" class="text-brand-blue font-semibold hover:underline">flanged manual bellows seal gate valves</a> in demanding thermal services.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="how-bellows-seal-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. How the Double Seal Works</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">In a standard gate valve the only barrier between the process media and the atmosphere is the stem packing. Packing is a compression seal — it works, but it can degrade, dry out or loosen over time, especially under thermal cycling. A bellows seal removes the problem at the source: the welded metallic bellows (typically stainless steel 304 or 316Ti) is attached to the stem and the bonnet, so the process media physically cannot reach the packing area.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The packing above the bellows still exists — it seals the bonnet interior from dust and provides backup if the bellows is ever damaged. Maintenance teams get early warning too: if the bellows fails, the valve starts weeping at the packing rather than failing without notice.</p>
+			<p class="text-gray-700 leading-relaxed">Because the bellows is a welded metallic component, its material, weld quality and cycle life are the real quality differentiators between suppliers — worth asking about in every quotation.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="where-bellows-valves-are-specified" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Where Bellows Valves Are Specified</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The classic duty for a bellows seal gate valve is <strong>thermal oil and steam</strong>. Heat-transfer fluid systems run hot (up to 425°C in our standard range) and under repeated thermal cycling; a leaking stem gland means lost heat, dirty plant and a safety hazard. High-temperature water systems have the same problem in a different form.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Beyond thermal services, bellows valves are specified wherever <strong>fugitive emissions must be controlled</strong> — toxic, flammable or odorous media, and plants subject to environmental regulation. The welded bellows acts as an effective barrier against fugitive emissions, particularly in applications with high thermal expansion or contraction.</p>
+			<p class="text-gray-700 leading-relaxed">In short: if the line carries something hot, hazardous, or both, ask whether a bellows seal gate valve should replace the standard packing-only gate valve on the specification.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="standards-and-pressure-classes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Standards and Pressure Classes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bellows seal gate valves are manufactured to the same dimensional and design frameworks as other steel gate valves. Wanlian bellows seal gate valves conform to GB, ANSI, DIN and JIS standards, and pressure ratings are expressed in both metric terms (1.6-4.0 MPa) and ANSI Class terms (Class 150/300).</p>
+			<p class="text-gray-700 leading-relaxed mb-4">For flanged steel gate valves in international projects, the relevant reference families are the ASME/ANSI frameworks — ASME B16.34 governs pressure-temperature ratings of flanged valves, and the API 600/603 series covers steel and corrosion-resistant alloy gate valve design. Where a project specifically requires fugitive-emission performance, valves are commonly specified against leakage testing such as ISO 15848 or TA-Luft.</p>
+			<p class="text-gray-700 leading-relaxed">Always confirm which standard your project invokes (GB, ANSI or DIN) before comparing quotations — the face-to-face dimensions and flange drilling can differ.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="bellows-vs-standard-gate-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Bellows vs Standard Gate Valve</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Comparison</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Standard Gate Valve</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Bellows Seal Gate Valve</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Stem sealing</td>
+							<td class="px-4 py-3 text-gray-700">Packing only</td>
+							<td class="px-4 py-3 text-gray-700">Welded metal bellows + packing</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Fugitive leakage</td>
+							<td class="px-4 py-3 text-gray-700">Depends on packing condition</td>
+							<td class="px-4 py-3 text-gray-700">Zero via bellows; packing as backup</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Thermal cycling resistance</td>
+							<td class="px-4 py-3 text-gray-700">Packing may loosen over cycles</td>
+							<td class="px-4 py-3 text-gray-700">Bellows absorbs stem movement</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typical duty</td>
+							<td class="px-4 py-3 text-gray-700">Water, air, general fluids</td>
+							<td class="px-4 py-3 text-gray-700">Steam, thermal oil, hazardous media</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">First cost</td>
+							<td class="px-4 py-3 text-gray-700">Lower</td>
+							<td class="px-4 py-3 text-gray-700">Higher — justified by leak-free service</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">For general water and air duties a standard gate valve remains the economical choice — see our <a href="/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">gate valve vs butterfly valve guide</a> for how gate valves fit into fire and water mains, and the <a href="/tags/industrial-valves/" class="text-brand-blue font-semibold hover:underline">industrial valves hub</a> for the wider product range.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. B2B Specification Checklist</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Define media and temperature</strong> — thermal oil, steam or high-temperature water: state the maximum working temperature so the bellows material and body rating can be confirmed.</li>
+				<li><strong>Fix the pressure class and standard</strong> — Class 150/300 (PN16-PN40) with GB, ANSI or DIN flange drilling; state which standard the project invokes.</li>
+				<li><strong>Specify body and bellows material</strong> — forged steel A105 or cast steel WCB bodies with stainless steel 304/316Ti bellows are the standard starting point.</li>
+				<li><strong>Ask about bellows construction</strong> — welded bellows, weld process and any cycle-life testing performed by the manufacturer.</li>
+				<li><strong>Require batch test reports</strong> — shell and seat pressure test certificates for the actual batch, plus material certificates on request.</li>
+				<li><strong>Verify the supplier first</strong> — bellows quality is invisible in photos. Run our <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> before committing to a manufacturer.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need Bellows Seal Gate Valves for a Thermal or Steam Line?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Tell us your media, temperature, DN and flange standard — our engineers confirm the bellows spec and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Bellows%20Seal%20Gate%20Valve" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20bellows%20seal%20gate%20valves%20for%20steam%2Fthermal%20oil" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -24,7 +24,7 @@ export const tags: Tag[] = [
     name: 'Sprinkler Systems',
     seoTitle: 'Fire Sprinkler Systems: Wet, Deluge & Pre-action Valves | Wanlian Fluid',
     description: 'Wet alarm valves, deluge valves, pre-action systems, sprinkler heads and flow indicators for automatic sprinkler protection in commercial and industrial buildings.',
-    guideHrefs: ['/guides/fire-sprinkler-system-valves-guide/', '/guides/fire-sprinkler-system-wet-dry-preaction/'],
+    guideHrefs: ['/guides/fire-sprinkler-system-valves-guide/', '/guides/fire-sprinkler-system-wet-dry-preaction/', '/guides/fire-sprinkler-control-valve-types/'],
     productSlugs: ['glass-bulb-fire-sprinkler-zst', 'wet-alarm-check-valve-zsfz-150', 'deluge-alarm-valve-zsfm', 'pre-action-alarm-system-zsfy', 'water-flow-indicator-zsjz'],
     relatedTags: ['fire-protection', 'certification']
   },
@@ -51,7 +51,7 @@ export const tags: Tag[] = [
     name: 'Industrial Valves',
     seoTitle: 'Industrial Valves: Gate, Butterfly & Check Valves | Wanlian Fluid',
     description: 'Resilient seat gate valves, wafer butterfly valves, ball check valves and Y-strainers for water supply, sewage, HVAC and industrial process pipelines.',
-    guideHrefs: ['/guides/gate-valve-vs-butterfly-valve-fire-protection/', '/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-choose-ul-listed-fire-valves/'],
+    guideHrefs: ['/guides/gate-valve-vs-butterfly-valve-fire-protection/', '/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-choose-ul-listed-fire-valves/', '/guides/bellows-seal-gate-valve-guide/'],
     productSlugs: ['resilient-seat-flanged-gate-valve-z41x', 'telescopic-resilient-seat-gate-valve-z41x-t', 'wafer-type-butterfly-valve-d71x', 'signal-grooved-wafer-butterfly-valve-dn80', 'sliding-ball-check-valve-hq41x', 'spherical-ball-check-valve-hq44x', 'telescopic-y-strainer-sgl41h', 'flange-manual-bellows-gate-valve'],
     relatedTags: ['fire-protection', 'backflow-prevention']
   },
@@ -81,5 +81,14 @@ export const tags: Tag[] = [
     guideHrefs: ['/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-choose-a-fire-hydrant/'],
     productSlugs: [],
     relatedTags: ['certification', 'industrial-valves']
+  },
+  {
+    slug: 'bellows-seal-gate-valve',
+    name: 'Bellows Seal Gate Valves',
+    seoTitle: 'Bellows Seal Gate Valves for Steam & Thermal Oil | Wanlian Fluid',
+    description: 'Metal bellows seal gate valves with double sealing for steam, thermal oil and high-temperature water service — ANSI flanged types for fugitive-emission-critical industrial lines.',
+    guideHrefs: ['/guides/bellows-seal-gate-valve-guide/'],
+    productSlugs: ['flange-manual-bellows-gate-valve'],
+    relatedTags: ['industrial-valves', 'procurement']
   }
 ];

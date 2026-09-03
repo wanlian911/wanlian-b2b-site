@@ -99,5 +99,23 @@ export const guides: Guide[] = [
     category: 'Valves',
     readTime: '7 min read',
     tags: ['industrial-valves', 'fire-protection']
+  },
+  {
+    title: 'Fire Sprinkler Control Valve Types: OS&Y, Butterfly & Check Valves',
+    description: 'OS&Y gate, signal butterfly and check valve duties in sprinkler systems, plus a control valve comparison table and a UL/FM specification checklist for B2B buyers.',
+    href: '/guides/fire-sprinkler-control-valve-types/',
+    date: '2026-09',
+    category: 'Fire Protection',
+    readTime: '8 min read',
+    tags: ['sprinkler-systems', 'fire-protection']
+  },
+  {
+    title: 'Bellows Seal Gate Valve Guide: ANSI Flanged Types for Steam & Thermal Oil',
+    description: 'How the welded bellows double seal works, where bellows gate valves are specified, ANSI/GB standards and a B2B specification checklist for steam and thermal oil service.',
+    href: '/guides/bellows-seal-gate-valve-guide/',
+    date: '2026-09',
+    category: 'Valves',
+    readTime: '7 min read',
+    tags: ['industrial-valves', 'bellows-seal-gate-valve']
   }
 ];

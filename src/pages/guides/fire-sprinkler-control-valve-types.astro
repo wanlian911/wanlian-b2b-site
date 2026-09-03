@@ -1,0 +1,189 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'Do fire sprinkler control valves need to be UL or FM listed?',
+		answer: 'For most North American and many international projects, the sprinkler control valve must be listed for fire protection service. We supply UL/FM listed gate, butterfly, check, deluge and pre-action valves on request — confirm the listing required by your project specification and destination market before ordering.'
+	},
+	{
+		question: 'What is the difference between an OS&Y and a non-rising stem gate valve for sprinklers?',
+		answer: 'An OS&Y (Outside Screw and Yoke) gate valve has a rising stem, so the stem position visually shows whether the valve is open or closed. Non-rising stem designs hide the stem and need a separate position indicator. Our UL/FM listed OS&Y gate valve combines the rising stem indicator with grooved ends for fast mechanical coupling.'
+	},
+	{
+		question: 'Why does a sprinkler section valve need a tamper switch?',
+		answer: 'A tamper or limit switch sends an electrical signal to the fire alarm panel whenever the valve is closed or partially closed, so the sprinkler system is never left isolated unintentionally — a mandatory safety requirement in NFPA-13-style installations. Signal butterfly valves such as our DN80 grooved wafer model integrate this switch as standard.'
+	},
+	{
+		question: 'Where is a wet alarm check valve installed?',
+		answer: 'The ZSFZ wet alarm check valve is installed at the sprinkler riser of a wet system. It keeps the piping pressurized under normal conditions, and when water flows to a sprinkler it opens the clapper, sounding the hydraulic alarm gong and triggering the pressure switch. An integrated retard chamber prevents false alarms from transient pressure surges.'
+	},
+	{
+		question: 'What size range do Wanlian sprinkler control valves cover?',
+		answer: 'Our UL/FM OS&Y gate valve covers 2" to 10" (DN50-DN250) with grooved ends; signal grooved wafer butterfly valves cover DN50-DN300 at PN16; and wet alarm check valves are available in DN100, DN150 and DN200 at 1.6 MPa. Confirm your riser and section sizes when requesting a quotation.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'what-control-valves-do', label: '1. What Fire Sprinkler Control Valves Do' },
+	{ id: 'osy-gate-valves', label: '2. OS&Y Gate Valves: Monitored Main Isolation' },
+	{ id: 'signal-butterfly-valves', label: '3. Signal Butterfly Valves for Section Control' },
+	{ id: 'check-and-alarm-valves', label: '4. Check Valves and Alarm Valves' },
+	{ id: 'control-valve-comparison', label: '5. Control Valve Comparison Table' },
+	{ id: 'specification-checklist', label: '6. How to Specify: B2B Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM OS&Y Gate Valve (Grooved)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.jpg', desc: 'UL/FM listed rising-stem gate valve, 2"-10", grooved ends' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Signal Grooved Wafer Butterfly Valve', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.jpg', desc: 'DN80 PN16 with integrated tamper switch' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Wet Alarm Check Valve ZSFZ-150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.png', desc: 'DN100-DN200 alarm check valve with retard chamber' },
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Deluge Alarm Valve Group (ZSFM)', img: '/assets/products/deluge-alarm-valve-zsfm.png', desc: 'Diaphragm-operated system control valve, DN50-DN300' }
+];
+---
+
+<Layout
+	title="Fire Sprinkler Control Valve Types: OS&Y, Butterfly & Check Valves | Wanlian Fluid"
+	description="Fire sprinkler control valve types explained: OS&Y gate, signal butterfly and check valves for sprinkler systems — how to specify the right valve with UL/FM listing."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Sprinkler Control Valve Types' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Sprinkler Control Valve Types</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Fire Protection Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Fire Sprinkler Control Valve Types: OS&Y, Butterfly &amp; Check Valves</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">A sprinkler system is only as reliable as its control valves. In short: use a monitored OS&amp;Y gate valve for main isolation, monitored butterfly valves for sections, check valves inside the alarm valve assembly, and a deluge or pre-action valve where the system must stay dry until a fire signal. This guide explains each fire sprinkler control valve type and how to specify it correctly.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="what-control-valves-do" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. What Fire Sprinkler Control Valves Do</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Control valves sit between the water supply and the sprinkler heads. They isolate parts of the system for maintenance, hold water back until it is needed, and — critically — they must <strong>report their open/closed position</strong> so nobody can accidentally shut down fire protection. That monitoring requirement is why the valve types below are not interchangeable with ordinary industrial valves.</p>
+			<p class="text-gray-700 leading-relaxed">When you search for a "fire sprinkler control valve", you are usually looking for one of four things: an OS&amp;Y gate valve for the main supply, a signal butterfly valve for section control, the check/alarm valve assembly at the riser, or a deluge/pre-action valve for special hazard systems. For a full walkthrough of wet, deluge and pre-action valve groups, see our <a href="/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">fire sprinkler system valves guide</a>.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="osy-gate-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. OS&Y Gate Valves: Monitored Main Isolation</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The OS&amp;Y (Outside Screw and Yoke) gate valve is the classic main control valve for sprinkler risers and fire mains. Because the threaded stem is outside the bonnet, the stem rises visibly as the valve opens — anyone walking past can see whether the valve is open, and a supervisory switch on the yoke reports the position to the fire alarm panel.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">For fire protection service the valve should carry a recognized listing. Our <a href="/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM listed resilient seated OS&Y gate valve</a> is supplied with grooved ends from 2" to 10" (DN50-DN250) in nodular cast iron, with a rising stem indicator and EPDM resilient seat for drip-tight closure. Where the project is specified around flanged connections instead, the <a href="/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X ductile iron resilient seat gate valve</a> is the conventional full-bore alternative for main isolation.</p>
+			<p class="text-gray-700 leading-relaxed">Rule of thumb: gate valves open and close slowly (multi-turn) and deliver near-zero pressure loss when fully open — the right choice for a valve that operates rarely but must not restrict flow.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="signal-butterfly-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Signal Butterfly Valves for Section Control</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Where valves are packed into riser rooms, plant rooms or valve manifolds, space is money. A butterfly valve installs with a fraction of the face-to-face length and weight of a gate valve, and its quarter-turn operation makes it easy to actuate. The catch: a plain butterfly valve gives no visual or electrical indication of position, so sprinkler section control uses <strong>signal butterfly valves</strong> with an integrated tamper/limit switch.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Our <a href="/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">DN80 signal grooved wafer butterfly valve</a> is a typical example: DN80 PN16, ductile iron QT450 body, worm gear operator and a waterproof microswitch that reports open/closed status to the alarm panel. The grooved connection lets it bolt into the piping with couplings instead of flanges, cutting installation time on sprinkler branch lines.</p>
+			<p class="text-gray-700 leading-relaxed">When a drawing says "monitored butterfly valve", the tamper switch specification matters — ask for the limit switch type and IP rating so it interfaces cleanly with your alarm panel.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="check-and-alarm-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Check Valves and Alarm Valves</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A wet sprinkler riser is normally held pressurized by a <strong>wet alarm check valve</strong>. The <a href="/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ-150 wet alarm check valve</a> keeps water in the system piping, and the moment a sprinkler opens, flow lifts the clapper, sounding the hydraulic alarm gong and triggering the pressure switch. Its retard chamber absorbs transient pressure surges so the alarm is not tripped by normal supply fluctuations. ZSFZ sizes run DN100/DN150/DN200 at 1.6 MPa.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">For systems that must stay dry until a fire is confirmed — high-hazard occupancies, water-sensitive rooms — the control valve itself becomes a <strong>deluge or pre-action valve</strong>. The <a href="/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM deluge alarm valve</a> holds back the supply under diaphragm pressure and opens instantly on a detection signal to flood every open nozzle, while the ZSFY pre-action system requires two independent signals before it floods the piping.</p>
+			<p class="text-gray-700 leading-relaxed">Ball check valves also appear in pump and supply arrangements where backflow must be prevented; see the <a href="/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">gate valve vs butterfly valve comparison</a> for how isolation and check duties fit together on a fire main.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="control-valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Control Valve Comparison Table</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Valve Type</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Primary Function</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Position Monitoring</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical Location</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">OS&Y gate valve</td>
+							<td class="px-4 py-3 text-gray-700">Main supply isolation</td>
+							<td class="px-4 py-3 text-gray-700">Rising stem + supervisory switch</td>
+							<td class="px-4 py-3 text-gray-700">Riser, fire main, pump discharge</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Signal butterfly valve</td>
+							<td class="px-4 py-3 text-gray-700">Section / floor control</td>
+							<td class="px-4 py-3 text-gray-700">Integrated tamper switch</td>
+							<td class="px-4 py-3 text-gray-700">Branch lines, riser rooms, manifolds</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Wet alarm check valve</td>
+							<td class="px-4 py-3 text-gray-700">Hold pressure, alarm on flow</td>
+							<td class="px-4 py-3 text-gray-700">Clapper + gong + pressure switch</td>
+							<td class="px-4 py-3 text-gray-700">Wet sprinkler riser</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Deluge / pre-action valve</td>
+							<td class="px-4 py-3 text-gray-700">System control for dry-pipe zones</td>
+							<td class="px-4 py-3 text-gray-700">Detection-signal actuated</td>
+							<td class="px-4 py-3 text-gray-700">High-hazard / water-sensitive zones</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Most projects need all four categories — the question is never "gate or butterfly" but "which valve for which location".</p>
+
+			<!-- 章节 6 -->
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. How to Specify: B2B Checklist</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Confirm the listing requirement first</strong> — UL/ULC or FM is mandatory for most North American projects; match the certification to your destination market and valve type before comparing prices.</li>
+				<li><strong>Match the pressure class</strong> — PN16 (1.6 MPa) is standard for sprinkler control valves; confirm the maximum static pressure of your network and specify PN25 if required.</li>
+				<li><strong>Choose the connection style against your pipe schedule</strong> — grooved ends save installation time on steel piping; flanged suits projects already specified around flanges.</li>
+				<li><strong>Spell out the tamper switch spec</strong> — switch type, voltage and IP rating must interface with your fire alarm panel.</li>
+				<li><strong>Request batch test reports</strong> — shell and seat pressure test certificates for the actual production batch, not a generic template.</li>
+				<li><strong>Consolidate the valve package</strong> — ordering OS&Y, butterfly and alarm valves from one manufacturer simplifies certification documentation. Run our <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> before committing to a supplier.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Specifying a Sprinkler Control Valve Package?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send us your riser sizes, connection type and required certification — our engineers reply with datasheets and a quotation within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Sprinkler%20Control%20Valves" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20sprinkler%20control%20valves%20(OS%26Y%2Fbutterfly%2Fcheck)" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
