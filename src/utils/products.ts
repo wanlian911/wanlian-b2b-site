@@ -408,8 +408,8 @@ export const products: Product[] = [
       'Pipes & Trims': 'Stainless Steel / Brass'
     },
     image: '/assets/products/deluge-alarm-valve-zsfm.png?v=20260902',
-    seoTitle: 'ZSFM Deluge Alarm Valve | Diaphragm Type | Wanlian Fluid',
-    seoDescription: 'Diaphragm-operated deluge alarm valve ZSFM. Highly reliable, fast response times. Ideal for deluge, water mist, and foam firefighting system setups.'
+    seoTitle: 'ZSFM Deluge Alarm Valve DN50-DN300 PN16 | Wanlian Fluid',
+    seoDescription: 'ZSFM diaphragm deluge alarm valve, DN50-DN300, PN16, DC24V solenoid. Ductile iron body with alarm gong and pressure switch for deluge, water mist and foam systems.'
   },
   {
     id: '14',
@@ -845,8 +845,8 @@ export const products: Product[] = [
       'Seal Gaskets': 'EPDM / NBR'
     },
     image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg',
-    seoTitle: 'GKZF-1 Groove Solenoid Control Gate Valve | Fire System | Wanlian Fluid',
-    seoDescription: 'Ductile iron 300PSI solenoid control valve GKZF-1. Grooved connection for easy installation. Highly responsive automated fire protection control.'
+    seoTitle: 'GKZF-1 Grooved Solenoid Control Gate Valve 300PSI | Wanlian Fluid',
+    seoDescription: 'GKZF-1 grooved solenoid control gate valve, DN50-DN300, 300 PSI (2.0 MPa), AC220V/DC24V. Ductile iron with grooved ends for automatic municipal and fire water control.'
   },
   {
     id: '29',
