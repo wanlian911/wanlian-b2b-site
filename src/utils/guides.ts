@@ -117,5 +117,14 @@ export const guides: Guide[] = [
     category: 'Valves',
     readTime: '7 min read',
     tags: ['industrial-valves', 'bellows-seal-gate-valve']
+  },
+  {
+    title: 'Pressure Reducing Valve Guide: 500X Hydraulic PRV & Water Supply Valves (2026)',
+    description: 'How self-operated hydraulic pressure reducing valves work, 500X PRV vs F745X level control vs 100X remote float valve, installation and a B2B specification checklist for water supply networks.',
+    href: '/guides/pressure-reducing-valve-guide/',
+    date: '2026-09',
+    category: 'Hydraulic Safety',
+    readTime: '8 min read',
+    tags: ['backflow-prevention', 'industrial-valves']
   }
 ];

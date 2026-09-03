@@ -1,0 +1,202 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'How does a hydraulic pressure reducing valve work without electricity?',
+		answer: 'A self-operated hydraulic PRV uses a pilot valve plus the line pressure itself as the driving force. The pilot senses downstream pressure: when it rises above the set point the pilot closes slightly, pressure builds in the diaphragm chamber and the main valve throttles down; when it drops, the pilot vents the chamber and the main valve opens wider. No external power source is needed.'
+	},
+	{
+		question: 'What downstream pressure range can the 500X pressure reducing valve hold?',
+		answer: 'The Wanlian 500X hydraulic adjustable pressure reducing valve covers DN20-DN600 (3/4" to 24") with downstream pressure adjustable from 0.1 MPa to 1.6 MPa. The valve body is rated 1.0 MPa, 1.6 MPa or 2.5 MPa nominal pressure, so state your inlet pressure and required set pressure when requesting a quotation.'
+	},
+	{
+		question: 'What is the difference between a 500X pressure reducing valve and an F745X level control valve?',
+		answer: 'A 500X pressure reducing valve keeps downstream pressure constant regardless of flow fluctuations. An F745X hydraulic water level control valve instead maintains a preset water level in a reservoir, tank or water tower, using a float pilot to open and close the main valve as the level changes. Both are self-operated hydraulic control valves with no external power.'
+	},
+	{
+		question: 'When should I choose the F745X over the 100X-16P remote float valve?',
+		answer: 'The F745X (DN50-DN400, 1.0/1.6 MPa, ductile iron QT450-10) is the standard choice for large reservoirs and water towers. The 100X-16P remote control float valve (DN40-DN300, 0-1.0 MPa) has a cast stainless steel CF8 body, which suits corrosive media, higher hygiene requirements or seawater-adjacent installations, and can be operated remotely with a float pilot control.'
+	},
+	{
+		question: 'Why is a Y-strainer recommended upstream of hydraulic control valves?',
+		answer: 'Hydraulic control valves are pilot-operated, and their pilot ports and needle valves are sensitive to particulates. The SGL41H telescopic Y-strainer is installed at the inlet of the valve to filter impurities, with stainless steel 304/316 screens (18-30 mesh for water). Its integrated telescopic joint lets you remove the valve for maintenance without cutting the pipeline.'
+	},
+	{
+		question: 'Do slow-closing hydraulic valves help prevent water hammer?',
+		answer: 'Yes. The 500X and F745X are designed with smooth, slow-closing action so the valve does not slam shut when flow stops, which avoids destructive pressure surges and water hammer in the network. For pump suction lines, add an EN12845 suction vortex preventer to stop air entrainment that can cause cavitation and pressure spikes.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'what-is-hydraulic-prv', label: '1. What Is a Hydraulic Pressure Reducing Valve?' },
+	{ id: 'how-pilot-prv-works', label: '2. How a Self-Operated 500X PRV Works' },
+	{ id: 'hydraulic-control-valve-comparison', label: '3. PRV vs Level Control vs Float Valve' },
+	{ id: 'typical-applications', label: '4. Where Each Valve Belongs' },
+	{ id: 'installation-and-protection', label: '5. Installation & Protection' },
+	{ id: 'specification-checklist', label: '6. B2B Specification Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: '500X Hydraulic Pressure Reducing Valve', img: '/assets/products/adjustable-pressure-reducing-valve-500x.jpg', desc: 'DN20-DN600, 0.1-1.6 MPa adjustable' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'F745X Hydraulic Level Control Valve', img: '/assets/products/adjustable-pressure-reducing-valve-500x.jpg', desc: 'DN50-DN400 float pilot, tank level control' },
+	{ slug: 'remote-control-float-valve-100x', name: '100X-16P Remote Float Valve (CF8)', img: '/assets/products/remote-control-float-valve-100x.png', desc: 'Stainless steel, DN40-DN300, 0-1.0 MPa' },
+	{ slug: 'groove-solenoid-control-gate-valve-gkzf1', name: 'GKZF-1 Solenoid Control Gate Valve', img: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg', desc: 'DN50-DN300, AC220V/DC24V, 300 PSI' }
+];
+---
+
+<Layout
+	title="Pressure Reducing Valve Guide: 500X Hydraulic PRV & Water Supply Valves | Wanlian Fluid"
+	description="How hydraulic pressure reducing valves work, when to choose 500X PRV, F745X level control or 100X float valve, plus a B2B specification checklist for water supply."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Pressure Reducing Valve Guide' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Pressure Reducing Valve Guide</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Hydraulic Control Valve Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Pressure Reducing Valve Guide: 500X Hydraulic PRV &amp; Water Supply Control Valves</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a hydraulic pressure reducing valve is a self-operated, pilot-controlled valve that holds a steady downstream pressure using only line pressure — no electricity. For water supply networks you typically choose between a 500X pressure reducing valve (constant downstream pressure), an F745X level control valve (constant tank level) and a 100X remote float valve (compact stainless steel option). This guide explains how each works and how to specify them.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="what-is-hydraulic-prv" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. What Is a Hydraulic Pressure Reducing Valve?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A hydraulic pressure reducing valve (PRV) is a self-operated control valve that reduces a higher, fluctuating inlet pressure to a steady lower downstream pressure. It is called hydraulic because the valve is driven entirely by the pipeline pressure through a pilot system — there is no solenoid, motor or control cabinet involved. That makes it a low-cost, high-reliability building block for water supply zones, booster stations, irrigation networks and process water lines.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The classic example is the <a href="/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">500X hydraulic adjustable pressure reducing valve</a>: a ductile iron (QT450-10) main valve with a forged brass pilot, covering DN20-DN600 with downstream pressure adjustable from 0.1 MPa to 1.6 MPa. The main valve body is available at 1.0 MPa, 1.6 MPa or 2.5 MPa nominal pressure, and the design conforms to ANSI, JIS and GB standards.</p>
+			<p class="text-gray-700 leading-relaxed">The diaphragm assembly is nylon-reinforced EPDM and the internal stem is stainless steel 304, with copper or stainless steel pilot tubing — the material choices that determine whether a PRV still holds its set point after years of duty.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="how-pilot-prv-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. How a Self-Operated 500X PRV Works</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The 500X is a diaphragm-type globe valve with an adjustable pilot mounted on top. The pilot continuously senses the downstream pressure through a sensing line. When downstream pressure rises above the set point, the pilot throttles closed, pressure builds in the diaphragm chamber and the main valve moves toward closed. When downstream pressure falls below the set point, the pilot opens further, the chamber vents and the main valve opens wider. The valve therefore modulates continuously to hold the set pressure regardless of flow or inlet pressure variation.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Because the valve is completely self-operated, it keeps regulating even during a power failure — an important property for fire water and municipal networks where a pressure loss could be critical. The smooth, slow-closing characteristic also avoids high pressure surges and water hammer when flow stops, which is why hydraulic control valves are frequently preferred over fast-acting electric valves on large mains.</p>
+			<p class="text-gray-700 leading-relaxed">For projects where remote electric control is genuinely required rather than continuous modulation, a solenoid-operated unit such as the <a href="/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">GKZF-1 grooved solenoid control gate valve</a> (AC220V/DC24V, DN50-DN300, 300 PSI) provides automatic open/close on command while the PRV handles steady pressure control.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="hydraulic-control-valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. PRV vs Level Control vs Float Valve</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Hydraulic control valves share the same self-operated pilot principle but regulate different process variables. The table below compares the three most common duties in water supply.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Comparison</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">500X PRV</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">F745X Level Control</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">100X-16P Float Valve</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">What it controls</td>
+							<td class="px-4 py-3 text-gray-700">Downstream pressure</td>
+							<td class="px-4 py-3 text-gray-700">Water level in tank/reservoir</td>
+							<td class="px-4 py-3 text-gray-700">Water level (remote float pilot)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Size range</td>
+							<td class="px-4 py-3 text-gray-700">DN20 - DN600</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN400</td>
+							<td class="px-4 py-3 text-gray-700">DN40 - DN300</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pressure rating</td>
+							<td class="px-4 py-3 text-gray-700">1.0 / 1.6 / 2.5 MPa; set 0.1-1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">1.0 / 1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">0 - 1.0 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Body material</td>
+							<td class="px-4 py-3 text-gray-700">Ductile iron QT450-10 / cast steel</td>
+							<td class="px-4 py-3 text-gray-700">Ductile iron QT450-10</td>
+							<td class="px-4 py-3 text-gray-700">Cast stainless steel CF8</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typical duty</td>
+							<td class="px-4 py-3 text-gray-700">Pressure zones, booster discharge</td>
+							<td class="px-4 py-3 text-gray-700">Reservoirs, tanks, water towers</td>
+							<td class="px-4 py-3 text-gray-700">Corrosive/hygiene-critical tanks</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">If your project needs pressure regulation plus tank filling, the standard architecture is a 500X PRV on the supply line feeding an F745X or 100X float valve at the tank inlet — each valve doing the duty it is designed for.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="typical-applications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Where Each Valve Belongs</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Pressure reducing (500X):</strong> anywhere a high-pressure main feeds a lower-pressure zone — district metered areas, high-rise booster discharge, irrigation headers and process water. Set the downstream pressure once and the valve holds it across the daily demand curve.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Level control (F745X):</strong> the <a href="/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">F745X hydraulic water level control valve</a> automatically maintains a preset level in reservoirs, water tanks and water towers using a float pilot, preventing overflow and extremely low levels. It is driven entirely by pipeline pressure and closes slowly, so it suits large storage where a sudden shut-off would hammer the network.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Remote float (100X):</strong> the <a href="/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">100X-16P remote control float valve</a> does the same job in cast stainless steel (CF8), covering DN40-DN300 at 0-1.0 MPa with a working temperature range of -50°C to 100°C — the specification for tanks holding corrosive or high-purity water, or for coastal plants where rust is the enemy.</p>
+			<p class="text-gray-700 leading-relaxed">For any of these valves serving a potable water network, place an <a href="/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">HS41X anti-pollution backflow preventer</a> at the connection point so tank contents can never flow backwards into the drinking water main — see our <a href="/guides/backflow-prevention-guide/" class="text-brand-blue font-semibold hover:underline">backflow prevention guide</a> for the full cross-connection control picture.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="installation-and-protection" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Installation &amp; Protection</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Hydraulic control valves are only as reliable as their pilot system, and pilot ports are sensitive to particulates. Install a strainer at the valve inlet: the <a href="/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">SGL41H telescopic Y-strainer</a> is designed specifically to protect hydraulic water control valves and precision machinery, combining the strainer and an expansion joint in one body so the valve can be removed for service without cutting the pipeline. Filter screens are stainless steel 304/316, with 18-30 mesh for water duty.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Fit an isolation gate valve upstream and downstream of the control valve so the unit can be bypassed and maintained without draining the network. On pump-fed systems, protect the suction side as well: an EN12845 suction vortex preventer mounted at the pump suction eliminates vortexing and air entrainment, which prevents cavitation and the pressure spikes that damage both pumps and control valves.</p>
+			<p class="text-gray-700 leading-relaxed">Confirm orientation and space before ordering — flanged hydraulic control valves need straight access for the pilot tubing and room for the isolation valves. DN and end connection (ANSI/JIS/GB flange drilling) must be stated on the datasheet.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. B2B Specification Checklist</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Define the controlled variable</strong> — downstream pressure (500X PRV), tank level (F745X / 100X), or electric on/off (GKZF-1 solenoid gate valve). A single line often needs two: a PRV feeding a level control valve at the tank.</li>
+				<li><strong>State size and pressure</strong> — DN20-DN600 for the 500X with nominal pressure 1.0/1.6/2.5 MPa; DN50-DN400 at 1.0/1.6 MPa for the F745X; DN40-DN300 at 0-1.0 MPa for the 100X-16P. Confirm inlet pressure and required set pressure (500X adjusts 0.1-1.6 MPa).</li>
+				<li><strong>Choose body material by media</strong> — ductile iron QT450-10 for clean water; cast stainless steel CF8 (100X-16P) for corrosive or hygiene-critical service.</li>
+				<li><strong>Nominate the connection standard</strong> — ANSI, JIS or GB flange drilling must match your pipeline; state it explicitly in the enquiry.</li>
+				<li><strong>Add protection accessories</strong> — SGL41H telescopic Y-strainer at the inlet, isolation gate valves, and an HS41X backflow preventer on potable connections; EN12845 suction vortex preventers on pump suctions.</li>
+				<li><strong>Verify the supplier first</strong> — pilot quality is invisible in photos. Require batch shell/seat test reports and material certificates, and run our <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> before committing to a manufacturer.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need Pressure Reducing or Hydraulic Control Valves?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Tell us your DN, pressure rating, set pressure and connection standard — our engineers confirm the pilot configuration and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Pressure%20Reducing%20Valve%20500X" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20pressure%20reducing%20valves%20for%20water%20supply" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
