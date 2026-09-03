@@ -14,6 +14,7 @@ export interface Product {
   image: string;
   seoTitle: string;
   seoDescription: string;
+  faqs?: { question: string; answer: string }[];
 }
 
 export const products: Product[] = [
@@ -409,7 +410,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/deluge-alarm-valve-zsfm.png?v=20260902',
     seoTitle: 'ZSFM Deluge Alarm Valve DN50-DN300 PN16 | Wanlian Fluid',
-    seoDescription: 'ZSFM diaphragm deluge alarm valve, DN50-DN300, PN16, DC24V solenoid. Ductile iron body with alarm gong and pressure switch for deluge, water mist and foam systems.'
+    seoDescription: 'ZSFM diaphragm deluge alarm valve, DN50-DN300 PN16, DC24V solenoid. Ductile iron body with alarm gong and pressure switch. Factory quotation on request.',
+    faqs: [
+      { question: 'How does the ZSFM deluge alarm valve keep the system closed until a fire is detected?', answer: 'The ZSFM is a diaphragm-type valve that stays closed under system pressure through diaphragm pressure balance. When a fire detection network sends a signal, the diaphragm chamber pressure is released and the valve opens instantly, flooding every open nozzle in the deluge zone.' },
+      { question: 'What size range and pressure ratings does the ZSFM cover?', answer: 'The ZSFM deluge alarm valve group covers DN50 to DN300 with a working pressure of 1.6 MPa and a testing pressure of 3.2 MPa (shell test 6.4 MPa). Flanged and grooved connections are both available.' },
+      { question: 'Which remote triggers can open the ZSFM deluge valve?', answer: 'The valve supports mechanical, pneumatic and electrical remote triggers. The electrical option uses a DC24V / 0.5A solenoid pilot, so the valve group can be integrated with most fire alarm control panels.' },
+      { question: 'What does the complete ZSFM deluge alarm valve group include?', answer: 'The group includes the ductile iron (QT450-10) main valve with a nylon-reinforced NBR diaphragm, a hydraulic alarm gong, a pressure feedback switch, and stainless steel or brass trims for alarm and discharge connections.' }
+    ]
   },
   {
     id: '14',
@@ -523,7 +530,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/foam-fire-hydrant-cabinet-psg30.png?v=20260902',
     seoTitle: 'PSG30 Foam Fire Hydrant Cabinet | 3% AFFF | Wanlian Fluid',
-    seoDescription: 'PSG30 foam fire hydrant cabinet with 3% AFFF tank, effective against Class B fuel and chemical fires. Factory direct from Wanlian Fluid China.'
+    seoDescription: 'PSG30 foam fire hydrant cabinet with 3% AFFF tank, effective against Class B fuel and chemical fires. Factory direct from Wanlian Fluid China.',
+    faqs: [
+      { question: 'What is the PSG30 foam fire hydrant cabinet?', answer: 'The PSG30 is a wall-mounted, low-expansion foam firefighting unit that packages a foam concentrate storage tank, proportioner, hose reel and foam nozzle in one cabinet, giving immediate response to fuel, chemical and solvent fires.' },
+      { question: 'What foam type and performance does the PSG30 use?', answer: 'The cabinet works with 3% AFFF (aqueous film forming foam) concentrate, with a foam expansion ratio of at least 4.5, a jet range of at least 6 meters and a working pressure of 0.5 to 0.8 MPa.' },
+      { question: 'Which types of fires is the PSG30 designed for?', answer: 'It is designed for Class B fires involving fuels, chemicals and solvents, where foam smothers the fire faster than water alone.' },
+      { question: 'How long is the PSG30 hose reel and what materials are used?', answer: 'The hose reel is flexible and can be customized up to 30 meters. The cabinet housing is cold-rolled carbon steel with anti-UV red powder coating; the foam tank is HDPE or fiberglass, and the proportioner and nozzle are brass alloy or heavy-duty aluminum.' }
+    ]
   },
   {
     id: '18',
@@ -846,7 +859,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg',
     seoTitle: 'GKZF-1 Grooved Solenoid Control Gate Valve 300PSI | Wanlian Fluid',
-    seoDescription: 'GKZF-1 grooved solenoid control gate valve, DN50-DN300, 300 PSI (2.0 MPa), AC220V/DC24V, ductile iron, ideal for municipal and fire water control systems.'
+    seoDescription: 'GKZF-1 grooved solenoid control gate valve, DN50-DN300, 300 PSI (2.0 MPa), AC220V/DC24V, ductile iron, ideal for municipal and fire water control systems.',
+    faqs: [
+      { question: 'What is the GKZF-1 grooved solenoid control gate valve used for?', answer: 'The GKZF-1 is a ductile iron gate valve with an integrated solenoid pilot control, designed for automatic water flow control in municipal water supply and firefighting networks.' },
+      { question: 'What sizes and pressure ratings are available for the GKZF-1?', answer: 'The GKZF-1 covers DN50 to DN300 (2 inch to 12 inch) with a working pressure of 300 PSI (2.0 MPa). The body is ductile iron QT450 with a fully EPDM-encapsulated wedge.' },
+      { question: 'What solenoid voltage options does the GKZF-1 support?', answer: 'The solenoid pilot is available in AC220V or DC24V, allowing direct integration with building, municipal or firefighting control systems.' },
+      { question: 'Why choose grooved connections for the GKZF-1?', answer: 'Grooved ends enable fast, flexible and cost-saving installation compared with flanged joints. The valve is also available with flanged ends for projects that require them.' }
+    ]
   },
   {
     id: '29',

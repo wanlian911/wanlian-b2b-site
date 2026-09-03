@@ -80,7 +80,8 @@ const categoryInfo: Record<string, { applications: string[]; testing: string }> 
   }
 };
 
-const faqs = faqByCategory[product.category] || [];
+// 产品级 FAQ 优先，其次按分类生成通用采购 FAQ
+const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
 const info = categoryInfo[product.category];
 const relatedProducts = products.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 4);
 ---
