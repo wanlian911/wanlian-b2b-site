@@ -162,5 +162,23 @@ export const guides: Guide[] = [
     category: 'Procurement',
     readTime: '9 min read',
     tags: ['procurement', 'fire-hydrant', 'industrial-valves']
+  },
+  {
+    title: 'How to Verify a Chinese Valve & Fire-Equipment Supplier in 2026',
+    description: '5-step supplier verification checklist for 2026: ISO 9001 validity checks, standard-matched test reports, third-party inspection, counterfeit red flags and import documentation.',
+    href: '/guides/how-to-verify-chinese-valve-supplier/',
+    date: '2026-09',
+    category: 'Procurement',
+    readTime: '7 min read',
+    tags: ['procurement', 'certification']
+  },
+  {
+    title: 'Fire Hydrant, Fire Hose & Valve Standards Explained: AWWA, NFPA, EN & ISO',
+    description: 'Standards guide for fire hydrant, fire hose and valve buyers: AWWA C502/C515, NFPA 1961, EN 14384, BS 750, EN 1074 and ISO 5208 — with a 5-check process for buying compliant equipment from China.',
+    href: '/guides/fire-hydrant-valve-standards-guide/',
+    date: '2026-09',
+    category: 'Fire Protection',
+    readTime: '8 min read',
+    tags: ['fire-protection', 'procurement']
   }
 ];

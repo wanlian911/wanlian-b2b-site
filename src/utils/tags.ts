@@ -15,7 +15,7 @@ export const tags: Tag[] = [
     name: 'Fire Protection',
     seoTitle: 'Fire Protection Equipment & Systems: Valves, Hydrants & Sprinklers | Wanlian Fluid',
     description: 'The complete Wanlian fire protection range — hydrants, sprinkler system valves, fire hose reels and cabinets, portable extinguishers and fire water cannons — with buying guides and certification guidance for B2B projects.',
-    guideHrefs: ['/guides/how-to-choose-a-fire-hydrant/', '/guides/fire-sprinkler-system-valves-guide/', '/guides/fire-sprinkler-system-wet-dry-preaction/', '/guides/fire-sprinkler-control-valve-types/', '/guides/fire-hose-reel-cabinet-guide/', '/guides/fire-water-monitor-selection-guide/', '/guides/fire-water-cannon-buying-guide/', '/guides/how-to-choose-ul-listed-fire-valves/', '/guides/gate-valve-vs-butterfly-valve-fire-protection/', '/guides/fire-extinguisher-selection-guide/', '/guides/fire-hose-buying-guide/'],
+    guideHrefs: ['/guides/how-to-choose-a-fire-hydrant/', '/guides/fire-sprinkler-system-valves-guide/', '/guides/fire-sprinkler-system-wet-dry-preaction/', '/guides/fire-sprinkler-control-valve-types/', '/guides/fire-hose-reel-cabinet-guide/', '/guides/fire-water-monitor-selection-guide/', '/guides/fire-water-cannon-buying-guide/', '/guides/how-to-choose-ul-listed-fire-valves/', '/guides/gate-valve-vs-butterfly-valve-fire-protection/', '/guides/fire-extinguisher-selection-guide/', '/guides/fire-hose-buying-guide/', '/guides/fire-hydrant-valve-standards-guide/'],
     productSlugs: ['indoor-fire-hydrant-head-sn65', 'overground-fire-hydrant-ss100', 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', 'iot-smart-ground-fire-hydrant-ss100zn', 'fire-hydrant-hose-coupling-adapter-hs', 'sqd100-1-6-fire-pump-adapter', 'glass-bulb-fire-sprinkler-zst', 'horizontal-sidewall-fire-sprinkler-t-zstbs', 'zstdy-concealed-fire-sprinkler', 'wet-alarm-check-valve-zsfz-150', 'deluge-alarm-valve-zsfm', 'pre-action-alarm-system-zsfy', 'water-flow-indicator-zsjz', 'manual-fire-water-cannon-ps', 'auto-tracking-jet-suppression-cannon-zdms', 'fire-hose-reel-jpso8-19', 'foam-fire-hydrant-cabinet-psg30', 'fire-hose-pvc-rubber-lining-8-65', 'adjustable-pistol-grip-fire-nozzle', 'storz-coupling-2-5inch-aluminum', 'abc-dry-powder-fire-extinguisher-5kg', 'stainless-steel-fire-extinguisher-box', 'metal-fire-extinguisher-box-red', 'signal-grooved-wafer-butterfly-valve-dn80', 'ul-fm-resilient-seat-osy-gate-valve', 'd381x-16q-grooved-butterfly-valve', 'groove-solenoid-control-gate-valve-gkzf1', 'suction-vortex-preventer-en12845'],
     relatedTags: ['fire-hydrant', 'sprinkler-systems', 'fire-water-cannon', 'fire-hose-reel', 'certification', 'procurement']
   },
@@ -24,7 +24,7 @@ export const tags: Tag[] = [
     name: 'Fire Hydrants',
     seoTitle: 'Fire Hydrants: Types, Standards & Selection | Wanlian Fluid',
     description: 'Indoor SN65 hydrant heads, overground SS100 hydrants, anti-collision SSFT100 and IoT smart hydrants for municipal and industrial fire protection networks.',
-    guideHrefs: ['/guides/how-to-choose-a-fire-hydrant/', '/guides/wanlian-fluid-vs-american-avk/'],
+    guideHrefs: ['/guides/how-to-choose-a-fire-hydrant/', '/guides/wanlian-fluid-vs-american-avk/', '/guides/fire-hydrant-valve-standards-guide/'],
     productSlugs: ['indoor-fire-hydrant-head-sn65', 'overground-fire-hydrant-ss100', 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', 'iot-smart-ground-fire-hydrant-ss100zn', 'fire-hydrant-hose-coupling-adapter-hs'],
     relatedTags: ['fire-protection', 'procurement', 'fire-hose-reel']
   },
@@ -78,7 +78,7 @@ export const tags: Tag[] = [
     name: 'Certification & Compliance',
     seoTitle: 'UL, FM, CE Valve Certification Guide | Wanlian Fluid',
     description: 'Understanding UL/FM/CE/LPCB certification for fire valves and hydrants, verifying genuine certificates, and compliance requirements for export markets.',
-    guideHrefs: ['/guides/how-to-choose-ul-listed-fire-valves/', '/guides/b2b-valve-sourcing-checklist/'],
+    guideHrefs: ['/guides/how-to-choose-ul-listed-fire-valves/', '/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-verify-chinese-valve-supplier/'],
     productSlugs: [],
     relatedTags: ['fire-protection', 'procurement']
   },
@@ -87,7 +87,7 @@ export const tags: Tag[] = [
     name: 'B2B Procurement',
     seoTitle: 'B2B Valve & Fire Equipment Sourcing Checklist | Wanlian Fluid',
     description: 'Factory verification, certificate checking, batch test reports, sample policies and red flags when sourcing valves and fire protection equipment from China.',
-    guideHrefs: ['/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-choose-a-fire-hydrant/', '/guides/wanlian-fluid-vs-american-avk/'],
+    guideHrefs: ['/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-choose-a-fire-hydrant/', '/guides/wanlian-fluid-vs-american-avk/', '/guides/how-to-verify-chinese-valve-supplier/', '/guides/fire-hydrant-valve-standards-guide/'],
     productSlugs: [],
     relatedTags: ['certification', 'industrial-valves']
   },
