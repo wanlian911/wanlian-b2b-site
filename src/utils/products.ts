@@ -55,8 +55,8 @@ export const products: Product[] = [
         ['300', '420', '440', '400', '368', '12-Φ23']
       ]
     },
-    image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.jpg',
-    seoTitle: 'Z41X Resilient Seat Gate Valve | UL Listed Ductile Iron | Wanlian Fluid',
+    image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp',
+    seoTitle: 'Z41X Resilient Seat Gate Valve | UL Listed Ductile Iron',
     seoDescription: 'Ductile iron resilient seat gate valve Z41X: low pressure drop, bubble-tight seal for industrial fluid systems. Factory price from Quanzhou Wanlian Fluid.'
   },
   {
@@ -86,7 +86,7 @@ export const products: Product[] = [
       'Coupling Interface': 'Anodized Aluminum / Brass'
     },
     image: '/assets/products/indoor-fire-hydrant-head-sn65.jpg',
-    seoTitle: 'SN65 Indoor Fire Hydrant Valve | Factory Price Supplier | Wanlian Fluid',
+    seoTitle: 'SN65 Indoor Fire Hydrant Valve | Factory Price Supplier',
     seoDescription: 'Ductile iron SN65 indoor fire hydrant head for fire protection pipelines: 1.6 MPa rating, grooved or flanged connections. Factory direct from Wanlian.'
   },
   {
@@ -115,8 +115,8 @@ export const products: Product[] = [
       'Alarm Gong': 'Aluminum Alloy / Copper',
       'Fittings & Pipes': 'Galvanized Steel / Brass'
     },
-    image: '/assets/products/wet-alarm-check-valve-zsfz-150.png',
-    seoTitle: 'ZSFZ-150 Wet Alarm Check Valve | Sprinkler System | Wanlian Fluid',
+    image: '/assets/products/wet-alarm-check-valve-zsfz-150.webp',
+    seoTitle: 'ZSFZ-150 Wet Alarm Check Valve | Sprinkler System',
     seoDescription: 'ZSFZ-150 wet alarm check valve for automatic fire sprinkler systems: durable ductile iron, fast alarm response, high reliability. Factory direct from China.'
   },
   {
@@ -145,8 +145,8 @@ export const products: Product[] = [
       'Gear Operator': 'Cast Iron / Spheroidal Iron',
       'Microswitch': 'Highly Conductive Waterproof Microswitch'
     },
-    image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.jpg',
-    seoTitle: 'DN80 Signal Wafer Butterfly Valve | PN16 Fire System | Wanlian Fluid',
+    image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
+    seoTitle: 'DN80 Signal Wafer Butterfly Valve | PN16 Fire System',
     seoDescription: 'Ductile Iron QT450 Signal Wafer Butterfly Valve. Perfect for firefighting water system control. Integrated monitoring switch, smooth worm gear operation.'
   },
   {
@@ -174,8 +174,8 @@ export const products: Product[] = [
       'Guides/Slides': 'Integrated Spheroidal Slices',
       'Bonnet Gasket': 'EPDM / High Temperature Asbestos'
     },
-    image: '/assets/products/spherical-ball-check-valve-hq44x.jpg',
-    seoTitle: 'HQ41X Sliding Ball Check Valve | Low Pressure Loss | Wanlian Fluid',
+    image: '/assets/products/spherical-ball-check-valve-hq44x.webp',
+    seoTitle: 'HQ41X Sliding Ball Check Valve | Low Pressure Loss',
     seoDescription: 'Reliable sliding ball check valve HQ41X for sewage and water pipelines. Low head loss, non-clogging rolling ball design, quiet closing.'
   },
   {
@@ -204,8 +204,8 @@ export const products: Product[] = [
       'Float Pilot Valve': 'Solid Brass Alloy',
       'Needle & Ball Valves': 'Stainless Steel / Brass'
     },
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.jpg',
-    seoTitle: 'F745X Hydraulic Level Control Valve | Float Pilot | Wanlian Fluid',
+    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp',
+    seoTitle: 'F745X Hydraulic Level Control Valve | Float Pilot',
     seoDescription: 'Automatic float pilot level control valve F745X for water reservoirs and tanks. Smooth closing, no water hammer. High durability, easy maintenance.'
   },
   {
@@ -233,8 +233,8 @@ export const products: Product[] = [
       'Electrodes': 'Stainless Steel 316L / Hastelloy C',
       'Enclosure Converter': 'Die-cast Aluminum Alloy IP65/IP67'
     },
-    image: '/assets/products/smart-electromagnetic-flow-meter.png?v=20260902',
-    seoTitle: 'Electromagnetic Flow Meter Supplier | Digital MODBUS | Wanlian Fluid',
+    image: '/assets/products/smart-electromagnetic-flow-meter.webp',
+    seoTitle: 'Electromagnetic Flow Meter Supplier | Digital MODBUS',
     seoDescription: 'Digital high accuracy electromagnetic flow meters for water, sewage, and conductive industrial fluid measurement. MODBUS communication supported.'
   },
   {
@@ -263,8 +263,8 @@ export const products: Product[] = [
       'Stem Seals': 'NBR / Graphite',
       'Telescopic Bolts': 'Medium Carbon Steel Zinc Plated'
     },
-    image: '/assets/products/telescopic-y-strainer-sgl41h.png?v=20260902',
-    seoTitle: 'SGL41H Telescopic Y Strainer | SS304 Screen | Wanlian Fluid',
+    image: '/assets/products/telescopic-y-strainer-sgl41h.webp',
+    seoTitle: 'SGL41H Telescopic Y Strainer | SS304 Screen',
     seoDescription: 'Integrated Telescopic Y Strainer SGL41H for industrial water and HVAC pipelines. Easy maintenance, solid SS304 screen. Buy directly from China factory.'
   },
   {
@@ -293,8 +293,8 @@ export const products: Product[] = [
       'Springs': 'Stainless Steel 304',
       'Caps & Interfaces': 'Anodized Aluminum Alloy / Brass'
     },
-    image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.png',
-    seoTitle: 'SSFT100 Anti-Collision Outdoor Fire Hydrant | Pressure Regulating | Wanlian Fluid',
+    image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp',
+    seoTitle: 'SSFT100 Anti-Collision Outdoor Fire Hydrant | Pressure Regulating',
     seoDescription: 'SSFT100 anti-collision, pressure-regulating fire hydrant with double safety shut-off for municipal and industrial fire protection. Factory price from Wanlian.'
   },
   {
@@ -321,8 +321,8 @@ export const products: Product[] = [
       'Water Probe / Sensor': 'Stainless Steel 316',
       'Lower Stem / Valve Seat': 'Stainless Steel / Brass'
     },
-    image: '/assets/products/overground-fire-hydrant-ss100.png',
-    seoTitle: 'SS100ZN Smart IoT Fire Hydrant | Real-Time Monitoring | Wanlian Fluid',
+    image: '/assets/products/overground-fire-hydrant-ss100.webp',
+    seoTitle: 'SS100ZN Smart IoT Fire Hydrant | Real-Time Monitoring',
     seoDescription: 'IoT smart fire hydrant monitoring system. Real-time water pressure, tilt and water theft detection. Perfect for smart municipal fire system integration.'
   },
   {
@@ -350,8 +350,8 @@ export const products: Product[] = [
       'Sealing Element': 'Stainless Steel O-Ring with Teflon Layer',
       'Deflector/Splat': 'Copper Alloy / Stainless Steel'
     },
-    image: '/assets/products/glass-bulb-fire-sprinkler-zst.png?v=20260902',
-    seoTitle: 'ZST Glass Bulb Fire Sprinkler Head | Automatic | Wanlian Fluid',
+    image: '/assets/products/glass-bulb-fire-sprinkler-zst.webp',
+    seoTitle: 'ZST Glass Bulb Fire Sprinkler Head | Automatic',
     seoDescription: 'Glass bulb automatic fire sprinklers ZST series. High sensitivity, corrosion resistant brass frame. Factory price from Wanlian China.'
   },
   {
@@ -379,8 +379,8 @@ export const products: Product[] = [
       'Sensor Enclosure': 'Anti-UV High Strength Engineered ABS IP66',
       'Nozzle Head': 'Stainless Steel 316'
     },
-    image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.png?v=20260902',
-    seoTitle: 'ZDMS Automatic Tracking Fire Water Cannon | IR/UV Detection | Wanlian Fluid',
+    image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp',
+    seoTitle: 'ZDMS Automatic Tracking Fire Water Cannon | IR/UV Detection',
     seoDescription: 'Smart auto-tracking fire monitor ZDMS. Multi-band IR/UV flame detection, rapid autonomous suppression. Best choice for large spatial indoor protection.'
   },
   {
@@ -408,8 +408,8 @@ export const products: Product[] = [
       'Solenoid Pilot': 'Solid Brass / Stainless Steel 304',
       'Pipes & Trims': 'Stainless Steel / Brass'
     },
-    image: '/assets/products/deluge-alarm-valve-zsfm.png?v=20260902',
-    seoTitle: 'ZSFM Deluge Alarm Valve DN50-DN300 PN16 | Wanlian Fluid',
+    image: '/assets/products/deluge-alarm-valve-zsfm.webp',
+    seoTitle: 'ZSFM Deluge Alarm Valve DN50-DN300 PN16',
     seoDescription: 'ZSFM diaphragm deluge alarm valve, DN50-DN300 PN16, DC24V solenoid. Ductile iron body with alarm gong and pressure switch. Factory quotation on request.',
     faqs: [
       { question: 'How does the ZSFM deluge alarm valve keep the system closed until a fire is detected?', answer: 'The ZSFM is a diaphragm-type valve that stays closed under system pressure through diaphragm pressure balance. When a fire detection network sends a signal, the diaphragm chamber pressure is released and the valve opens instantly, flooding every open nozzle in the deluge zone.' },
@@ -444,7 +444,7 @@ export const products: Product[] = [
       'Trim Pack': 'Galvanized Piping / Copper Alloys'
     },
     image: '/assets/products/pre-action-alarm-system-zsfy.jpg',
-    seoTitle: 'ZSFY Pre-Action Alarm Valve System | Dual Protection | Wanlian Fluid',
+    seoTitle: 'ZSFY Pre-Action Alarm Valve System | Dual Protection',
     seoDescription: 'High safety Pre-action sprinkler valve group ZSFY. Dual-trigger failsafe design. Prevents water damage in museums, archives and data centers.'
   },
   {
@@ -470,8 +470,8 @@ export const products: Product[] = [
       'Internal Support Legs': 'Stainless Steel 304',
       'Fasteners & Bolts': 'Stainless Steel 304'
     },
-    image: '/assets/products/suction-vortex-preventer-en12845.png?v=20260902',
-    seoTitle: 'EN12845 Suction Vortex Preventer | SS304/SS316 | Wanlian Fluid',
+    image: '/assets/products/suction-vortex-preventer-en12845.webp',
+    seoTitle: 'EN12845 Suction Vortex Preventer | SS304/SS316',
     seoDescription: 'High efficiency SS304/SS316 Suction Vortex Preventer EN12845. Eliminates vortexes, protects water pumps from cavitation, increases tank capacity utilization.'
   },
   {
@@ -499,8 +499,8 @@ export const products: Product[] = [
       'Intermediate Drain Valve': 'Solid Brass / Stainless Steel 304',
       'Main Springs': 'Stainless Steel 304'
     },
-    image: '/assets/products/anti-pollution-backflow-preventer-hs41x.png?v=20260902',
-    seoTitle: 'HS41X Anti-Pollution Backflow Preventer | Potable Water | Wanlian Fluid',
+    image: '/assets/products/anti-pollution-backflow-preventer-hs41x.webp',
+    seoTitle: 'HS41X Anti-Pollution Backflow Preventer | Potable Water',
     seoDescription: 'Durable Anti-pollution backflow preventer HS41X. Double check valves with intermediate automatic drainage cavity. Ensures potable water network safety.'
   },
   {
@@ -528,8 +528,8 @@ export const products: Product[] = [
       'Proportioner & Nozzle': 'Solid Brass Alloy / Heavy Duty Aluminum',
       'Hose Pipe': 'EPDM Rubber Reinforced with High-tensile Polyester'
     },
-    image: '/assets/products/foam-fire-hydrant-cabinet-psg30.png?v=20260902',
-    seoTitle: 'PSG30 Foam Fire Hydrant Cabinet | 3% AFFF | Wanlian Fluid',
+    image: '/assets/products/foam-fire-hydrant-cabinet-psg30.webp',
+    seoTitle: 'PSG30 Foam Fire Hydrant Cabinet | 3% AFFF',
     seoDescription: 'PSG30 foam fire hydrant cabinet with 3% AFFF tank, effective against Class B fuel and chemical fires. Factory direct from Wanlian Fluid China.',
     faqs: [
       { question: 'What is the PSG30 foam fire hydrant cabinet?', answer: 'The PSG30 is a wall-mounted, low-expansion foam firefighting unit that packages a foam concentrate storage tank, proportioner, hose reel and foam nozzle in one cabinet, giving immediate response to fuel, chemical and solvent fires.' },
@@ -563,8 +563,8 @@ export const products: Product[] = [
       'Locking Knobs': 'Stainless Steel / Brass',
       'Nozzle Tip': 'Precision Hardened Alloy'
     },
-    image: '/assets/products/manual-fire-water-cannon-ps.png?v=20260902',
-    seoTitle: 'PS Series Manual Fire Water Monitor | Long Range | Wanlian Fluid',
+    image: '/assets/products/manual-fire-water-cannon-ps.webp',
+    seoTitle: 'PS Series Manual Fire Water Monitor | Long Range',
     seoDescription: 'High volume manual fire water cannon PS. Supports water and foam spray. Heavy-duty construction, suitable for industrial storage and petrochemical yards.'
   },
   {
@@ -592,7 +592,7 @@ export const products: Product[] = [
       'Delay Timer Circuit': 'Solid State PCB Sealed'
     },
     image: '/assets/products/water-flow-indicator-zsjz.png',
-    seoTitle: 'ZSJZ Vane Water Flow Indicator | Sprinkler Alarm | Wanlian Fluid',
+    seoTitle: 'ZSJZ Vane Water Flow Indicator | Sprinkler Alarm',
     seoDescription: 'Saddle and Flange type fire water flow indicator ZSJZ. Adjustable time delay circuit. Highly sensitive detection for automatic wet sprinkler systems.'
   },
   {
@@ -620,8 +620,8 @@ export const products: Product[] = [
       'Wedge Core': 'Ductile Iron QT450 with EPDM rubber fully coated',
       'Sealing Glands': 'NBR / Brass / Stainless Steel'
     },
-    image: '/assets/products/telescopic-resilient-seat-gate-valve-z41x-t.png?v=20260902',
-    seoTitle: 'Z41X-T Telescopic Resilient Seat Gate Valve | Factory Price | Wanlian Fluid',
+    image: '/assets/products/telescopic-resilient-seat-gate-valve-z41x-t.webp',
+    seoTitle: 'Z41X-T Telescopic Resilient Seat Gate Valve | Factory Price',
     seoDescription: 'Integrated Telescopic Resilient Seated Gate Valve. Fully EPDM encapsulated wedge, ductile iron QT450. Ideal for pipelines requiring expansion compensation.'
   },
   {
@@ -650,8 +650,8 @@ export const products: Product[] = [
       'Adjustable Pilot': 'Solid Forged Brass Alloy',
       'Tubes & Fittings': 'Copper / Stainless Steel 304'
     },
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.jpg',
-    seoTitle: '500X Hydraulic Pressure Reducing Valve | Water Supply | Wanlian Fluid',
+    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp',
+    seoTitle: '500X Hydraulic Pressure Reducing Valve | Water Supply',
     seoDescription: 'Industrial hydraulic self-operated pressure reducing valve 500X. High durability ductile iron construction. OEM and custom designs available.'
   },
   {
@@ -680,7 +680,7 @@ export const products: Product[] = [
       'Fastening Ring': 'Stainless Steel'
     },
     image: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg',
-    seoTitle: 'HS Fire Hose Coupling Adapter | Aluminum Factory Price | Wanlian Fluid',
+    seoTitle: 'HS Fire Hose Coupling Adapter | Aluminum Factory Price',
     seoDescription: 'High durability aluminum alloy fire hydrant hose coupling adapters. Quick-lock connection, reliable sealing, compatible with international fire threads.'
   },
   {
@@ -709,8 +709,8 @@ export const products: Product[] = [
       'Stem / Shaft': 'Stainless Steel 416 / 2Cr13',
       'Hand Lever': 'Die-cast Aluminum / Spheroidal Iron'
     },
-    image: '/assets/products/wafer-type-butterfly-valve-d71x.jpg',
-    seoTitle: 'D71X Wafer Butterfly Valve | Rubber Lined PN16 | Wanlian Fluid',
+    image: '/assets/products/wafer-type-butterfly-valve-d71x.webp',
+    seoTitle: 'D71X Wafer Butterfly Valve | Rubber Lined PN16',
     seoDescription: 'Ductile Iron Wafer Butterfly Valve D71X with EPDM rubber lining. Manual lever operation, smooth flow, cost-effective industrial water control.'
   },
   {
@@ -739,8 +739,8 @@ export const products: Product[] = [
       'Operating Stem': 'Stainless Steel / Medium Carbon Steel',
       'Blank Caps': 'Cast Iron / Aluminum with chain'
     },
-    image: '/assets/products/overground-fire-hydrant-ss100.png',
-    seoTitle: 'SS100 Overground Fire Hydrant | Antifreeze UL Listed | Wanlian Fluid',
+    image: '/assets/products/overground-fire-hydrant-ss100.webp',
+    seoTitle: 'SS100 Overground Fire Hydrant | Antifreeze UL Listed',
     seoDescription: 'High-pressure overground fire hydrant SS100 with frost-drainage. Heavy duty ductile iron body. Approved for municipal water supply and forest safety.'
   },
   {
@@ -769,7 +769,7 @@ export const products: Product[] = [
       'Spray Gun / Nozzle': 'Precision machined Brass / Aluminum'
     },
     image: '/assets/products/fire-hose-reel-jpso8-19.jpg',
-    seoTitle: 'JPS0.8-19 Fire Hose Reel | Carbon Steel | Wanlian Fluid',
+    seoTitle: 'JPS0.8-19 Fire Hose Reel | Carbon Steel',
     seoDescription: 'Premium indoor fire hose reel assembly with 30m durable PVC hose and rotary wall mount bracket. Easy operation firefighting cabinet accessory.'
   },
   {
@@ -797,8 +797,8 @@ export const products: Product[] = [
       'Sealing Ring': 'EPDM / NBR Rubber',
       'Fastening Screws': 'Carbon Steel / Stainless Steel'
     },
-    image: '/assets/products/spherical-ball-check-valve-hq44x.jpg',
-    seoTitle: 'HQ44X Ball Check Valve | Nodular Cast Iron | Wanlian Fluid',
+    image: '/assets/products/spherical-ball-check-valve-hq44x.webp',
+    seoTitle: 'HQ44X Ball Check Valve | Nodular Cast Iron',
     seoDescription: 'Factory price Spherical Check Valve HQ44X-16. Non-clogging EPDM rubber rolling ball design. Low pressure loss, ideal for water sewage pump pipelines.'
   },
   {
@@ -827,8 +827,8 @@ export const products: Product[] = [
       'Handwheel': 'Ductile Iron / Cast Steel',
       'Yoke Nut': 'Copper Alloy'
     },
-    image: '/assets/products/flange-manual-bellows-gate-valve.jpg',
-    seoTitle: 'Flanged Bellows Seal Gate Valve Supplier | Wanlian Fluid',
+    image: '/assets/products/flange-manual-bellows-gate-valve.webp',
+    seoTitle: 'Flanged Bellows Seal Gate Valve Supplier',
     seoDescription: 'High quality metal bellows seal gate valves for high temperature thermal oil and steam pipelines. Leak-free design. Approved by DIN, ANSI and GB.'
   },
   {
@@ -858,7 +858,7 @@ export const products: Product[] = [
       'Seal Gaskets': 'EPDM / NBR'
     },
     image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg',
-    seoTitle: 'GKZF-1 Grooved Solenoid Control Gate Valve 300PSI | Wanlian Fluid',
+    seoTitle: 'GKZF-1 Grooved Solenoid Control Gate Valve 300PSI',
     seoDescription: 'GKZF-1 grooved solenoid control gate valve, DN50-DN300, 300 PSI (2.0 MPa), AC220V/DC24V, ductile iron, ideal for municipal and fire water control systems.',
     faqs: [
       { question: 'What is the GKZF-1 grooved solenoid control gate valve used for?', answer: 'The GKZF-1 is a ductile iron gate valve with an integrated solenoid pilot control, designed for automatic water flow control in municipal water supply and firefighting networks.' },
@@ -893,7 +893,7 @@ export const products: Product[] = [
       'Couplings': 'Standard Aluminum / Brass Fire Hose Couplings'
     },
     image: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg',
-    seoTitle: 'PVC Rubber Lining Layflat Fire Hose | Fire Fighting Hose | Wanlian Fluid',
+    seoTitle: 'PVC Rubber Lining Layflat Fire Hose | Fire Fighting Hose',
     seoDescription: 'Layflat fire hose with PVC rubber lining for firefighting and industrial water transfer: durable woven jacket, customizable sizes. Factory price from Wanlian.',
     faqs: [
       { question: 'What is the difference between this layflat fire hose and a fire hose reel unit?', answer: 'This is the hose itself — a flexible supply line that folds flat when drained and is bought by the length, connecting pumps, hydrants or nozzles. A fire hose reel is a fixed cabinet appliance with hose pre-wound on a drum and permanently connected to the building supply. Indoor reel stations are covered by our fire hose reel and cabinet products.' },
@@ -929,7 +929,7 @@ export const products: Product[] = [
       'Grip': 'High Impact Rubber Coating'
     },
     image: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg',
-    seoTitle: 'Adjustable Pistol Grip Fire Nozzle | 150-500LPM | Wanlian Fluid',
+    seoTitle: 'Adjustable Pistol Grip Fire Nozzle | 150-500LPM',
     seoDescription: 'Professional adjustable fire hose nozzle with pistol grip. Variable flow and spray patterns, aluminum alloy body. Factory price from Wanlian Fluid Equipment.',
     faqs: [
       { question: 'What flow rates and spray patterns does this nozzle deliver?', answer: 'Flow is adjustable from 150 to 500 LPM with multiple spray patterns ranging from straight stream to wide fog, letting the operator switch between reach and heat shielding without changing nozzles.' },
@@ -965,8 +965,8 @@ export const products: Product[] = [
       'Valve Assembly': 'Brass',
       'Discharge Hose': 'PVC with Plastic Nozzle'
     },
-    image: '/assets/products/abc-dry-powder-fire-extinguisher-5kg.png',
-    seoTitle: '5kg ABC Dry Powder Fire Extinguisher | ISO 7165 | Wanlian Fluid',
+    image: '/assets/products/abc-dry-powder-fire-extinguisher-5kg.webp',
+    seoTitle: '5kg ABC Dry Powder Fire Extinguisher | ISO 7165',
     seoDescription: 'Portable ABC dry powder fire extinguisher 5kg with ISO 7165 certification. Suitable for Class A/B/C/E fires. Factory price from Wanlian Fluid Equipment.',
     faqs: [
       { question: 'Which fire classes does the ABC dry powder extinguisher cover?', answer: 'It covers Class A (solids), Class B (flammable liquids), Class C (flammable gases) and Class E (electrical) fires — the standard multi-purpose coverage for commercial and industrial buildings. It is not the right unit for Class F cooking-oil fires (wet chemical) or Class D metal fires (specialist powder).' },
@@ -1002,8 +1002,8 @@ export const products: Product[] = [
       'Handwheel Stem': 'Brass / Stainless Steel',
       'Safety Cables': 'Braided Steel'
     },
-    image: '/assets/products/sqd100-1-6-fire-pump-adapter.png',
-    seoTitle: 'SQD100-1.6 Fire Pump Adapter Siamese Connection | Wanlian Fluid',
+    image: '/assets/products/sqd100-1-6-fire-pump-adapter.webp',
+    seoTitle: 'SQD100-1.6 Fire Pump Adapter Siamese Connection',
     seoDescription: 'SQD100-1.6 fire department siamese connection: twin DN65 inlets, DN100 flanged outlet, powder-coated body for reliable fire pump supply. Factory direct.'
   },
   {
@@ -1034,8 +1034,8 @@ export const products: Product[] = [
       'Handwheel': 'Ductile Iron',
       'Test Points': 'Stainless Steel'
     },
-    image: '/assets/products/sp45f-flange-digital-balancing-valve.jpg',
-    seoTitle: 'SP45F Flange Digital Balancing Valve | HVAC Balancing Valve | Wanlian Fluid',
+    image: '/assets/products/sp45f-flange-digital-balancing-valve.webp',
+    seoTitle: 'SP45F Flange Digital Balancing Valve | HVAC Balancing Valve',
     seoDescription: 'SP45F digital balancing valve DN50-DN300 with digital lock and test points for precise HVAC hydraulic balancing. QT450 ductile iron. Factory price from Wanlian.'
   },
   {
@@ -1066,8 +1066,8 @@ export const products: Product[] = [
       'Stem': 'Stainless Steel',
       'Handwheel': 'Ductile Iron / Stainless Steel'
     },
-    image: '/assets/products/z85x-stainless-steel-grooved-gate-valve.png',
-    seoTitle: 'Z85X Stainless Steel Grooved Gate Valve | CF8M | Wanlian Fluid',
+    image: '/assets/products/z85x-stainless-steel-grooved-gate-valve.webp',
+    seoTitle: 'Z85X Stainless Steel Grooved Gate Valve | CF8M',
     seoDescription: 'Z85X stainless steel grooved gate valve DN40-DN300 with CF8M body for gas, oil and water pipelines. Corrosion resistant with fast clamp installation. Factory price.'
   },
   {
@@ -1099,8 +1099,8 @@ export const products: Product[] = [
       'Stem': 'Brass',
       'Handwheel': 'Cast Iron with Red Paint'
     },
-    image: '/assets/products/brass-gate-valve-z15w-16t.png',
-    seoTitle: 'Z15W-16T Forged Brass Gate Valve | NPT Thread | Wanlian Fluid',
+    image: '/assets/products/brass-gate-valve-z15w-16t.webp',
+    seoTitle: 'Z15W-16T Forged Brass Gate Valve | NPT Thread',
     seoDescription: 'ANSI forged brass gate valve Z15W-16T with NPT threaded ends for oil and water systems. PN1.6MPa, manual operation. Factory price from Wanlian Fluid.'
   },
   {
@@ -1132,7 +1132,7 @@ export const products: Product[] = [
       'Latch': 'Stainless Steel'
     },
     image: '/assets/products/stainless-steel-fire-extinguisher-box.jpg',
-    seoTitle: 'Stainless Steel Fire Extinguisher Box with Hose Reel | Wanlian Fluid',
+    seoTitle: 'Stainless Steel Fire Extinguisher Box with Hose Reel',
     seoDescription: 'Custom stainless steel fire extinguisher box with fire hose reel storage: powder coated, durable for airports and commercial fire protection. Factory price.'
   },
   {
@@ -1164,8 +1164,8 @@ export const products: Product[] = [
       'Pilot & Tubing': 'Stainless Steel',
       'Top Valve': 'Ball Valve with Plastic Handle'
     },
-    image: '/assets/products/remote-control-float-valve-100x.png',
-    seoTitle: '100X-16P Stainless Steel Remote Control Float Valve | Wanlian Fluid',
+    image: '/assets/products/remote-control-float-valve-100x.webp',
+    seoTitle: '100X-16P Stainless Steel Remote Control Float Valve',
     seoDescription: '100X-16P remote control float valve in stainless steel CF8, DN40-DN300 flanged. Hydraulic pilot operated for automatic water level control. Factory price.'
   },
   {
@@ -1198,8 +1198,8 @@ export const products: Product[] = [
       'Seat': 'Resilient (EPDM)',
       'Handwheel': 'Ductile Iron'
     },
-    image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.jpg',
-    seoTitle: 'UL/FM Resilient Seated OS&Y Gate Valve | Grooved Ends | Wanlian Fluid',
+    image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
+    seoTitle: 'UL/FM Resilient Seated OS&Y Gate Valve | Grooved Ends',
     seoDescription: 'UL/FM listed resilient seated OS&Y gate valve with grooved ends for fire protection systems. Nodular cast iron, rising stem. Factory price from Wanlian Fluid.'
   },
   {
@@ -1230,7 +1230,7 @@ export const products: Product[] = [
       'Lock': 'Brass / Zinc Alloy'
     },
     image: '/assets/products/metal-fire-extinguisher-box-red.jpg',
-    seoTitle: 'Metal Fire Extinguisher Box with Hose Reel Cabinet | Red | Wanlian Fluid',
+    seoTitle: 'Metal Fire Extinguisher Box with Hose Reel Cabinet | Red',
     seoDescription: 'Customized metal fire extinguisher box with fire hose reel storage, red powder coated with instruction panel. Airport and commercial fire protection. Factory price.'
   },
   {
@@ -1261,7 +1261,7 @@ export const products: Product[] = [
       'Deflector': 'Metal with Directional Notches'
     },
     image: '/assets/products/horizontal-sidewall-fire-sprinkler-t-zstbs.png',
-    seoTitle: 'Horizontal Sidewall Fire Sprinkler T-ZSTBS | 68°C | Wanlian Fluid',
+    seoTitle: 'Horizontal Sidewall Fire Sprinkler T-ZSTBS | 68°C',
     seoDescription: 'Horizontal sidewall fire sprinkler T-ZSTBS with 68°C red glass bulb, chrome plated finish for wall-mounted fire suppression. Factory price from Wanlian Fluid.'
   },
   {
@@ -1294,8 +1294,8 @@ export const products: Product[] = [
       'Seat': 'EPDM Rubber Lining',
       'Operator': 'Cast Iron Worm Gear Box'
     },
-    image: '/assets/products/d381x-16q-grooved-butterfly-valve.jpg',
-    seoTitle: 'D381X-16Q Grooved Butterfly Valve | PN16 Worm Gear | Wanlian Fluid',
+    image: '/assets/products/d381x-16q-grooved-butterfly-valve.webp',
+    seoTitle: 'D381X-16Q Grooved Butterfly Valve | PN16 Worm Gear',
     seoDescription: 'D381X-16Q grooved butterfly valve DN50-DN300 with worm gear operator for fire and water pipelines. QT450 ductile iron, PN16. Factory price from Wanlian.'
   },
   {
@@ -1325,8 +1325,8 @@ export const products: Product[] = [
       'Bulb': 'Glass (Red Liquid, 68°C)',
       'Escutcheon / Cover': 'Brass with Chrome Finish'
     },
-    image: '/assets/products/zstdy-concealed-fire-sprinkler.png?v=20260902',
-    seoTitle: 'ZSTDY Concealed Fire Sprinkler | Recessed Chrome | Wanlian Fluid',
+    image: '/assets/products/zstdy-concealed-fire-sprinkler.webp',
+    seoTitle: 'ZSTDY Concealed Fire Sprinkler | Recessed Chrome',
     seoDescription: 'ZSTDY concealed fire sprinkler DN15-DN20 with decorative cover for high-end ceilings. Chrome electroplated stainless steel, UL listed. Factory price from Wanlian.'
   },
   {
@@ -1356,8 +1356,8 @@ export const products: Product[] = [
       'Gasket': 'Self-Sealing Rubber',
       'Options': 'Brass / Chrome Plated'
     },
-    image: '/assets/products/storz-coupling-2-5inch-aluminum.jpg',
-    seoTitle: '2.5" Aluminum Storz Coupling | German Standard | Wanlian Fluid',
+    image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
+    seoTitle: '2.5" Aluminum Storz Coupling | German Standard',
     seoDescription: 'German standard Storz fire hose coupling 2.5" in aluminum with self-sealing edge for water and foam firefighting. 1.6MPa. Factory price from Wanlian Fluid.',
     faqs: [
       { question: 'Which hose and connection systems does the Storz coupling suit?', answer: 'It is a German-standard Storz quick-connect coupling with a self-sealing edge, used for hose-to-hose and hose-to-nozzle connections with clear water and foam mixture media. Hydrant outlet threads (such as BS336, NIST or KWS) need the matching adapter — the coupling itself is the quick-connect interface.' },

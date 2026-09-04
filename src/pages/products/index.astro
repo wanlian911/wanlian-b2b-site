@@ -4,9 +4,18 @@ import { products } from '../../utils/products';
 
 // Get all unique categories
 const categories = ['All', ...new Set(products.map(p => p.category))];
+
+// 目录级采购 FAQ（同时输出 FAQPage JSON-LD）
+const faqs = [
+  { question: 'Is the product range on this page your complete catalog?', answer: 'This page lists 43+ stocked models across valves, hydrants, sprinkler system valves, hose reels, extinguishers and water cannons. Our full production range is wider — if you do not see the exact model, size or material you need, send the inquiry and our engineers will confirm availability and matching alternatives.' },
+  { question: 'What is the MOQ for valves and fire protection equipment?', answer: 'The standard MOQ is typically 20 units per model for stock sizes, with production lead times of 15-30 days depending on quantity and customization. Sample orders are available for pre-shipment testing and approval.' },
+  { question: 'Can products be customized for export standards and connections?', answer: 'Yes. Valves and hydrants can be manufactured to GB, ANSI, DIN, JIS, BS or EN specifications with flanged, grooved, wafer or threaded connections. Materials, coatings and certifications (UL/FM/CE on applicable models) can be matched to your project specification.' },
+  { question: 'What documentation do you provide with an order?', answer: 'Every shipment includes the commercial documents plus per-lot test reports matched to the applicable standard. ISO 9001 certificates, material certificates and third-party inspection reports can be arranged and named in the purchase order.' },
+  { question: 'How do I request a quotation?', answer: 'Use the inquiry form on the contact page and include model, size, pressure rating, connection type, quantity and destination. Our sales and engineering team responds within 12 hours with specifications, pricing and lead time.' }
+];
 ---
 
-<Layout title="Product Catalog | Quanzhou Wanlian Fluid Equipment | Industrial Valves" description="Browse Wanlian Fluid's B2B catalog: 43+ stocked models of industrial valves, fire hydrants, sprinklers, hose reels and hydraulic valves. Inquiry-based pricing.">
+<Layout title="Product Catalog | Industrial Valves & Fire Protection Equipment" description="Browse Wanlian Fluid's B2B catalog: 43+ stocked models of industrial valves, fire hydrants, sprinklers, hose reels and hydraulic valves. Inquiry-based pricing." faq={faqs}>
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mb-20">
     <div class="text-center mb-16 space-y-4">
       <span class="text-xs font-bold tracking-widest text-blue-600 uppercase">Product Center</span>
@@ -84,6 +93,26 @@ const categories = ['All', ...new Set(products.map(p => p.category))];
         </div>
       ))}
     </div>
+
+    <!-- Catalog FAQ Section -->
+    <section class="mt-24 max-w-4xl mx-auto">
+      <h2 class="text-3xl font-black text-gray-900 mb-8 text-center">Product Catalog FAQs</h2>
+      <div class="space-y-4">
+        {faqs.map(faq => (
+          <details class="group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+            <summary class="flex items-center justify-between cursor-pointer px-6 py-5 font-bold text-gray-900 hover:bg-gray-50 transition list-none">
+              <span>{faq.question}</span>
+              <svg class="w-5 h-5 text-gray-400 group-open:rotate-45 transition-transform flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
   </main>
 
   <!-- Client-side filtering script -->

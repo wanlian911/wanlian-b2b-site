@@ -83,7 +83,7 @@ const categoryInfo: Record<string, { applications: string[]; testing: string }> 
 // 产品级 FAQ 优先，其次按分类生成通用采购 FAQ
 const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
 const info = categoryInfo[product.category];
-const relatedProducts = products.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 4);
+const relatedProducts = products.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 6);
 
 // 相关指南(GEO 内容)按产品 slug 映射,用于消防/阀门产品页回链
 const hydrantGuideSlugs = ['overground-fire-hydrant-ss100', 'indoor-fire-hydrant-head-sn65', 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', 'iot-smart-ground-fire-hydrant-ss100zn'];
@@ -91,11 +91,43 @@ const valveGuideSlugs = ['resilient-seat-flanged-gate-valve-z41x', 'telescopic-r
 const hoseGuideSlugs = ['fire-hose-pvc-rubber-lining-8-65', 'storz-coupling-2-5inch-aluminum', 'fire-hydrant-hose-coupling-adapter-hs'];
 const standardsGuide = { href: '/guides/fire-hydrant-valve-standards-guide/', title: 'Fire Hydrant, Fire Hose & Valve Standards Explained', description: 'AWWA C502, NFPA 1961, EN 14384, ISO 5208 — what each standard means and how to verify compliance in Chinese factories.' };
 const avkGuide = { href: '/guides/wanlian-fluid-vs-american-avk/', title: 'Wanlian Fluid vs American AVK', description: 'Which fire hydrant & valve supplier fits your 2026 project? Scope, geography and standards compared side by side.' };
-const relatedGuides = hydrantGuideSlugs.includes(product.slug)
+
+// 按分类默认回链 2 篇指南：确保每个产品页都有到指南的站内链接
+const guideByCategory: Record<string, { href: string; title: string; description: string }[]> = {
+  'Valves & Parts': [
+    { href: '/guides/gate-valve-vs-butterfly-valve-fire-protection/', title: 'Gate Valve vs Butterfly Valve for Fire Protection Systems', description: 'Sealing, flow, pressure loss and cost compared so you can pick the right isolation valve for fire mains and water networks.' },
+    { href: '/guides/check-valve-types-guide/', title: 'Check Valve Types & Selection Guide', description: 'Sliding ball vs swing check — head loss, slam behaviour and the applications each type fits best.' }
+  ],
+  'Hydrants & Pump Connections': [
+    { href: '/guides/how-to-choose-a-fire-hydrant/', title: 'How to Choose a Fire Hydrant', description: 'Indoor vs outdoor, dry vs wet barrel, outlet standards and pressure ratings for municipal and industrial projects.' },
+    { href: '/guides/fire-hydrant-valve-standards-guide/', title: 'Fire Hydrant, Fire Hose & Valve Standards Explained', description: 'AWWA C502, NFPA 1961, EN 14384, BS 750 — which standard applies to your order and how to verify compliance.' }
+  ],
+  'Sprinklers & Alarm Valves': [
+    { href: '/guides/fire-sprinkler-control-valve-types/', title: 'Fire Sprinkler Control Valve Types: OS&Y, Butterfly & Check Valves', description: 'The role of each control valve in a sprinkler system and how OS&Y, butterfly and check valves work together.' },
+    { href: '/guides/fire-sprinkler-system-wet-dry-preaction/', title: 'Fire Sprinkler Systems: Wet, Dry or Pre-action?', description: 'Compare wet, dry and pre-action sprinkler configurations to match the hazard class of your building.' }
+  ],
+  'Hydraulic Safety': [
+    { href: '/guides/pressure-reducing-valve-guide/', title: 'Pressure Reducing Valve Guide: 500X Hydraulic PRV', description: 'How pilot-operated PRVs protect downstream equipment, adjust set pressure and prevent water hammer.' },
+    { href: '/guides/backflow-prevention-guide/', title: 'Backflow Prevention Guide', description: 'When potable water networks need double check assemblies and how HS41X protects against backflow.' }
+  ],
+  'Extinguishing Water Cannons': [
+    { href: '/guides/fire-water-monitor-selection-guide/', title: 'Fire Water Monitor Selection: Manual vs Auto-Tracking', description: 'Manual PS monitors vs ZDMS auto-tracking cannons — flow, range, control and explosion-proof options.' },
+    { href: '/guides/fire-water-cannon-buying-guide/', title: 'Fire Water Cannon Buying Guide', description: 'Fixed, remote or smart? Jet range, flow rate and installation factors for large-space fire suppression.' }
+  ],
+  'Fire Cabinets & Interfaces': [
+    { href: '/guides/fire-hose-reel-cabinet-guide/', title: 'Fire Hose Reel & Fire Cabinet Selection Guide', description: 'JPS0.8-19 reels, PSG30 foam cabinets and SN65 hydrant valves — what a complete indoor fire station needs.' },
+    { href: '/guides/fire-extinguisher-selection-guide/', title: 'Fire Extinguisher Buying Guide: ABC Dry Powder', description: 'Class A/B/C/E coverage, ISO 7165 ratings and B2B export packaging for portable extinguishers.' }
+  ]
+};
+
+// 显式 slug 命中优先；未命中的产品按分类回链指南，去重后最多 3 篇
+const explicitGuides = hydrantGuideSlugs.includes(product.slug)
   ? [standardsGuide, avkGuide]
   : valveGuideSlugs.includes(product.slug) || hoseGuideSlugs.includes(product.slug)
     ? [standardsGuide]
     : [];
+const seenHrefs = new Set(explicitGuides.map(g => g.href));
+const relatedGuides = [...explicitGuides, ...(guideByCategory[product.category] ?? []).filter(g => !seenHrefs.has(g.href))].slice(0, 3);
 ---
 
 <Layout 
