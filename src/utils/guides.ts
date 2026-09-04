@@ -144,5 +144,14 @@ export const guides: Guide[] = [
     category: 'Fire Protection',
     readTime: '8 min read',
     tags: ['fire-protection', 'procurement']
+  },
+  {
+    title: 'Layflat Fire Hose Buying Guide: Sizes, Linings & Couplings (2026)',
+    description: 'How to buy layflat fire hose for firefighting and industrial water transfer: hose construction and edge sealing, diameter and length sizing, Storz/BS336/NIST coupling standards, nozzles and an OEM factory checklist.',
+    href: '/guides/fire-hose-buying-guide/',
+    date: '2026-09',
+    category: 'Fire Protection',
+    readTime: '8 min read',
+    tags: ['fire-protection', 'procurement']
   }
 ];

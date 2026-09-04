@@ -1,0 +1,239 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'What is the difference between layflat fire hose and a fire hose reel?',
+		answer: 'Layflat fire hose is a flexible supply line that folds flat when empty and is stored on racks, in vehicles or in cabinets until deployed; it is the hose itself, bought by the metre. A fire hose reel is a fixed indoor unit where hose is pre-wound on a drum and permanently connected to a water supply — a complete appliance rather than a length of hose. If you are fitting indoor firefighting stations, see our fire hose reel and cabinet guide; if you are buying replacement or supply hose in bulk, this guide applies.'
+	},
+	{
+		question: 'What sizes of layflat fire hose are available?',
+		answer: 'Our PVC rubber lining layflat fire hose covers 19mm to 400mm inner diameter, with the Model 8-65 configuration (standard 65mm coupling size) as the common firefighting line. Lengths are customizable, so a distributor can stock standard rolls and cut or order specific lengths per project.'
+	},
+	{
+		question: 'Which couplings fit the layflat fire hose?',
+		answer: 'The hose is supplied with standard aluminum or brass fire hose couplings, and our HS series aluminum adapters (DN50/DN65, GB12514-based) connect hydrants, hose and nozzles with self-sealing threads. For German-standard systems we also supply 2.5" aluminum Storz couplings (DN50-DN150, 1.6 MPa). Tell us your market and we will match the thread system — BS336 (UK/Commonwealth), NIST (Middle East), KWS (Germany) or others — on quotation.'
+	},
+	{
+		question: 'Can layflat fire hose be used for foam and industrial water transfer?',
+		answer: 'Yes. The hose is specified for Class A and B firefighting, airport fire protection and industrial water transfer, and the PVC rubber lining suits clear water as well as foam mixture media. Confirm the exact media and pressure for your diameter with our engineers so the hose wall and couplings are sized correctly.'
+	},
+	{
+		question: 'Can I order fire hose with my own branding (OEM)?',
+		answer: 'Yes. Length, inner diameter and logo are all customizable, and the hose can be produced with your label language and color banding. OEM lead times and minimums are confirmed on quotation — state the diameters, lengths and volumes you plan to stock.'
+	},
+	{
+		question: 'How should layflat fire hose be stored between uses?',
+		answer: 'Dry the hose before long-term storage, keep it folded or rolled flat, and protect it from direct sunlight, ozone and sharp edges. Layflat hose is designed to fold flat when drained, which keeps stored volume small compared with round-bore hose. Regular inspection of the woven jacket for abrasion and of the couplings for thread damage is the practical maintenance routine.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'layflat-vs-reel', label: '1. Layflat Fire Hose vs Fire Hose Reel' },
+	{ id: 'hose-construction', label: '2. Hose Construction: Jacket, Lining & Edge Sealing' },
+	{ id: 'sizing-fire-hose', label: '3. Sizing: Diameter, Length & Applications' },
+	{ id: 'couplings-standards', label: '4. Couplings & Connection Standards' },
+	{ id: 'nozzles-flow', label: '5. Nozzles & Flow Control' },
+	{ id: 'factory-checklist', label: '6. Factory Buying Checklist: OEM & Quality' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'PVC Rubber Lining Layflat Fire Hose', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Model 8-65, 19-400mm ID, woven jacket, OEM lengths' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: '2.5" Aluminum Storz Coupling', img: '/assets/products/storz-coupling-2-5inch-aluminum.jpg', desc: 'German standard quick-connect, DN50-DN150, 1.6 MPa' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'Adjustable Pistol Grip Nozzle', img: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg', desc: '150-500 LPM, straight stream to fog, 1.5"-2.5" inlet' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Fire Hydrant Hose Coupling Adapter', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'Aluminum HS series, DN50/DN65, self-sealing threads' }
+];
+---
+
+<Layout
+	title="Fire Hose Buying Guide: Layflat Sizes, Linings & Couplings | Wanlian Fluid"
+	description="Layflat fire hose buying guide for B2B buyers: PVC lined fire hose sizes, woven jacket construction, Storz and 65mm couplings, nozzles and OEM supply."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Fire Hose Buying' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Fire Hose Buying</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Fire Protection Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Layflat Fire Hose Buying Guide: Sizes, Linings &amp; Couplings</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Fire hose looks like a commodity, but the buying decision sits in four details: whether you need a supply line or a reel appliance, how the jacket and lining are built, what diameter and length match your delivery duty, and which coupling system your market uses. This guide walks importers and distributors through each one — and where to push back on a supplier's spec sheet.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="layflat-vs-reel" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Layflat Fire Hose vs Fire Hose Reel: Know Which You Are Buying</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The fastest way to mis-specify is to confuse the hose with the appliance. A <strong>layflat fire hose</strong> is a length of flexible, flat-folding hose that a fire crew or pump operator connects at both ends; a <strong>fire hose reel</strong> is a wall-mounted unit with hose pre-wound on a drum, permanently tied to the building supply and ready for an untrained occupant to use.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Feature</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Layflat Fire Hose</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Fire Hose Reel &amp; Cabinet</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">What it is</td>
+							<td class="px-4 py-3 text-gray-700">Flexible supply line, bought by length</td>
+							<td class="px-4 py-3 text-gray-700">Fixed cabinet appliance with drum + nozzle</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Water connection</td>
+							<td class="px-4 py-3 text-gray-700">Connected to pump, hydrant or manifold as needed</td>
+							<td class="px-4 py-3 text-gray-700">Permanently connected to building supply</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Storage</td>
+							<td class="px-4 py-3 text-gray-700">Folds flat; racks, vehicle lockers, spare stock</td>
+							<td class="px-4 py-3 text-gray-700">Wound on drum inside wall cabinet</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typical buyer</td>
+							<td class="px-4 py-3 text-gray-700">Fire brigades, industrial sites, distributors of hose stock</td>
+							<td class="px-4 py-3 text-gray-700">Building contractors and facility owners</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">If your order is really for indoor firefighting stations, the reel and cabinet package is the right scope — see our <a href="/guides/fire-hose-reel-cabinet-guide/" class="text-brand-blue font-semibold hover:underline">fire hose reel and cabinet selection guide</a>. This guide covers the hose itself: construction, sizing, couplings and supply.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="hose-construction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Hose Construction: Jacket, Lining &amp; Edge Sealing</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A layflat fire hose is a composite: the <strong>woven jacket</strong> carries the pressure and takes the abrasion; the <strong>lining</strong> seals the bore and determines media compatibility; and the <strong>edges and ends</strong> decide how long the hose survives rough use.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Jacket</strong> — look for a woven synthetic fiber jacket with dense weave. Our hose uses woven synthetic fiber with PVC rubber lining; the weave density is what resists scuffing on concrete and prevents the hose bursting out at folds.</li>
+				<li><strong>Lining</strong> — PVC rubber lining gives a smooth bore with low friction loss and suits clear water and foam mixture media. For harsher chemicals the lining specification must change — confirm the media before ordering rather than assuming one lining fits all.</li>
+				<li><strong>Edge and corner reinforcement</strong> — flat-fold hose is most vulnerable where it folds and where ends are clamped. Woven edge sealing and reinforced corners are the features that stop delamination at exactly those points; both are standard on our production.</li>
+				<li><strong>End treatment</strong> — couplings are fitted or supplied loose depending on the order; loose ends suit distributors who crimp or clamp couplings locally, factory-fitted ends guarantee a tested joint.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">When comparing supplier spec sheets, ask three questions: what is the weave material and density, what is the lining compound, and how are the edges sealed? Generic "rubber hose" descriptions hide all three answers.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="sizing-fire-hose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Sizing: Diameter, Length &amp; Applications</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The inner diameter decides flow capacity, the length decides reach, and the wrong pair means either starving the nozzle or dragging excess weight. Our layflat range covers <strong>19mm to 400mm inner diameter</strong>, with Model 8-65 (the standard 65mm coupling configuration) as the workhorse firefighting line. As a rule of thumb across firefighting practice:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>19-25mm</strong> — small-bore lines for light duty and some reel-style applications.</li>
+				<li><strong>40-50mm</strong> — branch lines where crews work with hand lines and smaller flows.</li>
+				<li><strong>65mm (2.5")</strong> — the standard attack/supply line size for most building and industrial firefighting, and the 8-65 model's configuration.</li>
+				<li><strong>100mm and above</strong> — relay and hydrant supply lines moving large volumes over distance, up to 400mm in our range for bulk transfer.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Length is where OEM matters most: our <a href="/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">PVC rubber lining layflat fire hose</a> is produced with customizable length, diameter and logo, and the spec sheet carries a bearing capacity of 50-200 kN as the strength reference for the woven construction. Note that bearing capacity is a tensile/structural figure, not the working pressure — always request the pressure rating for your exact diameter separately, and never infer it from coupling ratings alone.</p>
+			<p class="text-gray-700 leading-relaxed">Applications in the product range are Class A and B firefighting, airport fire protection and industrial water transfer — the two ends of the market where layflat hose displaces rigid or round-bore alternatives because it packs small and deploys fast.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="couplings-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Couplings &amp; Connection Standards</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The most common export mistake is ordering hose without pinning the coupling standard, then discovering the threads do not match the hydrants or nozzles in the destination country. Fire hose connections are regional, and the main families are:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Coupling System</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Common Regions</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Matching Wanlian Product</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Storz (quick-connect)</td>
+							<td class="px-4 py-3 text-gray-700">Germany, Europe, much of Asia</td>
+							<td class="px-4 py-3 text-gray-700">2.5" aluminum Storz coupling, DN50-DN150, 1.6 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">BS336</td>
+							<td class="px-4 py-3 text-gray-700">UK and Commonwealth markets</td>
+							<td class="px-4 py-3 text-gray-700">Threaded adapters per project</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">NIST</td>
+							<td class="px-4 py-3 text-gray-700">Middle East hydrant connections</td>
+							<td class="px-4 py-3 text-gray-700">Threaded adapters per project</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">GB12514 / 65mm thread</td>
+							<td class="px-4 py-3 text-gray-700">China-standard systems and 2.5" hydrants</td>
+							<td class="px-4 py-3 text-gray-700">HS series aluminum adapter, DN50/DN65</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">For German-standard installations, the <a href="/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">2.5" aluminum Storz coupling</a> provides the quick-connect, self-sealing edge joint rated at 1.6 MPa for clear water and foam mixture. Where hose must mate to hydrant outlets or nozzles of a different system, the <a href="/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS series aluminum coupling adapter</a> (DN50/DN65, self-sealing internal threads, 1.6 MPa) bridges the connection — which is also why our hydrant range is offered with BS336, NIST, KWS and flange options on request.</p>
+			<p class="text-gray-700 leading-relaxed">Specify the coupling system in the inquiry, not after production: retro-fitting threads on finished hose ends is expensive and rarely as reliable as factory-matched couplings.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="nozzles-flow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Nozzles &amp; Flow Control</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A hose is only as useful as the nozzle on its end. For hand lines, an adjustable nozzle with variable flow and spray patterns covers the range from straight stream (reach) to fog (heat shielding and knockdown). Our <a href="/products/adjustable-pistol-grip-fire-nozzle/" class="text-brand-blue font-semibold hover:underline">adjustable pistol grip firefighting nozzle</a> delivers 150-500 LPM with straight-stream-to-fog patterns and fits 1.5", 2" and 2.5" inlets — matching the 65mm line family covered in this guide.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Two sizing rules keep the set coherent:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Match the nozzle inlet to the hose coupling</strong> — a 2.5" line should terminate in a 2.5" inlet nozzle unless an adapter is intentional.</li>
+				<li><strong>Match nozzle flow to hose delivery</strong> — a nozzle demanding more than the hose diameter can deliver starves the stream and wastes pump energy; state the intended flow when we size the hose diameter.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Distributors typically stock hose, couplings and nozzles as one SKU family so emergency replacements stay compatible — another reason to consolidate the package with one manufacturer.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="factory-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Factory Buying Checklist: OEM &amp; Quality</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">When you source layflat fire hose from a Chinese factory, verify these points before production starts:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>State the coupling standard in writing</strong> — Storz, BS336, NIST, KWS or 65mm thread; confirm loose vs factory-fitted ends and who tests the finished joint.</li>
+				<li><strong>Request the pressure rating per diameter</strong> — do not accept a single rating for the whole range; wall thickness and weave change with bore size.</li>
+				<li><strong>Confirm media compatibility</strong> — clear water and foam mixture are standard for PVC rubber lining; state any chemical media before ordering.</li>
+				<li><strong>Pin the OEM scope</strong> — length, diameter, logo, label language and color banding; get artwork approval milestones into the schedule.</li>
+				<li><strong>Ask for batch quality evidence</strong> — weave density checks, edge-sealing inspection and coupling pull tests for the actual batch. Run our <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> for the factory-verification routine that applies equally to hose suppliers.</li>
+				<li><strong>Plan storage and packaging</strong> — layflat hose ships folded; confirm coil/pallet packing and container loading with the supplier to avoid transit damage at the fold points.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Sourcing Layflat Fire Hose in Bulk?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send your diameters, lengths, coupling standard and target market — our team confirms pressure ratings, OEM options and lead time within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Layflat%20Fire%20Hose" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20layflat%20fire%20hose%20with%20couplings" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
