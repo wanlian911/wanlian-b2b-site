@@ -135,5 +135,14 @@ export const guides: Guide[] = [
     category: 'Valves',
     readTime: '8 min read',
     tags: ['industrial-valves', 'backflow-prevention']
+  },
+  {
+    title: 'Fire Extinguisher Selection Guide: ABC Dry Powder for B2B Buyers (2026)',
+    description: 'How to choose portable fire extinguishers for export projects: fire classes vs extinguishing agents, ABC dry powder specifications, ISO 7165 and CCCF certification, applications and a factory buying checklist covering OEM, MOQ and dangerous-goods packaging.',
+    href: '/guides/fire-extinguisher-selection-guide/',
+    date: '2026-09',
+    category: 'Fire Protection',
+    readTime: '8 min read',
+    tags: ['fire-protection', 'procurement']
   }
 ];
