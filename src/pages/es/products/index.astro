@@ -1,0 +1,150 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { productsEs } from '../../../utils/products.es';
+
+// Get all unique categories
+const categories = ['Todos', ...new Set(productsEs.map(p => p.category))];
+
+// 目录级采购 FAQ（同时输出 FAQPage JSON-LD）
+const faqs = [
+  { question: '¿La gama de productos de esta página es su catálogo completo?', answer: 'Esta página lista más de 43 modelos en stock entre válvulas, hidrantes, válvulas para sistemas de rociadores, carretes de manguera, extintores y cañones de agua. Nuestra gama de producción completa es más amplia: si no encuentra el modelo, tamaño o material exacto, envíenos su consulta y nuestros ingenieros confirmarán disponibilidad y alternativas equivalentes.' },
+  { question: '¿Cuál es el MOQ para válvulas y equipos contra incendios?', answer: 'El MOQ estándar es típicamente de 20 unidades por modelo para tamaños en stock, con plazos de producción de 15 a 30 días según cantidad y personalización. Se aceptan pedidos de muestra para pruebas y aprobación previas al envío.' },
+  { question: '¿Pueden personalizarse los productos según normas y conexiones de exportación?', answer: 'Sí. Las válvulas e hidrantes pueden fabricarse según normas GB, ANSI, DIN, JIS, BS o EN, con conexiones con brida, ranuradas, tipo wafer o roscadas. Materiales, recubrimientos y certificaciones (UL/FM/CE en modelos aplicables) pueden ajustarse a la especificación de su proyecto.' },
+  { question: '¿Qué documentación proporcionan con un pedido?', answer: 'Cada envío incluye los documentos comerciales más los informes de prueba por lote conforme a la norma aplicable. Certificados ISO 9001, certificados de materiales e informes de inspección de terceros pueden gestionarse e indicarse en la orden de compra.' },
+  { question: '¿Cómo solicito una cotización?', answer: 'Utilice el formulario de consulta en la página de contacto e incluya modelo, tamaño, clase de presión, tipo de conexión, cantidad y destino. Nuestro equipo de ventas e ingeniería responde en un plazo de 12 horas con especificaciones, precios y plazo de entrega.' }
+];
+---
+<Layout title="Catálogo de Productos | Válvulas Industriales y Contra Incendios" description="Explore el catálogo B2B de Wanlian Fluid: más de 43 modelos en stock de válvulas industriales, hidrantes, rociadores, carretes de manguera y válvulas hidráulicas. Precio bajo consulta." locale="es" faq={faqs}>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mb-20">
+    <div class="text-center mb-16 space-y-4">
+      <span class="text-xs font-bold tracking-widest text-blue-600 uppercase">Centro de Productos</span>
+      <h1 class="text-4xl font-black text-gray-900 tracking-tight">Nuestro Catálogo Premium de Sistemas de Fluidos</h1>
+      <p class="mt-4 text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+        Componentes de alto rendimiento diseñados para máxima fiabilidad, durabilidad y seguridad en redes industriales.
+      </p>
+    </div>
+
+    <!-- Browse by System: 系统级页面入口 -->
+    <div class="flex flex-wrap justify-center items-center gap-2 mb-10">
+      <span class="text-[11px] font-black uppercase tracking-widest text-gray-400 mr-1">Explorar por Sistema:</span>
+      <a href="/es/fire-hydrant-systems/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Sistemas de Hidrantes</a>
+      <a href="/es/fire-sprinkler-systems/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Sistemas de Rociadores</a>
+      <a href="/es/fire-water-cannon/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Cañones de Agua</a>
+      <a href="/es/backflow-prevention/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Prevención de Reflujo</a>
+      <a href="/es/ul-fire-valves/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Válvulas Contra Incendios UL</a>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="flex flex-wrap justify-center gap-2 mb-12" id="filter-container">
+      {categories.map((category) => (
+        <button
+          data-category={category}
+          class="px-5 py-2.5 rounded-lg text-sm font-semibold tracking-wide border border-gray-200 text-gray-600 bg-white hover:border-blue-500 hover:text-blue-600 transition cursor-pointer filter-btn [&.active]:bg-blue-600 [&.active]:text-white [&.active]:border-blue-600"
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+
+    <!-- Products Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
+      {productsEs.map((product) => (
+        <div 
+          data-product-category={product.category}
+          class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300 flex flex-col product-card"
+        >
+          <div class="aspect-square relative overflow-hidden bg-white">
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              loading="lazy"
+              class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+            />
+            <span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold tracking-widest bg-gray-900/90 text-white rounded-md uppercase">
+              {product.category}
+            </span>
+          </div>
+          <div class="p-6 flex-grow flex flex-col space-y-3">
+            <h2 class="text-lg font-bold text-gray-900 line-clamp-2 min-h-[3rem] group-hover:text-blue-600 transition">
+              {product.name}
+            </h2>
+            <p class="text-gray-500 text-xs line-clamp-3 leading-relaxed flex-grow">
+              {product.description}
+            </p>
+            <div class="pt-6 border-t border-gray-100 flex items-center justify-between gap-4">
+              <a 
+                href={`/es/products/${product.slug}/`} 
+                class="text-blue-600 text-sm font-bold hover:text-blue-700 inline-flex items-center gap-1 group/btn"
+              >
+                Ver Especificaciones
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </a>
+              <a 
+                href={`/es/contact/?product=${encodeURIComponent(product.name)}`} 
+                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition"
+              >
+                Consultar
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Catalog FAQ Section -->
+    <section class="mt-24 max-w-4xl mx-auto">
+      <h2 class="text-3xl font-black text-gray-900 mb-8 text-center">Preguntas Frecuentes del Catálogo</h2>
+      <div class="space-y-4">
+        {faqs.map(faq => (
+          <details class="group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+            <summary class="flex items-center justify-between cursor-pointer px-6 py-5 font-bold text-gray-900 hover:bg-gray-50 transition list-none">
+              <span>{faq.question}</span>
+              <svg class="w-5 h-5 text-gray-400 group-open:rotate-45 transition-transform flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <!-- Client-side filtering script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.product-card');
+
+      const applyFilter = (category) => {
+        buttons.forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === category));
+        cards.forEach(card => {
+          const cardCategory = card.getAttribute('data-product-category');
+          card.style.display = (category === 'Todos' || cardCategory === category) ? 'flex' : 'none';
+        });
+      };
+
+      // Set 'Todos' button as active initially
+      applyFilter('Todos');
+
+      // Support /es/products/#category=xxx deep links
+      const hashMatch = window.location.hash.match(/^#category=(.+)$/);
+      if (hashMatch) {
+        const target = decodeURIComponent(hashMatch[1]);
+        if ([...buttons].some(b => b.getAttribute('data-category') === target)) {
+          applyFilter(target);
+        }
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          applyFilter(btn.getAttribute('data-category'));
+        });
+      });
+    });
+  </script>
+</Layout>

@@ -32,20 +32,41 @@ export function stripLocale(pathname: string, locale: Locale): string {
 }
 
 /**
- * 已提供西语版本的页面（精确匹配根路径集合）。
- * M1：仅首页；M2 起随翻译进度扩充（/products/、/about/ …）。
+ * 已提供西语版本的页面（前缀匹配）。'/' 仅精确匹配首页；
+ * 其余条目（如 '/products/'）前缀匹配，覆盖该前缀下全部子路径（含动态产品页）。
+ * M2 覆盖：产品库、静态页、5 个系统 hub 页。guides/tags/blog 留 M3。
  * 用于避免语言切换/页脚链接指向尚未翻译的 404 页面。
  */
-const ES_PAGES_EXACT: string[] = ['/'];
+const ES_PREFIXES: string[] = [
+  '/',
+  '/products/',
+  '/about/',
+  '/certificates/',
+  '/applications/',
+  '/contact/',
+  '/privacy/',
+  '/terms/',
+  '/backflow-prevention/',
+  '/fire-hydrant-systems/',
+  '/fire-sprinkler-systems/',
+  '/fire-water-cannon/',
+  '/ul-fire-valves/',
+];
 
-/** 目标路径在 es 下是否已有真实页面。 */
+/** 目标路径在 es 下是否已有真实页面（EN 恒真；容忍无尾斜杠与 hash/query）。 */
 export function isTranslated(pathname: string, locale: Locale): boolean {
   if (locale === 'en') return true;
-  return ES_PAGES_EXACT.includes(pathname);
+  const clean = pathname.split(/[?#]/)[0];
+  const norm = clean.endsWith('/') ? clean : `${clean}/`;
+  if (norm === '/') return true;
+  return ES_PREFIXES.some(prefix => prefix !== '/' && norm.startsWith(prefix));
 }
 
-/** 为指定语言生成安全链接：目标语言无此页时回退到该语言首页。 */
+/** 为指定语言生成安全链接：目标语言无此页时回退到该语言首页（保留原 hash）。 */
 export function safeHref(path: string, locale: Locale): string {
   if (locale === 'en') return path;
-  return isTranslated(path, locale) ? localizePath(path, locale) : localizePath('/', locale);
+  const [clean, ...hashParts] = path.split('#');
+  const hash = hashParts.length ? `#${hashParts.join('#')}` : '';
+  const target = isTranslated(clean, locale) ? localizePath(clean, locale) : localizePath('/', locale);
+  return hash ? `${target}${hash}` : target;
 }

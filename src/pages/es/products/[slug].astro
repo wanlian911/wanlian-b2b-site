@@ -1,0 +1,277 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { productsEsBySlug, productsEs } from '../../../utils/products.es';
+
+export async function getStaticPaths() {
+  return Object.values(productsEsBySlug).map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+
+// FAQ de compra genéricas por categoría (datos: especificaciones del producto y consultas habituales)
+const faqByCategory: Record<string, { question: string; answer: string }[]> = {
+  'Válvulas y Piezas': [
+    { question: '¿Qué normas y tipos de conexión están disponibles para las válvulas Wanlian?', answer: 'Las válvulas Wanlian se fabrican bajo normas GB, ANSI, DIN y JIS bajo pedido. Están disponibles conexiones con brida, ranuradas, tipo wafer y roscadas según el modelo. Indique a nuestros ingenieros su DN/PN y tipo de conexión en la consulta y confirmaremos la configuración adecuada.' },
+    { question: '¿Qué materiales se utilizan para el cuerpo y el sellado de la válvula?', answer: 'Los cuerpos suelen ser de hierro dúctil (QT450), hierro fundido o acero fundido/forjado según el modelo. Los elementos de sellado usan caucho EPDM o NBR, y los vástagos son de acero inoxidable (2Cr13/304). Las opciones de material pueden personalizarse para medios y rangos de temperatura específicos.' },
+    { question: '¿Cuál es el MOQ y el plazo de entrega?', answer: 'El MOQ estándar es típicamente de 20 unidades por modelo para tamaños en stock, con plazos de producción de 15 a 30 días según cantidad y personalización. Se aceptan pedidos de muestra para pruebas previas al envío.' },
+    { question: '¿Cómo se prueban las válvulas antes del envío?', answer: 'Cada válvula se somete al 100% de pruebas de presión de carcasa y asiento conforme a la norma aplicable (p. ej., GB/T13927, EN 12266-1). Pueden gestionarse informes de prueba e inspección de terceros bajo pedido.' }
+  ],
+  'Hidrantes y Conexiones de Bomba': [
+    { question: '¿Qué normas de conexión de salida están disponibles para hidrantes de exportación?', answer: 'Las conexiones de salida comunes incluyen BS336 (Reino Unido/Commonwealth), NIST (Oriente Medio), KWS (Alemania) y opciones de brida flexible. Podemos suministrar hidrantes con el tipo de conexión especificado para su mercado.' },
+    { question: '¿Qué clase de presión debe tener un hidrante municipal?', answer: 'Los hidrantes municipales estándar están clasificados a PN16 (1.6 MPa), lo que cubre la mayoría de las redes urbanas e industriales de suministro de agua. Zonas industriales o de gran altura pueden requerir hidrantes PN25.' },
+    { question: '¿Los hidrantes Wanlian están disponibles con certificación UL o FM?', answer: 'Sí, según el modelo y el mercado de destino. Contacte a nuestro equipo de ventas con la especificación de su proyecto y la región objetivo para que le ofrezcamos el paquete de certificación correcto.' },
+    { question: '¿Los hidrantes exteriores tienen protección anticongelante?', answer: 'Modelos como el hidrante de columna SS100 cuentan con mecanismo automático de drenaje contra heladas para climas fríos. También están disponibles variantes anticolisión (SSFT100) e inteligentes IoT (SS100ZN).' }
+  ],
+  'Rociadores y Válvulas de Alarma': [
+    { question: '¿Cuál es la diferencia entre una válvula de alarma tipo húmedo y una válvula de diluvio?', answer: 'Una válvula de alarma tipo húmedo (ZSFZ) mantiene la tubería de rociadores llena de agua y activa la alarma cuando fluye el agua. Una válvula de diluvio (ZSFM) permanece cerrada bajo presión de aire o agua y solo inunda el sistema cuando una señal de detección de incendio la abre; se usa en áreas de alto riesgo que requieren una gran descarga inmediata de agua.' },
+    { question: '¿Qué normas cumplen los componentes del sistema de rociadores?', answer: 'Los componentes se fabrican y prueban conforme a la serie GB 5135 y, bajo pedido, otras normas internacionales. Confirme con nuestros ingenieros la norma aplicable a su proyecto.' },
+    { question: '¿Cuál es la presión de trabajo de las válvulas de alarma?', answer: 'La presión de trabajo estándar es de 1.6 MPa con presión de prueba de 3.2 MPa. Los rangos de tamaño cubren típicamente DN50 a DN300 según el modelo.' },
+    { question: '¿Pueden integrarse los grupos de válvulas de alarma con sistemas de detección de incendios existentes?', answer: 'Sí. Las válvulas de diluvio y preacción admiten disparos remotos mecánicos, neumáticos o eléctricos (solenoide DC24V) y pueden integrarse con la mayoría de los paneles de control de alarma contra incendios.' }
+  ],
+  'Seguridad Hidráulica': [
+    { question: '¿Las válvulas de control hidráulico requieren energía eléctrica?', answer: 'La mayoría de las válvulas de control hidráulico (p. ej., válvula de nivel F745X, reductora 500X) funcionan completamente por la presión de la tubería, sin energía externa. Los modelos con control por solenoide como GKZF-1 usan AC220V o DC24V.' },
+    { question: '¿Cuál es el rango de ajuste de presión de la válvula 500X?', answer: 'La válvula reductora de presión 500X ajusta la presión aguas abajo de 0.1 MPa a 1.6 MPa y opera con presiones de entrada hasta la clasificación nominal (PN10/PN16/PN25).' },
+    { question: '¿Qué materiales se utilizan para aplicaciones de agua potable?', answer: 'Para redes de agua potable, modelos como el dispositivo anti-retorno HS41X usan cuerpos de hierro dúctil con sellos EPDM e internos de acero inoxidable, cumpliendo los requisitos sanitarios GB/T17219.' },
+    { question: '¿Cómo se previene el golpe de ariete en las válvulas hidráulicas?', answer: 'Las válvulas con control por piloto cierran de forma suave y lenta, evitando picos súbitos de presión. Las válvulas de aguja permiten ajustar la velocidad de cierre según las condiciones de la tubería.' }
+  ],
+  'Cañones de Agua Extintores': [
+    { question: '¿Qué caudales y alcances de chorro están disponibles en los cañones de agua?', answer: 'Los cañones manuales (serie PS) cubren 20-200 L/s con alcances de 50 a 110 metros. Los cañones de seguimiento automático (serie ZDMS) ofrecen 5-30 L/s (personalizable hasta 150 L/s) con radio de monitoreo de 40-65 m.' },
+    { question: '¿Cómo detecta incendios el cañón de seguimiento automático?', answer: 'El cañón ZDMS combina sensores infrarrojos y ultravioleta para detectar y seguir las llamas, apuntando y descargando agua automáticamente. Admite anulación manual remota vía PC/aplicación móvil o gabinete central.' },
+    { question: '¿Hay versiones a prueba de explosión?', answer: 'Sí. Hay opciones a prueba de explosión (p. ej., Exde II BT4 Gb) para entornos petroquímicos y peligrosos.' },
+    { question: '¿Cuál es la presión de trabajo de los cañones?', answer: 'Los cañones manuales operan a 0.8-1.2 MPa y los de seguimiento automático a 0.6-0.8 MPa. Confirme el tamaño de brida de entrada (DN100/DN150/DN200) de su sistema.' }
+  ],
+  'Gabinetes Contra Incendios e Interfaces': [
+    { question: '¿Qué incluye un conjunto de carrete de manguera contra incendios?', answer: 'El conjunto de la serie JPS incluye un carrete de acero al carbono con soporte giratorio, manguera flexible de PVC (20/25/30 m) y boquilla de latón/aleación con modos de chorro recto y niebla.' },
+    { question: '¿Hay gabinetes de espuma para incendios químicos?', answer: 'Sí. El gabinete de espuma PSG30 integra en una unidad de pared el tanque de concentrado de espuma, el proporcionador, el carrete de manguera y la boquilla de espuma; es eficaz contra incendios de combustibles, químicos y solventes (Clase B).' },
+    { question: '¿Qué normas de conexión soportan los adaptadores de acople de manguera?', answer: 'Los adaptadores de la serie HS están disponibles en DN50/DN65 con roscas internas compatibles con acoples contra incendios internacionales, fabricados según GB12514 o normas de fábrica.' },
+    { question: '¿Qué materiales se utilizan en gabinetes y carretes?', answer: 'Gabinetes y carretes usan acero al carbono laminado en frío con recubrimiento en polvo rojo anticorrosivo. Boquillas y proporcionadores son de latón o aleación de aluminio anodizado.' }
+  ]
+};
+
+// Aplicaciones y normas de prueba por categoría
+const categoryInfo: Record<string, { applications: string[]; testing: string }> = {
+  'Válvulas y Piezas': {
+    applications: ['Suministro y distribución de agua', 'Redes de aguas residuales y alcantarillado', 'Tuberías de proceso industrial', 'Sistemas HVAC'],
+    testing: '100% de pruebas de presión de carcasa y asiento según GB/T13927 o EN 12266-1; recubrimiento de resina epoxi probado contra la corrosión.'
+  },
+  'Hidrantes y Conexiones de Bomba': {
+    applications: ['Redes municipales de protección contra incendios', 'Patios industriales y de almacenes', 'Sistemas interiores de columna seca', 'Instalaciones exteriores en climas fríos'],
+    testing: 'Pruebas de presión hidrostática (típicamente 2.4 MPa) y de flujo según GB 4452 o normas de exportación aplicables.'
+  },
+  'Rociadores y Válvulas de Alarma': {
+    applications: ['Sistemas automáticos de rociadores', 'Edificios comerciales y residenciales', 'Almacenes industriales', 'Sistemas de diluvio y preacción de alto riesgo'],
+    testing: 'Pruebas de presión y fugas según la serie GB 5135; sensibilidad de alarma verificada con interruptores de flujo y gongs de alarma.'
+  },
+  'Seguridad Hidráulica': {
+    applications: ['Control de nivel en embalses de agua', 'Gestión de presión en redes de agua', 'Protección anti-retorno en agua potable', 'Protección de succión de bombas'],
+    testing: 'Pruebas funcionales y de presión según normas aplicables; conjuntos de diafragma y sellos probados en durabilidad.'
+  },
+  'Cañones de Agua Extintores': {
+    applications: ['Plantas petroquímicas y parques de tanques', 'Aeropuertos y centros de exhibición', 'Grandes almacenes', 'Camiones de bomberos y extinción marina'],
+    testing: 'Pruebas de caudal, alcance de chorro y rotación; modelos a prueba de explosión verificados según normas Ex (opcional).'
+  },
+  'Gabinetes Contra Incendios e Interfaces': {
+    applications: ['Estaciones interiores de extinción', 'Áreas de almacenamiento de químicos y combustible', 'Sistemas de manguera en edificios', 'Instalaciones marinas y costa afuera'],
+    testing: 'Pruebas de presión y funcionamiento de carretes, boquillas y proporcionadores; relación de expansión de espuma verificada por modelo.'
+  }
+};
+
+// FAQ de producto prioritaria; si no, FAQ genérica de compra por categoría
+const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
+const info = categoryInfo[product.category];
+const relatedProducts = productsEs.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 6);
+const catAnchor = encodeURIComponent(product.category);
+---
+
+<Layout 
+  title={product.seoTitle} 
+  description={product.seoDescription}
+  productData={product}
+  type="product"
+  locale="es"
+  faq={faqs}
+  breadcrumbs={[{ name: 'Productos', href: '/es/products/' }, { name: product.category, href: `/es/products/#category=${catAnchor}` }, { name: product.name }]}
+>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mb-20">
+    <!-- Breadcrumbs -->
+    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-8 flex gap-2">
+      <a href="/es/" class="hover:text-blue-600">Inicio</a>
+      <span>/</span>
+      <a href="/es/products/" class="hover:text-blue-600">Productos</a>
+      <span>/</span>
+      <a href={`/es/products/#category=${catAnchor}`} class="hover:text-blue-600">{product.category}</a>
+      <span>/</span>
+      <span class="text-gray-600">{product.name}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <!-- Product Image -->
+      <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+        <img 
+          src={product.image} 
+          alt={product.name} 
+          class="w-full h-auto rounded-xl object-contain aspect-square"
+        />
+      </div>
+
+      <!-- Product Details -->
+      <div class="space-y-6">
+        <div>
+          <span class="text-blue-600 font-semibold uppercase tracking-wider text-sm">{product.category}</span>
+          <h1 class="text-4xl font-bold text-gray-900 mt-2">{product.name}</h1>
+        </div>
+
+        <p class="text-lg text-gray-600 leading-relaxed">
+          {product.description}
+        </p>
+
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold border-b pb-2">Características Clave</h2>
+          <ul class="grid grid-cols-1 gap-2">
+            {product.features.map(feature => (
+              <li class="flex items-start">
+                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-gray-700">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-gray-100 p-6 rounded-xl space-y-4">
+          <h2 class="text-xl font-bold">Especificaciones Técnicas</h2>
+          <dl class="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+            {Object.entries(product.specs).map(([key, value]) => (
+              <div class="border-b border-gray-200 py-2">
+                <dt class="text-sm font-medium text-gray-500">{key}</dt>
+                <dd class="mt-1 text-sm font-bold text-gray-900">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        {product.materials && (
+          <div class="bg-gray-50 p-6 rounded-xl border border-gray-200/60 space-y-4">
+            <h2 class="text-xl font-bold text-gray-900">Lista de Piezas y Materiales</h2>
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+              {Object.entries(product.materials).map(([part, material]) => (
+                <div class="border-b border-gray-200/60 py-2 flex justify-between items-center text-sm">
+                  <dt class="font-medium text-gray-500">{part}</dt>
+                  <dd class="font-bold text-gray-900 text-right">{material}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )}
+
+        {product.dimensions && (
+          <div class="bg-white p-6 rounded-xl border border-gray-100 space-y-4 shadow-sm overflow-x-auto">
+            <h2 class="text-xl font-bold text-gray-900">Guía de Dimensiones Estándar</h2>
+            <table class="min-w-full divide-y divide-gray-200 text-sm">
+              <thead class="bg-gray-50">
+                <tr>
+                  {product.dimensions.headers.map(header => (
+                    <th class="px-3 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">{header}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                {product.dimensions.rows.map(row => (
+                  <tr class="hover:bg-gray-50/50">
+                    {row.map(cell => (
+                      <td class="px-3 py-3 text-gray-700 font-medium whitespace-nowrap">{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {info && (
+          <div class="space-y-4">
+            <div class="bg-blue-50/50 p-6 rounded-xl border border-blue-100/50">
+              <h2 class="text-xl font-bold text-gray-900 mb-3">Aplicaciones</h2>
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {info.applications.map(app => (
+                  <li class="flex items-start text-sm text-gray-700">
+                    <svg class="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {app}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200/60">
+              <h2 class="text-xl font-bold text-gray-900 mb-3">Calidad y Pruebas</h2>
+              <p class="text-sm text-gray-700 leading-relaxed">{info.testing}</p>
+            </div>
+          </div>
+        )}
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-6">
+          <a 
+            href={`/es/contact/?product=${encodeURIComponent(product.name)}`} 
+            class="flex-1 text-center py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-600/20"
+          >
+            Solicitar Cotización
+          </a>
+          <a 
+            href="/es/contact/?product=Solicitud%20de%20Documentaci%C3%B3n%20de%20Producto"
+            class="flex-1 text-center py-4 bg-white text-blue-600 font-bold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition"
+          >
+            Solicitar Documentación del Producto
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    {faqs.length > 0 && (
+      <section class="mt-20 max-w-4xl">
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Preguntas Frecuentes</h2>
+        <div class="space-y-4">
+          {faqs.map((faq, index) => (
+            <details class="group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer px-6 py-5 font-bold text-gray-900 hover:bg-gray-50 transition list-none">
+                <span>{faq.question}</span>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-45 transition-transform flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                {faq.answer}
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related Products -->
+    {relatedProducts.length > 0 && (
+      <section class="mt-20">
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Productos Relacionados</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {relatedProducts.map(related => (
+            <a href={`/es/products/${related.slug}/`} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-blue/30 transition p-6 flex flex-col">
+              <img src={related.image} alt={related.name} class="w-full h-40 object-contain rounded-lg bg-gray-50 p-2 mb-4" loading="lazy" />
+              <span class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">{related.category}</span>
+              <h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-blue transition leading-snug">{related.name}</h3>
+              <span class="mt-4 inline-flex items-center text-brand-red font-bold text-xs group-hover:gap-1 transition-all">
+                Ver Detalles
+                <svg class="w-3.5 h-3.5 ml-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+  </main>
+</Layout>
+
