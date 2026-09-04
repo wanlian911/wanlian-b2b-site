@@ -11,6 +11,15 @@ export interface Tag {
 // 标签聚合体系:按主题将指南与产品关联,形成站内链接网络
 export const tags: Tag[] = [
   {
+    slug: 'fire-protection',
+    name: 'Fire Protection',
+    seoTitle: 'Fire Protection Equipment & Systems: Valves, Hydrants & Sprinklers | Wanlian Fluid',
+    description: 'The complete Wanlian fire protection range — hydrants, sprinkler system valves, fire hose reels and cabinets, portable extinguishers and fire water cannons — with buying guides and certification guidance for B2B projects.',
+    guideHrefs: ['/guides/how-to-choose-a-fire-hydrant/', '/guides/fire-sprinkler-system-valves-guide/', '/guides/fire-sprinkler-system-wet-dry-preaction/', '/guides/fire-sprinkler-control-valve-types/', '/guides/fire-hose-reel-cabinet-guide/', '/guides/fire-water-monitor-selection-guide/', '/guides/fire-water-cannon-buying-guide/', '/guides/how-to-choose-ul-listed-fire-valves/', '/guides/gate-valve-vs-butterfly-valve-fire-protection/', '/guides/fire-extinguisher-selection-guide/'],
+    productSlugs: ['indoor-fire-hydrant-head-sn65', 'overground-fire-hydrant-ss100', 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', 'iot-smart-ground-fire-hydrant-ss100zn', 'fire-hydrant-hose-coupling-adapter-hs', 'sqd100-1-6-fire-pump-adapter', 'glass-bulb-fire-sprinkler-zst', 'horizontal-sidewall-fire-sprinkler-t-zstbs', 'zstdy-concealed-fire-sprinkler', 'wet-alarm-check-valve-zsfz-150', 'deluge-alarm-valve-zsfm', 'pre-action-alarm-system-zsfy', 'water-flow-indicator-zsjz', 'manual-fire-water-cannon-ps', 'auto-tracking-jet-suppression-cannon-zdms', 'fire-hose-reel-jpso8-19', 'foam-fire-hydrant-cabinet-psg30', 'fire-hose-pvc-rubber-lining-8-65', 'adjustable-pistol-grip-fire-nozzle', 'storz-coupling-2-5inch-aluminum', 'abc-dry-powder-fire-extinguisher-5kg', 'stainless-steel-fire-extinguisher-box', 'metal-fire-extinguisher-box-red', 'signal-grooved-wafer-butterfly-valve-dn80', 'ul-fm-resilient-seat-osy-gate-valve', 'd381x-16q-grooved-butterfly-valve', 'groove-solenoid-control-gate-valve-gkzf1', 'suction-vortex-preventer-en12845'],
+    relatedTags: ['fire-hydrant', 'sprinkler-systems', 'fire-water-cannon', 'fire-hose-reel', 'certification', 'procurement']
+  },
+  {
     slug: 'fire-hydrant',
     name: 'Fire Hydrants',
     seoTitle: 'Fire Hydrants: Types, Standards & Selection | Wanlian Fluid',
@@ -44,7 +53,7 @@ export const tags: Tag[] = [
     description: 'HS41X anti-pollution backflow preventers, pressure reducing, level control and solenoid valves for potable water protection and hydraulic safety.',
     guideHrefs: ['/guides/backflow-prevention-guide/', '/guides/pressure-reducing-valve-guide/'],
     productSlugs: ['anti-pollution-backflow-preventer-hs41x', 'adjustable-pressure-reducing-valve-500x', 'hydraulic-water-level-control-valve-f745x', 'groove-solenoid-control-gate-valve-gkzf1', 'suction-vortex-preventer-en12845'],
-    relatedTags: ['industrial-valves', 'potable-water']
+    relatedTags: ['industrial-valves', 'fire-protection']
   },
   {
     slug: 'industrial-valves',

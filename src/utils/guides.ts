@@ -17,7 +17,7 @@ export const guides: Guide[] = [
     date: '2026-08',
     category: 'Hydraulic Safety',
     readTime: '8 min read',
-    tags: ['backflow-prevention', 'industrial-valves', 'potable-water']
+    tags: ['backflow-prevention', 'industrial-valves', 'fire-protection']
   },
   {
     title: 'Fire Hose Reel & Fire Cabinet Selection Guide (2026)',
@@ -26,7 +26,7 @@ export const guides: Guide[] = [
     date: '2026-08',
     category: 'Fire Protection',
     readTime: '7 min read',
-    tags: ['fire-hose-reel', 'fire-cabinet', 'fire-protection']
+    tags: ['fire-hose-reel', 'fire-protection']
   },
   {
     title: 'Fire Water Monitor Selection: Manual vs Auto-Tracking (ZDMS) Guide',
