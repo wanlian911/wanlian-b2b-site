@@ -894,7 +894,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg',
     seoTitle: 'PVC Rubber Lining Layflat Fire Hose | Fire Fighting Hose | Wanlian Fluid',
-    seoDescription: 'Layflat fire hose with PVC rubber lining for firefighting and industrial water transfer: durable woven jacket, customizable sizes. Factory price from Wanlian.'
+    seoDescription: 'Layflat fire hose with PVC rubber lining for firefighting and industrial water transfer: durable woven jacket, customizable sizes. Factory price from Wanlian.',
+    faqs: [
+      { question: 'What is the difference between this layflat fire hose and a fire hose reel unit?', answer: 'This is the hose itself — a flexible supply line that folds flat when drained and is bought by the length, connecting pumps, hydrants or nozzles. A fire hose reel is a fixed cabinet appliance with hose pre-wound on a drum and permanently connected to the building supply. Indoor reel stations are covered by our fire hose reel and cabinet products.' },
+      { question: 'What sizes and lengths are available for the layflat fire hose?', answer: 'Inner diameters range from 19mm to 400mm, with the Model 8-65 configuration (standard 65mm coupling size) as the common firefighting line. Length, diameter and logo are customizable for OEM orders.' },
+      { question: 'Which couplings fit this fire hose?', answer: 'It is supplied with standard aluminum or brass fire hose couplings, and the connection thread system can be matched to your market — Storz, BS336, NIST, KWS or 65mm thread — on request.' },
+      { question: 'What applications is the hose designed for?', answer: 'Class A and B firefighting, airport fire protection and industrial water transfer. The PVC rubber lining suits clear water and foam mixture media; the woven construction carries a 50-200 kN bearing capacity. Confirm the pressure rating for your exact diameter with our engineers before ordering.' }
+    ]
   },
   {
     id: '30',
@@ -924,7 +930,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg',
     seoTitle: 'Adjustable Pistol Grip Fire Nozzle | 150-500LPM | Wanlian Fluid',
-    seoDescription: 'Professional adjustable fire hose nozzle with pistol grip. Variable flow and spray patterns, aluminum alloy body. Factory price from Wanlian Fluid Equipment.'
+    seoDescription: 'Professional adjustable fire hose nozzle with pistol grip. Variable flow and spray patterns, aluminum alloy body. Factory price from Wanlian Fluid Equipment.',
+    faqs: [
+      { question: 'What flow rates and spray patterns does this nozzle deliver?', answer: 'Flow is adjustable from 150 to 500 LPM with multiple spray patterns ranging from straight stream to wide fog, letting the operator switch between reach and heat shielding without changing nozzles.' },
+      { question: 'Which hose sizes does the nozzle fit?', answer: 'It is available with 1.5", 2" and 2.5" inlets. The 2.5" version mates directly with 65mm (Model 8-65) layflat hose lines and with Storz or threaded couplings via the matching adapter.' },
+      { question: 'What material is the nozzle body made of?', answer: 'The body is aluminum alloy with an aluminum or high-impact plastic adjustment ring and a high-impact rubber coated pistol grip — lightweight, corrosion resistant and comfortable for extended operation.' },
+      { question: 'Can the nozzle be customized with my branding?', answer: 'Yes, logo and graphic design customization (OEM) is available on the nozzle body.' }
+    ]
   },
   {
     id: '31',
@@ -955,7 +967,14 @@ export const products: Product[] = [
     },
     image: '/assets/products/abc-dry-powder-fire-extinguisher-5kg.png',
     seoTitle: '5kg ABC Dry Powder Fire Extinguisher | ISO 7165 | Wanlian Fluid',
-    seoDescription: 'Portable ABC dry powder fire extinguisher 5kg with ISO 7165 certification. Suitable for Class A/B/C/E fires. Factory price from Wanlian Fluid Equipment.'
+    seoDescription: 'Portable ABC dry powder fire extinguisher 5kg with ISO 7165 certification. Suitable for Class A/B/C/E fires. Factory price from Wanlian Fluid Equipment.',
+    faqs: [
+      { question: 'Which fire classes does the ABC dry powder extinguisher cover?', answer: 'It covers Class A (solids), Class B (flammable liquids), Class C (flammable gases) and Class E (electrical) fires — the standard multi-purpose coverage for commercial and industrial buildings. It is not the right unit for Class F cooking-oil fires (wet chemical) or Class D metal fires (specialist powder).' },
+      { question: 'What does ISO 7165 / CCCF mean on this unit?', answer: 'ISO 7165 is the international performance standard for portable fire extinguishers, covering construction, testing and marking. CCCF is the China Compulsory Certification for fire products and qualifies the unit for the Chinese market — it is not an export certificate by itself. For export, certificates are confirmed for the exact model and destination.' },
+      { question: 'What sizes and discharge performance are available?', answer: 'The unit is available in 3kg, 4kg and 5kg net agent weights with a discharge time of roughly 8-15 seconds on the 5kg model. The ABC powder is specified at 90% active content.' },
+      { question: 'How do I check that the extinguisher is still serviceable?', answer: 'The color-coded pressure gauge on the carbon steel cylinder shows the charged state — keep the needle in the green zone and the safety pin intact. A one-year warranty covers the unit.' },
+      { question: 'Can I order extinguishers with my own label (OEM)?', answer: 'Yes. Cylinder color, label and language can be customized, and MOQ, artwork and transport packaging requirements (dangerous-goods classification) are confirmed on quotation.' }
+    ]
   },
   {
     id: '32',
@@ -1339,6 +1358,12 @@ export const products: Product[] = [
     },
     image: '/assets/products/storz-coupling-2-5inch-aluminum.jpg',
     seoTitle: '2.5" Aluminum Storz Coupling | German Standard | Wanlian Fluid',
-    seoDescription: 'German standard Storz fire hose coupling 2.5" in aluminum with self-sealing edge for water and foam firefighting. 1.6MPa. Factory price from Wanlian Fluid.'
+    seoDescription: 'German standard Storz fire hose coupling 2.5" in aluminum with self-sealing edge for water and foam firefighting. 1.6MPa. Factory price from Wanlian Fluid.',
+    faqs: [
+      { question: 'Which hose and connection systems does the Storz coupling suit?', answer: 'It is a German-standard Storz quick-connect coupling with a self-sealing edge, used for hose-to-hose and hose-to-nozzle connections with clear water and foam mixture media. Hydrant outlet threads (such as BS336, NIST or KWS) need the matching adapter — the coupling itself is the quick-connect interface.' },
+      { question: 'What pressure rating and sizes are available?', answer: 'Working pressure is 1.6 MPa, in sizes covering 2.5" (DN50 / DN65 / DN80 / DN100 / DN150), in aluminum with optional brass or chrome plating.' },
+      { question: 'Does the coupling come with barbs for hose fitting?', answer: 'Yes — the Storz connection uses quick-connect with barbs for attaching to layflat hose ends, and can be supplied factory-fitted or loose depending on the order.' },
+      { question: 'Can it be used with the Model 8-65 layflat fire hose?', answer: 'Yes. The 2.5" size matches the Model 8-65 (65mm) hose configuration — pair it with our layflat fire hose and adjustable pistol grip nozzles for a complete line set.' }
+    ]
   }
 ];
