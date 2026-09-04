@@ -1,0 +1,190 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: '¿Las válvulas de control para rociadores contra incendios deben estar listadas UL o FM?',
+		answer: 'Para la mayoría de los proyectos en Norteamérica y muchos proyectos internacionales, la válvula de control para rociadores debe estar listada para servicio de protección contra incendios. Suministramos válvulas listadas UL/FM — compuerta, mariposa, retención, diluvio y preacción — bajo pedido; confirme el listado que exige la especificación de su proyecto y el mercado de destino antes de ordenar.'
+	},
+	{
+		question: '¿Cuál es la diferencia entre una válvula de compuerta OS&Y y una de vástago no ascendente para rociadores?',
+		answer: 'Una válvula de compuerta OS&Y (husillo exterior y yugo) tiene vástago ascendente, de modo que la posición del vástago muestra visualmente si la válvula está abierta o cerrada. Los diseños de vástago no ascendente ocultan el vástago y necesitan un indicador de posición independiente. Nuestra válvula de compuerta OS&Y listada UL/FM combina el indicador de vástago ascendente con extremos ranurados para un acople mecánico rápido.'
+	},
+	{
+		question: '¿Por qué una válvula de sección de rociadores necesita un interruptor de manipulación?',
+		answer: 'Un interruptor de manipulación o de límite envía una señal eléctrica al panel de alarma contra incendios cada vez que la válvula se cierra o se cierra parcialmente, de modo que el sistema de rociadores nunca quede aislado de forma involuntaria — un requisito de seguridad obligatorio en instalaciones tipo NFPA-13. Las mariposas señalizadoras, como nuestro modelo ranurado tipo wafer DN80, incorporan este interruptor de serie.'
+	},
+	{
+		question: '¿Dónde se instala una válvula de retención de alarma tipo húmedo?',
+		answer: 'La válvula de retención de alarma tipo húmedo ZSFZ se instala en el montante de rociadores de un sistema húmedo. Mantiene la tubería presurizada en condiciones normales y, cuando el agua fluye hacia un rociador, abre la clapeta, haciendo sonar la campana de alarma hidráulica y activando el presostato. Una cámara de retardo integrada evita falsas alarmas por sobrepresiones transitorias.'
+	},
+	{
+		question: '¿Qué rango de tamaños cubren las válvulas de control para rociadores de Wanlian?',
+		answer: 'Nuestra válvula de compuerta OS&Y listada UL/FM cubre de 2" a 10" (DN50-DN250) con extremos ranurados; las mariposas señalizadoras ranuradas tipo wafer cubren DN50-DN300 a PN16; y las válvulas de retención de alarma tipo húmedo están disponibles en DN100, DN150 y DN200 a 1.6 MPa. Confirme los diámetros de su montante y de sus secciones al solicitar una cotización.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'what-control-valves-do', label: '1. Qué Hacen las Válvulas de Control para Rociadores' },
+	{ id: 'osy-gate-valves', label: '2. Válvulas de Compuerta OS&Y: Aislamiento Principal Supervisado' },
+	{ id: 'signal-butterfly-valves', label: '3. Mariposas Señalizadoras para el Control de Sección' },
+	{ id: 'check-and-alarm-valves', label: '4. Válvulas de Retención y Válvulas de Alarma' },
+	{ id: 'control-valve-comparison', label: '5. Tabla Comparativa de Válvulas de Control' },
+	{ id: 'specification-checklist', label: '6. Cómo Especificar: Lista de Verificación B2B' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Válvula de Compuerta OS&Y Listada UL/FM (Ranurada)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: 'Válvula de compuerta de vástago ascendente listada UL/FM, 2"-10", extremos ranurados' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Mariposa Señalizadora Ranurada Tipo Wafer DN80', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', desc: 'DN80 PN16 con interruptor de manipulación integrado' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Válvula de Retención de Alarma Tipo Húmedo ZSFZ-150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Válvula de retención de alarma DN100-DN200 con cámara de retardo' },
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Grupo de Válvula de Diluvio con Alarma (ZSFM)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'Válvula de control de sistema operada por diafragma, DN50-DN300' }
+];
+---
+
+<Layout
+	title="Tipos de Válvulas de Control para Rociadores (OS&Y y Mariposa)"
+	description="Tipos de válvulas de control para rociadores: compuerta OS&Y, mariposa señalizadora y retención. Guía B2B para elegir la válvula correcta con listado UL/FM."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Tipos de Válvulas de Control para Rociadores' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Tipos de Válvulas de Control para Rociadores</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Protección Contra Incendios</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Tipos de Válvulas de Control para Rociadores: OS&Y, Mariposa &amp; Válvulas de Retención</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Un sistema de rociadores es tan confiable como sus válvulas de control. En resumen: use una válvula de compuerta OS&amp;Y supervisada para el aislamiento principal, mariposas supervisadas para las secciones, válvulas de retención dentro del conjunto de válvula de alarma y una válvula de diluvio o preacción donde el sistema deba permanecer seco hasta que llegue una señal de incendio. Esta guía explica cada tipo de válvula de control para rociadores y cómo especificarla correctamente.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="what-control-valves-do" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Qué Hacen las Válvulas de Control para Rociadores</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Las válvulas de control se ubican entre el suministro de agua y los cabezales rociadores. Aíslan partes del sistema para mantenimiento, contienen el agua hasta que se necesita y —lo más importante— deben <strong>reportar su posición abierta/cerrada</strong> para que nadie pueda apagar la protección contra incendios por accidente. Ese requisito de supervisión es la razón por la que las válvulas descritas a continuación no son intercambiables con válvulas industriales comunes.</p>
+			<p class="text-gray-700 leading-relaxed">Cuando se busca una "válvula de control para rociadores", normalmente se está buscando una de cuatro cosas: una válvula de compuerta OS&amp;Y para el suministro principal, una mariposa señalizadora para el control de sección, el conjunto de válvula de retención/alarma en el montante, o una válvula de diluvio/preacción para sistemas de riesgo especial. Para un recorrido completo por los conjuntos de válvulas de los sistemas húmedos, de diluvio y de preacción, consulte nuestra <a href="/es/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">guía de válvulas para sistemas de rociadores</a>.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="osy-gate-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Válvulas de Compuerta OS&Y: Aislamiento Principal Supervisado</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La válvula de compuerta OS&amp;Y (husillo exterior y yugo) es la válvula de control principal clásica para montantes de rociadores y tuberías principales de incendio. Como el vástago roscado queda fuera de la tapa, el vástago asciende de forma visible a medida que la válvula se abre — cualquier persona que pase puede ver si la válvula está abierta, y un interruptor supervisor montado en el yugo reporta la posición al panel de alarma contra incendios.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Para servicio de protección contra incendios, la válvula debe portar un listado reconocido. Nuestra <a href="/es/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">válvula de compuerta OS&Y de asiento elástico listada UL/FM</a> se suministra con extremos ranurados de 2" a 10" (DN50-DN250) en hierro dúctil, con indicador de vástago ascendente y asiento elástico de EPDM para un cierre hermético sin goteo. Cuando el proyecto se especifica en torno a conexiones con brida, la <a href="/es/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">válvula de compuerta de asiento elástico en hierro dúctil Z41X</a> es la alternativa convencional de paso total para el aislamiento principal.</p>
+			<p class="text-gray-700 leading-relaxed">Regla práctica: las válvulas de compuerta abren y cierran lentamente (multivuelta) y ofrecen una pérdida de presión casi nula cuando están totalmente abiertas — la opción correcta para una válvula que opera rara vez pero no debe restringir el flujo.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="signal-butterfly-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Mariposas Señalizadoras para el Control de Sección</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Donde las válvulas se concentran en cuartos de montantes, cuartos técnicos o colectores de válvulas, el espacio es dinero. Una válvula de mariposa se instala con una fracción de la longitud cara a cara y del peso de una válvula de compuerta, y su operación de cuarto de vuelta facilita el accionamiento. El detalle: una válvula de mariposa común no ofrece ninguna indicación visual ni eléctrica de posición, por lo que el control de sección de rociadores utiliza <strong>mariposas señalizadoras</strong> con un interruptor de manipulación/límite integrado.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Nuestra <a href="/es/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">mariposa señalizadora ranurada tipo wafer DN80</a> es un ejemplo típico: DN80 PN16, cuerpo de hierro dúctil QT450, reductor de tornillo sinfín y un microinterruptor estanco que reporta el estado abierto/cerrado al panel de alarma. La conexión ranurada permite montarla en la tubería con acoples en lugar de bridas, reduciendo el tiempo de instalación en las líneas secundarias de rociadores.</p>
+			<p class="text-gray-700 leading-relaxed">Cuando un plano indica "mariposa supervisada", la especificación del interruptor de manipulación importa — solicite el tipo de interruptor de límite y el grado de protección IP para que interactúe limpiamente con su panel de alarma.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="check-and-alarm-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Válvulas de Retención y Válvulas de Alarma</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un montante de rociadores húmedos normalmente se mantiene presurizado mediante una <strong>válvula de retención de alarma tipo húmedo</strong>. La <a href="/es/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">válvula de retención de alarma tipo húmedo ZSFZ-150</a> mantiene el agua en la tubería del sistema y, en el momento en que un rociador se abre, el flujo levanta la clapeta, haciendo sonar la campana de alarma hidráulica y activando el presostato. Su cámara de retardo absorbe las sobrepresiones transitorias para que la alarma no se dispare por fluctuaciones normales del suministro. Los tamaños ZSFZ van de DN100/DN150/DN200 a 1.6 MPa.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Para sistemas que deben permanecer secos hasta que se confirme un incendio — ocupaciones de alto riesgo, salas sensibles al agua — la propia válvula de control se convierte en una <strong>válvula de diluvio o preacción</strong>. La <a href="/es/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">válvula de diluvio con alarma ZSFM</a> retiene el suministro bajo presión de diafragma y se abre al instante ante una señal de detección para inundar todas las boquillas abiertas, mientras que el sistema de preacción ZSFY exige dos señales independientes antes de inundar la tubería.</p>
+			<p class="text-gray-700 leading-relaxed">Las válvulas de retención de bola también aparecen en arreglos de bombas y de suministro donde debe impedirse el flujo inverso; consulte la <a href="/es/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">comparación entre válvula de compuerta y válvula de mariposa</a> para entender cómo se combinan el aislamiento y la retención en una tubería principal de incendio.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="control-valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Tabla Comparativa de Válvulas de Control</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tipo de Válvula</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Función Principal</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Supervisión de Posición</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Ubicación Típica</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Válvula de compuerta OS&Y</td>
+							<td class="px-4 py-3 text-gray-700">Aislamiento del suministro principal</td>
+							<td class="px-4 py-3 text-gray-700">Vástago ascendente + interruptor supervisor</td>
+							<td class="px-4 py-3 text-gray-700">Montante, tubería principal de incendio, descarga de bomba</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Mariposa señalizadora</td>
+							<td class="px-4 py-3 text-gray-700">Control de sección / piso</td>
+							<td class="px-4 py-3 text-gray-700">Interruptor de manipulación integrado</td>
+							<td class="px-4 py-3 text-gray-700">Líneas secundarias, cuartos de montantes, colectores</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Válvula de retención de alarma tipo húmedo</td>
+							<td class="px-4 py-3 text-gray-700">Mantener presión, alarma ante flujo</td>
+							<td class="px-4 py-3 text-gray-700">Clapeta + campana + presostato</td>
+							<td class="px-4 py-3 text-gray-700">Montante de rociadores húmedos</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Válvula de diluvio / preacción</td>
+							<td class="px-4 py-3 text-gray-700">Control del sistema para zonas de tubería seca</td>
+							<td class="px-4 py-3 text-gray-700">Accionada por señal de detección</td>
+							<td class="px-4 py-3 text-gray-700">Zonas de alto riesgo / sensibles al agua</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">La mayoría de los proyectos necesitan las cuatro categorías — la pregunta nunca es "¿compuerta o mariposa?" sino "¿qué válvula para qué ubicación?".</p>
+
+			<!-- 章节 6 -->
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Cómo Especificar: Lista de Verificación B2B</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Confirme primero el requisito de listado</strong> — UL/ULC o FM es obligatorio para la mayoría de los proyectos norteamericanos; ajuste la certificación a su mercado de destino y al tipo de válvula antes de comparar precios.</li>
+				<li><strong>Haga coincidir la clase de presión</strong> — PN16 (1.6 MPa) es el estándar para las válvulas de control de rociadores; confirme la presión estática máxima de su red y especifique PN25 si se requiere.</li>
+				<li><strong>Elija el estilo de conexión según su programa de tubería</strong> — los extremos ranurados ahorran tiempo de instalación en tubería de acero; las conexiones con brida se ajustan a proyectos ya especificados en torno a bridas.</li>
+				<li><strong>Detalle la especificación del interruptor de manipulación</strong> — el tipo de interruptor, el voltaje y el grado de protección IP deben interactuar con su panel de alarma contra incendios.</li>
+				<li><strong>Solicite informes de prueba por lote</strong> — certificados de prueba de presión de cuerpo y asiento para el lote de producción real, no una plantilla genérica.</li>
+				<li><strong>Consolide el paquete de válvulas</strong> — ordenar las válvulas OS&Y, mariposa y de alarma a un solo fabricante simplifica la documentación de certificación. Ejecute nuestra <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de verificación B2B para la compra de válvulas</a> antes de comprometerse con un proveedor.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Está Especificando un Paquete de Válvulas de Control para Rociadores?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíenos los diámetros de sus montantes, el tipo de conexión y la certificación requerida — nuestros ingenieros responden con fichas técnicas y una cotización en un plazo de 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=V%C3%A1lvulas%20de%20Control%20para%20Rociadores" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20v%C3%A1lvulas%20de%20control%20para%20rociadores%20(OS%26Y%2Fmariposa%2Fretenci%C3%B3n)" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

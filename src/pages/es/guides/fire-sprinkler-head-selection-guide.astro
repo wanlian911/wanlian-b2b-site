@@ -1,0 +1,209 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 preguntas reales de compra (generan el JSON-LD de FAQPage)
+const faq = [
+	{
+		question: '¿Qué significa el factor K de un cabezal de rociador?',
+		answer: 'El factor K relaciona el caudal de un cabezal de rociador con la presión en el cabezal mediante la fórmula Q = K × √P (caudal en L/min, presión en bar). Un cabezal K=80 a 1 bar entrega unos 80 L/min; un cabezal K=115 entrega unos 115 L/min a la misma presión. Los factores K más altos se usan donde debe llegar más agua al fuego más rápido — ocupaciones de riesgo extraordinario o techos altos — mientras que K=80 sigue siendo el estándar común para los espacios de riesgo ligero y ordinario.'
+	},
+	{
+		question: '¿Qué significan las clasificaciones de temperatura y los colores del bulbo?',
+		answer: 'El bulbo de vidrio contiene un líquido que se expande y revienta a su temperatura nominal, liberando el deflector. Las clasificaciones estándar y sus códigos de color son 57°C (naranja), 68°C (rojo), 79°C (amarillo), 93°C (verde) y 141°C (azul). Un cabezal de bulbo rojo de 68°C es el predeterminado para la mayoría de las oficinas y almacenes; las clasificaciones más altas se usan cerca de fuentes de calor como calderas, calefactores y cocinas, para que el cabezal no descargue accidentalmente.'
+	},
+	{
+		question: '¿Cuál es la diferencia entre los cabezales de rociador de respuesta rápida y los de respuesta estándar?',
+		answer: 'La velocidad de respuesta la fija la masa térmica del elemento sensor: un cabezal de respuesta rápida usa un bulbo de vidrio de 3 mm y un cabezal de respuesta estándar usa un bulbo de 5 mm. Los cabezales de respuesta rápida se activan antes y se prefieren para ocupaciones de riesgo ligero y ordinario, donde una descarga más temprana salva vidas y bienes; los de respuesta estándar son comunes en entornos industriales y de almacenamiento donde es aceptable una descarga algo más lenta y deliberada. Nuestra serie ZST está disponible en ambos tipos de respuesta.'
+	},
+	{
+		question: '¿Qué cabezales de rociador de la gama Wanlian están listados UL?',
+		answer: 'El rociador empotrado ZSTDY está listado UL con bulbo rojo de 68°C y acabado cromado electrodepositado. La serie ZST de bulbo de vidrio y el modelo de pared lateral horizontal T-ZSTBS se fabrican según la serie GB 5135 y las normas de fábrica — para proyectos norteamericanos, confirme el listado que exige su especificación y haremos coincidir el modelo certificado u organizaremos la evaluación del proyecto. No declaramos un listado de serie completa cuando solo modelos específicos lo tienen.'
+	},
+	{
+		question: '¿Se pueden mezclar cabezales de rociador con distintas clasificaciones de temperatura en una misma área?',
+		answer: 'No — y este es un hallazgo común de inspección. Todos los cabezales que protegen la misma área de riesgo deben llevar la misma clasificación de temperatura, porque un cabezal de clasificación más baja cerca de una fuente de calor descargará prematuramente y un cabezal de clasificación más alta en un área normal responderá demasiado tarde. Reserve los cabezales de temperatura más alta estrictamente para ubicaciones con fuentes de calor reales e indique la zona de clasificación en los planos de taller.'
+	},
+	{
+		question: '¿Cuándo debo elegir un cabezal empotrado en lugar de un cabezal colgante?',
+		answer: 'Elija cabezales empotrados (con placa de cubierta) donde la estética del cielo raso importe — oficinas, hoteles, acondicionamientos comerciales — porque solo se ve la placa de cubierta. Los cabezales colgantes cuelgan bajo el cielo raso y ofrecen patrones de rociado sin obstrucciones, por eso siguen siendo el estándar para almacenes, techos industriales y áreas donde el propio cielo raso es la superficie de riesgo. Ambos tipos están disponibles en la gama; el empotrado ZSTDY es la opción listada UL.'
+	}
+];
+
+// TOC:corresponde uno a uno con los id de los H2 del cuerpo
+const toc = [
+	{ id: 'system-type-first', label: '1. Empiece por el Tipo de Sistema, Después el Cabezal' },
+	{ id: 'k-factor-flow', label: '2. Factor K y Caudal: Cómo Hacer Coincidir la Entrega de Agua' },
+	{ id: 'temperature-ratings', label: '3. Clasificaciones de Temperatura y Código de Colores del Bulbo' },
+	{ id: 'response-orientation', label: '4. Velocidad de Respuesta y Orientación de Instalación' },
+	{ id: 'us-standards-context', label: '5. Listado UL y Contexto NFPA 13 para Proyectos en EE. UU.' },
+	{ id: 'spec-checklist', label: '6. Lista de Verificación de Especificación para Cabezales de Rociador' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+// Productos relacionados (slug igual que en products.ts)
+const products = [
+	{ slug: 'glass-bulb-fire-sprinkler-zst', name: 'Rociador de Bulbo de Vidrio Contra Incendios (Serie ZST)', img: '/assets/products/glass-bulb-fire-sprinkler-zst.webp', desc: 'K=80/K=115, 57-141°C, colgante/vertical/pared lateral' },
+	{ slug: 'horizontal-sidewall-fire-sprinkler-t-zstbs', name: 'Rociador de Pared Lateral Horizontal (T-ZSTBS)', img: '/assets/products/horizontal-sidewall-fire-sprinkler-t-zstbs.png', desc: 'Bulbo rojo de 68°C, acabado cromado, cobertura perimetral' },
+	{ slug: 'zstdy-concealed-fire-sprinkler', name: 'Rociador Empotrado (ZSTDY)', img: '/assets/products/zstdy-concealed-fire-sprinkler.webp', desc: 'Listado UL, placa de cubierta empotrada, 68°C, cromado' }
+];
+---
+
+<Layout
+	title="Guía de Selección de Cabezales de Rociador: Factor K y Temperatura"
+	description="Guía para elegir cabezales de rociador: factor K y caudal, temperatura del bulbo, respuesta rápida o estándar, orientación, listado UL y contexto NFPA 13."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Selección de Cabezales de Rociador' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Pan de migas -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Selección de Cabezales de Rociador</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Protección Contra Incendios</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Guía de Selección de Cabezales de Rociador Contra Incendios: Factor K, Temperatura y Respuesta</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">El cabezal de rociador es la única parte del sistema que decide cuándo se libera el agua y cuánta llega al fuego. Cuatro parámetros hacen todo el trabajo: factor K, clasificación de temperatura, velocidad de respuesta y orientación. Esta guía explica cada uno de ellos y cómo especificar los cabezales correctamente para proyectos comerciales, de almacén y del mercado estadounidense — incluyendo qué cubre realmente el "listado UL".</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Franja de productos -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Sección 1 -->
+			<h2 id="system-type-first" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Empiece por el Tipo de Sistema, Después el Cabezal</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Los cabezales se especifican dentro de una decisión de sistema, no de forma aislada. En un <strong>sistema húmedo</strong> la tubería permanece llena y cada cabezal es un punto de descarga listo para abrirse; en un <strong>sistema seco</strong> la tubería contiene aire presurizado y los cabezales deben expulsar el aire antes de que llegue el agua; en las configuraciones de <strong>diluvio y preacción</strong> los cabezales pueden ser boquillas abiertas o cabezales sellados según el diseño de la zona. El lado de las válvulas de esa decisión se cubre en nuestra <a href="/es/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">guía de sistemas húmedos, secos y de preacción</a> y en la <a href="/es/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">guía de válvulas para sistemas de rociadores</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Una vez fijado el tipo de sistema, el cabezal se selecciona por el factor K, la temperatura, la respuesta y la orientación — los cuatro parámetros siguientes. Especificar el cabezal antes que el tipo de sistema es el error de compra más común en nuestra bandeja de consultas.</p>
+
+			<!-- Sección 2 -->
+			<h2 id="k-factor-flow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Factor K y Caudal: Cómo Hacer Coincidir la Entrega de Agua</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El factor K define cuánta agua descarga un cabezal a una presión determinada: <strong>Q = K × √P</strong> (caudal en L/min, presión en bar). Es el número que vincula el cálculo hidráulico del sistema con el cabezal físico.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>K=80 (nominal 80 ±4)</strong> — el estándar de larga data para ocupaciones de riesgo ligero y ordinario; la opción predeterminada para oficinas, comercios y la mayoría de los espacios comerciales.</li>
+				<li><strong>K=115 (nominal 115 ±9)</strong> — mayor entrega para ocupaciones de almacenamiento, techos altos y áreas donde la densidad de diseño exige más agua por cabezal.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Ambos coeficientes están disponibles en nuestra <a href="/es/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">serie de rociadores de bulbo de vidrio ZST</a>, que cubre K=80 y K=115 con clasificaciones de temperatura de 57°C a 141°C en patrones colgante, vertical y de pared lateral. El diseñador hidráulico calcula la densidad requerida por metro cuadrado para la clase de riesgo; el factor K se elige entonces para que cada cabezal entregue su parte a una presión realista.</p>
+			<p class="text-gray-700 leading-relaxed">Si una ficha técnica solo indica el tamaño de la rosca y no el factor K, considérela incompleta: el factor K es el número más importante de esa ficha.</p>
+
+			<!-- Sección 3 -->
+			<h2 id="temperature-ratings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Clasificaciones de Temperatura y Código de Colores del Bulbo</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El bulbo de vidrio contiene un líquido sensible al calor; a su temperatura nominal el bulbo revienta y el cabezal descarga. Las clasificaciones siguen un código de colores estándar para que los inspectores puedan leer un cabezal desde el piso:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Clasificación de Temperatura</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Color del Bulbo</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Uso Típico</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">En la Gama ZST</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">57°C (135°F)</td>
+							<td class="px-4 py-3 text-gray-700">Naranja</td>
+							<td class="px-4 py-3 text-gray-700">Áreas residenciales / de bajo calor</td>
+							<td class="px-4 py-3 text-gray-700">Disponible</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">68°C (155°F)</td>
+							<td class="px-4 py-3 text-gray-700">Rojo</td>
+							<td class="px-4 py-3 text-gray-700">Oficinas, almacenes — la clasificación predeterminada</td>
+							<td class="px-4 py-3 text-gray-700">Disponible (también T-ZSTBS, ZSTDY)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">79°C (175°F)</td>
+							<td class="px-4 py-3 text-gray-700">Amarillo</td>
+							<td class="px-4 py-3 text-gray-700">Cerca de calefactores, tragaluces, techos cálidos</td>
+							<td class="px-4 py-3 text-gray-700">Disponible</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">93°C (200°F)</td>
+							<td class="px-4 py-3 text-gray-700">Verde</td>
+							<td class="px-4 py-3 text-gray-700">Salas de calderas, hornos, áreas de alto calor</td>
+							<td class="px-4 py-3 text-gray-700">Disponible</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">141°C (286°F)</td>
+							<td class="px-4 py-3 text-gray-700">Azul</td>
+							<td class="px-4 py-3 text-gray-700">Fuentes de calor industriales especiales</td>
+							<td class="px-4 py-3 text-gray-700">Disponible</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Regla práctica: use cabezales de bulbo rojo de 68°C para las áreas generales y aumente la clasificación solo donde una fuente de calor real haga de la descarga prematura un riesgo concreto. Las clasificaciones más altas responden más tarde en un incendio real, así que sobredimensionar "para estar seguros" no es seguro en absoluto.</p>
+
+			<!-- Sección 4 -->
+			<h2 id="response-orientation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Velocidad de Respuesta y Orientación de Instalación</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La velocidad de respuesta la fija la masa térmica del bulbo: un cabezal de <strong>respuesta rápida</strong> usa un bulbo de 3 mm y se activa antes; un cabezal de <strong>respuesta estándar</strong> usa un bulbo de 5 mm. La respuesta rápida se prefiere donde hay ocupantes presentes y la descarga temprana importa; la respuesta estándar se adapta a entornos de almacenamiento e industriales donde la descarga se diseña en torno al desarrollo del incendio. La serie ZST está disponible en ambas.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La orientación sigue la superficie de riesgo y el cielo raso:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Colgante</strong> — cuelga bajo la línea de derivación; el estándar para techos expuestos y el patrón que cubre la mayor parte de la gama ZST.</li>
+				<li><strong>Vertical</strong> — se instala por encima de la línea de derivación; común en almacenes con vigas de celosía abierta, donde el deflector debe lanzar el agua contra las obstrucciones de las cerchas.</li>
+				<li><strong>Pared lateral</strong> — se monta en la pared cerca del cielo raso, para habitaciones donde las líneas de derivación a través de la losa no son prácticas; el <a href="/es/products/horizontal-sidewall-fire-sprinkler-t-zstbs/" class="text-brand-blue font-semibold hover:underline">cabezal de pared lateral horizontal T-ZSTBS</a> (bulbo rojo de 68°C, acabado cromado) es el modelo de cobertura perimetral de la gama.</li>
+				<li><strong>Empotrado</strong> — oculto detrás de una placa de cubierta que se desprende cuando el cabezal opera; se elige para cielos rasos arquitectónicamente sensibles. El <a href="/es/products/zstdy-concealed-fire-sprinkler/" class="text-brand-blue font-semibold hover:underline">rociador empotrado ZSTDY</a> lleva un bulbo rojo de 68°C y acabado cromado electrodepositado, y es la opción listada UL de la gama.</li>
+			</ul>
+
+			<!-- Sección 5 -->
+			<h2 id="us-standards-context" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Listado UL y Contexto NFPA 13 para Proyectos en EE. UU.</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Los proyectos norteamericanos se rigen por la NFPA 13, cuyas clasificaciones de riesgo (ligero, ordinario y extraordinario) fijan la densidad de diseño, el espaciamiento y, a su vez, la especificación del cabezal. Junto con los parámetros hidráulicos, las especificaciones estadounidenses casi siempre exigen cabezales <strong>listados</strong> — con un listado UL o equivalente que cubra el modelo específico.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Sea preciso sobre lo que cubre nuestra gama: el <strong>rociador empotrado ZSTDY está listado UL</strong> (bulbo rojo de 68°C, construcción en acero inoxidable, DN15-DN20), lo que lo convierte en la opción directa para aplicaciones empotradas especificadas en EE. UU. La serie ZST de bulbo de vidrio y el modelo de pared lateral T-ZSTBS se fabrican según la serie GB 5135 y las normas de fábrica — se especifican confirmando el listado requerido para su proyecto, y haremos coincidir el modelo certificado u organizaremos la evaluación del proyecto, en lugar de declarar un estado UL de serie completa.</p>
+			<p class="text-gray-700 leading-relaxed">Esa distinción importa en las compras estadounidenses: un sustituto sin certificación en una línea que exige listado puede reprobar la revisión de planos e invalidar la aceptación del sistema. Pida que el listado se nombre en la cotización, modelo por modelo — nuestra página de <a href="/es/certificates/" class="text-brand-blue font-semibold hover:underline">certificados y cumplimiento</a> muestra cómo se gestiona la documentación de los listados.</p>
+
+			<!-- Sección 6 -->
+			<h2 id="spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Lista de Verificación de Especificación para Cabezales de Rociador</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Factor K</strong> — K=80 para riesgo ligero/ordinario, K=115 para mayor densidad; indique la densidad de diseño objetivo con el pedido.</li>
+				<li><strong>Clasificación de temperatura</strong> — 68°C predeterminada; clasificaciones más altas solo en fuentes de calor reales; nunca mezcle clasificaciones dentro de una misma área de riesgo.</li>
+				<li><strong>Respuesta</strong> — respuesta rápida (bulbo de 3 mm) o estándar (bulbo de 5 mm) según la ocupación y el diseño del sistema.</li>
+				<li><strong>Orientación y acabado</strong> — colgante, vertical, pared lateral o empotrado; acabado cromado, pulido o personalizado según el tipo de cielo raso.</li>
+				<li><strong>Listado por modelo</strong> — nombre el listado requerido (p. ej., UL) en la cotización; confirme que cubre el modelo y el tamaño exactos.</li>
+				<li><strong>Documentación del lote</strong> — registros de prueba de presión y sensibilidad del lote de producción; consulte nuestra <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de verificación de abastecimiento B2B</a> para la rutina de verificación de fábrica que aplica también a los proveedores de rociadores.</li>
+			</ul>
+
+			<!-- Sección FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Doble CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Está Especificando Cabezales de Rociador para su Proyecto?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíe su clase de riesgo, factor K, clasificación de temperatura y requisito de listado — nuestros ingenieros confirmarán el modelo que coincide en un plazo de 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Fire%20Sprinkler%20Heads" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20cabezales%20de%20rociador%20contra%20incendios%20(factor%20K%2Ftemperatura%2Frespuesta)" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

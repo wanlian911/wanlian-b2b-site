@@ -34,7 +34,7 @@ export function stripLocale(pathname: string, locale: Locale): string {
 /**
  * 已提供西语版本的页面（前缀匹配）。'/' 仅精确匹配首页；
  * 其余条目（如 '/products/'）前缀匹配，覆盖该前缀下全部子路径（含动态产品页）。
- * M2 覆盖：产品库、静态页、5 个系统 hub 页。guides/tags/blog 留 M3。
+ * M3 覆盖：产品库、静态页、系统 hub 页、指南、blog 与 tags。
  * 用于避免语言切换/页脚链接指向尚未翻译的 404 页面。
  */
 const ES_PREFIXES: string[] = [
@@ -51,6 +51,9 @@ const ES_PREFIXES: string[] = [
   '/fire-sprinkler-systems/',
   '/fire-water-cannon/',
   '/ul-fire-valves/',
+  '/guides/',
+  '/blog/',
+  '/tags/',
 ];
 
 /** 目标路径在 es 下是否已有真实页面（EN 恒真；容忍无尾斜杠与 hash/query）。 */

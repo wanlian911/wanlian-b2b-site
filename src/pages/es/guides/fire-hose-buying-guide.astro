@@ -1,0 +1,247 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 preguntas reales de compra (generan el JSON-LD de FAQPage)
+const faq = [
+	{
+		question: '¿Cuál es la diferencia entre la manguera plana contra incendios y un carrete de manguera?',
+		answer: 'La manguera plana contra incendios es una línea de suministro flexible que se pliega plana cuando está vacía y se almacena en estantes, vehículos o gabinetes hasta su despliegue; es la manguera en sí, que se compra por metro. Un carrete de manguera contra incendios es una unidad interior fija donde la manguera va pre-enrollada en un tambor y conectada de forma permanente al suministro de agua — un equipo completo, no un tramo de manguera. Si usted equipa estaciones interiores de extinción, consulte nuestra guía de carretes y gabinetes de manguera; si compra manguera de repuesto o de suministro al por mayor, esta guía le aplica.'
+	},
+	{
+		question: '¿Qué tamaños de manguera plana contra incendios están disponibles?',
+		answer: 'Nuestra manguera plana contra incendios con forro de caucho PVC cubre diámetros interiores de 19 mm a 400 mm, con la configuración Modelo 8-65 (tamaño de acople estándar de 65 mm) como la línea contra incendios más común. Los largos son personalizables, de modo que un distribuidor puede almacenar rollos estándar y cortar o pedir largos específicos por proyecto.'
+	},
+	{
+		question: '¿Qué acoples se adaptan a la manguera plana contra incendios?',
+		answer: 'La manguera se suministra con acoples estándar de aluminio o latón para manguera contra incendios, y nuestros adaptadores de aluminio serie HS (DN50/DN65, basados en GB12514) conectan hidrantes, mangueras y boquillas con roscas autosellantes. Para sistemas de norma alemana también suministramos acoples Storz de aluminio de 2.5" (DN50-DN150, 1.6 MPa). Indíquenos su mercado y ajustaremos el sistema de rosca — BS336 (Reino Unido/Commonwealth), NIST (Medio Oriente), KWS (Alemania) u otros — en la cotización.'
+	},
+	{
+		question: '¿Puede usarse la manguera plana contra incendios para espuma y transferencia industrial de agua?',
+		answer: 'Sí. La manguera está especificada para extinción de incendios de clase A y B, protección de aeropuertos y transferencia industrial de agua, y el forro de caucho PVC admite agua limpia y medios con mezcla de espuma. Confirme el medio y la presión exactos para su diámetro con nuestros ingenieros para que la pared de la manguera y los acoples se dimensionen correctamente.'
+	},
+	{
+		question: '¿Puedo pedir manguera contra incendios con mi propia marca (OEM)?',
+		answer: 'Sí. El largo, el diámetro interior y el logotipo son personalizables, y la manguera puede fabricarse con el idioma de su etiqueta y bandas de color. Los plazos y mínimos OEM se confirman en la cotización — indique los diámetros, largos y volúmenes que planea almacenar.'
+	},
+	{
+		question: '¿Cómo debe almacenarse la manguera plana contra incendios entre usos?',
+		answer: 'Seque la manguera antes del almacenamiento prolongado, manténgala plegada o enrollada plana y protéjala de la luz solar directa, el ozono y los bordes afilados. La manguera plana está diseñada para plegarse cuando se drena, lo que mantiene pequeño el volumen almacenado en comparación con la manguera de lumen redondo. La inspección periódica de la cubierta tejida para detectar abrasión y de los acoples para detectar daños en la rosca es la rutina práctica de mantenimiento.'
+	}
+];
+
+// TOC:corresponde uno a uno con los id de los H2 del cuerpo
+const toc = [
+	{ id: 'layflat-vs-reel', label: '1. Manguera Plana Contra Incendios vs Carrete de Manguera' },
+	{ id: 'hose-construction', label: '2. Construcción de la Manguera: Cubierta, Forro y Sellado de Bordes' },
+	{ id: 'sizing-fire-hose', label: '3. Dimensionamiento: Diámetro, Largo y Aplicaciones' },
+	{ id: 'couplings-standards', label: '4. Acoples y Normas de Conexión' },
+	{ id: 'nozzles-flow', label: '5. Boquillas y Control de Caudal' },
+	{ id: 'factory-checklist', label: '6. Lista de Verificación de Compra en Fábrica: OEM y Calidad' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+// Productos relacionados (slug igual que en products.ts)
+const products = [
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Manguera Plana Contra Incendios con Forro de Caucho PVC', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Modelo 8-65, diámetro interior 19-400 mm, cubierta tejida, largos OEM' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: 'Acople Storz de Aluminio de 2.5"', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'Conexión rápida de norma alemana, DN50-DN150, 1.6 MPa' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'Boquilla Ajustable con Empuñadura de Pistola', img: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg', desc: '150-500 LPM, de chorro recto a niebla, entrada de 1.5"-2.5"' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Adaptador de Acople de Manguera para Hidrante', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'Serie HS de aluminio, DN50/DN65, roscas autosellantes' }
+];
+---
+
+<Layout
+	title="Guía de Compra de Manguera Plana Contra Incendios: Tamaños y Acoples"
+	description="Guía de compra B2B de manguera plana contra incendios: tamaños, forro de PVC, cubierta tejida, acoples Storz y de 65 mm, boquillas y suministro OEM."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Compra de Mangueras' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Pan de migas -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Compra de Mangueras</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Protección Contra Incendios</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Guía de Compra de Manguera Plana Contra Incendios: Tamaños, Forros y Acoples</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">La manguera contra incendios parece un producto básico, pero la decisión de compra se concentra en cuatro detalles: si usted necesita una línea de suministro o un equipo de carrete, cómo están construidas la cubierta y el forro, qué diámetro y largo corresponden a su tarea de entrega, y qué sistema de acople usa su mercado. Esta guía lleva a importadores y distribuidores por cada uno de ellos — y por dónde cuestionar la ficha técnica de un proveedor.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Tarjetas de producto -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Sección 1 -->
+			<h2 id="layflat-vs-reel" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Manguera Plana Contra Incendios vs Carrete de Manguera: Sepa Cuál Está Comprando</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La forma más rápida de especificar mal es confundir la manguera con el equipo. Una <strong>manguera plana contra incendios</strong> es un tramo de manguera flexible que se pliega plana y que el personal de bomberos o el operador de bomba conecta en ambos extremos; un <strong>carrete de manguera contra incendios</strong> es una unidad de montaje mural con manguera pre-enrollada en un tambor, conectada de forma permanente al suministro del edificio y lista para que la use un ocupante sin entrenamiento.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Característica</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Manguera Plana Contra Incendios</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Carrete y Gabinete de Manguera</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Qué es</td>
+							<td class="px-4 py-3 text-gray-700">Línea de suministro flexible, comprada por metro</td>
+							<td class="px-4 py-3 text-gray-700">Equipo fijo de gabinete con tambor + boquilla</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Conexión de agua</td>
+							<td class="px-4 py-3 text-gray-700">Se conecta a bomba, hidrante o colector según se requiera</td>
+							<td class="px-4 py-3 text-gray-700">Conectada de forma permanente al suministro del edificio</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Almacenamiento</td>
+							<td class="px-4 py-3 text-gray-700">Se pliega plana: estantes, compartimentos de vehículos, stock de repuesto</td>
+							<td class="px-4 py-3 text-gray-700">Enrollada en tambor dentro de un gabinete mural</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Comprador típico</td>
+							<td class="px-4 py-3 text-gray-700">Brigadas de bomberos, plantas industriales, distribuidores de stock de manguera</td>
+							<td class="px-4 py-3 text-gray-700">Contratistas de obra y administradores de edificios</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Si su pedido es en realidad para estaciones interiores de extinción, el paquete de carrete y gabinete es el alcance correcto — consulte nuestra <a href="/es/guides/fire-hose-reel-cabinet-guide/" class="text-brand-blue font-semibold hover:underline">guía de selección de carretes y gabinetes de manguera</a>. Esta guía cubre la manguera en sí: construcción, dimensionamiento, acoples y suministro.</p>
+
+			<!-- Sección 2 -->
+			<h2 id="hose-construction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Construcción de la Manguera: Cubierta, Forro y Sellado de Bordes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Una manguera plana contra incendios es un material compuesto: la <strong>cubierta tejida</strong> soporta la presión y resiste la abrasión; el <strong>forro</strong> sella el interior y determina la compatibilidad con el medio; y los <strong>bordes y extremos</strong> deciden cuánto sobrevive la manguera al uso rudo.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Cubierta</strong> — busque una cubierta tejida de fibra sintética con tejido denso. Nuestra manguera usa fibra sintética tejida con forro de caucho PVC; la densidad del tejido es lo que resiste el rozamiento contra el concreto y evita que la manguera reviente en los pliegues.</li>
+				<li><strong>Forro</strong> — el forro de caucho PVC da un interior liso con baja pérdida de carga y admite agua limpia y medios con mezcla de espuma. Para químicos más agresivos la especificación del forro debe cambiar — confirme el medio antes de pedir en lugar de asumir que un solo forro sirve para todo.</li>
+				<li><strong>Refuerzo de bordes y esquinas</strong> — la manguera de pliegue plano es más vulnerable donde se dobla y donde se sujetan los extremos. El sellado tejido de los bordes y las esquinas reforzadas son las características que evitan la delaminación exactamente en esos puntos; ambas son estándar en nuestra producción.</li>
+				<li><strong>Terminación de extremos</strong> — los acoples se instalan en fábrica o se suministran sueltos según el pedido; los extremos sueltos son adecuados para distribuidores que engarzan o fijan acoples localmente, mientras que los extremos instalados en fábrica garantizan una unión probada.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Al comparar fichas técnicas de proveedores, haga tres preguntas: cuál es el material y la densidad del tejido, cuál es el compuesto del forro y cómo se sellan los bordes. Las descripciones genéricas de «manguera de caucho» ocultan las tres respuestas.</p>
+
+			<!-- Sección 3 -->
+			<h2 id="sizing-fire-hose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Dimensionamiento: Diámetro, Largo y Aplicaciones</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El diámetro interior decide la capacidad de caudal, el largo decide el alcance, y la combinación equivocada significa una boquilla sin alimentación o un exceso de peso que arrastrar. Nuestra gama plana cubre <strong>diámetros interiores de 19 mm a 400 mm</strong>, con el Modelo 8-65 (la configuración de acople estándar de 65 mm) como la línea de extinción de trabajo pesado. Como regla general en la práctica contra incendios:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>19-25 mm</strong> — líneas de diámetro pequeño para servicio ligero y algunas aplicaciones tipo carrete.</li>
+				<li><strong>40-50 mm</strong> — líneas derivadas donde el personal trabaja con líneas manuales y caudales menores.</li>
+				<li><strong>65 mm (2.5")</strong> — el tamaño estándar de línea de ataque/suministro para la mayoría de la extinción en edificios e industria, y la configuración del modelo 8-65.</li>
+				<li><strong>100 mm y mayores</strong> — líneas de relevo y suministro a hidrantes que mueven grandes volúmenes a distancia, hasta 400 mm en nuestra gama para transferencia a granel.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">El largo es donde el OEM importa más: nuestra <a href="/es/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">manguera plana contra incendios con forro de caucho PVC</a> se produce con largo, diámetro y logotipo personalizables, y la ficha técnica declara una capacidad de carga de 50-200 kN como referencia de resistencia de la construcción tejida. Tenga en cuenta que la capacidad de carga es un valor de tracción/estructural, no la presión de trabajo — solicite siempre por separado la presión nominal para su diámetro exacto y nunca la infiera solo de las clases de los acoples.</p>
+			<p class="text-gray-700 leading-relaxed">Las aplicaciones de la gama de productos son la extinción de incendios clase A y B, la protección de aeropuertos y la transferencia industrial de agua — los dos extremos del mercado donde la manguera plana desplaza a las alternativas rígidas o de lumen redondo porque se compacta pequeña y se despliega rápido.</p>
+
+			<!-- Sección 4 -->
+			<h2 id="couplings-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Acoples y Normas de Conexión</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El error de exportación más común es pedir manguera sin fijar la norma de acople y descubrir luego que las roscas no coinciden con los hidrantes o las boquillas del país de destino. Las conexiones de manguera contra incendios son regionales, y las principales familias son:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Sistema de Acople</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Regiones Comunes</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Producto Wanlian Equivalente</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Storz (conexión rápida)</td>
+							<td class="px-4 py-3 text-gray-700">Alemania, Europa, gran parte de Asia</td>
+							<td class="px-4 py-3 text-gray-700">Acople Storz de aluminio de 2.5", DN50-DN150, 1.6 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">BS336</td>
+							<td class="px-4 py-3 text-gray-700">Reino Unido y mercados de la Mancomunidad</td>
+							<td class="px-4 py-3 text-gray-700">Adaptadores roscados según proyecto</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">NIST</td>
+							<td class="px-4 py-3 text-gray-700">Conexiones de hidrantes en Medio Oriente</td>
+							<td class="px-4 py-3 text-gray-700">Adaptadores roscados según proyecto</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">GB12514 / rosca de 65 mm</td>
+							<td class="px-4 py-3 text-gray-700">Sistemas de norma china e hidrantes de 2.5"</td>
+							<td class="px-4 py-3 text-gray-700">Adaptador de aluminio serie HS, DN50/DN65</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Para instalaciones de norma alemana, el <a href="/es/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">acople Storz de aluminio de 2.5"</a> proporciona la unión de conexión rápida con junta autosellante, nominal de 1.6 MPa para agua limpia y mezcla de espuma. Cuando la manguera debe acoplarse a salidas de hidrante o boquillas de otro sistema, el <a href="/es/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">adaptador de acople de aluminio serie HS</a> (DN50/DN65, roscas internas autosellantes, 1.6 MPa) tiende el puente de conexión — razón por la que nuestra gama de hidrantes también se ofrece con opciones BS336, NIST, KWS y brida bajo pedido.</p>
+			<p class="text-gray-700 leading-relaxed">Especifique el sistema de acople en la consulta, no después de la producción: adaptar roscas en los extremos de una manguera terminada es costoso y rara vez tan confiable como los acoples instalados en fábrica.</p>
+
+			<!-- Sección 5 -->
+			<h2 id="nozzles-flow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Boquillas y Control de Caudal</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Una manguera es tan útil como la boquilla en su extremo. Para líneas manuales, una boquilla ajustable con caudal y patrones de rociado variables cubre el rango desde el chorro recto (alcance) hasta la niebla (blindaje térmico y abatimiento). Nuestra <a href="/es/products/adjustable-pistol-grip-fire-nozzle/" class="text-brand-blue font-semibold hover:underline">boquilla extintora ajustable con empuñadura de pistola</a> entrega 150-500 LPM con patrones de chorro recto a niebla y se adapta a entradas de 1.5", 2" y 2.5" — en línea con la familia de líneas de 65 mm cubierta en esta guía.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Dos reglas de dimensionamiento mantienen el conjunto coherente:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Iguale la entrada de la boquilla al acople de la manguera</strong> — una línea de 2.5" debe terminar en una boquilla de entrada de 2.5" a menos que el adaptador sea intencional.</li>
+				<li><strong>Iguale el caudal de la boquilla a la entrega de la manguera</strong> — una boquilla que exige más de lo que el diámetro de la manguera puede entregar empobrece el chorro y desperdicia la energía de la bomba; indique el caudal previsto cuando dimensionemos el diámetro de la manguera.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Los distribuidores normalmente almacenan manguera, acoples y boquillas como una sola familia de SKU para que los reemplazos de emergencia sigan siendo compatibles — otra razón para consolidar el paquete con un solo fabricante.</p>
+
+			<!-- Sección 6 -->
+			<h2 id="factory-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Lista de Verificación de Compra en Fábrica: OEM y Calidad</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Cuando abastezca manguera plana contra incendios desde una fábrica china, verifique estos puntos antes de que comience la producción:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Declare la norma de acople por escrito</strong> — Storz, BS336, NIST, KWS o rosca de 65 mm; confirme extremos sueltos vs instalados en fábrica y quién prueba la unión terminada.</li>
+				<li><strong>Solicite la presión nominal por diámetro</strong> — no acepte una sola clase para toda la gama; el espesor de pared y el tejido cambian con el tamaño del diámetro interior.</li>
+				<li><strong>Confirme la compatibilidad con el medio</strong> — el agua limpia y la mezcla de espuma son estándar para el forro de caucho PVC; indique cualquier medio químico antes de pedir.</li>
+				<li><strong>Fije el alcance del OEM</strong> — largo, diámetro, logotipo, idioma de la etiqueta y bandas de color; incorpore los hitos de aprobación del arte al cronograma.</li>
+				<li><strong>Solicite evidencia de calidad por lote</strong> — controles de densidad del tejido, inspección del sellado de bordes y pruebas de tracción de acoples del lote real. Aplique nuestra <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de verificación de abastecimiento de válvulas B2B</a> para la rutina de verificación de fábrica que aplica igualmente a los proveedores de manguera.</li>
+				<li><strong>Planifique el almacenamiento y el empaque</strong> — la manguera plana se envía plegada; confirme el empaque en rollos/palets y la carga del contenedor con el proveedor para evitar daños en tránsito en los puntos de pliegue.</li>
+			</ul>
+
+			<!-- Guías relacionadas -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Guías Relacionadas</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Compare proveedores de manguera cara a cara: <a href="/es/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian Fluid vs American AVK</a>.</p>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">¿No está seguro de qué norma de manguera aplica a su pedido? Consulte <a href="/es/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Normas de Hidrantes, Mangueras y Válvulas Contra Incendios Explicadas</a>.</p>
+			</div>
+
+			<!-- Sección FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Doble CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Abastece Manguera Plana Contra Incendios al Por Mayor?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíe sus diámetros, largos, norma de acople y mercado objetivo — nuestro equipo confirma las presiones nominales, las opciones OEM y el plazo de entrega dentro de las 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Layflat%20Fire%20Hose" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20manguera%20plana%20contra%20incendios%20con%20acoples" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

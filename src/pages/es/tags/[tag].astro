@@ -1,0 +1,123 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { tags, type Tag } from '../../../utils/tags';
+import { tagsEs } from '../../../utils/tags.es';
+import { guidesEs } from '../../../utils/guides.es';
+import { productsEs } from '../../../utils/products.es';
+
+export function getStaticPaths() {
+  return tags.map((tag) => ({
+    params: { tag: tag.slug },
+    props: { tag },
+  }));
+}
+
+const { tag } = Astro.props as { tag: Tag };
+const tagEs = tagsEs[tag.slug] ?? { name: tag.name, seoTitle: tag.seoTitle, description: tag.description };
+
+const esGuideHrefs = tag.guideHrefs.map(h => `/es${h}`);
+const tagGuides = guidesEs.filter(g => esGuideHrefs.includes(g.href));
+const tagProducts = productsEs.filter(p => tag.productSlugs.includes(p.slug));
+const relatedTags = tags.filter(t => tag.relatedTags.includes(t.slug));
+---
+
+<Layout
+  title={tagEs.seoTitle}
+  description={tagEs.description}
+  type="website"
+  locale="es"
+  breadcrumbs={[{ name: 'Temas', href: '/es/tags/' }, { name: tagEs.name }]}
+>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mb-20">
+    <!-- Breadcrumbs -->
+    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-8 flex gap-2">
+      <a href="/es/" class="hover:text-blue-600">Inicio</a>
+      <span>/</span>
+      <a href="/es/tags/" class="hover:text-blue-600">Temas</a>
+      <span>/</span>
+      <span class="text-gray-600">{tagEs.name}</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="max-w-3xl mb-14 space-y-4">
+      <span class="text-xs font-bold tracking-widest text-brand-red uppercase">Tema</span>
+      <h1 class="text-4xl font-black text-gray-900 tracking-tight">{tagEs.name}</h1>
+      <p class="text-lg text-gray-500 leading-relaxed">{tagEs.description}</p>
+    </div>
+
+    <!-- Related tags -->
+    <div class="flex flex-wrap gap-2 mb-14">
+      <span class="text-xs font-bold text-gray-400 uppercase tracking-wider self-center mr-1">Relacionados:</span>
+      {relatedTags.map(rel => (
+        <a
+          href={`/es/tags/${rel.slug}/`}
+          class="px-3 py-1.5 bg-gray-100 hover:bg-brand-blue/10 text-gray-600 hover:text-brand-blue text-xs font-bold rounded-full transition"
+        >
+          {tagsEs[rel.slug]?.name ?? rel.name}
+        </a>
+      ))}
+    </div>
+
+    <!-- Guides -->
+    {tagGuides.length > 0 && (
+      <section class="mb-16">
+        <h2 class="text-2xl font-black text-gray-900 mb-8 tracking-tight">Guías y Artículos</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {tagGuides.map(guide => (
+            <a
+              href={guide.href}
+              class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-blue/30 transition p-8 flex flex-col"
+            >
+              <div class="flex items-center gap-3 mb-4">
+                <span class="px-2.5 py-1 bg-brand-blue/10 text-brand-blue text-[11px] font-black rounded-full uppercase tracking-wider">{guide.category}</span>
+                <span class="text-xs text-gray-400">{guide.date} · {guide.readTime}</span>
+              </div>
+              <h3 class="text-lg font-black text-gray-900 group-hover:text-brand-blue transition leading-snug mb-3">
+                {guide.title}
+              </h3>
+              <p class="text-sm text-gray-500 leading-relaxed flex-grow">{guide.description}</p>
+              <span class="mt-6 inline-flex items-center text-brand-red font-bold text-sm group-hover:gap-2 transition-all">
+                Leer Guía
+                <svg class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Products -->
+    {tagProducts.length > 0 && (
+      <section class="mb-16">
+        <h2 class="text-2xl font-black text-gray-900 mb-8 tracking-tight">Productos Relacionados</h2>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          {tagProducts.map(product => (
+            <a
+              href={`/es/products/${product.slug}/`}
+              class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-red/30 transition p-6 flex flex-col"
+            >
+              <img src={product.image} alt={product.name} loading="lazy" class="w-full h-36 object-contain rounded-lg bg-gray-50 p-2 mb-4" />
+              <span class="text-[10px] font-bold text-brand-blue uppercase tracking-wider mb-2">{product.category}</span>
+              <h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-red transition leading-snug flex-grow">{product.name}</h3>
+              <span class="mt-4 inline-flex items-center text-brand-red font-bold text-xs group-hover:gap-1 transition-all">
+                Ver Detalles
+                <svg class="w-3.5 h-3.5 ml-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- CTA -->
+    <div class="mt-20 p-10 bg-gray-900 rounded-3xl text-white text-center space-y-4">
+      <h2 class="text-2xl font-black">¿Necesita Ayuda con {tagEs.name}?</h2>
+      <p class="text-gray-400 max-w-xl mx-auto">
+        Nuestros ingenieros le ayudan a seleccionar los productos adecuados para la especificación de su proyecto.
+      </p>
+      <a href="/es/contact/" class="inline-block px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:opacity-90 transition">
+        Consultar a un Ingeniero
+      </a>
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,203 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ: 6 preguntas reales de compra (genera el FAQPage JSON-LD)
+const faq = [
+	{
+		question: '¿Cómo funciona una válvula reductora de presión hidráulica sin electricidad?',
+		answer: 'Una PRV hidráulica auto-operada usa una válvula piloto más la propia presión de la tubería como fuerza motriz. El piloto detecta la presión aguas abajo: cuando supera el punto de consigna, el piloto se cierra ligeramente, la presión aumenta en la cámara de diafragma y la válvula principal estrangula el paso; cuando baja, el piloto ventila la cámara y la válvula principal abre más. No se necesita ninguna fuente de energía externa.'
+	},
+	{
+		question: '¿Qué rango de presión aguas abajo puede mantener la válvula reductora de presión 500X?',
+		answer: 'La válvula reductora de presión hidráulica ajustable 500X de Wanlian cubre DN20-DN600 (3/4" a 24") con presión aguas abajo ajustable de 0.1 MPa a 1.6 MPa. El cuerpo de la válvula está clasificado a una presión nominal de 1.0 MPa, 1.6 MPa o 2.5 MPa; indique su presión de entrada y la presión de consigna requerida al solicitar una cotización.'
+	},
+	{
+		question: '¿Cuál es la diferencia entre una válvula reductora de presión 500X y una válvula de control de nivel F745X?',
+		answer: 'Una válvula reductora de presión 500X mantiene constante la presión aguas abajo sin importar las fluctuaciones del caudal. Una válvula hidráulica de control de nivel de agua F745X, en cambio, mantiene un nivel de agua preestablecido en un depósito, tanque o torre de agua, usando un piloto de flotador para abrir y cerrar la válvula principal según cambia el nivel. Ambas son válvulas de control hidráulico auto-operadas que no requieren energía externa.'
+	},
+	{
+		question: '¿Cuándo debo elegir la F745X en lugar de la válvula de flotador de control remoto 100X-16P?',
+		answer: 'La F745X (DN50-DN400, 1.0/1.6 MPa, hierro dúctil QT450-10) es la opción estándar para depósitos grandes y torres de agua. La válvula de flotador de control remoto 100X-16P (DN40-DN300, 0-1.0 MPa) tiene cuerpo de acero inoxidable fundido CF8, lo que la hace apta para medios corrosivos, requisitos de higiene más exigentes o instalaciones cercanas al mar, y puede operarse de forma remota con un control de piloto de flotador.'
+	},
+	{
+		question: '¿Por qué se recomienda un colador en Y aguas arriba de las válvulas de control hidráulico?',
+		answer: 'Las válvulas de control hidráulico operan con piloto, y sus puertos de piloto y válvulas de aguja son sensibles a las partículas. El colador en Y telescópico SGL41H se instala en la entrada de la válvula para filtrar las impurezas, con mallas de acero inoxidable 304/316 (18-30 mesh para agua). Su junta telescópica integrada permite retirar la válvula para mantenimiento sin cortar la tubería.'
+	},
+	{
+		question: '¿Las válvulas hidráulicas de cierre lento ayudan a prevenir el golpe de ariete?',
+		answer: 'Sí. La 500X y la F745X están diseñadas con una acción de cierre lento y suave, de modo que la válvula no se cierra de golpe cuando se detiene el flujo, lo que evita las sobretensiones destructivas de presión y el golpe de ariete en la red. Para las líneas de succión de bombas, añada un preventor de vórtice de succión EN12845 para evitar la entrada de aire que puede causar cavitación y picos de presión.'
+	}
+];
+
+// TOC: corresponde uno a uno con los id de los H2 del contenido
+const toc = [
+	{ id: 'what-is-hydraulic-prv', label: '1. ¿Qué Es una Válvula Reductora de Presión Hidráulica?' },
+	{ id: 'how-pilot-prv-works', label: '2. Cómo Funciona la PRV 500X Auto-Operada' },
+	{ id: 'hydraulic-control-valve-comparison', label: '3. PRV vs Control de Nivel vs Válvula de Flotador' },
+	{ id: 'typical-applications', label: '4. Dónde Va Cada Válvula' },
+	{ id: 'installation-and-protection', label: '5. Instalación y Protección' },
+	{ id: 'specification-checklist', label: '6. Lista de Especificación B2B' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+// Productos relacionados (el slug coincide con products.ts)
+const products = [
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: 'Válvula Reductora de Presión Hidráulica (500X)', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'DN20-DN600, ajustable de 0.1 a 1.6 MPa' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'Válvula de Control de Nivel de Agua (F745X)', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'Piloto de flotador DN50-DN400, control de nivel en tanques' },
+	{ slug: 'remote-control-float-valve-100x', name: 'Válvula de Flotador de Control Remoto (100X-16P, CF8)', img: '/assets/products/remote-control-float-valve-100x.webp', desc: 'Acero inoxidable fundido, DN40-DN300, 0-1.0 MPa' },
+	{ slug: 'groove-solenoid-control-gate-valve-gkzf1', name: 'Válvula de Compuerta con Control por Solenoide (GKZF-1)', img: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg', desc: 'DN50-DN300, AC220V/DC24V, 300 PSI' }
+];
+---
+
+<Layout
+	title="Válvula reductora de presión 500X: guía para suministro de agua"
+	description="Válvula reductora de presión hidráulica 500X: cómo funciona, cuándo elegir la F745X de control de nivel o la 100X y lista de especificación B2B."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Guía de la Válvula Reductora de Presión' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Guía de la Válvula Reductora de Presión</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Válvulas de Control Hidráulico</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Guía de la Válvula Reductora de Presión: PRV Hidráulica 500X y Válvulas de Control para el Suministro de Agua</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En resumen: una válvula reductora de presión hidráulica es una válvula auto-operada y controlada por piloto que mantiene una presión aguas abajo estable usando únicamente la presión de la tubería — sin electricidad. Para las redes de suministro de agua normalmente se elige entre una válvula reductora de presión 500X (presión aguas abajo constante), una válvula de control de nivel F745X (nivel de tanque constante) y una válvula de flotador remota 100X (opción compacta de acero inoxidable). Esta guía explica cómo funciona cada una y cómo especificarlas.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Sección 1 -->
+			<h2 id="what-is-hydraulic-prv" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. ¿Qué Es una Válvula Reductora de Presión Hidráulica?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Una válvula reductora de presión hidráulica (PRV) es una válvula de control auto-operada que reduce una presión de entrada alta y fluctuante a una presión aguas abajo más baja y estable. Se llama hidráulica porque la válvula es accionada íntegramente por la presión de la tubería mediante un sistema de piloto — no intervienen solenoide, motor ni gabinete de control. Eso la convierte en un componente de bajo costo y alta confiabilidad para zonas de suministro de agua, estaciones de bombeo de refuerzo, redes de riego y líneas de agua de proceso.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">El ejemplo clásico es la <a href="/es/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">válvula reductora de presión hidráulica ajustable 500X</a>: una válvula principal de hierro dúctil (QT450-10) con piloto de latón forjado, que cubre DN20-DN600 con presión aguas abajo ajustable de 0.1 MPa a 1.6 MPa. El cuerpo de la válvula principal está disponible a presión nominal de 1.0 MPa, 1.6 MPa o 2.5 MPa, y el diseño cumple con las normas ANSI, JIS y GB.</p>
+			<p class="text-gray-700 leading-relaxed">El conjunto de diafragma es EPDM reforzado con nailon y el vástago interno es de acero inoxidable 304, con tubería de piloto de cobre o acero inoxidable — las elecciones de material que determinan si una PRV sigue manteniendo su punto de consigna después de años de servicio.</p>
+
+			<!-- Sección 2 -->
+			<h2 id="how-pilot-prv-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Cómo Funciona la PRV 500X Auto-Operada</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La 500X es una válvula de globo tipo diafragma con un piloto ajustable montado en la parte superior. El piloto detecta continuamente la presión aguas abajo a través de una línea de detección. Cuando la presión aguas abajo supera el punto de consigna, el piloto se cierra gradualmente, la presión se acumula en la cámara de diafragma y la válvula principal tiende a cerrarse. Cuando la presión aguas abajo cae por debajo del punto de consigna, el piloto abre más, la cámara se ventila y la válvula principal abre más. La válvula modula así de forma continua para mantener la presión de consigna, sin importar las variaciones del caudal o de la presión de entrada.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Como la válvula es totalmente auto-operada, sigue regulando incluso durante un corte de energía — una propiedad importante para el agua contra incendios y las redes municipales, donde una pérdida de presión podría ser crítica. La característica de cierre lento y suave también evita las sobretensiones de presión y el golpe de ariete cuando se detiene el flujo; por eso las válvulas de control hidráulico se prefieren con frecuencia a las válvulas eléctricas de acción rápida en las tuberías principales de gran diámetro.</p>
+			<p class="text-gray-700 leading-relaxed">Para los proyectos donde se requiere control eléctrico remoto (apertura/cierre) en lugar de modulación continua, una unidad accionada por solenoide como la <a href="/es/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">válvula de compuerta de control por solenoide ranurada GKZF-1</a> (AC220V/DC24V, DN50-DN300, 300 PSI) proporciona apertura/cierre automáticos bajo comando, mientras la PRV se encarga del control estable de la presión.</p>
+
+			<!-- Sección 3 -->
+			<h2 id="hydraulic-control-valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. PRV vs Control de Nivel vs Válvula de Flotador</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Las válvulas de control hidráulico comparten el mismo principio de piloto auto-operado, pero regulan diferentes variables del proceso. La tabla siguiente compara las tres funciones más comunes en el suministro de agua.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Comparación</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">PRV 500X</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Control de Nivel F745X</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Válvula de Flotador 100X-16P</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Qué controla</td>
+							<td class="px-4 py-3 text-gray-700">Presión aguas abajo</td>
+							<td class="px-4 py-3 text-gray-700">Nivel de agua en tanque/depósito</td>
+							<td class="px-4 py-3 text-gray-700">Nivel de agua (piloto de flotador remoto)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Rango de tamaño</td>
+							<td class="px-4 py-3 text-gray-700">DN20 - DN600</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN400</td>
+							<td class="px-4 py-3 text-gray-700">DN40 - DN300</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Clase de presión</td>
+							<td class="px-4 py-3 text-gray-700">1.0 / 1.6 / 2.5 MPa; consigna 0.1-1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">1.0 / 1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">0 - 1.0 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Material del cuerpo</td>
+							<td class="px-4 py-3 text-gray-700">Hierro dúctil QT450-10 / acero fundido</td>
+							<td class="px-4 py-3 text-gray-700">Hierro dúctil QT450-10</td>
+							<td class="px-4 py-3 text-gray-700">Acero inoxidable fundido CF8</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Servicio típico</td>
+							<td class="px-4 py-3 text-gray-700">Zonas de presión, descarga de bombas de refuerzo</td>
+							<td class="px-4 py-3 text-gray-700">Depósitos, tanques, torres de agua</td>
+							<td class="px-4 py-3 text-gray-700">Tanques con medios corrosivos o requisitos de higiene</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Si su proyecto necesita regulación de presión además del llenado de tanques, la arquitectura estándar es una PRV 500X en la línea de suministro que alimenta una válvula de flotador F745X o 100X en la entrada del tanque — cada válvula cumpliendo la función para la que fue diseñada.</p>
+
+			<!-- Sección 4 -->
+			<h2 id="typical-applications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Dónde Va Cada Válvula</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Reductora de presión (500X):</strong> en cualquier punto donde una tubería principal de alta presión alimenta una zona de menor presión — áreas de medición por distritos, descarga de bombas de refuerzo en edificios de gran altura, cabezales de riego y agua de proceso. Configure la presión aguas abajo una sola vez y la válvula la mantiene a lo largo de la curva de demanda diaria.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Control de nivel (F745X):</strong> la <a href="/es/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">válvula de control de nivel de agua F745X</a> mantiene automáticamente un nivel preestablecido en depósitos, tanques de agua y torres de agua mediante un piloto de flotador, evitando desbordes y niveles extremadamente bajos. Es accionada íntegramente por la presión de la tubería y cierra lentamente, por lo que es ideal para almacenamientos grandes donde un corte brusco golpearía la red.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Flotador remoto (100X):</strong> la <a href="/es/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">válvula de flotador de control remoto 100X-16P</a> hace el mismo trabajo en acero inoxidable fundido (CF8), cubriendo DN40-DN300 a 0-1.0 MPa con un rango de temperatura de trabajo de -50 °C a 100 °C — la especificación para tanques que contienen agua corrosiva o de alta pureza, o para plantas costeras donde la oxidación es el enemigo.</p>
+			<p class="text-gray-700 leading-relaxed">Para cualquiera de estas válvulas que sirva a una red de agua potable, instale un <a href="/es/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">dispositivo anti-retorno antipolución HS41X</a> en el punto de conexión, de modo que el contenido del tanque nunca pueda fluir de regreso a la tubería principal de agua potable — consulte nuestra <a href="/es/guides/backflow-prevention-guide/" class="text-brand-blue font-semibold hover:underline">guía de prevención de reflujo</a> para el panorama completo del control de conexiones cruzadas.</p>
+
+			<!-- Sección 5 -->
+			<h2 id="installation-and-protection" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Instalación y Protección</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Las válvulas de control hidráulico son tan confiables como su sistema de piloto, y los puertos del piloto son sensibles a las partículas. Instale un colador en la entrada de la válvula: el <a href="/es/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">colador en Y telescópico SGL41H</a> está diseñado específicamente para proteger las válvulas de control hidráulico de agua y la maquinaria de precisión, combinando el colador y una junta de expansión en un solo cuerpo, de modo que la válvula puede retirarse para servicio sin cortar la tubería. Las mallas filtrantes son de acero inoxidable 304/316, con 18-30 mesh para servicio de agua.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Instale una válvula de compuerta de aislamiento aguas arriba y aguas abajo de la válvula de control, para poder derivar y mantener la unidad sin drenar la red. En los sistemas alimentados por bombas, proteja también el lado de succión: un preventor de vórtice de succión EN12845 montado en la succión de la bomba elimina la formación de vórtices y la entrada de aire, lo que previene la cavitación y los picos de presión que dañan tanto a las bombas como a las válvulas de control.</p>
+			<p class="text-gray-700 leading-relaxed">Confirme la orientación y el espacio antes de ordenar — las válvulas de control hidráulico con brida requieren acceso recto para la tubería del piloto y espacio para las válvulas de aislamiento. El DN y la conexión de extremo (perforación de bridas ANSI/JIS/GB) deben indicarse en la ficha técnica.</p>
+
+			<!-- Sección 6 -->
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Lista de Especificación B2B</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Defina la variable controlada</strong> — presión aguas abajo (PRV 500X), nivel de tanque (F745X / 100X) o encendido/apagado eléctrico (válvula de compuerta con solenoide GKZF-1). Una sola línea a menudo necesita dos: una PRV que alimenta una válvula de control de nivel en el tanque.</li>
+				<li><strong>Indique el tamaño y la presión</strong> — DN20-DN600 para la 500X con presión nominal de 1.0/1.6/2.5 MPa; DN50-DN400 a 1.0/1.6 MPa para la F745X; DN40-DN300 a 0-1.0 MPa para la 100X-16P. Confirme la presión de entrada y la presión de consigna requerida (la 500X ajusta de 0.1 a 1.6 MPa).</li>
+				<li><strong>Elija el material del cuerpo según el medio</strong> — hierro dúctil QT450-10 para agua limpia; acero inoxidable fundido CF8 (100X-16P) para servicio con medios corrosivos o requisitos de higiene.</li>
+				<li><strong>Defina la norma de conexión</strong> — la perforación de bridas ANSI, JIS o GB debe coincidir con su tubería; indíquelo explícitamente en la consulta.</li>
+				<li><strong>Añada los accesorios de protección</strong> — colador en Y telescópico SGL41H en la entrada, válvulas de compuerta de aislamiento y un dispositivo anti-retorno HS41X en las conexiones de agua potable; preventores de vórtice de succión EN12845 en las succiones de bomba.</li>
+				<li><strong>Verifique primero al proveedor</strong> — la calidad del piloto es invisible en las fotos. Exija los informes de prueba de carcasa/asiento por lote y los certificados de material, y ejecute nuestra <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de verificación de abastecimiento de válvulas B2B</a> antes de comprometerse con un fabricante.</li>
+			</ul>
+
+			<!-- Sección FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Doble CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita Válvulas Reductoras de Presión o de Control Hidráulico?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Indíquenos su DN, clase de presión, presión de consigna y norma de conexión — nuestros ingenieros confirman la configuración del piloto y le cotizan en un plazo de 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=V%C3%A1lvula%20Reductora%20de%20Presi%C3%B3n%20500X" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20v%C3%A1lvulas%20reductoras%20de%20presi%C3%B3n%20para%20suministro%20de%20agua" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

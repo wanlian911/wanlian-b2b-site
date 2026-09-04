@@ -1,0 +1,167 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: '¿Wanlian suministra productos de protección contra incendios certificados CE?',
+		answer: 'La certificación siempre es específica del modelo y del mercado de destino. Suministramos los certificados, las declaraciones y los informes de ensayo por lote que corresponden al modelo exacto y a la configuración de válvula/manguera que usted ordena, y no reclamamos certificación de forma general para series completas de productos. Indíquenos el producto y el país de destino y confirmaremos qué paquete de documentación corresponde antes de la producción.'
+	},
+	{
+		question: '¿Qué es EN 12845 y qué relación tiene con sus productos?',
+		answer: 'EN 12845 es la norma europea para el diseño y la instalación de sistemas fijos de rociadores contra incendios. Establece requisitos para todo el arreglo de suministro de agua, incluida la prevención de vórtices en las succiones de bombas. Nuestro preventor de vórtice de succión se fabrica conforme a EN 12845 y GB50974-2014: se instala en la succión de la bomba dentro del tanque de agua para impedir la entrada de aire y la cavitación, permitiendo que el volumen del tanque se drene hasta niveles muy bajos de forma segura.'
+	},
+	{
+		question: '¿Cuál es la diferencia entre ISO 7165, el marcado CE y CCCF en un extintor?',
+		answer: 'ISO 7165 es la norma internacional de desempeño para extintores de incendios portátiles, que cubre construcción, ensayos y marcado. El marcado CE es la marca de conformidad de la UE para los productos que se colocan en el mercado europeo — sus requisitos dependen de las directivas aplicables a ese producto. CCCF es la certificación obligatoria de China para productos contra incendios y habilita la unidad únicamente para el mercado chino; no es un certificado de exportación. Solicite siempre el certificado que corresponde a su mercado de destino y al modelo exacto.'
+	},
+	{
+		question: '¿Qué normas de acople y conexión se utilizan en los sistemas contra incendios europeos?',
+		answer: 'Los acoples rápidos Storz son el sistema más común en toda Europa y gran parte de Asia; las salidas KWS de estilo alemán también aparecen en conexiones de hidrantes y de columnas secas, y el mercado del Reino Unido y la Commonwealth utiliza roscas BS336. Nuestro acople Storz de aluminio de 2.5" (DN50-DN150, 1.6 MPa) cubre la familia de conexiones de norma alemana, y los hidrantes exteriores como el SSFT100 se suministran con salidas KWS65. Especifique en su consulta el sistema de rosca que utiliza su mercado para que las conexiones de manguera, hidrante y boquilla coincidan.'
+	},
+	{
+		question: '¿Pueden suministrar informes de ensayo por lote conforme a EN 12266-1 para válvulas?',
+		answer: 'Sí. Las válvulas de nuestra gama se someten a prueba de presión de cuerpo y asiento bajo pedido conforme a GB/T13927 o EN 12266-1, y los hidrantes se prueban hidrostáticamente (2.4 MPa típico) con prueba de caudal conforme a la norma aplicable. Solicite el informe de ensayo que cubre el lote de producción real, no una plantilla genérica.'
+	},
+	{
+		question: '¿Pueden etiquetarse y documentarse los productos para países específicos de la UE?',
+		answer: 'Sí. El idioma de las etiquetas, los pictogramas, el idioma de las instrucciones y la documentación adjunta pueden ajustarse a su país de destino como parte del alcance OEM. Como el reetiquetado después de la llegada es costoso, confirme el idioma de las etiquetas y el formato de la documentación antes de la producción en masa.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'european-market', label: '1. Por Qué el Cumplimiento Europeo Importa en Equipos Contra Incendios' },
+	{ id: 'ce-marking-basics', label: '2. Fundamentos del Marcado CE: A Nivel de Modelo, Nunca de Serie' },
+	{ id: 'en12845-pump-suction', label: '3. EN 12845 y el Paquete de Succión de Bombas Contra Incendios' },
+	{ id: 'testing-standards', label: '4. Evidencia de Ensayos: EN 12266-1 e Informes por Lote' },
+	{ id: 'connections-regional', label: '5. Acoples, Interfaces y Equipos Portátiles' },
+	{ id: 'european-checklist', label: '6. Lista de Verificación para Compradores Europeos' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'suction-vortex-preventer-en12845', name: 'Preventor de Vórtice de Succión (EN12845)', img: '/assets/products/suction-vortex-preventer-en12845.webp', desc: 'SS304/316, DN50-DN1000, EN12845 y GB50974-2014' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: 'Acople Storz de Aluminio de 2.5"', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'Conexión rápida de norma alemana, DN50-DN150, 1.6 MPa' },
+	{ slug: 'abc-dry-powder-fire-extinguisher-5kg', name: 'Extintor de Polvo Químico Seco ABC (5 kg)', img: '/assets/products/abc-dry-powder-fire-extinguisher-5kg.webp', desc: 'Unidad portátil ISO 7165 para fuegos de clase A/B/C/E' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Hidrante Exterior Anticolisión con Regulación de Presión (SSFT100)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Regulador de presión, salidas KWS65, PN16 en hierro dúctil' }
+];
+---
+
+<Layout
+	title="Guía de Cumplimiento CE y EN 12845 para Equipos Contra Incendios"
+	description="Cumplimiento EN 12845 y marcado CE para protección contra incendios: succión de bombas sin vórtice, ensayos EN 12266-1 y acoples Storz para Europa."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Cumplimiento CE y EN 12845' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Cumplimiento CE &amp; EN 12845</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Certificación</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">CE &amp; EN 12845: Guía de Cumplimiento para Equipos de Protección Contra Incendios en el Mercado Europeo</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Vender equipos de protección contra incendios en Europa es un ejercicio de documentación antes de ser un ejercicio de producto. EN 12845 define cómo deben construirse los suministros de agua para rociadores, EN 12266-1 define cómo se ensayan las válvulas, ISO 7165 define el desempeño de los extintores portátiles — y el marcado CE, donde corresponde, debe trazarse a un modelo específico, nunca a una serie completa. Esta guía explica el marco normativo y qué evidencia debe exigir un comprador europeo a un proveedor chino.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="european-market" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Por Qué el Cumplimiento Europeo Importa en Equipos Contra Incendios</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Europa no es un nicho para los proveedores de protección contra incendios. En la muestra de compradores de la plataforma industrial en la que se basa la investigación de mercado de esta guía (agosto de 2026), Europa fue la mayor región compradora de la categoría de protección contra incendios, con un 20.05 %, y Europa junto con el Sudeste Asiático sumaron aproximadamente un 39 %. En la misma muestra, CE fue el atributo de certificación más común en los listados de extintores (42.35 %), lo que indica que los compradores europeos filtran por cumplimiento documentado antes de filtrar por precio.</p>
+			<p class="text-gray-700 leading-relaxed">Lo que los compradores técnicos europeos verifican realmente es un rastro documental: bajo qué norma se fabrica el producto, bajo qué norma de ensayo se probó el lote, qué certificado cubre el modelo exacto y con qué sistema de acople y rosca se conecta el equipo. Todo lo que sigue a continuación responde a una de esas cuatro preguntas.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="ce-marking-basics" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Fundamentos del Marcado CE: A Nivel de Modelo, Nunca de Serie</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El marcado CE es la marca de conformidad para los productos que se colocan en el mercado europeo. Su base legal varía según el producto — las directivas aplicables y las normas armonizadas dependen de qué es el producto —, que es exactamente la razón por la que un proveedor responsable nunca hace afirmaciones genéricas.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>El marcado pertenece a un modelo</strong> — el marcado CE y la Declaración de Conformidad que lo respalda cubren un producto definido con características definidas. Si cambian el diámetro, el material o la configuración de la válvula, la evaluación de la conformidad cambia con ellos.</li>
+				<li><strong>Rechace las afirmaciones a nivel de serie</strong> — un certificado que menciona una marca o toda una gama sin identificadores de modelo es una señal de alerta en las compras europeas. Solicite el documento que menciona el modelo exacto y la especificación que usted está comprando.</li>
+				<li><strong>Espere un expediente técnico</strong> — el fabricante debe poder mostrar los informes de ensayo y la documentación técnica que respaldan la declaración. Nuestra página de <a href="/es/certificates/" class="text-brand-blue font-semibold hover:underline">certificados y cumplimiento</a> explica cómo se gestiona esta documentación para nuestra gama de protección contra incendios.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Si una cotización responde a "¿está certificado CE?" con "sí, toda la serie", la réplica correcta es: ¿qué directiva, qué norma, qué modelo, y puedo ver la Declaración de Conformidad?</p>
+
+			<!-- 章节 3 -->
+			<h2 id="en12845-pump-suction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. EN 12845 y el Paquete de Succión de Bombas Contra Incendios</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">EN 12845 es la norma europea para los sistemas fijos de rociadores contra incendios — diseño e instalación. Gobierna toda la cadena de suministro de agua: tanques de almacenamiento, succiones de bombas, bombas, válvulas y distribución. Uno de sus requisitos recurrentes es que las succiones de bombas que extraen de tanques deben impedir la formación de vórtices, porque un vórtice arrastra aire hacia la bomba, causa cavitación y puede privar del caudal necesario al sistema de rociadores justo cuando necesita flujo pleno.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Esa es la función del <a href="/es/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">preventor de vórtice de succión</a> de nuestra gama: un conjunto de placas de acero inoxidable austenítico (SS304/316) instalado en la succión de la bomba dentro del tanque, fabricado conforme a EN 12845 y GB50974-2014, de DN50 a DN1000. Elimina el vórtice, permite que el tanque se drene hasta niveles de agua muy bajos (alrededor de 100 mm) y no tiene piezas móviles que mantener.</p>
+			<p class="text-gray-700 leading-relaxed">El resto del paquete de succión y descarga sigue la misma lógica: válvulas de compuerta o de mariposa para el aislamiento, válvulas de retención en la descarga de la bomba y válvulas de alarma en el montante. Para el panorama completo de componentes dentro de un arreglo de rociadores tipo EN 12845, consulte nuestra <a href="/es/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">guía de válvulas para sistemas de rociadores</a>.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="testing-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Evidencia de Ensayos: EN 12266-1 e Informes por Lote</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Los compradores europeos rara vez aceptan una afirmación genérica de "probado conforme a norma"; quieren que se nombre la norma de ensayo y que se identifique el lote. Las convenciones en los ensayos de nuestra fábrica son:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Válvulas</strong> — prueba de presión de cuerpo y asiento al 100 % conforme a GB/T13927 o <strong>EN 12266-1</strong> (la norma europea para el ensayo de válvulas industriales) bajo pedido.</li>
+				<li><strong>Hidrantes</strong> — prueba de presión hidrostática (2.4 MPa típico) y prueba de caudal conforme a GB 4452 o a la norma de exportación aplicable.</li>
+				<li><strong>Extintores</strong> — desempeño, construcción y marcado conforme a ISO 7165, con el marcado del modelo en el cilindro.</li>
+				<li><strong>Evidencia por lote</strong> — los informes de ensayo deben cubrir el lote de producción real que usted recibe, no una plantilla de otro modelo ni de una corrida de producción distinta.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Incluya la norma de ensayo nombrada en la consulta y en la orden de compra. Un proveedor que compromete la norma por escrito es un proveedor que puede entregar el informe.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="connections-regional" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Acoples, Interfaces y Equipos Portátiles</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El cumplimiento no se detiene en los certificados — las conexiones y los equipos portátiles tienen sus propias reglas regionales. En toda Europa y gran parte de Asia, los <strong>acoples rápidos Storz</strong> son el sistema dominante de manguera contra incendios. Nuestro <a href="/es/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">acople Storz de aluminio de 2.5"</a> sigue la norma alemana con borde autosellante, está clasificado a 1.6 MPa y es adecuado para agua limpia y medios de espuma. Los mercados del Reino Unido y la Commonwealth utilizan roscas BS336, y las salidas KWS de estilo alemán aparecen en conexiones de hidrantes y de columnas secas — nuestro <a href="/es/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">hidrante exterior anticolisión SSFT100</a> se suministra con 2 salidas KWS65 más una salida DN100 de serie.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Para los extintores portátiles destinados a Europa, mantenga claro el límite de los certificados: nuestro <a href="/es/products/abc-dry-powder-fire-extinguisher-5kg/" class="text-brand-blue font-semibold hover:underline">extintor de polvo químico seco ABC de 5 kg</a> se fabrica conforme a ISO 7165 y porta CCCF. ISO 7165 cubre el desempeño internacional de los extintores portátiles; el marcado CE para el mercado de la UE depende de las directivas aplicables al modelo; CCCF es específico de China y no se transfiere a las ventas europeas. El idioma de las etiquetas, los pictogramas y el idioma de las instrucciones deben confirmarse para el país de destino antes de la producción.</p>
+			<p class="text-gray-700 leading-relaxed">Conclusión para el comprador: mencione el sistema de acople y la norma del extintor en la misma frase que la solicitud del certificado — viajan juntos a lo largo de la especificación.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="european-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Lista de Verificación para Compradores Europeos</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Nombre la norma del componente</strong> — EN 12845 para el arreglo de suministro de agua de rociadores, EN 12266-1 para el ensayo de válvulas, ISO 7165 para los extintores portátiles, más la norma aplicable a hidrantes y acoples.</li>
+				<li><strong>Exija certificados a nivel de modelo</strong> — Declaración de Conformidad CE (cuando corresponda) y el certificado que menciona el modelo, el diámetro y la configuración exactos que usted ordena.</li>
+				<li><strong>Confirme el sistema de interfaz</strong> — Storz, BS336, KWS u otras roscas para las conexiones de manguera, hidrante y boquilla; declárelo por escrito.</li>
+				<li><strong>Fije el idioma de la documentación</strong> — idioma de etiquetas e instrucciones para el país de destino como parte del alcance OEM.</li>
+				<li><strong>Solicite informes de ensayo por lote</strong> — los registros de ensayo del lote de producción que usted recibe realmente, no un archivo genérico.</li>
+				<li><strong>Consolide el rastro documental</strong> — ordenar válvulas, hidrantes y extintores a un solo fabricante mantiene certificados y flete en un solo archivo. Ejecute nuestra <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de verificación B2B para la compra de válvulas</a> antes de comprometerse con un proveedor.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Preparando un Pedido de Protección Contra Incendios para Europa?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Indíquenos los productos, las cantidades y el país de destino — nuestro equipo confirma las normas aplicables, el paquete de certificados y el sistema de conexión en un plazo de 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Paquete%20de%20Cumplimiento%20Europeo" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20equipos%20de%20protecci%C3%B3n%20contra%20incendios%20para%20el%20mercado%20de%20la%20UE" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,205 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ: 5 preguntas reales de compra (genera el JSON-LD de FAQPage)
+const faq = [
+	{
+		question: '¿Cuál es la diferencia entre un carrete de manguera contra incendios y un gabinete contra incendios?',
+		answer: 'Un carrete de manguera contra incendios (como el JPS0.8-19) es una unidad de extinción semiautomática conectada de forma permanente: un carrete con manguera plana flexible que toma agua directamente del suministro del edificio. Un gabinete contra incendios es el recinto que aloja el carrete, la válvula de hidrante, la manguera y la boquilla — o, en el caso de un gabinete de espuma (PSG30), una unidad proporcionadora de espuma autónoma. Muchos proyectos especifican un gabinete de hidrante que contiene tanto la válvula de hidrante SN65 como un carrete de manguera.'
+	},
+	{
+		question: '¿Qué largo y diámetro de manguera debo especificar?',
+		answer: 'Los carretes de manguera interiores se suministran típicamente con 20 m, 25 m o 30 m de manguera plana de 19 mm (3/4\"). El largo requerido lo fija el radio de cobertura de la estación del carrete — los códigos de construcción suelen exigir que cada punto del área de piso esté al alcance de un carrete (p. ej., dentro de 6 m del alcance de la boquilla). Confirme la norma vigente (NFPA 14, EN 671, GB 15090 / XF180) para su mercado.'
+	},
+	{
+		question: '¿Cuándo debo elegir un gabinete contra incendios de espuma en lugar de un carrete de agua?',
+		answer: 'Las unidades de espuma (PSG30 con AFFF al 3%) se especifican donde se esperan incendios de líquidos inflamables de clase B: almacenamiento de combustible, plantas químicas, talleres de pintura, salas de transformadores y depósitos de vehículos. El agua es ineficaz sobre los líquidos en combustión; la espuma de baja expansión cubre la superficie y sofoca el fuego. Para ocupaciones comerciales generales con solo cargas de incendio de clase A, un carrete de manguera de agua estándar es suficiente y más económico.'
+	},
+	{
+		question: '¿Qué presión necesita un carrete de manguera para operar?',
+		answer: 'El carrete JPS0.8-19 opera a 0.8–1.0 MPa con un alcance de chorro de al menos 6 metros. El suministro del edificio o la bomba contra incendios debe entregar esta presión en la entrada del carrete durante la demanda. Si el suministro es marginal, agregue una bomba de refuerzo o confirme la presión en la boquilla con el cálculo hidráulico — un carrete que no alcanza los 6 m no cumple la norma.'
+	},
+	{
+		question: '¿Los carretes y gabinetes de manguera están disponibles en configuraciones compatibles con la exportación?',
+		answer: 'Sí. Wanlian suministra carretes con manguera de 20/25/30 m, boquillas de latón o aleación, soportes murales giratorios y gabinetes con interfaces de válvula de hidrante compatibles (acoples SN65 o BS336 mediante los adaptadores de la serie HS). Especifique la norma de su mercado y ajustaremos la conexión y el paquete de documentación.'
+	}
+];
+
+// TOC: corresponde uno a uno con los id de los H2 del cuerpo
+const toc = [
+	{ id: 'role', label: '1. El Papel de los Carretes de Manguera y los Gabinetes Contra Incendios' },
+	{ id: 'reel-vs-cabinet', label: '2. Carrete de Manguera vs Gabinete Contra Incendios: Definiciones' },
+	{ id: 'hose-specs', label: '3. Largo de Manguera, Diámetro y Presión' },
+	{ id: 'nozzle', label: '4. Tipos de Boquilla y Modos de Chorro' },
+	{ id: 'foam', label: '5. Gabinetes de Espuma para Incendios de Clase B' },
+	{ id: 'materials', label: '6. Materiales y Resistencia a la Corrosión' },
+	{ id: 'compliance', label: '7. Normas, Pruebas y Notas de Exportación' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+// Productos relacionados (slug igual que en products.ts)
+const products = [
+	{ slug: 'fire-hose-reel-jpso8-19', name: 'Juego de Carrete de Manguera Contra Incendios JPS0.8-19', img: '/assets/products/fire-hose-reel-jpso8-19.jpg', desc: 'Carrete de acero al carbono, manguera de PVC de 20-30 m, boquilla de latón' },
+	{ slug: 'foam-fire-hydrant-cabinet-psg30', name: 'Gabinete Contra Incendios de Espuma PSG30', img: '/assets/06_extinguishing_cannons/cannon_p42.webp', desc: 'Unidad de espuma AFFF al 3% integrada para incendios de clase B' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Cabezal de Hidrante Interior SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'Válvula de hidrante PN16 de hierro dúctil para gabinetes' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Adaptador de Acople de Manguera Serie HS', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'Acoples de aluminio para conexiones de hidrante-manguera-boquilla' }
+];
+---
+
+<Layout
+	title="Guía de Carrete y Gabinete Contra Incendios: JPS0.8-19, PSG30, SN65"
+	description="Guía B2B para especificar carretes de manguera y gabinetes contra incendios: largo y diámetro, boquillas, espuma clase B y normas (EN 671, NFPA 14, GB 15090)."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Selección de Carretes y Gabinetes' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Migas de pan -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Carretes y Gabinetes</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Protección Contra Incendios</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Guía de Selección de Carrete de Manguera y Gabinete Contra Incendios</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Los carretes de manguera y los gabinetes contra incendios son el equipo que un ocupante del edificio utiliza realmente en los primeros minutos de un incendio — antes de que llegue la brigada de bomberos. Deben ser lo bastante simples para el personal sin entrenamiento, lo bastante robustos para años de servicio en espera y estar especificados para entregar el chorro requerido a la presión requerida. Esta guía recorre las especificaciones de manguera, los modos de boquilla, las opciones de espuma, los materiales y las normas que los rigen.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Franja de productos -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Sección 1 -->
+			<h2 id="role" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. El Papel de los Carretes de Manguera y los Gabinetes Contra Incendios</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un carrete de manguera contra incendios le da a un ocupante sin entrenamiento una capacidad de extinción con suministro fijo de agua: abra la válvula, tire de la manguera y un chorro está disponible de inmediato. Es la primera línea de defensa para incendios incipientes en edificios comerciales, hoteleros, de oficinas e industriales, y complementa a los rociadores automáticos, que manejan la extinción mientras los ocupantes evacúan. Los gabinetes contra incendios organizan el equipo — válvula de hidrante, manguera, carrete, boquilla — en una unidad predecible y accesible en la que pueden confiar tanto los inspectores como los usuarios.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Para la compra B2B, las preguntas prácticas son: qué cobertura exige la norma, qué presión de suministro está disponible y qué clases de fuego existen en el sitio. Esas tres respuestas definen la especificación que se presenta a continuación.</p>
+
+			<!-- Sección 2 -->
+			<h2 id="reel-vs-cabinet" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Carrete de Manguera vs Gabinete Contra Incendios: Definiciones</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Unidad</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Qué contiene</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Uso típico</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Juego de carrete de manguera (JPS0.8-19)</td>
+							<td class="px-4 py-3 text-gray-700">Soporte giratorio, tambor, manguera plana, boquilla</td>
+							<td class="px-4 py-3 text-gray-700">Estaciones independientes, conectadas al suministro de agua</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Gabinete de hidrante</td>
+							<td class="px-4 py-3 text-gray-700">Válvula SN65 + carrete/manguera + boquilla en un recinto</td>
+							<td class="px-4 py-3 text-gray-700">Estaciones interiores estándar de extinción</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Gabinete de espuma (PSG30)</td>
+							<td class="px-4 py-3 text-gray-700">Tanque de espuma + proporcionador + carrete de manguera + boquilla de espuma</td>
+							<td class="px-4 py-3 text-gray-700">Áreas con incendios de líquidos de clase B</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">El <a href="/es/products/fire-hose-reel-jpso8-19/" class="text-brand-blue font-semibold hover:underline">juego de carrete de manguera JPS0.8-19</a> es el componente central; el <a href="/es/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">cabezal de hidrante interior SN65</a> es la interfaz de válvula que lo alimenta desde el sistema de montantes, y los <a href="/es/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">adaptadores de acople serie HS</a> estandarizan las conexiones de manguera a hidrante y de manguera a boquilla.</p>
+
+			<!-- Sección 3 -->
+			<h2 id="hose-specs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Largo de Manguera, Diámetro y Presión</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Tres números definen un carrete: largo de manguera, diámetro interior y presión de trabajo.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Largo (20 / 25 / 30 m).</strong> Determinado por el radio de cobertura. Normas como la EN 671-1 exigen que cada punto del área protegida esté al alcance del carrete, definido comúnmente como el largo de la manguera más un alcance nominal de la boquilla. Una manguera más larga aumenta la pérdida de carga, por lo que el cálculo de presión debe seguir al largo.</li>
+				<li><strong>Diámetro (19 mm / 3/4").</strong> El diámetro interior estándar de un carrete interior. Los diámetros mayores entregan más caudal, pero una manguera más pesada que es más difícil de arrastrar para los ocupantes; 19 mm equilibra el alcance y la facilidad de uso para incendios incipientes de clase A.</li>
+				<li><strong>Presión (0.8–1.0 MPa).</strong> El JPS0.8-19 opera a 0.8–1.0 MPa con un alcance de chorro de al menos 6 m. Confirme la presión del montante o del suministro en la entrada del carrete bajo demanda simultánea — una falla común es especificar un carrete para el que nunca se realizó el cálculo hidráulico.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Para proyectos de exportación, especifique la norma de manguera (EN 694 para Europa, NFPA 1962 para Norteamérica, GB 15090 / XF180 para la certificación con base en China) de modo que el paquete de documentación corresponda a su mercado.</p>
+
+			<!-- Sección 4 -->
+			<h2 id="nozzle" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Tipos de Boquilla y Modos de Chorro</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La boquilla es la interfaz de usuario — decide si un ocupante puede combatir el fuego en absoluto. Las boquillas de carrete soportan dos modos:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Chorro recto.</strong> Máximo alcance para atacar un incendio desde la distancia. El alcance mínimo requerido es típicamente de 6 m a la presión nominal.</li>
+				<li><strong>Rociado/niebla.</strong> Un cono ancho para proteger al operador, enfriar el área y humedecer las superficies. El modo de rociado consume más aire y es menos eficiente a distancia, por lo que el operador cambia de modo según la situación.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">El material importa: las boquillas de latón resisten la corrosión y conservan su geometría; las boquillas de aleación fundida a presión son más livianas, pero especifique acabados anodizados para ambientes húmedos o costeros. El JPS0.8-19 se entrega con una boquilla de rociado de latón/aleación que soporta ambos modos, con manija de cierre para que el flujo pueda detenerse en la boquilla.</p>
+
+			<!-- Sección 5 -->
+			<h2 id="foam" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Gabinetes de Espuma para Incendios de Clase B</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El agua no puede extinguir un líquido en combustión: extiende el fuego. Donde existen riesgos de clase B — almacenamiento de combustible, áreas de procesos químicos, salas de transformadores, almacenes de pintura y solventes, depósitos de vehículos — la norma exige espuma. El <a href="/es/products/foam-fire-hydrant-cabinet-psg30/" class="text-brand-blue font-semibold hover:underline">gabinete contra incendios de espuma PSG30</a> consolida todo el sistema en una sola unidad mural: un tanque de concentrado de espuma, un proporcionador de AFFF al 3%, un carrete de manguera y una boquilla de espuma.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Cuando se abre el carrete, el proporcionador induce concentrado de espuma en la corriente de agua al 3%, generando espuma de baja expansión con una relación de expansión de al menos 4.5:1 y un alcance de chorro de más de 6 metros. La espuma de baja expansión cubre la superficie del líquido en combustión, cortando el oxígeno y los vapores — efectiva en incendios de combustible, químicos y solventes.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Notas de especificación para gabinetes de espuma:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Tipo de espuma.</strong> La AFFF (espuma formadora de película acuosa) es el estándar para riesgos mixtos de hidrocarburos; confirme la clase de concentrado (AR-AFFF para solventes polares) con el consultor de protección contra incendios.</li>
+				<li><strong>Capacidad.</strong> Haga corresponder el volumen del tanque con la duración de descarga esperada — revise la norma local para el tiempo mínimo de operación al caudal nominal.</li>
+				<li><strong>Presión de entrada.</strong> El PSG30 trabaja a 0.5–0.8 MPa; el suministro debe sostener esta presión durante la descarga.</li>
+			</ul>
+
+			<!-- Sección 6 -->
+			<h2 id="materials" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Materiales y Resistencia a la Corrosión</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El equipo en espera vive durante años en corredores húmedos, salas de calderas y plantas costeras. La selección de materiales es una decisión de costo de ciclo de vida:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Tambor y soporte del carrete.</strong> Acero al carbono laminado en frío con recubrimiento en polvo rojo anticorrosivo (JPS0.8-19) — económico y conforme a norma; especifique acero inoxidable para ambientes marinos o químicos.</li>
+				<li><strong>Manguera.</strong> Las mezclas de NBR/PVC con refuerzo de poliéster multitrenzado resisten las torceduras y la abrasión; confirme la estabilidad a los rayos UV si el carrete queda expuesto a la luz solar directa.</li>
+				<li><strong>Boquilla y proporcionador.</strong> Latón por su resistencia a la corrosión y su dosificación precisa; el proporcionador del PSG30 es de latón macizo con cuerpo resistente a la corrosión.</li>
+				<li><strong>Carcasa del gabinete.</strong> El acero con recubrimiento en polvo es el estándar; los frentes vidriados o de acero inoxidable se utilizan en vestíbulos con requisitos arquitectónicos. Especifique siempre un acceso con vidrio rompible o con llave que corresponda a la preferencia de la brigada de bomberos local.</li>
+			</ul>
+
+			<!-- Sección 7 -->
+			<h2 id="compliance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Normas, Pruebas y Notas de Exportación</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El cumplimiento de los carretes y gabinetes de manguera se verifica típicamente mediante: prueba de presión del conjunto, prueba de alcance de chorro y de caudal a la presión nominal, e inspección de materiales y recubrimientos. Las normas relevantes incluyen EN 671 (Europa), NFPA 14 (Norteamérica, sistemas de montantes y mangueras), GB 15090 y XF180 (China), además de BS 5306 para la práctica del Reino Unido.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Lista de verificación de exportación:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Confirme la norma de acople de manguera para su mercado — los adaptadores de la serie HS cubren los acoples internacionales comunes (BS336, NIST, KWS) y pueden enviarse con el pedido.</li>
+				<li>Solicite el informe de prueba de presión por lote de los carretes y gabinetes.</li>
+				<li>Verifique que el tipo de acceso de la puerta del gabinete y la señalización correspondan a las expectativas de la brigada de bomberos local.</li>
+				<li>Para las unidades de espuma, confirme el tipo de concentrado y el manejo de su vencimiento — el concentrado AFFF tiene una vida útil y debe reemplazarse según el cronograma.</li>
+				<li>Aclare los repuestos (boquillas, manguera, sellos, grifos de prueba) y el plazo de entrega antes de ordenar.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Wanlian prueba cada carrete y gabinete antes del envío y entrega el paquete de documentación — informes de prueba de presión, certificados de materiales e instrucciones de operación — con el contenedor.</p>
+
+			<!-- Sección FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Doble llamada a la acción -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita Carretes de Manguera o Gabinetes para su Proyecto?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíenos el área de cobertura, la presión de suministro y las clases de fuego — nuestros ingenieros responden con una recomendación de distribución de carretes y gabinetes y una cotización en un plazo de 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Hose%20Reel%20%26%20Cabinet%20Selection" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20ayuda%20para%20seleccionar%20carretes%20de%20manguera%20y%20gabinetes%20contra%20incendios" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

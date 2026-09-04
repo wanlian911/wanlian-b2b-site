@@ -1,0 +1,208 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ: 6 preguntas reales de compra (genera el FAQPage JSON-LD)
+const faq = [
+	{
+		question: '¿Cómo funciona la válvula de retención de bola deslizante HQ41X?',
+		answer: 'La HQ41X usa una bola de acero recubierta de caucho como elemento de cierre. Cuando el flujo avanza, la bola rueda hacia arriba sobre guías internas y el paso completo se abre; cuando el flujo se detiene o se invierte, la bola rueda de regreso sobre el asiento logrando un cierre hermético. Como la bola rueda en lugar de golpear sobre una bisagra, la válvula cierra en silencio, sin golpe de ariete y con una pérdida de carga menor que una válvula de retención de clapeta del mismo tamaño.'
+	},
+	{
+		question: '¿Cuál es la diferencia entre las válvulas de retención de bola deslizante HQ41X y de bola esférica HQ44X?',
+		answer: 'La válvula de retención de bola deslizante HQ41X cubre DN50-DN350 a 1.0/1.6 MPa con una bola de núcleo de acero al carbono totalmente recubierta de NBR, que rueda sobre guías esferoidales integradas; es la opción estándar para servicio de alcantarillado y drenaje. La válvula de retención de bola esférica HQ44X cubre DN50-DN400 a PN16 con cuerpo de hierro nodular (QT450-10) y una bola de hierro fundido vulcanizada con EPDM, ofreciendo un canal de paso completo sin obstrucciones, un caudal de arranque bajo y un cierre silencioso sin golpe para líneas de alto caudal.'
+	},
+	{
+		question: '¿Por qué elegir una válvula de retención de bola en lugar de una de clapeta?',
+		answer: 'Las válvulas de retención de bola se diseñan con un paso total y una bola recubierta de caucho que rueda. Comparada con una de clapeta, la HQ41X está diseñada para entregar aproximadamente un 50 % menos de pérdida de carga, la bola recubierta de caucho evita las obstrucciones y el cierre es silencioso, sin golpe de ariete. Las de bola también pueden instalarse en posición horizontal o vertical, algo que las de clapeta a menudo no permiten.'
+	},
+	{
+		question: '¿Puede una válvula de retención prevenir el golpe de ariete?',
+		answer: 'Una válvula de retención de cierre sin golpe elimina una causa del golpe de ariete: el disco articulado de una de clapeta puede golpear su asiento cuando el flujo se invierte de forma repentina, enviando una sobrepresión por la línea. Las válvulas de retención de bola como la HQ41X y la HQ44X cierran en silencio en lugar de golpear. Para redes con bombas, combínelas con válvulas hidráulicas de cierre lento y un preventor de vórtice de succión EN12845 en la succión de la bomba para controlar las sobrepresiones en el arranque y en la parada.'
+	},
+	{
+		question: '¿Dónde deben instalarse las válvulas de retención?',
+		answer: 'Las ubicaciones típicas son las líneas de descarga de bombas (para evitar que el reflujo haga girar la bomba en reversa), las tuberías principales de alcantarillado y drenaje municipal, las columnas de bombas sumergibles donde se necesita instalación vertical, y las redes de rociadores contra incendios — donde una válvula de retención de alarma tipo húmedo como la ZSFZ-150 actúa además como disparador de la alarma de flujo. En las conexiones cruzadas de agua potable, un dispositivo anti-retorno antipolución HS41X proporciona la barrera de doble válvula de retención exigida para el control del reflujo.'
+	},
+	{
+		question: '¿Qué norma de prueba y qué documentación debo solicitar al comprar válvulas de retención?',
+		answer: 'Confirme la norma de prueba de carcasa y asiento aplicada al lote — la HQ44X se prueba según GB/T13927. Solicite los informes de prueba de presión de carcasa/asiento del lote y los certificados de material del cuerpo y del núcleo de la bola, e indique en su consulta el DN, la clase de presión, la temperatura de trabajo y la orientación de instalación para que la cotización coincida con el servicio real.'
+	}
+];
+
+// TOC: corresponde uno a uno con los id de los H2 del contenido
+const toc = [
+	{ id: 'what-is-a-check-valve', label: '1. ¿Qué Es una Válvula de Retención?' },
+	{ id: 'check-valve-types-overview', label: '2. Tipos de Válvulas de Retención de un Vistazo' },
+	{ id: 'sliding-ball-vs-swing-check', label: '3. Bola Deslizante vs Clapeta' },
+	{ id: 'water-hammer-prevention', label: '4. Golpe de Ariete y Diseño Sin Golpe' },
+	{ id: 'where-check-valves-installed', label: '5. Dónde Se Instalan las Válvulas de Retención' },
+	{ id: 'check-valve-specification-checklist', label: '6. Lista de Especificación B2B' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+// Productos relacionados (el slug coincide con products.ts)
+const products = [
+	{ slug: 'sliding-ball-check-valve-hq41x', name: 'Válvula de Retención de Bola Deslizante (HQ41X-16)', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50-DN350, bola de NBR, ~50 % menos pérdida de carga' },
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'Válvula de Retención de Bola Esférica (HQ44X-16)', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50-DN400 PN16, hierro nodular, sin golpe' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Válvula de Retención de Alarma Tipo Húmedo (ZSFZ 150)', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Retención de alarma para rociadores DN100/150/200' },
+	{ slug: 'anti-pollution-backflow-preventer-hs41x', name: 'Dispositivo Anti-Retorno Antipolución (HS41X-16)', img: '/assets/products/anti-pollution-backflow-preventer-hs41x.webp', desc: 'Doble retención + drenaje para agua potable' }
+];
+---
+
+<Layout
+	title="Válvula de retención de bola HQ41X/HQ44X: guía de tipos y selección"
+	description="Válvulas de retención para agua y saneamiento: bola deslizante HQ41X, bola esférica HQ44X y clapeta — pérdida de carga, golpe de ariete y especificación B2B."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Guía de Tipos de Válvula de Retención' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Guía de Tipos de Válvula de Retención</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Válvulas Industriales</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Guía de Tipos y Selección de Válvulas de Retención: Bola Deslizante vs Clapeta</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En resumen: una válvula de retención deja pasar el agua en una sola dirección y cierra automáticamente cuando el flujo se invierte — sin necesidad de operador ni fuente de energía. Cuando el servicio involucra alcantarillado, drenaje o redes con bombas, las válvulas de retención de tipo bola, como los diseños de bola deslizante HQ41X y de bola esférica HQ44X, cierran en silencio sin golpear, lo que evita el golpe de ariete que las válvulas de clapeta pueden causar. Esta guía compara los tipos más comunes y le dice qué especificar.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Franja de productos -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Sección 1 -->
+			<h2 id="what-is-a-check-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. ¿Qué Es una Válvula de Retención?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Una válvula de retención es una válvula unidireccional automática. El propio medio en flujo abre el elemento de cierre; cuando el flujo se detiene o intenta invertirse, el elemento regresa a su asiento y la válvula cierra. No hay volante, actuador ni conexión eléctrica — las válvulas de retención protegen bombas, medidores y redes contra el flujo inverso, mantienen las líneas llenas después de una parada y evitan que la contaminación fluya hacia atrás hasta un suministro limpio.</p>
+			<p class="text-gray-700 leading-relaxed">Las dos cosas que separan una buena válvula de retención de una mala son la <strong>pérdida de carga</strong> (cuánta energía de bombeo desperdicia estando abierta) y el <strong>comportamiento de cierre</strong> (si cierra golpeando y martillea la línea, o si cierra en silencio). Ambas las decide el mecanismo de cierre — por eso la elección del tipo importa.</p>
+
+			<!-- Sección 2 -->
+			<h2 id="check-valve-types-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Tipos de Válvulas de Retención de un Vistazo</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Las válvulas de retención de clapeta</strong> usan un disco articulado que se abre con el flujo directo y vuelve a caer sobre el asiento cuando el flujo se detiene. Son simples y económicas, pero el disco tiene un recorrido largo — ante una inversión repentina del flujo puede golpear el asiento, y en medios sucios la bisagra puede atascarse o el disco puede quedar abierto.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Las válvulas de retención de elevación</strong> usan un pistón o una bola con resorte que se levanta de un asiento. Cierran más rápido y se adaptan a medios limpios de mayor presión, pero el paso restringido crea más pérdida de carga y se obstruyen con facilidad en servicio de alcantarillado.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Las válvulas de retención tipo wafer (de doble placa)</strong> son compactas y se instalan entre bridas, con dos placas cargadas por resorte. Son livianas y económicas para líneas contra incendios y HVAC, pero las placas añaden pérdida de carga y los resortes pueden fatigarse en el servicio continuo de bombeo.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Las válvulas de retención de bola</strong> reemplazan la bisagra o el resorte por una bola recubierta de caucho que rueda. La bola se levanta del paso con el flujo directo y rueda de regreso sobre el asiento cuando el flujo se detiene — un recorrido corto y guiado que cierra en silencio y resiste las obstrucciones. La <a href="/es/products/sliding-ball-check-valve-hq41x/" class="text-brand-blue font-semibold hover:underline">válvula de retención de bola deslizante HQ41X</a> y la <a href="/es/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">válvula de retención de bola esférica HQ44X</a> son los dos diseños de tipo bola de la gama Wanlian.</p>
+
+			<!-- Sección 3 -->
+			<h2 id="sliding-ball-vs-swing-check" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Bola Deslizante vs Clapeta</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Comparación</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Válvula de Retención de Clapeta</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Bola Deslizante HQ41X</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Bola Esférica HQ44X</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Elemento de cierre</td>
+							<td class="px-4 py-3 text-gray-700">Disco articulado</td>
+							<td class="px-4 py-3 text-gray-700">Bola recubierta de caucho sobre guías internas</td>
+							<td class="px-4 py-3 text-gray-700">Esfera recubierta de caucho que rueda</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pérdida de carga</td>
+							<td class="px-4 py-3 text-gray-700">Referencia</td>
+							<td class="px-4 py-3 text-gray-700">Paso completo, ~50 % menos que la de clapeta</td>
+							<td class="px-4 py-3 text-gray-700">Canal de paso completo sin obstrucciones</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Comportamiento de cierre</td>
+							<td class="px-4 py-3 text-gray-700">El disco puede golpear ante una inversión rápida</td>
+							<td class="px-4 py-3 text-gray-700">Cierre silencioso, sin golpe de ariete</td>
+							<td class="px-4 py-3 text-gray-700">Cierre silencioso sin golpe, bajo caudal de arranque</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Resistencia a obstrucciones</td>
+							<td class="px-4 py-3 text-gray-700">La bisagra puede atascarse en medios sucios</td>
+							<td class="px-4 py-3 text-gray-700">La bola evita las obstrucciones</td>
+							<td class="px-4 py-3 text-gray-700">Paso total antibloqueo</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Instalación</td>
+							<td class="px-4 py-3 text-gray-700">Normalmente horizontal</td>
+							<td class="px-4 py-3 text-gray-700">Horizontal o vertical</td>
+							<td class="px-4 py-3 text-gray-700">Horizontal o vertical</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Servicio típico</td>
+							<td class="px-4 py-3 text-gray-700">Líneas de agua limpia</td>
+							<td class="px-4 py-3 text-gray-700">Alcantarillado, drenaje, bombas sumergibles</td>
+							<td class="px-4 py-3 text-gray-700">Agua de alto caudal, redes con bombas</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Ambos diseños de bola usan un núcleo metálico recubierto de caucho: la bola de la HQ41X es de acero al carbono totalmente recubierta de NBR, mientras que la bola de la HQ44X tiene núcleo de hierro fundido con EPDM totalmente vulcanizado. Los cauchos de asiento y de sellado son EPDM o NBR, y la temperatura de trabajo es de 0 °C a 80 °C en toda la gama estándar.</p>
+
+			<!-- Sección 4 -->
+			<h2 id="water-hammer-prevention" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Golpe de Ariete y Diseño Sin Golpe</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El golpe de ariete ocurre cuando una columna de agua en movimiento se detiene de forma abrupta — por la parada de una bomba, el cierre rápido de una válvula o el golpe de una válvula de retención al cerrarse. La energía cinética del agua se convierte en un pico de presión que puede reventar tuberías, dañar bombas y descalibrar los instrumentos. En las líneas de descarga largas, el pico puede ser varias veces la presión de trabajo.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Una válvula de retención de clapeta es una fuente clásica de golpes: cuando la bomba se detiene, el flujo directo colapsa y el disco pesado cae a través de la columna en desaceleración, golpeando el asiento y enviando una sobrepresión aguas abajo. Las válvulas de retención de bola evitan la bisagra por completo — la bola que rueda sigue al flujo hacia abajo de forma suave y se asienta sin impacto. Por eso la HQ41X y la HQ44X se describen como válvulas de retención de cierre silencioso y sin golpe de ariete.</p>
+			<p class="text-gray-700 leading-relaxed">Para un control completo de las sobrepresiones en redes con bombas, use la válvula de retención junto con válvulas de control hidráulico de cierre lento y un preventor de vórtice de succión EN12845 en la succión de la bomba, de modo que tanto los transitorios de arranque como los de parada se mantengan dentro de límites seguros.</p>
+
+			<!-- Sección 5 -->
+			<h2 id="where-check-valves-installed" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Dónde Se Instalan las Válvulas de Retención</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Líneas de descarga de bombas.</strong> Toda bomba necesita una válvula de retención aguas abajo para que, cuando la bomba se detiene, el agua no pueda fluir hacia atrás y hacer girar el impulsor en reversa — una causa común de falla prematura de las bombas. Las de bola con baja pérdida de carga también ahorran energía en el servicio continuo de bombeo.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Tuberías principales de alcantarillado y drenaje.</strong> Las aguas residuales crudas transportan sólidos, y un disco articulado o un mecanismo de resorte puede atascarse. La HQ41X fue diseñada exactamente para este servicio — la bola recubierta de caucho que rueda evita las obstrucciones, y la válvula es excelente para redes de alcantarillado, drenaje municipal y bombas sumergibles.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Sistemas de rociadores contra incendios.</strong> Las válvulas de retención tienen una función específica en las redes de rociadores: la <a href="/es/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">válvula de retención de alarma tipo húmedo ZSFZ</a> retiene el agua del sistema y, cuando un rociador se abre y el agua fluye, levanta la clapeta y dispara el gong hidráulico de alarma y el presostato — una válvula de retención que además es el disparador de la alarma de flujo. Para el panorama completo de las válvulas de control en los sistemas de rociadores, consulte nuestra <a href="/es/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">guía de tipos de válvulas de control para rociadores contra incendios</a>.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Conexiones cruzadas de agua potable.</strong> Donde el agua de tanques, de riego o de proceso podría teóricamente fluir de regreso a una tubería principal de agua potable, una sola válvula de retención no es protección suficiente. El <a href="/es/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">dispositivo anti-retorno antipolución HS41X</a> usa dos válvulas de retención conectadas en serie con un drenaje automático intermedio — la configuración exigida para un control real de las conexiones cruzadas, tratada en profundidad en nuestra <a href="/es/guides/backflow-prevention-guide/" class="text-brand-blue font-semibold hover:underline">guía de prevención de reflujo</a>.</p>
+
+			<!-- Sección 6 -->
+			<h2 id="check-valve-specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Lista de Especificación B2B</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Conozca su medio</strong> — ¿agua limpia, alcantarillado con sólidos o agua contra incendios? Los sólidos y las fibras apuntan a una válvula de retención de tipo bola; las líneas limpias de alta presión pueden tolerar un tipo de elevación o de clapeta.</li>
+				<li><strong>Fije el tamaño y la presión</strong> — la HQ41X cubre DN50-DN350 a 1.0/1.6 MPa; la HQ44X cubre DN50-DN400 a PN16. Indique el DN y la norma de brida (GB, ANSI, DIN) en la consulta.</li>
+				<li><strong>Verifique la orientación de instalación</strong> — confirme si la tubería es horizontal o vertical; la HQ41X y la HQ44X aceptan ambas posiciones, algo que las de clapeta a menudo no permiten.</li>
+				<li><strong>Adeque los materiales de la bola y del cuerpo al agua</strong> — bola de acero al carbono recubierta de NBR (HQ41X) o bola de hierro fundido vulcanizada con EPDM (HQ44X), con cuerpos de hierro fundido (HT200), esferoidal (QT450) o nodular (QT450-10); el rango de temperatura de trabajo es de 0 °C a 80 °C.</li>
+				<li><strong>Pregunte por el comportamiento de cierre</strong> — si la línea está sujeta a paradas de bomba o a cierres rápidos de válvula, especifique un diseño sin golpe y de cierre silencioso para evitar el golpe de ariete.</li>
+				<li><strong>Exija evidencia de prueba</strong> — informes de prueba de presión de carcasa y asiento del lote real (la HQ44X se prueba según GB/T13927), certificados de material a solicitud, y ejecute nuestra <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de verificación de abastecimiento de válvulas B2B</a> antes de comprometerse con un fabricante.</li>
+			</ul>
+
+			<!-- Sección FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Doble CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita Válvulas de Retención para Agua, Alcantarillado o Redes Contra Incendios?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Indíquenos su DN, clase de presión, medio y orientación de instalación — nuestros ingenieros confirman la válvula de retención de bola adecuada y le cotizan en un plazo de 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=V%C3%A1lvula%20de%20Retenci%C3%B3n%20HQ41X" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20v%C3%A1lvulas%20de%20retenci%C3%B3n%20para%20tuber%C3%ADas%20de%20agua%2Falcantarillado" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

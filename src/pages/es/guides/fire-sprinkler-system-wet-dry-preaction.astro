@@ -1,0 +1,211 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'the-three-system-types', label: '1. Los tres tipos de sistema comparados' },
+	{ id: 'choosing-sprinkler-heads', label: '2. Cómo elegir los cabezales de rociador' },
+	{ id: 'components-your-bom-needs', label: '3. Los componentes que necesita su BOM' },
+	{ id: 'compliance-notes', label: '4. Notas de cumplimiento' },
+	{ id: 'procurement-checklist', label: '5. Lista de verificación para la compra' },
+	{ id: 'faq', label: 'Preguntas frecuentes' }
+];
+
+const faq = [
+	{
+		question: 'Sistema húmedo, seco o de preacción: ¿cómo elijo el sistema de rociadores correcto?',
+		answer: 'Los sistemas húmedos son la opción predeterminada para edificios con calefacción: respuesta más rápida y menor costo. Los sistemas secos se adaptan a espacios sin calefacción (estacionamientos, cámaras frigoríficas) donde las tuberías podrían congelarse. Los sistemas de preacción protegen áreas sensibles al agua (centros de datos, archivos, museos) reteniendo el agua hasta que dos señales independientes confirman un incendio. El código de construcción de su país y la clase de riesgo determinan el requisito mínimo.'
+	},
+	{
+		question: '¿Qué significan el factor K y la clasificación de temperatura en un cabezal de rociador?',
+		answer: 'El factor K define cuánta agua descarga un cabezal a una presión determinada: K80 y K115 son los estándares más comunes. La clasificación de temperatura fija el punto de activación (57 °C a 141 °C, bulbos de vidrio codificados por color). Ajuste ambos al riesgo y a la altura del cielo raso; los cabezales de respuesta rápida (bulbo de 3 mm) reaccionan más rápido que los de respuesta estándar (bulbo de 5 mm).'
+	},
+	{
+		question: '¿Los componentes de rociadores de Wanlian están listados UL?',
+		answer: 'Sí. Nuestros cabezales de rociador y componentes de sistema están listados UL/ULC cuando corresponde, con certificados disponibles en nuestra página de certificados. Nuestros ingenieros confirman el paquete de certificación exacto para su mercado de destino antes de cotizar.'
+	},
+	{
+		question: '¿Pueden suministrar un BOM completo de sistema de rociadores?',
+		answer: 'Sí. Envíenos los planos del proyecto o una lista de componentes y cotizaremos cabezales, conexiones flexibles, válvulas de alarma, indicadores de flujo, coladores y accesorios como un solo paquete: un único proveedor para todo el circuito, con especificaciones compatibles.'
+	},
+	{
+		question: '¿Cuál es el papel de la válvula de retención de alarma en un sistema húmedo?',
+		answer: 'La válvula de retención de alarma tipo húmedo (p. ej., ZSFZ) separa la tubería principal de suministro de la tubería de rociadores y activa una campana de alarma hidráulica cuando comienza el flujo, mientras que su cámara de retardo filtra las falsas alarmas causadas por picos de presión. Los indicadores de flujo (ZSJZ) identifican luego en el panel la zona activada.'
+	}
+];
+
+const sprinklerProducts = [
+	{
+		slug: 'glass-bulb-fire-sprinkler-zst',
+		name: 'Rociador de Bulbo de Vidrio Contra Incendios (Serie ZST)',
+		img: '/assets/05_sprinklers_alarms/sprinkler_p32_head_white.png',
+		desc: 'Colgante/vertical/pared lateral, K=80/115, 57–141 °C'
+	},
+	{
+		slug: 'wet-alarm-check-valve-zsfz-150',
+		name: 'Válvula de Alarma Tipo Húmedo ZSFZ 150',
+		img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp',
+		desc: 'Campana de alarma hidráulica + cámara de retardo, DN100–DN200'
+	},
+	{
+		slug: 'pre-action-alarm-system-zsfy',
+		name: 'Sistema de Alarma de Preacción (Serie ZSFY)',
+		img: '/assets/products/pre-action-alarm-system-zsfy.jpg',
+		desc: 'Doble disparo a prueba de fallos para salas críticas'
+	},
+	{
+		slug: 'water-flow-indicator-zsjz',
+		name: 'Indicador de Flujo de Agua Tipo Paleta (Serie ZSJZ)',
+		img: '/assets/products/water-flow-indicator-zsjz.png',
+		desc: 'Retardo ajustable de 2–60 s, DN50–DN200'
+	},
+	{
+		slug: 'deluge-alarm-valve-zsfm',
+		name: 'Grupo de Válvula de Diluvio con Alarma (Serie ZSFM)',
+		img: '/assets/products/deluge-alarm-valve-zsfm.webp',
+		desc: 'Para sistemas de diluvio y rociado de agua'
+	}
+];
+---
+
+<Layout
+	title="Sistemas de rociadores: ¿húmedo, seco o preacción? (Guía 2026)"
+	description="Comparativa de sistemas de rociadores húmedos, secos y de preacción: elección de cabezales (factor K, temperatura, respuesta) y componentes para su BOM."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Blog', href: '/es/blog/' }, { name: 'Guía de sistemas de rociadores' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Blog</a>
+			<span>/</span>
+			<span class="text-gray-600">Guía de sistemas de rociadores</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de sistemas de rociadores contra incendios</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Sistemas de rociadores contra incendios: ¿húmedo, seco o preacción? (Guía 2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Todos los sistemas de rociadores persiguen un mismo objetivo: llevar agua al fuego rápidamente. Pero la tubería entre el suministro de agua y el cabezal de rociador lo cambia todo: tiempo de respuesta, resistencia a la congelación y riesgo de daños por agua. Esta guía compara los tres tipos principales de sistema, explica cómo elegir los cabezales de rociador y enumera los componentes que su BOM realmente necesita.</p>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-2 lg:grid-cols-5 gap-4">
+				{sprinklerProducts.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			
+			<TableOfContents headings={toc} />
+
+			<h2 id="the-three-system-types" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Los tres tipos de sistema comparados</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tipo</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Cómo funciona</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Uso típico</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sistema húmedo</td>
+							<td class="px-4 py-3 text-gray-700">Tuberías siempre llenas; el cabezal se abre y la descarga es inmediata</td>
+							<td class="px-4 py-3 text-gray-700">Edificios comerciales, residenciales e industriales con calefacción</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sistema seco</td>
+							<td class="px-4 py-3 text-gray-700">Las tuberías contienen aire/nitrógeno presurizado; la válvula de tubería seca admite agua al activarse</td>
+							<td class="px-4 py-3 text-gray-700">Espacios sin calefacción: estacionamientos, cámaras frigoríficas, muelles de carga</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Preacción</td>
+							<td class="px-4 py-3 text-gray-700">Tuberías con aire; el agua solo ingresa tras dos señales independientes</td>
+							<td class="px-4 py-3 text-gray-700">Centros de datos, archivos, museos, salas de cómputo</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Los sistemas húmedos responden más rápido y cuestan menos de mantener, por eso los códigos de construcción los toman como opción predeterminada en todo espacio con calefacción. Los sistemas secos cambian unos segundos de respuesta por protección contra la congelación. Los sistemas de preacción retrasan deliberadamente la inundación hasta que la detección confirma el incendio: la compensación correcta cuando una descarga accidental es tan dañina como el propio incendio.</p>
+
+			<h2 id="choosing-sprinkler-heads" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Cómo elegir los cabezales de rociador</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El cabezal es el punto donde el sistema se encuentra con el incendio, y tres parámetros lo definen:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Factor K</strong> — capacidad de descarga. Los K80 y K115 cubren la mayoría de las ocupaciones; los factores K más altos atienden riesgos de alta exigencia. Nuestra <a href="/es/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">serie ZST</a> ofrece ambos.</li>
+				<li><strong>Clasificación de temperatura</strong> — el punto de activación, de 57 °C (rojo) a 141 °C (azul), con bulbos de vidrio codificados por color. Los cielos rasos de riesgo ordinario usan 68 °C; las áreas con equipos que generan calor requieren clasificaciones más altas.</li>
+				<li><strong>Tipo de respuesta</strong> — los de respuesta rápida (bulbo de 3 mm) reaccionan más rápido y suelen exigirse en ocupaciones residenciales y de riesgo ligero; los de respuesta estándar (bulbo de 5 mm) se adaptan a los grupos de riesgo ordinario y extraordinario.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">La orientación también importa: los cabezales colgantes cuelgan bajo la tubería, los verticales van por encima y los de pared lateral protegen pasillos y salas pequeñas. Elija el cabezal según la construcción del cielo raso, no solo por la foto del catálogo.</p>
+
+			<h2 id="components-your-bom-needs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Los componentes que necesita su BOM</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Además de los cabezales, un sistema de rociadores completo incluye el grupo de válvulas de alarma, la detección de flujo y los accesorios de protección:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Válvula de retención de alarma tipo húmedo</strong> (<a href="/es/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ</a>) — separa el suministro de la tubería de rociadores, acciona la campana hidráulica y su cámara de retardo filtra las falsas alarmas por picos de presión.</li>
+				<li><strong>Válvulas de diluvio / preacción</strong> (<a href="/es/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM</a>, <a href="/es/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">ZSFY</a>) — el cerebro de control de las configuraciones de diluvio y preacción.</li>
+				<li><strong>Indicadores de flujo</strong> (<a href="/es/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">ZSJZ</a>) — detectan el flujo en cada zona e identifican en el panel el área activada.</li>
+				<li><strong>Coladores en Y</strong> (<a href="/es/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">SGL41H</a>) — evitan que las partículas lleguen a las válvulas y los cabezales; un componente económico que previene obstrucciones costosas.</li>
+			</ul>
+
+			<h2 id="compliance-notes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Notas de cumplimiento</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La NFPA 13 rige la instalación en Norteamérica y es la referencia de facto en muchos mercados de exportación. Puntos clave que suelen tomar desprevenidos a los compradores: componentes certificados (listados UL/ULC cuando corresponde), clasificación correcta del riesgo antes de seleccionar la densidad y documentación: solicite los certificados reales y los informes de prueba por lote, no logotipos de catálogo. Nuestra <a href="/es/certificates/" class="text-brand-blue font-semibold hover:underline">página de certificados</a> publica el paquete de certificación.</p>
+
+			<h2 id="procurement-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Lista de verificación para la compra</h2>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Clasifique el riesgo de la ocupación (ligero / ordinario / extraordinario) y confirme la densidad de diseño.</li>
+				<li>Elija el tipo de sistema: húmedo, seco o de preacción, según la temperatura del edificio y la sensibilidad al agua.</li>
+				<li>Seleccione los cabezales según el factor K, la clasificación de temperatura, el tipo de respuesta y la orientación.</li>
+				<li>Confirme que la certificación de los componentes (UL/ULC) corresponde al mercado de destino.</li>
+				<li>Solicite una cotización BOM única que incluya cabezales, válvulas, indicadores y coladores.</li>
+				<li>Aclare el MOQ, el plazo de entrega y los repuestos en la oferta comercial.</li>
+			</ol>
+
+			<!-- Cross-link to landing page -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Explore los componentes de nuestros sistemas de rociadores</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Vea la gama completa de componentes — cabezales, válvulas de alarma, indicadores de flujo — en la <a href="/es/fire-sprinkler-systems/" class="text-brand-blue font-semibold hover:underline">página de sistemas de rociadores contra incendios</a>.</p>
+			</div>
+
+			<!-- Related guide -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Guía relacionada: Válvulas para sistemas de rociadores</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">¿Quiere profundizar en los conjuntos de válvulas — ZSFZ de alarma húmeda, ZSFM de diluvio, ZSFY de preacción y ZSJZ indicadores de flujo? Lea la <a href="/es/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">Guía de válvulas para sistemas de rociadores</a>.</p>
+			</div>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita componentes para su sistema de rociadores?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíenos el tipo de edificio y su lista de componentes: le responderemos con una cotización BOM completa en un plazo de 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Fire%20Sprinkler%20Systems" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20componentes%20de%20sistema%20de%20rociadores%20contra%20incendios" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

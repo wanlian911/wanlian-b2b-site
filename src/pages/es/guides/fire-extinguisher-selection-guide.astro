@@ -1,0 +1,222 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ: 4-6 preguntas reales de compra (genera FAQPage JSON-LD)
+const faq = [
+	{
+		question: '¿Qué clases de fuego puede cubrir un extintor de polvo químico seco ABC?',
+		answer: 'Un extintor de polvo químico seco ABC cubre incendios de clase A (madera, papel, textiles), clase B (líquidos inflamables), clase C (gases inflamables) y clase E (equipos eléctricos); por eso es la unidad portátil estándar para edificios comerciales e industriales. No es la opción adecuada para incendios de clase F de aceites de cocina (use químico húmedo) ni para incendios de clase D de metales (use polvo especial para metales).'
+	},
+	{
+		question: '¿Qué significa la certificación ISO 7165 en un extintor de incendios?',
+		answer: 'La ISO 7165 es la norma internacional para extintores portátiles, que abarca rendimiento, construcción, marcado y ensayos. Nuestro extintor de polvo químico seco ABC de 5 kg se fabrica conforme a la ISO 7165 y además cuenta con CCCF. Tenga en cuenta que la CCCF es la certificación obligatoria de China para productos contra incendios: habilita la unidad para el mercado chino, pero por sí sola no es un certificado de exportación. Para exportar, solicite el certificado del modelo exacto y del mercado de destino.'
+	},
+	{
+		question: '¿Qué tamaños de extintores de polvo químico seco ABC están disponibles?',
+		answer: 'El extintor de polvo químico seco ABC de Wanlian está disponible con cargas netas de agente de 3 kg, 4 kg y 5 kg, con un tiempo de descarga de aproximadamente 8 a 15 segundos y un manómetro codificado por colores en el cilindro de acero al carbono. La unidad de 5 kg es la especificación habitual para oficinas, almacenes e instalaciones comerciales; confirme su clase de riesgo y el área a cubrir al solicitar una cotización.'
+	},
+	{
+		question: '¿Puedo pedir extintores con mi propia marca y etiqueta (OEM)?',
+		answer: 'Sí. Ofrecemos OEM en el color del cilindro, la etiqueta del cuerpo, el logotipo y el idioma, y podemos ajustar el idioma de la etiqueta a su mercado de destino. El MOQ, la confirmación del arte final y el plazo de entrega se confirman en la cotización — envíenos su volumen objetivo y su mercado para que podamos cotizar la configuración correcta.'
+	},
+	{
+		question: '¿Los extintores de polvo seco necesitan un embalaje especial para el envío de exportación?',
+		answer: 'Debido a que el cilindro está presurizado, confirme con su agente de carga la clasificación de mercancía peligrosa (número ONU) y los requisitos de embalaje de transporte para el modelo exacto. Para los envíos desde China clasificados como mercancías peligrosas, el exportador debe presentar el certificado de evaluación del embalaje de transporte de mercancías peligrosas de salida; los casos de control aduanero muestran que los envíos sin este documento pueden ser retenidos y sancionados. Confirmamos con usted los requisitos de embalaje y documentación antes de la producción.'
+	},
+	{
+		question: '¿Cuándo debo elegir CO2 en lugar de polvo químico seco ABC?',
+		answer: 'Use CO2 donde el residuo de polvo sería costoso de limpiar: salas de control, salas de servidores, laboratorios y cuadros eléctricos. El polvo químico seco ABC es la opción polivalente de mejor relación costo-beneficio para áreas comerciales, de almacén e industriales en general con riesgos mixtos de clase A/B. Si su proyecto combina ambas áreas, un paquete típico combina unidades de polvo para las áreas abiertas con unidades de CO2 para las salas de equipos sensibles.'
+	}
+];
+
+// TOC: corresponde uno a uno con los id de los H2 del texto
+const toc = [
+	{ id: 'why-fire-extinguishers', label: '1. Por Qué los Extintores Lideran el Abastecimiento de Protección Contra Incendios' },
+	{ id: 'fire-classes-agents', label: '2. Clases de Fuego y Agentes Extintores' },
+	{ id: 'abc-specifications', label: '3. Especificaciones del Polvo Químico Seco ABC Explicadas' },
+	{ id: 'certification-compliance', label: '4. Certificación y Cumplimiento para Exportación' },
+	{ id: 'applications-scenarios', label: '5. Dónde se Instalan los Extintores' },
+	{ id: 'factory-buying-checklist', label: '6. Lista de Verificación de Compra en Fábrica: OEM, MOQ y Embalaje' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+// Productos relacionados (slug coherente con products.ts)
+const products = [
+	{ slug: 'abc-dry-powder-fire-extinguisher-5kg', name: 'Extintor de Polvo Químico Seco ABC (5kg)', img: '/assets/products/abc-dry-powder-fire-extinguisher-5kg.webp', desc: 'Unidad portátil ISO 7165 que cubre incendios de clase A/B/C/E' },
+	{ slug: 'stainless-steel-fire-extinguisher-box', name: 'Caja para Extintor de Acero Inoxidable', img: '/assets/products/stainless-steel-fire-extinguisher-box.jpg', desc: 'Gabinete SS304/201 para extintor o almacenamiento de carrete de manguera' },
+	{ slug: 'metal-fire-extinguisher-box-red', name: 'Caja Metálica para Extintor (Roja)', img: '/assets/products/metal-fire-extinguisher-box-red.jpg', desc: 'Gabinete con recubrimiento en polvo y panel de instrucciones, tamaños OEM' }
+];
+---
+
+<Layout
+	title="Extintor de Polvo Químico Seco ABC: Guía B2B y Exportación"
+	description="Extintores portátiles ABC: clases de fuego, ISO 7165, OEM y embalaje."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Blog', href: '/es/blog/' }, { name: 'Selección de Extintores' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Migas de pan -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Selección de Extintores</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Protección Contra Incendios</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Guía de Selección de Extintores: Polvo Químico Seco ABC para Proyectos B2B y de Exportación</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Los extintores portátiles son el punto de entrada de mayor volumen en el abastecimiento de protección contra incendios — pero las unidades de polvo químico seco ABC, CO2, espuma y agua no son intercambiables. Esta guía ayuda a importadores, distribuidores y compradores de proyectos a relacionar las clases de fuego con los agentes extintores, a revisar las especificaciones que realmente importan y a gestionar correctamente la certificación y la documentación de mercancías peligrosas antes de que un pedido salga de fábrica.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Franja de productos -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Sección 1 -->
+			<h2 id="why-fire-extinguishers" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Por Qué los Extintores Lideran el Abastecimiento de Protección Contra Incendios</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Los datos de búsqueda de plataformas industriales de agosto de 2026 muestran que <strong>extintor de incendios</strong> fue la categoría más buscada en la muestra de protección contra incendios — aproximadamente 19,800 búsquedas, alrededor de un tercio de todas las búsquedas de categorías principales — y los formatos portátiles relacionados, como las unidades de aerosol y de tipo bola, sumaron miles más. El índice relativo de interés de búsqueda de Google para "extintor de incendios" midió 80/100 en agosto de 2026, después de alcanzar un máximo de 100 a principios de año, con el mayor interés relativo en Catar, los EAU, Filipinas, Estados Unidos y el Reino Unido.</p>
+			<p class="text-gray-700 leading-relaxed">Lo que realmente significan las cifras para un proveedor: la demanda llega de tres modos de compra a la vez — distribuidores que reponen SKU estándar, contratistas que equipan edificios bajo especificación y administradores de instalaciones que reemplazan unidades vencidas. Un discurso genérico de "equipos contra incendios" mezcla a los compradores minoristas y de ingeniería en una sola consulta indistinta. Presentar desde el inicio el agente extintor, la capacidad, la cobertura de clases y la certificación es lo que permite que cada comprador seleccione por sí mismo la familia de productos correcta.</p>
+
+			<!-- Sección 2 -->
+			<h2 id="fire-classes-agents" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Clases de Fuego y Agentes Extintores</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Todo extintor portátil está clasificado según las clases de fuego, y el agente debe corresponder al riesgo. El polvo químico seco ABC es el estándar polivalente; otros agentes ganan donde el residuo, el riesgo de reignición o los combustibles especiales cambian el panorama.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Clase de Fuego</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Combustibles Típicos</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Agentes Más Efectivos</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Idoneidad del Polvo ABC</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Clase A</td>
+							<td class="px-4 py-3 text-gray-700">Madera, papel, textiles, plásticos</td>
+							<td class="px-4 py-3 text-gray-700">Agua, espuma, polvo ABC</td>
+							<td class="px-4 py-3 text-gray-700">Opción estándar</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Clase B</td>
+							<td class="px-4 py-3 text-gray-700">Gasolina, aceites, solventes, pinturas</td>
+							<td class="px-4 py-3 text-gray-700">Polvo ABC, espuma, CO2</td>
+							<td class="px-4 py-3 text-gray-700">Opción estándar</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Clase C</td>
+							<td class="px-4 py-3 text-gray-700">Propano, butano, metano, GLP</td>
+							<td class="px-4 py-3 text-gray-700">Polvo ABC (corte el suministro primero)</td>
+							<td class="px-4 py-3 text-gray-700">Adecuado</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Clase E</td>
+							<td class="px-4 py-3 text-gray-700">Equipos eléctricos energizados</td>
+							<td class="px-4 py-3 text-gray-700">CO2, polvo ABC (no conductor)</td>
+							<td class="px-4 py-3 text-gray-700">Adecuado — cuidado con el residuo de polvo</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Clase F</td>
+							<td class="px-4 py-3 text-gray-700">Aceites y grasas de cocina</td>
+							<td class="px-4 py-3 text-gray-700">Químico húmedo</td>
+							<td class="px-4 py-3 text-gray-700">No recomendado</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Clase D</td>
+							<td class="px-4 py-3 text-gray-700">Metales combustibles (Mg, Na)</td>
+							<td class="px-4 py-3 text-gray-700">Polvo especial para metales</td>
+							<td class="px-4 py-3 text-gray-700">No adecuado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Para las ocupaciones mixtas que abastece la mayoría de los compradores B2B — oficinas, almacenes, talleres, comercios — una sola línea de polvo químico seco ABC suele cubrir el 80% de las unidades portátiles de la lista de materiales, con CO2 reservado para los cuartos eléctricos y espuma o químico húmedo para los riesgos especializados.</p>
+
+			<!-- Sección 3 -->
+			<h2 id="abc-specifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Especificaciones del Polvo Químico Seco ABC Explicadas</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Cuando llegue una cotización, revise estos cinco parámetros antes de comparar precios entre proveedores:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Agente y capacidad</strong> — el polvo ABC a base de fosfato monoamónico es el estándar polivalente; el peso neto del agente (3 kg / 4 kg / 5 kg en nuestra gama) determina tanto la cobertura como el costo del flete.</li>
+				<li><strong>Contenido activo</strong> — nuestro polvo ABC se especifica con un 90% de contenido activo, lo que influye en el rendimiento de extinción por kilogramo.</li>
+				<li><strong>Rendimiento de descarga</strong> — espere aproximadamente de 8 a 15 segundos de descarga efectiva en una unidad de 5 kg; la ficha técnica debe indicarlo en lugar de dejarlo implícito.</li>
+				<li><strong>Operación de presión almacenada y manómetro</strong> — el propelente y el polvo se mantienen bajo presión en un mismo cilindro; un manómetro codificado por colores indica que la unidad está operativa, por lo que el diseño del manómetro importa para las inspecciones de mantenimiento.</li>
+				<li><strong>Calidad del cilindro y de la válvula</strong> — cilindro de acero al carbono con recubrimiento rojo anticorrosivo, ensamblaje de válvula de latón y una manguera de descarga con boquilla completan la unidad.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Nuestro <a href="/es/products/abc-dry-powder-fire-extinguisher-5kg/" class="text-brand-blue font-semibold hover:underline">extintor de polvo químico seco ABC de 5 kg</a> se fabrica conforme a la ISO 7165 con marcado CCCF, cubre incendios de clase A/B/C/E y está disponible en pesos netos de 3 kg / 4 kg / 5 kg con un año de garantía. La manguera de descarga, el manómetro y la válvula de latón se incluyen de serie.</p>
+			<p class="text-gray-700 leading-relaxed">Una advertencia honesta que vale la pena transmitir a sus clientes: el polvo seco deja un residuo que es barato de limpiar en pisos y maquinaria, pero que daña los equipos electrónicos — precisamente por eso la fila de clase E en la tabla anterior incluye una precaución.</p>
+
+			<!-- Sección 4 -->
+			<h2 id="certification-compliance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Certificación y Cumplimiento para Exportación</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La certificación es donde el abastecimiento de extintores portátiles difiere de la compra de productos básicos, porque los marcados deben corresponder al modelo real — no a una marca ni a una serie.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>ISO 7165</strong> — la norma internacional para extintores portátiles, que abarca construcción, rendimiento y ensayos. Es el punto de referencia para la mayoría de los mercados de exportación y figura en nuestro modelo de 5 kg.</li>
+				<li><strong>CCCF</strong> — la certificación obligatoria de China para productos contra incendios. Habilita la unidad para el mercado chino; <strong>no</strong> es un certificado de exportación, y esta distinción importa cuando un comprador planea revender fuera de China.</li>
+				<li><strong>Certificación del mercado de destino</strong> — para la UE, verifique el marcado CE contra la norma aplicable al modelo exacto; algunas aplicaciones de Norteamérica buscan unidades listadas UL o ULC. Pida siempre al fabricante el certificado que cubra el modelo y la combinación de válvula que piensa importar, y rechace las declaraciones genéricas "para toda la serie".</li>
+				<li><strong>Marcado e idioma</strong> — los pictogramas de operación, las etiquetas de clase y el idioma de la etiqueta de instrucciones deben confirmarse para el país de destino antes de la producción en serie, porque re-etiquetar después de la llegada es costoso.</li>
+				<li><strong>Informes de prueba por lote</strong> — solicite el informe de prueba del lote de producción real, no una plantilla de otro modelo. Nuestra página de <a href="/es/certificates/" class="text-brand-blue font-semibold hover:underline">certificados y cumplimiento</a> muestra cómo se gestiona la documentación de certificación para nuestra gama de protección contra incendios.</li>
+			</ul>
+
+			<!-- Sección 5 -->
+			<h2 id="applications-scenarios" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Dónde se Instalan los Extintores: Comercial, Almacén y Vehículos</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La misma unidad ABC de 5 kg sirve a usuarios finales muy distintos, y la especificación cambia según el sitio:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Edificios comerciales y oficinas</strong> — unidades ABC de 4 a 5 kg montadas en pared cerca de las salidas y las áreas comunes, con CO2 en los cuartos eléctricos. Las cajas de pared protegen la unidad y facilitan la inspección.</li>
+				<li><strong>Almacenes y plantas industriales</strong> — polvo ABC para riesgos mixtos de clase A/B; las grandes áreas abiertas suelen combinar extintores con sistemas de carrete de manguera y, para techos muy altos, supresión fija. Consulte nuestra <a href="/es/guides/fire-hose-reel-cabinet-guide/" class="text-brand-blue font-semibold hover:underline">guía de carrete de manguera y gabinete contra incendios</a> para conocer el lado del equipo fijo del mismo paquete.</li>
+				<li><strong>Vehículos y aplicaciones móviles</strong> — unidades compactas para camiones, montacargas y salas técnicas; nuestra opción de 3 kg es adecuada para estos espacios y puede cotizarse con herrajes de montaje.</li>
+				<li><strong>Entornos exteriores y corrosivos</strong> — la <a href="/es/products/stainless-steel-fire-extinguisher-box/" class="text-brand-blue font-semibold hover:underline">caja para extintor de acero inoxidable</a> (SS304/201 con ventana de inspección) protege las unidades en aeropuertos, sitios costeros y plantas químicas, mientras que la <a href="/es/products/metal-fire-extinguisher-box-red/" class="text-brand-blue font-semibold hover:underline">caja metálica roja para extintor</a> con instrucciones de operación impresas es el estándar económico para interiores.</li>
+			</ul>
+
+			<!-- Sección 6 -->
+			<h2 id="factory-buying-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Lista de Verificación de Compra en Fábrica: OEM, MOQ y Embalaje de Mercancías Peligrosas</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Comprar extintores a una fábrica china es tanto un ejercicio de documentación como de producto. Recorra esta lista antes de comprometerse:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Alcance del OEM</strong> — el color del cilindro, la etiqueta del cuerpo, el logotipo y el idioma de la etiqueta pueden personalizarse; confirme los tiempos de arte final y aprobación en el cronograma del pedido.</li>
+				<li><strong>MOQ y plazo de entrega</strong> — ambos dependen del modelo, la cantidad y la configuración de la etiqueta, por lo que se confirman en la cotización; indique su mercado objetivo y su volumen anual para obtener una cifra realista.</li>
+				<li><strong>Clasificación de mercancía peligrosa</strong> — el cilindro presurizado puede clasificarse como mercancía peligrosa para el transporte. Confirme la clasificación ONU y los requisitos de embalaje del modelo exacto con su agente de carga antes de reservar espacio.</li>
+				<li><strong>Trámites de exportación de China</strong> — cuando un envío se clasifica como mercancía peligrosa, el exportador chino debe presentar el certificado de evaluación del embalaje de transporte de mercancías peligrosas de salida; los casos de control aduanero muestran envíos retenidos y sancionados por carecer de él. Pida a su proveedor que confirme que este documento está en regla.</li>
+				<li><strong>Consolide el paquete</strong> — pedir extintores junto con cajas de pared, carretes de manguera y válvulas a un mismo fabricante simplifica los expedientes de certificación y el flete. Nuestra <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de verificación de abastecimiento de válvulas B2B</a> cubre el lado de la verificación de fábrica de la misma diligencia debida.</li>
+			</ul>
+
+			<!-- Sección de preguntas frecuentes -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Doble llamada a la acción -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Está Abasteciendo Extintores de Polvo Químico Seco ABC?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíenos su mercado objetivo, la cantidad y el idioma de la etiqueta — nuestro equipo confirma el estado de la certificación, el MOQ y los requisitos de embalaje de mercancías peligrosas en un plazo de 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=ABC%20Dry%20Powder%20Fire%20Extinguisher" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20extintores%20de%20polvo%20qu%C3%ADmico%20seco%20ABC" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
