@@ -1,0 +1,207 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'How does the HQ41X sliding ball check valve work?',
+		answer: 'The HQ41X uses a rubber-coated steel ball as the closing member. When flow moves forward, the ball rolls up on internal guides and the full bore opens; when flow stops or reverses, the ball rolls back onto the seat for a bubble-tight closure. Because the ball rolls instead of slamming on a hinge, the valve closes quietly with no water hammer and a lower pressure loss than a swing check of the same size.'
+	},
+	{
+		question: 'What is the difference between the HQ41X sliding ball and HQ44X spherical ball check valves?',
+		answer: 'The HQ41X sliding ball check valve covers DN50-DN350 at 1.0/1.6 MPa with a carbon-steel-core ball fully covered in NBR, rolling on integrated spheroidal guides; it is a standard choice for sewage and drainage duty. The HQ44X spherical ball check valve covers DN50-DN400 at PN16 with a nodular cast iron (QT450-10) body and an EPDM-vulcanized cast-iron ball, offering a full-flow non-blocking channel, low start-up flow and silent non-slam closing for high-flow lines.'
+	},
+	{
+		question: 'Why choose a ball check valve over a swing check valve?',
+		answer: 'Ball-type check valves are designed with a full-port bore and a rolling rubber-covered ball. Compared with a swing check, the HQ41X is designed to deliver about 50% less head loss, the rubber-covered ball prevents clogging, and closure is quiet with no water hammer. Ball checks can also be installed horizontally or vertically, which swing checks often cannot.'
+	},
+	{
+		question: 'Can a check valve prevent water hammer?',
+		answer: 'A non-slam check valve removes one cause of water hammer: the hinged disc of a swing check can slam into its seat when flow reverses suddenly, sending a pressure surge down the line. Ball-type check valves such as the HQ41X and HQ44X close quietly instead of slamming. For pump networks, combine them with slow-closing hydraulic valves and an EN12845 suction vortex preventer on the pump suction to control surge at start-up and trip.'
+	},
+	{
+		question: 'Where should check valves be installed?',
+		answer: 'Typical locations are pump discharge lines (to stop backflow spinning the pump), sewage and municipal drainage mains, submersible pump risers where vertical installation is needed, and fire sprinkler networks — where a wet alarm check valve such as the ZSFZ-150 doubles as the flow alarm trigger. At potable water cross-connections, an HS41X anti-pollution backflow preventer provides the double check-valve barrier required for backflow control.'
+	},
+	{
+		question: 'What test standard and documentation should I request when buying check valves?',
+		answer: 'Confirm the shell and seat testing standard applied to the batch — the HQ44X is tested to GB/T13927. Request the batch shell/seat pressure test reports and material certificates for the body and the ball core, and state the DN, pressure rating, working temperature and installation orientation in your enquiry so the quotation matches the actual duty.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'what-is-a-check-valve', label: '1. What Is a Check Valve?' },
+	{ id: 'check-valve-types-overview', label: '2. Check Valve Types at a Glance' },
+	{ id: 'sliding-ball-vs-swing-check', label: '3. Sliding Ball vs Swing Check' },
+	{ id: 'water-hammer-prevention', label: '4. Water Hammer & Non-Slam Design' },
+	{ id: 'where-check-valves-installed', label: '5. Where Check Valves Are Installed' },
+	{ id: 'check-valve-specification-checklist', label: '6. B2B Specification Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'sliding-ball-check-valve-hq41x', name: 'Sliding Ball Check Valve (HQ41X-16)', img: '/assets/products/spherical-ball-check-valve-hq44x.jpg', desc: 'DN50-DN350, NBR ball, ~50% less head loss' },
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'Spherical Ball Check Valve (HQ44X-16)', img: '/assets/products/spherical-ball-check-valve-hq44x.jpg', desc: 'DN50-DN400 PN16, nodular iron, non-slam' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Wet Alarm Check Valve ZSFZ 150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.png', desc: 'DN100/150/200 sprinkler alarm check' },
+	{ slug: 'anti-pollution-backflow-preventer-hs41x', name: 'Anti-Pollution Backflow Preventer (HS41X-16)', img: '/assets/products/anti-pollution-backflow-preventer-hs41x.png?v=20260902', desc: 'Double check valves + drain for potable water' }
+];
+---
+
+<Layout
+	title="Check Valve Types & Selection Guide: Sliding Ball vs Swing Check | Wanlian Fluid"
+	description="Check valve types compared: swing vs sliding ball (HQ41X) vs spherical ball (HQ44X) — head loss, water hammer, installation orientation and a B2B selection checklist."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Check Valve Types Guide' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Check Valve Types Guide</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Industrial Valve Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Check Valve Types &amp; Selection Guide: Sliding Ball vs Swing Check</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a check valve lets water flow in one direction and closes automatically when flow reverses — no operator or power source needed. When the duty involves sewage, drainage or pump networks, ball-type check valves such as the HQ41X sliding ball and HQ44X spherical ball designs close quietly without slamming, which avoids the water hammer that swing check valves can cause. This guide compares the common types and tells you what to specify.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="what-is-a-check-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. What Is a Check Valve?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A check valve is an automatic one-way valve. The flowing medium itself opens the closing member; when the flow stops or tries to reverse, the member returns to its seat and the valve closes. There is no handwheel, actuator or electrical connection — check valves protect pumps, meters and networks from reverse flow, keep lines full after shutdown, and prevent contamination from flowing backwards into a clean supply.</p>
+			<p class="text-gray-700 leading-relaxed">The two things that separate a good check valve from a bad one are <strong>pressure loss</strong> (how much of your pumping energy it wastes while open) and <strong>closing behaviour</strong> (whether it slams shut and hammers the line, or closes quietly). Both are decided by the closing mechanism — which is why the type choice matters.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="check-valve-types-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Check Valve Types at a Glance</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Swing check valves</strong> use a hinged disc that swings open with forward flow and falls back onto the seat when flow stops. They are simple and inexpensive, but the disc has a long travel path — on sudden flow reversal it can slam into the seat, and in dirty media the hinge can bind or the disc can hang open.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Lift check valves</strong> use a spring-loaded piston or ball that lifts off a seat. They close faster and suit clean, higher-pressure media, but the restricted flow path creates more pressure loss and they clog easily in sewage service.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wafer (dual-plate) check valves</strong> are compact and fit between flanges, with two spring-loaded plates. They are light and cheap for fire and HVAC lines, but the plates add head loss and the springs can fatigue in continuous pumping duty.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Ball check valves</strong> replace the hinge or spring with a rolling rubber-covered ball. The ball lifts out of the bore on forward flow and rolls back onto the seat when flow stops — a short, guided travel that closes quietly and resists clogging. The <a href="/products/sliding-ball-check-valve-hq41x/" class="text-brand-blue font-semibold hover:underline">HQ41X sliding ball check valve</a> and the <a href="/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">HQ44X spherical ball check valve</a> are the two ball-type designs in the Wanlian range.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="sliding-ball-vs-swing-check" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Sliding Ball vs Swing Check</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Comparison</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Swing Check</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">HQ41X Sliding Ball</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">HQ44X Spherical Ball</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Closing member</td>
+							<td class="px-4 py-3 text-gray-700">Hinged disc</td>
+							<td class="px-4 py-3 text-gray-700">Rubber-covered ball on internal guides</td>
+							<td class="px-4 py-3 text-gray-700">Rubber-covered rolling sphere</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Head loss</td>
+							<td class="px-4 py-3 text-gray-700">Baseline</td>
+							<td class="px-4 py-3 text-gray-700">Full-port, ~50% less than swing check</td>
+							<td class="px-4 py-3 text-gray-700">Full-flow non-blocking channel</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Closing behaviour</td>
+							<td class="px-4 py-3 text-gray-700">Disc can slam on fast reversal</td>
+							<td class="px-4 py-3 text-gray-700">Quiet closure, no water hammer</td>
+							<td class="px-4 py-3 text-gray-700">Silent non-slam, low start-up flow</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Clogging resistance</td>
+							<td class="px-4 py-3 text-gray-700">Hinge can bind in dirty media</td>
+							<td class="px-4 py-3 text-gray-700">Ball prevents clogging</td>
+							<td class="px-4 py-3 text-gray-700">Anti-blocking full bore</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Installation</td>
+							<td class="px-4 py-3 text-gray-700">Usually horizontal</td>
+							<td class="px-4 py-3 text-gray-700">Horizontal or vertical</td>
+							<td class="px-4 py-3 text-gray-700">Horizontal or vertical</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typical duty</td>
+							<td class="px-4 py-3 text-gray-700">Clean water lines</td>
+							<td class="px-4 py-3 text-gray-700">Sewage, drainage, submersible pumps</td>
+							<td class="px-4 py-3 text-gray-700">High-flow water, pump networks</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Both ball designs use a rubber-covered metal core: the HQ41X ball is carbon steel fully covered in NBR, while the HQ44X ball is a cast iron core with fully vulcanized EPDM. Seat and seal rubbers are EPDM or NBR, and working temperature is 0°C to 80°C across the standard range.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="water-hammer-prevention" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Water Hammer &amp; Non-Slam Design</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Water hammer happens when a column of moving water is stopped abruptly — a pump tripping, a valve closing fast, or a check valve slamming shut. The kinetic energy of the water converts into a pressure spike that can burst pipes, damage pumps and knock instruments off calibration. On long discharge lines the spike can be several times the working pressure.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">A swing check valve is a classic slam source: when the pump stops, forward flow collapses and the heavy disc falls back through the decelerating column, slamming into the seat and sending a surge downstream. Ball-type check valves avoid the hinge entirely — the rolling ball follows the flow down smoothly and seats without impact. That is why the HQ41X and HQ44X are described as quiet-closure, no-water-hammer check valves.</p>
+			<p class="text-gray-700 leading-relaxed">For full surge control on pump networks, use the check valve together with slow-closing hydraulic control valves and an EN12845 suction vortex preventer on the pump suction, so both start-up and trip transients stay within safe limits.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="where-check-valves-installed" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Where Check Valves Are Installed</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Pump discharge lines.</strong> Every pump needs a check valve downstream so that when the pump stops, water cannot flow backwards and spin the impeller in reverse — a common cause of premature pump failure. Ball checks with low head loss also save energy on continuous pumping duty.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Sewage and drainage mains.</strong> Raw sewage carries solids, and a hinged disc or spring mechanism can jam. The HQ41X was designed for exactly this service — the rubber-covered rolling ball prevents clogging, and the valve is excellent for sewage, municipal drainage and submersible pump networks.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Fire sprinkler systems.</strong> Check valves have a specific duty in sprinkler networks: the <a href="/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ wet alarm check valve</a> holds the system water back, then when a sprinkler opens and water flows it lifts the clapper and triggers the hydraulic alarm gong and pressure switch — a check valve that is also the flow alarm trigger. For the full picture of control valves in sprinkler systems, see our <a href="/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">fire sprinkler control valve types guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Potable water cross-connections.</strong> Where tank water, irrigation or process water can theoretically flow back into a drinking water main, a single check valve is not enough protection. The <a href="/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">HS41X anti-pollution backflow preventer</a> uses two series-connected check valves with an intermediate automatic drain — the configuration required for genuine cross-connection control, covered in depth in our <a href="/guides/backflow-prevention-guide/" class="text-brand-blue font-semibold hover:underline">backflow prevention guide</a>.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="check-valve-specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. B2B Specification Checklist</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Know your media</strong> — clean water, sewage with solids, or fire water? Solids and fibres point to a ball-type check; clean high-pressure lines may tolerate a lift or swing type.</li>
+				<li><strong>Fix size and pressure</strong> — HQ41X covers DN50-DN350 at 1.0/1.6 MPa; HQ44X covers DN50-DN400 at PN16. State the DN and flange standard (GB, ANSI, DIN) in the enquiry.</li>
+				<li><strong>Check the installation orientation</strong> — confirm whether the duty is horizontal or vertical pipe; the HQ41X and HQ44X accept both, which swing checks often do not.</li>
+				<li><strong>Match ball and body materials to the water</strong> — NBR-covered carbon steel ball (HQ41X) or EPDM-vulcanized cast iron ball (HQ44X), with cast iron (HT200), spheroidal (QT450) or nodular (QT450-10) bodies; working temperature range is 0°C to 80°C.</li>
+				<li><strong>Ask about closing behaviour</strong> — if the line is subject to pump trips or fast valve closure, specify a non-slam, quiet-closure design to avoid water hammer.</li>
+				<li><strong>Require test evidence</strong> — shell and seat pressure test reports for the actual batch (the HQ44X is tested to GB/T13927), material certificates on request, and run our <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> before committing to a manufacturer.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need Check Valves for Water, Sewage or Fire Lines?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Tell us your DN, pressure rating, media and installation orientation — our engineers confirm the right ball-type check valve and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Check%20Valve%20HQ41X" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20check%20valves%20for%20water%2Fsewage%20pipelines" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

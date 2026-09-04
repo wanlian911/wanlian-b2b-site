@@ -126,5 +126,14 @@ export const guides: Guide[] = [
     category: 'Hydraulic Safety',
     readTime: '8 min read',
     tags: ['backflow-prevention', 'industrial-valves']
+  },
+  {
+    title: 'Check Valve Types & Selection Guide: Sliding Ball vs Swing Check (2026)',
+    description: 'Check valve types compared — swing vs HQ41X sliding ball vs HQ44X spherical ball: head loss, water hammer, non-slam closing, installation orientation and a B2B specification checklist.',
+    href: '/guides/check-valve-types-guide/',
+    date: '2026-09',
+    category: 'Valves',
+    readTime: '8 min read',
+    tags: ['industrial-valves', 'backflow-prevention']
   }
 ];
