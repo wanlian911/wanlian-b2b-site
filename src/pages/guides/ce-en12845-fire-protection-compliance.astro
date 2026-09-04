@@ -1,0 +1,166 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'Does Wanlian supply CE-certified fire protection products?',
+		answer: 'Certification is always model- and destination-specific. We supply the certificates, declarations and batch test reports that apply to the exact model and valve/hose configuration you order, and we do not blanket-claim certification across whole product series. Tell us the product and target country and we will confirm which documentation package applies before production.'
+	},
+	{
+		question: 'What is EN 12845 and how does it relate to your products?',
+		answer: 'EN 12845 is the European standard for the design and installation of fixed firefighting sprinkler systems. It sets requirements for the whole water supply arrangement, including vortex prevention at pump suctions. Our suction vortex preventer is manufactured to EN 12845 and GB50974-2014: it is installed at the pump suction inside a water tank to stop air entrainment and cavitation, letting the tank volume drain to very low levels safely.'
+	},
+	{
+		question: 'What is the difference between ISO 7165, CE marking and CCCF on a fire extinguisher?',
+		answer: 'ISO 7165 is the international performance standard for portable fire extinguishers, covering construction, testing and marking. CE marking is the EU conformity mark for products placed on the European market — its requirements depend on the applicable directives for that product. CCCF is the China Compulsory Certification for fire products and qualifies a unit for the Chinese market only; it is not an export certificate. Always request the certificate that applies to your destination market and the exact model.'
+	},
+	{
+		question: 'Which coupling and connection standards are used for European fire systems?',
+		answer: 'Storz quick-connect couplings are the most common system across Europe and much of Asia; German-style KWS outlets also appear on hydrant and standpipe connections, and the UK/Commonwealth market uses BS336 threads. Our 2.5" aluminum Storz coupling (DN50-DN150, 1.6 MPa) covers the German-standard connection family, and outdoor hydrants such as the SSFT100 are supplied with KWS65 outlets. Specify the thread system your market uses in the inquiry so hose, hydrant and nozzle connections match.'
+	},
+	{
+		question: 'Can you provide batch test reports to EN 12266-1 for valves?',
+		answer: 'Yes. Valves in our range are shell and seat pressure tested on request in accordance with GB/T13927 or EN 12266-1, and hydrants are hydrostatically tested (2.4 MPa typical) with flow testing per the applicable standard. Ask for the test report covering the actual production batch rather than a generic template.'
+	},
+	{
+		question: 'Can products be labelled and documented for specific EU countries?',
+		answer: 'Yes. Label language, pictograms, instruction language and accompanying documentation can be matched to your destination country as part of the OEM scope. Because re-labelling after arrival is expensive, confirm the label language and documentation format before mass production.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'european-market', label: '1. Why European Compliance Matters for Fire Equipment' },
+	{ id: 'ce-marking-basics', label: '2. CE Marking Basics: Model-Level, Never Series-Level' },
+	{ id: 'en12845-pump-suction', label: '3. EN 12845 and the Fire Pump Suction Package' },
+	{ id: 'testing-standards', label: '4. Testing Evidence: EN 12266-1 and Batch Reports' },
+	{ id: 'connections-regional', label: '5. Couplings, Interfaces and Portable Equipment' },
+	{ id: 'european-checklist', label: '6. Specification Checklist for European Buyers' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'suction-vortex-preventer-en12845', name: 'Suction Vortex Preventer (EN12845)', img: '/assets/products/suction-vortex-preventer-en12845.png', desc: 'SS304/316, DN50-DN1000, EN12845 & GB50974-2014' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: '2.5" Aluminum Storz Coupling', img: '/assets/products/storz-coupling-2-5inch-aluminum.jpg', desc: 'German standard quick-connect, DN50-DN150, 1.6 MPa' },
+	{ slug: 'abc-dry-powder-fire-extinguisher-5kg', name: 'ABC Dry Powder Fire Extinguisher (5kg)', img: '/assets/products/abc-dry-powder-fire-extinguisher-5kg.png', desc: 'ISO 7165 portable unit for Class A/B/C/E fires' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Anti-Collision Outdoor Hydrant (SSFT100)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.png', desc: 'Pressure-regulating, KWS65 outlets, PN16 ductile iron' }
+];
+---
+
+<Layout
+	title="CE & EN 12845 Fire Protection Compliance Guide | Wanlian Fluid"
+	description="EN 12845 and CE compliance for fire protection exports: pump suction vortex prevention, EN 12266-1 valve testing, Storz couplings and ISO 7165 extinguishers."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'CE & EN 12845 Compliance' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">CE &amp; EN 12845 Compliance</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Certification Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">CE &amp; EN 12845 Compliance Guide: Fire Protection Equipment for the European Market</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Selling fire protection equipment into Europe is a documentation exercise before it is a product exercise. EN 12845 defines how sprinkler water supplies must be built, EN 12266-1 defines how valves are tested, ISO 7165 defines portable extinguisher performance — and CE marking, where it applies, must trace to a specific model, never a whole series. This guide explains the framework and what evidence a European buyer should demand from a Chinese supplier.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="european-market" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Why European Compliance Matters for Fire Equipment</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Europe is not a niche for fire protection suppliers. In the industry platform buyer sample this guide's market research is based on (August 2026), Europe was the single largest buyer region for the fire-protection category at 20.05%, with Europe and Southeast Asia combined at roughly 39%. In the same sample, CE was the most common certification attribute across fire extinguisher listings (42.35%), signalling that European buyers filter on documented compliance before they filter on price.</p>
+			<p class="text-gray-700 leading-relaxed">What European engineering buyers actually check is a paper trail: which standard the product is manufactured to, which test standard the batch was tested to, which certificate covers the exact model, and which coupling and thread system the equipment connects to. Everything below maps to one of those four questions.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="ce-marking-basics" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. CE Marking Basics: Model-Level, Never Series-Level</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">CE marking is the conformity mark for products placed on the European market. Its legal basis varies by product — the applicable directives and harmonized standards depend on what the product is — which is exactly why a responsible supplier never makes a blanket statement.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>The marking belongs to a model</strong> — CE and the supporting Declaration of Conformity cover a defined product with defined characteristics. If the valve size, material or configuration changes, the conformity assessment changes with it.</li>
+				<li><strong>Reject series-level claims</strong> — a certificate that names a brand or a whole range without model identifiers is a red flag in European procurement. Ask for the document that names the exact model and specification you are buying.</li>
+				<li><strong>Expect a technical file</strong> — the manufacturer should be able to show the test reports and technical documentation behind the declaration. Our <a href="/certificates/" class="text-brand-blue font-semibold hover:underline">certificates and compliance</a> page explains how this documentation is managed for our fire protection range.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">If a quotation answers "is it CE certified?" with "yes, the whole series", the correct follow-up is: which directive, which standard, which model, and can I see the Declaration of Conformity?</p>
+
+			<!-- 章节 3 -->
+			<h2 id="en12845-pump-suction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. EN 12845 and the Fire Pump Suction Package</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">EN 12845 is the European standard for fixed firefighting sprinkler systems — design and installation. It governs the whole water supply chain: storage tanks, pump suctions, pumps, valves and distribution. One of its recurring requirements is that pump suctions drawing from tanks must prevent vortex formation, because a vortex pulls air into the pump, causes cavitation, and can starve the sprinkler system exactly when it needs full flow.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">That is the duty of the <a href="/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">suction vortex preventer</a> in our range: an austenitic stainless steel (SS304/316) plate assembly fitted at the pump suction inside the tank, manufactured to EN 12845 and GB50974-2014, from DN50 to DN1000. It eliminates the vortex, lets the tank drain to very low water levels (around 100mm), and carries no moving parts to maintain.</p>
+			<p class="text-gray-700 leading-relaxed">The rest of the suction and discharge package follows the same logic: gate or butterfly valves for isolation, check valves on the pump discharge, and alarm valves at the riser. For the full component picture inside an EN 12845-style sprinkler arrangement, see our <a href="/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">fire sprinkler system valves guide</a>.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="testing-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Testing Evidence: EN 12266-1 and Batch Reports</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">European buyers rarely accept a generic "tested to standard" statement; they want the test standard named and the batch identified. The conventions in our factory testing are:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Valves</strong> — 100% shell and seat pressure testing per GB/T13927 or <strong>EN 12266-1</strong> (the European standard for industrial valve testing) on request.</li>
+				<li><strong>Hydrants</strong> — hydrostatic pressure testing (2.4 MPa typical) and flow testing per GB 4452 or the applicable export standard.</li>
+				<li><strong>Extinguishers</strong> — performance, construction and marking per ISO 7165, with the model marking on the cylinder.</li>
+				<li><strong>Batch evidence</strong> — test reports should cover the actual production batch you receive, not a template from another model or a different production run.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Put the named test standard in the inquiry and in the purchase order. A supplier who commits the standard in writing is a supplier who can produce the report.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="connections-regional" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Couplings, Interfaces and Portable Equipment</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Compliance does not stop at certificates — connections and portable equipment have their own regional rules. Across Europe and much of Asia, <strong>Storz quick-connect couplings</strong> are the dominant fire hose system. Our <a href="/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">2.5" aluminum Storz coupling</a> follows the German standard with a self-sealing edge, is rated at 1.6 MPa, and suits clear water and foam mixture media. The UK and Commonwealth markets use BS336 threads, and German-style KWS outlets appear on hydrant and standpipe connections — our <a href="/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">SSFT100 anti-collision outdoor hydrant</a> is supplied with 2× KWS65 outlets plus a DN100 outlet as standard.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">For portable extinguishers destined for Europe, keep the certificate boundary clear: our <a href="/products/abc-dry-powder-fire-extinguisher-5kg/" class="text-brand-blue font-semibold hover:underline">5kg ABC dry powder extinguisher</a> is manufactured to ISO 7165 and carries CCCF. ISO 7165 covers international portable-extinguisher performance; CE marking for the EU market depends on the applicable directives for the model; CCCF is China-specific and does not transfer to European sales. Label language, pictograms and instruction language should be confirmed for the destination country before production.</p>
+			<p class="text-gray-700 leading-relaxed">The buyer-side takeaway: name the coupling system and the extinguisher standard in the same sentence as the certificate request — they travel together through the specification.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="european-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Specification Checklist for European Buyers</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Name the component standard</strong> — EN 12845 for the sprinkler water-supply arrangement, EN 12266-1 for valve testing, ISO 7165 for portable extinguishers, plus the applicable standard for hydrants and couplings.</li>
+				<li><strong>Demand model-level certificates</strong> — CE Declaration of Conformity (where applicable), and the certificate naming the exact model, size and configuration you order.</li>
+				<li><strong>Confirm the interface system</strong> — Storz, BS336, KWS or other threads for hose, hydrant and nozzle connections; state it in writing.</li>
+				<li><strong>Fix the documentation language</strong> — label and instruction language for the destination country as part of the OEM scope.</li>
+				<li><strong>Request batch test reports</strong> — the test records for the production batch you actually receive, not a generic file.</li>
+				<li><strong>Consolidate the documentation trail</strong> — ordering valves, hydrants and extinguishers from one manufacturer keeps certificates and freight in one file. Run our <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> before committing to a supplier.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Preparing a Fire Protection Order for Europe?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Tell us the products, quantities and target country — our team confirms the applicable standards, certificate package and connection system within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=European%20Compliance%20Package" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20fire%20protection%20equipment%20for%20the%20EU%20market" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

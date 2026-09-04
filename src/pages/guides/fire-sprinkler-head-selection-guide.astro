@@ -1,0 +1,208 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'What does the K-factor of a sprinkler head mean?',
+		answer: 'The K-factor links the flow of a sprinkler head to the pressure at the head through the formula Q = K × √P (flow in L/min, pressure in bar). A K=80 head at 1 bar delivers about 80 L/min; a K=115 head delivers about 115 L/min at the same pressure. Higher K-factors are used where more water must reach the fire faster — extra-hazard or high-ceiling occupancies — while K=80 remains the common standard for light and ordinary hazard spaces.'
+	},
+	{
+		question: 'What do the temperature ratings and bulb colours mean?',
+		answer: 'The glass bulb contains a liquid that expands and bursts at its rated temperature, releasing the deflector. Standard ratings and colour codes are 57°C (orange), 68°C (red), 79°C (yellow), 93°C (green) and 141°C (blue). A 68°C red-bulb head is the default for most offices and warehouses; higher ratings are used near heat sources such as boilers, heaters and kitchens so the head does not discharge accidentally.'
+	},
+	{
+		question: 'What is the difference between quick response and standard response sprinkler heads?',
+		answer: 'Response speed is set by the thermal mass of the sensing element: a quick-response head uses a 3mm glass bulb, a standard-response head uses a 5mm bulb. Quick-response heads activate faster and are preferred for light and ordinary hazard occupancies where earlier discharge saves lives and property; standard-response heads are common in industrial and storage settings where a slightly slower, more deliberate discharge is acceptable. Our ZST series is available in both response types.'
+	},
+	{
+		question: 'Which sprinkler heads are UL listed in the Wanlian range?',
+		answer: 'The ZSTDY concealed sprinkler is UL listed with a 68°C red bulb and electroplated chrome finish. The ZST glass-bulb series and the T-ZSTBS horizontal sidewall model are manufactured to GB 5135-series requirements and factory standards — for North American projects, confirm the listing required by your specification and we will match the certified model or arrange project evaluation. We do not claim series-wide listing where only specific models carry it.'
+	},
+	{
+		question: 'Can sprinkler heads of different temperature ratings be mixed in one area?',
+		answer: 'No — and this is a common inspection finding. All heads protecting the same hazard area should carry the same temperature rating, because a lower-rated head near a heat source will discharge prematurely and a higher-rated head in a normal area will respond too late. Keep higher-temperature heads strictly for locations with genuine heat sources, and state the rating zone on the shop drawings.'
+	},
+	{
+		question: 'When should I choose a concealed head instead of a pendent head?',
+		answer: 'Choose concealed (recessed with a cover plate) heads where ceiling aesthetics matter — offices, hotels, retail fit-outs — because only the cover plate is visible. Pendent heads hang below the ceiling and give unobstructed spray patterns, which is why they remain standard for warehouses, industrial ceilings and areas where the ceiling itself is the hazard surface. Both types are available in the range; the concealed ZSTDY is the UL-listed option.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'system-type-first', label: '1. Start With the System Type, Then the Head' },
+	{ id: 'k-factor-flow', label: '2. K-Factor and Flow: Matching Water Delivery' },
+	{ id: 'temperature-ratings', label: '3. Temperature Ratings and Bulb Colour Coding' },
+	{ id: 'response-orientation', label: '4. Response Speed and Installation Orientation' },
+	{ id: 'us-standards-context', label: '5. UL Listing and NFPA 13 Context for US Projects' },
+	{ id: 'spec-checklist', label: '6. Specification Checklist for Sprinkler Heads' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'glass-bulb-fire-sprinkler-zst', name: 'Glass Bulb Fire Sprinkler (ZST)', img: '/assets/products/glass-bulb-fire-sprinkler-zst.png', desc: 'K=80/K=115, 57-141°C, pendent/upright/sidewall' },
+	{ slug: 'horizontal-sidewall-fire-sprinkler-t-zstbs', name: 'Horizontal Sidewall Sprinkler (T-ZSTBS)', img: '/assets/products/horizontal-sidewall-fire-sprinkler-t-zstbs.png', desc: '68°C red bulb, chrome finish, perimeter coverage' },
+	{ slug: 'zstdy-concealed-fire-sprinkler', name: 'Concealed Fire Sprinkler (ZSTDY)', img: '/assets/products/zstdy-concealed-fire-sprinkler.png', desc: 'UL listed, recessed cover plate, 68°C, chrome' }
+];
+---
+
+<Layout
+	title="Fire Sprinkler Head Selection Guide: K-Factor & Temperature | Wanlian Fluid"
+	description="How to select fire sprinkler heads: K-factor and flow, temperature ratings, pendent vs sidewall vs concealed orientation, UL listing and NFPA 13 project context."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Sprinkler Head Selection' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Sprinkler Head Selection</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Fire Protection Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Fire Sprinkler Head Selection Guide: K-Factor, Temperature &amp; Response</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">The sprinkler head is the only part of the system that decides when water is released and how much reaches the fire. Four parameters do all the work: K-factor, temperature rating, response speed and orientation. This guide explains each one and how to specify heads correctly for commercial, warehouse and US-market projects — including what "UL listed" really covers.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="system-type-first" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Start With the System Type, Then the Head</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Heads are specified inside a system decision, not in isolation. In a <strong>wet system</strong> the piping stays full and every head is an open-ready release point; in a <strong>dry system</strong> piping holds air under pressure and heads must discharge air before water arrives; in <strong>deluge and pre-action</strong> arrangements the heads may be open nozzles or sealed heads depending on the zone design. The valve side of that decision is covered in our <a href="/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">wet, dry and pre-action system guide</a> and the <a href="/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">sprinkler system valves guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Once the system type is fixed, the head itself is selected on K-factor, temperature, response and orientation — the four parameters below. Specifying a head before the system type is the most common sourcing mistake in our inquiry inbox.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="k-factor-flow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. K-Factor and Flow: Matching Water Delivery</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The K-factor defines how much water a head discharges at a given pressure: <strong>Q = K × √P</strong> (flow in L/min, pressure in bar). It is the number that links the hydraulic calculation of the system to the physical head.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>K=80 (nominal 80 ±4)</strong> — the long-standing standard for light and ordinary hazard occupancies; the default choice for offices, retail and most commercial spaces.</li>
+				<li><strong>K=115 (nominal 115 ±9)</strong> — higher delivery for storage occupancies, high ceilings and areas where the design density demands more water per head.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Both coefficients are available in our <a href="/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">ZST glass bulb fire sprinkler series</a>, which covers K=80 and K=115 with temperature ratings from 57°C to 141°C in pendent, upright and sidewall patterns. The hydraulic designer calculates the required density per square metre for the hazard class; the K-factor is then chosen so each head delivers its share at a realistic pressure.</p>
+			<p class="text-gray-700 leading-relaxed">If a spec sheet lists only the thread size and not the K-factor, treat it as incomplete: K-factor is the single most important number on it.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="temperature-ratings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Temperature Ratings and Bulb Colour Coding</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The glass bulb holds a heat-sensitive liquid; at its rated temperature the bulb bursts and the head discharges. Ratings follow a standard colour code so inspectors can read a head from the floor:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Temperature Rating</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Bulb Colour</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical Use</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">In ZST Range</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">57°C (135°F)</td>
+							<td class="px-4 py-3 text-gray-700">Orange</td>
+							<td class="px-4 py-3 text-gray-700">Residential / low-heat areas</td>
+							<td class="px-4 py-3 text-gray-700">Available</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">68°C (155°F)</td>
+							<td class="px-4 py-3 text-gray-700">Red</td>
+							<td class="px-4 py-3 text-gray-700">Offices, warehouses — the default rating</td>
+							<td class="px-4 py-3 text-gray-700">Available (also T-ZSTBS, ZSTDY)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">79°C (175°F)</td>
+							<td class="px-4 py-3 text-gray-700">Yellow</td>
+							<td class="px-4 py-3 text-gray-700">Near heaters, skylights, warm roofs</td>
+							<td class="px-4 py-3 text-gray-700">Available</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">93°C (200°F)</td>
+							<td class="px-4 py-3 text-gray-700">Green</td>
+							<td class="px-4 py-3 text-gray-700">Boiler rooms, kilns, high-heat areas</td>
+							<td class="px-4 py-3 text-gray-700">Available</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">141°C (286°F)</td>
+							<td class="px-4 py-3 text-gray-700">Blue</td>
+							<td class="px-4 py-3 text-gray-700">Special industrial heat sources</td>
+							<td class="px-4 py-3 text-gray-700">Available</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Rule of thumb: use 68°C red-bulb heads for general areas and step up the rating only where a genuine heat source makes premature discharge a real risk. Higher ratings respond later in a real fire, so over-rating "to be safe" is not safe at all.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="response-orientation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Response Speed and Installation Orientation</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Response speed is set by the thermal mass of the bulb: a <strong>quick-response</strong> head uses a 3mm bulb and activates faster; a <strong>standard-response</strong> head uses a 5mm bulb. Quick response is preferred where occupants are present and earlier discharge matters; standard response suits storage and industrial settings where discharge is designed around fire development. The ZST series is available in both.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Orientation follows the hazard surface and the ceiling:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Pendent</strong> — hangs below the branch line, the standard for exposed ceilings and the pattern most of the ZST range covers.</li>
+				<li><strong>Upright</strong> — stands above the branch line, common in warehouses with open bar joists where the deflector must throw water against truss obstructions.</li>
+				<li><strong>Sidewall</strong> — mounted on the wall near the ceiling, for rooms where branch lines through the slab are impractical; the <a href="/products/horizontal-sidewall-fire-sprinkler-t-zstbs/" class="text-brand-blue font-semibold hover:underline">T-ZSTBS horizontal sidewall head</a> (68°C red bulb, chrome finish) is the perimeter-coverage model in the range.</li>
+				<li><strong>Concealed</strong> — recessed behind a cover plate that drops away when the head operates; chosen for architecturally sensitive ceilings. The <a href="/products/zstdy-concealed-fire-sprinkler/" class="text-brand-blue font-semibold hover:underline">ZSTDY concealed sprinkler</a> carries a 68°C red bulb and electroplated chrome finish, and is the UL-listed option in the range.</li>
+			</ul>
+
+			<!-- 章节 5 -->
+			<h2 id="us-standards-context" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. UL Listing and NFPA 13 Context for US Projects</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">North American projects are driven by NFPA 13, whose hazard classifications (light, ordinary and extra hazard) set the design density, spacing and, in turn, the head specification. Alongside the hydraulic parameters, US specifications almost always demand <strong>listed</strong> heads — UL or an equivalent listing covering the specific model.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Be precise about what our range carries: the <strong>ZSTDY concealed sprinkler is UL listed</strong> (68°C red bulb, stainless steel construction, DN15-DN20), making it the direct option for US-specified concealed applications. The ZST glass-bulb series and the T-ZSTBS sidewall model are manufactured to the GB 5135 series and factory standards — they are specified by confirming the listing required for your project, and we will match the certified model or arrange project evaluation rather than claiming series-wide UL status.</p>
+			<p class="text-gray-700 leading-relaxed">That distinction matters in US procurement: an uncertified substitute on a listed-required line can fail plan review and void the system acceptance. Ask for the listing to be named on the quotation, model by model — our <a href="/certificates/" class="text-brand-blue font-semibold hover:underline">certificates and compliance</a> page shows how listing documentation is handled.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Specification Checklist for Sprinkler Heads</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>K-factor</strong> — K=80 for light/ordinary hazard, K=115 for higher density; state the target design density with the order.</li>
+				<li><strong>Temperature rating</strong> — 68°C default; higher ratings only at genuine heat sources; never mix ratings within one hazard area.</li>
+				<li><strong>Response</strong> — quick response (3mm bulb) or standard response (5mm bulb) per the occupancy and system design.</li>
+				<li><strong>Orientation and finish</strong> — pendent, upright, sidewall or concealed; chrome, polished or custom finish for the ceiling type.</li>
+				<li><strong>Listing by model</strong> — name the required listing (e.g. UL) on the quotation; confirm it covers the exact model and size.</li>
+				<li><strong>Batch documentation</strong> — pressure and sensitivity test records for the production batch; see our <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B sourcing checklist</a> for the factory-verification routine that applies to sprinkler suppliers too.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Specifying Sprinkler Heads for Your Project?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send your hazard class, K-factor, temperature rating and listing requirement — our engineers confirm the matching model within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Fire%20Sprinkler%20Heads" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20fire%20sprinkler%20heads%20(K-factor%2Ftemperature%2Fresponse)" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

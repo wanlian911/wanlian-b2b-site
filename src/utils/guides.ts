@@ -180,5 +180,23 @@ export const guides: Guide[] = [
     category: 'Fire Protection',
     readTime: '8 min read',
     tags: ['fire-protection', 'procurement']
+  },
+  {
+    title: 'CE & EN 12845 Compliance Guide: Fire Equipment for the European Market (2026)',
+    description: 'European fire protection compliance explained for B2B buyers: EN 12845 sprinkler pump-suction requirements, model-level CE marking, EN 12266-1 valve testing, Storz/BS336/KWS connection systems and the ISO 7165 vs CCCF boundary for extinguishers.',
+    href: '/guides/ce-en12845-fire-protection-compliance/',
+    date: '2026-09',
+    category: 'Fire Protection',
+    readTime: '8 min read',
+    tags: ['certification', 'fire-protection']
+  },
+  {
+    title: 'Fire Sprinkler Head Selection Guide: K-Factor, Temperature & Response (2026)',
+    description: 'How to select fire sprinkler heads: K-factor and flow (K=80/K=115), temperature ratings and bulb colour coding, quick vs standard response, pendent/upright/sidewall/concealed orientation and UL listing in the NFPA 13 context.',
+    href: '/guides/fire-sprinkler-head-selection-guide/',
+    date: '2026-09',
+    category: 'Fire Protection',
+    readTime: '8 min read',
+    tags: ['sprinkler-systems', 'fire-protection']
   }
 ];
