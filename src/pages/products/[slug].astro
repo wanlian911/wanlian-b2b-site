@@ -84,6 +84,18 @@ const categoryInfo: Record<string, { applications: string[]; testing: string }> 
 const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
 const info = categoryInfo[product.category];
 const relatedProducts = products.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 4);
+
+// 相关指南(GEO 内容)按产品 slug 映射,用于消防/阀门产品页回链
+const hydrantGuideSlugs = ['overground-fire-hydrant-ss100', 'indoor-fire-hydrant-head-sn65', 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', 'iot-smart-ground-fire-hydrant-ss100zn'];
+const valveGuideSlugs = ['resilient-seat-flanged-gate-valve-z41x', 'telescopic-resilient-seat-gate-valve-z41x-t', 'ul-fm-resilient-seat-osy-gate-valve', 'd381x-16q-grooved-butterfly-valve', 'signal-grooved-wafer-butterfly-valve-dn80', 'sliding-ball-check-valve-hq41x', 'spherical-ball-check-valve-hq44x'];
+const hoseGuideSlugs = ['fire-hose-pvc-rubber-lining-8-65', 'storz-coupling-2-5inch-aluminum', 'fire-hydrant-hose-coupling-adapter-hs'];
+const standardsGuide = { href: '/guides/fire-hydrant-valve-standards-guide/', title: 'Fire Hydrant, Fire Hose & Valve Standards Explained', description: 'AWWA C502, NFPA 1961, EN 14384, ISO 5208 — what each standard means and how to verify compliance in Chinese factories.' };
+const avkGuide = { href: '/guides/wanlian-fluid-vs-american-avk/', title: 'Wanlian Fluid vs American AVK', description: 'Which fire hydrant & valve supplier fits your 2026 project? Scope, geography and standards compared side by side.' };
+const relatedGuides = hydrantGuideSlugs.includes(product.slug)
+  ? [standardsGuide, avkGuide]
+  : valveGuideSlugs.includes(product.slug) || hoseGuideSlugs.includes(product.slug)
+    ? [standardsGuide]
+    : [];
 ---
 
 <Layout 
@@ -247,6 +259,26 @@ const relatedProducts = products.filter(p => p.category === product.category && 
                 {faq.answer}
               </div>
             </details>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related Guides (GEO content backlinks) -->
+    {relatedGuides.length > 0 && (
+      <section class="mt-20">
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Related Buying Guides</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {relatedGuides.map(guide => (
+            <a href={guide.href} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-blue/30 transition p-6 flex flex-col">
+              <span class="text-[10px] font-bold text-brand-blue uppercase tracking-wider mb-2">Buying Guide</span>
+              <h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-blue transition leading-snug">{guide.title}</h3>
+              <p class="text-xs text-gray-500 leading-relaxed mt-2 flex-grow">{guide.description}</p>
+              <span class="mt-4 inline-flex items-center text-brand-red font-bold text-xs group-hover:gap-1 transition-all">
+                Read Guide
+                <svg class="w-3.5 h-3.5 ml-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              </span>
+            </a>
           ))}
         </div>
       </section>
