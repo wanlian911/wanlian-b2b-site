@@ -24,7 +24,7 @@ export const tags: Tag[] = [
     name: 'Fire Hydrants',
     seoTitle: 'Fire Hydrants: Types, Standards & Selection | Wanlian Fluid',
     description: 'Indoor SN65 hydrant heads, overground SS100 hydrants, anti-collision SSFT100 and IoT smart hydrants for municipal and industrial fire protection networks.',
-    guideHrefs: ['/guides/how-to-choose-a-fire-hydrant/'],
+    guideHrefs: ['/guides/how-to-choose-a-fire-hydrant/', '/guides/wanlian-fluid-vs-american-avk/'],
     productSlugs: ['indoor-fire-hydrant-head-sn65', 'overground-fire-hydrant-ss100', 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', 'iot-smart-ground-fire-hydrant-ss100zn', 'fire-hydrant-hose-coupling-adapter-hs'],
     relatedTags: ['fire-protection', 'procurement', 'fire-hose-reel']
   },
@@ -87,7 +87,7 @@ export const tags: Tag[] = [
     name: 'B2B Procurement',
     seoTitle: 'B2B Valve & Fire Equipment Sourcing Checklist | Wanlian Fluid',
     description: 'Factory verification, certificate checking, batch test reports, sample policies and red flags when sourcing valves and fire protection equipment from China.',
-    guideHrefs: ['/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-choose-a-fire-hydrant/'],
+    guideHrefs: ['/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-choose-a-fire-hydrant/', '/guides/wanlian-fluid-vs-american-avk/'],
     productSlugs: [],
     relatedTags: ['certification', 'industrial-valves']
   },

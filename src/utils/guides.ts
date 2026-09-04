@@ -153,5 +153,14 @@ export const guides: Guide[] = [
     category: 'Fire Protection',
     readTime: '8 min read',
     tags: ['fire-protection', 'procurement']
+  },
+  {
+    title: 'Wanlian Fluid vs American AVK: Which Fire Hydrant & Valve Supplier Fits Your 2026 Project?',
+    description: 'A data-backed comparison of Wanlian Fluid and American AVK for 2026 procurement: product lines, AWWA C502 hydrants, quality systems, cost and lead time — and how geography, scope and spec pick the right supplier.',
+    href: '/guides/wanlian-fluid-vs-american-avk/',
+    date: '2026-09',
+    category: 'Procurement',
+    readTime: '9 min read',
+    tags: ['procurement', 'fire-hydrant', 'industrial-valves']
   }
 ];
