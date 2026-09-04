@@ -1,14 +1,24 @@
 ---
-const currentPath = Astro.url.pathname;
-const navItems = [
-  { name: 'Home', href: '/' },
-  { name: 'Products', href: '/products/' },
-  { name: 'Applications', href: '/applications/' },
-  { name: 'Certificates', href: '/certificates/' },
-  { name: 'Blog', href: '/blog/' },
-  { name: 'About Us', href: '/about/' },
-  { name: 'Contact Us', href: '/contact/' }
-];
+import { localeFromPath, safeHref, localizePath, stripLocale, isTranslated, SUPPORTED_LOCALES, type Locale } from '../../i18n/locales';
+import { t } from '../../i18n/ui';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const dict = t(locale);
+const pathname = Astro.url.pathname;
+
+// 当前页面对应各语言的地址（目标语言页面尚未翻译时回退到该语言首页）
+const enPath = stripLocale(pathname, locale);
+const esPath = isTranslated(enPath, 'es') ? localizePath(enPath, 'es') : localizePath('/', 'es');
+const localeHref: Record<Locale, string> = { en: enPath, es: esPath };
+
+const navItems = dict.nav.map(item => ({
+  ...item,
+  href: safeHref(item.href, locale)
+}));
 ---
 
 <header class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
@@ -16,7 +26,7 @@ const navItems = [
     <div class="flex justify-between items-center h-20">
       <!-- Logo -->
       <div class="flex-shrink-0 flex items-center">
-        <a href="/" class="flex items-center space-x-3">
+        <a href={safeHref('/', locale)} class="flex items-center space-x-3">
           <img 
             src="/favicon.svg"
             alt="Wanlian Fluid Logo" 
@@ -27,7 +37,7 @@ const navItems = [
               <span class="text-xl font-extrabold text-gray-900 tracking-tight block">WANLIAN FLUID</span>
 
             </div>
-            <span class="text-xs text-gray-400 block tracking-widest uppercase">Professional B2B Fluid Equipment Supplier</span>
+            <span class="text-xs text-gray-400 block tracking-widest uppercase">{dict.header.tagline}</span>
           </div>
         </a>
       </div>
@@ -35,7 +45,7 @@ const navItems = [
       <!-- Navigation -->
       <nav class="hidden lg:flex space-x-8">
         {navItems.map(item => {
-          const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+          const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
           return (
             <a
               href={item.href}
@@ -52,20 +62,62 @@ const navItems = [
       </nav>
 
       <!-- Quick Actions -->
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center space-x-3 sm:space-x-4">
+        <!-- Language Switcher -->
+        <details class="relative group">
+          <summary
+            class="flex items-center gap-1.5 px-3.5 py-2 border border-gray-200 rounded-full text-xs font-bold text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden"
+            aria-label={dict.header.language}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-gray-500">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span>{dict.header.languageLabel[locale]}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3 text-gray-400 transition-transform duration-200 group-open:rotate-180">
+              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+            </svg>
+          </summary>
+          <div class="absolute right-0 mt-2 w-44 bg-white rounded-xl border border-gray-200 shadow-xl py-1.5 z-50 group-open:block hidden">
+            {SUPPORTED_LOCALES.map(l => {
+              const active = l === locale;
+              return (
+                <a
+                  href={localeHref[l]}
+                  lang={l}
+                  aria-current={active ? 'true' : undefined}
+                  class={`flex items-center justify-between px-4 py-2.5 text-sm transition ${
+                    active
+                      ? 'font-black text-brand-red bg-red-50/60'
+                      : 'font-semibold text-gray-700 hover:text-brand-blue hover:bg-gray-50'
+                  }`}
+                >
+                  <span>{dict.header.languageLabel[l]}</span>
+                  {active && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                    </svg>
+                  )}
+                </a>
+              );
+            })}
+          </div>
+        </details>
+
         <a 
           href="https://qzwlequipment.en.alibaba.com/" 
           target="_blank" 
           rel="noopener noreferrer"
           class="hidden sm:inline-flex items-center px-4 py-2 border border-gray-200 rounded-lg text-xs font-bold text-gray-700 hover:bg-gray-50 transition"
         >
-          Alibaba Store
+          {dict.header.alibabaStore}
         </a>
         <a
-          href="/contact#inquiry"
+          href={safeHref('/contact#inquiry', locale)}
           class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent rounded-lg text-sm font-bold text-white bg-brand-red hover:opacity-90 transition shadow-sm hover:shadow"
         >
-          Inquire Now
+          {dict.header.inquireNow}
         </a>
       </div>
     </div>

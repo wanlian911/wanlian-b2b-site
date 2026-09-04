@@ -1,22 +1,28 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { localeFromPath } from '../i18n/locales';
+import { t } from '../i18n/ui';
+
+// 404 由 Cloudflare 对任意路径返回：按请求路径前缀自动切换语言
+const locale = localeFromPath(Astro.url.pathname);
+const dict = t(locale);
+const prefix = locale === 'es' ? '/es' : '';
 ---
 <Layout
-  title="404 - Page Not Found | Wanlian Fluid Equipment"
-  description="The page you are looking for was not found. Explore Wanlian Fluid industrial valves and fire protection equipment."
+  title={dict.notFound.title}
+  description={dict.notFound.description}
   noindex
 >
   <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
     <div class="text-8xl font-black tracking-tight text-brand-red">404</div>
-    <p class="mt-6 text-2xl font-bold text-gray-900">Page Not Found</p>
+    <p class="mt-6 text-2xl font-bold text-gray-900">{dict.notFound.heading}</p>
     <p class="mt-4 text-gray-500 max-w-md mx-auto leading-relaxed">
-      The page you are looking for may have been moved, renamed, or no longer exists.
-      Explore our certified valves and fire protection catalog instead.
+      {dict.notFound.body}
     </p>
     <div class="mt-10 flex flex-wrap justify-center gap-4">
-      <a href="/" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Back to Home</a>
-      <a href="/products/" class="px-8 py-4 bg-brand-blue text-white font-bold rounded-lg hover:opacity-90 transition">Browse Products</a>
-      <a href="/contact/" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg border border-brand-blue hover:bg-blue-50 transition">Contact Us</a>
+      <a href={`${prefix}/`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">{dict.notFound.backHome}</a>
+      <a href={`${prefix}/products/`} class="px-8 py-4 bg-brand-blue text-white font-bold rounded-lg hover:opacity-90 transition">{dict.notFound.browseProducts}</a>
+      <a href={`${prefix}/contact/`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg border border-brand-blue hover:bg-blue-50 transition">{dict.notFound.contactUs}</a>
     </div>
   </main>
 </Layout>

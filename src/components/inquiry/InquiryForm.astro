@@ -1,33 +1,46 @@
 ---
+import { localeFromPath, type Locale } from '../../i18n/locales';
+import { t } from '../../i18n/ui';
+
 interface Props {
   productName?: string;
+  locale?: Locale;
 }
 
-const { productName = "" } = Astro.props;
+const { productName = "", locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const dict = t(locale);
+const waFollowupHref = `https://wa.me/8618684324501?text=${encodeURIComponent(dict.inquiry.waFollowupMessage)}`;
 ---
 
 <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
-  <form id="inquiryForm" class="space-y-6">
+  <form
+    id="inquiryForm"
+    class="space-y-6"
+    data-i18n-sending={dict.inquiry.sending}
+    data-i18n-send={dict.inquiry.send}
+    data-i18n-verify={dict.inquiry.verifyRequired}
+    data-i18n-failed={dict.inquiry.submitFailed}
+  >
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
-        <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
+        <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">{dict.inquiry.fullName}</label>
         <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue outline-none transition" placeholder="John Doe" />
       </div>
       <div>
-        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
+        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">{dict.inquiry.email}</label>
         <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue outline-none transition" placeholder="john@example.com" />
       </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
-        <label for="company" class="block text-sm font-semibold text-gray-700 mb-2">Company Name</label>
+        <label for="company" class="block text-sm font-semibold text-gray-700 mb-2">{dict.inquiry.company}</label>
         <input type="text" id="company" name="company" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue outline-none transition" placeholder="Your Company Ltd." />
       </div>
       <div>
-        <label for="country" class="block text-sm font-semibold text-gray-700 mb-2">Country/Region *</label>
+        <label for="country" class="block text-sm font-semibold text-gray-700 mb-2">{dict.inquiry.country}</label>
         <select id="country" name="country" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue outline-none transition">
-          <option value="">Select Country/Region</option>
+          <option value="">{dict.inquiry.countryPlaceholder}</option>
           <option value="United States">United States</option>
           <option value="United Kingdom">United Kingdom</option>
           <option value="United Arab Emirates">United Arab Emirates</option>
@@ -70,20 +83,20 @@ const { productName = "" } = Astro.props;
     </div>
 
     <div>
-      <label for="product" class="block text-sm font-semibold text-gray-700 mb-2">Product of Interest</label>
+      <label for="product" class="block text-sm font-semibold text-gray-700 mb-2">{dict.inquiry.product}</label>
       <input type="text" id="product" name="product" value={productName} class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:ring-2 focus:ring-brand-blue outline-none transition" />
     </div>
 
     <div>
-      <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">Message & Specific Requirements *</label>
-      <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue outline-none transition" placeholder="Please describe your requirements, quantity, and any customization needed..."></textarea>
+      <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">{dict.inquiry.message}</label>
+      <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue outline-none transition" placeholder={dict.inquiry.messagePlaceholder}></textarea>
     </div>
 
     <!-- Cloudflare Turnstile Widget -->
     <div class="cf-turnstile" data-sitekey="0x4AAAAAAEF-SD39wEwlYPuN"></div> 
     
     <button type="submit" id="submitBtn" class="w-full py-4 bg-brand-red text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg flex items-center justify-center space-x-2">
-      <span>Send Inquiry Now</span>
+      <span>{dict.inquiry.send}</span>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
       </svg>
@@ -98,23 +111,23 @@ const { productName = "" } = Astro.props;
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
       </svg>
     </div>
-    <h3 class="text-2xl font-black text-gray-900 mb-2">Inquiry Sent Successfully!</h3>
+    <h3 class="text-2xl font-black text-gray-900 mb-2">{dict.inquiry.successTitle}</h3>
     <p class="text-gray-600 leading-relaxed max-w-md mx-auto">
-      Thank you for your inquiry. Our sales and engineering team will review your requirements and reply within <strong>12 hours</strong>.
+      {dict.inquiry.successBody}
     </p>
-    <p class="text-gray-500 text-sm mt-5 mb-3">Prefer instant chat? Reach us directly on WhatsApp:</p>
+    <p class="text-gray-500 text-sm mt-5 mb-3">{dict.inquiry.successWhatsappHint}</p>
     <a
-      href="https://wa.me/8618684324501?text=Hi%2C%20I%20just%20submitted%20an%20inquiry%20on%20wanlian911.com%20and%20would%20like%20a%20quick%20follow-up."
+      href={waFollowupHref}
       target="_blank"
       rel="noopener noreferrer"
       class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-blue text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg"
     >
       <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Chat on WhatsApp
+      {dict.inquiry.chatWhatsapp}
     </a>
     <div class="mt-6">
       <button id="sendAnotherBtn" class="text-sm font-bold text-blue-600 hover:underline">
-        ← Send Another Inquiry
+        {dict.inquiry.sendAnother}
       </button>
     </div>
   </div>
@@ -128,6 +141,12 @@ const { productName = "" } = Astro.props;
   const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
   const successEl = document.getElementById('formSuccess');
   const sendAnotherBtn = document.getElementById('sendAnotherBtn') as HTMLButtonElement;
+
+  // 运行时文案由服务端按语言注入（data-i18n-*），脚本本身与语言无关
+  const sendingText = form?.dataset.i18nSending ?? 'Sending...';
+  const sendText = form?.dataset.i18nSend ?? 'Send Inquiry Now';
+  const verifyText = form?.dataset.i18nVerify ?? 'Please complete the verification check before sending.';
+  const failedText = form?.dataset.i18nFailed ?? 'Submission failed. Please try again or contact us via WhatsApp.';
 
   const resetTurnstile = () => {
     const w = window as any;
@@ -161,13 +180,13 @@ const { productName = "" } = Astro.props;
 
     const turnstileToken = getTurnstileToken();
     if (!turnstileToken) {
-      statusEl!.innerText = "Please complete the verification check before sending.";
+      statusEl!.innerText = verifyText;
       statusEl!.className = "text-center text-sm mt-4 text-red-600 font-bold block";
       return;
     }
 
     submitBtn.disabled = true;
-    submitBtn.innerText = 'Sending...';
+    submitBtn.innerText = sendingText;
     statusEl!.className = "text-center text-sm mt-4 hidden";
 
     const formData = new FormData(form);
@@ -193,14 +212,14 @@ const { productName = "" } = Astro.props;
         form.reset();
         resetTurnstile();
       } else {
-        throw new Error(result.errors?.map((e: any) => e.message).join(', ') || result.message || 'Submission failed. Please try again or contact us via WhatsApp.');
+        throw new Error(result.errors?.map((e: any) => e.message).join(', ') || result.message || failedText);
       }
     } catch (err) {
       statusEl!.innerText = "Error: " + (err as Error).message;
       statusEl!.className = "text-center text-sm mt-4 text-red-600 font-bold block";
     } finally {
       submitBtn.disabled = false;
-      submitBtn.innerText = 'Send Inquiry Now';
+      submitBtn.innerText = sendText;
     }
   });
 </script>

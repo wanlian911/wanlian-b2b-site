@@ -2,6 +2,7 @@
 import Header from '../components/shared/Header.astro';
 import Footer from '../components/shared/Footer.astro';
 import WhatsAppButton from '../components/shared/WhatsAppButton.astro';
+import { localeFromPath, stripLocale, localizePath, isTranslated, type Locale } from '../i18n/locales';
 
 interface Props {
 	title: string;
@@ -10,6 +11,7 @@ interface Props {
 	canonicalURL?: string;
 	noindex?: boolean;
 	type?: 'website' | 'article' | 'product';
+	locale?: Locale; // 页面语言；缺省按 URL 前缀自动推导
 	productData?: any; // 用于传递产品数据生成 JSON-LD
 	faq?: { question: string; answer: string }[]; // FAQ 区块 + FAQPage JSON-LD
 	breadcrumbs?: { name: string; href?: string }[]; // 面包屑 + BreadcrumbList JSON-LD
@@ -22,14 +24,25 @@ const {
 	canonicalURL,
 	noindex = false,
 	type = 'website',
+	locale: localeProp,
 	productData,
 	faq = [],
 	breadcrumbs = []
 } = Astro.props;
 
+const locale = localeProp ?? localeFromPath(Astro.url.pathname);
+const langAttr = locale === 'es' ? 'es' : 'en';
+const otherLocale: Locale = locale === 'es' ? 'en' : 'es';
+
 const siteBase = Astro.site ?? Astro.url;
 const canonical = canonicalURL ?? new URL(Astro.url.pathname, siteBase).href;
 const absoluteUrl = (value: string) => new URL(value, siteBase).href;
+
+// hreflang alternate：ES 页指回 EN 根路径对应页；EN 页指向 /es/ 对应页（未翻译则 /es/ 首页）
+const altHref = noindex ? null : locale === 'es'
+	? new URL(stripLocale(Astro.url.pathname, 'es'), siteBase).href
+	: new URL(isTranslated(Astro.url.pathname, 'es') ? localizePath(Astro.url.pathname, 'es') : localizePath('/', 'es'), siteBase).href;
+const xDefaultHref = locale === 'es' ? altHref : canonical;
 
 // 全局机构信息 (JSON-LD)
 const organizationJsonLd = {
@@ -47,7 +60,7 @@ const organizationJsonLd = {
 		"telephone": "+86-18684324501",
 		"contactType": "sales",
 		"areaServed": "Global",
-		"availableLanguage": ["English", "Chinese"]
+		"availableLanguage": ["English", "Spanish", "Chinese"]
 	},
 	"sameAs": [
 		"https://wa.me/8618684324501",
@@ -121,7 +134,7 @@ const breadcrumbJsonLd = breadcrumbs.length ? {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={langAttr}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -139,6 +152,13 @@ const breadcrumbJsonLd = breadcrumbs.length ? {
 		)}
 		<meta name="theme-color" content="#004797" />
 		{!noindex && <link rel="canonical" href={canonical} />}
+		{altHref && (
+			<>
+				<link rel="alternate" hreflang={langAttr} href={canonical} />
+				<link rel="alternate" hreflang={otherLocale} href={altHref} />
+				{xDefaultHref && <link rel="alternate" hreflang="x-default" href={xDefaultHref} />}
+			</>
+		)}
 
 		<!-- Google Fonts: Roboto -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -174,12 +194,12 @@ const breadcrumbJsonLd = breadcrumbs.length ? {
 		)}
 	</head>
 	<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
-		<Header />
+		<Header locale={locale} />
 		<div class="flex-grow">
 			<slot />
 		</div>
-		<Footer />
-		<WhatsAppButton phone="+8618684324501" message="Hi, I am interested in your valves and firefighting equipment." />
+		<Footer locale={locale} />
+		<WhatsAppButton phone="+8618684324501" locale={locale} />
 	</body>
 </html>
 <style is:global>
