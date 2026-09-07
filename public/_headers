@@ -1,8 +1,9 @@
-# Static assets are content-hashed per deploy; cache long at the edge.
-/assets/*
-  Cache-Control: public, max-age=31536000, immutable
-
-# HTML: allow short edge caching to smooth TTFB for repeat crawls/visits.
-# (Pages rebuilds invalidate the cache on every deployment.)
+# Cloudflare Pages merges headers of ALL matching rules (no override), so
+# multiple Cache-Control rules for the same asset produce duplicate max-age
+# values with undefined browser behavior. Keep ONE simple rule for everything:
+# HTML (deploys auto-propagate within 5 min) and hashed assets (content-hash
+# URLs make long caching unnecessary — a new hash is a new URL).
+# Edge TTL is enforced at 300s by the Cloudflare Cache Rule "wanlian911 HTML
+# edge cache"; the Browser side revalidates via must-revalidate after 300s.
 /*
   Cache-Control: public, max-age=300, must-revalidate
