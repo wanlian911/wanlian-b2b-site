@@ -198,5 +198,14 @@ export const guides: Guide[] = [
     category: 'Fire Protection',
     readTime: '8 min read',
     tags: ['sprinkler-systems', 'fire-protection']
+  },
+  {
+    title: 'Grooved Fire Protection Valves Guide: Grooved vs Flanged Connections (2026)',
+    description: 'Grooved end valves for fire sprinkler mains vs flanged: signal butterfly, OS&Y gate, stainless and solenoid grooved valves, installation speed, supervision and a B2B checklist.',
+    href: '/guides/grooved-fire-protection-valves-guide/',
+    date: '2026-09',
+    category: 'Fire Protection',
+    readTime: '8 min read',
+    tags: ['fire-protection', 'industrial-valves']
   }
 ];

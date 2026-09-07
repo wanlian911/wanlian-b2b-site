@@ -1,0 +1,207 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'What is a grooved-end valve and how does it connect to the pipe?',
+		answer: 'A grooved-end valve has a circumferential groove machined near each end instead of flanges or threads. Pipes and valves are joined with a mechanical coupling — two housing segments that clamp over the grooved ends with a gasket inside. The joint is made with bolts only: no welding, no threading and no open flame, which is why grooved connections are widely used on fire protection and water pipelines.'
+	},
+	{
+		question: 'When should I choose grooved valves instead of flanged valves?',
+		answer: 'Choose grooved ends when installation speed matters, when welding or hot work is restricted on site, or when the line may need to be opened for maintenance later — couplings are simply unbolted. Flanged joints remain the traditional specification for large-bore high-pressure mains. In the Wanlian range, grooved fire valves are rated PN16 (1.6 MPa), and the GKZF-1 solenoid gate valve is rated up to 300 PSI (2.0 MPa).'
+	},
+	{
+		question: 'Which Wanlian valves are available with grooved ends?',
+		answer: 'Five models cover the grooved fire-main family: the D381X-16Q grooved butterfly valve (DN50-DN300, PN16, worm gear with signal lock option), the DN80 signal grooved wafer butterfly valve (DN50-DN300 with an integrated electrical signal switch), the UL/FM listed resilient seated OS&Y gate valve (2"-10", grooved ends), the Z85X stainless steel grooved gate valve (DN40-DN300, cast CF8M 316), and the GKZF-1 grooved solenoid control gate valve (DN50-DN300, AC220V/DC24V, 300 PSI).'
+	},
+	{
+		question: 'Can sprinkler main valves report their open/closed status?',
+		answer: 'Yes. An OS&Y gate valve shows its position mechanically through the rising stem and yoke. For remote supervision, the signal grooved wafer butterfly valve carries an integrated electrical signal switch for status monitoring, and the D381X grooved butterfly valve offers a signal locking device option. These let the fire alarm panel or building management system see whether a section valve has been left closed.'
+	},
+	{
+		question: 'Are grooved fire valves UL or FM listed?',
+		answer: 'The resilient seated OS&Y gate valve with grooved ends is UL and FM listed for fire protection service. Other models in the range are manufactured to GB requirements and factory standards — we do not claim series-wide listing where only specific models carry it. For North American projects, state the listing required by your specification and we will match the certified model or arrange project evaluation.'
+	},
+	{
+		question: 'How do I verify grooved valve quality before ordering?',
+		answer: 'Request the batch shell and seat pressure test reports, material certificates (for example the CF8M 316 body of the Z85X), and confirm that the groove dimensions match the coupling standard your contractor will use. Third-party inspection before shipment can be arranged — our B2B valve sourcing checklist walks through the full verification process.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'what-is-grooved-valve', label: '1. What Is a Grooved-End Valve?' },
+	{ id: 'grooved-vs-flanged', label: '2. Grooved vs Flanged vs Threaded' },
+	{ id: 'grooved-valve-family', label: '3. The Grooved Valve Family for Fire Mains' },
+	{ id: 'valve-supervision-signals', label: '4. Supervision and Signal Options' },
+	{ id: 'retrofit-installation', label: '5. Retrofit and Installation Considerations' },
+	{ id: 'grooved-valve-spec-checklist', label: '6. B2B Specification Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'd381x-16q-grooved-butterfly-valve', name: 'D381X-16Q Grooved Butterfly Valve', img: '/assets/products/d381x-16q-grooved-butterfly-valve.webp', desc: 'DN50-DN300 PN16, worm gear, signal lock option' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Signal Grooved Wafer Butterfly Valve', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', desc: 'DN50-DN300 PN16, integrated signal switch' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM OS&Y Gate Valve (Grooved)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10", UL & FM listed, rising stem indicator' },
+	{ slug: 'z85x-stainless-steel-grooved-gate-valve', name: 'Z85X Stainless Grooved Gate Valve', img: '/assets/products/z85x-stainless-steel-grooved-gate-valve.webp', desc: 'DN40-DN300, cast CF8M 316, clamp connection' }
+];
+---
+
+<Layout
+	title="Grooved Fire Protection Valves: Grooved vs Flanged Connections"
+	description="Grooved end valves for fire sprinkler mains vs flanged: signal butterfly, OS&Y gate, stainless gate and solenoid options, installation speed and a B2B checklist."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Grooved Valves Guide' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Grooved Valves Guide</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Fire Protection Valve Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Grooved Fire Protection Valves: Grooved vs Flanged Connections</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: grooved-end valves join pipes with a bolted mechanical coupling instead of flanges, threads or welding — which makes fire main installation faster, keeps open flames off site, and lets maintenance crews open a section by unbolting two clamps. If your sprinkler or standpipe project uses grooved piping, every shut-off and control valve on the main should carry the same grooved ends. This guide explains the trade-offs and the valve family to specify.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="what-is-grooved-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. What Is a Grooved-End Valve?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A grooved-end valve is a standard valve (gate, butterfly or globe) whose ends are machined with a circumferential groove. The joint is made with a mechanical coupling: two housing segments fitted with a synthetic gasket are placed over the two grooved ends and tightened with bolts, compressing the gasket into the grooves to form the seal.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Because the connection is purely mechanical, installation needs no welder, no threading machine and no hot-work permit. The coupling also absorbs small alignment and thermal movements at the joint, and it can be opened later with the same two bolts — a property that pays off every time a section valve or control valve needs replacement.</p>
+			<p class="text-gray-700 leading-relaxed">Grooved connections are the dominant joining method on modern fire protection mains in many markets, which is why fire-rated valves are commonly specified with grooved ends from the factory rather than adapted on site.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="grooved-vs-flanged" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Grooved vs Flanged vs Threaded</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Comparison</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Flanged</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Threaded</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Grooved (Coupling)</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Installation</td>
+							<td class="px-4 py-3 text-gray-700">Bolt-up, needs precise alignment</td>
+							<td class="px-4 py-3 text-gray-700">Threading required, size-limited</td>
+							<td class="px-4 py-3 text-gray-700">Clamp + bolts, fast mechanical coupling</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hot work / fire permit</td>
+							<td class="px-4 py-3 text-gray-700">None at joint, but heavy flanges</td>
+							<td class="px-4 py-3 text-gray-700">None, but thread cutting on site</td>
+							<td class="px-4 py-3 text-gray-700">None — no welding, no open flame</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Alignment tolerance</td>
+							<td class="px-4 py-3 text-gray-700">Low — flanges must line up</td>
+							<td class="px-4 py-3 text-gray-700">Medium</td>
+							<td class="px-4 py-3 text-gray-700">High — coupling absorbs minor misalignment</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Disassembly</td>
+							<td class="px-4 py-3 text-gray-700">Unbolt many fasteners</td>
+							<td class="px-4 py-3 text-gray-700">Unscrew, can be seized</td>
+							<td class="px-4 py-3 text-gray-700">Undo two bolts per coupling</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typical rating (Wanlian grooved range)</td>
+							<td class="px-4 py-3 text-gray-700">PN10-PN40 by model</td>
+							<td class="px-4 py-3 text-gray-700">Small bores only</td>
+							<td class="px-4 py-3 text-gray-700">PN16; GKZF-1 rated 300 PSI (2.0 MPa)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typical duty</td>
+							<td class="px-4 py-3 text-gray-700">Large-bore mains, process plants</td>
+							<td class="px-4 py-3 text-gray-700">Small branch lines</td>
+							<td class="px-4 py-3 text-gray-700">Fire mains, sprinkler risers, water networks</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Flanged valves remain the right answer for many large-bore and high-pressure specifications. But when the piping system itself is grooved — the common case for sprinkler mains — a flanged valve forces adapters back into the line and defeats the speed advantage of the joining method.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="grooved-valve-family" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. The Grooved Valve Family for Fire Mains</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Main shut-off with visible position.</strong> The <a href="/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM resilient seated OS&amp;Y gate valve</a> carries grooved ends from 2" to 10" (DN50-DN250) with a rising stem that shows open/closed position at a glance — the indicating valve a fire inspector expects on a section main. The nodular cast iron body with resilient EPDM seat gives drip-tight closure.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Compact quarter-turn control.</strong> For branch and riser control where space is tight, the <a href="/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">signal grooved wafer butterfly valve</a> (DN50-DN300, PN16) combines a wafer body with an integrated electrical signal switch and a worm gear operator, and the <a href="/products/d381x-16q-grooved-butterfly-valve/" class="text-brand-blue font-semibold hover:underline">D381X-16Q grooved butterfly valve</a> offers the same grooved ends with a signal locking device option for status indication.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Corrosion-resistant service.</strong> Where water quality or aggressive media rule out ductile iron, the <a href="/products/z85x-stainless-steel-grooved-gate-valve/" class="text-brand-blue font-semibold hover:underline">Z85X stainless steel grooved gate valve</a> (DN40-DN300) uses a cast 316 CF8M body with a non-rising stem and grooved clamp ends for gas, oil and water lines.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Automatic remote control.</strong> When the valve must open and close on command from a control panel, the <a href="/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">GKZF-1 grooved solenoid control gate valve</a> (DN50-DN300) pilots a ductile iron gate valve with a DC24V or AC220V solenoid — rated 300 PSI (2.0 MPa) for automatic municipal and firefighting water flow control.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="valve-supervision-signals" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Supervision and Signal Options</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Fire protection codes treat a closed section valve as a serious hazard: if a sprinkler system is isolated by a closed main valve, the system cannot protect the building. That is why control valves on sprinkler systems are either indicating valves (the position is visible on the valve) or supervised valves (the position is reported electrically).</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The grooved family covers both routes. The OS&amp;Y gate valve is inherently indicating — the rising stem position is readable across a room. The signal grooved wafer butterfly valve adds an integrated electrical signal switch for remote status monitoring, the D381X offers a signal locking device option, and the GKZF-1 solenoid valve is electrically operated by design, so its state is known to the control system that drives it.</p>
+			<p class="text-gray-700 leading-relaxed">When valves are supervised, the wiring should report to the same alarm panel that monitors flow switches and alarm valves — see our <a href="/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">fire sprinkler control valve types guide</a> for the full duty breakdown of OS&amp;Y, butterfly and check valves in a sprinkler system, and the <a href="/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">UL listed fire valves guide</a> for how to verify genuine listings before you buy.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="retrofit-installation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Retrofit and Installation Considerations</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Grooved connections shine in retrofit work. Replacing a valve inside an existing sprinkler main usually means draining the section and either cutting out the old joint or unbolting two couplings — with grooved valves both upstream and downstream, the new valve drops in with two couplings and the line is back in service quickly.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">In occupied buildings, the absence of hot work is a real advantage: welding on a live fire main requires permits, fire watch and often shutdowns that building management resists. Mechanical couplings eliminate that constraint, and the compact wafer bodies of the butterfly models ease installation in crowded riser rooms.</p>
+			<p class="text-gray-700 leading-relaxed">Confirm the groove and coupling specification with your contractor before ordering — the groove dimensions must match the coupling brand and standard used on the project pipe, and valve bodies ordered with grooved ends cannot be field-converted to flanged.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="grooved-valve-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. B2B Specification Checklist</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Match the joining system</strong> — if the main is grooved, specify grooved ends on every section and control valve so no adapters are needed; state the coupling groove standard in the enquiry.</li>
+				<li><strong>Define the duty and size</strong> — section shut-off (OS&amp;Y gate, 2"-10"), quarter-turn space-saving control (signal butterfly or D381X, DN50-DN300) or automatic remote control (GKZF-1, DN50-DN300).</li>
+				<li><strong>Fix pressure and material</strong> — the grooved range is PN16 (1.6 MPa) with the GKZF-1 rated 300 PSI (2.0 MPa); ductile iron QT450 bodies for standard water, cast CF8M 316 (Z85X) for corrosive service.</li>
+				<li><strong>Decide supervision</strong> — indicating OS&amp;Y, integrated signal switch on the butterfly, signal lock option on the D381X, or solenoid operation on the GKZF-1, matched to what your alarm panel expects.</li>
+				<li><strong>State certification needs</strong> — the UL/FM listed OS&amp;Y gate valve for North American projects; confirm which model carries the listing your specification requires.</li>
+				<li><strong>Require test evidence</strong> — batch shell and seat pressure test reports, material certificates, and run our <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> before committing to a manufacturer.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need Grooved Fire Protection Valves for a Sprinkler Main?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Tell us your DN, pressure rating, supervision requirements and coupling standard — our engineers confirm the valve match and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Grooved%20Fire%20Protection%20Valve" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20grooved%20fire%20protection%20valves%20for%20a%20sprinkler%20main" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
