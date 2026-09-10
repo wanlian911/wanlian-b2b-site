@@ -194,5 +194,23 @@ export const guidesEs: Guide[] = [
     category: 'Protección Contra Incendios',
     readTime: readTime('8'),
     tags: ['sprinkler-systems', 'fire-protection']
+  },
+  {
+    title: 'Válvulas Ranuradas Contra Incendios: Ranurado vs Brida (2026)',
+    description: 'Válvulas ranuradas para montantes de rociadores: mariposa señalizadora, compuerta OS&Y, inoxidable y solenoide. Comparativa vs brida y lista de verificación B2B.',
+    href: '/es/guides/grooved-fire-protection-valves-guide/',
+    date: '2026-09',
+    category: 'Protección Contra Incendios',
+    readTime: readTime('8'),
+    tags: ['fire-protection', 'industrial-valves']
+  },
+  {
+    title: 'Hidrantes Anticongelantes y Anticolisión: Guía de Compra (2026)',
+    description: 'Hidrantes de barril seco con drenaje antihielo automático, hidrantes anticolisión de perno de corte y modelos con monitoreo IoT para redes municipales e industriales.',
+    href: '/es/guides/antifreeze-anti-collision-fire-hydrant-guide/',
+    date: '2026-09',
+    category: 'Protección Contra Incendios',
+    readTime: readTime('8'),
+    tags: ['fire-hydrant', 'fire-protection']
   }
 ];

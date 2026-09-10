@@ -1,0 +1,208 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: '¿Qué es una válvula de extremo ranurado y cómo se conecta a la tubería?',
+		answer: 'Una válvula de extremo ranurado tiene una ranura circunferencial mecanizada cerca de cada extremo en lugar de bridas o roscas. Tuberías y válvulas se unen con un acople mecánico — dos segmentos de carcasa que abrazan los extremos ranurados con una junta en el interior. El empalme se realiza solo con pernos: sin soldadura, sin roscado y sin llama abierta, por lo que las conexiones ranuradas se usan ampliamente en redes de protección contra incendios y de agua.'
+	},
+	{
+		question: '¿Cuándo conviene elegir válvulas ranuradas en lugar de válvulas con brida?',
+		answer: 'Elija extremos ranurados cuando la velocidad de instalación importa, cuando en obra están restringidas la soldadura o las tareas con fuego, o cuando la línea podría necesitar abrirse para mantenimiento más adelante — los acoples simplemente se desatornillan. Los empalmes con brida siguen siendo la especificación tradicional para tuberías principales de gran diámetro y alta presión. En la gama de Wanlian, las válvulas ranuradas contra incendios están clasificadas PN16 (1.6 MPa), y la válvula de compuerta con solenoide GKZF-1 hasta 300 PSI (2.0 MPa).'
+	},
+	{
+		question: '¿Qué válvulas de Wanlian están disponibles con extremos ranurados?',
+		answer: 'Cinco modelos cubren la familia de válvulas ranuradas para montantes de incendio: la válvula de mariposa ranurada D381X-16Q (DN50-DN300, PN16, reductor de tornillo sinfín con opción de bloqueo señalizador), la mariposa señalizadora ranurada tipo wafer DN80 (DN50-DN300 con interruptor de señal eléctrica integrado), la válvula de compuerta OS&Y de asiento elástico listada UL/FM (2"-10", extremos ranurados), la válvula de compuerta ranurada Z85X en acero inoxidable (DN40-DN300, fundición CF8M 316) y la válvula de compuerta de control por solenoide ranurada GKZF-1 (DN50-DN300, AC220V/DC24V, 300 PSI).'
+	},
+	{
+		question: '¿Pueden las válvulas de montantes de rociadores reportar su estado abierto/cerrado?',
+		answer: 'Sí. Una válvula de compuerta OS&Y muestra su posición mecánicamente mediante el vástago ascendente y el yugo. Para la supervisión remota, la mariposa señalizadora ranurada tipo wafer incorpora un interruptor de señal eléctrica integrado para el monitoreo de estado, y la mariposa ranurada D381X ofrece una opción de dispositivo de bloqueo señalizador. Todo esto permite que el panel de alarma contra incendios o el sistema de gestión del edificio vea si una válvula de sección ha quedado cerrada.'
+	},
+	{
+		question: '¿Las válvulas ranuradas contra incendios están listadas UL o FM?',
+		answer: 'La válvula de compuerta OS&Y de asiento elástico con extremos ranurados está listada UL y FM para servicio de protección contra incendios. Otros modelos de la gama se fabrican según requisitos GB y normas de fábrica — no afirmamos un listado para toda la serie cuando solo modelos específicos lo tienen. Para proyectos de Norteamérica, indique el listado que exige su especificación y haremos coincidir el modelo certificado o gestionaremos la evaluación del proyecto.'
+	},
+	{
+		question: '¿Cómo verifico la calidad de las válvulas ranuradas antes de pedir?',
+		answer: 'Solicite los informes de prueba de presión de cuerpo y asiento del lote, los certificados de material (por ejemplo, el cuerpo CF8M 316 de la Z85X) y confirme que las dimensiones de la ranura coincidan con la norma de acoples que usará su contratista. Se puede organizar una inspección de terceros antes del envío — nuestra lista de verificación B2B para la compra de válvulas recorre todo el proceso de verificación.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'what-is-grooved-valve', label: '1. ¿Qué es una Válvula de Extremo Ranurado?' },
+	{ id: 'grooved-vs-flanged', label: '2. Ranurado vs Brida vs Roscado' },
+	{ id: 'grooved-valve-family', label: '3. La Familia de Válvulas Ranuradas para Montantes de Incendio' },
+	{ id: 'valve-supervision-signals', label: '4. Supervisión y Opciones de Señal' },
+	{ id: 'retrofit-installation', label: '5. Consideraciones de Retrofit e Instalación' },
+	{ id: 'grooved-valve-spec-checklist', label: '6. Lista de Verificación de Especificación B2B' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'd381x-16q-grooved-butterfly-valve', name: 'D381X-16Q Válvula de Mariposa Ranurada', img: '/assets/products/d381x-16q-grooved-butterfly-valve.webp', desc: 'DN50-DN300 PN16, tornillo sinfín, opción de bloqueo señalizador' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Mariposa Señalizadora Ranurada Tipo Wafer', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', desc: 'DN50-DN300 PN16, interruptor de señal integrado' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Válvula de Compuerta OS&Y UL/FM (Ranurada)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10", lista UL y FM, indicador de vástago ascendente' },
+	{ slug: 'z85x-stainless-steel-grooved-gate-valve', name: 'Válvula de Compuerta Ranurada Z85X en Acero Inoxidable', img: '/assets/products/z85x-stainless-steel-grooved-gate-valve.webp', desc: 'DN40-DN300, fundición CF8M 316, conexión por acople' }
+];
+---
+
+<Layout
+	title="Válvulas Ranuradas Contra Incendios: Ranurado vs Brida"
+	description="Válvulas de extremo ranurado para montantes de rociadores: mariposa señalizadora, compuerta OS&Y, inox y solenoide. Comparativa vs brida y checklist B2B."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Guía de Válvulas Ranuradas' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Guía de Válvulas Ranuradas</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Válvulas Contra Incendios</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Válvulas Contra Incendios Ranuradas: Conexiones Ranuradas vs Bridadas</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En resumen: las válvulas de extremo ranurado unen las tuberías con un acople mecánico pernado en lugar de bridas, roscas o soldadura — lo que acelera la instalación de montantes de incendio, mantiene la llama abierta fuera de obra y permite a los equipos de mantenimiento abrir una sección desatornillando dos abrazaderas. Si su proyecto de rociadores o de columna seca usa tubería ranurada, todas las válvulas de corte y control del montante deben llevar los mismos extremos ranurados. Esta guía explica las compensaciones y la familia de válvulas que debe especificarse.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="what-is-grooved-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. ¿Qué es una Válvula de Extremo Ranurado?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Una válvula de extremo ranurado es una válvula estándar (compuerta, mariposa o globo) cuyos extremos están mecanizados con una ranura circunferencial. El empalme se realiza con un acople mecánico: dos segmentos de carcasa provistos de una junta sintética se colocan sobre los dos extremos ranurados y se aprietan con pernos, comprimiendo la junta contra las ranuras para formar el sello.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Dado que la conexión es puramente mecánica, la instalación no necesita soldador, máquina de roscar ni permiso de tareas con fuego. El acople además absorbe pequeños movimientos de alineación y térmicos en el empalme, y puede abrirse después con los mismos dos pernos — una propiedad que rinde cada vez que una válvula de sección o de control necesita reemplazo.</p>
+			<p class="text-gray-700 leading-relaxed">Las conexiones ranuradas son el método de unión dominante en los montantes modernos de protección contra incendios en muchos mercados, por lo que las válvulas calificadas para incendio suelen especificarse con extremos ranurados de fábrica en lugar de adaptadas en obra.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="grooved-vs-flanged" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Ranurado vs Brida vs Roscado</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Comparación</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Con brida</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Roscado</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Ranurado (acople)</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Instalación</td>
+							<td class="px-4 py-3 text-gray-700">Pernado, requiere alineación precisa</td>
+							<td class="px-4 py-3 text-gray-700">Requiere roscado, limitado por diámetro</td>
+							<td class="px-4 py-3 text-gray-700">Abrazadera + pernos, acople mecánico rápido</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Trabajo con fuego / permiso</td>
+							<td class="px-4 py-3 text-gray-700">Ninguno en el empalme, pero bridas pesadas</td>
+							<td class="px-4 py-3 text-gray-700">Ninguno, pero roscado en obra</td>
+							<td class="px-4 py-3 text-gray-700">Ninguno — sin soldadura, sin llama abierta</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tolerancia de alineación</td>
+							<td class="px-4 py-3 text-gray-700">Baja — las bridas deben alinearse</td>
+							<td class="px-4 py-3 text-gray-700">Media</td>
+							<td class="px-4 py-3 text-gray-700">Alta — el acople absorbe desalineaciones menores</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Desmontaje</td>
+							<td class="px-4 py-3 text-gray-700">Desmontar muchos pernos</td>
+							<td class="px-4 py-3 text-gray-700">Desroscar; puede atascarse</td>
+							<td class="px-4 py-3 text-gray-700">Soltar dos pernos por acople</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Clase típica (gama ranurada Wanlian)</td>
+							<td class="px-4 py-3 text-gray-700">PN10-PN40 según modelo</td>
+							<td class="px-4 py-3 text-gray-700">Solo pequeños diámetros</td>
+							<td class="px-4 py-3 text-gray-700">PN16; GKZF-1 clasificada 300 PSI (2.0 MPa)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Servicio típico</td>
+							<td class="px-4 py-3 text-gray-700">Tuberías principales de gran diámetro, plantas de proceso</td>
+							<td class="px-4 py-3 text-gray-700">Líneas de derivación pequeñas</td>
+							<td class="px-4 py-3 text-gray-700">Montantes de incendio, montantes de rociadores, redes de agua</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Las válvulas con brida siguen siendo la respuesta correcta para muchas especificaciones de gran diámetro y alta presión. Pero cuando el propio sistema de tuberías es ranurado — el caso habitual en montantes de rociadores — una válvula con brida obliga a reintroducir adaptadores en la línea y anula la ventaja de velocidad del método de unión.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="grooved-valve-family" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. La Familia de Válvulas Ranuradas para Montantes de Incendio</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Corte principal con posición visible.</strong> La <a href="/es/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">válvula de compuerta OS&amp;Y de asiento elástico UL/FM</a> lleva extremos ranurados de 2" a 10" (DN50-DN250) con un vástago ascendente que muestra la posición abierta/cerrada de un vistazo — la válvula indicadora que un inspector de incendios espera en un montante de sección. El cuerpo de hierro dúctil con asiento elástico de EPDM da un cierre sin goteo.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Control compacto de cuarto de vuelta.</strong> Para el control de derivaciones y montantes donde el espacio es limitado, la <a href="/es/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">mariposa señalizadora ranurada tipo wafer</a> (DN50-DN300, PN16) combina un cuerpo tipo wafer con un interruptor de señal eléctrica integrado y un reductor de tornillo sinfín, y la <a href="/es/products/d381x-16q-grooved-butterfly-valve/" class="text-brand-blue font-semibold hover:underline">válvula de mariposa ranurada D381X-16Q</a> ofrece los mismos extremos ranurados con una opción de dispositivo de bloqueo señalizador para la indicación de estado.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Servicio resistente a la corrosión.</strong> Donde la calidad del agua o medios agresivos descartan el hierro dúctil, la <a href="/es/products/z85x-stainless-steel-grooved-gate-valve/" class="text-brand-blue font-semibold hover:underline">válvula de compuerta ranurada Z85X en acero inoxidable</a> (DN40-DN300) usa un cuerpo fundido de 316 CF8M con vástago no ascendente y extremos ranurados de acople para líneas de gas, petróleo y agua.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Control remoto automático.</strong> Cuando la válvula debe abrir y cerrar por comando desde un panel de control, la <a href="/es/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">válvula de compuerta de control por solenoide ranurada GKZF-1</a> (DN50-DN300) pilota una válvula de compuerta de hierro dúctil con un solenoide DC24V o AC220V — clasificada 300 PSI (2.0 MPa) para el control automático del flujo de agua municipal y contra incendios.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="valve-supervision-signals" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Supervisión y Opciones de Señal</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Los códigos de protección contra incendios tratan una válvula de sección cerrada como un peligro grave: si un sistema de rociadores queda aislado por una válvula principal cerrada, el sistema no puede proteger el edificio. Por eso las válvulas de control de los sistemas de rociadores son bien válvulas indicadoras (la posición es visible en la válvula) o válvulas supervisadas (la posición se reporta eléctricamente).</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La familia ranurada cubre ambos caminos. La válvula de compuerta OS&amp;Y es indicadora por naturaleza — la posición del vástago ascendente se lee a través de la sala. La mariposa señalizadora ranurada tipo wafer añade un interruptor de señal eléctrica integrado para el monitoreo de estado remoto, la D381X ofrece una opción de dispositivo de bloqueo señalizador, y la válvula de solenoide GKZF-1 es de accionamiento eléctrico por diseño, por lo que su estado es conocido para el sistema de control que la acciona.</p>
+			<p class="text-gray-700 leading-relaxed">Cuando las válvulas están supervisadas, el cableado debe reportar al mismo panel de alarma que monitorea los interruptores de flujo y las válvulas de alarma — consulte nuestra <a href="/es/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">guía de tipos de válvulas de control para rociadores</a> para el desglose completo de servicios de las válvulas OS&amp;Y, de mariposa y de retención en un sistema de rociadores, y la <a href="/es/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">guía de válvulas contra incendios listadas UL</a> para verificar listados auténticos antes de comprar.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="retrofit-installation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Consideraciones de Retrofit e Instalación</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Las conexiones ranuradas brillan en trabajos de retrofit. Reemplazar una válvula dentro de un montante de rociadores existente normalmente implica drenar la sección y cortar el empalme viejo o desatornillar dos acoples — con válvulas ranuradas aguas arriba y aguas abajo, la válvula nueva se coloca con dos acoples y la línea vuelve a servicio rápidamente.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">En edificios ocupados, la ausencia de trabajo con fuego es una ventaja real: soldar en un montante de incendio activo requiere permisos, vigilancia de fuego y a menudo paradas que la administración del edificio rechaza. Los acoples mecánicos eliminan esa restricción, y los cuerpos compactos tipo wafer de los modelos de mariposa facilitan la instalación en salas de montantes apretadas.</p>
+			<p class="text-gray-700 leading-relaxed">Confirme la especificación de la ranura y del acople con su contratista antes de pedir — las dimensiones de la ranura deben coincidir con la marca y la norma de acoples usadas en la tubería del proyecto, y los cuerpos de válvula pedidos con extremos ranurados no pueden convertirse a brida en campo.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="grooved-valve-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Lista de Verificación de Especificación B2B</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Haga coincidir el sistema de unión</strong> — si el montante es ranurado, especifique extremos ranurados en cada válvula de sección y control para no necesitar adaptadores; indique la norma de la ranura del acople en la consulta.</li>
+				<li><strong>Defina el servicio y el tamaño</strong> — corte de sección (compuerta OS&amp;Y, 2"-10"), control compacto de cuarto de vuelta (mariposa señalizadora o D381X, DN50-DN300) o control remoto automático (GKZF-1, DN50-DN300).</li>
+				<li><strong>Fije presión y material</strong> — la gama ranurada es PN16 (1.6 MPa) y la GKZF-1 clasificada 300 PSI (2.0 MPa); cuerpos de hierro dúctil QT450 para agua estándar, fundición CF8M 316 (Z85X) para servicio corrosivo.</li>
+				<li><strong>Decida la supervisión</strong> — OS&amp;Y indicadora, interruptor de señal integrado en la mariposa, opción de bloqueo señalizador en la D381X o accionamiento por solenoide en la GKZF-1, según lo que espere su panel de alarma.</li>
+				<li><strong>Indique los requisitos de certificación</strong> — la válvula de compuerta OS&amp;Y listada UL/FM para proyectos de Norteamérica; confirme qué modelo lleva el listado que exige su especificación.</li>
+				<li><strong>Exija evidencia de pruebas</strong> — informes de prueba de presión de cuerpo y asiento por lote, certificados de material, y aplique nuestra <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de verificación B2B para la compra de válvulas</a> antes de comprometerse con un fabricante.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita Válvulas Ranuradas Contra Incendios para un Montante de Rociadores?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Indíquenos su DN, clase de presión, requisitos de supervisión y norma de acoples — nuestros ingenieros confirman el ajuste de la válvula y cotizan en un plazo de 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=V%C3%A1lvulas%20Ranuradas%20Contra%20Incendios" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20v%C3%A1lvulas%20ranuradas%20contra%20incendios%20para%20un%20montante%20de%20rociadores" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,210 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ: 4-6 preguntas reales de compra (generan JSON-LD de FAQPage)
+const faq = [
+	{
+		question: '¿Cómo evita un hidrante anticongelante congelarse en invierno?',
+		answer: 'Un hidrante anticongelante es un diseño de barril seco: la válvula principal queda por debajo de la línea de congelación y el barril que está por encima se vacía de forma automática cada vez que la válvula se cierra. No queda agua estancada en la columna, por lo que no hay nada que se congele y agriete el cuerpo. El hidrante de columna SS100/65 utiliza exactamente este mecanismo de drenaje antihielo automático y se suministra con una base estándar con brida para la conexión subterránea.'
+	},
+	{
+		question: '¿Qué sucede cuando un vehículo golpea un hidrante anticolisión?',
+		answer: 'El SSFT100 está unido mediante pernos de corte calibrados. Ante el impacto, los pernos se cortan limpiamente a la fuerza de diseño y la válvula interna se cierra de forma automática — en lugar de una descarga de agua a plena sección, el hidrante se sella a sí mismo y se evita la inundación. La reparación se realiza bajo presión reemplazando los pernos de corte y reiniciando el hidrante, lo que mantiene bajo el costo de mantenimiento y evita vaciar la tubería principal.'
+	},
+	{
+		question: '¿Los hidrantes anticolisión también funcionan en climas fríos?',
+		answer: 'Sí. El SSFT100 combina tres funciones en un solo cuerpo: protección anticolisión, un dispositivo integrado de regulación de presión para una descarga progresiva y suave, y un sistema de auto-drenaje automático que evita la congelación en invierno. Eso lo hace adecuado para redes municipales e industriales en regiones frías donde los hidrantes también quedan cerca del tránsito vehicular.'
+	},
+	{
+		question: '¿Se pueden monitorear los hidrantes a distancia?',
+		answer: 'El hidrante inteligente IoT SS100ZN integra microsensores y transmite mediante redes celulares NB-IoT, LTE-M o GPRS. Monitorea la inclinación/vibración, la presión del agua en la tubería y el estado de la válvula, y emite alertas por uso ilegal de agua, apertura de válvula o colisiones vehiculares. La energía proviene de una batería de litio con vida útil de 5 años y apoyo solar, y la cápsula del módulo tiene clasificación IP68; el cuerpo del hidrante se fabrica según GB4452-2011.'
+	},
+	{
+		question: '¿Qué configuración de salidas y clase de presión debo especificar?',
+		answer: 'Tanto el SS100/65 como el SSFT100/65 se suministran con 2 x 65 mm de salidas más 1 x 100 mm de salida — la configuración esperada en hidrantes de columna municipales. La presión de trabajo es de 1.6 MPa, y el SS100 se prueba a 2.4 MPa. Las roscas de las salidas siguen la norma del proyecto; los adaptadores de acople de aluminio de la serie HS de Wanlian (DN50/DN65, 1.6 MPa, GB12514) conectan el hidrante a mangueras y boquillas sin fugas.'
+	},
+	{
+		question: '¿Qué normas aplican a los hidrantes para proyectos de exportación?',
+		answer: 'El cuerpo del hidrante inteligente IoT se fabrica según GB4452-2011, y los hidrantes mecánicos se producen según los requisitos GB y los estándares de fábrica. Cuando un proyecto exige referencias AWWA, EN o NFPA, la especificación debe indicarse en la consulta para que el modelo y la documentación de pruebas coincidan — nuestra guía de normas de hidrantes y válvulas explica cómo leer esas familias de normas e informes de prueba antes de ordenar.'
+	}
+];
+
+// TOC: corresponde uno a uno con los id de los H2 del cuerpo
+const toc = [
+	{ id: 'cold-climate-problem', label: '1. Por Qué Fallan los Hidrantes en Clima Frío' },
+	{ id: 'antifreeze-mechanism', label: '2. Cómo Funcionan los Hidrantes Anticongelantes (Barril Seco)' },
+	{ id: 'anti-collision-mechanism', label: '3. Cómo Se Cerran los Hidrantes Anticolisión' },
+	{ id: 'hydrant-comparison', label: '4. Estándar vs Anticolisión vs IoT' },
+	{ id: 'smart-hydrant-monitoring', label: '5. Monitoreo de Hidrantes Inteligentes' },
+	{ id: 'hydrant-spec-checklist', label: '6. Lista de Verificación de Especificaciones' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+// Productos relacionados (slug coincide con products.ts)
+const products = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hidrante Exterior Anticongelante (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'DN100, 1.6 MPa, drenaje antihielo automático, 2x65 + 1x100' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Hidrante Regulador de Presión Anticolisión (SSFT100/65)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Cierre por pernos de corte, regulación de presión, auto-drenaje' },
+	{ slug: 'iot-smart-ground-fire-hydrant-ss100zn', name: 'Hidrante Inteligente IoT (SS100/65-1.6ZN)', img: '/assets/products/iot-smart-ground-fire-hydrant-ss100zn.webp', desc: 'NB-IoT/4G, sensores de inclinación y presión, batería de 5 años' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Adaptador de Acople para Hidrante (Serie HS)', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65, 1.6 MPa, aluminio autosellante' }
+];
+---
+
+<Layout
+	title="Hidrantes Anticongelantes y Anticolisión: Guía para Compradores"
+	description="Guía B2B: hidrantes anticongelantes de barril seco con drenaje automático, hidrantes anticolisión con perno de corte y monitoreo IoT en redes municipales."
+	type="article"
+	locale="es"
+	faq={faq}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Pan de migas -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<span class="text-gray-600">Guías</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Hidrantes Contra Incendios</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Hidrantes Anticongelantes y Anticolisión: Guía para Compradores</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En pocas palabras: un hidrante de columna estándar tiene dos debilidades en el servicio municipal real — el agua estancada en el barril puede congelarse y agrietar el cuerpo, y un hidrante golpeado por un vehículo puede liberar una descarga de agua a plena sección. Los hidrantes anticongelantes (de barril seco) resuelven el primer problema vaciándose por sí solos después de cada uso; los hidrantes anticolisión resuelven el segundo con pernos de corte calibrados y un cierre interno automático. Esta guía explica ambos mecanismos, compara los modelos y describe qué aporta el monitoreo IoT.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Franja de productos -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Sección 1 -->
+			<h2 id="cold-climate-problem" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Por Qué Fallan los Hidrantes en Clima Frío</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un hidrante de barril húmedo mantiene agua estancada en la columna, por encima de la válvula, durante todo el año. En una helada fuerte, ese agua se expande al convertirse en hielo y la presión no tiene por dónde escapar: se agrieta el barril, la tapa (bonete) o el cuerpo de la válvula. La falla suele permanecer oculta hasta el deshielo, cuando el hidrante se abre y el agua sale de un cuerpo fracturado en lugar de las boquillas — justo en el peor momento posible.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">El problema contrario es igual de común: un hidrante que no se drena después del uso deja un volumen de agua estancado por encima de la línea de congelación. Por eso las especificaciones para climas fríos no piden simplemente un hidrante "más resistente" — piden un hidrante cuyo barril esté vacío cada vez que la válvula está cerrada.</p>
+			<p class="text-gray-700 leading-relaxed">El otro modo de falla no tiene nada que ver con el clima: los hidrantes están en la orilla de la calzada, y el equipo de calzada recibe golpes. Sin un punto de ruptura diseñado, el impacto de un vehículo secciona el cuerpo y permite que la presión total de la principal se descargue por la columna rota hasta que alguien alcanza la válvula de aislamiento.</p>
+
+			<!-- Sección 2 -->
+			<h2 id="antifreeze-mechanism" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Cómo Funcionan los Hidrantes Anticongelantes (Barril Seco)</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">En un hidrante de barril seco, la válvula principal está enterrada por debajo de la línea de congelación, y el barril que queda por encima está vacío salvo mientras el hidrante está descargando. Cuando se cierra el vástago de operación, la válvula asienta y el agua que queda en la columna se drena por un dispositivo de drenaje en la base — de modo que el barril vuelve a estar seco antes de la próxima helada.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">El <a href="/es/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">hidrante exterior anticongelante SS100/65</a> aplica este principio con un mecanismo de drenaje antihielo automático posterior al cierre. Datos clave para la especificación: DN100, presión de trabajo de 1.6 MPa con presión de prueba de 2.4 MPa, 2 x 65 mm de salidas más 1 x 100 mm de salida, columna de hierro dúctil QT450 de alta resistencia, salidas con doble asiento de latón y tapas estancas a prueba de intemperie, cabeza de válvula inferior encapsulada en EPDM y dispositivo de drenaje de acero inoxidable/latón. Maneja agua y mezcla de espuma contra incendios, y la base estándar con brida para instalación subterránea mantiene el montaje sencillo.</p>
+			<p class="text-gray-700 leading-relaxed">Como el barril se drena tras cada operación, la protección antihielo es repetible y no un paso único de invernalización — algo importante para redes inspeccionadas con meses de diferencia.</p>
+
+			<!-- Sección 3 -->
+			<h2 id="anti-collision-mechanism" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Cómo Se Cerran los Hidrantes Anticolisión</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un hidrante anticolisión está diseñado para fallar de manera controlada. El <a href="/es/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">hidrante regulador de presión anticolisión SSFT100/65</a> se ensambla con pernos de corte calibrados especiales. Cuando un vehículo golpea la columna, esos pernos se cortan a su fuerza de diseño y la válvula interna se cierra de forma automática — el hidrante se sella a sí mismo en lugar de descargar la tubería principal.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Las consecuencias son prácticas y no teóricas. Se evita la pérdida de agua y la inundación, la red mantiene su presión para el resto del distrito, y la reparación se realiza bajo presión: reemplace los pernos de seguridad, reinicie el hidrante — costo de mantenimiento muy bajo comparado con reemplazar un cuerpo seccionado y excavar la conexión.</p>
+			<p class="text-gray-700 leading-relaxed">El mismo modelo también lleva un dispositivo integrado de regulación de presión, de modo que la descarga puede ser progresiva y suave en lugar de un golpe repentino a plena presión sobre la cuadrilla de mangueras, y un sistema de auto-drenaje automático para prevenir la congelación en invierno. Datos de especificación: DN100 o DN150, presión nominal de 1.6 MPa, entrada con brida, 2 x 65 mm (KWS65) de salidas más 1 x 100 mm de salida, cuerpo de hierro dúctil QT450, asiento de válvula inferior de aleación de latón macizo/revestido con EPDM, muelles de acero inoxidable 304 y tapas de aleación de aluminio anodizado o latón.</p>
+
+			<!-- Sección 4 -->
+			<h2 id="hydrant-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Estándar vs Anticolisión vs IoT</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Característica</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SS100/65 Anticongelante</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SSFT100 Anticolisión</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SS100ZN IoT Inteligente</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Protección contra congelación</td>
+							<td class="px-4 py-3 text-gray-700">Drenaje antihielo automático tras el cierre</td>
+							<td class="px-4 py-3 text-gray-700">Sistema de auto-drenaje automático</td>
+							<td class="px-4 py-3 text-gray-700">Construcción de barril seco, estado monitoreado</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Impacto vehicular</td>
+							<td class="px-4 py-3 text-gray-700">Solo cuerpo de pared gruesa QT450</td>
+							<td class="px-4 py-3 text-gray-700">Pernos de corte calibrados + cierre automático</td>
+							<td class="px-4 py-3 text-gray-700">Sensores de inclinación/vibración emiten alertas de colisión</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Regulación de presión</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">Integrada, descarga progresiva</td>
+							<td class="px-4 py-3 text-gray-700">Monitoreo continuo de presión</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Monitoreo</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">NB-IoT / LTE-M / GPRS, alertas de válvula y robo</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tamaño y salidas</td>
+							<td class="px-4 py-3 text-gray-700">DN100, 2x65 + 1x100</td>
+							<td class="px-4 py-3 text-gray-700">DN100/DN150, 2xKWS65 + 1x100</td>
+							<td class="px-4 py-3 text-gray-700">Cuerpo de columna DN100 (GB4452-2011)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Presión</td>
+							<td class="px-4 py-3 text-gray-700">1.6 MPa (probado a 2.4 MPa)</td>
+							<td class="px-4 py-3 text-gray-700">1.6 MPa nominal</td>
+							<td class="px-4 py-3 text-gray-700">Presión de red monitoreada continuamente</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Ideal para</td>
+							<td class="px-4 py-3 text-gray-700">Redes municipales de clima frío</td>
+							<td class="px-4 py-3 text-gray-700">Ubicaciones en orilla de calzada expuestas al tránsito</td>
+							<td class="px-4 py-3 text-gray-700">Redes de ciudad inteligente y de baja supervisión</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Los tres diseños no son alternativas tanto como respuestas a tres riesgos distintos — heladas, impactos y uso sin monitoreo. Una ciudad de clima frío con calles concurridas normalmente necesitará los dos primeros juntos, y añade el tercero donde las cuadrillas no pueden inspeccionar cada hidrante en el calendario previsto.</p>
+
+			<!-- Sección 5 -->
+			<h2 id="smart-hydrant-monitoring" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Monitoreo de Hidrantes Inteligentes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El <a href="/es/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">hidrante inteligente IoT SS100ZN</a> añade una cápsula de sensores al cuerpo estándar de columna. Integra microsensores que transmiten por NB-IoT, LTE-M o GPRS: detección de inclinación y vibración, detección de la presión del agua en la tubería y estado de la válvula. La plataforma emite alertas por uso ilegal de agua, apertura de válvula, robo de agua o colisiones vehiculares, y sigue la presión y el caudal de forma continua para que las fallas de la tubería se manifiesten antes de un incidente.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Para los propietarios de activos, el valor es la visibilidad. Un hidrante que fue abierto por un usuario no autorizado, que fue derribado, o que está en una línea con presión a la baja normalmente permanece invisible hasta la próxima inspección física. Un hidrante monitoreado convierte esos eventos en notificaciones. La energía se resuelve con un diseño de ultra bajo consumo con una batería de litio de vida útil de 5 años y apoyo solar, y la cápsula del módulo IoT es de ABS reforzado resistente a impactos con sellado IP68 — un detalle que importa porque la cápsula vive sobre un equipo que se espera que sea golpeado.</p>
+			<p class="text-gray-700 leading-relaxed">El cuerpo del hidrante sigue GB4452-2011, con columna de hierro dúctil QT450, sonda de agua de acero inoxidable 316 y vástago inferior y asiento de válvula de acero inoxidable o latón. Cuando un proyecto exige otras familias de normas, indique la norma en la consulta y consulte nuestra <a href="/es/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">guía de normas de hidrantes y válvulas</a> para ver cómo las referencias AWWA, EN, NFPA e ISO se corresponden con la documentación de pruebas.</p>
+
+			<!-- Sección 6 -->
+			<h2 id="hydrant-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Lista de Verificación de Especificaciones</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Parta del clima</strong> — si hay heladas, especifique un hidrante anticongelante de barril seco (SS100/65) o un modelo anticolisión con auto-drenaje; confirme el tipo de dispositivo de drenaje y que el barril se vacíe al cerrar la válvula.</li>
+				<li><strong>Evalue el riesgo de tránsito</strong> — los hidrantes en orillas de calzada, patios de carga y accesos industriales deben equiparse con pernos de corte calibrados y cierre interno automático (SSFT100/65) para que un impacto no descargue la principal.</li>
+				<li><strong>Decida si necesita visibilidad</strong> — las redes de ciudad inteligente, campus o de baja supervisión pueden usar el SS100ZN para reportar inclinación, presión y estado de la válvula por NB-IoT/LTE-M/GPRS.</li>
+				<li><strong>Fije la configuración de salidas</strong> — 2 x 65 mm más 1 x 100 mm de salidas es la disposición estándar de columna; agregue <a href="/es/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">adaptadores de acople de la serie HS</a> (DN50/DN65, 1.6 MPa, GB12514) para que mangueras y boquillas se conecten sin fugas.</li>
+				<li><strong>Indique la presión y la evidencia de pruebas</strong> — la presión de trabajo de 1.6 MPa es estándar, con el SS100 probado a 2.4 MPa; solicite los informes de prueba de presión del lote y los certificados de material antes del envío.</li>
+				<li><strong>Confirme las normas y el proveedor</strong> — indique de antemano cualquier requisito AWWA/EN/NFPA y aplique nuestra <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de verificación B2B para compras de válvulas</a> antes de comprometerse con un fabricante. Para el contexto más amplio de selección, vea <a href="/es/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">cómo elegir un hidrante contra incendios</a>.</li>
+			</ul>
+
+			<!-- Sección de preguntas frecuentes -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Doble CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita Hidrantes Anticongelantes o Anticolisión?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Indíquenos sus condiciones climáticas, la exposición al tránsito, el DN, la configuración de salidas y la norma — nuestros ingenieros confirman el hidrante adecuado y cotizan dentro de las 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Hidrante%20Anticongelante%20SS100" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20hidrantes%20contra%20incendios%20anticongelantes%20o%20anticolisi%C3%B3n" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
