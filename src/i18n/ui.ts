@@ -101,7 +101,7 @@ const en: UIStrings = {
   footer: {
     companyName: 'WANLIAN FLUID',
     companyDesc:
-      'Quanzhou Wanlian Fluid Equipment Co., Ltd. manufactures and exports valves, fire protection equipment, hydraulic control products and fluid system components at its own production facility in Quanzhou, Fujian. Valve bodies are CNC-machined in-house and every unit is shell pressure and air-leakage tested before shipment, under an ISO 9001 quality management system.',
+      'Quanzhou Wanlian Fluid Equipment Co., Ltd. manufactures and exports valves, fire protection equipment, hydraulic control products and fluid system components from its own production lines in Quanzhou, Fujian, with selected items produced by qualified manufacturing partners. Valve bodies are CNC-machined in-house and every unit is shell pressure and air-leakage tested before shipment, under an ISO 9001 quality management system.',
     tagline: '"Flow Far, Link Global."',
     quickLinksTitle: 'Quick Links',
     quickLinks: [
@@ -202,7 +202,7 @@ const es: UIStrings = {
   footer: {
     companyName: 'WANLIAN FLUID',
     companyDesc:
-      'Quanzhou Wanlian Fluid Equipment Co., Ltd. fabrica y exporta válvulas, equipos de protección contra incendios, productos de control hidráulico y componentes para sistemas de fluidos en su propia planta de producción en Quanzhou, Fujian. Los cuerpos de válvula se mecanizan por CNC en la propia planta y cada unidad se somete a pruebas de presión de cuerpo y de estanqueidad al aire antes del envío, bajo un sistema de gestión de calidad ISO 9001.',
+      'Quanzhou Wanlian Fluid Equipment Co., Ltd. fabrica y exporta válvulas, equipos de protección contra incendios, productos de control hidráulico y componentes para sistemas de fluidos desde sus propias líneas de producción en Quanzhou, Fujian, con artículos seleccionados producidos por socios de fabricación cualificados. Los cuerpos de válvula se mecanizan por CNC en la propia planta y cada unidad se somete a pruebas de presión de cuerpo y de estanqueidad al aire antes del envío, bajo un sistema de gestión de calidad ISO 9001.',
     tagline: '"Flow Far, Link Global."',
     quickLinksTitle: 'Enlaces Rápidos',
     quickLinks: [

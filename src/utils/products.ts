@@ -530,7 +530,7 @@ export const products: Product[] = [
     },
     image: '/assets/products/foam-fire-hydrant-cabinet-psg30.webp',
     seoTitle: 'PSG30 Foam Fire Hydrant Cabinet | 3% AFFF',
-    seoDescription: 'PSG30 foam fire hydrant cabinet with 3% AFFF tank, effective against Class B fuel and chemical fires. Factory direct from Wanlian Fluid China.',
+    seoDescription: 'PSG30 foam fire hydrant cabinet with 3% AFFF tank, effective against Class B fuel and chemical fires. Export supply from Wanlian Fluid China.',
     faqs: [
       { question: 'What is the PSG30 foam fire hydrant cabinet?', answer: 'The PSG30 is a wall-mounted, low-expansion foam firefighting unit that packages a foam concentrate storage tank, proportioner, hose reel and foam nozzle in one cabinet, giving immediate response to fuel, chemical and solvent fires.' },
       { question: 'What foam type and performance does the PSG30 use?', answer: 'The cabinet works with 3% AFFF (aqueous film forming foam) concentrate, with a foam expansion ratio of at least 4.5, a jet range of at least 6 meters and a working pressure of 0.5 to 0.8 MPa.' },
