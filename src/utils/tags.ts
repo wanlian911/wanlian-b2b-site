@@ -24,7 +24,7 @@ export const tags: Tag[] = [
     name: 'Fire Hydrants',
     seoTitle: 'Fire Hydrants: Types, Standards & Selection',
     description: 'Indoor SN65 hydrant heads, overground SS100 hydrants, anti-collision SSFT100 and IoT smart hydrants for municipal and industrial fire protection networks.',
-    guideHrefs: ['/guides/how-to-choose-a-fire-hydrant/', '/guides/wanlian-fluid-vs-american-avk/', '/guides/fire-hydrant-valve-standards-guide/'],
+    guideHrefs: ['/guides/how-to-choose-a-fire-hydrant/', '/guides/wanlian-fluid-vs-american-avk/', '/guides/fire-hydrant-valve-standards-guide/', '/guides/antifreeze-anti-collision-fire-hydrant-guide/'],
     productSlugs: ['indoor-fire-hydrant-head-sn65', 'overground-fire-hydrant-ss100', 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', 'iot-smart-ground-fire-hydrant-ss100zn', 'fire-hydrant-hose-coupling-adapter-hs'],
     relatedTags: ['fire-protection', 'procurement', 'fire-hose-reel']
   },

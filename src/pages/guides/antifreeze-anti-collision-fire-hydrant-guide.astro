@@ -1,0 +1,212 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'How does an antifreeze fire hydrant keep from freezing in winter?',
+		answer: 'An antifreeze hydrant is a dry-barrel design: the main valve sits below the frost line and the barrel above it drains automatically every time the valve closes. No water is left standing in the column, so there is nothing to freeze and split the body. The SS100/65 overground hydrant uses exactly this automatic frost-drainage mechanism and is supplied with a standard flanged base for underground connection.'
+	},
+	{
+		question: 'What happens when an anti-collision hydrant is hit by a vehicle?',
+		answer: 'The SSFT100 is held together by calibrated shear bolts. On impact the bolts shear cleanly at a designed force, and the internal valve closes automatically — so instead of a full-bore water gush, the hydrant seals itself and flooding is avoided. Repairs are made under pressure by replacing the shear bolts and restarting the hydrant, which keeps maintenance cost low and avoids draining the main.'
+	},
+	{
+		question: 'Do anti-collision hydrants also work in cold climates?',
+		answer: 'Yes. The SSFT100 combines three functions in one body: collision protection, a built-in pressure regulating device for progressive and smooth discharge, and an automatic self-draining system that prevents freezing in winter. That makes it suitable for municipal and industrial networks in cold regions where hydrants also stand close to traffic.'
+	},
+	{
+		question: 'Can fire hydrants be monitored remotely?',
+		answer: 'The SS100ZN IoT smart hydrant integrates micro-sensors and reports over NB-IoT, LTE-M or GPRS cellular networks. It monitors tilt/vibration, pipeline water pressure and valve status, and raises alerts for illegal water use, valve opening or vehicle collisions. Power comes from a lithium battery rated for 5-year life with solar assist, and the module capsule is IP68 rated; the hydrant body is built to GB4452-2011.'
+	},
+	{
+		question: 'What outlet configuration and pressure rating should I specify?',
+		answer: 'Both the SS100/65 and SSFT100/65 are supplied with 2 x 65mm outlets plus 1 x 100mm outlet — the configuration expected on municipal overground hydrants. Working pressure is 1.6 MPa, and the SS100 is tested to 2.4 MPa. Outlet threads follow the project standard; Wanlian HS series aluminium coupling adapters (DN50/DN65, 1.6 MPa, GB12514) connect hydrants to hoses and nozzles without leakage.'
+	},
+	{
+		question: 'What standards apply to fire hydrants for export projects?',
+		answer: 'The IoT smart hydrant body is built to GB4452-2011, and the mechanical hydrants are manufactured to GB requirements and factory standards. Where a project calls for AWWA, EN or NFPA references, the specification should be stated in the enquiry so the model and test documentation match it — our fire hydrant and valve standards guide explains how to read those standard families and test reports before ordering.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'cold-climate-problem', label: '1. Why Hydrants Fail in Cold Weather' },
+	{ id: 'antifreeze-mechanism', label: '2. How Antifreeze (Dry-Barrel) Hydrants Work' },
+	{ id: 'anti-collision-mechanism', label: '3. How Anti-Collision Hydrants Shut Off' },
+	{ id: 'hydrant-comparison', label: '4. Standard vs Anti-Collision vs IoT' },
+	{ id: 'smart-hydrant-monitoring', label: '5. Smart Hydrant Monitoring' },
+	{ id: 'hydrant-spec-checklist', label: '6. Specification Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Antifreeze Fire Hydrant (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'DN100, 1.6 MPa, auto frost drainage, 2x65 + 1x100' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Anti-Collision Hydrant (SSFT100/65)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Shear-bolt shut-off, pressure regulating, self-draining' },
+	{ slug: 'iot-smart-ground-fire-hydrant-ss100zn', name: 'IoT Smart Hydrant (SS100/65-1.6ZN)', img: '/assets/products/iot-smart-ground-fire-hydrant-ss100zn.webp', desc: 'NB-IoT/4G, tilt & pressure sensors, 5-year battery' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Hydrant Coupling Adapter (HS Series)', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65, 1.6 MPa, self-sealing aluminium' }
+];
+---
+
+<Layout
+	title="Antifreeze & Anti-Collision Fire Hydrants: Buyer's Guide"
+	description="How antifreeze dry-barrel hydrants prevent freezing, how shear-bolt anti-collision hydrants shut off on impact, plus IoT monitoring and a B2B selection checklist."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Antifreeze & Anti-Collision Hydrants' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Antifreeze &amp; Anti-Collision Hydrants</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Fire Hydrant Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Antifreeze &amp; Anti-Collision Fire Hydrants: Buyer's Guide</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a standard overground hydrant has two weaknesses in real municipal service — standing water in the barrel can freeze and split the body, and a hydrant struck by a vehicle can release a full-bore gush of water. Antifreeze (dry-barrel) hydrants solve the first problem by draining themselves after every use; anti-collision hydrants solve the second with calibrated shear bolts and an automatic internal shut-off. This guide explains both mechanisms, compares the models, and covers what IoT monitoring adds.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="cold-climate-problem" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Why Hydrants Fail in Cold Weather</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A wet-barrel hydrant keeps water standing in the column above the valve all year. In a hard frost that water expands as it turns to ice, and the pressure has nowhere to go: the barrel, the bonnet or the valve body cracks. The failure usually stays hidden until the thaw, when the hydrant is opened and water pours out of a fractured body instead of the nozzles — at the worst possible moment.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The reverse problem is just as common: a hydrant that is not drained after use leaves a slug of water sitting above the frost line. This is why cold-climate specifications do not simply ask for a "stronger" hydrant — they ask for a hydrant whose barrel is empty whenever the valve is closed.</p>
+			<p class="text-gray-700 leading-relaxed">The other failure mode has nothing to do with weather: hydrants stand at the roadside, and roadside equipment gets hit. Without a designed break-away point, a vehicle impact shears the body and lets the full main pressure discharge through the broken column until someone reaches the isolating valve.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="antifreeze-mechanism" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. How Antifreeze (Dry-Barrel) Hydrants Work</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">In a dry-barrel hydrant the main valve is buried below the frost line, and the barrel above it is empty except while the hydrant is flowing. When the operating stem is closed, the valve seats and the water left in the column drains away through a drainage device at the base — so the barrel is dry again before the next frost.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The <a href="/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">SS100/65 overground antifreeze fire hydrant</a> applies this principle with an automatic post-closing frost-drainage mechanism. Key data for specification: DN100, working pressure 1.6 MPa with a 2.4 MPa test pressure, 2 x 65mm outlets plus 1 x 100mm outlet, a heavy-duty ductile iron QT450 column, double brass-seated outlets with weather-proof blank caps, an EPDM-encapsulated lower valve head and a stainless steel/brass drainage device. It handles water and fire foam mixture, and the standard underground flanged base keeps installation straightforward.</p>
+			<p class="text-gray-700 leading-relaxed">Because the barrel drains after every operation, the frost protection is repeatable rather than a one-off winterisation step — which matters for networks inspected months apart.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="anti-collision-mechanism" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. How Anti-Collision Hydrants Shut Off</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">An anti-collision hydrant is designed to fail in a controlled way. The <a href="/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">SSFT100/65 anti-collision pressure-regulating hydrant</a> is assembled with specialised calibrated shear bolts. When a vehicle strikes the column, those bolts shear at their designed force and the internal valve closes automatically — the hydrant seals itself instead of discharging the main.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The consequences are practical rather than theoretical. Water loss and flooding are avoided, the network keeps its pressure for the rest of the district, and the repair is carried out under pressure: replace the safety bolts, restart the hydrant — very low maintenance cost compared with replacing a sheared body and digging out the connection.</p>
+			<p class="text-gray-700 leading-relaxed">The same model also carries a built-in pressure regulating device, so discharge can be progressive and smooth rather than a sudden full-pressure slug on the hose crew, and an automatic self-draining system to prevent freezing in winter. Specification data: DN100 or DN150, nominal pressure 1.6 MPa, flanged inlet, 2 x 65mm (KWS65) outlets plus 1 x 100mm outlet, ductile iron QT450 body, solid brass alloy/EPDM-covered lower valve seat, stainless steel 304 springs and anodised aluminium alloy or brass caps.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="hydrant-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Standard vs Anti-Collision vs IoT</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Feature</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SS100/65 Antifreeze</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SSFT100 Anti-Collision</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SS100ZN IoT Smart</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Freeze protection</td>
+							<td class="px-4 py-3 text-gray-700">Automatic frost drainage after closing</td>
+							<td class="px-4 py-3 text-gray-700">Automatic self-draining system</td>
+							<td class="px-4 py-3 text-gray-700">Dry-barrel construction, monitored status</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Vehicle impact</td>
+							<td class="px-4 py-3 text-gray-700">Thick-wall QT450 body only</td>
+							<td class="px-4 py-3 text-gray-700">Calibrated shear bolts + automatic shut-off</td>
+							<td class="px-4 py-3 text-gray-700">Tilt/vibration sensors raise collision alerts</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pressure regulation</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">Built-in, progressive discharge</td>
+							<td class="px-4 py-3 text-gray-700">Continuous pressure monitoring</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Monitoring</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">NB-IoT / LTE-M / GPRS, valve &amp; theft alerts</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Size &amp; outlets</td>
+							<td class="px-4 py-3 text-gray-700">DN100, 2x65 + 1x100</td>
+							<td class="px-4 py-3 text-gray-700">DN100/DN150, 2xKWS65 + 1x100</td>
+							<td class="px-4 py-3 text-gray-700">DN100 overground body (GB4452-2011)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pressure</td>
+							<td class="px-4 py-3 text-gray-700">1.6 MPa (tested 2.4 MPa)</td>
+							<td class="px-4 py-3 text-gray-700">1.6 MPa nominal</td>
+							<td class="px-4 py-3 text-gray-700">Network pressure monitored continuously</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Best for</td>
+							<td class="px-4 py-3 text-gray-700">Cold-climate municipal networks</td>
+							<td class="px-4 py-3 text-gray-700">Roadside positions exposed to traffic</td>
+							<td class="px-4 py-3 text-gray-700">Smart-city and low-supervision networks</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">The three designs are not alternatives so much as answers to three different risks — frost, impact and unmonitored use. A cold-weather city with busy roads will typically need the first two together, and adds the third where crews cannot inspect every hydrant on schedule.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="smart-hydrant-monitoring" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Smart Hydrant Monitoring</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The <a href="/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">SS100ZN IoT smart ground hydrant</a> adds a sensor capsule to the standard overground body. It integrates micro-sensors that report over NB-IoT, LTE-M or GPRS: tilt and vibration sensing, pipeline water pressure detection and valve status. The platform raises alerts for illegal water use, valve opening, water theft or vehicle collisions, and tracks water pressure and flow continuously so pipeline faults surface before an incident.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">For asset owners the value is visibility. A hydrant that has been opened by an unauthorised user, has been knocked over, or sits on a line with falling pressure normally stays invisible until the next physical inspection. A monitored hydrant turns those events into notifications. Power is handled by an ultra-low-power design with a lithium battery rated for 5-year life and solar assist, and the IoT module capsule is reinforced impact-resistant ABS with IP68 sealing — a detail that matters because the capsule lives on equipment that is expected to be hit.</p>
+			<p class="text-gray-700 leading-relaxed">The hydrant body follows GB4452-2011, with a ductile iron QT450 column, stainless steel 316 water probe and stainless steel or brass lower stem and valve seat. Where a project requires other standard families, state the standard in the enquiry and see our <a href="/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">fire hydrant and valve standards guide</a> for how AWWA, EN, NFPA and ISO references map to test documentation.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="hydrant-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Specification Checklist</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Start from the climate</strong> — if frost occurs, specify a dry-barrel antifreeze hydrant (SS100/65) or an anti-collision model with self-draining; confirm the drainage device type and that the barrel empties when the valve closes.</li>
+				<li><strong>Assess the traffic risk</strong> — hydrants at kerbsides, loading yards and industrial gates should be fitted with calibrated shear bolts and automatic internal shut-off (SSFT100/65) so an impact does not discharge the main.</li>
+				<li><strong>Decide whether you need visibility</strong> — smart-city, campus or low-supervision networks can use the SS100ZN for tilt, pressure and valve-status reporting over NB-IoT/LTE-M/GPRS.</li>
+				<li><strong>Fix the outlet configuration</strong> — 2 x 65mm plus 1 x 100mm outlets is the standard overground arrangement; add <a href="/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS series coupling adapters</a> (DN50/DN65, 1.6 MPa, GB12514) so hoses and nozzles connect without leakage.</li>
+				<li><strong>State pressure and test evidence</strong> — 1.6 MPa working pressure is standard, with the SS100 tested to 2.4 MPa; request the batch pressure test reports and material certificates before shipment.</li>
+				<li><strong>Confirm the standards and the supplier</strong> — state any AWWA/EN/NFPA requirement up front, and run our <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> before committing to a manufacturer. For the wider selection context see <a href="/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">how to choose a fire hydrant</a>.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need Antifreeze or Anti-Collision Fire Hydrants?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Tell us your climate conditions, traffic exposure, DN, outlet configuration and standard — our engineers confirm the right hydrant and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Antifreeze%20Fire%20Hydrant%20SS100" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20antifreeze%20or%20anti-collision%20fire%20hydrants" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

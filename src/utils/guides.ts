@@ -207,5 +207,14 @@ export const guides: Guide[] = [
     category: 'Fire Protection',
     readTime: '8 min read',
     tags: ['fire-protection', 'industrial-valves']
+  },
+  {
+    title: 'Antifreeze & Anti-Collision Fire Hydrants Guide: Cold Climate & Safety (2026)',
+    description: 'Dry-barrel antifreeze hydrants, shear-bolt anti-collision hydrants and IoT-monitored models: freezing protection, impact shut-off, pressure regulation and a B2B selection checklist.',
+    href: '/guides/antifreeze-anti-collision-fire-hydrant-guide/',
+    date: '2026-09',
+    category: 'Fire Protection',
+    readTime: '8 min read',
+    tags: ['fire-hydrant', 'fire-protection']
   }
 ];
