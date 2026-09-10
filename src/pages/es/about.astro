@@ -10,10 +10,21 @@ const factoryDir = path.join(process.cwd(), 'public', 'assets', 'factory');
 const hasFactoryAsset = (file) => fs.existsSync(path.join(factoryDir, file));
 
 const plantPhotos = [
-  { file: 'plant-exterior.webp', alt: 'Fachada de la planta de fabricación de Wanlian Fluid, Quanzhou, Fujian', caption: 'Nuestra planta — Quanzhou, Fujian' },
-  { file: 'workshop.webp', alt: 'Nave de taller de válvulas y zona de mecanizado CNC de Wanlian Fluid', caption: 'Nave de taller y mecanizado CNC' },
+  { file: 'plant-exterior.webp', alt: 'Fachada de la planta de fabricación de Wanlian Fluid en Quanzhou, Fujian', caption: 'Nuestra planta — Quanzhou, Fujian' },
+  { file: 'workshop.webp', alt: 'Zona de plegado de chapa con plegadoras y puente grúa en el taller de Wanlian Fluid', caption: 'Zona de plegado — plegadoras y puente grúa' },
+  { file: 'powder-coating.webp', alt: 'Línea de recubrimiento en polvo con transportador aéreo en Wanlian Fluid', caption: 'Línea de recubrimiento en polvo — de cabina a curado' },
+  { file: 'assembly.webp', alt: 'Nave de montaje y acabado con armarios de manguera contra incendios en Wanlian Fluid', caption: 'Nave de montaje y acabado' },
+  { file: 'fire-hose.webp', alt: 'Carretes y mangueras contra incendios terminados, preparados para exportación, en Wanlian Fluid', caption: 'Producción de manguera y carrete contra incendios' },
   { file: 'qc-test-bench.webp', alt: 'Banco de prueba de presión de cuerpo y estanqueidad al aire de Wanlian Fluid', caption: 'Banco de prueba de presión y estanqueidad' }
 ].filter((p) => hasFactoryAsset(p.file));
+
+const verifiableItems = [
+  'Certificado del sistema de gestión de calidad ISO 9001, con su alcance y organismo emisor',
+  'Informes de prueba de presión del cuerpo y de estanqueidad al aire por lote, para las unidades de su pedido',
+  'Inspección de terceros (estilo SGS / BV) organizada antes del embarque, según su instrucción',
+  'Una visita en vídeo en directo a la línea y al banco de pruebas durante su producción',
+  'Marca OEM/ODM, embalaje de exportación y el juego completo de documentación de exportación'
+];
 
 const hasBusinessLicense = hasFactoryAsset('business-license.webp');
 const hasProductionVideo = hasFactoryAsset('production-line.mp4');
@@ -107,21 +118,21 @@ const values = [
       </div>
 
       {plantPhotos.length > 0 && (
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+      <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 mb-16">
         {plantPhotos.map((photo) => (
-          <figure class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
-            <img src={`/assets/factory/${photo.file}`} alt={photo.alt} loading="lazy" class="w-full aspect-[4/3] object-cover" />
+          <figure class="mb-6 break-inside-avoid bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+            <img src={`/assets/factory/${photo.file}`} alt={photo.alt} loading="lazy" class="w-full h-auto" />
             <figcaption class="px-5 py-4 text-sm font-semibold text-gray-700">{photo.caption}</figcaption>
           </figure>
         ))}
       </div>
       )}
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {hasProductionVideo && (
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="lg:col-span-1 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <video
-            class="w-full aspect-video bg-gray-900"
+            class="w-full aspect-[9/16] bg-gray-900 object-cover"
             controls
             playsinline
             preload="metadata"
@@ -131,21 +142,36 @@ const values = [
             Su navegador no admite vídeo incrustado.
           </video>
           <div class="px-6 py-5">
-            <h3 class="font-bold text-lg text-gray-900">En la Línea de Producción</h3>
-            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Mecanizado CNC de cuerpos de válvula y pruebas de presión del cuerpo y de estanqueidad al aire en nuestra propia nave — 30 segundos, sin material de archivo.</p>
+            <h3 class="font-bold text-lg text-gray-900">En la Planta de Producción</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Veinticinco segundos de material sin editar de nuestra propia nave: plegado de chapa, soldadura, la línea de recubrimiento en polvo y el tejido de la cubierta de manguera contra incendios. Sin material de archivo.</p>
           </div>
         </div>
         )}
 
-        {hasBusinessLicense && (
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-          <img src="/assets/factory/business-license.webp" alt="Licencia de negocio de Quanzhou Wanlian Fluid Equipment Co., Ltd., con objeto social que incluye fabricación" loading="lazy" class="w-full object-contain bg-gray-50 max-h-[420px]" />
-          <div class="px-6 py-5">
-            <h3 class="font-bold text-lg text-gray-900">Licencia de Negocio</h3>
-            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Registrada en Quanzhou, Fujian. El objeto social cubre la fabricación, el procesamiento y la exportación de válvulas y equipos de protección contra incendios: la entidad que factura su pedido es la misma que fabrica el producto.</p>
+        <div class={hasProductionVideo ? 'lg:col-span-2 space-y-8' : 'lg:col-span-3 space-y-8'}>
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+            <h3 class="font-bold text-lg text-gray-900">Lo que puede verificar con nosotros</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">La verificación es una parte normal de trabajar con un proveedor chino. Esto es lo que pondremos en sus manos antes de que se comprometa: pídalo todo.</p>
+            <ul class="mt-6 space-y-3">
+              {verifiableItems.map((item) => (
+                <li class="flex items-start gap-3 text-sm text-gray-600 leading-relaxed">
+                  <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
+
+          {hasBusinessLicense && (
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <img src="/assets/factory/business-license.webp" alt="Licencia de negocio de Quanzhou Wanlian Fluid Equipment Co., Ltd., con objeto social que incluye fabricación" loading="lazy" class="w-full object-contain bg-gray-50 max-h-[420px]" />
+            <div class="px-6 py-5">
+              <h3 class="font-bold text-lg text-gray-900">Licencia de Negocio</h3>
+              <p class="mt-2 text-sm text-gray-500 leading-relaxed">Registrada en Quanzhou, Fujian. El objeto social cubre la fabricación, el procesamiento y la exportación de válvulas y equipos de protección contra incendios: la entidad que factura su pedido es la misma que fabrica el producto.</p>
+            </div>
+          </div>
+          )}
         </div>
-        )}
       </div>
 
       <p class="mt-10 text-center text-sm text-gray-500">

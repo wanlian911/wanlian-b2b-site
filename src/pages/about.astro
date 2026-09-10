@@ -10,10 +10,21 @@ const factoryDir = path.join(process.cwd(), 'public', 'assets', 'factory');
 const hasFactoryAsset = (file) => fs.existsSync(path.join(factoryDir, file));
 
 const plantPhotos = [
-  { file: 'plant-exterior.webp', alt: 'Wanlian Fluid manufacturing plant exterior, Quanzhou, Fujian', caption: 'Our plant — Quanzhou, Fujian' },
-  { file: 'workshop.webp', alt: 'Wanlian Fluid valve workshop floor and CNC machining area', caption: 'Workshop floor and CNC machining area' },
+  { file: 'plant-exterior.webp', alt: 'Wanlian Fluid manufacturing plant exterior in Quanzhou, Fujian', caption: 'Our plant — Quanzhou, Fujian' },
+  { file: 'workshop.webp', alt: 'Sheet-metal bending area with press brakes and overhead gantry crane in the Wanlian Fluid workshop', caption: 'Bending area — press brakes and gantry crane' },
+  { file: 'powder-coating.webp', alt: 'Overhead powder-coating conveyor line at Wanlian Fluid', caption: 'Powder-coating line — from spray booth to curing' },
+  { file: 'assembly.webp', alt: 'Assembly and finishing bay with fire hose reel cabinets at Wanlian Fluid', caption: 'Assembly and finishing bay' },
+  { file: 'fire-hose.webp', alt: 'Finished fire hose reels and coiled fire hose staged for export at Wanlian Fluid', caption: 'Fire hose and reel production' },
   { file: 'qc-test-bench.webp', alt: 'Wanlian Fluid valve shell pressure and air-leakage test bench', caption: 'Shell pressure and air-leakage test bench' }
 ].filter((p) => hasFactoryAsset(p.file));
+
+const verifiableItems = [
+  'ISO 9001 quality-management system certificate, with the scope and issuing body',
+  'Batch-level shell pressure and air-leakage test reports for the units on your PO',
+  'Third-party inspection (SGS / BV style) arranged at pre-shipment, at your instruction',
+  'A live video walk-through of the line and the test bench during your production run',
+  'OEM/ODM branding, export packaging and the full export documentation set'
+];
 
 const hasBusinessLicense = hasFactoryAsset('business-license.webp');
 const hasProductionVideo = hasFactoryAsset('production-line.mp4');
@@ -106,21 +117,21 @@ const values = [
       </div>
 
       {plantPhotos.length > 0 && (
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+      <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 mb-16">
         {plantPhotos.map((photo) => (
-          <figure class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
-            <img src={`/assets/factory/${photo.file}`} alt={photo.alt} loading="lazy" class="w-full aspect-[4/3] object-cover" />
+          <figure class="mb-6 break-inside-avoid bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+            <img src={`/assets/factory/${photo.file}`} alt={photo.alt} loading="lazy" class="w-full h-auto" />
             <figcaption class="px-5 py-4 text-sm font-semibold text-gray-700">{photo.caption}</figcaption>
           </figure>
         ))}
       </div>
       )}
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {hasProductionVideo && (
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="lg:col-span-1 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <video
-            class="w-full aspect-video bg-gray-900"
+            class="w-full aspect-[9/16] bg-gray-900 object-cover"
             controls
             playsinline
             preload="metadata"
@@ -130,21 +141,36 @@ const values = [
             Your browser does not support embedded video.
           </video>
           <div class="px-6 py-5">
-            <h3 class="font-bold text-lg text-gray-900">On the Production Line</h3>
-            <p class="mt-2 text-sm text-gray-500 leading-relaxed">CNC valve-body machining and shell-pressure / air-leakage testing on our own floor — 30 seconds, no stock footage.</p>
+            <h3 class="font-bold text-lg text-gray-900">On the Production Floor</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Twenty-five seconds of unedited footage from our own floor — sheet-metal bending, welding, the powder-coating line and fire-hose jacket weaving. No stock video.</p>
           </div>
         </div>
         )}
 
-        {hasBusinessLicense && (
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-          <img src="/assets/factory/business-license.webp" alt="Quanzhou Wanlian Fluid Equipment Co., Ltd. business license, business scope covering manufacturing" loading="lazy" class="w-full object-contain bg-gray-50 max-h-[420px]" />
-          <div class="px-6 py-5">
-            <h3 class="font-bold text-lg text-gray-900">Business License</h3>
-            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Registered in Quanzhou, Fujian. The business scope covers manufacturing, processing and export of valves and fire-protection equipment — the entity that invoices your order is the entity that makes the product.</p>
+        <div class={hasProductionVideo ? 'lg:col-span-2 space-y-8' : 'lg:col-span-3 space-y-8'}>
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+            <h3 class="font-bold text-lg text-gray-900">What you can verify with us</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Verification is a normal part of doing business with a Chinese supplier. Here is what we will put in your hands before you commit — ask for all of it.</p>
+            <ul class="mt-6 space-y-3">
+              {verifiableItems.map((item) => (
+                <li class="flex items-start gap-3 text-sm text-gray-600 leading-relaxed">
+                  <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
+
+          {hasBusinessLicense && (
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <img src="/assets/factory/business-license.webp" alt="Quanzhou Wanlian Fluid Equipment Co., Ltd. business license, business scope covering manufacturing" loading="lazy" class="w-full object-contain bg-gray-50 max-h-[420px]" />
+            <div class="px-6 py-5">
+              <h3 class="font-bold text-lg text-gray-900">Business License</h3>
+              <p class="mt-2 text-sm text-gray-500 leading-relaxed">Registered in Quanzhou, Fujian. The business scope covers manufacturing, processing and export of valves and fire-protection equipment — the entity that invoices your order is the entity that makes the product.</p>
+            </div>
+          </div>
+          )}
         </div>
-        )}
       </div>
 
       <p class="mt-10 text-center text-sm text-gray-500">
