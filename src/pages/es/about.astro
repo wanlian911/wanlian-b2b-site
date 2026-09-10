@@ -1,5 +1,24 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
 import Layout from '../../layouts/Layout.astro';
+
+// Los recursos de evidencia de fábrica se colocan en public/assets/factory/.
+// La sección solo se renderiza para los archivos que existen realmente, de modo
+// que el sitio en vivo nunca muestra una imagen rota ni un marcador vacío.
+const factoryDir = path.join(process.cwd(), 'public', 'assets', 'factory');
+const hasFactoryAsset = (file) => fs.existsSync(path.join(factoryDir, file));
+
+const plantPhotos = [
+  { file: 'plant-exterior.webp', alt: 'Fachada de la planta de fabricación de Wanlian Fluid, Quanzhou, Fujian', caption: 'Nuestra planta — Quanzhou, Fujian' },
+  { file: 'workshop.webp', alt: 'Nave de taller de válvulas y zona de mecanizado CNC de Wanlian Fluid', caption: 'Nave de taller y mecanizado CNC' },
+  { file: 'qc-test-bench.webp', alt: 'Banco de prueba de presión de cuerpo y estanqueidad al aire de Wanlian Fluid', caption: 'Banco de prueba de presión y estanqueidad' }
+].filter((p) => hasFactoryAsset(p.file));
+
+const hasBusinessLicense = hasFactoryAsset('business-license.webp');
+const hasProductionVideo = hasFactoryAsset('production-line.mp4');
+const hasFactoryEvidence = plantPhotos.length > 0 || hasBusinessLicense || hasProductionVideo;
+const heroPhoto = hasFactoryAsset('plant-exterior.webp') ? '/assets/factory/plant-exterior.webp' : '/og-image.jpg';
 
 const productionSteps = [
   { step: '01', name: 'Revisión de Requisitos', desc: 'Confirme el tipo de producto, el tamaño, las normas y los requisitos de aplicación antes de la cotización.' },
@@ -21,7 +40,7 @@ const values = [
 <Layout
   locale="es"
   title="Sobre Nosotros | Wanlian Fluid — Fábrica de Válvulas en Quanzhou"
-  description="Wanlian Fluid: fábrica de válvulas y equipos contra incendios en Quanzhou, China. I+D, ventas y servicio integrados para proyectos B2B globales."
+  description="Wanlian Fluid: fábrica de válvulas y equipos contra incendios en Quanzhou, China. Fabricación propia con mecanizado CNC, pruebas de presión y exportación para proyectos B2B globales."
 >
   <!-- Banner Header -->
   <section class="relative bg-gray-900 text-white overflow-hidden py-20">
@@ -30,7 +49,7 @@ const values = [
       <span class="text-xs font-bold tracking-widest text-blue-500 uppercase">Quiénes Somos</span>
       <h1 class="text-3xl sm:text-5xl font-black tracking-tight">Acerca de Quanzhou Wanlian</h1>
       <p class="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
-        Una empresa profesional de equipos de fluidos que integra I+D, ventas y servicio, ubicada en el núcleo de la industria china de tuberías y válvulas.
+        Un fabricante y exportador de válvulas y equipos de protección contra incendios, con planta propia en el corazón de la industria china de tuberías y válvulas.
       </p>
     </div>
   </section>
@@ -45,13 +64,13 @@ const values = [
             <h2 class="text-3xl font-black text-gray-900 tracking-tight mt-1">Profundamente arraigados en el corazón de la industria de válvulas</h2>
           </div>
            <p class="text-base text-gray-600 leading-relaxed">
-             Quanzhou Wanlian Fluid Equipment Co., Ltd. está ubicada en Quanzhou, Fujian — el punto de partida de la Ruta Marítima de la Seda y el núcleo de la industria china de tuberías y válvulas. Como empresa profesional de equipos de fluidos que integra I+D, ventas y servicio, nos enfocamos en suministrar válvulas de alta calidad, equipos auxiliares contra incendios, equipos de control de fluidos y soluciones integrales para los sectores industrial, municipal, de protección contra incendios, suministro de agua y drenaje.
+             Quanzhou Wanlian Fluid Equipment Co., Ltd. está ubicada en Quanzhou, Fujian — el punto de partida de la Ruta Marítima de la Seda y el núcleo de la industria china de tuberías y válvulas. Fabricamos y exportamos válvulas, equipos contra incendios, equipos de control de fluidos y soluciones integrales para los sectores industrial, municipal, de protección contra incendios, suministro de agua y drenaje, y nuestros ingenieros acompañan la selección y la personalización en cada pedido.
            </p>
            <p class="text-base text-gray-600 leading-relaxed">
-             Con años de profunda experiencia en la industria de equipos de fluidos, nos beneficiamos de las instalaciones industriales de soporte maduras y de la acumulación técnica de Quanzhou. Nuestro equipo de I+D y técnico está integrado por ingenieros industriales senior que dedican continuamente esfuerzos a la innovación de productos y a la optimización de procesos. Nuestras bases de fabricación cooperativas controlan estrictamente los procedimientos de producción conforme al Sistema de Gestión de Calidad ISO9001 y a las normas industriales nacionales pertinentes, garantizando la estabilidad, fiabilidad y durabilidad de cada producto.
+             Nuestra propia planta en Quanzhou, Fujian combina un equipo de ingeniería senior con una línea de producción completa: mecanizado CNC, montaje y pruebas de presión. Los cuerpos de válvula se mecanizan por CNC en la propia planta, cada unidad se somete a prueba de presión del cuerpo y de estanqueidad al aire antes del envío, y la producción se rige por un sistema de gestión de calidad ISO 9001 junto con las normas industriales nacionales pertinentes, garantizando la estabilidad, fiabilidad y durabilidad de cada producto.
            </p>
            <p class="text-base text-gray-600 leading-relaxed">
-             Nuestra gama de productos se organiza en torno a un soporte práctico de selección, especificaciones técnicas claras y cooperación basada en consultas para aplicaciones de suministro de agua, control industrial de fluidos y protección contra incendios.
+             Nuestro catálogo está construido en torno a las especificaciones con las que realmente trabaja un ingeniero de proyecto — clase de presión, norma de conexión, material del cuerpo y del obturador, y aplicación — con cotizaciones bajo consulta y soporte técnico para proyectos de suministro de agua, control industrial de fluidos y protección contra incendios.
            </p>
            <div class="grid grid-cols-2 gap-6 pt-4 border-t border-gray-100">
              <div>
@@ -60,15 +79,15 @@ const values = [
              </div>
              <div>
                <span class="block text-2xl font-black text-blue-600">Protección Contra Incendios</span>
-               <span class="block text-xs text-gray-400 font-bold tracking-wider uppercase mt-1">Suministro de Equipos B2B</span>
+                <span class="block text-xs text-gray-400 font-bold tracking-wider uppercase mt-1">Fabricación Propia</span>
              </div>
            </div>
         </div>
 
         <div class="relative rounded-2xl overflow-hidden aspect-video shadow-lg border border-gray-100 bg-gray-50">
           <img 
-            src="/og-image.jpg"
-            alt="Productos de válvulas industriales Wanlian Fluid"
+            src={heroPhoto}
+            alt="Planta de fabricación y producción de válvulas de Wanlian Fluid, Quanzhou, Fujian"
             loading="lazy"
             class="object-cover w-full h-full"
           />
@@ -76,6 +95,65 @@ const values = [
       </div>
     </div>
   </section>
+
+  <!-- Evidencia de fabricación: fotos de planta, licencia de negocio, vídeo de producción -->
+  {hasFactoryEvidence && (
+  <section class="py-24 bg-gray-50 border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Evidencia de Fábrica</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Dentro de Nuestra Planta en Quanzhou</h2>
+        <p class="text-base text-gray-500">Documentación y material audiovisual para su diligencia debida — los mismos registros que verifican nuestros propios compradores. Solicítenos el paquete completo de certificados e informes de prueba acorde con su orden de compra.</p>
+      </div>
+
+      {plantPhotos.length > 0 && (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        {plantPhotos.map((photo) => (
+          <figure class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+            <img src={`/assets/factory/${photo.file}`} alt={photo.alt} loading="lazy" class="w-full aspect-[4/3] object-cover" />
+            <figcaption class="px-5 py-4 text-sm font-semibold text-gray-700">{photo.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+      )}
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        {hasProductionVideo && (
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <video
+            class="w-full aspect-video bg-gray-900"
+            controls
+            playsinline
+            preload="metadata"
+            poster={hasFactoryAsset('production-line-poster.webp') ? '/assets/factory/production-line-poster.webp' : undefined}
+          >
+            <source src="/assets/factory/production-line.mp4" type="video/mp4" />
+            Su navegador no admite vídeo incrustado.
+          </video>
+          <div class="px-6 py-5">
+            <h3 class="font-bold text-lg text-gray-900">En la Línea de Producción</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Mecanizado CNC de cuerpos de válvula y pruebas de presión del cuerpo y de estanqueidad al aire en nuestra propia nave — 30 segundos, sin material de archivo.</p>
+          </div>
+        </div>
+        )}
+
+        {hasBusinessLicense && (
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <img src="/assets/factory/business-license.webp" alt="Licencia de negocio de Quanzhou Wanlian Fluid Equipment Co., Ltd., con objeto social que incluye fabricación" loading="lazy" class="w-full object-contain bg-gray-50 max-h-[420px]" />
+          <div class="px-6 py-5">
+            <h3 class="font-bold text-lg text-gray-900">Licencia de Negocio</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Registrada en Quanzhou, Fujian. El objeto social cubre la fabricación, el procesamiento y la exportación de válvulas y equipos de protección contra incendios: la entidad que factura su pedido es la misma que fabrica el producto.</p>
+          </div>
+        </div>
+        )}
+      </div>
+
+      <p class="mt-10 text-center text-sm text-gray-500">
+        ¿Desea una visita en vídeo en directo de la línea y del banco de pruebas para su proyecto? <a href="/es/contact/" class="text-brand-blue font-semibold hover:underline">Solicite una visita a fábrica</a>.
+      </p>
+    </div>
+  </section>
+  )}
 
   <!-- Products & Services -->
   <section class="py-24 bg-white border-b border-gray-100">
@@ -207,7 +285,7 @@ const values = [
           Con raíces en Quanzhou, cubriendo los mercados nacionales y abrazando las oportunidades globales, seguimos enfocados en el campo de los equipos de fluidos — promoviendo la actualización de los productos mediante la innovación tecnológica y construyendo una sólida reputación de marca con servicios de alta calidad.
         </p>
         <p class="text-gray-400 leading-relaxed">
-          Nuestro objetivo es convertirnos en un proveedor profesional de confianza en los sectores nacionales e internacionales de control de fluidos, ofreciendo soluciones de sistemas de fluidos más eficientes, seguras e inteligentes para clientes de todos los rubros, y contribuyendo al desarrollo industrial y a la construcción de infraestructura.
+          Nuestro objetivo es convertirnos en un fabricante y socio exportador de confianza en los sectores nacionales e internacionales de control de fluidos, ofreciendo soluciones de sistemas de fluidos más eficientes, seguras e inteligentes para clientes de todos los rubros, y contribuyendo al desarrollo industrial y a la construcción de infraestructura.
         </p>
         <a href="/es/contact/" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-red hover:opacity-90 text-white font-bold rounded-lg transition">
           Inicie una Conversación <span aria-hidden="true">→</span>

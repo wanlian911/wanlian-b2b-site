@@ -1,5 +1,24 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
 import Layout from '../layouts/Layout.astro';
+
+// Factory evidence assets are dropped into public/assets/factory/.
+// The section only renders for files that actually exist, so the live site
+// never shows a broken image or an empty placeholder before assets arrive.
+const factoryDir = path.join(process.cwd(), 'public', 'assets', 'factory');
+const hasFactoryAsset = (file) => fs.existsSync(path.join(factoryDir, file));
+
+const plantPhotos = [
+  { file: 'plant-exterior.webp', alt: 'Wanlian Fluid manufacturing plant exterior, Quanzhou, Fujian', caption: 'Our plant — Quanzhou, Fujian' },
+  { file: 'workshop.webp', alt: 'Wanlian Fluid valve workshop floor and CNC machining area', caption: 'Workshop floor and CNC machining area' },
+  { file: 'qc-test-bench.webp', alt: 'Wanlian Fluid valve shell pressure and air-leakage test bench', caption: 'Shell pressure and air-leakage test bench' }
+].filter((p) => hasFactoryAsset(p.file));
+
+const hasBusinessLicense = hasFactoryAsset('business-license.webp');
+const hasProductionVideo = hasFactoryAsset('production-line.mp4');
+const hasFactoryEvidence = plantPhotos.length > 0 || hasBusinessLicense || hasProductionVideo;
+const heroPhoto = hasFactoryAsset('plant-exterior.webp') ? '/assets/factory/plant-exterior.webp' : '/og-image.jpg';
 
 const productionSteps = [
   { step: '01', name: 'Requirement Review', desc: 'Confirm product type, size, standards, and application requirements before quotation.' },
@@ -20,7 +39,7 @@ const values = [
 
 <Layout
   title="About Us | Quanzhou Wanlian Fluid Equipment"
-  description="Quanzhou Wanlian Fluid Equipment Co., Ltd. supplies valves, fire-fighting and fluid-control equipment via integrated R&D, sales and service for global projects."
+  description="Quanzhou Wanlian Fluid Equipment Co., Ltd. manufactures and exports valves, fire-fighting and fluid-control equipment from its own plant in Quanzhou, Fujian, for global B2B projects."
 >
   <!-- Banner Header -->
   <section class="relative bg-gray-900 text-white overflow-hidden py-20">
@@ -29,7 +48,7 @@ const values = [
       <span class="text-xs font-bold tracking-widest text-blue-500 uppercase">Who We Are</span>
       <h1 class="text-3xl sm:text-5xl font-black tracking-tight">About Quanzhou Wanlian</h1>
       <p class="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
-        A professional fluid-equipment enterprise integrating R&D, sales and service, based in the core cluster of China's plumbing and valve industry.
+        A manufacturer and exporter of valves and fire-protection equipment, based at our own plant in the heart of China's plumbing and valve industry.
       </p>
     </div>
   </section>
@@ -44,13 +63,13 @@ const values = [
             <h2 class="text-3xl font-black text-gray-900 tracking-tight mt-1">Deep Rooted in the Heart of Valve Industry Hub</h2>
           </div>
            <p class="text-base text-gray-600 leading-relaxed">
-             Quanzhou Wanlian Fluid Equipment Co., Ltd. is located in Quanzhou, Fujian — the starting point of the Maritime Silk Road and the core cluster of China's plumbing and valve industry. As a professional fluid-equipment enterprise integrating R&D, sales and service, we focus on providing high-quality valves, supporting fire-fighting equipment, fluid-control equipment and integrated solutions for industrial, municipal, fire-protection, water supply and drainage sectors.
+             Quanzhou Wanlian Fluid Equipment Co., Ltd. is located in Quanzhou, Fujian — the starting point of the Maritime Silk Road and the core cluster of China's plumbing and valve industry. We manufacture and export valves, fire-fighting equipment, fluid-control equipment and integrated solutions for industrial, municipal, fire-protection, water supply and drainage sectors, and our engineers support product selection and customization on every order.
            </p>
            <p class="text-base text-gray-600 leading-relaxed">
-             With years of profound experience in the fluid equipment industry, we benefit from Quanzhou's mature industrial supporting facilities and technical accumulation. Our R&D and technical team consists of senior industry engineers who continuously devote efforts to product innovation and process optimization. Our cooperative manufacturing bases strictly control production procedures in accordance with the ISO9001 Quality Management System and relevant national industrial standards, ensuring the stability, reliability and durability of each product.
+             Our own plant in Quanzhou, Fujian combines a senior engineering team with a full in-house production line — CNC machining, assembly and pressure testing. Valve bodies are CNC-machined in-house, every unit is shell pressure-tested and air-leakage tested before shipment, and production runs under an ISO 9001 quality management system together with the relevant national industrial standards, ensuring the stability, reliability and durability of each product.
            </p>
            <p class="text-base text-gray-600 leading-relaxed">
-             Our product range is organized around practical selection support, clear technical specifications, and inquiry-based cooperation for water supply, industrial fluid control, and firefighting applications.
+             Our catalogue is built around the specifications design engineers actually work from — pressure class, connection standard, body and trim material, and application — with inquiry-based quotations and technical support for water supply, industrial fluid control, and firefighting projects.
            </p>
            <div class="grid grid-cols-2 gap-6 pt-4 border-t border-gray-100">
              <div>
@@ -59,15 +78,15 @@ const values = [
              </div>
              <div>
                <span class="block text-2xl font-black text-blue-600">Fire Protection</span>
-               <span class="block text-xs text-gray-400 font-bold tracking-wider uppercase mt-1">B2B Equipment Supply</span>
+                <span class="block text-xs text-gray-400 font-bold tracking-wider uppercase mt-1">In-House Manufacturing</span>
              </div>
            </div>
         </div>
 
         <div class="relative rounded-2xl overflow-hidden aspect-video shadow-lg border border-gray-100 bg-gray-50">
           <img 
-            src="/og-image.jpg"
-            alt="Wanlian Fluid industrial valve products"
+            src={heroPhoto}
+            alt="Wanlian Fluid manufacturing plant and valve production, Quanzhou, Fujian"
             loading="lazy"
             class="object-cover w-full h-full"
           />
@@ -75,6 +94,65 @@ const values = [
       </div>
     </div>
   </section>
+
+  <!-- Manufacturing Evidence: plant photos, business license, production video -->
+  {hasFactoryEvidence && (
+  <section class="py-24 bg-gray-50 border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Factory Evidence</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Inside Our Plant in Quanzhou</h2>
+        <p class="text-base text-gray-500">Documents and footage for your due diligence — the same records our own buyers verify. Ask us for the full certificate and test-report package matched to your PO.</p>
+      </div>
+
+      {plantPhotos.length > 0 && (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        {plantPhotos.map((photo) => (
+          <figure class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+            <img src={`/assets/factory/${photo.file}`} alt={photo.alt} loading="lazy" class="w-full aspect-[4/3] object-cover" />
+            <figcaption class="px-5 py-4 text-sm font-semibold text-gray-700">{photo.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+      )}
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        {hasProductionVideo && (
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <video
+            class="w-full aspect-video bg-gray-900"
+            controls
+            playsinline
+            preload="metadata"
+            poster={hasFactoryAsset('production-line-poster.webp') ? '/assets/factory/production-line-poster.webp' : undefined}
+          >
+            <source src="/assets/factory/production-line.mp4" type="video/mp4" />
+            Your browser does not support embedded video.
+          </video>
+          <div class="px-6 py-5">
+            <h3 class="font-bold text-lg text-gray-900">On the Production Line</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">CNC valve-body machining and shell-pressure / air-leakage testing on our own floor — 30 seconds, no stock footage.</p>
+          </div>
+        </div>
+        )}
+
+        {hasBusinessLicense && (
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <img src="/assets/factory/business-license.webp" alt="Quanzhou Wanlian Fluid Equipment Co., Ltd. business license, business scope covering manufacturing" loading="lazy" class="w-full object-contain bg-gray-50 max-h-[420px]" />
+          <div class="px-6 py-5">
+            <h3 class="font-bold text-lg text-gray-900">Business License</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Registered in Quanzhou, Fujian. The business scope covers manufacturing, processing and export of valves and fire-protection equipment — the entity that invoices your order is the entity that makes the product.</p>
+          </div>
+        </div>
+        )}
+      </div>
+
+      <p class="mt-10 text-center text-sm text-gray-500">
+        Want a live video walk-through of the line and the test bench for your project? <a href="/contact/" class="text-brand-blue font-semibold hover:underline">Request a factory tour</a>.
+      </p>
+    </div>
+  </section>
+  )}
 
   <!-- Products & Services -->
   <section class="py-24 bg-white border-b border-gray-100">
@@ -206,7 +284,7 @@ const values = [
           Rooted in Quanzhou, covering nationwide markets and embracing global opportunities, we keep focusing on the fluid-equipment field — promoting product upgrading through technological innovation and building solid brand reputation with high-quality services.
         </p>
         <p class="text-gray-400 leading-relaxed">
-          We aim to become a trusted professional supplier in domestic and international fluid-control sectors, delivering more efficient, safer and smarter fluid-system solutions for customers from all walks of life, and contributing to industrial development and infrastructure construction.
+          We aim to become a trusted manufacturer and export partner in domestic and international fluid-control sectors, delivering more efficient, safer and smarter fluid-system solutions for customers from all walks of life, and contributing to industrial development and infrastructure construction.
         </p>
         <a href="/contact/" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-red hover:opacity-90 text-white font-bold rounded-lg transition">
           Start a Conversation <span aria-hidden="true">→</span>

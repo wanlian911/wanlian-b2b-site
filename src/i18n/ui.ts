@@ -95,13 +95,13 @@ const en: UIStrings = {
     alibabaStore: 'Alibaba Store',
     inquireNow: 'Inquire Now',
     language: 'Language',
-    tagline: 'Professional B2B Fluid Equipment Supplier',
+    tagline: 'Manufacturer & Exporter of Fluid Equipment',
     languageLabel: { en: 'English', es: 'Español' },
   },
   footer: {
     companyName: 'WANLIAN FLUID',
     companyDesc:
-      'Quanzhou Wanlian Fluid Equipment Co., Ltd. is a professional fluid-equipment enterprise integrating R&D, sales and service, with production carried out at cooperative manufacturing bases in accordance with the ISO9001 Quality Management System.',
+      'Quanzhou Wanlian Fluid Equipment Co., Ltd. manufactures and exports valves, fire protection equipment, hydraulic control products and fluid system components at its own production facility in Quanzhou, Fujian. Valve bodies are CNC-machined in-house and every unit is shell pressure and air-leakage tested before shipment, under an ISO 9001 quality management system.',
     tagline: '"Flow Far, Link Global."',
     quickLinksTitle: 'Quick Links',
     quickLinks: [
@@ -196,13 +196,13 @@ const es: UIStrings = {
     alibabaStore: 'Tienda Alibaba',
     inquireNow: 'Solicitar Cotización',
     language: 'Idioma',
-    tagline: 'Proveedor Profesional B2B de Equipos de Fluidos',
+    tagline: 'Fabricante y Exportador de Equipos de Fluidos',
     languageLabel: { en: 'English', es: 'Español' },
   },
   footer: {
     companyName: 'WANLIAN FLUID',
     companyDesc:
-      'Quanzhou Wanlian Fluid Equipment Co., Ltd. es una empresa profesional de equipos de fluidos que integra I+D, ventas y servicio, con producción realizada en bases de fabricación cooperativas conforme al Sistema de Gestión de Calidad ISO9001.',
+      'Quanzhou Wanlian Fluid Equipment Co., Ltd. fabrica y exporta válvulas, equipos de protección contra incendios, productos de control hidráulico y componentes para sistemas de fluidos en su propia planta de producción en Quanzhou, Fujian. Los cuerpos de válvula se mecanizan por CNC en la propia planta y cada unidad se somete a pruebas de presión de cuerpo y de estanqueidad al aire antes del envío, bajo un sistema de gestión de calidad ISO 9001.',
     tagline: '"Flow Far, Link Global."',
     quickLinksTitle: 'Enlaces Rápidos',
     quickLinks: [
