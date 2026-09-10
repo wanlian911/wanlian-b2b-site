@@ -10,9 +10,10 @@ const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
 const dict = t(locale);
 const pathname = Astro.url.pathname;
 
-// 当前页面对应各语言的地址（目标语言页面尚未翻译时回退到该语言首页）
-const enPath = stripLocale(pathname, locale);
-const esPath = isTranslated(enPath, 'es') ? localizePath(enPath, 'es') : localizePath('/', 'es');
+// 当前页面对应各语言的地址（目标语言页面尚未翻译、或处于 404 页时回退到该语言首页）
+const is404 = pathname === '/404' || pathname === '/404/';
+const enPath = is404 ? '/' : stripLocale(pathname, locale);
+const esPath = is404 ? '/es/' : (isTranslated(enPath, 'es') ? localizePath(enPath, 'es') : localizePath('/', 'es'));
 const localeHref: Record<Locale, string> = { en: enPath, es: esPath };
 
 const navItems = dict.nav.map(item => ({
