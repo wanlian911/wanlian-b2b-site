@@ -5,6 +5,29 @@ import { productsEs } from '../../../utils/products.es';
 // Get all unique categories
 const categories = ['Todos', ...new Set(productsEs.map(p => p.category))];
 
+// ItemList JSON-LD（ES）：43 productos + 3 páginas temáticas (prefijo /es/)
+const itemCatalog = [
+  ...[...productsEs].sort((a, b) => a.slug.localeCompare(b.slug)).map(p => ({
+    name: p.name,
+    url: `https://wanlian911.com/es/products/${p.slug}/`
+  })),
+  { name: 'Sistemas de Rociadores Contra Incendios', url: 'https://wanlian911.com/es/fire-sprinkler-systems/' },
+  { name: 'Cañón Monitor Contra Incendios', url: 'https://wanlian911.com/es/fire-water-cannon/' },
+  { name: 'Válvulas Contra Incendio Certificación UL', url: 'https://wanlian911.com/es/ul-fire-valves/' }
+];
+const itemListJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Catálogo de Productos Wanlian Fluid',
+  description: 'Catálogo completo de válvulas, hidrantes, mangueras contra incendios, rociadores y equipos de protección contra incendios fabricados por Quanzhou Wanlian Fluid Equipment Co., Ltd.',
+  itemListElement: itemCatalog.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.name,
+    url: item.url
+  }))
+};
+
 // 目录级采购 FAQ（同时输出 FAQPage JSON-LD）
 const faqs = [
   { question: '¿La gama de productos de esta página es su catálogo completo?', answer: 'Esta página lista más de 43 modelos en stock entre válvulas, hidrantes, válvulas para sistemas de rociadores, carretes de manguera, extintores y cañones de agua. Nuestra gama de producción completa es más amplia: si no encuentra el modelo, tamaño o material exacto, envíenos su consulta y nuestros ingenieros confirmarán disponibilidad y alternativas equivalentes.' },
@@ -113,6 +136,9 @@ const faqs = [
       </div>
     </section>
   </main>
+
+  <!-- ItemList structured data (①) -->
+  <script type="application/ld+json" set:html={JSON.stringify(itemListJsonLd)} />
 
   <!-- Client-side filtering script -->
   <script is:inline>

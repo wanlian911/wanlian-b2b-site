@@ -1,9 +1,18 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { products } from '../../utils/products';
+import { PRODUCT_FAMILIES } from '../../utils/product-families';
 
 // Get all unique categories
 const categories = ['All', ...new Set(products.map(p => p.category))];
+
+// 批次 D：按 10 个产品族分组渲染集合页（链接本身不变，仅加 <h2> 分组语义）
+const familyGroups = PRODUCT_FAMILIES.map(f => ({
+  ...f,
+  products: products.filter(p => f.slugs.includes(p.slug))
+}));
+const groupedSlugs = new Set(PRODUCT_FAMILIES.flatMap(f => f.slugs));
+const ungroupedProducts = products.filter(p => !groupedSlugs.has(p.slug));
 
 // 目录级采购 FAQ（同时输出 FAQPage JSON-LD）
 const faqs = [
@@ -13,6 +22,29 @@ const faqs = [
   { question: 'What documentation do you provide with an order?', answer: 'Every shipment includes the commercial documents plus per-lot test reports matched to the applicable standard. ISO 9001 certificates, material certificates and third-party inspection reports can be arranged and named in the purchase order.' },
   { question: 'How do I request a quotation?', answer: 'Use the inquiry form on the contact page and include model, size, pressure rating, connection type, quantity and destination. Our sales and engineering team responds within 12 hours with specifications, pricing and lead time.' }
 ];
+
+// ① ItemList JSON-LD：43 产品（按 slug 排序）+ 3 个产品型主题落地页，与交付包 products_item_list.json 同构
+const itemCatalog = [
+  ...[...products].sort((a, b) => a.slug.localeCompare(b.slug)).map(p => ({
+    name: p.name,
+    url: `https://wanlian911.com/products/${p.slug}/`
+  })),
+  { name: 'Fire Sprinkler Systems', url: 'https://wanlian911.com/fire-sprinkler-systems/' },
+  { name: 'Fire Water Cannon', url: 'https://wanlian911.com/fire-water-cannon/' },
+  { name: 'UL Listed Fire Valves', url: 'https://wanlian911.com/ul-fire-valves/' }
+];
+const itemListJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Wanlian Fluid Products Catalog',
+  description: 'Complete catalog of valves, fire hydrants, fire hose, sprinklers and fire protection equipment manufactured by Quanzhou Wanlian Fluid Equipment Co., Ltd.',
+  itemListElement: itemCatalog.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.name,
+    url: item.url
+  }))
+};
 ---
 
 <Layout title="Product Catalog | Industrial Valves & Fire Protection Equipment" description="Browse Wanlian Fluid's B2B catalog: 43+ stocked models of industrial valves, fire hydrants, sprinklers, hose reels and hydraulic valves. Inquiry-based pricing." faq={faqs}>
@@ -47,51 +79,108 @@ const faqs = [
       ))}
     </div>
 
-    <!-- Products Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
-      {products.map((product) => (
-        <div 
-          data-product-category={product.category}
-          class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300 flex flex-col product-card"
-        >
-          <div class="aspect-square relative overflow-hidden bg-white">
-            <img 
-              src={product.image} 
-              alt={product.name} 
-              loading="lazy"
-              class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
-            />
-            <span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold tracking-widest bg-gray-900/90 text-white rounded-md uppercase">
-              {product.category}
-            </span>
-          </div>
-          <div class="p-6 flex-grow flex flex-col space-y-3">
-            <h2 class="text-lg font-bold text-gray-900 line-clamp-2 min-h-[3rem] group-hover:text-blue-600 transition">
-              {product.name}
-            </h2>
-            <p class="text-gray-500 text-xs line-clamp-3 leading-relaxed flex-grow">
-              {product.description}
-            </p>
-            <div class="pt-6 border-t border-gray-100 flex items-center justify-between gap-4">
-              <a 
-                href={`/products/${product.slug}/`} 
-                class="text-blue-600 text-sm font-bold hover:text-blue-700 inline-flex items-center gap-1 group/btn"
+    <!-- Products grouped by family (批次 D) -->
+    <div id="products-grid" class="space-y-16">
+      {familyGroups.filter(g => g.products.length > 0).map((group) => (
+        <section data-family={group.id} class="product-group">
+          <h2 class="text-2xl font-black text-gray-900 mb-6 pb-3 border-b border-gray-200">{group.label}</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {group.products.map((product) => (
+              <div
+                data-product-category={product.category}
+                class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300 flex flex-col product-card"
               >
-                View Specs
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-              </a>
-              <a 
-                href={`/contact/?product=${encodeURIComponent(product.name)}`} 
-                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition"
-              >
-                Inquire
-              </a>
-            </div>
+                <div class="aspect-square relative overflow-hidden bg-white">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    loading="lazy"
+                    class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold tracking-widest bg-gray-900/90 text-white rounded-md uppercase">
+                    {product.category}
+                  </span>
+                </div>
+                <div class="p-6 flex-grow flex flex-col space-y-3">
+                  <h3 class="text-lg font-bold text-gray-900 line-clamp-2 min-h-[3rem] group-hover:text-blue-600 transition">
+                    {product.name}
+                  </h3>
+                  <p class="text-gray-500 text-xs line-clamp-3 leading-relaxed flex-grow">
+                    {product.description}
+                  </p>
+                  <div class="pt-6 border-t border-gray-100 flex items-center justify-between gap-4">
+                    <a
+                      href={`/products/${product.slug}/`}
+                      class="text-blue-600 text-sm font-bold hover:text-blue-700 inline-flex items-center gap-1 group/btn"
+                    >
+                      View Specs
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                      </svg>
+                    </a>
+                    <a
+                      href={`/contact/?product=${encodeURIComponent(product.name)}`}
+                      class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition"
+                    >
+                      Inquire
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
+        </section>
       ))}
+      {ungroupedProducts.length > 0 && (
+        <section data-family="other" class="product-group">
+          <h2 class="text-2xl font-black text-gray-900 mb-6 pb-3 border-b border-gray-200">Other Products</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {ungroupedProducts.map((product) => (
+              <div
+                data-product-category={product.category}
+                class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300 flex flex-col product-card"
+              >
+                <div class="aspect-square relative overflow-hidden bg-white">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    loading="lazy"
+                    class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold tracking-widest bg-gray-900/90 text-white rounded-md uppercase">
+                    {product.category}
+                  </span>
+                </div>
+                <div class="p-6 flex-grow flex flex-col space-y-3">
+                  <h3 class="text-lg font-bold text-gray-900 line-clamp-2 min-h-[3rem] group-hover:text-blue-600 transition">
+                    {product.name}
+                  </h3>
+                  <p class="text-gray-500 text-xs line-clamp-3 leading-relaxed flex-grow">
+                    {product.description}
+                  </p>
+                  <div class="pt-6 border-t border-gray-100 flex items-center justify-between gap-4">
+                    <a
+                      href={`/products/${product.slug}/`}
+                      class="text-blue-600 text-sm font-bold hover:text-blue-700 inline-flex items-center gap-1 group/btn"
+                    >
+                      View Specs
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                      </svg>
+                    </a>
+                    <a
+                      href={`/contact/?product=${encodeURIComponent(product.name)}`}
+                      class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition"
+                    >
+                      Inquire
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
 
     <!-- Catalog FAQ Section -->
@@ -115,17 +204,25 @@ const faqs = [
     </section>
   </main>
 
+  <!-- ItemList structured data (①) -->
+  <script type="application/ld+json" set:html={JSON.stringify(itemListJsonLd)} />
+
   <!-- Client-side filtering script -->
   <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
       const buttons = document.querySelectorAll('.filter-btn');
       const cards = document.querySelectorAll('.product-card');
+      const groups = document.querySelectorAll('.product-group');
 
       const applyFilter = (category) => {
         buttons.forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === category));
         cards.forEach(card => {
           const cardCategory = card.getAttribute('data-product-category');
           card.style.display = (category === 'All' || cardCategory === category) ? 'flex' : 'none';
+        });
+        groups.forEach(g => {
+          const visible = [...g.querySelectorAll('.product-card')].some(c => c.style.display !== 'none');
+          g.style.display = visible ? '' : 'none';
         });
       };
 

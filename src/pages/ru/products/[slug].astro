@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { productsRuBySlug, productsRu } from '../../../utils/products.ru';
+import { PRODUCT_FAMILY_RELATED } from '../../../utils/product-families';
 
 export async function getStaticPaths() {
   return Object.values(productsRuBySlug).map((product) => ({
@@ -82,7 +83,12 @@ const categoryInfo: Record<string, { applications: string[]; testing: string }> 
 // Приоритет: продуктовый FAQ, иначе универсальный FAQ по категории
 const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
 const info = categoryInfo[product.category];
-const relatedProducts = productsRu.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 6);
+// 批次 C：Related 按产品族闭环，与 product_families.json related_links 逐页对齐；未归族回退分类互链
+const bySlug = new Map(productsRu.map(p => [p.slug, p]));
+const familySlugs = PRODUCT_FAMILY_RELATED[product.slug] ?? [];
+const relatedProducts = familySlugs.length
+  ? familySlugs.map(s => bySlug.get(s)).filter((p): p is typeof productsRu[number] => Boolean(p))
+  : productsRu.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 4);
 const catAnchor = encodeURIComponent(product.category);
 
 // Связанные руководства по покупке по категориям (внутренние ссылки на /ru/guides/)

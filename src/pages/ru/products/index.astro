@@ -5,6 +5,29 @@ import { productsRu } from '../../../utils/products.ru';
 // Get all unique categories
 const categories = ['Все', ...new Set(productsRu.map(p => p.category))];
 
+// ItemList JSON-LD（RU）：43 продукта + 3 тематические страницы (префикс /ru/)
+const itemCatalog = [
+  ...[...productsRu].sort((a, b) => a.slug.localeCompare(b.slug)).map(p => ({
+    name: p.name,
+    url: `https://wanlian911.com/ru/products/${p.slug}/`
+  })),
+  { name: 'Системы спринклерного пожаротушения', url: 'https://wanlian911.com/ru/fire-sprinkler-systems/' },
+  { name: 'Пожарные лафетные стволы', url: 'https://wanlian911.com/ru/fire-water-cannon/' },
+  { name: 'Пожарные клапаны UL', url: 'https://wanlian911.com/ru/ul-fire-valves/' }
+];
+const itemListJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Каталог продукции Wanlian Fluid',
+  description: 'Полный каталог клапанов, гидрантов, пожарных рукавов, спринклеров и оборудования пожарной защиты производства Quanzhou Wanlian Fluid Equipment Co., Ltd.',
+  itemListElement: itemCatalog.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.name,
+    url: item.url
+  }))
+};
+
 // 目录级采购 FAQ（同时输出 FAQPage JSON-LD）
 const faqs = [
   { question: 'Весь ли ассортимент продукции представлен на этой странице?', answer: 'На этой странице перечислены более 43 моделей в наличии: клапаны, гидранты, клапаны спринклерных систем, рукавные барабаны, огнетушители и лафетные стволы. Наш полный производственный ассортимент шире: если вы не нашли нужную модель, размер или материал, отправьте запрос — наши инженеры подтвердят наличие и подберут эквивалентные альтернативы.' },
@@ -114,6 +137,9 @@ const faqs = [
       </div>
     </section>
   </main>
+
+  <!-- ItemList structured data (①) -->
+  <script type="application/ld+json" set:html={JSON.stringify(itemListJsonLd)} />
 
   <!-- Client-side filtering script -->
   <script is:inline>

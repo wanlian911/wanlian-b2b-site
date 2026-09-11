@@ -5,6 +5,29 @@ import { productsFr } from '../../../utils/products.fr';
 // Get all unique categories
 const categories = ['Tous', ...new Set(productsFr.map(p => p.category))];
 
+// ItemList JSON-LD（FR）：43 produits + 3 pages thématiques (préfixe /fr/)
+const itemCatalog = [
+  ...[...productsFr].sort((a, b) => a.slug.localeCompare(b.slug)).map(p => ({
+    name: p.name,
+    url: `https://wanlian911.com/fr/products/${p.slug}/`
+  })),
+  { name: 'Systèmes de Gicleurs & Gicleurs Certifiés UL', url: 'https://wanlian911.com/fr/fire-sprinkler-systems/' },
+  { name: "Canon d'Eau Anti-Incendie", url: 'https://wanlian911.com/fr/fire-water-cannon/' },
+  { name: 'Vannes Anti-Incendie Certifiées UL', url: 'https://wanlian911.com/fr/ul-fire-valves/' }
+];
+const itemListJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Catalogue Produit Wanlian Fluid',
+  description: "Catalogue complet de vannes, hydrants, flexibles anti-incendie, gicleurs et équipements de protection incendie fabriqués par Quanzhou Wanlian Fluid Equipment Co., Ltd.",
+  itemListElement: itemCatalog.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.name,
+    url: item.url
+  }))
+};
+
 // 目录级采购 FAQ（同时输出 FAQPage JSON-LD）
 const faqs = [
   { question: 'La gamme de produits de cette page est-elle votre catalogue complet ?', answer: 'Cette page répertorie plus de 43 modèles en stock répartis entre vannes, hydrants, vannes de réseaux de gicleurs, enrouleurs de flexible, extincteurs et canons d’eau. Notre gamme de production complète est plus large — si vous ne trouvez pas le modèle, la taille ou le matériau exact dont vous avez besoin, envoyez la demande et nos ingénieurs confirmeront la disponibilité et les équivalents adaptés.' },
@@ -114,6 +137,9 @@ const faqs = [
       </div>
     </section>
   </main>
+
+  <!-- ItemList structured data (①) -->
+  <script type="application/ld+json" set:html={JSON.stringify(itemListJsonLd)} />
 
   <!-- Client-side filtering script -->
   <script is:inline>

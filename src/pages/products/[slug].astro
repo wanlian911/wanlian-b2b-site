@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import WhatsAppButton from '../../components/shared/WhatsAppButton.astro';
 import { products } from '../../utils/products';
+import { PRODUCT_FAMILY_RELATED } from '../../utils/product-families';
 
 export async function getStaticPaths() {
   return products.map((product) => ({
@@ -83,7 +84,13 @@ const categoryInfo: Record<string, { applications: string[]; testing: string }> 
 // 产品级 FAQ 优先，其次按分类生成通用采购 FAQ
 const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
 const info = categoryInfo[product.category];
-const relatedProducts = products.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 6);
+// 批次 C：Related 模块按产品族闭环（10 族，同族 3–4 条），与 product_families.json 的 related_links 逐页对齐；
+// 未归族产品回退到分类互链，避免空模块。
+const bySlug = new Map(products.map(p => [p.slug, p]));
+const familySlugs = PRODUCT_FAMILY_RELATED[product.slug] ?? [];
+const relatedProducts = familySlugs.length
+  ? familySlugs.map(s => bySlug.get(s)).filter((p): p is typeof products[number] => Boolean(p))
+  : products.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 4);
 
 // 相关指南(GEO 内容)按产品 slug 映射,用于消防/阀门产品页回链
 const hydrantGuideSlugs = ['overground-fire-hydrant-ss100', 'indoor-fire-hydrant-head-sn65', 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', 'iot-smart-ground-fire-hydrant-ss100zn'];
