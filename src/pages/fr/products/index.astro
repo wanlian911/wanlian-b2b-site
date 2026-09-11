@@ -1,0 +1,151 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { productsFr } from '../../../utils/products.fr';
+
+// Get all unique categories
+const categories = ['Tous', ...new Set(productsFr.map(p => p.category))];
+
+// 目录级采购 FAQ（同时输出 FAQPage JSON-LD）
+const faqs = [
+  { question: 'La gamme de produits de cette page est-elle votre catalogue complet ?', answer: 'Cette page répertorie plus de 43 modèles en stock répartis entre vannes, hydrants, vannes de réseaux de gicleurs, enrouleurs de flexible, extincteurs et canons d’eau. Notre gamme de production complète est plus large — si vous ne trouvez pas le modèle, la taille ou le matériau exact dont vous avez besoin, envoyez la demande et nos ingénieurs confirmeront la disponibilité et les équivalents adaptés.' },
+  { question: 'Quel est le MOQ pour les vannes et équipements de protection incendie ?', answer: 'Le MOQ standard est généralement de 20 unités par modèle pour les tailles en stock, avec des délais de production de 15 à 30 jours selon la quantité et la personnalisation. Des commandes d’échantillon sont disponibles pour les tests et approbations avant expédition.' },
+  { question: 'Les produits peuvent-ils être personnalisés pour les normes et raccordements export ?', answer: 'Oui. Les vannes et hydrants peuvent être fabriqués selon les normes GB, ANSI, DIN, JIS, BS ou EN avec raccordements à bride, à gorge, wafer ou filetés. Les matériaux, revêtements et certifications (UL/FM/CE sur les modèles applicables) peuvent être adaptés à la spécification de votre projet.' },
+  { question: 'Quelle documentation fournissez-vous avec une commande ?', answer: 'Chaque expédition inclut les documents commerciaux ainsi que des rapports d’essai par lot correspondant à la norme applicable. Les certificats ISO 9001, les certificats de matière et les rapports d’inspection par un tiers peuvent être organisés et mentionnés dans la commande.' },
+  { question: 'Comment demander un devis ?', answer: 'Utilisez le formulaire de demande sur la page contact et indiquez le modèle, la taille, la classe de pression, le type de raccordement, la quantité et la destination. Notre équipe commerciale et technique répond sous 12 heures avec les spécifications, les prix et le délai.' }
+];
+---
+
+<Layout locale="fr" title="Catalogue Produit | Vannes Industrielles & Équipements de Protection Incendie" description="Parcourez le catalogue B2B de Wanlian Fluid : plus de 43 modèles en stock de vannes industrielles, hydrants, gicleurs, enrouleurs et vannes hydrauliques. Tarifs sur demande.">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mb-20">
+    <div class="text-center mb-16 space-y-4">
+      <span class="text-xs font-bold tracking-widest text-blue-600 uppercase">Centre de Produits</span>
+      <h1 class="text-4xl font-black text-gray-900 tracking-tight">Notre Catalogue de Systèmes Fluides Premium</h1>
+      <p class="mt-4 text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+        Des composants haute performance conçus pour la fiabilité maximale, la durabilité et la sécurité sur les réseaux industriels.
+      </p>
+    </div>
+
+    <!-- Browse by System: 系统级页面入口 -->
+    <div class="flex flex-wrap justify-center items-center gap-2 mb-10">
+      <span class="text-[11px] font-black uppercase tracking-widest text-gray-400 mr-1">Parcourir par Système :</span>
+      <a href="/fr/fire-hydrant-systems/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Systèmes d’Hydrants</a>
+      <a href="/fr/fire-sprinkler-systems/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Systèmes de Gicleurs</a>
+      <a href="/fr/fire-water-cannon/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Canons d’Eau</a>
+      <a href="/fr/backflow-prevention/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Prévention du Reflux</a>
+      <a href="/fr/ul-fire-valves/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Vannes Incendie UL</a>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="flex flex-wrap justify-center gap-2 mb-12" id="filter-container">
+      {categories.map((category) => (
+        <button
+          data-category={category}
+          class="px-5 py-2.5 rounded-lg text-sm font-semibold tracking-wide border border-gray-200 text-gray-600 bg-white hover:border-blue-500 hover:text-blue-600 transition cursor-pointer filter-btn [&.active]:bg-blue-600 [&.active]:text-white [&.active]:border-blue-600"
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+
+    <!-- Products Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
+      {productsFr.map((product) => (
+        <div
+          data-product-category={product.category}
+          class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300 flex flex-col product-card"
+        >
+          <div class="aspect-square relative overflow-hidden bg-white">
+            <img
+              src={product.image}
+              alt={product.name}
+              loading="lazy"
+              class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+            />
+            <span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold tracking-widest bg-gray-900/90 text-white rounded-md uppercase">
+              {product.category}
+            </span>
+          </div>
+          <div class="p-6 flex-grow flex flex-col space-y-3">
+            <h2 class="text-lg font-bold text-gray-900 line-clamp-2 min-h-[3rem] group-hover:text-blue-600 transition">
+              {product.name}
+            </h2>
+            <p class="text-gray-500 text-xs line-clamp-3 leading-relaxed flex-grow">
+              {product.description}
+            </p>
+            <div class="pt-6 border-t border-gray-100 flex items-center justify-between gap-4">
+              <a
+                href={`/fr/products/${product.slug}/`}
+                class="text-blue-600 text-sm font-bold hover:text-blue-700 inline-flex items-center gap-1 group/btn"
+              >
+                Voir les Specs
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </a>
+              <a
+                href={`/fr/contact/?product=${encodeURIComponent(product.name)}`}
+                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition"
+              >
+                Consulter
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Catalog FAQ Section -->
+    <section class="mt-24 max-w-4xl mx-auto">
+      <h2 class="text-3xl font-black text-gray-900 mb-8 text-center">FAQ du Catalogue Produit</h2>
+      <div class="space-y-4">
+        {faqs.map(faq => (
+          <details class="group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+            <summary class="flex items-center justify-between cursor-pointer px-6 py-5 font-bold text-gray-900 hover:bg-gray-50 transition list-none">
+              <span>{faq.question}</span>
+              <svg class="w-5 h-5 text-gray-400 group-open:rotate-45 transition-transform flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <!-- Client-side filtering script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.product-card');
+
+      const applyFilter = (category) => {
+        buttons.forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === category));
+        cards.forEach(card => {
+          const cardCategory = card.getAttribute('data-product-category');
+          card.style.display = (category === 'Tous' || cardCategory === category) ? 'flex' : 'none';
+        });
+      };
+
+      // Set 'Tous' button as active initially
+      applyFilter('Tous');
+
+      // Support /fr/products/#category=xxx deep links (keeps URLs out of the indexable query string)
+      const hashMatch = window.location.hash.match(/^#category=(.+)$/);
+      if (hashMatch) {
+        const target = decodeURIComponent(hashMatch[1]);
+        if ([...buttons].some(b => b.getAttribute('data-category') === target)) {
+          applyFilter(target);
+        }
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          applyFilter(btn.getAttribute('data-category'));
+        });
+      });
+    });
+  </script>
+</Layout>

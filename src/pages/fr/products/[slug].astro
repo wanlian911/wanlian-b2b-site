@@ -1,0 +1,326 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { productsFr, productsFrBySlug } from '../../../utils/products.fr';
+
+export async function getStaticPaths() {
+  return Object.values(productsFrBySlug).map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+
+// FAQ génériques d'achat par catégorie
+const faqByCategory: Record<string, { question: string; answer: string }[]> = {
+  'Vannes et Pièces': [
+    { question: 'Quelles normes et types de raccordement sont disponibles pour les vannes Wanlian ?', answer: 'Les vannes Wanlian sont fabriquées selon les normes GB, ANSI, DIN et JIS sur demande. Les raccordements à bride, à gorge, wafer et filetés sont disponibles selon le modèle. Indiquez à nos ingénieurs votre DN/PN et le type de raccordement dans la demande, et nous confirmerons la configuration adaptée.' },
+    { question: 'Quels matériaux sont utilisés pour le corps et l’étanchéité de la vanne ?', answer: 'Les corps sont généralement en fonte ductile (QT450), fonte grise ou acier fondu/forgé selon le modèle. Les éléments d’étanchéité utilisent du caoutchouc EPDM ou NBR, et les tiges sont en acier inoxydable (2Cr13/304). Les options de matériaux peuvent être personnalisées pour des fluides et des plages de température spécifiques.' },
+    { question: 'Quel est le MOQ et le délai de livraison ?', answer: 'Le MOQ standard est généralement de 20 unités par modèle pour les tailles en stock, avec des délais de production de 15 à 30 jours selon la quantité et la personnalisation. Des commandes d’échantillon sont disponibles pour les tests avant expédition.' },
+    { question: 'Comment les vannes sont-elles testées avant expédition ?', answer: 'Chaque vanne est soumise à un essai de pression du corps et du siège à 100 % conformément à la norme applicable (p. ex. GB/T13927, EN 12266-1). Les rapports d’essai et l’inspection par un tiers peuvent être organisés sur demande.' }
+  ],
+  'Hydrants et Connexions de Pompe': [
+    { question: 'Quelles normes de raccordement de sortie sont disponibles pour les hydrants d’export ?', answer: 'Les raccordements de sortie courants incluent BS336 (Royaume-Uni/Commonwealth), NIST (Moyen-Orient), KWS (Allemagne) et des options de bride flexible. Nous pouvons fournir des hydrants avec le type de raccordement spécifié pour votre marché.' },
+    { question: 'Quelle classe de pression un hydrant municipal doit-il avoir ?', answer: 'Les hydrants municipaux standards sont classés PN16 (1.6 MPa), couvrant la plupart des réseaux d’eau urbains et industriels. Les zones industrielles en hauteur ou à forte demande peuvent exiger des hydrants PN25.' },
+    { question: 'Les hydrants Wanlian sont-ils disponibles avec une certification UL ou FM ?', answer: 'Oui, selon le modèle et le marché de destination. Contactez notre équipe commerciale avec la spécification de votre projet et la région cible afin que nous puissions sélectionner le bon package de certification.' },
+    { question: 'Les hydrants extérieurs ont-ils une protection antigel ?', answer: 'Les modèles tels que l’hydrant en colonne SS100 sont dotés d’un mécanisme de drainage antigel automatique pour les climats froids. Les variantes anti-collision (SSFT100) et intelligentes IoT (SS100ZN) sont également disponibles.' }
+  ],
+  "Gicleurs et Vannes d'Alarme": [
+    { question: 'Quelle est la différence entre une vanne d’alarme à mouillé et une vanne à déluge ?', answer: 'Une vanne d’alarme à mouillé (ZSFZ) maintient les canalisations de gicleurs remplies d’eau et déclenche l’alarme au passage de l’eau. Une vanne à déluge (ZSFM) reste fermée sous pression d’air ou d’eau et n’inonde le système que lorsqu’un signal de détection d’incendie l’ouvre — utilisée pour les zones à haut risque nécessitant un rejet d’eau important immédiat.' },
+    { question: 'Quelles normes respectent les composants des réseaux de gicleurs ?', answer: 'Les composants sont fabriqués et testés conformément à la série GB 5135 et, sur demande, à d’autres normes internationales. Confirmez la norme applicable à votre projet avec nos ingénieurs.' },
+    { question: 'Quelle est la pression de service des vannes d’alarme ?', answer: 'La pression de service standard est de 1.6 MPa avec une pression d’essai de 3.2 MPa. Les gammes de tailles couvrent généralement DN50 à DN300 selon le modèle.' },
+    { question: 'Les groupes de vannes d’alarme peuvent-ils s’intégrer à des systèmes de détection incendie existants ?', answer: 'Oui. Les vannes à déluge et à pré-action supportent les déclenchements à distance mécaniques, pneumatiques ou électriques (électrovanne DC24V) et peuvent être intégrés à la plupart des panneaux de contrôle d’alarme incendie.' }
+  ],
+  'Sécurité Hydraulique': [
+    { question: 'Les vannes de régulation hydraulique nécessitent-elles une alimentation électrique ?', answer: 'La plupart des vannes de régulation hydraulique (p. ex. la vanne de niveau F745X, le réducteur 500X) sont entièrement autopilotées par la pression de la tuyauterie et ne nécessitent aucune alimentation externe. Les modèles à commande électromagnétique tels que le GKZF-1 utilisent AC220V ou DC24V.' },
+    { question: 'Quelle est la plage de réglage de pression de la vanne 500X ?', answer: 'Le réducteur de pression 500X règle la pression aval de 0.1 MPa à 1.6 MPa et fonctionne avec des pressions d’entrée jusqu’à la classe nominale (PN10/PN16/PN25).' },
+    { question: 'Quels matériaux sont utilisés pour les applications eau potable ?', answer: 'Pour les réseaux d’eau de boisson, des modèles tels que le dispositif anti-retour HS41X utilisent des corps en fonte ductile avec joints EPDM et des parties internes en acier inoxydable, conformes aux exigences sanitaires GB/T17219.' },
+    { question: 'Comment le coup de bélier est-il évité dans les vannes hydrauliques ?', answer: 'Les vannes à commande pilote se ferment en douceur et lentement, ce qui évite les surpressions brutales. Les vannes à aiguille permettent de régler la vitesse de fermeture selon les conditions spécifiques de la tuyauterie.' }
+  ],
+  "Canons d'Incendie": [
+    { question: 'Quels débits et portées sont disponibles pour les canons d’eau anti-incendie ?', answer: 'Les canons manuels (série PS) couvrent 20 à 200 L/s avec des portées de 50 à 110 mètres. Les canons à suivi automatique (série ZDMS) offrent 5 à 30 L/s (sur mesure jusqu’à 150 L/s) avec un rayon de surveillance de 40 à 65 m.' },
+    { question: 'Comment le canon anti-incendie à suivi automatique détecte-t-il les feux ?', answer: 'Le canon ZDMS combine des capteurs infrarouges et ultraviolets pour détecter et suivre les flammes, puis vise et projette automatiquement l’eau. Il supporte la prise en main à distance manuelle via PC/application mobile ou une armoire centrale.' },
+    { question: 'Des versions anti-explosion sont-elles disponibles ?', answer: 'Oui, des options anti-explosion (p. ex. Exde II BT4 Gb) sont disponibles pour les environnements pétrochimiques et à risque.' },
+    { question: 'Quelle est la pression de service des canons ?', answer: 'Les canons manuels fonctionnent à 0.8–1.2 MPa et les canons à suivi automatique à 0.6–0.8 MPa. Confirmez la taille de la bride d’entrée (DN100/DN150/DN200) pour votre système.' }
+  ],
+  "Armoires d'Incendie et Interfaces": [
+    { question: 'Que comprend un jeu d’enrouleur de flexible anti-incendie ?', answer: 'Le jeu série JPS comprend un enrouleur à montage pivotant en acier carbone, un flexible plat PVC souple (20/25/30m) et une buse à pulvérisation en laiton/alliage supportant les modes jet droit et brouillard.' },
+    { question: 'Des armoires à mousse sont-elles disponibles pour les feux chimiques ?', answer: 'Oui. L’armoire à mousse PSG30 regroupe un réservoir de concentré de mousse, un proportionneur, un enrouleur de flexible et une buse à mousse dans une seule unité murale — efficace contre les feux de carburants, produits chimiques et solvants (classe B).' },
+    { question: 'Quelles normes de raccordement les adaptateurs de raccords de flexible supportent-ils ?', answer: 'Les adaptateurs série HS sont disponibles en DN50/DN65 avec des filetages internes compatibles avec les raccords anti-incendie internationaux, fabriqués selon GB12514 ou les normes d’usine.' },
+    { question: 'Quels matériaux sont utilisés pour les armoires et enrouleurs ?', answer: 'Les armoires et enrouleurs utilisent de l’acier carbone laminé à froid avec revêtement poudre rouge anticorrosion. Les buses et proportionneurs sont en laiton ou alliage d’aluminium anodisé.' }
+  ]
+};
+
+// Applications et normes d'essai par catégorie
+const categoryInfo: Record<string, { applications: string[]; testing: string }> = {
+  'Vannes et Pièces': {
+    applications: ['Approvisionnement et distribution d’eau', 'Réseaux d’eaux usées et d’assainissement', 'Canalisations de process industriel', 'Systèmes CVC'],
+    testing: 'Essai de pression du corps et du siège à 100 % selon GB/T13927 ou EN 12266-1 ; revêtement époxy testé pour la résistance à la corrosion.'
+  },
+  'Hydrants et Connexions de Pompe': {
+    applications: ['Réseaux de protection incendie municipaux', 'Sites industriels et d’entrepôts', 'Colonnes d’eau intérieures', 'Installations extérieures en climat froid'],
+    testing: 'Essai de pression hydrostatique (2.4 MPa typique) et essai de débit selon GB 4452 ou les normes export applicables.'
+  },
+  "Gicleurs et Vannes d'Alarme": {
+    applications: ['Systèmes de gicleurs automatiques', 'Bâtiments commerciaux et résidentiels', 'Entrepôts industriels', 'Systèmes de déluge et de pré-action à haut risque'],
+    testing: 'Essais de pression et d’étanchéité selon la série GB 5135 ; sensibilité d’alarme vérifiée par interrupteurs de débit et cloches d’alarme.'
+  },
+  'Sécurité Hydraulique': {
+    applications: ['Contrôle du niveau des réservoirs', 'Gestion de la pression des réseaux d’eau', 'Protection contre le reflux de l’eau potable', 'Protection de l’aspiration des pompes'],
+    testing: 'Essais fonctionnels et de pression selon les normes applicables ; ensembles membrane et joints testés pour la durabilité.'
+  },
+  "Canons d'Incendie": {
+    applications: ['Usines pétrochimiques et parcs de réservoirs', 'Aéroports et centres d’exposition', 'Grands entrepôts', 'Camions-pompe et lutte incendie maritime'],
+    testing: 'Essais de débit, de portée du jet et de rotation ; modèles anti-explosion vérifiés selon les normes Ex (optionnel).'
+  },
+  "Armoires d'Incendie et Interfaces": {
+    applications: ['Postes de lutte incendie intérieurs', 'Zones de stockage de produits chimiques et de carburants', 'Systèmes de flexible des bâtiments', 'Installations marines et offshore'],
+    testing: 'Essais de pression et fonctionnels des enrouleurs, buses et proportionneurs ; ratio d’expansion de la mousse vérifié par modèle.'
+  }
+};
+
+// FAQ produit prioritaire, sinon FAQ générique par catégorie
+const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
+const info = categoryInfo[product.category];
+const relatedProducts = productsFr.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 6);
+const catAnchor = encodeURIComponent(product.category);
+
+// Liens vers les guides d'achat par catégorie (pointent vers la version EN, ce site n'ayant pas encore de guides FR)
+const guideByCategory: Record<string, { href: string; title: string; description: string }[]> = {
+  'Vannes et Pièces': [
+    { href: '/guides/gate-valve-vs-butterfly-valve-fire-protection/', title: 'Vanne à Boisseau vs Vanne à Papillon pour la Protection Incendie', description: 'Étanchéité, débit, perte de charge et coût comparés pour choisir la bonne vanne d’isolement pour les conduites incendie et les réseaux d’eau.' },
+    { href: '/guides/check-valve-types-guide/', title: 'Types de Clapets Anti-Retour et Guide de Sélection', description: 'Bille glissante vs clapet oscillant — perte de charge, comportement à la fermeture et les applications où chaque type convient le mieux.' }
+  ],
+  'Hydrants et Connexions de Pompe': [
+    { href: '/guides/how-to-choose-a-fire-hydrant/', title: 'Comment Choisir un Hydrant', description: 'Intérieur vs extérieur, barillet sec vs mouillé, normes de sortie et classes de pression pour les projets municipaux et industriels.' },
+    { href: '/guides/fire-hydrant-valve-standards-guide/', title: 'Normes des Hydrants, Flexibles et Vannes : Explications', description: 'AWWA C502, NFPA 1961, EN 14384, BS 750 — quelle norme s’applique à votre commande et comment vérifier la conformité.' }
+  ],
+  "Gicleurs et Vannes d'Alarme": [
+    { href: '/guides/fire-sprinkler-control-valve-types/', title: 'Types de Vannes de Régulation des Réseaux de Gicleurs : OS&Y, Papillon et Anti-Retour', description: 'Le rôle de chaque vanne de régulation dans un réseau de gicleurs et comment les vannes OS&Y, à papillon et anti-retour fonctionnent ensemble.' },
+    { href: '/guides/fire-sprinkler-system-wet-dry-preaction/', title: 'Systèmes de Gicleurs : à Mouillé, à Sec ou à Pré-action ?', description: 'Comparez les configurations de systèmes de gicleurs à mouillé, à sec et à pré-action selon la classe de risque de votre bâtiment.' }
+  ],
+  'Sécurité Hydraulique': [
+    { href: '/guides/pressure-reducing-valve-guide/', title: 'Guide des Réducteurs de Pression : PRV Hydraulique 500X', description: 'Comment les réducteurs pilotés protègent les équipements aval, règlent la pression et préviennent le coup de bélier.' },
+    { href: '/guides/backflow-prevention-guide/', title: 'Guide de la Prévention du Reflux', description: 'Quand les réseaux d’eau potable nécessitent des ensembles à double clapet et comment le HS41X protège contre le reflux.' }
+  ],
+  "Canons d'Incendie": [
+    { href: '/guides/fire-water-monitor-selection-guide/', title: 'Sélection de Moniteur d’Eau : Manuel vs Suivi Automatique', description: 'Moniteurs manuels PS vs canons à suivi automatique ZDMS — débit, portée, contrôle et options anti-explosion.' },
+    { href: '/guides/fire-water-cannon-buying-guide/', title: 'Guide d’Achat des Canons d’Eau Anti-Incendie', description: 'Fixe, télécommandé ou intelligent ? Portée, débit et facteurs d’installation pour l’extinction des grands espaces.' }
+  ],
+  "Armoires d'Incendie et Interfaces": [
+    { href: '/guides/fire-hose-reel-cabinet-guide/', title: 'Guide de Sélection des Enrouleurs de Flexible et Armoires Anti-Incendie', description: 'Enrouleurs JPS0.8-19, armoires à mousse PSG30 et vannes d’hydrant SN65 — ce dont un poste de lutte incendie intérieur complet a besoin.' },
+    { href: '/guides/fire-extinguisher-selection-guide/', title: 'Guide d’Achat des Extincteurs : Poudre Sèche ABC', description: 'Couverture des classes A/B/C/E, classifications ISO 7165 et emballage export B2B pour les extincteurs portatifs.' }
+  ]
+};
+
+const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
+---
+
+<Layout
+  locale="fr"
+  title={product.seoTitle}
+  description={product.seoDescription}
+  productData={product}
+  type="product"
+  faq={faqs}
+  breadcrumbs={[{ name: 'Produits', href: '/fr/products/' }, { name: product.category, href: `/fr/products/#category=${catAnchor}` }, { name: product.name }]}
+>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mb-20">
+    <!-- Breadcrumbs -->
+    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-8 flex gap-2">
+      <a href="/fr/" class="hover:text-blue-600">Accueil</a>
+      <span>/</span>
+      <a href="/fr/products/" class="hover:text-blue-600">Produits</a>
+      <span>/</span>
+      <a href={`/fr/products/#category=${catAnchor}`} class="hover:text-blue-600">{product.category}</a>
+      <span>/</span>
+      <span class="text-gray-600">{product.name}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <!-- Product Image -->
+      <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+        <img
+          src={product.image}
+          alt={product.name}
+          class="w-full h-auto rounded-xl object-contain aspect-square"
+        />
+      </div>
+
+      <!-- Product Details -->
+      <div class="space-y-6">
+        <div>
+          <span class="text-blue-600 font-semibold uppercase tracking-wider text-sm">{product.category}</span>
+          <h1 class="text-4xl font-bold text-gray-900 mt-2">{product.name}</h1>
+        </div>
+
+        <p class="text-lg text-gray-600 leading-relaxed">
+          {product.description}
+        </p>
+
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold border-b pb-2">Points Clés</h2>
+          <ul class="grid grid-cols-1 gap-2">
+            {product.features.map(feature => (
+              <li class="flex items-start">
+                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-gray-700">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-gray-100 p-6 rounded-xl space-y-4">
+          <h2 class="text-xl font-bold">Caractéristiques Techniques</h2>
+          <dl class="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+            {Object.entries(product.specs).map(([key, value]) => (
+              <div class="border-b border-gray-200 py-2">
+                <dt class="text-sm font-medium text-gray-500">{key}</dt>
+                <dd class="mt-1 text-sm font-bold text-gray-900">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        {product.materials && (
+          <div class="bg-gray-50 p-6 rounded-xl border border-gray-200/60 space-y-4">
+            <h2 class="text-xl font-bold text-gray-900">Liste des Pièces et Matériaux</h2>
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+              {Object.entries(product.materials).map(([part, material]) => (
+                <div class="border-b border-gray-200/60 py-2 flex justify-between items-center text-sm">
+                  <dt class="font-medium text-gray-500">{part}</dt>
+                  <dd class="font-bold text-gray-900 text-right">{material}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )}
+
+        {product.dimensions && (
+          <div class="bg-white p-6 rounded-xl border border-gray-100 space-y-4 shadow-sm overflow-x-auto">
+            <h2 class="text-xl font-bold text-gray-900">Guide des Dimensions Standard</h2>
+            <table class="min-w-full divide-y divide-gray-200 text-sm">
+              <thead class="bg-gray-50">
+                <tr>
+                  {product.dimensions.headers.map(header => (
+                    <th class="px-3 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">{header}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                {product.dimensions.rows.map(row => (
+                  <tr class="hover:bg-gray-50/50">
+                    {row.map(cell => (
+                      <td class="px-3 py-3 text-gray-700 font-medium whitespace-nowrap">{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {info && (
+          <div class="space-y-4">
+            <div class="bg-blue-50/50 p-6 rounded-xl border border-blue-100/50">
+              <h2 class="text-xl font-bold text-gray-900 mb-3">Applications</h2>
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {info.applications.map(app => (
+                  <li class="flex items-start text-sm text-gray-700">
+                    <svg class="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {app}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200/60">
+              <h2 class="text-xl font-bold text-gray-900 mb-3">Qualité et Essais</h2>
+              <p class="text-sm text-gray-700 leading-relaxed">{info.testing}</p>
+            </div>
+          </div>
+        )}
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-6">
+          <a
+            href={`/fr/contact/?product=${encodeURIComponent(product.name)}`}
+            class="flex-1 text-center py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-600/20"
+          >
+            Demander un Devis
+          </a>
+          <a
+            href="/fr/contact/?product=Demande%20de%20Documentation%20Produit"
+            class="flex-1 text-center py-4 bg-white text-blue-600 font-bold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition"
+          >
+            Demander la Documentation Produit
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    {faqs.length > 0 && (
+      <section class="mt-20 max-w-4xl">
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Questions Fréquentes</h2>
+        <div class="space-y-4">
+          {faqs.map((faq, index) => (
+            <details class="group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer px-6 py-5 font-bold text-gray-900 hover:bg-gray-50 transition list-none">
+                <span>{faq.question}</span>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-45 transition-transform flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                {faq.answer}
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related Guides (backlinks GEO) -->
+    {relatedGuides.length > 0 && (
+      <section class="mt-20">
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Guides d’Achat Associés</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {relatedGuides.map(guide => (
+            <a href={guide.href} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-blue/30 transition p-6 flex flex-col">
+              <span class="text-[10px] font-bold text-brand-blue uppercase tracking-wider mb-2">Guide d’Achat</span>
+              <h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-blue transition leading-snug">{guide.title}</h3>
+              <p class="text-xs text-gray-500 leading-relaxed mt-2 flex-grow">{guide.description}</p>
+              <span class="mt-4 inline-flex items-center text-brand-red font-bold text-xs group-hover:gap-1 transition-all">
+                Lire le Guide
+                <svg class="w-3.5 h-3.5 ml-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related Products -->
+    {relatedProducts.length > 0 && (
+      <section class="mt-20">
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Produits Similaires</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {relatedProducts.map(related => (
+            <a href={`/fr/products/${related.slug}/`} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-blue/30 transition p-6 flex flex-col">
+              <img src={related.image} alt={related.name} class="w-full h-40 object-contain rounded-lg bg-gray-50 p-2 mb-4" loading="lazy" />
+              <span class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">{related.category}</span>
+              <h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-blue transition leading-snug">{related.name}</h3>
+              <span class="mt-4 inline-flex items-center text-brand-red font-bold text-xs group-hover:gap-1 transition-all">
+                Voir les Détails
+                <svg class="w-3.5 h-3.5 ml-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+  </main>
+</Layout>

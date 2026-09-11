@@ -96,7 +96,7 @@ const en: UIStrings = {
     inquireNow: 'Inquire Now',
     language: 'Language',
     tagline: 'Manufacturer & Exporter of Fluid Equipment',
-    languageLabel: { en: 'English', es: 'Español', ru: 'Русский' },
+    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français' },
   },
   footer: {
     companyName: 'WANLIAN FLUID',
@@ -197,7 +197,7 @@ const es: UIStrings = {
     inquireNow: 'Solicitar Cotización',
     language: 'Idioma',
     tagline: 'Fabricante y Exportador de Equipos de Fluidos',
-    languageLabel: { en: 'English', es: 'Español', ru: 'Русский' },
+    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français' },
   },
   footer: {
     companyName: 'WANLIAN FLUID',
@@ -298,7 +298,7 @@ const ru: UIStrings = {
     inquireNow: 'Запросить цену',
     language: 'Язык',
     tagline: 'Производитель и экспортёр оборудования для жидкостных систем',
-    languageLabel: { en: 'English', es: 'Español', ru: 'Русский' },
+    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français' },
   },
   footer: {
     companyName: 'WANLIAN FLUID',
@@ -384,7 +384,112 @@ const ru: UIStrings = {
   },
 };
 
-export const ui: Record<Locale, UIStrings> = { en, es, ru };
+const fr: UIStrings = {
+  nav: [
+    { name: 'Accueil', href: '/' },
+    { name: 'Produits', href: '/products/' },
+    { name: 'Applications', href: '/applications/' },
+    { name: 'Certificats', href: '/certificates/' },
+    { name: 'Blog', href: '/blog/' },
+    { name: 'À Propos', href: '/about/' },
+    { name: 'Contact', href: '/contact/' },
+  ],
+  header: {
+    alibabaStore: 'Boutique Alibaba',
+    inquireNow: 'Demander un Devis',
+    language: 'Langue',
+    tagline: 'Fabricant et Exportateur d\'Équipements Fluides',
+    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français' },
+  },
+  footer: {
+    companyName: 'WANLIAN FLUID',
+    companyDesc:
+      "Quanzhou Wanlian Fluid Equipment Co., Ltd. fabrique et exporte des vannes, des équipements de protection incendie, des produits de régulation hydraulique et des composants de systèmes fluides depuis ses propres lignes de production à Quanzhou, Fujian, certains articles étant fabriqués par des partenaires de fabrication qualifiés. Les corps de vanne sont usinés par CNC en interne et chaque unité est contrôlée par essai de pression du corps et d'étanchéité à l'air avant expédition, dans le cadre d'un système de management de la qualité ISO 9001.",
+    tagline: '"Flow Far, Link Global."',
+    quickLinksTitle: 'Liens Rapides',
+    quickLinks: [
+      { name: 'Accueil', href: '/' },
+      { name: "Centre de Produits", href: '/products/' },
+      { name: 'Applications', href: '/applications/' },
+      { name: 'À Propos', href: '/about/' },
+      { name: 'Blog', href: '/blog/' },
+      { name: 'Contact & Demande', href: '/contact/' },
+    ],
+    productSeriesTitle: 'Séries de Produits',
+    productSeries: [
+      { name: 'Vannes et Pièces', href: '/products/#category=Vannes%20et%20Pi%C3%A8ces' },
+      { name: 'Hydrants et Connexions de Pompe', href: '/products/#category=Hydrants%20et%20Connexions%20de%20Pompe' },
+      { name: "Gicleurs et Vannes d'Alarme", href: "/products/#category=Gicleurs%20et%20Vannes%20d'Alarme" },
+      { name: "Canons d'Incendie", href: "/products/#category=Canons%20d'Incendie" },
+    ],
+    solutionsTitle: 'Solutions Produit',
+    solutions: [
+      { name: 'Vannes Incendie Certifiées UL', href: '/ul-fire-valves/' },
+      { name: "Canon d'Incendie", href: '/fire-water-cannon/' },
+      { name: 'Systèmes de Gicleurs', href: '/fire-sprinkler-systems/' },
+    ],
+    contactTitle: 'Contact',
+    contact: {
+      emailLabel: 'E-mail :',
+      phoneLabel: 'Téléphone :',
+      addressLabel: 'Adresse :',
+      addressValue: 'Quanzhou, Fujian, Chine',
+    },
+    bottom: {
+      linkedin: 'LinkedIn',
+      alibaba: 'Boutique Alibaba',
+      blog: 'Blog',
+      privacy: 'Confidentialité',
+      terms: 'Conditions',
+      support: 'Support',
+    },
+    copyright: '© {year} Quanzhou Wanlian Fluid Equipment Co., Ltd. Tous droits réservés.',
+  },
+  whatsapp: {
+    ariaLabel: 'Contactez-nous sur WhatsApp',
+    tooltip: 'Contactez-nous',
+    defaultMessage:
+      "Bonjour, je suis intéressé par vos vannes et votre équipement de protection incendie.",
+  },
+  inquiry: {
+    fullName: 'Nom complet *',
+    email: 'Adresse e-mail *',
+    company: 'Nom de la société',
+    country: 'Pays/Région *',
+    countryPlaceholder: 'Sélectionner le pays/région',
+    product: "Produit d'intérêt",
+    message: 'Message et exigences spécifiques *',
+    messagePlaceholder:
+      "Veuillez décrire vos exigences, la quantité et toute personnalisation nécessaire...",
+    send: 'Envoyer la Demande',
+    sending: 'Envoi...',
+    verifyRequired: "Veuillez d'abord effectuer la vérification avant d'envoyer.",
+    submitFailed:
+      "L'envoi a échoué. Veuillez réessayer ou nous contacter via WhatsApp.",
+    successTitle: 'Demande envoyée avec succès !',
+    successBody:
+      "Merci pour votre demande. Notre équipe commerciale et technique examinera vos exigences et vous répondra sous 12 heures.",
+    successWhatsappHint:
+      'Préférez-vous le chat instantané ? Contactez-nous directement sur WhatsApp :',
+    chatWhatsapp: 'Discuter sur WhatsApp',
+    sendAnother: '← Envoyer une autre demande',
+    waFollowupMessage:
+      "Bonjour, je viens de soumettre une demande sur wanlian911.com et souhaiterais un suivi rapide.",
+  },
+  notFound: {
+    title: '404 - Page Introuvable | Wanlian Fluid Equipment',
+    description:
+      "La page que vous recherchez est introuvable. Découvrez les vannes industrielles et l'équipement de protection incendie de Wanlian Fluid.",
+    heading: 'Page Introuvable',
+    body:
+      "La page que vous recherchez a peut-être été déplacée, renommée ou n'existe plus. Découvrez plutôt notre catalogue certifié de vannes et de protection incendie.",
+    backHome: "Retour à l'Accueil",
+    browseProducts: 'Voir les Produits',
+    contactUs: 'Contactez-nous',
+  },
+};
+
+export const ui: Record<Locale, UIStrings> = { en, es, ru, fr };
 
 /** 按语言取字典；缺省回退 en（保证接口容错）。 */
 export function t(locale: Locale): UIStrings {
