@@ -1,0 +1,75 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { glossaryTerms, GLOSSARY_CATEGORIES, type GlossaryTerm } from '../../../utils/glossary';
+
+const categoryLabel: Record<GlossaryTerm['category'], string> = {
+  'Valves': 'Válvulas',
+  'Fire Hydrants': 'Hidrantes Contra Incendios',
+  'Sprinklers': 'Rociadores',
+  'Fire Hose': 'Manguera Contra Incendios',
+  'Certification & Standards': 'Certificación y Normas',
+  'Testing & Procurement': 'Pruebas y Abastecimiento'
+};
+
+const grouped = GLOSSARY_CATEGORIES.map(cat => ({
+  cat,
+  label: categoryLabel[cat],
+  terms: glossaryTerms.filter(t => t.category === cat)
+})).filter(g => g.terms.length > 0);
+---
+
+<Layout
+  title="Glosario de la Industria de Válvulas y Protección Contra Incendios — Términos Clave | Wanlian Fluid"
+  description="Definiciones técnicas de los términos clave en abastecimiento de válvulas, hidrantes, rociadores y mangueras: RSGV, AWWA C502/C515, UL, FM, factor K, preacción, reflujo, PN/ANSI, Storz y más."
+  type="website"
+  locale="es"
+  breadcrumbs={[{ name: 'Glosario' }]}
+>
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+      <a href="/es/" class="hover:text-blue-600">Inicio</a>
+      <span>/</span>
+      <span class="text-gray-600">Glosario</span>
+    </nav>
+
+    <article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+      <p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Referencia</p>
+      <h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Glosario de la Industria de Válvulas y Protección Contra Incendios</h1>
+      <p class="mt-5 text-gray-600 leading-relaxed text-lg">Definiciones claras y basadas en normas de los términos que aparecen en especificaciones, licitaciones y fichas técnicas del abastecimiento de válvulas, hidrantes, rociadores y mangueras contra incendios. Úselo como vocabulario común al especificar productos, leer la documentación de un fabricante o verificar el cumplimiento — cada entrada enlaza a nuestra guía detallada sobre ese tema.</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-8">
+        {grouped.map(g => (
+          <a href={`#${g.cat.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} class="px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-xs font-bold text-brand-blue hover:bg-brand-blue/10 transition text-center">{g.label}</a>
+        ))}
+      </div>
+
+      {grouped.map(g => (
+        <section class="mt-12">
+          <h2 id={g.cat.toLowerCase().replace(/[^a-z0-9]+/g, '-')} class="text-2xl font-black text-gray-900 mb-5 tracking-tight scroll-mt-24">{g.label}</h2>
+          <div class="space-y-4">
+            {g.terms.map(t => (
+              <div class="bg-gray-50 rounded-xl border border-gray-100 p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 class="text-lg font-black text-gray-900">{t.termEs}</h3>
+                  <a href={`/es${t.href}`} class="text-xs font-bold text-brand-red hover:underline">Leer la guía →</a>
+                </div>
+                <p class="mt-2 text-gray-700 leading-relaxed text-sm">{t.definitionEs}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <div class="mt-12 rounded-2xl overflow-hidden">
+        <div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+          <h2 class="text-2xl font-black text-white tracking-tight">¿Listo para Especificar o Abastecer Estos Componentes?</h2>
+          <p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíenos su especificación, cantidades y destino — le responderemos con una cotización detallada en un plazo de 12 horas.</p>
+          <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+            <a href="/es/contact/?product=Glosario%20y%20Especificacion" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+            <a href="https://wa.me/8618684324501?text=Hola%2C%20tengo%20una%20especificacion%20y%20quisiera%20una%20cotizacion%20de%20valvulas%20%2F%20hidrantes" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+</Layout>

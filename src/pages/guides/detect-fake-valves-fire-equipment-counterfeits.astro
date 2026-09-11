@@ -1,0 +1,246 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'why-counterfeits-concentrate', label: '1. Why Counterfeits Concentrate in This Category' },
+	{ id: 'common-forms-of-fakes', label: '2. The Common Forms of Fakes' },
+	{ id: 'detection-checklist', label: '3. A Seven-Step Detection Checklist' },
+	{ id: 'red-flags-table', label: '4. Real vs. Fake at a Glance: Red Flags Table' },
+	{ id: 'how-wanlian-operates', label: '5. How Wanlian Fluid Operates: Process Evidence' },
+	{ id: 'pre-order-workflow', label: '6. Pre-Order Verification Workflow' },
+	{ id: 'faq', label: 'Frequently Asked Questions' },
+	{ id: 'sources', label: 'Sources' }
+];
+
+const faq = [
+	{
+		question: 'Is a much lower quote a reliable sign of a fake product?',
+		answer: 'It is a screening signal, not proof. Compliant ductile-iron castings, pressure testing and export documentation have real cost floors, so a price far below the market deserves verification. But some quotes are also simply for a lesser specification. Compare the standard, material grade and test requirements on each quote before judging the gap.'
+	},
+	{
+		question: 'How do I verify a UL or FM certificate before ordering a fire valve?',
+		answer: "Request the exact certificate or listing number for the model you are quoted, then verify it independently at the issuing body's official portal. Confirm the listed product, model and factory match your supplier. Until you have checked, treat any certificate image in an email as unverified."
+	},
+	{
+		question: 'What should per-unit test records actually contain?',
+		answer: 'At minimum: the unit serial number, test date, shell pressure test result and air-leakage result, and the operator or inspector identification. The serial numbers should reconcile with the packing list, the nameplate and the export documents. A report that only covers a \'batch\' with no unit identifiers is a red flag.'
+	},
+	{
+		question: 'Do I need third-party inspection on my first order?',
+		answer: 'For safety-critical fire equipment we strongly recommend it, at least on the first order. An independent agency such as SGS or Bureau Veritas can witness testing, check materials and review records at the factory. The fee is a small fraction of a container\'s value and far cheaper than one failed unit.'
+	},
+	{
+		question: 'What can Wanlian send before I pay?',
+		answer: 'Wanlian Fluid can provide its ISO 9001 certificate for verification with the issuing body, mill test certificates for the casting grade, a serial-numbered pressure and air-leakage test video for a sample unit, and its standard export documentation set. Specific standard compliance (for example AWWA or NFPA) is confirmed per model with test reports and certificates before ordering.'
+	},
+	{
+		question: 'What do I do if I discover a counterfeit unit in a received shipment?',
+		answer: 'Stop commissioning the affected equipment, photograph the unit with its nameplate and serial number, and preserve all test records and documentation. File a formal non-conformance claim with the supplier, request traceability documents, and involve your third-party inspector or contracting authority. For critical systems, isolate the affected section until replacement units are verified.'
+	}
+];
+
+const productRows = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Resilient Seat Flanged Gate Valve (Z41X)', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'Full-bore resilient-seat gate valve for fire pipelines and water mains' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Overground Fire Hydrant (SS100)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Antifreeze overground hydrant for municipal fire networks' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Fire Hose, Rubber Lining (Model 8-65)', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Layflat hose with polyester jacket and vulcanized rubber lining' }
+];
+---
+
+<Layout
+	title="How to Detect Fake Valves &amp; Counterfeit Fire Equipment Certificates (2026 Buyer Guide)"
+	description="Procurement buyer guide to fake valves, counterfeit certificates and cloned fire equipment from China: detection checklist, red flags, supplier verification."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Detecting Counterfeits' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Detecting Counterfeits</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Procurement Risk Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">How to Detect Fake Valves &amp; Counterfeit Fire Equipment Certificates (2026 Buyer Guide)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Buyers of fire valves, hydrants and hoses from China regularly face counterfeit castings, cloned nameplates and forged certificates. A fake unit will not show itself in the photos or the price list — it reveals itself through physical inspection, per-unit test records and documentation you can check independently. This guide gives you the exact signals, a step-by-step detection checklist and a pre-order verification workflow you can attach to any purchase order.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Why this guide exists:</strong> counterfeit fire equipment is not a hypothetical risk — cloned serials, copied nameplates and forged certification PDFs are the standard playbook of non-compliant suppliers in safety-critical categories. This page turns that risk into a written detection process you can run against any Chinese supplier, including Wanlian Fluid, before you pay.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="why-counterfeits-concentrate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Why Counterfeits Concentrate in This Category</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Three properties of fire and water infrastructure make it a favorite target for counterfeits:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Fire equipment is safety-critical.</strong> A compliant valve or hydrant must survive a full-bore pressure event exactly when there is no time to replace it. That is precisely what non-compliant castings cannot do.</li>
+				<li><strong>Procurement is high-volume and specification-driven.</strong> Municipal tenders and building projects buy large quantities at competitive prices, and the paperwork — certificates, test records — travels with the PO. Forged paperwork lets a non-compliant product enter a legitimate bid.</li>
+				<li><strong>The equipment only &quot;fails&quot; during an emergency.</strong> A thin-wall hydrant body or an under-tested gate valve may look perfect in a warehouse for years. The defect surfaces under pressure, at night, with lives and property on the line.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">The real driver is the price gap. Compliant ductile-iron castings, resin-bonded or rubber encapsulation, per-unit pressure testing and export documentation all have real cost floors. A forged certificate lets a non-compliant product price itself below them, and the buyer — comparing quotes on paper — cannot see the difference.</p>
+			<p class="text-gray-700 leading-relaxed">Once you have been shown a fake certificate once, you cannot judge any supplier by documents alone. The practical answer is to verify the physical unit, its per-unit test records and independently checkable documentation. The next sections define exactly what to look for.</p>
+
+			<h2 id="common-forms-of-fakes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. The Common Forms of Fakes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Counterfeit fire equipment in this category takes a short list of recurring forms. Learn these six and you will catch most of the risk:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Cloned serial numbers.</strong> The same serial on multiple units, serials that follow a visible pattern, or serials copied from published catalog images. A genuine manufacturer issues unique serials that reconcile with casting records and the packing list.</li>
+				<li><strong>Copied nameplates.</strong> A nameplate bearing a brand you do not actually buy from, a defunct brand name, or a nameplate whose standard, size and pressure rating do not match the PO. Markings are permanent on compliant product — a nameplate that looks stuck on, or inconsistent, is a screening failure.</li>
+				<li><strong>Non-conforming material and thin-wall castings.</strong> Wrong alloy, recycled scrap, or walls cast below the dimensional tolerances of the standard. Such bodies pass visual inspection and fail the shell pressure test — or, worse, pass it at the factory and fail in service.</li>
+				<li><strong>Missing or generic test records.</strong> No per-unit records at all, or a single &quot;batch report&quot; covering hundreds of units with no serial numbers, dates or test values.</li>
+				<li><strong>Forged certification PDFs.</strong> UL, FM or AWWA documents produced in a word processor: wrong font, generic company name, dates that predate the product line, or certificate numbers that do not exist at the issuing body.</li>
+				<li><strong>Fire hose substitutions.</strong> A genuine attack hose combines a high-strength polyester jacket with a vulcanized rubber lining that is bubble-tight. Counterfeits cut corners on the lining or jacket so the hose looks right in the warehouse and leaks or delaminates at working pressure.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">None of these forms is visible in a catalog photo. All of them are visible in test records, material certificates and a short video of the unit on the test bench — which is why the checklist below demands exactly those items.</p>
+
+			<h2 id="detection-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. A Seven-Step Detection Checklist</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Run these seven steps on every shortlisted supplier. Steps 1–2 are company-level; steps 3–7 are unit-level. A supplier that resists any of them has answered the question.</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Verify the company first.</strong> Legal name on the business license, matching bank account and invoicing entity. A video walkthrough of production, testing and packing areas on request. If the &quot;factory&quot; cannot be shown, you are dealing with a trading desk — possibly with second-hand castings and fresh nameplates.</li>
+				<li><strong>Demand per-unit test records.</strong> Every valve and hydrant you order should carry a shell pressure test result and an air-leakage test result against its own serial number. Ask the supplier to send the records for a sample unit before payment — a genuine manufacturer keeps them; a faker cannot produce them.</li>
+				<li><strong>Verify certificates at the issuing body&rsquo;s official portal.</strong> For UL listing or FM approval, verify the number at the issuing body&rsquo;s official portal (for example, the UL product directory or FM Global&rsquo;s approval search) and confirm the listed model and factory match your supplier. For AWWA, verify the certificate or registration number with AWWA. If the number does not resolve, the PDF is a forgery no matter how clean it looks.</li>
+				<li><strong>Order a sample first.</strong> One unit of each model, with its serial number, nameplate photo and full documentation. Run the whole checklist on the sample — markings, material certificate, test video, records — before committing to volume. This is the cheapest counterfeit insurance available.</li>
+				<li><strong>Ask for material certificates (mill test certificates).</strong> The casting grade on the MTC must match the grade on your drawing. A supplier who cannot produce an MTC for the exact material you specified is not making the product you are buying.</li>
+				<li><strong>Watch the dimensional and pressure-test video.</strong> Request a short video of the specific sample unit on the pressure test bench with its serial number visible. A genuine manufacturer records these as routine; a supplier who cannot produce one is not pressure-testing the units you are buying.</li>
+				<li><strong>Do a factory audit or third-party inspection.</strong> Visit if your volume justifies it; otherwise appoint an independent agency (SGS, Bureau Veritas, Intertek or a reputable local firm) to witness testing, check castings and review records before shipment.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed mb-4">Apply the checklist to the actual products on your shortlist — for example our <a href="/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM resilient seat OS&amp;Y gate valve</a>, <a href="/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">SS100 overground fire hydrant</a>, <a href="/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X resilient seat flanged gate valve</a> or <a href="/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">8-65 rubber-lined layflat fire hose</a> — with per-model test records, not generic quality statements.</p>
+			<p class="text-gray-700 leading-relaxed">For the broader supplier-qualification framework (legal entity, export track record, references), see our <a href="/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">guide to verifying a Chinese valve supplier</a>. For the full documentation and inspection list to write into your PO, see the <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a>.</p>
+
+			<h2 id="red-flags-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Real vs. Fake at a Glance: Red Flags Table</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The same verification request produces very different responses from a legitimate manufacturer and a counterfeiter. The table below is the fastest triage tool in this guide:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Signal</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What a real supplier provides</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What a fake shows</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Company documents</td>
+							<td class="px-4 py-3 text-gray-700">Business license, invoicing entity and bank account all match; video walkthrough on request</td>
+							<td class="px-4 py-3 text-gray-700">Name mismatches, personal bank accounts, refusal to show production</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Per-unit test records</td>
+							<td class="px-4 py-3 text-gray-700">Serial-numbered shell pressure and air-leakage results with dates and operator</td>
+							<td class="px-4 py-3 text-gray-700">&quot;Batch report&quot; only, no serials, no dates, or records that do not reconcile with the packing list</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">UL / FM / AWWA certificates</td>
+							<td class="px-4 py-3 text-gray-700">Certificate resolves at the issuing body&rsquo;s official portal for the exact model and factory</td>
+							<td class="px-4 py-3 text-gray-700">PDF that does not resolve, wrong company name, dates that predate the product, generic logo</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Material proof</td>
+							<td class="px-4 py-3 text-gray-700">Mill test certificate matching the casting grade on the drawing</td>
+							<td class="px-4 py-3 text-gray-700">No MTC, or an MTC for a different grade or a different factory</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pressure-test video</td>
+							<td class="px-4 py-3 text-gray-700">Serial-numbered unit on the test bench, recorded and shared on request</td>
+							<td class="px-4 py-3 text-gray-700">Stock or looping footage, no serial visible, &quot;the test bench is busy today&quot;</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Nameplate and marking</td>
+							<td class="px-4 py-3 text-gray-700">Standard number, size, pressure rating, maker identity and unique serial — permanent and consistent</td>
+							<td class="px-4 py-3 text-gray-700">Copied brand name, repeated serials, ratings that do not match the PO</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sample order</td>
+							<td class="px-4 py-3 text-gray-700">Accepted as routine, with full documentation for the sample unit</td>
+							<td class="px-4 py-3 text-gray-700">Resistance, extra charges, or a sample that differs from production goods</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Price position</td>
+							<td class="px-4 py-3 text-gray-700">At or above the cost floor for compliant material and 100% testing</td>
+							<td class="px-4 py-3 text-gray-700">Far below market for the same standard — the gap paid for in wall thickness and skipped tests</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Two or more &quot;fake&quot; responses on one supplier should end the evaluation. One &quot;real&quot; gap that the supplier closes within a day (for example, sending a missing MTC) is normal; a gap that produces excuses is a verdict.</p>
+
+			<h2 id="how-wanlian-operates" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. How Wanlian Fluid Operates: Process Evidence</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">If Wanlian Fluid is on your shortlist, here is the process evidence you should expect from us — stated as what we do, not as certification claims:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>ISO 9001 quality-management system.</strong> Our production in Quanzhou, Fujian runs under an ISO 9001 system; ask for the certificate number and verify it with the issuing body, as you would with any supplier.</li>
+				<li><strong>In-house CNC-machined valve bodies.</strong> Valve bodies are CNC-machined in our own Quanzhou plant; selected items are produced by qualified manufacturing partners, and the production location is documented on the order.</li>
+				<li><strong>100% shell pressure and air-leakage testing.</strong> Every unit — every valve, hydrant and hose — is shell pressure-tested and air-leakage tested before shipment. We can send a serial-numbered test video for a sample unit, and per-unit records travel with the shipment.</li>
+				<li><strong>Fire hose construction.</strong> Our fire hose combines a high-strength polyester jacket with a vulcanized rubber lining, built to be bubble-tight — the exact construction the counterfeit section above is trying to imitate.</li>
+				<li><strong>Standard compliance, confirmed per model.</strong> Compliance with a specific standard (AWWA, NFPA, UL listing, FM approval, NOM or others) is confirmed per model with test reports and certificates before ordering — we do not ask you to assume a factory-wide certificate.</li>
+				<li><strong>Export documentation.</strong> Commercial invoice, packing list, bill of lading, certificate of origin and per-lot test reports accompany shipments; OEM/ODM, custom branding and export packaging are coordinated with the order, with a quote-response commitment of 12 hours.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">That list is also your test: send us the seven-step checklist and watch how quickly each item comes back. If you are comparing us with Western manufacturers on qualification, see <a href="/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">how to choose UL-listed fire valves</a> and <a href="/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">certification requirements for fire valves in Latin American projects</a>.</p>
+
+			<h2 id="pre-order-workflow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Pre-Order Verification Workflow</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The detection process above becomes a workflow once you attach it to the purchase order. Five stages, in order:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Define the standard in writing.</strong> The standard your project requires (for example AWWA C502 for dry-barrel hydrants, AWWA C515 for resilient-seated gate valves, NFPA 1961 for fire hose) and the full documentation list — per-unit test records, MTC, export documents. Put both in the PO so compliance is contractual, not requested.</li>
+				<li><strong>Shortlist and verify at company level.</strong> Legal entity, ISO 9001 scope, product certificates resolved at the issuing body&rsquo;s portal. Drop any supplier that fails a verification step here.</li>
+				<li><strong>Sample order.</strong> One unit per model. Run the full checklist on the sample: nameplate, serial, MTC, pressure-test video, per-unit records.</li>
+				<li><strong>Third-party inspection.</strong> Appoint an independent agency to witness testing and review records at the factory before the production run ships. Write the inspection clause into the PO.</li>
+				<li><strong>Document pack, then release.</strong> Before final payment: complete export documents, per-unit test records for the serial numbers on the packing list, and the test video for a sample unit of the production batch. Only then release the order.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">This workflow applies to any supplier — including Wanlian Fluid. Run at the start of the evaluation, it takes days, not months, and it is the single most effective counterfeit filter in fire-equipment procurement.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Sources -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Sources</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>UL — product directory and listing verification: <a href="https://www.ul.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ul.com</a></li>
+				<li>FM Global — approval verification: <a href="https://www.fmglobal.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">fmglobal.com</a></li>
+				<li>AWWA — hydrant and valve standards (e.g. AWWA C502, C515): <a href="https://www.awwa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">awwa.org</a></li>
+				<li>NFPA — fire-protection and fire-hose standards (e.g. NFPA 1961): <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+				<li>ISO — quality-management and valve standards (ISO 9001, ISO 5208): <a href="https://www.iso.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">iso.org</a></li>
+				<li>Wanlian Fluid — company profile and testing policy: <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">Verification requirements vary by destination market and project specification — always confirm the applicable standard and inspection regime with your contracting authority before placing orders. Information current as of September 2026.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Verifying Fire Equipment from a Chinese Supplier?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send us your specification and destination — we reply with an itemized quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Verify%20fake%20valves%20%26%20counterfeit%20fire%20equipment" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20to%20verify%20fire%20valves%20and%20hydrants%20before%20ordering%20%E2%80%94%20please%20send%20certificates%2C%20per-unit%20test%20records%20and%20a%20pressure-test%20video" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

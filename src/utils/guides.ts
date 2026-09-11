@@ -225,5 +225,41 @@ export const guides: Guide[] = [
     category: 'Fire Protection',
     readTime: '8 min read',
     tags: ['fire-protection', 'fire-hydrant']
+  },
+  {
+    title: 'Municipal Water & Fire Infrastructure in Latin America: A B2B Procurement Guide (2026)',
+    description: 'Procuring fire hydrants, gate valves and fire hose for municipal water & fire infrastructure across Latin America: regional standards regimes, one-PO packages, spec documentation and a selection matrix.',
+    href: '/guides/municipal-water-fire-infrastructure-latinamerica/',
+    date: '2026-09',
+    category: 'Procurement',
+    readTime: '8 min read',
+    tags: ['procurement', 'fire-hydrant', 'industrial-valves']
+  },
+  {
+    title: 'Certification Requirements for Fire Valves & Hydrants in Latin American Projects (2026)',
+    description: 'What UL, FM, AWWA, NOM and ABNT mean in a Latin American fire tender, how they are granted per model, how to verify genuine certificates and the per-model documentation to request.',
+    href: '/guides/latinamerica-certification-requirements-fire-valves/',
+    date: '2026-09',
+    category: 'Procurement',
+    readTime: '8 min read',
+    tags: ['certification', 'procurement', 'industrial-valves']
+  },
+  {
+    title: 'How to Detect Fake Valves & Counterfeit Fire Equipment Certificates (2026 Buyer Guide)',
+    description: 'A seven-step detection checklist and red-flags table to spot cloned serials, copied nameplates, thin-wall castings and forged UL/FM/AWWA certificates when sourcing fire equipment from China.',
+    href: '/guides/detect-fake-valves-fire-equipment-counterfeits/',
+    date: '2026-09',
+    category: 'Procurement',
+    readTime: '8 min read',
+    tags: ['procurement', 'certification']
+  },
+  {
+    title: 'Wanlian Fluid vs AVK Latinoamérica: Fire Valve & Hydrant Supplier for LatAm Projects (2026)',
+    description: 'Wanlian Fluid vs AVK Latinoamérica (AVK Válvulas, Tarragona): distribution footprint, product range, one-PO kits, OEM, cost structure and lead time — and how to choose for your LatAm project.',
+    href: '/guides/wanlian-fluid-vs-avk-latinamerica/',
+    date: '2026-09',
+    category: 'Procurement',
+    readTime: '9 min read',
+    tags: ['procurement', 'fire-hydrant', 'industrial-valves']
   }
 ];

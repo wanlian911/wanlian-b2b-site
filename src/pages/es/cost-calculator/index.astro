@@ -1,0 +1,249 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const faq = [
+  {
+    question: '¿Por qué esta herramienta muestra un índice y no un precio?',
+    answer: 'Wanlian Fluid cotiza bajo consulta, por lo que no publicamos precios unitarios. El índice de planificación es un número relativo (línea base: 100 = un hidrante, EXW, destino Asia oriental) que le permite comparar configuraciones y ver qué palancas —volumen, Incoterm y destino— mueven su costo de destino. Es solo para planificar; su cotización real detallada llega por consulta en 12 horas.'
+  },
+  {
+    question: '¿Qué hacen los niveles de cantidad con el índice?',
+    answer: 'El modelo aplica un factor de eficiencia por unidades totales: 1–9 (Muestra) ×1.00, 10–99 (Lote) ×0.90, 100–999 (Grande) ×0.82 y 1,000+ (Proyecto) ×0.75. A mayor volumen, menor índice unitario de planificación, reflejando economías de producción y logística.'
+  },
+  {
+    question: '¿Cuánto influyen el Incoterm y el destino en el resultado?',
+    answer: 'El Incoterm añade un factor de logística (EXW ×1.00, FOB ×1.05, CIF ×1.15, DDP ×1.25) y el destino añade un factor de distancia/complexidad (Asia oriental ×1.00 hasta Norteamérica ×1.30). Juntos suelen desplazar el índice entre 10 y 50% frente a la línea base EXW Asia oriental.'
+  },
+  {
+    question: '¿Un paquete en una sola orden (válvulas + hidrantes + manguera) cambia algo?',
+    answer: 'Sí. Consolidar válvulas, hidrantes y manguera bajo un solo fabricante y una sola orden de compra elimina los márgenes de varios proveedores, el flete separado y el riesgo de coordinación. Ingrese cada línea en la herramienta para ver el índice combinado frente a pedir cada ítem a un proveedor distinto.'
+  }
+];
+---
+
+<Layout
+  title="Calculadora de Costos de Adquisición de Válvulas e Hidrantes — Herramienta de Costo Relativo | Wanlian Fluid"
+  description="Herramienta interactiva para estimar el índice de costo de destino relativo de válvulas, hidrantes y mangueras contra incendios según nivel de cantidad, Incoterm y destino. Sin precios fijos — solicite una cotización detallada en 12 h."
+  type="website"
+  locale="es"
+  faq={faq}
+  breadcrumbs={[{ name: 'Recursos' }, { name: 'Calculadora de Costos' }]}
+>
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+      <a href="/es/" class="hover:text-blue-600">Inicio</a>
+      <span>/</span>
+      <span class="text-gray-600">Calculadora de Costos</span>
+    </nav>
+
+    <article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+      <p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Herramienta Interactiva</p>
+      <h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Calculadora de Costos de Adquisición de Válvulas e Hidrantes Contra Incendios</h1>
+      <p class="mt-5 text-gray-600 leading-relaxed text-lg">Estime el <strong>índice de costo de destino relativo</strong> de un paquete de protección contra incendios o infraestructura de agua ajustando cantidades, términos comerciales y destino. Esto es un modelo de planificación, no una lista de precios — Wanlian Fluid cotiza bajo consulta, por lo que la salida es un índice comparable que muestra cómo el volumen, el Incoterm y la región mueven su costo. Úselo para definir su especificación antes de solicitar una cotización formal.</p>
+
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 my-6">
+        <p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-red">Cómo leer el índice:</strong> línea base 100 = un hidrante contra incendios, EXW, destino Asia oriental. El índice es relativo y solo para planificar. Los multiplicadores mostrados son las suposiciones del modelo — su precio real detallado depende del modelo exacto, tamaño, material, norma y cantidad, y se proporciona por consulta en 12 horas.</p>
+      </div>
+
+      <!-- ESTIMATOR -->
+      <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 my-6">
+        <h2 class="text-lg font-black text-gray-900 mb-4">1 · Configure su paquete</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="line-items">
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Hidrantes (SS100)</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="100" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Válvulas de compuerta (Z41X)</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="70" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Válvulas de alarma de rociadores</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="120" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Manguera contra incendios (8-65, por 20 m)</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="25" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Dispositivos anti-retorno</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="60" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Extintores</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="20" />
+          </label>
+        </div>
+
+        <h2 class="text-lg font-black text-gray-900 mt-6 mb-4">2 · Términos comerciales y destino</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <label class="block">
+            <span class="text-sm font-semibold text-gray-800">Incoterm</span>
+            <select id="incoterm" class="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white">
+              <option value="1.00">EXW (ex-obra, China)</option>
+              <option value="1.05">FOB (puerto de China)</option>
+              <option value="1.15" selected>CIF (su puerto)</option>
+              <option value="1.25">DDP (entregado, derechos pagados)</option>
+            </select>
+          </label>
+          <label class="block">
+            <span class="text-sm font-semibold text-gray-800">Región de destino</span>
+            <select id="region" class="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white">
+              <option value="1.00">Asia oriental</option>
+              <option value="1.10">Medio Oriente</option>
+              <option value="1.15">África</option>
+              <option value="1.20" selected>América Latina</option>
+              <option value="1.25">Europa</option>
+              <option value="1.30">Norteamérica</option>
+            </select>
+          </label>
+        </div>
+
+        <button id="estimate" type="button" class="mt-6 w-full sm:w-auto px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Estimar Índice de Planificación</button>
+      </div>
+
+      <!-- OUTPUT -->
+      <div id="result" class="hidden rounded-2xl border border-brand-blue/30 bg-brand-blue/5 p-6 sm:p-8 my-6">
+        <p class="text-xs font-black uppercase tracking-widest text-brand-blue mb-2">Su índice de planificación</p>
+        <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+          <span id="index-value" class="text-5xl font-black text-gray-900">–</span>
+          <span id="band-label" class="text-lg font-bold text-brand-blue">–</span>
+        </div>
+        <p class="mt-3 text-sm text-gray-600"><span id="tier-label" class="font-semibold text-gray-800">–</span> · <span id="units-label">–</span> unidades · <span id="incoterm-label">–</span> · <span id="region-label">–</span></p>
+        <ul id="drivers" class="mt-4 list-disc pl-6 text-sm text-gray-700 leading-relaxed space-y-1"></ul>
+        <div class="mt-5 rounded-xl bg-white border border-gray-100 p-4">
+          <p class="text-sm font-semibold text-gray-900 mb-2">Siguiente paso: conviértalo en una cotización real</p>
+          <p class="text-sm text-gray-600 mb-4">Este índice es solo para planificar. Envíe la misma especificación a nuestro equipo y reciba una cotización detallada por unidad con registros de prueba — en 12 horas.</p>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="/es/contact/?product=Calculadora%20de%20Costos%20y%20Cotizacion" class="px-6 py-3 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition text-center">Solicitar Cotización Detallada</a>
+            <a href="https://wa.me/8618684324501?text=Hola%2C%20us%C3%A9%20su%20calculadora%20de%20costos%20y%20quisiera%20una%20cotizaci%C3%B3n%20detallada" class="px-6 py-3 bg-white border border-brand-blue text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition text-center" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Citable driver model -->
+      <h2 id="driver-model" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Los Conductos de Costo Detrás del Índice</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">La estimadora es transparente en sus suposiciones, para que pueda citirlas en un presupuesto o licitación. Cuatro factores mueven el índice de costo de destino relativo; cada uno es un multiplicador aplicado a la línea base del paquete.</p>
+      <div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Factor</th>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Niveles</th>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Efecto sobre el índice</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Cantidad / volumen</td><td class="px-4 py-3 text-gray-700">Muestra (1–9) · Lote (10–99) · Grande (100–999) · Proyecto (1,000+)</td><td class="px-4 py-3 text-gray-700">×1.00 hasta ×0.75 — la eficiencia unitaria sube con el volumen</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Incoterm</td><td class="px-4 py-3 text-gray-700">EXW · FOB · CIF · DDP</td><td class="px-4 py-3 text-gray-700">×1.00 a ×1.25 — flete, seguro y responsabilidad de aduana</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Región de destino</td><td class="px-4 py-3 text-gray-700">Asia oriental → Norteamérica</td><td class="px-4 py-3 text-gray-700">×1.00 a ×1.30 — distancia y complejidad logística</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Consolidación del paquete</td><td class="px-4 py-3 text-gray-700">Una sola orden (válvulas + hidrantes + manguera) vs multi-proveedor</td><td class="px-4 py-3 text-gray-700">Elimina márgenes duplicados, flete y riesgo de coordinación</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-gray-700 leading-relaxed">En este modelo, pasar de muestra a volumen grande reduce el índice unitario de planificación en aproximadamente 10–25%; los términos CIF añaden cerca de 10–20% sobre FOB por flete marítimo y seguro; y los destinos en América Latina o Europa añaden alrededor de 15–30% sobre Asia oriental por complejidad logística. Estas son las suposiciones explícitas detrás de cada cifra que la herramienta emite.</p>
+
+      <!-- Citable supplier comparison matrix -->
+      <h2 id="supplier-matrix" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Comparación Citable: Fabricante Chino vs Distribuidor Regional Occidental</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">Una matriz cualitativa y equilibrada de las dos rutas comunes de abastecimiento de válvulas, hidrantes y manguera fuera de Norteamérica. Úsela como punto de referencia al informar a su equipo o licitar un proyecto.</p>
+      <div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Factor</th>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Fabricante chino (p. ej., Wanlian Fluid)</th>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Gran distribuidor regional occidental</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Origen de fabricación</td><td class="px-4 py-3 text-gray-700">Directo desde líneas de producción de China</td><td class="px-4 py-3 text-gray-700">Almacén regional / producto del grupo</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Paquete completo en una sola orden</td><td class="px-4 py-3 text-gray-700">Sí — consolidado bajo un solo fabricante</td><td class="px-4 py-3 text-gray-700">A menudo solo gama central; manguera vía partners</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">OEM / marca personalizada</td><td class="px-4 py-3 text-gray-700">Servicio OEM/ODM estándar</td><td class="px-4 py-3 text-gray-700">Típicamente solo marca propia</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Prueba de presión y fuga al 100%</td><td class="px-4 py-3 text-gray-700">Por unidad, con registros</td><td class="px-4 py-3 text-gray-700">Según la política de QC del fabricante</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Estructura de precio</td><td class="px-4 py-3 text-gray-700">Bajo consulta; costo favorable a la exportación</td><td class="px-4 py-3 text-gray-700">Lista/catálogo; incluye margen regional</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Plazo de entrega (ítems en stock)</td><td class="px-4 py-3 text-gray-700">Modelos en stock se envían rápido; OEM según programa</td><td class="px-4 py-3 text-gray-700">Stock local, entrega regional rápida</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Mejor ajuste</td><td class="px-4 py-3 text-gray-700">Proyectos internacionales que consolidan alcance, OEM y costo de destino</td><td class="px-4 py-3 text-gray-700">Compradores que priorizan stock local y presencia de marca</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-gray-700 leading-relaxed mb-2">Para una mirada más profunda a los dos entes de AVK específicamente, vea nuestras comparaciones <a href="/es/guides/wanlian-fluid-vs-avk-latinamerica/" class="text-brand-blue font-semibold hover:underline">Wanlian vs AVK Latinoamérica</a> y <a href="/es/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian vs American AVK</a>. Para las normas detrás de cualquier especificación, consulte el <a href="/es/glossary/" class="text-brand-blue font-semibold hover:underline">glosario de la industria</a>.</p>
+
+      <!-- FAQ -->
+      <h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+      <div class="space-y-4">
+        {faq.map(item => (
+          <details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+            <summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+              <span>{item.question}</span>
+              <span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+          </details>
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-12 rounded-2xl overflow-hidden">
+        <div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+          <h2 class="text-2xl font-black text-white tracking-tight">Vea Su Precio Real y Detallado</h2>
+          <p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">El índice es un plan — la cotización es la decisión. Envíe su especificación y destino y reciba un precio detallado por unidad con registros de prueba en 12 horas.</p>
+          <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+            <a href="/es/contact/?product=Cotizacion%20Detallada" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+            <a href="https://wa.me/8618684324501?text=Hola%2C%20quisiera%20una%20cotizaci%C3%B3n%20detallada%20de%20v%C3%A1lvulas%2C%20hidrantes%20y%20mangueras%20contra%20incendios" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+</Layout>
+
+<script>
+  const tierLabel = (u) => u < 10 ? 'Muestra' : u < 100 ? 'Lote' : u < 1000 ? 'Grande' : 'Proyecto';
+  const tierMult = (u) => u < 10 ? 1.0 : u < 100 ? 0.9 : u < 1000 ? 0.82 : 0.75;
+  const band = (i) => i < 150 ? 'Básico / inicial' : i < 500 ? 'Orden estándar' : i < 1500 ? 'Paquete integral' : i < 5000 ? 'Proyecto grande' : 'Alcance a nivel de programa';
+
+  function estimate() {
+    const inputs = [...document.querySelectorAll('.qty')];
+    let base = 0; let units = 0;
+    for (const inp of inputs) {
+      const q = Math.max(0, parseInt(inp.value || '0', 10));
+      const idx = parseFloat(inp.dataset.index || '0');
+      base += q * idx; units += q;
+    }
+    if (units === 0) {
+      document.getElementById('result').classList.remove('hidden');
+      document.getElementById('index-value').textContent = '0';
+      document.getElementById('band-label').textContent = 'sin ítems seleccionados';
+      document.getElementById('tier-label').textContent = 'Muestra';
+      document.getElementById('units-label').textContent = '0';
+      const d = document.getElementById('drivers'); d.innerHTML = '<li>Agregue al menos una línea para ver el índice de planificación y sus conductos de costo.</li>';
+      return;
+    }
+    const incoterm = document.getElementById('incoterm');
+    const region = document.getElementById('region');
+    const incMult = parseFloat(incoterm.value);
+    const regMult = parseFloat(region.value);
+    const tMult = tierMult(units);
+    const index = Math.round(base * tMult * incMult * regMult);
+    const tLabel = tierLabel(units);
+
+    document.getElementById('index-value').textContent = String(index);
+    document.getElementById('band-label').textContent = band(index);
+    document.getElementById('tier-label').textContent = tLabel;
+    document.getElementById('units-label').textContent = String(units);
+    document.getElementById('incoterm-label').textContent = incoterm.options[incoterm.selectedIndex].text.split(' (')[0];
+    document.getElementById('region-label').textContent = region.options[region.selectedIndex].text;
+
+    const drivers = [
+      `Línea base del paquete (índices de costo unitario × cantidades): ${base}.`,
+      `Nivel de volumen “${tLabel}” (${units} unidades) multiplica por ${tMult.toFixed(2)} — ${units >= 100 ? 'la eficiencia por volumen baja el índice unitario.' : 'dimensionamiento de muestra/lote.'}`,
+      `Términos ${incoterm.options[incoterm.selectedIndex].text.split(' (')[0]} multiplican por ${incMult.toFixed(2)} por la responsabilidad de flete/seguro.`,
+      `Destino ${region.options[region.selectedIndex].text} multiplica por ${regMult.toFixed(2)} por distancia y complejidad logística.`,
+      'El índice relativo es solo para planificar — solicite la cotización detallada para el precio real.'
+    ];
+    document.getElementById('drivers').innerHTML = drivers.map(x => `<li>${x}</li>`).join('');
+    document.getElementById('result').classList.remove('hidden');
+    document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  document.getElementById('estimate').addEventListener('click', estimate);
+</script>

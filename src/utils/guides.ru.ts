@@ -221,5 +221,41 @@ export const guidesRu: Guide[] = [
     category: 'Противопожарная защита',
     readTime: readTime('8'),
     tags: ['fire-hydrant', 'fire-protection']
+  },
+  {
+    title: 'Муниципальная водная и противопожарная инфраструктура в Латинской Америке: руководство по B2B-закупкам (2026)',
+    description: 'Покупка гидрантов, задвижек и пожарных рукавов для муниципальной инфраструктуры Латинской Америки: региональные режимы норм, пакеты в одном заказе, спецификация и матрица выбора.',
+    href: '/ru/guides/municipal-water-fire-infrastructure-latinamerica/',
+    date: '2026-09',
+    category: 'Закупки B2B',
+    readTime: readTime('8'),
+    tags: ['procurement', 'fire-hydrant', 'industrial-valves']
+  },
+  {
+    title: 'Требования сертификации противопожарных клапанов и гидрантов в проектах Латинской Америки (2026)',
+    description: 'Что означают UL, FM, AWWA, NOM и ABNT в латиноамериканских тендерах, как они выдаются по моделям, как проверить подлинные сертификаты и какую документацию запросить.',
+    href: '/ru/guides/latinamerica-certification-requirements-fire-valves/',
+    date: '2026-09',
+    category: 'Закупки B2B',
+    readTime: readTime('8'),
+    tags: ['certification', 'procurement', 'industrial-valves']
+  },
+  {
+    title: 'Как обнаружить поддельные клапаны и подделанные сертификаты противопожарного оборудования (2026)',
+    description: 'Чек-лист из семи шагов и таблица тревожных признаков: клонированные серийные номера, скопированные таблички, тонкостенные отливки и поддельные сертификаты UL/FM/AWWA при закупке в Китае.',
+    href: '/ru/guides/detect-fake-valves-fire-equipment-counterfeits/',
+    date: '2026-09',
+    category: 'Закупки B2B',
+    readTime: readTime('8'),
+    tags: ['procurement', 'certification']
+  },
+  {
+    title: 'Wanlian Fluid против AVK Latinoamérica: поставщик клапанов и гидрантов для латиноамериканских проектов (2026)',
+    description: 'Wanlian Fluid против AVK Latinoamérica (AVK Válvulas, Таррагона): сеть дистрибуции, ассортимент, пакеты в одном заказе, OEM, структура затрат и сроки — как выбрать для вашего проекта.',
+    href: '/ru/guides/wanlian-fluid-vs-avk-latinamerica/',
+    date: '2026-09',
+    category: 'Закупки B2B',
+    readTime: readTime('9'),
+    tags: ['procurement', 'fire-hydrant', 'industrial-valves']
   }
 ];

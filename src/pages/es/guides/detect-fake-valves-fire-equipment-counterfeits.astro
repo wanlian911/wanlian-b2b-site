@@ -1,0 +1,247 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'por-que-los-falsos-se-concentran', label: '1. Por qué los falsificados se concentran en esta categoría' },
+	{ id: 'formas-comunes-de-falsos', label: '2. Las formas comunes de los falsos' },
+	{ id: 'checklist-de-deteccion', label: '3. Un checklist de detección en siete pasos' },
+	{ id: 'tabla-señales', label: '4. Real vs. falso de un vistazo: tabla de señales' },
+	{ id: 'como-opera-wanlian', label: '5. Cómo opera Wanlian Fluid: evidencia de proceso' },
+	{ id: 'flujo-pre-pedido', label: '6. Flujo de verificación antes de pedir' },
+	{ id: 'faq', label: 'Preguntas frecuentes' },
+	{ id: 'fuentes', label: 'Fuentes' }
+];
+
+const faq = [
+	{
+		question: '¿Una cotización mucho más baja es una señal fiable de que el producto es falso?',
+		answer: 'Es una señal de tamiz, no una prueba. Las fundiciones de hierro dúctil conformes, las pruebas de presión y la documentación de exportación tienen pisos de costo reales, así que un precio muy por debajo del mercado merece verificación. Pero algunas cotizaciones simplemente corresponden a una especificación inferior. Compare la norma, la calificación del material y los requisitos de prueba de cada cotización antes de juzgar la brecha.'
+	},
+	{
+		question: '¿Cómo verifico un certificado UL o FM antes de pedir una válvula contra incendios?',
+		answer: 'Solicite el número exacto de certificado o listado del modelo que le cotizan y verifíquelo de forma independiente en el portal oficial del organismo emisor. Confirme que el producto listado, el modelo y la fábrica coincidan con su proveedor. Hasta que usted lo compruebe, trate cualquier imagen de certificado enviada por correo como no verificada.'
+	},
+	{
+		question: '¿Qué deben contener realmente los registros de prueba por unidad?',
+		answer: 'Como mínimo: el número de serie de la unidad, la fecha de prueba, el resultado de la prueba de presión del cuerpo y el resultado de la prueba de fuga de aire, y la identificación del operario o inspector. Los números de serie deben cuadrar con la lista de empaque, la placa de identificación y los documentos de exportación. Un informe que solo cubre un \'lote\' sin identificadores por unidad es una señal de alerta.'
+	},
+	{
+		question: '¿Necesito inspección de terceros en mi primer pedido?',
+		answer: 'Para equipos de seguridad contra incendios la recomendamos firmemente, al menos en el primer pedido. Una agencia independiente como SGS o Bureau Veritas puede presenciar las pruebas, revisar los materiales y auditar los registros en la fábrica. La tarifa es una pequeña fracción del valor de un contenedor y resulta mucho más barata que una unidad defectuosa.'
+	},
+	{
+		question: '¿Qué puede enviarme Wanlian antes de pagar?',
+		answer: 'Wanlian Fluid puede proporcionar su certificado ISO 9001 para verificarlo ante el organismo emisor, certificados de prueba de molino (MTC) para la calificación de la fundición, un video de prueba de presión y fuga de aire con número de serie de una unidad de muestra, y su conjunto estándar de documentación de exportación. El cumplimiento de una norma específica (por ejemplo, AWWA o NFPA) se confirma por modelo con informes de prueba y certificados antes de pedir.'
+	},
+	{
+		question: '¿Qué hago si descubro una unidad falsificada en un embarque recibido?',
+		answer: 'Deje de poner en servicio el equipo afectado, fotografíe la unidad con su placa y número de serie, y conserve todos los registros de prueba y documentos. Presente una reclamación formal de no conformidad al proveedor, solicite los documentos de trazabilidad e involucre a su inspector de terceros o a la autoridad contratante. Para sistemas críticos, aísle la sección afectada hasta que se verifiquen las unidades de reemplazo.'
+	}
+];
+
+const productRows = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Válvula de Compuerta con Brida y Asiento Elástico (Z41X)', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'Válvula de compuerta de paso total para líneas contra incendios y tuberías de agua' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hidrante Exterior Contra Incendios (SS100)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Hidrante exterior anticongelante para redes municipales contra incendios' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Manguera Contra Incendios con Revestimiento de Caucho (Modelo 8-65)', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Manguera plana con funda de poliéster de alta resistencia y revestimiento de caucho vulcanizado' }
+];
+---
+
+<Layout
+	title="Cómo detectar válvulas falsas y certificados contrahechos de equipo contra incendios (Guía de compra 2026)"
+	description="Guía de compras para detectar válvulas falsas, certificados contrahechos y equipo contra incendios de China: checklist de detección y verificación de proveedor."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Detección de falsificaciones' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Miga de pan -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Detección de falsificaciones</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de riesgo de abastecimiento</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Cómo detectar válvulas falsas y certificados contrahechos de equipo contra incendios (Guía de compra 2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Los compradores de válvulas, hidrantes y mangueras contra incendios de China se topan con frecuencia con fundiciones falsificadas, placas copiadas y certificados falsos. Una unidad falsa no se delata en las fotos ni en la lista de precios: se revela mediante inspección física, registros de prueba por unidad y documentación que usted puede comprobar de forma independiente. Esta guía le da las señales exactas, un checklist de detección paso a paso y un flujo de verificación previa al pedido que puede adjuntar a cualquier orden de compra.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Por qué existe esta guía:</strong> el equipo contra incendios falsificado no es un riesgo hipotético — los números de serie clonados, las placas copiadas y los PDF de certificación falsos son el manual estándar de los proveedores no conformes en categorías de seguridad crítica. Esta página convierte ese riesgo en un proceso de detección por escrito que puede aplicar contra cualquier proveedor chino, incluido Wanlian Fluid, antes de pagar.</p>
+			</div>
+
+			<!-- Franja de productos -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="por-que-los-falsos-se-concentran" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Por qué los falsificados se concentran en esta categoría</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Tres propiedades de las infraestructuras contra incendios y de agua las convierten en objetivo favorito de los falsificadores:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>El equipo contra incendios es de seguridad crítica.</strong> Una válvula o un hidrante conformes deben soportar un evento a presión plena exactamente cuando no hay tiempo para reemplazarlo. Eso es precisamente lo que una fundición no conforme no puede hacer.</li>
+				<li><strong>La compra es de alto volumen y por especificación.</strong> Los licitadores municipales y los proyectos de edificación compran grandes cantidades a precios competitivos, y la documentación —certificados, registros de prueba— viaja con la orden de compra. Un papel falso permite que un producto no conforme entre en una licitación legítima.</li>
+				<li><strong>El equipo solo «falla» durante una emergencia.</strong> Un cuerpo de hidrante de pared delgada o una válvula de compuerta mal probada pueden parecer perfectos en un almacén durante años. El defecto aparece bajo presión, de noche, con vidas y bienes en juego.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">El motor real es la brecha de precio. Las fundiciones de hierro dúctil conformes, el encapsulado de resina o caucho, la prueba de presión por unidad y la documentación de exportación tienen pisos de costo reales. Un certificado falso permite que un producto no conforme se posicione por debajo de esos pisos, y el comprador —que compara cotizaciones en papel— no ve la diferencia.</p>
+			<p class="text-gray-700 leading-relaxed">Una vez que le han mostrado un certificado falso, ya no puede juzgar a ningún proveedor solo por documentos. La respuesta práctica es verificar la unidad física, sus registros de prueba por unidad y la documentación verificable de forma independiente. Las siguientes secciones definen exactamente qué buscar.</p>
+
+			<h2 id="formas-comunes-de-falsos" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Las formas comunes de los falsos</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El equipo contra incendios falsificado en esta categoría toma un corto listado de formas recurrentes. Aprenderlas le permite detectar la mayor parte del riesgo:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Números de serie clonados.</strong> El mismo número de serie en varias unidades, series que siguen un patrón visible, o series copiadas de imágenes de catálogos publicados. Un fabricante genuino emite números de serie únicos que cuadran con los registros de fundición y con la lista de empaque.</li>
+				<li><strong>Placas de identificación copiadas.</strong> Una placa con una marca de la que usted no compra realmente, una marca que ya no existe, o una placa cuya norma, tamaño y clase de presión no coinciden con la orden de compra. En un producto conforme el marcado es permanente: una placa que parece pegada o inconsistente es un criterio de rechazo en la selección.</li>
+				<li><strong>Material no conforme y fundiciones de pared delgada.</strong> Aleación equivocada, chatarra reciclada, o paredes fundidas por debajo de las tolerancias dimensionales de la norma. Esos cuerpos pasan la inspección visual y fracasan en la prueba de presión del cuerpo —o, peor, la pasan en la fábrica y fallan en servicio.</li>
+				<li><strong>Registros de prueba ausentes o genéricos.</strong> Nada de registros por unidad, o un único «informe de lote» que cubre cientos de unidades sin números de serie, fechas ni valores de prueba.</li>
+				<li><strong>PDF de certificación falsificados.</strong> Documentos UL, FM o AWWA elaborados en un procesador de texto: fuente equivocada, nombre genérico de empresa, fechas anteriores a la línea de producto, o números de certificado que no existen en el organismo emisor.</li>
+				<li><strong>Sustituciones en mangueras contra incendios.</strong> Una manguera de ataque genuina combina una funda de poliéster de alta resistencia con un revestimiento de caucho vulcanizado que es hermético a burbujas. Los falsificados recortan el revestimiento o la funda, de modo que la manguera se ve bien en el almacén y gotea o se delamina a presión de trabajo.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Ninguna de estas formas es visible en una foto de catálogo. Todas lo son en los registros de prueba, los certificados de material y un breve video de la unidad en el banco de pruebas — por eso el checklist siguiente exige exactamente esos elementos.</p>
+
+			<h2 id="checklist-de-deteccion" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Un checklist de detección en siete pasos</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Aplique estos siete pasos a cada proveedor preseleccionado. Los pasos 1 a 2 son a nivel de empresa; los pasos 3 a 7, a nivel de unidad. Un proveedor que se resiste a cualquiera de ellos ya respondió a la pregunta.</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Verifique primero la empresa.</strong> Nombre legal en la licencia comercial, cuenta bancaria y entidad que facturan, todo coincidente. Un recorrido en video por las áreas de producción, prueba y embalaje a pedido. Si la «fábrica» no se puede mostrar, está tratando con un escritorio comercial —posiblemente con fundiciones de segunda mano y placas nuevas.</li>
+				<li><strong>Exija registros de prueba por unidad.</strong> Cada válvula y cada hidrante que pida debe llevar un resultado de prueba de presión del cuerpo y de prueba de fuga de aire contra su propio número de serie. Pida al proveedor que le envíe los registros de una unidad de muestra antes del pago: un fabricante genuino los guarda; un falsificador no puede producirlos.</li>
+				<li><strong>Verifique los certificados en el portal oficial del organismo emisor.</strong> Para un listado UL o una aprobación FM, verifique el número en el portal oficial del organismo (por ejemplo, el directorio de productos UL o la búsqueda de aprobaciones de FM Global) y confirme que el modelo y la fábrica listados coinciden con su proveedor. Para AWWA, verifique el número de certificado o de registro con AWWA. Si el número no resuelve, el PDF es un falso por muy limpio que se vea.</li>
+				<li><strong>Pida una muestra primero.</strong> Una unidad de cada modelo, con su número de serie, foto de la placa y documentación completa. Aplique el checklist entero a la muestra —marcado, certificado de material, video de prueba, registros— antes de comprometerse con volumen. Este es el seguro contra falsificaciones más barato disponible.</li>
+				<li><strong>Solicite certificados de material (certificados de prueba de molino, MTC).</strong> La calificación de la fundición en el MTC debe coincidir con la calificación de su plano. Un proveedor que no puede producir un MTC para el material exacto que especificó no está fabricando el producto que usted está comprando.</li>
+				<li><strong>Mire el video de prueba dimensional y de presión.</strong> Solicite un breve video de la unidad de muestra específica en el banco de pruebas de presión, con su número de serie visible. Un fabricante genuino graba estos como rutina; un proveedor que no puede producir uno no está probando por presión las unidades que usted está comprando.</li>
+				<li><strong>Realice una auditoría de fábrica o una inspección de terceros.</strong> Visite si su volumen lo justifica; en caso contrario, designe a una agencia independiente (SGS, Bureau Veritas, Intertek o una firma local de buena reputación) para presenciar las pruebas, revisar fundiciones y auditar registros antes del embarque.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed mb-4">Aplique el checklist a los productos reales de su lista corta —por ejemplo nuestra <a href="/es/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">válvula de compuerta de asiento elástico OS&amp;Y UL/FM</a>, el <a href="/es/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">hidrante exterior SS100</a>, la <a href="/es/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">válvula de compuerta con brida y asiento elástico Z41X</a> o la <a href="/es/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">manguera plana con revestimiento de caucho 8-65</a>— con registros de prueba por modelo, no declaraciones genéricas de calidad.</p>
+			<p class="text-gray-700 leading-relaxed">Para el marco más amplio de calificación de proveedores (entidad legal, historial de exportación, referencias), consulte nuestra <a href="/es/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">guía para verificar a un proveedor chino de válvulas</a>. Para la lista completa de documentación e inspección que debe escribir en su OC, vea la <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de verificación de abastecimiento de válvulas B2B</a>.</p>
+
+			<h2 id="tabla-señales" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Real vs. falso de un vistazo: tabla de señales</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La misma solicitud de verificación produce respuestas muy distintas de un fabricante legítimo y de un falsificador. La tabla siguiente es la herramienta de triaje más rápida de esta guía:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Señal</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Lo que un proveedor real entrega</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Lo que un falso muestra</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Documentos de la empresa</td>
+							<td class="px-4 py-3 text-gray-700">Licencia comercial, entidad que factura y cuenta bancaria coinciden; recorrido en video a pedido</td>
+							<td class="px-4 py-3 text-gray-700">Nombres que no coinciden, cuentas bancarias personales, negativa a mostrar producción</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Registros de prueba por unidad</td>
+							<td class="px-4 py-3 text-gray-700">Resultados de presión del cuerpo y fuga de aire con número de serie, fechas y operario</td>
+							<td class="px-4 py-3 text-gray-700">Solo un «informe de lote», sin series ni fechas, o registros que no cuadran con la lista de empaque</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Certificados UL / FM / AWWA</td>
+							<td class="px-4 py-3 text-gray-700">El certificado resuelve en el portal oficial del organismo para el modelo y la fábrica exactos</td>
+							<td class="px-4 py-3 text-gray-700">PDF que no resuelve, nombre de empresa equivocado, fechas anteriores al producto, logotipo genérico</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Prueba del material</td>
+							<td class="px-4 py-3 text-gray-700">Certificado de molino (MTC) que coincide con la calificación de fundición del plano</td>
+							<td class="px-4 py-3 text-gray-700">Sin MTC, o un MTC de otra calificación u otra fábrica</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Video de prueba de presión</td>
+							<td class="px-4 py-3 text-gray-700">Unidad con número de serie en el banco de pruebas, grabada y compartida a pedido</td>
+							<td class="px-4 py-3 text-gray-700">Imágenes genéricas o en bucle, sin serie visible, «el banco de pruebas está ocupado hoy»</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Placa y marcado</td>
+							<td class="px-4 py-3 text-gray-700">Número de norma, tamaño, clase de presión, identidad del fabricante y serie única —permanente y consistente</td>
+							<td class="px-4 py-3 text-gray-700">Marca copiada, series repetidas, clases de presión que no coinciden con la OC</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pedido de muestra</td>
+							<td class="px-4 py-3 text-gray-700">Aceptado como rutina, con documentación completa de la unidad de muestra</td>
+							<td class="px-4 py-3 text-gray-700">Resistencia, cargos extra, o una muestra que difiere de las unidades de producción</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Posición de precio</td>
+							<td class="px-4 py-3 text-gray-700">En o por encima del piso de costo para material conforme y prueba al 100 %</td>
+							<td class="px-4 py-3 text-gray-700">Muy por debajo del mercado por la misma norma —la brecha se paga en espesor de pared y pruebas omitidas</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Dos o más respuestas de «falso» de un proveedor deberían terminar la evaluación. Una sola brecha de «real» que el proveedor cierra en un día (por ejemplo, enviando un MTC que faltaba) es normal; una brecha que produce excusas es una sentencia.</p>
+
+			<h2 id="como-opera-wanlian" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Cómo opera Wanlian Fluid: evidencia de proceso</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Si Wanlian Fluid está en su lista corta, esta es la evidencia de proceso que debería esperar de nosotros —expresada como lo que hacemos, no como declaraciones de certificación:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Sistema de gestión de calidad ISO 9001.</strong> Nuestra producción en Quanzhou, Fujian, opera bajo un sistema ISO 9001; solicite el número de certificado y verifíquelo ante el organismo emisor, como lo haría con cualquier proveedor.</li>
+				<li><strong>Cuerpos de válvula mecanizados por CNC en la propia planta.</strong> Los cuerpos de válvula se mecanizan por CNC en nuestra planta de Quanzhou; los artículos seleccionados se producen con socios de fabricación cualificados, y el lugar de producción se documenta en el pedido.</li>
+				<li><strong>Prueba de presión del cuerpo y de fuga de aire al 100 %.</strong> Cada unidad —cada válvula, hidrante y manguera— se prueba por presión del cuerpo y por fuga de aire antes del embarque. Podemos enviar un video de prueba con número de serie de una unidad de muestra, y los registros por unidad viajan con el embarque.</li>
+				<li><strong>Construcción de la manguera contra incendios.</strong> Nuestra manguera combina una funda de poliéster de alta resistencia con un revestimiento de caucho vulcanizado, fabricada para ser hermética a burbujas —exactamente la construcción que la sección de falsificaciones anterior intenta imitar.</li>
+				<li><strong>Cumplimiento de norma, confirmado por modelo.</strong> El cumplimiento de una norma específica (AWWA, NFPA, listado UL, aprobación FM, NOM u otras) se confirma por modelo con informes de prueba y certificados antes de pedir; no le pedimos que asuma un certificado de fábrica.</li>
+				<li><strong>Documentación de exportación.</strong> La factura comercial, la lista de empaque, el conocimiento de embarque, el certificado de origen y los informes de prueba por lote acompañan los embarques; el OEM/ODM, el marcado personalizado y el embalaje de exportación se coordinan con el pedido, con un compromiso de respuesta de cotización de 12 horas.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Esa lista es también su prueba: envíenos el checklist de siete pasos y observe la velocidad con que le llega cada elemento. Si nos está comparando con fabricantes occidentales por calificación, consulte <a href="/es/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">cómo elegir válvulas contra incendios listadas UL</a> y <a href="/es/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">requisitos de certificación para válvulas contra incendios en proyectos de América Latina</a>.</p>
+
+			<h2 id="flujo-pre-pedido" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Flujo de verificación antes de pedir</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El proceso de detección anterior se convierte en un flujo cuando lo ata a la orden de compra. Cinco etapas, en orden:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Defina la norma por escrito.</strong> La norma que exige su proyecto (por ejemplo, AWWA C502 para hidrantes de barril seco, AWWA C515 para válvulas de compuerta de asiento elástico, NFPA 1961 para manguera contra incendios) y el listado completo de documentación —registros de prueba por unidad, MTC, documentos de exportación. Incluya ambos en la OC para que el cumplimiento sea contractual, no solicitado.</li>
+				<li><strong>Se preselecciona y se verifica a nivel de empresa.</strong> Entidad legal, alcance de la ISO 9001, certificados de producto resueltos en el portal del organismo emisor. Descarte a cualquier proveedor que falle un paso de verificación aquí.</li>
+				<li><strong>Pedido de muestra.</strong> Una unidad por modelo. Aplique el checklist completo a la muestra: placa, serie, MTC, video de prueba de presión, registros por unidad.</li>
+				<li><strong>Inspección de terceros.</strong> Designe a una agencia independiente para presenciar pruebas y auditar registros en la fábrica antes de que el lote de producción se embarque. Escriba la cláusula de inspección en la OC.</li>
+				<li><strong>Paquete de documentos, y luego liberación.</strong> Antes del pago final: documentos de exportación completos, registros de prueba por unidad de los números de serie de la lista de empaque y el video de prueba de una unidad de muestra del lote de producción. Solo entonces libere el pedido.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Este flujo aplica a cualquier proveedor —incluido Wanlian Fluid. Aplicado al inicio de la evaluación, toma días, no meses, y es el filtro contra falsificaciones más eficaz en el abastecimiento de equipos contra incendios.</p>
+
+			<!-- Sección de preguntas frecuentes -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Fuentes -->
+			<h2 id="fuentes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Fuentes</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>UL — directorio de productos y verificación de listados: <a href="https://www.ul.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ul.com</a></li>
+				<li>FM Global — verificación de aprobaciones: <a href="https://www.fmglobal.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">fmglobal.com</a></li>
+				<li>AWWA — normas de hidrantes y válvulas (p. ej., AWWA C502, C515): <a href="https://www.awwa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">awwa.org</a></li>
+				<li>NFPA — normas de protección contra incendios y de mangueras (p. ej., NFPA 1961): <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+				<li>ISO — normas de gestión de calidad y de válvulas (ISO 9001, ISO 5208): <a href="https://www.iso.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">iso.org</a></li>
+				<li>Wanlian Fluid — perfil de empresa y política de pruebas: <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">Los requisitos de verificación varían según el mercado de destino y la especificación del proyecto: confirme siempre la norma aplicable y el régimen de inspección con su autoridad contratante antes de realizar pedidos. Información vigente a septiembre de 2026.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Verificando equipo contra incendios de un proveedor chino?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíenos su especificación y su destino: le responderemos con una cotización detallada en un plazo de 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Verificar%20valvulas%20falsas%20y%20equipo%20contra%20incendios%20contrahecho" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20verificar%20valvulas%20e%20hidrantes%20contra%20incendios%20antes%20de%20pedir%20%E2%80%94%20por%20favor%20env%C3%ADenme%20certificados%2C%20registros%20de%20prueba%20por%20unidad%20y%20un%20video%20de%20prueba%20de%20presi%C3%B3n" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

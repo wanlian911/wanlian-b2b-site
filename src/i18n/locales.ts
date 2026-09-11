@@ -95,6 +95,10 @@ const TRANSLATED_PREFIXES: Record<Locale, string[]> = {
     '/guides/',
     '/blog/',
     '/tags/',
+    '/sourcing-guide/',
+    '/whitepaper/',
+    '/glossary/',
+    '/cost-calculator/',
   ],
   ru: [
     '/',

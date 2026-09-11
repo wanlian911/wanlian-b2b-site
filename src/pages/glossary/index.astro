@@ -1,0 +1,74 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { glossaryTerms, GLOSSARY_CATEGORIES, type GlossaryTerm } from '../../utils/glossary';
+
+const categoryLabel: Record<GlossaryTerm['category'], string> = {
+  'Valves': 'Valves',
+  'Fire Hydrants': 'Fire Hydrants',
+  'Sprinklers': 'Sprinklers',
+  'Fire Hose': 'Fire Hose',
+  'Certification & Standards': 'Certification & Standards',
+  'Testing & Procurement': 'Testing & Procurement'
+};
+
+const grouped = GLOSSARY_CATEGORIES.map(cat => ({
+  cat,
+  label: categoryLabel[cat],
+  terms: glossaryTerms.filter(t => t.category === cat)
+})).filter(g => g.terms.length > 0);
+---
+
+<Layout
+  title="Valve & Fire Protection Industry Glossary — Key Terms Defined | Wanlian Fluid"
+  description="Authoritative definitions of the key terms in valve, fire hydrant, sprinkler and fire-hose procurement: RSGV, AWWA C502/C515, UL, FM, K-factor, preaction, backflow, PN/ANSI, Storz and more."
+  type="website"
+  breadcrumbs={[{ name: 'Glossary' }]}
+>
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+      <a href="/" class="hover:text-blue-600">Home</a>
+      <span>/</span>
+      <span class="text-gray-600">Glossary</span>
+    </nav>
+
+    <article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+      <p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Reference</p>
+      <h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Valve &amp; Fire Protection Industry Glossary</h1>
+      <p class="mt-5 text-gray-600 leading-relaxed text-lg">Plain, standards-based definitions of the terms that appear in specifications, tenders and data sheets across valve, fire hydrant, sprinkler and fire-hose procurement. Use this as the shared vocabulary when specifying products, reading a manufacturer’s documentation, or verifying compliance — each entry links to our in-depth guide on that topic.</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-8">
+        {grouped.map(g => (
+          <a href={`#${g.cat.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} class="px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-xs font-bold text-brand-blue hover:bg-brand-blue/10 transition text-center">{g.label}</a>
+        ))}
+      </div>
+
+      {grouped.map(g => (
+        <section class="mt-12">
+          <h2 id={g.cat.toLowerCase().replace(/[^a-z0-9]+/g, '-')} class="text-2xl font-black text-gray-900 mb-5 tracking-tight scroll-mt-24">{g.label}</h2>
+          <div class="space-y-4">
+            {g.terms.map(t => (
+              <div class="bg-gray-50 rounded-xl border border-gray-100 p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 class="text-lg font-black text-gray-900">{t.term}</h3>
+                  <a href={`${t.href}`} class="text-xs font-bold text-brand-red hover:underline">Read the guide →</a>
+                </div>
+                <p class="mt-2 text-gray-700 leading-relaxed text-sm">{t.definition}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <div class="mt-12 rounded-2xl overflow-hidden">
+        <div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+          <h2 class="text-2xl font-black text-white tracking-tight">Ready to Specify or Source These Components?</h2>
+          <p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send us your specification, quantities and destination — we reply with an itemized quote within 12 hours.</p>
+          <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+            <a href="/contact/?product=Glossary%20%26%20Specification" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+            <a href="https://wa.me/8618684324501?text=Hi%2C%20I%20have%20a%20specification%20and%20would%20like%20a%20quote%20for%20valves%20%2F%20hydrants" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+</Layout>

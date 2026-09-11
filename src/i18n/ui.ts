@@ -28,6 +28,8 @@ export interface UIStrings {
     productSeries: NavItem[];
     solutionsTitle: string;
     solutions: NavItem[];
+    resourcesTitle: string;
+    resources: NavItem[];
     contactTitle: string;
     contact: {
       emailLabel: string;
@@ -124,6 +126,13 @@ const en: UIStrings = {
       { name: 'UL Listed Fire Valves', href: '/ul-fire-valves/' },
       { name: 'Fire Water Cannon', href: '/fire-water-cannon/' },
       { name: 'Fire Sprinkler Systems', href: '/fire-sprinkler-systems/' },
+    ],
+    resourcesTitle: 'Resources',
+    resources: [
+      { name: 'Sourcing Guide', href: '/sourcing-guide/' },
+      { name: 'Industry Whitepaper', href: '/whitepaper/' },
+      { name: 'Glossary', href: '/glossary/' },
+      { name: 'Cost Estimator', href: '/cost-calculator/' },
     ],
     contactTitle: 'Contact Us',
     contact: {
@@ -226,6 +235,13 @@ const es: UIStrings = {
       { name: 'Cañón Monitor Contra Incendios', href: '/fire-water-cannon/' },
       { name: 'Sistemas de Rociadores', href: '/fire-sprinkler-systems/' },
     ],
+    resourcesTitle: 'Recursos',
+    resources: [
+      { name: 'Guía de Abastecimiento', href: '/sourcing-guide/' },
+      { name: 'Documento de Referencia', href: '/whitepaper/' },
+      { name: 'Glosario', href: '/glossary/' },
+      { name: 'Calculadora de Costos', href: '/cost-calculator/' },
+    ],
     contactTitle: 'Contacto',
     contact: {
       emailLabel: 'Correo:',
@@ -327,6 +343,13 @@ const ru: UIStrings = {
       { name: 'Пожарный лафетный ствол', href: '/fire-water-cannon/' },
       { name: 'Спринклерные системы пожаротушения', href: '/fire-sprinkler-systems/' },
     ],
+    resourcesTitle: 'Ресурсы',
+    resources: [
+      { name: 'Руководство по закупкам', href: '/sourcing-guide/' },
+      { name: 'Отраслевой документ', href: '/whitepaper/' },
+      { name: 'Глоссарий', href: '/glossary/' },
+      { name: 'Калькулятор стоимости', href: '/cost-calculator/' },
+    ],
     contactTitle: 'Контакты',
     contact: {
       emailLabel: 'E-mail:',
@@ -427,6 +450,13 @@ const fr: UIStrings = {
       { name: 'Vannes Incendie Certifiées UL', href: '/ul-fire-valves/' },
       { name: "Canon d'Incendie", href: '/fire-water-cannon/' },
       { name: 'Systèmes de Gicleurs', href: '/fire-sprinkler-systems/' },
+    ],
+    resourcesTitle: 'Ressources',
+    resources: [
+      { name: "Guide d'approvisionnement", href: '/sourcing-guide/' },
+      { name: 'Livre blanc sectoriel', href: '/whitepaper/' },
+      { name: 'Glossaire', href: '/glossary/' },
+      { name: "Estimateur de coûts", href: '/cost-calculator/' },
     ],
     contactTitle: 'Contact',
     contact: {

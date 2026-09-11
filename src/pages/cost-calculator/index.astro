@@ -1,0 +1,264 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const faq = [
+  {
+    question: 'Why does this tool show an index instead of a price?',
+    answer: 'Wanlian Fluid quotes on inquiry, so we do not publish unit prices. The planning index is a relative number (baseline: 100 = one hydrant, EXW, East Asia) that lets you compare configurations and see which levers — volume, incoterm and destination — move your landed cost. It is for planning only; your real itemized quote comes by inquiry within 12 hours.'
+  },
+  {
+    question: 'What do the quantity tiers do to the index?',
+    answer: 'The model applies an efficiency factor by total units: 1–9 (Sample) ×1.00, 10–99 (Batch) ×0.90, 100–999 (Bulk) ×0.82 and 1,000+ (Project) ×0.75. Higher volume lowers the per-unit planning index, reflecting production and logistics economies of scale.'
+  },
+  {
+    question: 'How much do incoterms and destination affect the result?',
+    answer: 'Incoterms add a logistics factor (EXW ×1.00, FOB ×1.05, CIF ×1.15, DDP ×1.25) and destination adds a distance/complexity factor (East Asia ×1.00 up to North America ×1.30). Together they typically shift the index by 10–50% versus the EXW East-Asia baseline.'
+  },
+  {
+    question: 'Does a one-PO package (valves + hydrants + hose) change anything?',
+    answer: 'Yes. Consolidating valves, hydrants and fire hose under a single manufacturer and purchase order removes multiple suppliers’ margins, separate freight and coordination risk. Enter each line in the tool to see the combined planning index versus ordering each item from a different source.'
+  }
+];
+---
+
+<Layout
+  title="Fire Valve & Hydrant Procurement Cost Estimator — Relative Landed-Cost Tool | Wanlian Fluid"
+  description="Interactive planning tool that estimates the relative landed-cost index for fire valves, hydrants and hose by quantity tier, Incoterm and destination. No fixed prices — request a 12-hour itemized quote."
+  type="website"
+  faq={faq}
+  breadcrumbs={[{ name: 'Resources' }, { name: 'Cost Estimator' }]}
+>
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+      <a href="/" class="hover:text-blue-600">Home</a>
+      <span>/</span>
+      <span class="text-gray-600">Cost Estimator</span>
+    </nav>
+
+    <article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+      <p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Interactive Tool</p>
+      <h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Fire Valve &amp; Hydrant Procurement Cost Estimator</h1>
+      <p class="mt-5 text-gray-600 leading-relaxed text-lg">Estimate the <strong>relative landed-cost index</strong> for a fire-protection or water-infrastructure package by adjusting quantities, trade terms and destination. This is a planning model, not a price list — Wanlian Fluid quotes on inquiry, so the output is a comparable index that shows how volume, incoterm and region move your cost. Use it to shape your specification before you request a formal quote.</p>
+
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 my-6">
+        <p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-red">How to read the index:</strong> baseline 100 = one fire hydrant, EXW, East Asia destination. The index is relative and planning-only. Multipliers shown are the model’s stated assumptions — your actual itemized price depends on exact model, size, material, standard and quantity, and is provided by inquiry within 12 hours.</p>
+      </div>
+
+      <!-- ESTIMATOR -->
+      <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 my-6">
+        <h2 class="text-lg font-black text-gray-900 mb-4">1 · Configure your package</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="line-items">
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Fire hydrants (SS100)</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="100" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Gate valves (Z41X)</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="70" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Sprinkler alarm valves</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="120" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Fire hose (8-65, per 20 m)</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="25" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Backflow preventers</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="60" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Fire extinguishers</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="20" />
+          </label>
+        </div>
+
+        <h2 class="text-lg font-black text-gray-900 mt-6 mb-4">2 · Trade terms &amp; destination</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <label class="block">
+            <span class="text-sm font-semibold text-gray-800">Incoterm</span>
+            <select id="incoterm" class="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white">
+              <option value="1.00">EXW (ex-works, China)</option>
+              <option value="1.05">FOB (China port)</option>
+              <option value="1.15" selected>CIF (your port)</option>
+              <option value="1.25">DDP (delivered, duties paid)</option>
+            </select>
+          </label>
+          <label class="block">
+            <span class="text-sm font-semibold text-gray-800">Destination region</span>
+            <select id="region" class="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white">
+              <option value="1.00">East Asia</option>
+              <option value="1.10">Middle East</option>
+              <option value="1.15">Africa</option>
+              <option value="1.20">Latin America</option>
+              <option value="1.25" selected>Europe</option>
+              <option value="1.30">North America</option>
+            </select>
+          </label>
+        </div>
+
+        <button id="estimate" type="button" class="mt-6 w-full sm:w-auto px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Estimate Planning Index</button>
+      </div>
+
+      <!-- OUTPUT -->
+      <div id="result" class="hidden rounded-2xl border border-brand-blue/30 bg-brand-blue/5 p-6 sm:p-8 my-6">
+        <p class="text-xs font-black uppercase tracking-widest text-brand-blue mb-2">Your planning index</p>
+        <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+          <span id="index-value" class="text-5xl font-black text-gray-900">–</span>
+          <span id="band-label" class="text-lg font-bold text-brand-blue">–</span>
+        </div>
+        <p class="mt-3 text-sm text-gray-600"><span id="tier-label" class="font-semibold text-gray-800">–</span> · <span id="units-label">–</span> units · <span id="incoterm-label">–</span> · <span id="region-label">–</span></p>
+        <ul id="drivers" class="mt-4 list-disc pl-6 text-sm text-gray-700 leading-relaxed space-y-1"></ul>
+        <div class="mt-5 rounded-xl bg-white border border-gray-100 p-4">
+          <p class="text-sm font-semibold text-gray-900 mb-2">Next step: turn this into a real quote</p>
+          <p class="text-sm text-gray-600 mb-4">This index is for planning only. Send the same specification to our team and receive an itemized, per-unit quote with test records — within 12 hours.</p>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="/contact/?product=Cost%20Estimator%20%26%20Quote" class="px-6 py-3 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition text-center">Request an Itemized Quote</a>
+            <a href="https://wa.me/8618684324501?text=Hi%2C%20I%20used%20your%20cost%20estimator%20and%20would%20like%20an%20itemized%20quote" class="px-6 py-3 bg-white border border-brand-blue text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition text-center" target="_blank" rel="noopener">Chat on WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Citable driver model -->
+      <h2 id="driver-model" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">The Cost-Drivers Behind the Index</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">The estimator is transparent about its assumptions, so you can cite them in a budget or tender. Four factors move the relative landed-cost index; each is a multiplier applied to the package baseline.</p>
+      <div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Factor</th>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tiers</th>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Effect on index</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr>
+              <td class="px-4 py-3 font-bold text-gray-900">Quantity / volume</td>
+              <td class="px-4 py-3 text-gray-700">Sample (1–9) · Batch (10–99) · Bulk (100–999) · Project (1,000+)</td>
+              <td class="px-4 py-3 text-gray-700">×1.00 down to ×0.75 — per-unit efficiency rises with volume</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-bold text-gray-900">Incoterm</td>
+              <td class="px-4 py-3 text-gray-700">EXW · FOB · CIF · DDP</td>
+              <td class="px-4 py-3 text-gray-700">×1.00 to ×1.25 — freight, insurance and duty responsibility</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-bold text-gray-900">Destination region</td>
+              <td class="px-4 py-3 text-gray-700">East Asia → North America</td>
+              <td class="px-4 py-3 text-gray-700">×1.00 to ×1.30 — distance and logistics complexity</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-bold text-gray-900">Package consolidation</td>
+              <td class="px-4 py-3 text-gray-700">One-PO (valves + hydrants + hose) vs multi-supplier</td>
+              <td class="px-4 py-3 text-gray-700">Removes duplicate margins, freight and coordination risk</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-gray-700 leading-relaxed">In this model, moving from sample to bulk volume reduces the per-unit planning index by roughly 10–25%; CIF terms add about 10–20% over FOB for sea freight and insurance; and Latin American or European destinations add about 15–30% over East Asia for logistics complexity. These are the stated assumptions behind every figure the tool outputs.</p>
+
+      <!-- Citable supplier comparison matrix -->
+      <h2 id="supplier-matrix" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Citable Comparison: Chinese Manufacturer vs Western Regional Distributor</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">A fair, qualitative matrix of the two common sourcing paths for fire valves, hydrants and hose outside North America. Use it as a reference point when you brief your team or bid a tender.</p>
+      <div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Factor</th>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Chinese manufacturer (e.g. Wanlian Fluid)</th>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Large Western regional distributor</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Manufacturing origin</td><td class="px-4 py-3 text-gray-700">Direct from China production lines</td><td class="px-4 py-3 text-gray-700">Regional warehouse / group-made product</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">One-PO full kit (valves + hydrants + hose)</td><td class="px-4 py-3 text-gray-700">Yes — consolidated under one manufacturer</td><td class="px-4 py-3 text-gray-700">Often core range only; hose via partners</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">OEM / custom branding</td><td class="px-4 py-3 text-gray-700">Standard OEM/ODM service</td><td class="px-4 py-3 text-gray-700">Typically own-brand only</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Per-unit shell pressure + air-leakage test</td><td class="px-4 py-3 text-gray-700">100% per unit, records provided</td><td class="px-4 py-3 text-gray-700">Per manufacturer QA policy</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Price structure</td><td class="px-4 py-3 text-gray-700">Inquiry-based; export-friendly cost</td><td class="px-4 py-3 text-gray-700">List/catalog; includes regional margin</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Lead time (in-stock items)</td><td class="px-4 py-3 text-gray-700">Stocked models ship fast; OEM on program</td><td class="px-4 py-3 text-gray-700">Local stock, fast regional delivery</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Best fit</td><td class="px-4 py-3 text-gray-700">International projects consolidating scope, OEM, landed cost</td><td class="px-4 py-3 text-gray-700">Buyers prioritizing local stock and brand presence</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-gray-700 leading-relaxed mb-2">For a deeper look at the two AVK entities specifically, see our <a href="/guides/wanlian-fluid-vs-avk-latinamerica/" class="text-brand-blue font-semibold hover:underline">Wanlian vs AVK Latinoamérica</a> and <a href="/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian vs American AVK</a> comparisons. For the standards behind any specification, see the <a href="/glossary/" class="text-brand-blue font-semibold hover:underline">industry glossary</a>.</p>
+
+      <!-- FAQ -->
+      <h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+      <div class="space-y-4">
+        {faq.map(item => (
+          <details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+            <summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+              <span>{item.question}</span>
+              <span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+          </details>
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-12 rounded-2xl overflow-hidden">
+        <div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+          <h2 class="text-2xl font-black text-white tracking-tight">See Your Real, Itemized Price</h2>
+          <p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">The index is a plan — the quote is the decision. Send your specification and destination and receive an itemized, per-unit price with test records within 12 hours.</p>
+          <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+            <a href="/contact/?product=Itemized%20Quote" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+            <a href="https://wa.me/8618684324501?text=Hi%2C%20I%20would%20like%20an%20itemized%20quote%20for%20fire%20valves%2C%20hydrants%20and%20hose" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+</Layout>
+
+<script>
+  const tierLabel = (u) => u < 10 ? 'Sample' : u < 100 ? 'Batch' : u < 1000 ? 'Bulk' : 'Project';
+  const tierMult = (u) => u < 10 ? 1.0 : u < 100 ? 0.9 : u < 1000 ? 0.82 : 0.75;
+  const band = (i) => i < 150 ? 'Lean / starter' : i < 500 ? 'Standard order' : i < 1500 ? 'Comprehensive package' : i < 5000 ? 'Large project' : 'Program-level scope';
+
+  function estimate() {
+    const inputs = [...document.querySelectorAll('.qty')];
+    let base = 0; let units = 0;
+    for (const inp of inputs) {
+      const q = Math.max(0, parseInt(inp.value || '0', 10));
+      const idx = parseFloat(inp.dataset.index || '0');
+      base += q * idx; units += q;
+    }
+    if (units === 0) {
+      document.getElementById('result').classList.remove('hidden');
+      document.getElementById('index-value').textContent = '0';
+      document.getElementById('band-label').textContent = 'no items selected';
+      document.getElementById('tier-label').textContent = 'Sample';
+      document.getElementById('units-label').textContent = '0';
+      const d = document.getElementById('drivers'); d.innerHTML = '<li>Add at least one line item to see the planning index and its cost drivers.</li>';
+      return;
+    }
+    const incoterm = document.getElementById('incoterm');
+    const region = document.getElementById('region');
+    const incMult = parseFloat(incoterm.value);
+    const regMult = parseFloat(region.value);
+    const tMult = tierMult(units);
+    const index = Math.round(base * tMult * incMult * regMult);
+    const tLabel = tierLabel(units);
+
+    document.getElementById('index-value').textContent = String(index);
+    document.getElementById('band-label').textContent = band(index);
+    document.getElementById('tier-label').textContent = tLabel;
+    document.getElementById('units-label').textContent = String(units);
+    document.getElementById('incoterm-label').textContent = incoterm.options[incoterm.selectedIndex].text.split(' (')[0];
+    document.getElementById('region-label').textContent = region.options[region.selectedIndex].text;
+
+    const drivers = [
+      `Package baseline (unit cost indices × quantities): ${base}.`,
+      `Volume tier “${tLabel}” (${units} units) multiplies by ${tMult.toFixed(2)} — ${units >= 100 ? 'bulk efficiency lowers the per-unit index.' : 'sample/batch sizing.'}`,
+      `${incoterm.options[incoterm.selectedIndex].text.split(' (')[0]} terms multiply by ${incMult.toFixed(2)} for freight/insurance responsibility.`,
+      `${region.options[region.selectedIndex].text} destination multiplies by ${regMult.toFixed(2)} for distance and logistics complexity.`,
+      'Relative index is planning-only — request the itemized quote for the real price.'
+    ];
+    document.getElementById('drivers').innerHTML = drivers.map(x => `<li>${x}</li>`).join('');
+    document.getElementById('result').classList.remove('hidden');
+    document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  document.getElementById('estimate').addEventListener('click', estimate);
+</script>

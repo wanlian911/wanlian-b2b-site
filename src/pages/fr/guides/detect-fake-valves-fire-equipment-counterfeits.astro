@@ -1,0 +1,247 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'why-counterfeits-concentrate', label: '1. Pourquoi les Contrefaçons se Concentrent dans Cette Catégorie' },
+	{ id: 'common-forms-of-fakes', label: '2. Les Formes Courantes de Contrefaçons' },
+	{ id: 'detection-checklist', label: '3. Une Checklist de Détection en Sept Étapes' },
+	{ id: 'red-flags-table', label: '4. Réel vs. Contrefaçon : Tableau des Signaux d’Alerte' },
+	{ id: 'how-wanlian-operates', label: '5. Fonctionnement de Wanlian Fluid : Preuves du Processus' },
+	{ id: 'pre-order-workflow', label: '6. Workflow de Vérification Avant Commande' },
+	{ id: 'faq', label: 'Questions Fréquentes' },
+	{ id: 'sources', label: 'Sources' }
+];
+
+const faq = [
+	{
+		question: 'Une offre beaucoup plus basse est-elle un signe fiable de contrefaçon ?',
+		answer: 'C’est un signal de tri, pas une preuve. Les pièces moulées en fonte ductile conformes, les essais en pression et la documentation d’export ont un coût plancher réel, ainsi un prix nettement sous le marché mérite vérification. Mais certaines offres correspondent simplement à une spécification inférieure. Comparez la norme, la classe de matériau et les exigences d’essai de chaque offre avant de juger l’écart.'
+	},
+	{
+		question: 'Comment vérifier un certificat UL ou FM avant de commander une vanne incendie ?',
+		answer: 'Demandez le numéro exact de certificat ou de listing du modèle proposé, puis vérifiez-le de manière indépendante sur le portail officiel de l’organisme émetteur. Confirmez que le produit listado, le modèle et l’usine correspondent à votre fournisseur. En attendant votre vérification, considérez toute image de certificat envoyée par e-mail comme non vérifiée.'
+	},
+	{
+		question: 'Que doivent contenir les fiches d’essai par unité ?',
+		answer: 'A minima : le numéro de série de l’unité, la date d’essai, le résultat de l’essai de coque en pression et celui d’étanchéité à l’air, et l’identification de l’opérateur ou de l’inspecteur. Les numéros de série doivent correspondre à la liste de colisage, à la plaque signalétique et aux documents d’export. Un rapport couvrant uniquement un « lot » sans identifiant par unité est un signal d’alerte.'
+	},
+	{
+		question: 'Dois-je prévoir une inspection par un tiers pour ma première commande ?',
+		answer: 'Pour l’équipement incendie à caractère critique, nous le recommandons vivement, au moins sur la première commande. Un organisme indépendant tel que SGS ou Bureau Veritas peut assister aux essais, contrôler les matériaux et examiner les dossiers en usine. Le coût représente une petite fraction de la valeur d’un conteneur, très en deçà du coût d’une unité défaillante.'
+	},
+	{
+		question: 'Que peut envoyer Wanlian avant paiement ?',
+		answer: 'Wanlian Fluid peut fournir son certificat ISO 9001 pour vérification auprès de l’organisme émetteur, les certificats de matière pour la classe de fonte, une vidéo d’essai en pression et d’étanchéité à l’air avec numéro de série pour une unité échantillon, ainsi que son jeu standard de documents d’export. La conformité à une norme précise (par exemple AWWA ou NFPA) est confirmée modèle par modèle, avec rapports d’essai et certificats, avant commande.'
+	},
+	{
+		question: 'Que faire si je découvre une unité contrefaite dans une livraison reçue ?',
+		answer: 'Arrêtez la mise en service de l’équipement concerné, photographiez l’unité avec sa plaque signalétique et son numéro de série, et conservez tous les rapports d’essai et la documentation. Déposez une réclamation formelle de non-conformité auprès du fournisseur, demandez les documents de traçabilité et impliquez votre inspecteur tiers ou votre autorité contractante. Pour les systèmes critiques, isolez la section concernée jusqu’à vérification des unités de remplacement.'
+	}
+];
+
+const productRows = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Vanne à Boisseau à Joint Élastique, à Bride (Z41X)', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'Vanne à boisseau pleine lumière pour réseaux incendie et conduites d’eau' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hydrant Incendie Aérien (SS100)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Hydrant aérien antigel pour réseaux incendie municipaux' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Lance Incendie, Doublure Caoutchouc (Modèle 8-65)', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Lance aplatissable avec gaine polyester et doublure caoutchouc vulcanisé' }
+];
+---
+
+<Layout
+	title="Comment Détecter les Vannes Contrefaites et les Certificats Falsifiés d’Équipement Incendie (Guide Acheteur 2026)"
+	description="Guide acheteur pour détecter les vannes contrefaites, les certificats falsifiés et les équipements incendie copiés en provenance de Chine : checklist de détection, signaux d’alerte, vérification fournisseur."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Détection des Contrefaçons' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Détection des Contrefaçons</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide de Risque Achats</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Comment Détecter les Vannes Contrefaites et les Certificats Falsifiés d’Équipement Incendie (Guide Acheteur 2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Les acheteurs de vannes, hydrants et lances incendie en Chine font régulièrement face à des pièces moulées contrefaites, des plaques signalétiques copiées et des certificats falsifiés. Une unité contrefaite ne se voit ni sur les photos ni sur la liste de prix — elle se révèle par l’inspection physique, les fiches d’essai par unité et la documentation que vous pouvez vérifier de manière indépendante. Ce guide vous donne les signaux exacts, une checklist de détection étape par étape et un workflow de vérification avant commande que vous pouvez joindre à tout bon de commande.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Pourquoi ce guide existe :</strong> l’équipement incendie contrefait n’est pas un risque hypothétique — numéros de série clonés, plaques copiées et PDF de certification falsifiés sont le playbook standard des fournisseurs non conformes dans les catégories à caractère critique. Cette page transforme ce risque en un processus écrit de détection que vous pouvez appliquer à tout fournisseur chinois, y compris Wanlian Fluid, avant de payer.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="why-counterfeits-concentrate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Pourquoi les Contrefaçons se Concentrent dans Cette Catégorie</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Trois caractéristiques des infrastructures incendie et hydrauliques en font une cible privilégiée des contrefaçons :</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>L’équipement incendie est à caractère critique.</strong> Une vanne ou un hydrant conforme doit survivre à un événement en pression pleine lumière exactement au moment où il n’y a pas le temps de le remplacer. C’est précisément ce que les pièces moulées non conformes ne peuvent pas faire.</li>
+				<li><strong>L’approvisionnement est de gros volume et piloté par spécification.</strong> Les appels d’offres municipaux et les projets de construction achètent en grandes quantités à des prix concurrentiels, et le papier — certificats, fiches d’essai — voyage avec le bon de commande. Un papier falsifié permet à un produit non conforme d’entrer dans une offre légitime.</li>
+				<li><strong>L’équipement ne « lâche » que pendant l’urgence.</strong> Un corps d’hydrant à paroi fine ou une vanne sous-essayée peut paraître parfait en entrepôt pendant des années. Le défaut apparaît sous pression, la nuit, avec des vies et des biens en jeu.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Le vrai moteur est l’écart de prix. Les pièces moulées en fonte ductile conformes, l’encapsulation par résine ou caoutchouc, l’essai en pression par unité et la documentation d’export ont tous un coût plancher réel. Un certificat falsifié permet à un produit non conforme de se positionner en dessous, et l’acheteur — qui compare des offres sur papier — ne voit pas la différence.</p>
+			<p class="text-gray-700 leading-relaxed">Une fois qu’on vous a montré un faux certificat, vous ne pouvez plus juger un fournisseur sur ses documents seuls. La réponse pratique est de vérifier l’unité physique, ses fiches d’essai par unité et une documentation vérifiable de manière indépendante. Les sections suivantes définissent exactement quoi chercher.</p>
+
+			<h2 id="common-forms-of-fakes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Les Formes Courantes de Contrefaçons</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les contrefaçons d’équipement incendie dans cette catégorie reviennent sous une courte liste de formes récurrentes. Apprenez-en six et vous capterez l’essentiel du risque :</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Numéros de série clonés.</strong> Le même numéro sur plusieurs unités, des numéros suivant un motif visible, ou des numéros copiés sur des images de catalogues publiés. Un vrai fabricant émet des numéros uniques qui correspondent aux enregistrements de moulage et à la liste de colisage.</li>
+				<li><strong>Plaques signalétiques copiées.</strong> Une plaque portant une marque dont vous n’achetez pas, une marque disparue, ou une plaque dont la norme, la taille et la pression nominale ne correspondent pas au bon de commande. Sur un produit conforme, les marquages sont permanents — une plaque qui semble collée, ou incohérente, est un échec de tri.</li>
+				<li><strong>Matériau non conforme et pièces à paroi fine.</strong> Alliage erroné, rebut recyclé, ou paroi moulée sous les tolérances dimensionnelles de la norme. Ces corps passent l’inspection visuelle et échouent à l’essai de coque en pression — ou, pire, passent en usine et échouent en service.</li>
+				<li><strong>Fiches d’essai manquantes ou génériques.</strong> Aucune fiche par unité, ou un seul « rapport de lot » couvrant des centaines d’unités sans numéros de série, dates ni valeurs d’essai.</li>
+				<li><strong>PDF de certification falsifiés.</strong> Des documents UL, FM ou AWWA produits dans un traitement de texte : police erronée, nom d’entreprise générique, dates antérieures à la gamme de produits, ou numéros de certificat inexistants chez l’organisme émetteur.</li>
+				<li><strong>Substitutions de lance incendie.</strong> Une vraie lance d’attaque combine une gaine polyester haute résistance et une doublure caoutchouc vulcanisé sans bulle. Les contrefaçons rognt sur la doublure ou la gaine, si bien que la lance paraît correcte en entrepôt mais fuit ou se délamine à la pression de travail.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Aucune de ces formes n’est visible sur une photo de catalogue. Toutes sont visibles dans les fiches d’essai, les certificats de matière et une courte vidéo de l’unité sur le banc d’essai — d’où la checklist ci-dessous qui exige précisément ces éléments.</p>
+
+			<h2 id="detection-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Une Checklist de Détection en Sept Étapes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Appliquez ces sept étapes à chaque fournisseur présélectionné. Les étapes 1–2 sont au niveau société ; les étapes 3–7 au niveau unité. Un fournisseur qui résiste à l’une d’elles a répondu à la question.</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Vérifiez d’abord la société.</strong> Nom légal sur la licence commerciale, compte bancaire et entité de facturation correspondants. Une visite vidéo des zones de production, d’essai et de conditionnement sur demande. Si l’« usine » ne peut pas être montrée, vous avez affaire à un comptoir de négoce — possiblement avec des pièces moulées d’occasion et des plaques neuves.</li>
+				<li><strong>Exigez les fiches d’essai par unité.</strong> Chaque vanne et hydrant commandé doit porter un résultat d’essai de coque en pression et un résultat d’étanchéité à l’air lié à son propre numéro de série. Demandez au fournisseur d’envoyer les fiches d’une unité échantillon avant paiement — un vrai fabricant les conserve ; un contrefacteur ne peut pas les produire.</li>
+				<li><strong>Vérifiez les certificats sur le portail officiel de l’organisme émetteur.</strong> Pour un listing UL ou une approbation FM, vérifiez le numéro sur le portail officiel de l’organisme émetteur (par exemple l’annuaire produit UL ou la recherche d’approbations FM Global) et confirmez que le modèle listado et l’usine correspondent à votre fournisseur. Pour AWWA, vérifiez le numéro de certificat ou d’enregistrement auprès d’AWWA. Si le numéro ne se résout pas, le PDF est une falsification aussi propre soit-il.</li>
+				<li><strong>Commandez d’abord un échantillon.</strong> Une unité par modèle, avec son numéro de série, une photo de la plaque et la documentation complète. Faites toute la checklist sur l’échantillon — marquages, certificat de matière, vidéo d’essai, fiches — avant d’engager le volume. C’est l’assurance contrefaçon la moins chère disponible.</li>
+				<li><strong>Demandez les certificats de matière (certificats d’usine).</strong> La classe de fonte sur le certificat d’usine doit correspondre à la classe de votre plan. Un fournisseur qui ne peut pas produire de certificat d’usine pour le matériau exact spécifié ne fabrique pas le produit que vous achetez.</li>
+				<li><strong>Regardez la vidéo des cotes et de l’essai en pression.</strong> Demandez une courte vidéo de l’échantillon précis sur le banc d’essai en pression avec son numéro de série visible. Un vrai fabricant les enregistre comme routine ; un fournisseur qui ne peut pas en produire un n’essaye pas en pression les unités que vous achetez.</li>
+				<li><strong>Effectuez un audit d’usine ou une inspection par un tiers.</strong> Visitez si votre volume le justifie ; sinon désignez un organisme indépendant (SGS, Bureau Veritas, Intertek ou une société locale de réputation) pour assister aux essais, contrôler les moulages et examiner les dossiers avant expédition.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed mb-4">Appliquez la checklist aux produits réels de votre présélection — par exemple notre <a href="/fr/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">vanne à boisseau OS&amp;Y à joint élastique UL/FM</a>, l’<a href="/fr/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">hydrant incendie aérien SS100</a>, la <a href="/fr/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">vanne à boisseau à bride à joint élastique Z41X</a> ou la <a href="/fr/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">lance aplatissable 8-65 doublée caoutchouc</a> — avec des fiches d’essai par modèle, pas des déclarations de qualité génériques.</p>
+			<p class="text-gray-700 leading-relaxed">Pour le cadre plus large de qualification fournisseur (entité légale, historique d’export, références), voir notre <a href="/fr/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">guide de vérification d’un fournisseur chinois de vannes</a>. Pour la liste complète de documentation et d’inspection à intégrer à votre bon de commande, voir la <a href="/fr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">checklist d’approvisionnement B2B de vannes</a>.</p>
+
+			<h2 id="red-flags-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Réel vs. Contrefaçon : Tableau des Signaux d’Alerte</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La même demande de vérification produit des réponses très différentes d’un fabricant légitime et d’un contrefacteur. Le tableau ci-dessous est l’outil de tri le plus rapide de ce guide :</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Signal</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Ce qu’un vrai fournisseur fournit</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Ce qu’une contrefaçon révèle</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Documents société</td>
+							<td class="px-4 py-3 text-gray-700">Licence commerciale, entité de facturation et compte bancaire tous correspondants ; visite vidéo sur demande</td>
+							<td class="px-4 py-3 text-gray-700">Noms discordants, comptes bancaires personnels, refus de montrer la production</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Fiches d’essai par unité</td>
+							<td class="px-4 py-3 text-gray-700">Résultats de coque en pression et d’étanchéité à l’air avec numéro de série, dates et opérateur</td>
+							<td class="px-4 py-3 text-gray-700">Uniquement un « rapport de lot », sans numéros, sans dates, ou des fiches qui ne correspondent pas à la liste de colisage</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Certificats UL / FM / AWWA</td>
+							<td class="px-4 py-3 text-gray-700">Le certificat se résout sur le portail officiel de l’organisme émetteur pour le modèle et l’usine exacts</td>
+							<td class="px-4 py-3 text-gray-700">PDF qui ne se résout pas, nom d’entreprise erroné, dates antérieures au produit, logo générique</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Preuve matière</td>
+							<td class="px-4 py-3 text-gray-700">Certificat d’usine correspondant à la classe de fonte du plan</td>
+							<td class="px-4 py-3 text-gray-700">Aucun certificat d’usine, ou un certificat pour une autre classe ou une autre usine</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Vidéo d’essai en pression</td>
+							<td class="px-4 py-3 text-gray-700">Unité avec numéro de série sur le banc d’essai, filmée et partagée sur demande</td>
+							<td class="px-4 py-3 text-gray-700">Images de stock ou boucle, aucun numéro visible, « le banc est occupé aujourd’hui »</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Plaque et marquage</td>
+							<td class="px-4 py-3 text-gray-700">Numéro de norme, taille, pression nominale, identité du fabricant et numéro de série unique — permanents et cohérents</td>
+							<td class="px-4 py-3 text-gray-700">Nom de marque copié, numéros répétés, pressions nominales qui ne correspondent pas au bon de commande</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Commande échantillon</td>
+							<td class="px-4 py-3 text-gray-700">Acceptée comme routine, avec documentation complète de l’unité échantillon</td>
+							<td class="px-4 py-3 text-gray-700">Résistance, frais supplémentaires, ou un échantillon différent des produits de production</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Position de prix</td>
+							<td class="px-4 py-3 text-gray-700">Au niveau ou au-dessus du coût plancher pour matériau conforme et essais à 100 %</td>
+							<td class="px-4 py-3 text-gray-700">Loin sous le marché pour la même norme — l’écart payé en épaisseur de paroi et en essais sautés</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Deux réponses ou plus de type « contrefaçon » d’un même fournisseur doivent mettre fin à l’évaluation. Un écart de type « réel » que le fournisseur comble en une journée (par exemple, en envoyant un certificat d’usine manquant) est normal ; un écart qui produit des excuses est un verdict.</p>
+
+			<h2 id="how-wanlian-operates" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Fonctionnement de Wanlian Fluid : Preuves du Processus</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Si Wanlian Fluid figure sur votre présélection, voici les preuves de processus que vous devez attendre de notre part — formulées comme ce que nous faisons, et non comme des affirmations de certification :</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Système de management de la qualité ISO 9001.</strong> Notre production à Quanzhou, Fujian fonctionne sous un système ISO 9001 ; demandez le numéro de certificat et vérifiez-le auprès de l’organisme émetteur, comme avec n’importe quel fournisseur.</li>
+				<li><strong>Corps de vanne usinés en interne par CNC.</strong> Les corps de vanne sont usinés par CNC dans notre propre usine de Quanzhou ; certains articles sont produits par des partenaires de fabrication qualifiés, et le lieu de production est documenté sur la commande.</li>
+				<li><strong>Essais de coque en pression et d’étanchéité à l’air à 100 %.</strong> Chaque unité — chaque vanne, hydrant et lance — est essayée en pression de coque et en étanchéité à l’air avant expédition. Nous pouvons envoyer une vidéo d’essai avec numéro de série pour une unité échantillon, et les fiches par unité voyagent avec la livraison.</li>
+				<li><strong>Construction de la lance incendie.</strong> Notre lance incendie combine une gaine polyester haute résistance et une doublure caoutchouc vulcanisé, construite sans bulle — exactement la construction que la section contrefaçons ci-dessus tente d’imiter.</li>
+				<li><strong>Conformité aux normes, confirmée modèle par modèle.</strong> La conformité à une norme précise (AWWA, NFPA, listing UL, approbation FM, NOM ou autres) est confirmée modèle par modèle, avec rapports d’essai et certificats, avant commande — nous ne vous demandons pas de supposer un certificat usine entière.</li>
+				<li><strong>Documentation d’export.</strong> Facture commerciale, liste de colisage, connaissement, certificat d’origine et rapports d’essai par lot accompagnent les livraisons ; l’OEM/ODM, le marquage personnalisé et le conditionnement export sont coordonnés avec la commande, avec un engagement de réponse aux devis sous 12 heures.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Cette liste est aussi votre test : envoyez-nous la checklist en sept étapes et observez à quelle vitesse chaque élément revient. Si vous nous comparez à des fabricants occidentaux sur la qualification, voir <a href="/fr/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">comment choisir des vannes incendie listées UL</a> et <a href="/fr/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">les exigences de certification des vannes incendie dans les projets d’Amérique latine</a>.</p>
+
+			<h2 id="pre-order-workflow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Workflow de Vérification Avant Commande</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Le processus de détection ci-dessus devient un workflow une fois attaché au bon de commande. Cinq étapes, dans l’ordre :</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Définissez la norme par écrit.</strong> La norme requise par votre projet (par exemple AWWA C502 pour les hydrants à canon sec, AWWA C515 pour les vannes à boisseau à joint élastique, NFPA 1961 pour les lances incendie) et la liste complète de documentation — fiches d’essai par unité, certificat d’usine, documents d’export. Mettez les deux dans le bon de commande pour que la conformité soit contractuelle, et non simplement demandée.</li>
+				<li><strong>Présélectionnez et vérifiez au niveau société.</strong> Entité légale, périmètre ISO 9001, certificats produit résolus sur le portail de l’organisme émetteur. Éliminez tout fournisseur qui échoue à une étape de vérification ici.</li>
+				<li><strong>Commande échantillon.</strong> Une unité par modèle. Faites la checklist complète sur l’échantillon : plaque, numéro de série, certificat d’usine, vidéo d’essai en pression, fiches par unité.</li>
+				<li><strong>Inspection par un tiers.</strong> Désignez un organisme indépendant pour assister aux essais et examiner les dossiers en usine avant l’expédition de la production. Intégrez la clause d’inspection au bon de commande.</li>
+				<li><strong>Jeu documentaire, puis libération.</strong> Avant le paiement final : documents d’export complets, fiches d’essai par unité des numéros de série de la liste de colisage, et la vidéo d’essai d’une unité échantillon du lot de production. Libérez la commande seulement alors.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Ce workflow s’applique à tout fournisseur — y compris Wanlian Fluid. Mené au début de l’évaluation, il prend des jours, pas des mois, et c’est le filtre anticontrafason le plus efficace dans l’approvisionnement d’équipement incendie.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Sources -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Sources</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>UL — annuaire produit et vérification de listing : <a href="https://www.ul.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ul.com</a></li>
+				<li>FM Global — vérification d’approbation : <a href="https://www.fmglobal.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">fmglobal.com</a></li>
+				<li>AWWA — normes hydrants et vannes (p. ex. AWWA C502, C515) : <a href="https://www.awwa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">awwa.org</a></li>
+				<li>NFPA — normes de protection incendie et de lance incendie (p. ex. NFPA 1961) : <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+				<li>ISO — normes de management de la qualité et de vanne (ISO 9001, ISO 5208) : <a href="https://www.iso.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">iso.org</a></li>
+				<li>Wanlian Fluid — profil entreprise et politique d’essai : <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">Les exigences de vérification varient selon le marché de destination et la spécification du projet — confirmez toujours la norme applicable et le régime d’inspection avec votre autorité contractante avant de passer commande. Informations à jour à la date de septembre 2026.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Vous Vérifiez un Équipement Incendie depuis un Fournisseur Chinois ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez-nous votre spécification et votre destination — nous répondons avec un devis détaillé sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Verify%20fake%20valves%20%26%20counterfeit%20fire%20equipment" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20je%20souhaite%20v%C3%A9rifier%20des%20vannes%20et%20hydrants%20incendie%20avant%20commande%20%E2%80%94%20merci%20d%27envoyer%20les%20certificats%2C%20les%20fiches%20d%27essai%20par%20unit%C3%A9%20et%20une%20vid%C3%A9o%20d%27essai%20en%20pression" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

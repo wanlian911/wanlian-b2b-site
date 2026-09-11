@@ -227,5 +227,41 @@ export const guidesFr: GuideFr[] = [
     category: 'Protection Incendie',
     readTime: '8 min de lecture',
     tags: ['fire-protection', 'fire-hydrant']
+  },
+  {
+    title: 'Infrastructure Municipale d’Eau et de Protection Incendie en Amérique Latine : Guide d’Approvisionnement B2B (2026)',
+    description: 'Acheter des hydrants, des vannes à boisseau et des flexibles incendie pour l’infrastructure municipale en Amérique Latine : régimes de normes régionaux, lots en une seule commande, spécification et matrice de sélection.',
+    href: '/fr/guides/municipal-water-fire-infrastructure-latinamerica/',
+    date: '2026-09',
+    category: 'Achats B2B',
+    readTime: '8 min de lecture',
+    tags: ['procurement', 'fire-hydrant', 'industrial-valves']
+  },
+  {
+    title: 'Exigences de Certification des Vannes et Hydrants Incendie dans les Projets d’Amérique Latine (2026)',
+    description: 'Ce que signifient UL, FM, AWWA, NOM et ABNT dans un appel d’offres latino-américain, comment ils sont accordés par modèle, comment vérifier les certificats authentiques et la documentation à demander.',
+    href: '/fr/guides/latinamerica-certification-requirements-fire-valves/',
+    date: '2026-09',
+    category: 'Achats B2B',
+    readTime: '8 min de lecture',
+    tags: ['certification', 'procurement', 'industrial-valves']
+  },
+  {
+    title: 'Comment Détecter les Vannes Falsifiées et les Certificats d’Équipement Incendie Contrefaits (2026)',
+    description: 'Un contrôle en sept étapes et un tableau des signaux d’alerte : numéros de série clonés, plaques copiées, corps à paroi mince et certificats UL/FM/AWWA falsifiés lors d’une achat en Chine.',
+    href: '/fr/guides/detect-fake-valves-fire-equipment-counterfeits/',
+    date: '2026-09',
+    category: 'Achats B2B',
+    readTime: '8 min de lecture',
+    tags: ['procurement', 'certification']
+  },
+  {
+    title: 'Wanlian Fluid vs AVK Latinoamérica : Fournisseur de Vannes et Hydrants pour les Projets LatAm (2026)',
+    description: 'Wanlian Fluid vs AVK Latinoamérica (AVK Válvulas, Tarragone) : réseau de distribution, gamme, lots en une seule commande, OEM, structure de coûts et délais — et comment choisir pour votre projet LatAm.',
+    href: '/fr/guides/wanlian-fluid-vs-avk-latinamerica/',
+    date: '2026-09',
+    category: 'Achats B2B',
+    readTime: '9 min de lecture',
+    tags: ['procurement', 'fire-hydrant', 'industrial-valves']
   }
 ];

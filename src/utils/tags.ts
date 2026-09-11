@@ -24,7 +24,7 @@ export const tags: Tag[] = [
     name: 'Fire Hydrants',
     seoTitle: 'Fire Hydrants: Types, Standards & Selection',
     description: 'Indoor SN65 hydrant heads, overground SS100 hydrants, anti-collision SSFT100 and IoT smart hydrants for municipal and industrial fire protection networks.',
-    guideHrefs: ['/guides/how-to-choose-a-fire-hydrant/', '/guides/wanlian-fluid-vs-american-avk/', '/guides/fire-hydrant-valve-standards-guide/', '/guides/antifreeze-anti-collision-fire-hydrant-guide/'],
+    guideHrefs: ['/guides/how-to-choose-a-fire-hydrant/', '/guides/wanlian-fluid-vs-american-avk/', '/guides/fire-hydrant-valve-standards-guide/', '/guides/antifreeze-anti-collision-fire-hydrant-guide/', '/guides/municipal-water-fire-infrastructure-latinamerica/', '/guides/wanlian-fluid-vs-avk-latinamerica/'],
     productSlugs: ['indoor-fire-hydrant-head-sn65', 'overground-fire-hydrant-ss100', 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', 'iot-smart-ground-fire-hydrant-ss100zn', 'fire-hydrant-hose-coupling-adapter-hs'],
     relatedTags: ['fire-protection', 'procurement', 'fire-hose-reel']
   },
@@ -60,7 +60,7 @@ export const tags: Tag[] = [
     name: 'Industrial Valves',
     seoTitle: 'Industrial Valves: Gate, Butterfly & Check Valves',
     description: 'Resilient seat gate valves, wafer butterfly valves, ball check valves and Y-strainers for water supply, sewage, HVAC and industrial process pipelines.',
-    guideHrefs: ['/guides/gate-valve-vs-butterfly-valve-fire-protection/', '/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-choose-ul-listed-fire-valves/', '/guides/bellows-seal-gate-valve-guide/', '/guides/check-valve-types-guide/', '/guides/wanlian-fluid-vs-american-avk/'],
+    guideHrefs: ['/guides/gate-valve-vs-butterfly-valve-fire-protection/', '/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-choose-ul-listed-fire-valves/', '/guides/bellows-seal-gate-valve-guide/', '/guides/check-valve-types-guide/', '/guides/wanlian-fluid-vs-american-avk/', '/guides/wanlian-fluid-vs-avk-latinamerica/'],
     productSlugs: ['resilient-seat-flanged-gate-valve-z41x', 'telescopic-resilient-seat-gate-valve-z41x-t', 'wafer-type-butterfly-valve-d71x', 'signal-grooved-wafer-butterfly-valve-dn80', 'sliding-ball-check-valve-hq41x', 'spherical-ball-check-valve-hq44x', 'telescopic-y-strainer-sgl41h', 'flange-manual-bellows-gate-valve'],
     relatedTags: ['fire-protection', 'backflow-prevention']
   },
@@ -78,7 +78,7 @@ export const tags: Tag[] = [
     name: 'Certification & Compliance',
     seoTitle: 'UL, FM, CE Valve Certification Guide',
     description: 'Understanding UL/FM/CE/LPCB certification for fire valves and hydrants, verifying genuine certificates, and compliance requirements for export markets.',
-    guideHrefs: ['/guides/how-to-choose-ul-listed-fire-valves/', '/guides/b2b-valve-sourcing-checklist/', '/guides/ce-en12845-fire-protection-compliance/', '/guides/how-to-verify-chinese-valve-supplier/'],
+    guideHrefs: ['/guides/how-to-choose-ul-listed-fire-valves/', '/guides/b2b-valve-sourcing-checklist/', '/guides/ce-en12845-fire-protection-compliance/', '/guides/how-to-verify-chinese-valve-supplier/', '/guides/latinamerica-certification-requirements-fire-valves/', '/guides/detect-fake-valves-fire-equipment-counterfeits/'],
     productSlugs: [],
     relatedTags: ['fire-protection', 'procurement']
   },
@@ -87,7 +87,7 @@ export const tags: Tag[] = [
     name: 'B2B Procurement',
     seoTitle: 'B2B Valve & Fire Equipment Sourcing Checklist',
     description: 'Factory verification, certificate checking, batch test reports, sample policies and red flags when sourcing valves and fire protection equipment from China.',
-    guideHrefs: ['/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-choose-a-fire-hydrant/', '/guides/wanlian-fluid-vs-american-avk/', '/guides/how-to-verify-chinese-valve-supplier/', '/guides/fire-hydrant-valve-standards-guide/'],
+    guideHrefs: ['/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-choose-a-fire-hydrant/', '/guides/wanlian-fluid-vs-american-avk/', '/guides/how-to-verify-chinese-valve-supplier/', '/guides/fire-hydrant-valve-standards-guide/', '/guides/municipal-water-fire-infrastructure-latinamerica/', '/guides/latinamerica-certification-requirements-fire-valves/', '/guides/detect-fake-valves-fire-equipment-counterfeits/', '/guides/wanlian-fluid-vs-avk-latinamerica/'],
     productSlugs: [],
     relatedTags: ['certification', 'industrial-valves']
   },
