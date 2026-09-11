@@ -1,0 +1,322 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Layout from '../../layouts/Layout.astro';
+
+// Factory evidence assets are dropped into public/assets/factory/.
+// The section only renders for files that actually exist, so the live site
+// never shows a broken image or an empty placeholder before assets arrive.
+const factoryDir = path.join(process.cwd(), 'public', 'assets', 'factory');
+const hasFactoryAsset = (file) => fs.existsSync(path.join(factoryDir, file));
+
+const plantPhotos = [
+  { file: 'plant-exterior.webp', alt: 'منظر خارجي لمنشأة تصنيع Wanlian Fluid في قوانتشو، فوجيان', caption: 'منشأتنا — قوانتشو، فوجيان' },
+  { file: 'workshop.webp', alt: 'منطقة طي صفائح معدنية بكرات الضغط والجرف العلوي في ورشة Wanlian Fluid', caption: 'منطقة الطي — كرات الضغط والجرف العلوي' },
+  { file: 'powder-coating.webp', alt: 'خط نقل طلاء البودرة العلوي في Wanlian Fluid', caption: 'خط طلاء البودرة — من مقصورة الرش إلى التصلب' },
+  { file: 'assembly.webp', alt: 'منطقة التجميع والتشطيب مع خزائن بكرات مرن الحريق في Wanlian Fluid', caption: 'منطقة التجميع والتشطيب' },
+  { file: 'fire-hose.webp', alt: 'بكرات مرن حريق مصنوعة ومران ملفوف جاهز للتصدير في Wanlian Fluid', caption: 'إنتاج مران وبكرات الحريق' },
+  { file: 'qc-test-bench.webp', alt: 'منصة اختبار ضغط الغلاف والتسرب الهوائي لصمامات Wanlian Fluid', caption: 'منصة اختبار ضغط الغلاف والتسرب الهوائي' }
+].filter((p) => hasFactoryAsset(p.file));
+
+const verifiableItems = [
+  'شهادة نظام إدارة الجودة ISO 9001، مع نطاقها والجهة المانحة',
+  'تقارير اختبار ضغط الغلاف والتسرب الهوائي على مستوى الدفعة للوحدات في أمر شراؤك',
+  'فحص من طرف ثالث (نمط SGS / BV) يُرتَّب قبل الشحن، بترتيب منك',
+  'جولة فيديو مباشرة على الخط ومنصة الاختبار أثناء تشغيل الإنتاج',
+  'تعلية علامة OEM/ODM وتغليف التصدير وحزمة توثيق التصدير الكاملة'
+];
+
+const hasBusinessLicense = hasFactoryAsset('business-license.webp');
+const hasProductionVideo = hasFactoryAsset('production-line.mp4');
+const hasFactoryEvidence = plantPhotos.length > 0 || hasBusinessLicense || hasProductionVideo;
+const heroPhoto = hasFactoryAsset('plant-exterior.webp') ? '/assets/factory/plant-exterior.webp' : '/og-image.jpg';
+
+const productionSteps = [
+  { step: '01', name: 'فحص المواد الواردة', desc: 'فحص المواد الواردة من حديد الزهر المطبوع والمصبوبات وعناصر الإحكام والطلاءات مقابل مواصفات الطلب.' },
+  { step: '02', name: 'تشغيل CNC', desc: 'تشغيل دقيق لأجسام الصمامات والأقراص والملحقات إلى التسامحات البعدية المطلوبة.' },
+  { step: '03', name: 'التجميع', desc: 'تجميع الداخليات وعناصر الإحكام وآليات التشغيل في ظروف ورشة محكمة.' },
+  { step: '04', name: 'اختبار الضغط والتسرب', desc: 'اختبار 100% لضغط الغلاف والتسرب الهوائي للمقعد لكل وحدة قبل التشطيب.' },
+  { step: '05', name: 'طلاء الإبوكسي', desc: 'طلاء راتنج إبوكسي غير سام لمقاومة التآكل وحياة خدمة طويلة.' },
+  { step: '06', name: 'التغليف التصديري', desc: 'تغليف وتصنيف وتوثيق بمستوى التصدير جاهز للشحن الدولي.' }
+];
+
+const values = [
+  { title: 'الابتكار', desc: 'تحسين تصميم مستمر واختراقات بحثية لإنشاء أنظمة إطفاء وسوائل أذكى وأكثر كفاءة.' },
+  { title: 'الجودة', desc: 'نظرًا لطبيعة مكافحة الحريق وخطوط الأنابيب الصناعية الحرجة، نفحص كل صمام على حدة بدقة لتجاوز المعايير الدولية.' },
+  { title: 'المسؤولية', desc: 'بصفتنا مؤسسة مسؤولة اجتماعيًا، نسعى لتحسين السلامة العامة وضمان أمن السوائل عبر الشبكات العالمية.' },
+  { title: 'البيئة', desc: 'دمج معايير التصنيع الأخضر ومفاهيم الاستدامة في خط إنتاجنا لتعزيز الأمان البيئي.' }
+];
+---
+
+<Layout
+  locale="ar"
+  title="من نحن | Quanzhou Wanlian Fluid Equipment"
+  description="شركة قوانتشو وانليان للمعدات السائلة المحدودة تصنع وتصدر الصمامات ومعدات الإطفاء والتحكم السوائل من خطوط إنتاجها الخاصة في قوانتشو، فوجيان، مع إنتاج مختارات من شركاء تصنيع مؤهلين، لمشاريع B2B عالمية."
+>
+  <!-- Banner Header -->
+  <section class="relative bg-gray-900 text-white overflow-hidden py-20">
+    <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/og-image.jpg');"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+      <span class="text-xs font-bold tracking-widest text-blue-500 uppercase">من نحن</span>
+      <h1 class="text-3xl sm:text-5xl font-black tracking-tight">عن قوانتشو وانليان</h1>
+      <p class="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
+        صانع ومصدّر للصمامات ومعدات الحماية من الحريق، مع خطوط إنتاج خاصة في قلب صناعة السباكة والصمامات في الصين.
+      </p>
+    </div>
+  </section>
+
+  <!-- Factory Profile -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="space-y-6">
+          <div class="border-s-4 border-blue-600 ps-4">
+            <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">ملف الشركة</span>
+            <h2 class="text-3xl font-black text-gray-900 tracking-tight mt-1">متجذّرة في قلب مركز صناعة الصمامات</h2>
+          </div>
+          <p class="text-base text-gray-600 leading-relaxed">
+            تقع شركة قوانتشو وانليان للمعدات السائلة المحدودة في قوانتشو، فوجيان — نقطة انطلاق طريق الحرير البحري والمركز الأساسي لصناعة السباكة والصمامات في الصين. نصنع ونصدر الصمامات ومعدات الإطفاء ومعدات التحكم السوائل والحلول المتكامة لقطاعات الصناعة والبلديات والحماية من الحريق وإمداد المياه والصرف، ويدعم مهندسونا اختيار المنتجات والتخصيص في كل طلب.
+          </p>
+          <p class="text-base text-gray-600 leading-relaxed">
+            تجمع خطوط الإنتاج الخاصة بنا في قوانتشو، فوجيان بين فريق هندسي وكبير وتشغيل CNC داخلي وتجميع واختبار ضغط — مدعومة بشركاء تصنيع مؤهلين لمختارات من الأصناف. تُشغَّل أجسام الصمامات بتقنية CNC داخليًا، وتُختبر كل وحدة لضغط الغلاف والتسرب الهوائي قبل الشحن، ويعمل الإنتاج وفق نظام إدارة جودة ISO 9001 مع المعايير الصناعية الوطنية ذات الصلة، بما يضمن استقرار وموثوقية ومتانة كل منتج.
+          </p>
+          <p class="text-base text-gray-600 leading-relaxed">
+            يُبنى كتالوجنا حول المواصفات التي يعمل بها مهندسو التصميم فعلًا — فئة الضغط ومعيار الاتصال ومادة الجسم والملحقات والتطبيق — مع عروض سعر حسب الاستفسار ودعم فني لمشاريع إمداد المياه والتحكم السوائل الصناعي ومكافحة الحريق.
+          </p>
+          <div class="grid grid-cols-2 gap-6 pt-4 border-t border-gray-100">
+            <div>
+              <span class="block text-2xl font-black text-blue-600">الصمامات</span>
+              <span class="block text-xs text-gray-400 font-bold tracking-wider uppercase mt-1">أنظمة تحكم السوائل</span>
+            </div>
+            <div>
+              <span class="block text-2xl font-black text-blue-600">حماية الحريق</span>
+              <span class="block text-xs text-gray-400 font-bold tracking-wider uppercase mt-1">خطوط إنتاج خاصة</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative rounded-2xl overflow-hidden aspect-video shadow-lg border border-gray-100 bg-gray-50">
+          <img
+            src={heroPhoto}
+            alt="منشأة تصنيع Wanlian Fluid وإنتاج الصمامات، قوانتشو، فوجيان"
+            loading="lazy"
+            class="object-cover w-full h-full"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Manufacturing Evidence -->
+  {hasFactoryEvidence && (
+  <section class="py-24 bg-gray-50 border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">أدلة المصنع</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">داخل خطوط الإنتاج لدينا في قوانتشو</h2>
+        <p class="text-base text-gray-500">وثائق ولقطات لمراجعة العناية الواجبة لديك — السجلات نفسها التي يراجعها مشترونا نحن. اطلب منا حزمة الشهادات وتقارير الاختبار الكاملة المطابقة لأمر شراؤك.</p>
+      </div>
+
+      {plantPhotos.length > 0 && (
+      <div class="columns-1 sm:columns-2 gap-6 mb-16">
+        {plantPhotos.map((photo) => (
+          <figure class="mb-6 break-inside-avoid bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+            <img src={`/assets/factory/${photo.file}`} alt={photo.alt} loading="lazy" class="w-full h-auto" />
+            <figcaption class="px-5 py-4 text-sm font-semibold text-gray-700">{photo.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+      )}
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        {hasProductionVideo && (
+        <div class="lg:col-span-1 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <video
+            class="w-full aspect-[9/16] bg-gray-900 object-cover"
+            controls
+            playsinline
+            preload="metadata"
+            poster={hasFactoryAsset('production-line-poster.webp') ? '/assets/factory/production-line-poster.webp' : undefined}
+          >
+            <source src="/assets/factory/production-line.mp4" type="video/mp4" />
+            متصفحك لا يدعم الفيديو المضمّن.
+          </video>
+          <div class="px-6 py-5">
+            <h3 class="font-bold text-lg text-gray-900">في ساحة الإنتاج</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">خمسة وعشرون ثانية من اللقطات غير المحررة من خطوط إنتاجنا الخاصة — طي صفائح معدنية، لحام، خط طلاء البودرة ونسيج جلد مران الحريق. لا فيديو مخزني.</p>
+          </div>
+        </div>
+        )}
+
+        <div class={hasProductionVideo ? 'lg:col-span-2 space-y-8' : 'lg:col-span-3 space-y-8'}>
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+            <h3 class="font-bold text-lg text-gray-900">ما يمكنك التحقق منه معنا</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">التحقق جزء طبيعي من التعامل مع مورد صيني. إليك ما سنضعه بين يديك قبل أن تلتزم — اطلب كل ذلك.</p>
+            <ul class="mt-6 space-y-3">
+              {verifiableItems.map((item) => (
+                <li class="flex items-start gap-3 text-sm text-gray-600 leading-relaxed">
+                  <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {hasBusinessLicense && (
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <img src="/assets/factory/business-license.webp" alt="رخصة أعمال Quanzhou Wanlian Fluid Equipment Co., Ltd. يغطي نطاق النشاط التصنيع" loading="lazy" class="w-full object-contain bg-gray-50 max-h-[420px]" />
+            <div class="px-6 py-5">
+              <h3 class="font-bold text-lg text-gray-900">رخصة الأعمال</h3>
+              <p class="mt-2 text-sm text-gray-500 leading-relaxed">مسجّلة في قوانتشو، فوجيان. يغطي نطاق الأعمال التصنيع والتشغيل والتصدير للصمامات ومعدات الحماية من الحريق — الكيان الذي يصدّر فاتورة طلبك هو الكيان الذي يصنع المنتج.</p>
+            </div>
+          </div>
+          )}
+        </div>
+      </div>
+
+      <p class="mt-10 text-center text-sm text-gray-500">
+        تريد جولة فيديو مباشرة على الخط ومنصة الاختبار لمشروعك؟ <a href="/ar/contact/" class="text-brand-blue font-semibold hover:underline">اطلب جولة في المصنع</a>.
+      </p>
+    </div>
+  </section>
+  )}
+
+  <!-- Products & Services -->
+  <section class="py-24 bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">المنتجات والخدمات</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">نطاق منتجات متكامل وخدمات متنوعة</h2>
+        <p class="text-base text-gray-500">تنفيذ وظائف نقل السوائل والتحكم والإغلاق والحماية الآمنة عبر الصناعات.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
+          <h3 class="font-bold text-lg text-gray-900 mb-4">المنتجات الرئيسية</h3>
+          <ul class="space-y-2 text-sm text-gray-600">
+            {['صمامات البوابة', 'صمامات الفراشة', 'صمامات كروية', 'صمامات الموازنة', 'صمامات جلوب', 'صمامات الرجوع', 'الفلترة', 'صمامات التحكم الهيدروليكي', 'ملحقات خطوط الأنابيب', 'المشغلات'].map(item => (
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
+          <h3 class="font-bold text-lg text-gray-900 mb-4">معدات الإطفاء</h3>
+          <ul class="space-y-2 text-sm text-gray-600">
+            {['خزائن الحريق', 'خلاطات الحريق', 'طفايات الحريق', 'بكرات مران الحريق', 'مران الحريق', 'فوهات الحريق', 'وصلات مران الحريق', 'رؤوس رش الحريق'].map(item => (
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-brand-blue rounded-full flex-shrink-0"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
+          <h3 class="font-bold text-lg text-gray-900 mb-4">التطبيقات والخدمات</h3>
+          <p class="text-sm text-gray-600 leading-relaxed mb-6">تُطبق على نطاق واسع في البتروكيماويات والطاقة والمعادن وإمداد المياه البلدي والصرف وحماية الحريق في المباني ومعالجة مياه الصرف وأنظمة HVAC وغيرها من الصناعات.</p>
+          <div class="flex flex-wrap gap-2">
+            {['OEM', 'ODM', 'تخصيص غير قياسي'].map(tag => (
+              <span class="px-3 py-1.5 bg-white border border-gray-200 text-xs font-black uppercase tracking-wider text-gray-700 rounded-full">{tag}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Production Process -->
+  <section class="py-24 bg-gray-50 border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">ضبط الجودة</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">عملية الإنتاج القياسية لدينا</h2>
+        <p class="text-base text-gray-500">يتبع كل طلب نفس التتابع الإنتاجي المنضبط — من فحص المواد الواردة إلى التغليف التصديري.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {productionSteps.map(step => (
+          <div class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm relative overflow-hidden group">
+            <span class="absolute end-6 top-6 text-4xl font-black text-gray-100 group-hover:text-blue-50 transition duration-300">
+              {step.step}
+            </span>
+            <div class="space-y-4">
+              <h3 class="font-bold text-lg text-gray-900 pe-12">{step.name}</h3>
+              <p class="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Values -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">المعتقدات الأساسية</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">أربع ركائز مؤسسية أساسية</h2>
+        <p class="text-base text-gray-500">قيادة السلامة المستدامة والتميز الصناعي عالميًا.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        {values.map(val => (
+          <div class="flex gap-6 items-start">
+            <div class="bg-blue-500/10 p-4 rounded-xl text-blue-600 flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+              </svg>
+            </div>
+            <div class="space-y-2">
+              <h3 class="font-bold text-xl text-gray-900">{val.title}</h3>
+              <p class="text-sm text-gray-500 leading-relaxed">{val.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Business Philosophy & Vision -->
+  <section class="py-24 bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-500 uppercase">التزامنا</span>
+        <h2 class="text-3xl font-black tracking-tight">فلسفة العمل</h2>
+      </div>
+
+      <blockquote class="text-center text-2xl sm:text-3xl font-black tracking-tight text-white mb-16">
+        «توجّه بالجودة، العميل أولًا، الأمانة للربح المتبادل، <span class="text-brand-red">والابتكار للتطوير المستدام»</span>
+      </blockquote>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        {[
+          { title: 'استشارة ما قبل البيع', desc: 'إرشاد احترافي لاختيار المنتجات وحلول تقنية مخصصة لمتطلبات مشروعك.' },
+          { title: 'دعم أثناء البيع', desc: 'إرشاد فني للتركيب والتشغيل، مع استجابة سريعة لطلبات العملاء.' },
+          { title: 'خدمة ما بعد البيع', desc: 'صيانة بعد البيع وحل المشكلات العملية في تطبيقات أنظمة السوائل.' }
+        ].map((item, idx) => (
+          <div class="p-8 bg-white/5 border border-white/10 rounded-2xl text-center">
+            <span class="block text-4xl font-black text-white/10 mb-4">{String(idx + 1).padStart(2, '0')}</span>
+            <h3 class="font-bold text-lg mb-3">{item.title}</h3>
+            <p class="text-xs text-gray-400 leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center max-w-3xl mx-auto space-y-6">
+        <p class="text-lg text-gray-300 leading-relaxed">
+          متجذّرة في قوانتشو وتغطي الأسواق الوطنية وتتطلع إلى الفرص العالمية، نستمر بالتركيز على مجال معدات السوائل — ترويجًا لترقية المنتجات من خلال الابتكار التكنولوجي وبناء سمعة علامة تجارية راسخة بالخدمات عالية الجودة.
+        </p>
+        <p class="text-gray-400 leading-relaxed">
+          نطمح لأن نكون شريكًا موثوقًا في التصنيع والتصدير في قطاعات التحكم السوائل المحلية والدولية، توريدًا بحلول أنظمة سوائل أكثر كفاءة وأمانًا وذكاءً للعملاء من شتى المجالات، والمساهمة في التطور الصناعي وبناء البنية التحتية.
+        </p>
+        <a href="/ar/contact/" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-red hover:opacity-90 text-white font-bold rounded-lg transition">
+          ابدأ محادثة <span aria-hidden="true" class="rtl:inline-block rtl:rotate-180">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

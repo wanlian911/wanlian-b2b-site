@@ -64,7 +64,7 @@ const organizationJsonLd = {
 		"telephone": "+86-18684324501",
 		"contactType": "sales",
 		"areaServed": "Global",
-		"availableLanguage": ["English", "Spanish", "Russian", "Chinese"]
+		"availableLanguage": ["English", "Spanish", "Russian", "French", "Arabic", "Chinese"]
 	},
 	"sameAs": [
 		"https://wa.me/8618684324501",
@@ -169,6 +169,8 @@ const breadcrumbJsonLd = breadcrumbs.length ? {
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+		<!-- Google Fonts: Cairo（阿拉伯语 + 拉丁，RTL 语言专用） -->
+		<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content={type} />
@@ -216,5 +218,18 @@ const breadcrumbJsonLd = breadcrumbs.length ? {
 	html {
 		scroll-behavior: smooth;
 		font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+	}
+	/* RTL 语言（阿拉伯语）优先使用 Cairo，保证阿语字形质量；不影响 LTR 语言 */
+	html[dir="rtl"] {
+		font-family: 'Cairo', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+	}
+	/* RTL 方向箭头（16px「查看详情」箭头）翻转指向左；仅命中 h-4 w-4 尺寸，不影响装饰图标 */
+	html[dir="rtl"] svg.h-4.w-4 {
+		transform: scaleX(-1);
+	}
+	/* RTL 下方向箭头（16px 的「更多/查看详情」箭头）翻转指向左；仅作用于 rtl 上下文，
+	   且只命中 16px 尺寸图标，不影响 18/20/24px 的对勾/加号/WhatsApp 等装饰图标 */
+	html[dir="rtl"] svg.h-4.w-4 {
+		transform: scaleX(-1);
 	}
 </style>

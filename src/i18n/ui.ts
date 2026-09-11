@@ -96,7 +96,7 @@ const en: UIStrings = {
     inquireNow: 'Inquire Now',
     language: 'Language',
     tagline: 'Manufacturer & Exporter of Fluid Equipment',
-    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français' },
+    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français', ar: 'العربية' },
   },
   footer: {
     companyName: 'WANLIAN FLUID',
@@ -197,7 +197,7 @@ const es: UIStrings = {
     inquireNow: 'Solicitar Cotización',
     language: 'Idioma',
     tagline: 'Fabricante y Exportador de Equipos de Fluidos',
-    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français' },
+    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français', ar: 'العربية' },
   },
   footer: {
     companyName: 'WANLIAN FLUID',
@@ -298,7 +298,7 @@ const ru: UIStrings = {
     inquireNow: 'Запросить цену',
     language: 'Язык',
     tagline: 'Производитель и экспортёр оборудования для жидкостных систем',
-    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français' },
+    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français', ar: 'العربية' },
   },
   footer: {
     companyName: 'WANLIAN FLUID',
@@ -399,7 +399,7 @@ const fr: UIStrings = {
     inquireNow: 'Demander un Devis',
     language: 'Langue',
     tagline: 'Fabricant et Exportateur d\'Équipements Fluides',
-    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français' },
+    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français', ar: 'العربية' },
   },
   footer: {
     companyName: 'WANLIAN FLUID',
@@ -489,7 +489,108 @@ const fr: UIStrings = {
   },
 };
 
-export const ui: Record<Locale, UIStrings> = { en, es, ru, fr };
+const ar: UIStrings = {
+  nav: [
+    { name: 'الرئيسية', href: '/' },
+    { name: 'المنتجات', href: '/products/' },
+    { name: 'التطبيقات', href: '/applications/' },
+    { name: 'الشهادات', href: '/certificates/' },
+    { name: 'المدونة', href: '/blog/' },
+    { name: 'من نحن', href: '/about/' },
+    { name: 'اتصل بنا', href: '/contact/' },
+  ],
+  header: {
+    alibabaStore: 'متجر علي بابا',
+    inquireNow: 'اطلب عرض سعر',
+    language: 'اللغة',
+    tagline: 'صانع ومصدّر معدات السوائل',
+    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français', ar: 'العربية' },
+  },
+  footer: {
+    companyName: 'WANLIAN FLUID',
+    companyDesc:
+      'شركة قوانتشو وانليان للمعدات السائلة المحدودة (Quanzhou Wanlian Fluid Equipment Co., Ltd.) تصنع وتصّدر الصمامات ومعدات الحماية من الحريق ومنتجات التحكم الهيدروليكي ومكونات أنظمة السوائل من خطوط إنتاجها الخاصة في قوانتشو، فوجيان، مع إنتاج مختارات من قبل شركاء تصنيع مؤهلين. يتم تشغيل أجسام الصمامات بواسطة CNC داخل المصنع وتخضع كل وحدة لاختبار ضغط الغلاف واختبار التسرب الهوائي قبل الشحن، وفق نظام إدارة جودة ISO 9001.',
+    tagline: '"Flow Far, Link Global."',
+    quickLinksTitle: 'روابط سريعة',
+    quickLinks: [
+      { name: 'الرئيسية', href: '/' },
+      { name: 'مركز المنتجات', href: '/products/' },
+      { name: 'التطبيقات', href: '/applications/' },
+      { name: 'من نحن', href: '/about/' },
+      { name: 'المدونة', href: '/blog/' },
+      { name: 'اتصال واستفسار', href: '/contact/' },
+    ],
+    productSeriesTitle: 'سلاسل المنتجات',
+    productSeries: [
+      { name: 'صمامات وقطع الغيار', href: '/products/#category=%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%20%D9%88%D9%82%D8%B7%D8%B9%20%D8%A7%D9%84%D8%BA%D9%8A%D8%A7%D8%B1' },
+      { name: 'خلاط الحريق واتصالات المضخات', href: '/products/#category=%D8%AE%D9%84%D8%A7%D8%B7%20%D8%A7%D9%84%D8%AD%D8%B1%D9%8A%D9%82%20%D9%88%D8%A7%D8%AA%D8%B5%D8%A7%D9%84%D8%A7%D8%AA%20%D8%A7%D9%84%D9%85%D8%B6%D8%AE%D8%A7%D8%AA' },
+      { name: 'رؤوس رش الحريق وصمامات الإنذار', href: '/products/#category=%D8%B1%D8%A4%D9%88%D8%B3%20%D8%B1%D8%B4%20%D8%A7%D9%84%D8%AD%D8%B1%D9%8A%D9%82%20%D9%88%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%20%D8%A7%D9%84%D8%A5%D9%86%D8%B0%D8%A7%D8%B1' },
+      { name: 'مدافع مياه الإطفاء', href: '/products/#category=%D9%85%D8%AF%D8%A7%D9%81%D8%B9%20%D9%85%D9%8A%D8%A7%D9%87%20%D8%A7%D9%84%D8%A5%D8%B7%D9%81%D8%A7%D8%A1' },
+    ],
+    solutionsTitle: 'حلول المنتجات',
+    solutions: [
+      { name: 'صمامات حريق UL', href: '/ul-fire-valves/' },
+      { name: 'مدفع مياه حريق', href: '/fire-water-cannon/' },
+      { name: 'أنظمة رش الحريق', href: '/fire-sprinkler-systems/' },
+    ],
+    contactTitle: 'اتصل بنا',
+    contact: {
+      emailLabel: 'البريد:',
+      phoneLabel: 'الهاتف:',
+      addressLabel: 'العنوان:',
+      addressValue: 'Quanzhou, Fujian, China',
+    },
+    bottom: {
+      linkedin: 'LinkedIn',
+      alibaba: 'متجر علي بابا',
+      blog: 'المدونة',
+      privacy: 'الخصوصية',
+      terms: 'الشروط',
+      support: 'الدعم',
+    },
+    copyright: '© {year} Quanzhou Wanlian Fluid Equipment Co., Ltd. جميع الحقوق محفوظة.',
+  },
+  whatsapp: {
+    ariaLabel: 'تواصل معنا عبر واتساب',
+    tooltip: 'اتصل بنا',
+    defaultMessage: 'مرحباً، أنا مهتم بصماماتكم ومعدات الإطفاء.',
+  },
+  inquiry: {
+    fullName: 'الاسم الكامل *',
+    email: 'البريد الإلكتروني *',
+    company: 'اسم الشركة',
+    country: 'الدولة/المنطقة *',
+    countryPlaceholder: 'اختر الدولة/المنطقة',
+    product: 'المنتج المطلوب',
+    message: 'الرسالة والمتطلبات المحددة *',
+    messagePlaceholder:
+      'يرجى وصف متطلباتكم، الكمية، وأي تخصيص مطلوب...',
+    send: 'أرسل الاستفسار الآن',
+    sending: 'جارٍ الإرسال...',
+    verifyRequired: 'يرجى إكمال التحقق قبل الإرسال.',
+    submitFailed: 'فشل الإرسال. حاول مرة أخرى أو تواصل معنا عبر واتساب.',
+    successTitle: 'تم إرسال الاستفسار بنجاح!',
+    successBody:
+      'شكراً لاستفساركم. سيستعرض فريق المبيعات والهندسة لدينا متطلباتكم ويرد خلال 12 ساعة.',
+    successWhatsappHint: 'تفضّل المحادثة الفورية؟ تواصل معنا مباشرة عبر واتساب:',
+    chatWhatsapp: 'تواصل عبر واتساب',
+    sendAnother: '→ أرسل استفساراً آخر',
+    waFollowupMessage:
+      'مرحباً، لقد أرسلت استفساراً على wanlian911.com وأرغب بمتابعة سريعة.',
+  },
+  notFound: {
+    title: '404 - الصفحة غير موجودة | Wanlian Fluid',
+    description:
+      'الصفحة التي تبحث عنها غير موجودة. استكشف صمامات Wanlian الصناعية ومعدات الحماية من الحريق.',
+    heading: 'الصفحة غير موجودة',
+    body: 'قد تكون الصفحة التي تبحث عنها قد نُقلت أو أعيدت تسميتها أو لم تعد موجودة. استكشف كتالوج صماماتنا والحماية من الحريق المعتمد بدلاً من ذلك.',
+    backHome: 'العودة للرئيسية',
+    browseProducts: 'تصفح المنتجات',
+    contactUs: 'اتصل بنا',
+  },
+};
+
+export const ui: Record<Locale, UIStrings> = { en, es, ru, fr, ar };
 
 /** 按语言取字典；缺省回退 en（保证接口容错）。 */
 export function t(locale: Locale): UIStrings {

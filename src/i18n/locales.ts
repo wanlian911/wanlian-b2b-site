@@ -2,11 +2,11 @@
 // 默认语言（en）始终位于根路径（SEO 资产零回归）；其他语言使用 /xx/ 前缀子目录。
 // 新增语言只需：1) 扩展 Locale 类型  2) 在下方映射表中登记  3) 提供页面与字典。
 
-export type Locale = 'en' | 'es' | 'ru' | 'fr';
+export type Locale = 'en' | 'es' | 'ru' | 'fr' | 'ar';
 
 export const DEFAULT_LOCALE: Locale = 'en';
 
-export const SUPPORTED_LOCALES: Locale[] = ['en', 'es', 'ru', 'fr'];
+export const SUPPORTED_LOCALES: Locale[] = ['en', 'es', 'ru', 'fr', 'ar'];
 
 /** 非默认语言（URL 带前缀）。 */
 export const PREFIXED_LOCALES: Locale[] = SUPPORTED_LOCALES.filter(locale => locale !== DEFAULT_LOCALE);
@@ -17,6 +17,7 @@ export const LOCALE_LABEL: Record<Locale, string> = {
   es: 'Español',
   ru: 'Русский',
   fr: 'Français',
+  ar: 'العربية',
 };
 
 /** 书写方向（RTL 语言预留）。 */
@@ -25,6 +26,7 @@ export const LOCALE_DIR: Record<Locale, 'ltr' | 'rtl'> = {
   es: 'ltr',
   ru: 'ltr',
   fr: 'ltr',
+  ar: 'rtl',
 };
 
 /** hreflang 值。 */
@@ -33,6 +35,7 @@ export const LOCALE_HREFLANG: Record<Locale, string> = {
   es: 'es',
   ru: 'ru',
   fr: 'fr',
+  ar: 'ar',
 };
 
 /** 语言在 URL 中的目录前缀：默认语言无前缀，其余带 /xx 前缀。 */
@@ -41,6 +44,7 @@ export const LOCALE_PREFIX: Record<Locale, string> = {
   es: '/es',
   ru: '/ru',
   fr: '/fr',
+  ar: '/ar',
 };
 
 /** 根据当前路径推导语言。 */
@@ -128,6 +132,24 @@ const TRANSLATED_PREFIXES: Record<Locale, string[]> = {
     '/guides/',
     '/blog/',
     '/tags/',
+  ],
+  // AR 第一波：核心 14 页 + 产品列表/详情（RTL）。
+  // /guides/、/blog/、/tags/ 留待第二波（24 篇阿语指南 + blog/tags），
+  // 未登记时导航/页脚指向这些未翻译路径由 safeHref 回退到 /ar/ 首页，无死链。
+  ar: [
+    '/',
+    '/products/',
+    '/about/',
+    '/certificates/',
+    '/applications/',
+    '/contact/',
+    '/privacy/',
+    '/terms/',
+    '/backflow-prevention/',
+    '/fire-hydrant-systems/',
+    '/fire-sprinkler-systems/',
+    '/fire-water-cannon/',
+    '/ul-fire-valves/',
   ],
 };
 
