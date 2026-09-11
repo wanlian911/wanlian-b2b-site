@@ -216,5 +216,14 @@ export const guides: Guide[] = [
     category: 'Fire Protection',
     readTime: '8 min read',
     tags: ['fire-hydrant', 'fire-protection']
+  },
+  {
+    title: 'Fire Department Connection (Siamese) Guide: Inlets, Couplings & Installation (2026)',
+    description: 'Fire department siamese connections explained: twin DN65 inlets (SQS65/KWS65), DN100 flanged outlet, integrated control valve, Storz and HS coupling options, installation and a B2B specification checklist.',
+    href: '/guides/fire-department-connection-siamese-guide/',
+    date: '2026-09',
+    category: 'Fire Protection',
+    readTime: '8 min read',
+    tags: ['fire-protection', 'fire-hydrant']
   }
 ];

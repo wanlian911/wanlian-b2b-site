@@ -1,0 +1,188 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'What is a siamese connection and why are there two inlets?',
+		answer: 'A fire department connection (FDC) is the point where responding fire engines pump water into a building\'s fire protection system — the standpipe or the sprinkler main. A siamese connection has two inlets feeding one outlet so that two engines can supply the same riser at once, doubling the flow available to the system. The SQD100-1.6 takes two DN65 (2.5") inlets and discharges through a single DN100 (4") flanged outlet into the building main.'
+	},
+	{
+		question: 'Which inlet coupling standard should I specify for an FDC?',
+		answer: 'The inlets must match the hose couplings the local fire service actually carries, because that is what has to connect under pressure at 3 a.m. The SQD100-1.6 is supplied with 2 × DN65 inlets and caps in SQS65 / KWS65 form. Where a project uses German standard Storz connections, our 2.5" aluminium Storz couplings cover DN50 to DN150 with a self-sealing edge, and HS series adapters (DN50/DN65, 1.6 MPa, GB12514) convert between thread types — state the required coupling in the enquiry.'
+	},
+	{
+		question: 'Does the SQD100 include a control valve?',
+		answer: 'Yes. The SQD100-1.6 has an integrated control valve operated by a handwheel, so flow through the connection can be regulated rather than only blocked or opened. Both inlets are supplied with caps held by braided steel safety cables, so the caps stay with the hydrant when they are removed during pumping.'
+	},
+	{
+		question: 'What are the size, pressure and material specifications?',
+		answer: 'Inlets: 2 × DN65 (2.5") with caps. Outlet: DN100 (4") flanged. Pressure rating: 1.6 MPa. Overall length: 120 mm. Body: ductile iron / cast iron with a corrosion-resistant powder coated red finish; handwheel stem in brass or stainless steel. The compact body length suits installation in tight pump rooms and at airport or municipal fire protection points.'
+	},
+	{
+		question: 'How should a fire department connection be inspected?',
+		answer: 'Check that both caps are in place with their gaskets intact and the safety cables sound, that the flanged outlet shows no leakage or corrosion, that the handwheel operates freely, and that the connection is visible, signed and never obstructed by parked vehicles, landscaping or stored goods. In freezing climates, confirm the connection drains properly after use so water does not stand in the body.'
+	},
+	{
+		question: 'What is the difference between an FDC and a fire hydrant?',
+		answer: 'They work in opposite directions. A fire hydrant is a supply point on the municipal water main — engines connect to it and draw water out. A fire department connection is a building-side inlet — engines pump water into the building\'s standpipe or sprinkler system through it. Many sites need both, and both are covered by our fire hydrant selection guide.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'what-is-fdc', label: '1. What Is a Fire Department Connection?' },
+	{ id: 'how-siamese-works', label: '2. Twin Inlets, One Outlet' },
+	{ id: 'coupling-standards', label: '3. Inlet Coupling Standards and Adapters' },
+	{ id: 'where-fdc-installed', label: '4. Where FDCs Are Installed' },
+	{ id: 'fdc-comparison', label: '5. Siamese Body, Storz Coupling or Adapter?' },
+	{ id: 'fdc-spec-checklist', label: '6. Specification and Installation Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'SQD100-1.6 Fire Pump Adapter (Siamese)', img: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', desc: '2 x DN65 inlets, DN100 flanged outlet, 1.6 MPa' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: '2.5" Storz Coupling (German Standard)', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'DN50-DN150, 1.6 MPa, self-sealing aluminium' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'HS Coupling Adapter', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65, GB12514, anodized aluminium' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Indoor Fire Hydrant Head (SN65)', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'DN65 indoor hydrant head for standpipe outlets' }
+];
+---
+
+<Layout
+	title="Fire Department Connection Guide: Siamese Inlets & Couplings"
+	description="Fire department connection (siamese) guide: twin DN65 inlets, DN100 outlet, SQS65/KWS65 and Storz coupling options, control valve, installation and a B2B checklist."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Fire Department Connection Guide' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Fire Department Connection Guide</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Fire Protection Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Fire Department Connection Guide: Siamese Inlets &amp; Couplings</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a fire department connection (FDC) is the inlet where responding engines pump water into a building's standpipe or sprinkler system. The siamese version has two inlets feeding one outlet so two engines can supply the same riser, and its inlets must match the hose couplings the local fire service carries. This guide covers the SQD100-1.6 siamese connection, the coupling options around it, and what to check before ordering.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="what-is-fdc" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. What Is a Fire Department Connection?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A fire department connection is the building-side interface for the fire service. When the building's own water supply is not enough — or when the sprinkler system has been isolated — arriving engines connect their hoses to the FDC and pump water into the standpipe riser or sprinkler main. The connection is therefore a pressure entry point into the building, not a water source.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Because it is used under emergency conditions, an FDC is judged by three practical questions: can the fire service connect to it quickly with the couplings they carry, can enough water be delivered through it, and is it accessible when the building is full of smoke and apparatus. Everything in this guide follows from those three questions.</p>
+			<p class="text-gray-700 leading-relaxed">A <strong>siamese</strong> connection answers the flow question with two inlets. One engine can supply the system alone if necessary; when a second engine arrives, both inlets are used and the flow into the riser is roughly doubled without either pump running at a disadvantageous point on its curve.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="how-siamese-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Twin Inlets, One Outlet</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The <a href="/products/sqd100-1-6-fire-pump-adapter/" class="text-brand-blue font-semibold hover:underline">SQD100-1.6 fire pump adapter</a> is a compact siamese body: two DN65 (2.5") inlets with caps on one side, and a single DN100 (4") flanged outlet on the other that bolts to the building main. Working pressure is 1.6 MPa and the body is only 120 mm long, which matters in pump rooms and below-grade vaults where space is tight.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Two design details are worth calling out for procurement. First, the body carries an integrated control valve operated by a handwheel, so flow through the connection can be regulated rather than simply blocked or opened. Second, the inlet caps are held by braided steel safety cables — a small feature that prevents the most common scene at a real incident, where caps are set down during pumping and lost.</p>
+			<p class="text-gray-700 leading-relaxed">Construction is ductile iron / cast iron with a corrosion-resistant powder coated red finish, with a brass or stainless steel handwheel stem. The combined twin-inlet, single-outlet layout is what distinguishes a siamese from a single-inlet connection that would limit the system to one pumper.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="coupling-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Inlet Coupling Standards and Adapters</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">This is the specification point that decides whether an FDC is usable on the day. Hose couplings are regional: a connection that matches one fire brigade's equipment may be useless to another's. The SQD100-1.6 is supplied with 2 × DN65 inlets and caps in <strong>SQS65 / KWS65</strong> form, and the coupling type should be confirmed against the local fire service before the order is placed.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Where a project uses German standard connections, the <a href="/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">2.5" aluminium Storz coupling</a> covers DN50 to DN150 with a self-sealing edge and the Storz quick-connect geometry, in aluminium with brass or chrome-plated options and a 1.6 MPa rating — suitable for clear water and foam mixture.</p>
+			<p class="text-gray-700 leading-relaxed">For thread-to-coupling transitions on site, the <a href="/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS series coupling adapter</a> (DN50 / DN65, 1.6 MPa / 232 PSI) uses anodized aluminium alloy with standard internal and external threads to GB12514 or factory standard, so hoses and hydrant or FDC outlets can be matched without leakage. Where connection systems are specified by project standard, our <a href="/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">CE &amp; EN 12845 compliance guide</a> explains how Storz, KWS and threaded systems are treated in European specifications.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="where-fdc-installed" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Where FDCs Are Installed</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">An FDC is mounted on the outside face of the building it protects, at a point the fire service can reach with hoses from the street or hard-standing — clear of door swings, landscaping, signposts and anything that could later become a parking space. It is normally combined with a sign identifying the system it serves, so a crew arriving at a large site knows which riser they are pressurising.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">On the building side it feeds the riser network: the standpipe system serving landing valves and <a href="/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">indoor hydrant heads</a>, and/or the sprinkler main. That is why the FDC belongs in the specification conversation alongside the building's hydrant and riser equipment rather than as a standalone purchase.</p>
+			<p class="text-gray-700 leading-relaxed">Two installation habits prevent most failures. Keep the outlet flange and body drainable so water cannot stand in the connection in freezing weather, and make sure the connection is never obstructed — an FDC hidden behind a parked delivery van is functionally absent, and it is the most common defect found on site visits.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="fdc-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Siamese Body, Storz Coupling or Adapter?</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Component</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Function</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Size &amp; rating</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Material / notes</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">SQD100-1.6 siamese body</td>
+							<td class="px-4 py-3 text-gray-700">Two engines pump into one building main</td>
+							<td class="px-4 py-3 text-gray-700">2 × DN65 inlets, DN100 flanged outlet, 1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">Ductile iron, powder coated red, 120 mm long, integrated control valve, capped inlets with safety cables</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">2.5" Storz coupling</td>
+							<td class="px-4 py-3 text-gray-700">Quick hose-to-hose / hose-to-inlet connection</td>
+							<td class="px-4 py-3 text-gray-700">DN50 – DN150, 1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">Aluminium (brass / chrome options), German Storz standard, self-sealing edge, water and foam</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">HS coupling adapter</td>
+							<td class="px-4 py-3 text-gray-700">Adapts thread types to hose couplings on site</td>
+							<td class="px-4 py-3 text-gray-700">DN50 / DN65, 1.6 MPa (232 PSI)</td>
+							<td class="px-4 py-3 text-gray-700">Anodized aluminium alloy, GB12514 / factory standard, internal and external threads</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">The three items solve different problems: the siamese body is the FDC itself, the Storz coupling is the connection system where a project specifies German standard, and the adapter is the field fix that lets mismatched threads and couplings still work together. A well-specified project usually needs the body and one coupling system — adapters should be the exception, not the plan.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="fdc-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Specification and Installation Checklist</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Confirm the coupling with the fire service</strong> — match the inlet type to the couplings local engines actually carry (SQS65 / KWS65 as supplied, or Storz where the project specifies it) before the order is placed.</li>
+				<li><strong>Check the flow path</strong> — 2 × DN65 inlets into a DN100 flanged outlet at 1.6 MPa working pressure; confirm the outlet flange matches the riser connection on the shop drawings.</li>
+				<li><strong>Decide on valve and cap details</strong> — the SQD100-1.6 includes an integrated handwheel control valve and capped inlets with braided steel safety cables.</li>
+				<li><strong>Plan the location</strong> — outside face, reachable by hose from the street, signed, visible, and protected from future parking or landscaping; specify a body that drains so water cannot stand in freezing weather.</li>
+				<li><strong>Specify the finish and material</strong> — powder coated red ductile iron / cast iron body, brass or stainless handwheel stem, compact 120 mm body length for confined installations.</li>
+				<li><strong>Request the documentation</strong> — batch pressure test reports and material certificates for the assembly, and run our <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> before committing to a supplier. For the supply side of the same project see <a href="/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">how to choose a fire hydrant</a>.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need a Fire Department Connection for Your Project?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Tell us the inlet coupling type required by your fire service, the outlet flange size and the project standard — our engineers confirm the siamese connection and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Fire%20Department%20Connection%20(SQD100)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20a%20siamese%20fire%20department%20connection" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
