@@ -563,6 +563,13 @@ const ar: UIStrings = {
       { name: 'مدفع مياه حريق', href: '/fire-water-cannon/' },
       { name: 'أنظمة رش الحريق', href: '/fire-sprinkler-systems/' },
     ],
+    resourcesTitle: 'الموارد',
+    resources: [
+      { name: 'دليل التوريد', href: '/sourcing-guide/' },
+      { name: 'الورقة البيضاء القطاعية', href: '/whitepaper/' },
+      { name: 'المسرد', href: '/glossary/' },
+      { name: 'حاسبة التكاليف', href: '/cost-calculator/' },
+    ],
     contactTitle: 'اتصل بنا',
     contact: {
       emailLabel: 'البريد:',
