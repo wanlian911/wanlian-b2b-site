@@ -212,5 +212,14 @@ export const guidesEs: Guide[] = [
     category: 'Protección Contra Incendios',
     readTime: readTime('8'),
     tags: ['fire-hydrant', 'fire-protection']
+  },
+  {
+    title: 'Conexión para Bomberos (FDC): Tomas Siamesas y Montaje (2026)',
+    description: 'Conexión para bomberos (FDC): entradas siamesas DN65, salida bridada DN100, válvula de control integrada, acoples Storz/HS, instalación y checklist B2B.',
+    href: '/es/guides/fire-department-connection-siamese-guide/',
+    date: '2026-09',
+    category: 'Protección Contra Incendios',
+    readTime: readTime('8'),
+    tags: ['fire-hydrant', 'fire-protection']
   }
 ];

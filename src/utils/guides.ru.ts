@@ -212,5 +212,14 @@ export const guidesRu: Guide[] = [
     category: 'Противопожарная защита',
     readTime: readTime('8'),
     tags: ['fire-hydrant', 'fire-protection']
+  },
+  {
+    title: 'Патрубки FDC для пожарных машин: сиамские входы и монтаж (2026)',
+    description: 'Патрубки FDC: сдвоенные входы DN65, фланцевый выход DN100, встроенный клапан, головки Storz, монтаж и чек-лист закупки для B2B-проектов.',
+    href: '/ru/guides/fire-department-connection-siamese-guide/',
+    date: '2026-09',
+    category: 'Противопожарная защита',
+    readTime: readTime('8'),
+    tags: ['fire-hydrant', 'fire-protection']
   }
 ];

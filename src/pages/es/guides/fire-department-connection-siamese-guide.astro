@@ -1,0 +1,189 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ: preguntas reales de compra (generan JSON-LD de FAQPage)
+const faq = [
+	{
+		question: '¿Qué es una conexión siamesa y por qué hay dos entradas?',
+		answer: 'Una conexión para bomberos (FDC) es el punto donde las bombas contra incendios acudientes impulsan agua al sistema de protección contra incendios del edificio — la columna seca (montantes) o el colector principal de rociadores. Una conexión siamesa tiene dos entradas que alimentan una sola salida, de modo que dos bombas pueden alimentar el mismo montante a la vez, duplicando el caudal disponible para el sistema. El SQD100-1.6 recibe dos entradas DN65 (2.5") y descarga a través de una sola salida DN100 (4") con brida hacia la tubería principal del edificio.'
+	},
+	{
+		question: '¿Qué norma de acople de entrada debo especificar para una FDC?',
+		answer: 'Las entradas deben coincidir con los acoples de manguera que el cuerpo de bomberos local lleva realmente, porque eso es lo que tiene que conectar bajo presión a las 3 de la mañana. El SQD100-1.6 se suministra con 2 × DN65 de entradas y tapas en formato SQS65 / KWS65. Donde un proyecto usa conexiones Storz de norma alemana, nuestros acoples Storz de aluminio de 2.5" cubren desde DN50 hasta DN150 con borde de autosellado, y los adaptadores de la serie HS (DN50/DN65, 1.6 MPa, GB12514) convierten entre tipos de rosca — indique en la consulta el acople requerido.'
+	},
+	{
+		question: '¿Incluye el SQD100 una válvula de control?',
+		answer: 'Sí. El SQD100-1.6 tiene una válvula de control integrada operada por un volante, de modo que el caudal a través de la conexión puede regularse y no solo bloquearse o abrirse. Ambas entradas se suministran con tapas retenidas por cables de seguridad de acero trenzado, para que las tapas permanezcan con la FDC cuando se retiran durante el bombeo.'
+	},
+	{
+		question: '¿Cuáles son las especificaciones de tamaño, presión y material?',
+		answer: 'Entradas: 2 × DN65 (2.5") con tapas. Salida: DN100 (4") con brida. Clase de presión: 1.6 MPa. Largo total: 120 mm. Cuerpo: hierro dúctil / hierro fundido con acabado rojo de pintura electrostática resistente a la corrosión; vástago del volante en latón o acero inoxidable. El largo compacto del cuerpo conviene a la instalación en salas de bombas de espacio limitado y en puntos de protección contra incendios de aeropuertos o municipales.'
+	},
+	{
+		question: '¿Cómo debe inspeccionarse una conexión para bomberos?',
+		answer: 'Verifique que ambas tapas estén en su sitio con las juntas intactas y los cables de seguridad en buen estado, que la salida con brida no muestre fugas ni corrosión, que el volante opere libremente, y que la conexión sea visible, esté señalizada y nunca esté obstruida por vehículos estacionados, jardinería o mercancías almacenadas. En climas de congelación, confirme que la conexión drena correctamente después del uso para que el agua no quede estancada en el cuerpo.'
+	},
+	{
+		question: '¿Cuál es la diferencia entre una FDC y un hidrante?',
+		answer: 'Funcionan en direcciones opuestas. Un hidrante contra incendios es un punto de suministro en la tubería principal municipal — las bombas se conectan a él y sacan agua. Una conexión para bomberos es una entrada del lado del edificio — las bombas impulsan agua al sistema de columna seca o de rociadores del edificio a través de ella. Muchos sitios necesitan ambos, y ambos están cubiertos por nuestra guía de selección de hidrantes contra incendios.'
+	}
+];
+
+// TOC: los id corresponden uno a uno con los H2 del cuerpo
+const toc = [
+	{ id: 'what-is-fdc', label: '1. ¿Qué Es una Conexión para Bomberos?' },
+	{ id: 'how-siamese-works', label: '2. Dos Entradas, Una Salida' },
+	{ id: 'coupling-standards', label: '3. Normas de Acople de Entrada y Adaptadores' },
+	{ id: 'where-fdc-installed', label: '4. Dónde Se Instalan las FDC' },
+	{ id: 'fdc-comparison', label: '5. ¿Cuerpo Siamesa, Acople Storz o Adaptador?' },
+	{ id: 'fdc-spec-checklist', label: '6. Lista de Verificación de Especificación e Instalación' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+// Productos relacionados (slug coincidente con products.ts)
+const products = [
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'Adaptador de Bomba Contra Incendios SQD100-1.6 (Siamesa)', img: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', desc: '2 entradas DN65, salida DN100 con brida, 1.6 MPa' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: 'Acople Storz 2.5" (Norma Alemana)', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'DN50-DN150, 1.6 MPa, aluminio de autosellado' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Adaptador de Acople HS', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65, GB12514, aluminio anodizado' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Cabezal de Hidrante Interior (SN65)', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'Cabezal de hidrante interior DN65 para salidas de montantes' }
+];
+---
+
+<Layout
+	title="Guía de Conexión para Bomberos: Tomas Siamesas y Acoples"
+	description="Guía de la conexión para bomberos (toma siamesa): dos entradas DN65, salida DN100, acoples SQS65/KWS65 y Storz, válvula de control y lista de verificación B2B."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Guía de Conexión para Bomberos' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Pan de migas -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Guía de Conexión para Bomberos</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Protección Contra Incendios</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Guía de la Conexión para Bomberos: Tomas Siamesas y Acoples</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En resumen: la conexión para bomberos (FDC) es la entrada por donde las bombas acudientes impulsan agua al sistema de columna seca (montantes) o al colector de rociadores del edificio. La versión siamesa tiene dos entradas que alimentan una sola salida, de modo que dos bombas pueden alimentar el mismo montante a la vez, y sus entradas deben coincidir con los acoples de manguera que lleva el cuerpo de bomberos local. Esta guía cubre la conexión siamesa SQD100-1.6, las opciones de acople que la rodean y qué verificar antes de pedir.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Franja de productos -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Sección 1 -->
+			<h2 id="what-is-fdc" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. ¿Qué Es una Conexión para Bomberos?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La conexión para bomberos es la interfaz del edificio destinada al cuerpo de bomberos. Cuando el suministro de agua propio del edificio no es suficiente — o cuando el sistema de rociadores ha sido aislado — las bombas que llegan conectan sus mangueras a la FDC e impulsan agua al montante de columna seca o al colector principal de rociadores. La conexión es, por tanto, un punto de entrada bajo presión al edificio, no una fuente de agua.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Porque se usa en condiciones de emergencia, una FDC se evalúa con tres preguntas prácticas: ¿puede el cuerpo de bomberos conectarla rápidamente con los acoples que lleva, ¿puede entregarse agua suficiente a través de ella y ¿es accesible cuando el edificio está lleno de humo y unidades? Todo lo que sigue en esta guía se deduce de esas tres preguntas.</p>
+			<p class="text-gray-700 leading-relaxed">Una conexión <strong>siamesa</strong> responde a la pregunta del caudal con dos entradas. Una sola bomba puede alimentar el sistema si es necesario; cuando llega una segunda, se usan las dos entradas y el caudal hacia el montante se duplica aproximadamente, sin que ninguna bomba opere en un punto desfavorable de su curva.</p>
+
+			<!-- Sección 2 -->
+			<h2 id="how-siamese-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Dos Entradas, Una Salida</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El <a href="/es/products/sqd100-1-6-fire-pump-adapter/" class="text-brand-blue font-semibold hover:underline">adaptador de bomba contra incendios SQD100-1.6</a> es un cuerpo siamesa compacto: dos entradas DN65 (2.5") con tapas de un lado, y una sola salida DN100 (4") con brida del otro, que se atornilla a la tubería principal del edificio. La presión de trabajo es de 1.6 MPa y el cuerpo mide solo 120 mm de largo, lo que importa en salas de bombas y bóvedas subterráneas donde el espacio es limitado.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Dos detalles de diseño merecen mención para la compra. Primero, el cuerpo lleva una válvula de control integrada operada por un volante, de modo que el caudal a través de la conexión puede regularse y no solo bloquearse o abrirse. Segundo, las tapas de entrada van retenidas por cables de seguridad de acero trenzado — un detalle pequeño que evita la escena más común en un incidente real, donde las tapas se dejan en el suelo durante el bombeo y se pierden.</p>
+			<p class="text-gray-700 leading-relaxed">La construcción es de hierro dúctil / hierro fundido con acabado rojo de pintura electrostática resistente a la corrosión, y vástago del volante en latón o acero inoxidable. La configuración combinada de doble entrada y salida única es lo que distingue a una siamesa de una conexión de entrada única, que limitaría el sistema a una sola bomba.</p>
+
+			<!-- Sección 3 -->
+			<h2 id="coupling-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Normas de Acople de Entrada y Adaptadores</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Este es el punto de especificación que decide si una FDC es usable el día del incendio. Los acoples de manguera son regionales: una conexión que coincide con el equipo de una brigada puede ser inútil para otra. El SQD100-1.6 se suministra con 2 × DN65 de entradas y tapas en formato <strong>SQS65 / KWS65</strong>, y el tipo de acople debe confirmarse con el cuerpo de bomberos local antes de colocar el pedido.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Donde un proyecto usa conexiones de norma alemana, el <a href="/es/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">acople Storz de aluminio de 2.5"</a> cubre desde DN50 hasta DN150, con borde de autosellado y la geometría de conexión rápida Storz, en aluminio con opciones de latón o cromado y clase de presión de 1.6 MPa — apto para agua limpia y mezcla de espuma.</p>
+			<p class="text-gray-700 leading-relaxed">Para las transiciones de rosca a acople en obra, el <a href="/es/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">adaptador de acople de la serie HS</a> (DN50 / DN65, 1.6 MPa / 232 PSI) usa aleación de aluminio anodizado con roscas interna y externa estándar según GB12514 o norma de fábrica, de modo que las mangueras y las salidas de hidrantes o de la FDC pueden acoplarse sin fugas. Cuando los sistemas de conexión se especifican por norma de proyecto, nuestra <a href="/es/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">guía de cumplimiento CE y EN 12845</a> explica cómo se tratan en las especificaciones europeas los sistemas Storz, KWS y roscados.</p>
+
+			<!-- Sección 4 -->
+			<h2 id="where-fdc-installed" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Dónde Se Instalan las FDC</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Una FDC se monta en la cara exterior del edificio que protege, en un punto que el cuerpo de bomberos puede alcanzar con mangueras desde la calle o el área dura — alejada de aberturas de puertas, jardinería, postes de señal y de cualquier cosa que luego pueda convertirse en un lugar de estacionamiento. Normalmente se combina con una placa que identifica el sistema que sirve, para que una dotación que llega a un sitio grande sepa qué montante está presurizando.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Del lado del edificio alimenta la red de montantes: el sistema de columna seca que sirve a las válvulas de landing y los <a href="/es/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">cabezales de hidrante interior</a>, y/o el colector principal de rociadores. Por eso la FDC pertenece a la conversación de especificación junto con el equipo de hidrantes y montantes del edificio, no como una compra aislada.</p>
+			<p class="text-gray-700 leading-relaxed">Dos hábitos de instalación evitan la mayoría de las fallas. Mantenga la brida de salida y el cuerpo drenables para que el agua no quede estancada en la conexión con clima de congelación, y asegúrese de que la conexión nunca esté obstruida — una FDC escondida detrás de una furgoneta de reparto estacionada es funcionalmente inexistente, y es el defecto más común encontrado en visitas a obra.</p>
+
+			<!-- Sección 5 -->
+			<h2 id="fdc-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. ¿Cuerpo Siamesa, Acople Storz o Adaptador?</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Componente</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Función</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tamaño y clase</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Material / notas</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Cuerpo siamesa SQD100-1.6</td>
+							<td class="px-4 py-3 text-gray-700">Dos bombas impulsan a una sola tubería principal del edificio</td>
+							<td class="px-4 py-3 text-gray-700">2 × DN65 de entradas, salida DN100 con brida, 1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">Hierro dúctil, pintura electrostática roja, 120 mm de largo, válvula de control integrada, entradas con tapas y cables de seguridad</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Acople Storz 2.5"</td>
+							<td class="px-4 py-3 text-gray-700">Conexión rápida manguera a manguera / manguera a entrada</td>
+							<td class="px-4 py-3 text-gray-700">DN50 – DN150, 1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">Aluminio (opciones de latón / cromo), norma alemana Storz, borde de autosellado, agua y espuma</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Adaptador de acople HS</td>
+							<td class="px-4 py-3 text-gray-700">Adapta tipos de rosca a acoples de manguera en obra</td>
+							<td class="px-4 py-3 text-gray-700">DN50 / DN65, 1.6 MPa (232 PSI)</td>
+							<td class="px-4 py-3 text-gray-700">Aleación de aluminio anodizado, GB12514 / norma de fábrica, roscas interna y externa</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Los tres elementos resuelven problemas distintos: el cuerpo siamesa es la FDC en sí, el acople Storz es el sistema de conexión donde un proyecto especifica norma alemana, y el adaptador es la solución de campo que permite que roscas y acoples no coincidentes funcionen juntos. Un proyecto bien especificado normalmente necesita el cuerpo y un sistema de acople — los adaptadores deben ser la excepción, no el plan.</p>
+
+			<!-- Sección 6 -->
+			<h2 id="fdc-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Lista de Verificación de Especificación e Instalación</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Confirme el acople con el cuerpo de bomberos</strong> — haga coincidir el tipo de entrada con los acoples que las bombas locales llevan realmente (SQS65 / KWS65 según suministro, o Storz donde el proyecto lo especifique) antes de colocar el pedido.</li>
+				<li><strong>Verifique el camino de flujo</strong> — 2 × DN65 de entradas a una salida DN100 con brida a 1.6 MPa de presión de trabajo; confirme que la brida de salida coincide con la conexión del montante en los planos de taller.</li>
+				<li><strong>Defina los detalles de válvula y tapas</strong> — el SQD100-1.6 incluye una válvula de control integrada con volante y entradas con tapas y cables de seguridad de acero trenzado.</li>
+				<li><strong>Planifique la ubicación</strong> — cara exterior, alcanzable por manguera desde la calle, con señalización, visible y protegida de estacionamientos o jardinería futuros; especifique un cuerpo que drene para que el agua no quede estancada con clima de congelación.</li>
+				<li><strong>Especifique el acabado y el material</strong> — cuerpo de hierro dúctil / hierro fundido con pintura electrostática roja, vástago del volante en latón o acero inoxidable, cuerpo compacto de 120 mm para instalaciones confinadas.</li>
+				<li><strong>Solicite la documentación</strong> — informes de prueba de presión por lote y certificados de material del conjunto, y aplique nuestra <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de verificación de sourcing de válvulas B2B</a> antes de comprometerse con un proveedor. Para el lado de suministro del mismo proyecto, consulte <a href="/es/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">cómo elegir un hidrante contra incendios</a>.</li>
+			</ul>
+
+			<!-- Sección FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Doble CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita una Conexión para Bomberos para su Proyecto?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Díganos el tipo de acople de entrada requerido por su cuerpo de bomberos, el tamaño de la brida de salida y la norma del proyecto — nuestros ingenieros confirman la conexión siamesa y cotizan en 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Conexi%C3%B3n%20para%20Bomberos%20(SQD100)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20una%20conexi%C3%B3n%20siamesa%20para%20bomberos" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
