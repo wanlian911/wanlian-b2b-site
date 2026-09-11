@@ -1,0 +1,207 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'standards-families', label: '1. Пять семей стандартов, с которыми вы реально столкнётесь' },
+	{ id: 'reading-test-reports', label: '2. Как сопоставлять стандарт с протоколом испытаний' },
+	{ id: 'pressure-ratings', label: '3. Что на практике означают классы давления' },
+	{ id: 'five-checks', label: '4. Закупка соответствующего оборудования в Китае: пять проверок' },
+	{ id: 'wanlian-compliance', label: '5. Подход Wanlian Fluid к подтверждению соответствия' },
+	{ id: 'faq', label: 'Часто задаваемые вопросы' },
+	{ id: 'sources', label: 'Источники' }
+];
+
+const faq = [
+	{
+		question: 'В чём разница между пожарными гидрантами AWWA и EN?',
+		answer: 'AWWA C502 описывает сухотрубные гидранты для коммунального рынка США и Канады; EN 14384 и BS 750 описывают колонные (и подземные) гидранты, применяемые в Европе и на многих экспортных рынках. Они различаются конструкцией, интерфейсами и методами испытаний — выбирайте по спецификации вашего проекта, а не по наличию.'
+	},
+	{
+		question: 'Какой стандарт пожарных рукавов требуют пожарные подразделения США?',
+		answer: 'NFPA 1961 — эталонный стандарт для атакующих (напорных) рукавов в США. В Европе действуют EN 14540 и национальные эквиваленты, при этом тип соединительной головки (NH, Шторц, instantaneous) так же важен, как и сам рукав.'
+	},
+	{
+		question: 'Означает ли «испытан на 1,5 МПа», что рукав соответствует NFPA 1961?',
+		answer: 'Само по себе — нет. Соответствие означает, что продукция испытана методами и по критериям конкретного стандарта. Всегда запрашивайте протокол, в котором прямо указан стандарт из вашего заказа.'
+	},
+	{
+		question: 'Может ли один китайский завод поставить гидранты, клапаны и рукава вместе?',
+		answer: 'Да — поставщики полного цикла, такие как Wanlian Fluid, объединяют гидранты, клапаны, компоненты и пожарные рукава в одном заказе, что упрощает документацию, инспекцию и разделение ответственности.'
+	},
+	{
+		question: 'Нужна ли сертификация UL/FM для каждого экспортного заказа?',
+		answer: 'Нет — только если этого требуют ваш контракт или рынок назначения. Для большинства международных коммунальных и промышленных объектов действуют спецификации AWWA, EN, BS или ISO. Перед оплатой сертификации уточните применимый режим у вашей контрактной организации.'
+	},
+	{
+		question: 'Какие документы подтверждают соответствие китайского поставщика?',
+		answer: 'Действующий сертификат ISO 9001 (проверенный у органа-выдателя), протоколы испытаний по партии, соответствующие вашему стандарту, отчёт независимой инспекции (если заказана) и постоянная маркировка продукции. Укажите всё это в заказе, чтобы предоставление документов стало обязательством по контракту.'
+	}
+];
+
+const productRows = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Наружный антивандальный пожарный гидрант (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Сухотрубный наружный гидрант с защитой от замерзания для муниципальных сетей пожаротушения' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Фланцевая задвижка с эластичным седлом из ВЧШГ (Z41X)', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'Полнопроходная задвижка-отсечка для водопроводов и пожарных трубопроводов' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Плосколежащий пожарный рукав с резиновой подкладкой (модель 8-65)', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Плосколежащий рукав с резиновой подкладкой для пожаротушения и перекачки воды' }
+];
+---
+
+<Layout
+	title="Стандарты гидрантов и клапанов: AWWA, NFPA, EN, ISO"
+	description="Руководство по стандартам AWWA C502, NFPA 1961, EN 14384, BS 750, EN 1074, ISO 5208: как читать протоколы испытаний и закупать гидранты и клапаны в Китае."
+	type="article"
+	locale="ru"
+	faq={faq}
+	breadcrumbs={[{ name: 'Руководства', href: '/ru/blog/' }, { name: 'Руководство по стандартам' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ru/" class="hover:text-blue-600">Главная</a>
+			<span>/</span>
+			<a href="/ru/blog/" class="hover:text-blue-600">Руководства</a>
+			<span>/</span>
+			<span class="text-gray-600">Руководство по стандартам</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Руководство по стандартам и соответствию</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Стандарты для пожарных гидрантов, рукавов и клапанов: AWWA, NFPA, EN и ISO</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Соответствие определяет один документ — стандарт, указанный в вашем заказе. Для гидрантов это обычно AWWA C502 (сухотрубные, США), EN 14384 или BS 750 (Европа/Великобритания). Для пожарных рукавов — NFPA 1961 (США) или EN 14540, плюс стандарт соединительных головок, который реально навинчивается вашей пожарной бригадой. Для клапанов — AWWA C515, EN 1074 или ISO 5208, с классом давления (PN или ANSI), которого требует ваша система. Прежде чем сравнивать цены китайских поставщиков, сравните протоколы испытаний именно с <em>тем</em> стандартом.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Почему это стало важнее, чем когда-либо:</strong> в нашем мониторинге сентября 2026 года, охватившем 30 реальных закупочных вопросов в AI-поиске, стандартные организации — AWWA, NFPA, UL и BSI — цитировались в ответах AI значительно чаще, чем любой отдельный производитель. Покупатели, которые говорят «сначала стандарт», получают лучшие ответы, а поставщики, документирующие соответствие по каждому стандарту, — те, кому доверяют AI и инженеры.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/ru/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="standards-families" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Пять семей стандартов, с которыми вы реально столкнётесь</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Стандарт</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Что покрывает</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Где применяется</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Типовой покупатель</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">AWWA C502</td>
+							<td class="px-4 py-3 text-gray-700">Сухотрубные пожарные гидранты</td>
+							<td class="px-4 py-3 text-gray-700">США, Канада (коммунальные предприятия)</td>
+							<td class="px-4 py-3 text-gray-700">Водоканалы, муниципальные подрядчики</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">AWWA C515</td>
+							<td class="px-4 py-3 text-gray-700">Задвижки с эластичным седлом</td>
+							<td class="px-4 py-3 text-gray-700">США, Канада</td>
+							<td class="px-4 py-3 text-gray-700">Водоканалы, очистные сооружения</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">NFPA 1961</td>
+							<td class="px-4 py-3 text-gray-700">Пожарные рукава (характеристики атакующих рукавов)</td>
+							<td class="px-4 py-3 text-gray-700">США</td>
+							<td class="px-4 py-3 text-gray-700">Пожарные подразделения, промышленные пожарные бригады</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">EN 14384 / BS 750</td>
+							<td class="px-4 py-3 text-gray-700">Колонные пожарные гидранты</td>
+							<td class="px-4 py-3 text-gray-700">Европа, Великобритания, экспортные спецификации Ближнего Востока</td>
+							<td class="px-4 py-3 text-gray-700">Муниципальные проекты, консультанты</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">EN 14540 / национальные эквиваленты</td>
+							<td class="px-4 py-3 text-gray-700">Пожарные рукава для стационарных или общих систем</td>
+							<td class="px-4 py-3 text-gray-700">Европа</td>
+							<td class="px-4 py-3 text-gray-700">Интеграторы пожарных систем</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">EN 1074 / ISO 5208</td>
+							<td class="px-4 py-3 text-gray-700">Клапаны для водоснабжения; испытания клапанов на утечки</td>
+							<td class="px-4 py-3 text-gray-700">Европа, международный рынок</td>
+							<td class="px-4 py-3 text-gray-700">Муниципальные, промышленные, экспортные тендеры</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Соединительные головки добавляют второй слой: укажите тип резьбы или головки, который нужен вашим пользователям — резьбы NH (США), Шторц (большая часть Европы), instantaneous/BS 336 (Великобритания) — и потребуйте от поставщика подтвердить это в письменном виде. На странице спецификаций нашего <a href="/ru/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">плосколежащего пожарного рукава 8-65 с резиновой подкладкой</a> задокументированы варианты головок, которые мы поставляем, а в нашем <a href="/ru/guides/fire-hose-buying-guide/" class="text-brand-blue font-semibold hover:underline">руководстве по закупке плосколежащих пожарных рукавов</a> подробно рассмотрены размеры, подкладки и стандарты головок.</p>
+
+			<h2 id="reading-test-reports" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Как сопоставлять стандарт с протоколом испытаний</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Продукция, соответствующая стандарту, определяется тремя вещами: конструкция (материалы, исполнение), характеристики (давление, герметичность, расход) и маркировка (постоянная идентификация). Когда поставщик отдаёт вам протокол испытаний, сверяйте его со всеми тремя пунктами, а не только с заголовочным числом:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Материалы соответствуют стандарту.</strong> Гидранты AWWA C502 ожидаются в высокопрочном чугуне с коррозионно-стойкой внутренней подкладкой — см. таблицу материалов на странице нашего <a href="/ru/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">наружного пожарного гидранта SS100</a>, как производитель это документирует; стандарты EN для клапанов ссылаются на конкретные материалы корпуса. Уточните, из чего на самом деле литьё и подкладка — «серый чугун» и «высокопрочный чугун» — разные продукты с разной ценой и сроком службы.</li>
+				<li><strong>Испытания — испытания именно этого стандарта.</strong> Для гидрантов ожидайте испытание корпуса давлением и испытание седла/герметичности по указанному стандарту. Для рукавов — разрыв, адгезию и удержание головки по NFPA 1961 или EN 14540. Протокол «водяное давление 1,5 МПа» не автоматически становится протоколом по вашему стандарту — сравнивайте метод испытаний, а не число.</li>
+				<li><strong>Каждая единица или выборка?</strong> Уточните, испытания проводятся на каждую единицу или по выборке из партии. Для противопожарного оборудования ответственный базовый уровень — 100% испытание корпуса давлением и на герметичность воздухом по каждой единице; это политика, которую Wanlian Fluid декларирует для своих клапанов, гидрантов и рукавов (100% испытания давлением и герметичностью по каждой единице до финишной обработки).</li>
+			</ol>
+
+			<h2 id="pressure-ratings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Что на практике означают классы давления</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Клапаны и гидранты имеют либо класс давления PN (например, PN10/PN16/PN25), либо ANSI-класс давления. Выберите класс, превышающий максимальное рабочее давление вашей системы, затем подтвердите у поставщика давление испытания корпуса по стандарту, а не только рабочее давление. Если ваша спецификация смешивает американские и европейские ссылки (например, гидрант AWWA на кольце, заданное по EN), потребуйте у поставщика письменное подтверждение совместимости до заказа — несовместимые интерфейсы — одна из главных причин задержек на объекте.</p>
+			<p class="text-gray-700 leading-relaxed">Точка отсчёта: наша <a href="/ru/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">фланцевая задвижка Z41X с эластичным седлом</a> есть на складе в классах PN10 и PN16 с пузырьковой герметичностью по ISO 5208 — заказываемый класс должен соответствовать максимальному рабочему давлению вашей системы, а не предполагаться из названия продукта.</p>
+
+			<h2 id="five-checks" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Закупка соответствующего оборудования в Китае: пять проверок</h2>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Укажите стандарт в запросе.</strong> Одна строка в вашем запросе («пожарные гидранты по AWWA C502, сухотрубные, вход 6", выходные резьбы NH») мгновенно отфильтровывает 80% неподходящих поставщиков.</li>
+				<li><strong>Требуйте соответствующий протокол испытаний.</strong> Запросите записи испытаний по партии именно под ваш стандарт и модель — а не общий сертификат о соответствии.</li>
+				<li><strong>Проверьте, что сертификат действующий и в нужной области.</strong> Сертификаты ISO 9001 следует проверять у органа-выдателя; сертификаты соответствия должны называть продукт и стандарт.</li>
+				<li><strong>Закажите независимую инспекцию.</strong> Поручите независимой организации присутствовать при испытаниях и проверить маркировку перед отгрузкой — особенно при первых заказах.</li>
+				<li><strong>Проверьте шильдик.</strong> Маркировка должна включать стандарт, размер, класс давления и прослеживаемость производителя. Отсутствие маркировки — провал отбора, а не мелочь.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Полный процесс проверки надёжности поставщика, стоящий за этими контрольными точками — верификация юридического лица, проверка области ISO, испытания каждой единицы и документация — по шагам изложен в нашем руководстве «<a href="/ru/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">как проверить китайского поставщика арматуры и противопожарного оборудования</a>».</p>
+
+			<h2 id="wanlian-compliance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Подход Wanlian Fluid к подтверждению соответствия</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Wanlian Fluid (Quanzhou Wanlian Fluid Equipment Co., Ltd.) поставляет промышленную арматуру, компоненты гидрантов, пожарные рукавы и противопожарное оборудование для международных муниципальных, промышленных и противопожарных проектов. Её продуктовые линии — задвижки с эластичным и металлическим седлом, дисковые затворы и обратные клапаны, гидранты и компоненты, пожарные рукава с резиновой подкладкой — выпускаются в системе менеджмента качества ISO 9001, с 100% испытанием корпуса давлением и на герметичность воздухом по каждой единице и экспортной документацией, согласованной по каждому заказу. Когда вы присылаете стандарт или спецификацию, инженерная команда отвечает матрицей соответствия под ваш проект, а не общей брошюрой — именно такой диалог предотвращает ошибки спецификации. Чтобы увидеть, как этот подход «сначала соответствие» смотрится в сравнении с ведущим американским брендом, прочитайте наше сравнение поставщиков <a href="/ru/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian Fluid против American AVK</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Если ваша спецификация требует записи UL/FM (типично для противопожарного применения в США/Канаде), мы производим модели с такой записью, например <a href="/ru/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">задвижку UL/FM с выдвижным шпинделем и эластичным седлом (OS&amp;Y)</a> — см. <a href="/ru/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">как выбрать противопожарные клапаны с записью UL</a>, как проверять подлинные записи. Для пошагового выбора гидранта наше <a href="/ru/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">руководство по выбору пожарного гидранта</a> покрывает типы, классы давления и стандарты присоединений.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Часто задаваемые вопросы</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Sources -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Источники</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>AWWA — стандарты гидрантов и клапанов (AWWA C502, C515): <a href="https://www.awwa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">awwa.org</a></li>
+				<li>NFPA — стандарты пожарных рукавов и противопожарной защиты (NFPA 1961): <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+				<li>ISO — стандарты испытаний клапанов и качества (ISO 5208, ISO 9001): <a href="https://www.iso.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">iso.org</a></li>
+				<li>Wanlian Fluid — продуктовые линии, политика испытаний и поддержка соответствия: <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">Ссылки на стандарты — общее руководство покупателя по состоянию на сентябрь 2026 года — всегда подтверждайте актуальное издание и применимость у вашего спецификатора перед закупкой.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Специфицируете гидранты, рукава или клапаны по AWWA, EN или ISO?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Отправьте нам стандарт из вашего заказа и рынок назначения — наши инженеры в течение 12 часов ответят матрицей соответствия, соответствующими протоколами испытаний и экспортной документацией.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ru/contact/?product=%D0%97%D0%B0%D0%BF%D1%80%D0%BE%D1%81%3A%20%D0%B3%D0%B8%D0%B4%D1%80%D0%B0%D0%BD%D1%82%D1%8B%2C%20%D1%80%D1%83%D0%BA%D0%B0%D0%B2%D0%B0%20%D0%B8%20%D0%BA%D0%BB%D0%B0%D0%BF%D0%B0%D0%BD%D1%8B%20%D0%BF%D0%BE%20AWWA%2FEN%2FISO%20%D0%B4%D0%BB%D1%8F%20%D0%BC%D0%BE%D0%B5%D0%B3%D0%BE%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Запросить цену</a>
+						<a href="https://wa.me/8618684324501?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BC%D0%BD%D0%B5%20%D0%BD%D1%83%D0%B6%D0%BD%D1%8B%20%D0%B3%D0%B8%D0%B4%D1%80%D0%B0%D0%BD%D1%82%D1%8B%2C%20%D0%BA%D0%BB%D0%B0%D0%BF%D0%B0%D0%BD%D1%8B%20%D0%B8%20%D0%BF%D0%BE%D0%B6%D0%B0%D1%80%D0%BD%D1%8B%D0%B5%20%D1%80%D1%83%D0%BA%D0%B0%D0%B2%D0%B0%20%D1%81%20%D1%81%D0%BE%D0%BE%D1%82%D0%B2%D0%B5%D1%82%D1%81%D1%82%D0%B2%D0%B8%D0%B5%D0%BC%20AWWA%2FEN%2FISO%20%D0%B4%D0%BB%D1%8F%20%D0%BC%D0%BE%D0%B5%D0%B3%D0%BE%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Чат в WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

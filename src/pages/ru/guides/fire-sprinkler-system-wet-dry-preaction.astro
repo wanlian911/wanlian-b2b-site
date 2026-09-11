@@ -1,0 +1,211 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'the-three-system-types', label: '1. Сравнение трёх типов систем' },
+	{ id: 'choosing-sprinkler-heads', label: '2. Выбор спринклерных оросителей' },
+	{ id: 'components-your-bom-needs', label: '3. Компоненты, которые нужны в BOM' },
+	{ id: 'compliance-notes', label: '4. Примечания по нормативам' },
+	{ id: 'procurement-checklist', label: '5. Чек-лист закупки' },
+	{ id: 'faq', label: 'Частые вопросы' }
+];
+
+const faq = [
+	{
+		question: 'Мокрая, сухая или преакшн — как выбрать спринклерную систему?',
+		answer: 'Системы мокрого типа — стандартное решение для отапливаемых зданий: самая быстрая реакция и минимальная стоимость. Сухие (сухотрубные) системы подходят для неотапливаемых помещений (паркинги, холодильные камеры), где трубопроводы могут замёрзнуть. Системы предварительного действия (преакшн) защищают помещения, чувствительные к воде (ЦОД, архивы, музеи): вода подаётся только после того, как два независимых сигнала подтвердят пожар. Минимальное требование определяют строительные нормативы вашей страны и класс опасности.'
+	},
+	{
+		question: 'Что означают коэффициент K и температурный класс спринклерного оросителя?',
+		answer: 'Коэффициент K определяет, сколько воды выдаёт ороситель при заданном давлении — K80 и K115 — самые распространённые стандарты. Температурный класс задаёт точку срабатывания (от 57 °C до 141 °C, стеклянные колбы с цветовым кодированием). Подберите оба параметра под характер угрозы и высоту потолков; оросители быстрого реагирования (колба 3 мм) срабатывают быстрее стандартных (колба 5 мм).'
+	},
+	{
+		question: 'Сертифицированы ли компоненты спринклеров Wanlian по UL?',
+		answer: 'Да. Наши спринклерные оросители и компоненты систем, где это применимо, внесены в списки UL/ULC; сертификаты доступны на нашей странице сертификатов. Наши инженеры подтверждают точный пакет сертификации для рынка назначения до подготовки коммерческого предложения.'
+	},
+	{
+		question: 'Можно ли заказать полный комплект (BOM) спринклерной системы?',
+		answer: 'Да. Пришлите проектные чертежи или список компонентов — мы подготовим коммерческое предложение на оросители, гибкие соединения, сигнальные клапаны, сигнализаторы потока, фильтры и аксессуары одним пакетом: один заводской заказ на весь контур с согласованными характеристиками.'
+	},
+	{
+		question: 'Какова роль сигнального обратного клапана в системе мокрого типа?',
+		answer: 'Мокрый сигнальный обратный клапан (например, ZSFZ) разделяет подающую магистраль и спринклерный трубопровод и включает гидравлический гонг тревоги при начале потока, а его замедляющая камера отфильтровывает ложные тревоги от скачков давления. Сигнализаторы потока (ZSJZ) указывают на панели сработавшую зону.'
+	}
+];
+
+const sprinklerProducts = [
+	{
+		slug: 'glass-bulb-fire-sprinkler-zst',
+		name: 'Спринклерный ороситель со стеклянной колбой (ZST)',
+		img: '/assets/05_sprinklers_alarms/sprinkler_p32_head_white.png',
+		desc: 'Подвесной/потолочный/настенный, K=80/115, 57–141 °C'
+	},
+	{
+		slug: 'wet-alarm-check-valve-zsfz-150',
+		name: 'Мокрый сигнальный обратный клапан (ZSFZ)',
+		img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp',
+		desc: 'Гидравлический гонг + замедляющая камера, DN100–DN200'
+	},
+	{
+		slug: 'pre-action-alarm-system-zsfy',
+		name: 'Система предварительного действия (преакшн, ZSFY)',
+		img: '/assets/products/pre-action-alarm-system-zsfy.jpg',
+		desc: 'Двойной сигнал срабатывания для критических помещений'
+	},
+	{
+		slug: 'water-flow-indicator-zsjz',
+		name: 'Сигнализатор потока (ZSJZ)',
+		img: '/assets/products/water-flow-indicator-zsjz.png',
+		desc: 'Регулируемая задержка 2–60 с, DN50–DN200'
+	},
+	{
+		slug: 'deluge-alarm-valve-zsfm',
+		name: 'Дренчерная клапанная группа (ZSFM)',
+		img: '/assets/products/deluge-alarm-valve-zsfm.webp',
+		desc: 'Для дренчерных систем и систем водяного орошения'
+	}
+];
+---
+
+<Layout
+	title="Системы спринклеров: мокрые, сухие или преакшн? (2026)"
+	description="Сравнение спринклерных систем: мокрого, сухого и преакшн типов. Подбор оросителей (коэффициент K, температура, реакция), компоненты BOM и требования норм."
+	type="article"
+	locale="ru"
+	faq={faq}
+	breadcrumbs={[{ name: 'Блог', href: '/ru/blog/' }, { name: 'Гид по системам спринклеров' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Хлебные крошки -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ru/" class="hover:text-blue-600">Главная</a>
+			<span>/</span>
+			<a href="/ru/blog/" class="hover:text-blue-600">Блог</a>
+			<span>/</span>
+			<span class="text-gray-600">Гид по системам спринклеров</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Руководство по системам спринклеров</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Системы спринклеров: мокрого типа, сухие или преакшн? (Гид 2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Все спринклерные системы преследуют одну цель — быстро направить воду на огонь. Но трубопровод между водоснабжением и оросителем решает всё: время реакции, стойкость к замерзанию и риск водяного ущерба. Этот гид сравнивает три основных типа систем, объясняет, как выбирать спринклерные оросители, и перечисляет компоненты, которые действительно нужны в вашем BOM.</p>
+
+			<!-- Лента продукции -->
+			<div class="mt-8 grid grid-cols-2 lg:grid-cols-5 gap-4">
+				{sprinklerProducts.map(p => (
+					<a href={`/ru/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			
+			<TableOfContents headings={toc} />
+
+			<h2 id="the-three-system-types" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Сравнение трёх типов систем</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Тип</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Принцип работы</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Типичное применение</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Система мокрого типа</td>
+							<td class="px-4 py-3 text-gray-700">Трубопроводы постоянно заполнены водой; ороситель открывается → немедленная подача</td>
+							<td class="px-4 py-3 text-gray-700">Отапливаемые коммерческие, жилые и промышленные здания</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Сухая (сухотрубная) система</td>
+							<td class="px-4 py-3 text-gray-700">В трубопроводах сжатый воздух/азот; сухой клапан пропускает воду при срабатывании</td>
+							<td class="px-4 py-3 text-gray-700">Неотапливаемые помещения: паркинги, холодильные камеры, грузовые эстакады</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Система предварительного действия (преакшн)</td>
+							<td class="px-4 py-3 text-gray-700">Трубопроводы заполнены воздухом; вода подаётся только после двух независимых сигналов</td>
+							<td class="px-4 py-3 text-gray-700">ЦОД, архивы, музеи, серверные</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Системы мокрого типа реагируют быстрее всего и дешевле в обслуживании — именно поэтому строительные нормативы по умолчанию выбирают их для всех отапливаемых помещений. Сухие системы жертвуют несколькими секундами реакции ради защиты от замерзания. Преакшн-системы намеренно задерживают подачу воды, пока детектирование не подтвердит пожар, — правильное решение там, где ложная подача воды наносит ущерб не меньше самого пожара.</p>
+
+			<h2 id="choosing-sprinkler-heads" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Выбор спринклерных оросителей</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ороситель — точка, где система встречается с огнём; его определяют три параметра:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Коэффициент K</strong> — способность к подаче. K80 и K115 покрывают большинство зданий; более высокий коэффициент K — для высоких нагрузок. Наша <a href="/ru/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">серия ZST</a> предлагает оба варианта.</li>
+				<li><strong>Температурный класс</strong> — точка срабатывания от 57 °C (красная) до 141 °C (синяя), стеклянные колбы с цветовым кодированием. Для потолков зданий обычного класса опасности — 68 °C; в помещениях с тепловыделяющим оборудованием требуются более высокие классы.</li>
+				<li><strong>Тип реакции</strong> — оросители быстрого реагирования (колба 3 мм) срабатывают быстрее и часто обязательны для жилых зданий и помещений лёгкого класса опасности; стандартного реагирования (колба 5 мм) — для обычного и повышенного классов.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Важна и ориентация: подвесные оросители крепятся под трубопроводом, потолочные — над ним, настенные защищают коридоры и небольшие помещения. Выбирайте ороситель по конструкции потолка, а не только по фото из каталога.</p>
+
+			<h2 id="components-your-bom-needs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Компоненты, которые нужны в BOM</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Помимо оросителей, полная спринклерная система включает клапанную группу сигнализации, детектирование потока и защитные аксессуары:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Мокрый сигнальный обратный клапан</strong> (<a href="/ru/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ</a>) — разделяет подающую магистраль и спринклерный трубопровод, включает гидравлический гонг, а его замедляющая камера фильтрует ложные тревоги от скачков давления.</li>
+				<li><strong>Дренчерные / преакшн-клапаны</strong> (<a href="/ru/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM</a>, <a href="/ru/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">ZSFY</a>) — управляющий контур для дренчерных и преакшн-конфигураций.</li>
+				<li><strong>Сигнализаторы потока</strong> (<a href="/ru/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">ZSJZ</a>) — фиксируют поток в каждой зоне и указывают на панели сработавшую область.</li>
+				<li><strong>Y-образные фильтры</strong> (<a href="/ru/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">SGL41H</a>) — не пропускают частицы к клапанам и оросителям; недорогой компонент, предотвращающий дорогостоящие засорения.</li>
+			</ul>
+
+			<h2 id="compliance-notes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Примечания по нормативам</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">NFPA 13 регламентирует монтаж в Северной Америке и является фактическим ориентиром на многих экспортных рынках. Ключевые пункты, о которых покупатели часто забывают: сертифицированные компоненты (внесённые в списки UL/ULC, где это применимо), правильная классификация опасности до выбора плотности орошения и документация — запрашивайте реальные сертификаты и протоколы испытаний по партиям, а не логотипы из каталога. Пакет сертификации опубликован на нашей <a href="/ru/certificates/" class="text-brand-blue font-semibold hover:underline">странице сертификатов</a>.</p>
+
+			<h2 id="procurement-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Чек-лист закупки</h2>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Классифицируйте опасность здания (лёгкая / обычная / повышенная) и подтвердите расчётную плотность орошения.</li>
+				<li>Выберите тип системы: мокрого типа, сухую или преакшн — исходя из температуры здания и чувствительности к воде.</li>
+				<li>Выберите оросители по коэффициенту K, температурному классу, типу реакции и ориентации.</li>
+				<li>Убедитесь, что сертификация компонентов (UL/ULC) соответствует рынку назначения.</li>
+				<li>Закажите единое коммерческое предложение по BOM на оросители, клапаны, сигнализаторы и фильтры.</li>
+				<li>Уточните MOQ, срок поставки и запасные части в коммерческом предложении.</li>
+			</ol>
+
+			<!-- Перекрёстная ссылка на страницу раздела -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Компоненты наших спринклерных систем</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Полная линейка компонентов — оросители, сигнальные клапаны, сигнализаторы потока — на <a href="/ru/fire-sprinkler-systems/" class="text-brand-blue font-semibold hover:underline">странице систем спринклеров</a>.</p>
+			</div>
+
+			<!-- Связанное руководство -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Связанное руководство: клапаны спринклерных систем</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Хотите углубиться в клапанные узлы — мокрый сигнальный ZSFZ, дренчерный ZSFM, преакшн ZSFY и сигнализаторы потока ZSJZ? Читайте <a href="/ru/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">гид по клапанам спринклерных систем</a>.</p>
+			</div>
+
+			<!-- Частые вопросы -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Частые вопросы</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Призыв к действию -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Нужны компоненты спринклерной системы?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Пришлите тип здания и список компонентов — мы ответим полным коммерческим предложением по BOM в течение 12 часов.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ru/contact/?product=Fire%20Sprinkler%20Systems" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Запросить цену</a>
+						<a href="https://wa.me/8618684324501?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D0%BD%D1%83%D0%B6%D0%BD%D1%8B%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82%D1%8B%20%D1%81%D0%BF%D1%80%D0%B8%D0%BD%D0%BA%D0%BB%D0%B5%D1%80%D0%BD%D0%BE%D0%B9%20%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D1%8B" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Написать в WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

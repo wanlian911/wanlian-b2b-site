@@ -1,5 +1,5 @@
 ---
-import { localeFromPath, safeHref, localizePath, stripLocale, isTranslated, SUPPORTED_LOCALES, type Locale } from '../../i18n/locales';
+import { localeFromPath, safeHref, stripLocale, localeHrefFor, localizePath, activeLocales, type Locale } from '../../i18n/locales';
 import { t } from '../../i18n/ui';
 
 interface Props {
@@ -13,8 +13,11 @@ const pathname = Astro.url.pathname;
 // 当前页面对应各语言的地址（目标语言页面尚未翻译、或处于 404 页时回退到该语言首页）
 const is404 = pathname === '/404' || pathname === '/404/';
 const enPath = is404 ? '/' : stripLocale(pathname, locale);
-const esPath = is404 ? '/es/' : (isTranslated(enPath, 'es') ? localizePath(enPath, 'es') : localizePath('/', 'es'));
-const localeHref: Record<Locale, string> = { en: enPath, es: esPath };
+const switcherLocales = activeLocales();
+const currentHref = is404 ? localizePath('/', locale) : pathname;
+const localeHref = Object.fromEntries(
+  switcherLocales.map(l => [l, l === locale ? currentHref : localeHrefFor(enPath, l)])
+) as Record<Locale, string>;
 
 const navItems = dict.nav.map(item => ({
   ...item,
@@ -81,7 +84,7 @@ const navItems = dict.nav.map(item => ({
             </svg>
           </summary>
           <div class="absolute right-0 mt-2 w-44 bg-white rounded-xl border border-gray-200 shadow-xl py-1.5 z-50 group-open:block hidden">
-            {SUPPORTED_LOCALES.map(l => {
+            {switcherLocales.map(l => {
               const active = l === locale;
               return (
                 <a

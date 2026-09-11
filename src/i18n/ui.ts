@@ -96,7 +96,7 @@ const en: UIStrings = {
     inquireNow: 'Inquire Now',
     language: 'Language',
     tagline: 'Manufacturer & Exporter of Fluid Equipment',
-    languageLabel: { en: 'English', es: 'Español' },
+    languageLabel: { en: 'English', es: 'Español', ru: 'Русский' },
   },
   footer: {
     companyName: 'WANLIAN FLUID',
@@ -197,7 +197,7 @@ const es: UIStrings = {
     inquireNow: 'Solicitar Cotización',
     language: 'Idioma',
     tagline: 'Fabricante y Exportador de Equipos de Fluidos',
-    languageLabel: { en: 'English', es: 'Español' },
+    languageLabel: { en: 'English', es: 'Español', ru: 'Русский' },
   },
   footer: {
     companyName: 'WANLIAN FLUID',
@@ -283,7 +283,108 @@ const es: UIStrings = {
   },
 };
 
-export const ui: Record<Locale, UIStrings> = { en, es };
+const ru: UIStrings = {
+  nav: [
+    { name: 'Главная', href: '/' },
+    { name: 'Продукция', href: '/products/' },
+    { name: 'Применение', href: '/applications/' },
+    { name: 'Сертификаты', href: '/certificates/' },
+    { name: 'Блог', href: '/blog/' },
+    { name: 'О компании', href: '/about/' },
+    { name: 'Контакты', href: '/contact/' },
+  ],
+  header: {
+    alibabaStore: 'Магазин на Alibaba',
+    inquireNow: 'Запросить цену',
+    language: 'Язык',
+    tagline: 'Производитель и экспортёр оборудования для жидкостных систем',
+    languageLabel: { en: 'English', es: 'Español', ru: 'Русский' },
+  },
+  footer: {
+    companyName: 'WANLIAN FLUID',
+    companyDesc:
+      'Quanzhou Wanlian Fluid Equipment Co., Ltd. производит и экспортирует клапаны, противопожарное оборудование, гидравлическую регулирующую арматуру и компоненты жидкостных систем на собственных производственных линиях в Цюаньчжоу (Фуцзянь); отдельные позиции выпускаются квалифицированными производственными партнёрами. Корпуса клапанов обрабатываются на станках с ЧПУ на собственном производстве, каждая единица проходит испытания на прочность корпуса и герметичность перед отгрузкой в рамках системы менеджмента качества ISO 9001.',
+    tagline: '"Flow Far, Link Global."',
+    quickLinksTitle: 'Быстрые ссылки',
+    quickLinks: [
+      { name: 'Главная', href: '/' },
+      { name: 'Каталог продукции', href: '/products/' },
+      { name: 'Применение', href: '/applications/' },
+      { name: 'О компании', href: '/about/' },
+      { name: 'Блог', href: '/blog/' },
+      { name: 'Контакты и запросы', href: '/contact/' },
+    ],
+    productSeriesTitle: 'Серии продукции',
+    productSeries: [
+      { name: 'Серия задвижек', href: '/products/#category=%D0%97%D0%B0%D0%B4%D0%B2%D0%B8%D0%B6%D0%BA%D0%B8%20%D0%B8%20%D0%B0%D1%80%D0%BC%D0%B0%D1%82%D1%83%D1%80%D0%B0' },
+      { name: 'Серия обратных клапанов', href: '/products/#category=%D0%9E%D0%B1%D1%80%D0%B0%D1%82%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%BB%D0%B0%D0%BF%D0%B0%D0%BD%D1%8B' },
+      { name: 'Серия дисковых затворов', href: '/products/#category=%D0%94%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D1%8B%D0%B5%20%D0%B7%D0%B0%D1%82%D0%B2%D0%BE%D1%80%D1%8B' },
+      { name: 'Противопожарное оборудование', href: '/products/#category=%D0%9F%D0%BE%D0%B6%D0%B0%D1%80%D0%BD%D0%BE%D0%B5%20%D0%BE%D0%B1%D0%BE%D1%80%D1%83%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5' },
+    ],
+    solutionsTitle: 'Решения по продукции',
+    solutions: [
+      { name: 'Пожарные клапаны с сертификацией UL', href: '/ul-fire-valves/' },
+      { name: 'Пожарный лафетный ствол', href: '/fire-water-cannon/' },
+      { name: 'Спринклерные системы пожаротушения', href: '/fire-sprinkler-systems/' },
+    ],
+    contactTitle: 'Контакты',
+    contact: {
+      emailLabel: 'E-mail:',
+      phoneLabel: 'Телефон:',
+      addressLabel: 'Адрес:',
+      addressValue: 'Цюаньчжоу, Фуцзянь, Китай',
+    },
+    bottom: {
+      linkedin: 'LinkedIn',
+      alibaba: 'Магазин на Alibaba',
+      blog: 'Блог',
+      privacy: 'Конфиденциальность',
+      terms: 'Условия',
+      support: 'Поддержка',
+    },
+    copyright: '© {year} Quanzhou Wanlian Fluid Equipment Co., Ltd. Все права защищены.',
+  },
+  whatsapp: {
+    ariaLabel: 'Свяжитесь с нами в WhatsApp',
+    tooltip: 'Связаться с нами',
+    defaultMessage: 'Здравствуйте! Меня интересуют ваши клапаны и противопожарное оборудование.',
+  },
+  inquiry: {
+    fullName: 'Полное имя *',
+    email: 'Адрес электронной почты *',
+    company: 'Название компании',
+    country: 'Страна/регион *',
+    countryPlaceholder: 'Выберите страну/регион',
+    product: 'Интересующая продукция',
+    message: 'Сообщение и конкретные требования *',
+    messagePlaceholder:
+      'Опишите ваши требования, количество и необходимую кастомизацию...',
+    send: 'Отправить запрос',
+    sending: 'Отправка...',
+    verifyRequired: 'Пожалуйста, пройдите проверку перед отправкой.',
+    submitFailed: 'Ошибка отправки. Попробуйте снова или свяжитесь с нами через WhatsApp.',
+    successTitle: 'Запрос успешно отправлен!',
+    successBody:
+      'Спасибо за ваш запрос. Наша команда продаж и инженеров рассмотрит требования и ответит в течение 12 часов.',
+    successWhatsappHint: 'Предпочитаете мгновенный чат? Свяжитесь с нами напрямую в WhatsApp:',
+    chatWhatsapp: 'Чат в WhatsApp',
+    sendAnother: '← Отправить ещё один запрос',
+    waFollowupMessage:
+      'Здравствуйте! Я только что отправил запрос на wanlian911.com и хотел бы получить быстрый ответ.',
+  },
+  notFound: {
+    title: '404 — Страница не найдена | Wanlian Fluid Equipment',
+    description:
+      'Запрашиваемая страница не найдена. Ознакомьтесь с промышленными клапанами и противопожарным оборудованием Wanlian Fluid.',
+    heading: 'Страница не найдена',
+    body: 'Возможно, страница была перемещена, переименована или больше не существует. Ознакомьтесь с нашим каталогом сертифицированных клапанов и противопожарного оборудования.',
+    backHome: 'На главную',
+    browseProducts: 'Смотреть продукцию',
+    contactUs: 'Связаться с нами',
+  },
+};
+
+export const ui: Record<Locale, UIStrings> = { en, es, ru };
 
 /** 按语言取字典；缺省回退 en（保证接口容错）。 */
 export function t(locale: Locale): UIStrings {

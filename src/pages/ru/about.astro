@@ -1,0 +1,322 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Layout from '../../layouts/Layout.astro';
+
+// Ассеты производственного аудита размещаются в public/assets/factory/.
+// Секция рендерится только для реально существующих файлов, поэтому на
+// живом сайте никогда не отображаются битые изображения или пустые заглушки.
+const factoryDir = path.join(process.cwd(), 'public', 'assets', 'factory');
+const hasFactoryAsset = (file) => fs.existsSync(path.join(factoryDir, file));
+
+const plantPhotos = [
+  { file: 'plant-exterior.webp', alt: 'Фасад завода Wanlian Fluid в Цзянчжоу, провинция Фуцзянь', caption: 'Наш завод — Цзянчжоу, Фуцзянь' },
+  { file: 'workshop.webp', alt: 'Зона гибки листового металла с листогибочными прессами и мостовым краном в цехе Wanlian Fluid', caption: 'Зона гибки — листогибочные прессы и мостовой кран' },
+  { file: 'powder-coating.webp', alt: 'Линия порошковой окраски с подвесным конвейером на производстве Wanlian Fluid', caption: 'Линия порошковой окраски — от камеры нанесения до полимеризации' },
+  { file: 'assembly.webp', alt: 'Цех сборки и отделки с пожарными шкафами на рукавных барабанах, Wanlian Fluid', caption: 'Цех сборки и отделки' },
+  { file: 'fire-hose.webp', alt: 'Готовые пожарные рукавные барабаны и рукава, подготовленные к экспорту, Wanlian Fluid', caption: 'Производство пожарных рукавов и барабанов' },
+  { file: 'qc-test-bench.webp', alt: 'Стенд испытания корпусов клапанов на прочность и герметичность воздухом Wanlian Fluid', caption: 'Стенд испытания на прочность и герметичность' }
+].filter((p) => hasFactoryAsset(p.file));
+
+const verifiableItems = [
+  'Сертификат на систему менеджмента качества ISO 9001 — с областью применения и органом по сертификации',
+  'Протоколы испытаний корпуса на прочность и герметичности воздухом по партиям — для единиц вашего заказа',
+  'Независимая инспекция (в формате SGS / BV), организованная до отгрузки по вашей инструкции',
+  'Видеоэкскурсия в прямом эфире по линии и испытательному стенду в ходе вашего производства',
+  'Брендирование OEM/ODM, экспортная упаковка и полный пакет экспортной документации'
+];
+
+const hasBusinessLicense = hasFactoryAsset('business-license.webp');
+const hasProductionVideo = hasFactoryAsset('production-line.mp4');
+const hasFactoryEvidence = plantPhotos.length > 0 || hasBusinessLicense || hasProductionVideo;
+const heroPhoto = hasFactoryAsset('plant-exterior.webp') ? '/assets/factory/plant-exterior.webp' : '/og-image.jpg';
+
+const productionSteps = [
+  { step: '01', name: 'Входной контроль материалов', desc: 'Входная проверка высокопрочного чугуна, отливок, уплотнительных материалов и покрытий по спецификации заказа.' },
+  { step: '02', name: 'Обработка на станках с ЧПУ', desc: 'Точная обработка корпусов, дисков и внутренних деталей клапанов до требуемых размерных допусков.' },
+  { step: '03', name: 'Сборка', desc: 'Сборка внутренних деталей, уплотнительных элементов и приводных механизмов в контролируемых условиях цеха.' },
+  { step: '04', name: 'Испытания на прочность и герметичность', desc: '100 % испытание корпуса на прочность и проверка герметичности седла воздухом каждой единицы перед отделкой.' },
+  { step: '05', name: 'Эпоксидное покрытие', desc: 'Нанесение нетоксичного эпоксидного покрытия для коррозионной стойкости и долговечной службы.' },
+  { step: '06', name: 'Экспортная упаковка', desc: 'Упаковка, маркировка и документация экспортного уровня, подготовленные для международной отгрузки.' }
+];
+
+const values = [
+  { title: 'Инновации', desc: 'Постоянная оптимизация конструкций и исследовательские разработки для создания более умных и эффективных систем пожаротушения и управления жидкостью.' },
+  { title: 'Качество', desc: 'Учитывая критическую значимость пожарных и промышленных трубопроводов, мы строго контролируем каждый клапан, чтобы превосходить международные стандарты.' },
+  { title: 'Ответственность', desc: 'Как социально ответственное предприятие мы стремимся повышать общественную безопасность и обеспечивать надёжность работы жидкостных сетей во всём мире.' },
+  { title: 'Экология', desc: 'Внедряем стандарты экологичного производства и концепции устойчивого развития в производственный поток для обеспечения экологической безопасности.' }
+];
+---
+
+<Layout
+  locale="ru"
+  title="О компании | Wanlian Fluid — завод клапанов в Цзянчжоу"
+  description="Wanlian Fluid — производство клапанов и противопожарного оборудования в Цзянчжоу, Фуцзянь. ЧПУ-обработка, испытания давлением, экспорт для B2B."
+>
+  <!-- Banner Header -->
+  <section class="relative bg-gray-900 text-white overflow-hidden py-20">
+    <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/og-image.jpg');"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+      <span class="text-xs font-bold tracking-widest text-blue-500 uppercase">Кто Мы</span>
+      <h1 class="text-3xl sm:text-5xl font-black tracking-tight">О компании Quanzhou Wanlian</h1>
+      <p class="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
+        Производитель и экспортёр клапанов и противопожарного оборудования с собственными производственными линиями в сердце арматурной промышленности Китая.
+      </p>
+    </div>
+  </section>
+
+  <!-- Factory Profile -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="space-y-6">
+          <div class="border-l-4 border-blue-600 pl-4">
+            <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">О Компании</span>
+            <h2 class="text-3xl font-black text-gray-900 tracking-tight mt-1">Крепкие корни в сердце клапанной отрасли</h2>
+          </div>
+           <p class="text-base text-gray-600 leading-relaxed">
+             Quanzhou Wanlian Fluid Equipment Co., Ltd. расположена в Цзянчжоу, провинция Фуцзянь — точке отправления Морского шёлкового пути и ядре арматурной промышленности Китая. Мы производим и экспортируем клапаны, противопожарное оборудование, средства управления жидкостью и комплексные решения для промышленного, муниципального, противопожарного, водоснабжающего и дренажного секторов, а наши инженеры сопровождают подбор и изготовление по требованиям заказчика в каждом заказе.
+           </p>
+           <p class="text-base text-gray-600 leading-relaxed">
+              Собственные производственные линии в Цзянчжоу (Фуцзянь) объединяют опытную инженерную команду, обработку на станках с ЧПУ, сборку и внутренние испытания давлением — с привлечением квалифицированных производственных партнёров для отдельных позиций. Корпуса клапанов обрабатываются на станках с ЧПУ на собственном производстве, каждая единица проходит испытание корпуса на прочность и герметичности воздухом перед отгрузкой, а производство ведётся в системе менеджмента качества ISO 9001 и действующих национальных отраслевых стандартах, что гарантирует стабильность, надёжность и долговечность каждого изделия.
+           </p>
+           <p class="text-base text-gray-600 leading-relaxed">
+             Наш каталог построен вокруг тех характеристик, по которым действительно работает проектировщик — класс давления, стандарт присоединения, материал корпуса и затвора, а также область применения, — с коммерческими предложениями по запросу и технической поддержкой для проектов водоснабжения, промышленного управления жидкостью и противопожарной защиты.
+           </p>
+           <div class="grid grid-cols-2 gap-6 pt-4 border-t border-gray-100">
+             <div>
+               <span class="block text-2xl font-black text-blue-600">Клапаны</span>
+               <span class="block text-xs text-gray-400 font-bold tracking-wider uppercase mt-1">Системы Управления Жидкостью</span>
+             </div>
+             <div>
+               <span class="block text-2xl font-black text-blue-600">Противопожарная Защита</span>
+                <span class="block text-xs text-gray-400 font-bold tracking-wider uppercase mt-1">Собственное Производство</span>
+             </div>
+           </div>
+        </div>
+
+        <div class="relative rounded-2xl overflow-hidden aspect-video shadow-lg border border-gray-100 bg-gray-50">
+          <img 
+            src={heroPhoto}
+            alt="Производственный завод Wanlian Fluid и выпуск клапанов, Цзянчжоу, Фуцзянь"
+            loading="lazy"
+            class="object-cover w-full h-full"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Аудит производства: фото завода, лицензия, видео производства -->
+  {hasFactoryEvidence && (
+  <section class="py-24 bg-gray-50 border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Подтверждения Производства</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Внутри наших производственных линий в Цзянчжоу</h2>
+        <p class="text-base text-gray-500">Документы и видеоматериалы для вашей проверочной работы — те же записи, которые проверяют наши собственные закупщики. Запросите полный пакет сертификатов и протоколов испытаний по вашему заказу.</p>
+      </div>
+
+      {plantPhotos.length > 0 && (
+      <div class="columns-1 sm:columns-2 gap-6 mb-16">
+        {plantPhotos.map((photo) => (
+          <figure class="mb-6 break-inside-avoid bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+            <img src={`/assets/factory/${photo.file}`} alt={photo.alt} loading="lazy" class="w-full h-auto" />
+            <figcaption class="px-5 py-4 text-sm font-semibold text-gray-700">{photo.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+      )}
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        {hasProductionVideo && (
+        <div class="lg:col-span-1 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <video
+            class="w-full aspect-[9/16] bg-gray-900 object-cover"
+            controls
+            playsinline
+            preload="metadata"
+            poster={hasFactoryAsset('production-line-poster.webp') ? '/assets/factory/production-line-poster.webp' : undefined}
+          >
+            <source src="/assets/factory/production-line.mp4" type="video/mp4" />
+            Ваш браузер не поддерживает встроенное видео.
+          </video>
+          <div class="px-6 py-5">
+            <h3 class="font-bold text-lg text-gray-900">На производственном полу</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Двадцать пять секунд неотредактированных кадров с собственных производственных линий: гибка листового металла, сварка, линия порошковой окраски и ткачество оболочки пожарного рукава. Без стоковых роликов.</p>
+          </div>
+        </div>
+        )}
+
+        <div class={hasProductionVideo ? 'lg:col-span-2 space-y-8' : 'lg:col-span-3 space-y-8'}>
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+            <h3 class="font-bold text-lg text-gray-900">Что вы можете проверить у нас</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Верификация — стандартная часть работы с китайским поставщиком. Вот что мы предоставим вам до принятия решения: запросите всё перечисленное.</p>
+            <ul class="mt-6 space-y-3">
+              {verifiableItems.map((item) => (
+                <li class="flex items-start gap-3 text-sm text-gray-600 leading-relaxed">
+                  <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {hasBusinessLicense && (
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <img src="/assets/factory/business-license.webp" alt="Свидетельство о регистрации Quanzhou Wanlian Fluid Equipment Co., Ltd. с видом деятельности, включающим производство" loading="lazy" class="w-full object-contain bg-gray-50 max-h-[420px]" />
+            <div class="px-6 py-5">
+              <h3 class="font-bold text-lg text-gray-900">Свидетельство о Регистрации</h3>
+              <p class="mt-2 text-sm text-gray-500 leading-relaxed">Компания зарегистрирована в Цзянчжоу, Фуцзянь. Вид деятельности охватывает производство, переработку и экспорт клапанов и противопожарного оборудования: организация, выставившая счёт по вашему заказу, — та же, что и изготовившая продукт.</p>
+            </div>
+          </div>
+          )}
+        </div>
+      </div>
+
+      <p class="mt-10 text-center text-sm text-gray-500">
+        Хотите видеоэкскурсию в прямом эфире по линии и испытательному стенду для вашего проекта? <a href="/ru/contact/" class="text-brand-blue font-semibold hover:underline">Запросите экскурсию по заводу</a>.
+      </p>
+    </div>
+  </section>
+  )}
+
+  <!-- Products & Services -->
+  <section class="py-24 bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Продукция и Услуги</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Полный Ассортимент Продукции и Разнообразные Услуги</h2>
+        <p class="text-base text-gray-500">Обеспечиваем функции передачи, регулирования, перекрытия и защитного контроля жидкостей во всех отраслях.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
+          <h3 class="font-bold text-lg text-gray-900 mb-4">Основная Продукция</h3>
+          <ul class="space-y-2 text-sm text-gray-600">
+            {['Задвижки', 'Дисковые затворы', 'Шаровые краны', 'Балансировочные клапаны', 'Запорные (проходные) клапаны', 'Обратные клапаны', 'Фильтры', 'Гидравлические регулирующие клапаны', 'Трубопроводная арматура', 'Приводы'].map(item => (
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
+          <h3 class="font-bold text-lg text-gray-900 mb-4">Противопожарное Оборудование</h3>
+          <ul class="space-y-2 text-sm text-gray-600">
+            {['Пожарные шкафы', 'Пожарные гидранты', 'Огнетушители', 'Пожарные рукавные барабаны', 'Пожарные рукава', 'Пожарные стволы и насадки', 'Соединительные головки пожарных рукавов', 'Спринклерные оросители'].map(item => (
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-brand-blue rounded-full flex-shrink-0"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
+          <h3 class="font-bold text-lg text-gray-900 mb-4">Области Применения и Услуги</h3>
+          <p class="text-sm text-gray-600 leading-relaxed mb-6">Широко применяются в нефтехимии, электроэнергетике, металлургии, городском водоснабжении и дренаже, противопожарной защите зданий, очистке сточных вод, HVAC и других отраслях.</p>
+          <div class="flex flex-wrap gap-2">
+            {['OEM', 'ODM', 'Изготовление по требованиям заказчика'].map(tag => (
+              <span class="px-3 py-1.5 bg-white border border-gray-200 text-xs font-black uppercase tracking-wider text-gray-700 rounded-full">{tag}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Production Process -->
+  <section class="py-24 bg-gray-50 border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Контроль Качества</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Наш Стандартный Производственный Процесс</h2>
+         <p class="text-base text-gray-500">Каждый заказ проходит один и тот же контролируемый производственный цикл — от входного контроля материалов до экспортной упаковки.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {productionSteps.map(step => (
+          <div class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm relative overflow-hidden group">
+            <span class="absolute right-6 top-6 text-4xl font-black text-gray-100 group-hover:text-blue-50 transition duration-300">
+              {step.step}
+            </span>
+            <div class="space-y-4">
+              <h3 class="font-bold text-lg text-gray-900 pr-12">{step.name}</h3>
+              <p class="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Values -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Ключевые Принципы</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Четыре Столпа Компании</h2>
+        <p class="text-base text-gray-500">Обеспечиваем устойчивую безопасность и промышленное совершенство по всему миру.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        {values.map(val => (
+          <div class="flex gap-6 items-start">
+            <div class="bg-blue-500/10 p-4 rounded-xl text-blue-600 flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+              </svg>
+            </div>
+            <div class="space-y-2">
+              <h3 class="font-bold text-xl text-gray-900">{val.title}</h3>
+              <p class="text-sm text-gray-500 leading-relaxed">{val.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Business Philosophy & Vision -->
+  <section class="py-24 bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-500 uppercase">Наше Обязательство</span>
+        <h2 class="text-3xl font-black tracking-tight">Деловая Философия</h2>
+      </div>
+
+      <blockquote class="text-center text-2xl sm:text-3xl font-black tracking-tight text-white mb-16">
+        «Качество — основа, клиент — прежде всего, честность — ради взаимной выгоды, <span class="text-brand-red">инновации — ради устойчивого развития»</span>
+      </blockquote>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        {[
+          { title: 'Предпродажная консультация', desc: 'Профессиональная помощь в подборе продукции и индивидуальные технические решения под требования вашего проекта.' },
+          { title: 'Поддержка в процессе продажи', desc: 'Техническая помощь при установке и пусконаладке, оперативное реагирование на запросы клиента.' },
+          { title: 'Послепродажное обслуживание', desc: 'Послепродажное обслуживание и практическое решение проблем в системах жидкостных коммуникаций.' }
+        ].map((item, idx) => (
+          <div class="p-8 bg-white/5 border border-white/10 rounded-2xl text-center">
+            <span class="block text-4xl font-black text-white/10 mb-4">{String(idx + 1).padStart(2, '0')}</span>
+            <h3 class="font-bold text-lg mb-3">{item.title}</h3>
+            <p class="text-xs text-gray-400 leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center max-w-3xl mx-auto space-y-6">
+        <p class="text-lg text-gray-300 leading-relaxed">
+          Имея корни в Цзянчжоу, охватывая национальные рынки и открывая возможности мирового масштаба, мы остаёмся сосредоточены на отрасли жидкостного оборудования — содействуя обновлению продукции через технологические инновации и укрепляя репутацию бренда с помощью высококачественного сервиса.
+        </p>
+        <p class="text-gray-400 leading-relaxed">
+          Наша цель — стать надёжным производителем и экспортным партнёром на национальном и международном рынках управления жидкостью, предлагая более эффективные, безопасные и умные решения систем жидкостных коммуникаций для клиентов из всех отраслей, и вносить вклад в промышленное развитие и инфраструктурное строительство.
+        </p>
+        <a href="/ru/contact/" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-red hover:opacity-90 text-white font-bold rounded-lg transition">
+          Начать Диалог <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

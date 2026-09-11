@@ -1,0 +1,326 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { productsRuBySlug, productsRu } from '../../../utils/products.ru';
+
+export async function getStaticPaths() {
+  return Object.values(productsRuBySlug).map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+
+// Универсальные FAQ по покупке, сгруппированные по категориям (данные: спецификации продукции и типовые запросы)
+const faqByCategory: Record<string, { question: string; answer: string }[]> = {
+  'Запорная арматура и детали': [
+    { question: 'Какие стандарты и типы присоединения доступны для клапанов Wanlian?', answer: 'Клапаны Wanlian изготавливаются по стандартам GB, ANSI, DIN и JIS по запросу. В зависимости от модели доступны фланцевое, хомутовое (grooved), межфланцевое (wafer) и резьбовое присоединение. Укажите в запросе ваш DN/PN и тип присоединения, и наши инженеры подтвердят подходящую конфигурацию.' },
+    { question: 'Из каких материалов изготовлены корпус и уплотнение клапана?', answer: 'В зависимости от модели корпуса выполняются из высокопрочного чугуна (QT450), серого чугуна или литой/кованой стали. Уплотнительные элементы — из резины EPDM или NBR, шпиндели — из нержавеющей стали (2Cr13/304). Конфигурация материалов может подбираться под конкретную среду и диапазон температур.' },
+    { question: 'Каков минимальный заказ (MOQ) и срок поставки?', answer: 'Стандартный MOQ обычно составляет 20 единиц на модель для наличия размеров; срок производства — от 15 до 30 дней в зависимости от объёма и индивидуализации. Принимаются заказы на образцы для проверки перед основной отгрузкой.' },
+    { question: 'Как испытываются клапаны перед отгрузкой?', answer: 'Каждый клапан проходит 100%-е испытание на прочность корпуса и герметичность седла в соответствии с применимым стандартом (например, GB/T13927, EN 12266-1). По запросу предоставляются протоколы испытаний и организуется независимая инспекция.' }
+  ],
+  'Гидранты и насосные соединения': [
+    { question: 'Какие стандарты выходных присоединений доступны для гидрантов на экспорт?', answer: 'Среди распространённых присоединений выходов — BS336 (Великобритания/страны Содружества), NIST (Ближний Восток), KWS (Германия) и гибкие варианты фланцевого присоединения. Мы поставляем гидранты с типом присоединения, заданным для вашего рынка.' },
+    { question: 'Какое номинальное давление должно быть у городского пожарного гидранта?', answer: 'Стандартные городские гидранты имеют класс PN16 (1,6 МПа), что покрывает большинство городских и промышленных водопроводных сетей. Для промышленных зон и высотных объектов могут потребоваться гидранты PN25.' },
+    { question: 'Доступны ли гидранты Wanlian с сертификацией UL или FM?', answer: 'Да, в зависимости от модели и рынка поставки. Свяжитесь с нашим отделом продаж, указав спецификацию проекта и целевой регион, — мы подберём корректный пакет сертификации.' },
+    { question: 'Оборудованы ли наружные гидранты защитой от замерзания?', answer: 'Модели, такие как столбчатый гидрант SS100, оснащены автоматическим механизмом слива для предотвращения замерзания в холодном климате. Также доступны антивандальные варианты (SSFT100) и «умные» IoT-модели (SS100ZN).' }
+  ],
+  'Спринклеры и сигнальные клапаны': [
+    { question: 'В чём разница между мокрым сигнальным клапаном и дренчерным клапаном?', answer: 'Мокрый сигнальный клапан (ZSFZ) поддерживает трубопровод спринклеров заполненным водой и запускает сигнализацию при движении воды. Дренчерный клапан (ZSFM) остаётся закрытым под давлением воздуха или воды и затопляет систему только после сигнала пожарной автоматики; применяется в зонах повышенной опасности, где требуется немедленный большой сброс воды.' },
+    { question: 'Каким стандартам соответствуют компоненты спринклерных систем?', answer: 'Компоненты изготавливаются и испытываются по серии GB 5135 и, по запросу, по другим международным стандартам. Подтвердите применимый для вашего проекта стандарт вместе с нашими инженерами.' },
+    { question: 'Каково рабочее давление сигнальных клапанов?', answer: 'Стандартное рабочее давление составляет 1,6 МПа при испытательном давлении 3,2 МПа. Диапазон размеров обычно покрывает DN50–DN300 в зависимости от модели.' },
+    { question: 'Можно ли интегрировать узлы сигнальных клапанов с существующими системами пожарной автоматики?', answer: 'Да. Дренчерные и клапаны системы предварительного действия поддерживают механические, пневматические или электрические (соленоид DC24V) пуски дистанционно и интегрируются с большинством панелей пожарной сигнализации.' }
+  ],
+  'Гидравлическая защита': [
+    { question: 'Требуют ли гидравлические регулирующие клапаны электрического питания?', answer: 'Большинство гидравлических регулирующих клапанов (например, поплавковый клапан уровня F745X, редукционный 500X) работают полностью от давления в трубопроводе без внешнего питания. Модели с электромагнитным управлением, такие как GKZF-1, используют AC220V или DC24V.' },
+    { question: 'Каков диапазон настройки давления у клапана 500X?', answer: 'Редукционный клапан 500X регулирует давление на напорной стороне от 0,1 МПа до 1,6 МПа и работает при входных давлениях до номинального класса (PN10/PN16/PN25).' },
+    { question: 'Какие материалы применяются для питьевой воды?', answer: 'Для сетей питьевой воды модели, такие как устройство предотвращения обратного потока HS41X, используют корпуса из высокопрочного чугуна с уплотнениями EPDM и внутренними деталями из нержавеющей стали, что соответствует санитарным требованиям GB/T17219.' },
+    { question: 'Как предотвращается гидравлический удар в гидравлических клапанах?', answer: 'Клапаны с пилотным управлением закрываются плавно и медленно, что исключает резкие скачки давления. Игольчатые клапаны позволяют задавать скорость закрытия под условия конкретного трубопровода.' }
+  ],
+  'Лафетные стволы пожаротушения': [
+    { question: 'Какие расходы и дальность струи доступны у пожарных стволов?', answer: 'Ручные стволы (серия PS) покрывают диапазон 20–200 л/с при дальности струи 50–110 м. Автоматические следящие стволы (серия ZDMS) обеспечивают 5–30 л/с (настройка до 150 л/с) при радиусе обзора 40–65 м.' },
+    { question: 'Как автоматический следящий ствол обнаруживает огонь?', answer: 'Ствол ZDMS объединяет инфракрасный и ультрафиолетовый сенсоры для обнаружения и слежения за пламенем, автоматически наводя ствол и открывая сброс воды. Поддерживается ручное дистанционное переключение через ПК/мобильное приложение или центральный шкаф управления.' },
+    { question: 'Есть ли взрывозащищённые версии?', answer: 'Да. Для нефтехимических и опасных производственных сред доступны взрывозащищённые исполнения (например, Exde II BT4 Gb).' },
+    { question: 'Каково рабочее давление стволов?', answer: 'Ручные стволы работают при 0,8–1,2 МПа, автоматические следящие — при 0,6–0,8 МПа. Подтвердите размер входного фланца (DN100/DN150/DN200) вашей системы.' }
+  ],
+  'Пожарные шкафы и соединительные устройства': [
+    { question: 'Что входит в комплект пожарного рукавного барабана?', answer: 'Комплект серии JPS включает барабан из углеродистой стали с поворотным кронштейном, гибкий рукав ПВХ (20/25/30 м) и латунный или из алюминиевого сплава распылительный насадок с режимами компактной и распылённой струи.' },
+    { question: 'Есть ли пенные пожарные шкафы для тушения химической продукции?', answer: 'Да. Пенный шкаф PSG30 объединяет в одном настенном блоке бак с пенообразователем, пропорциональное устройство, рукавный барабан и пенный насадок; эффективен против пожаров горючих жидкостей, химикатов и растворителей (класс B).' },
+    { question: 'Какие стандарты присоединения поддерживают адаптеры соединительных головок рукавов?', answer: 'Адаптеры серии HS выпускаются в DN50/DN65 с внутренней резьбой, совместимой с международными пожарными соединительными головками, и изготавливаются по GB12514 или заводским стандартам.' },
+    { question: 'Из каких материалов изготовлены шкафы и барабаны?', answer: 'Шкафы и барабаны выполнены из холоднокатаной углеродистой стали с антикоррозионным красным порошковым покрытием. Насадки и пропорциональные устройства — из латуни или анодированного алюминиевого сплава.' }
+  ]
+};
+
+// Область применения и стандарты испытаний по категориям
+const categoryInfo: Record<string, { applications: string[]; testing: string }> = {
+  'Запорная арматура и детали': {
+    applications: ['Водоснабжение и водораспределение', 'Сети сточных вод и канализации', 'Трубопроводы промышленного процесса', 'Системы HVAC'],
+    testing: '100%-е испытание на прочность корпуса и герметичность седла по GB/T13927 или EN 12266-1; эпоксидное покрытие испытано на коррозионную стойкость.'
+  },
+  'Гидранты и насосные соединения': {
+    applications: ['Городские сети противопожарной защиты', 'Промышленные и складские территории', 'Внутренние системы сухотрубов', 'Наружные установки в холодном климате'],
+    testing: 'Испытание гидростатическим давлением (обычно 2,4 МПа) и проверка пропускной способности по GB 4452 или применимым экспортным стандартам.'
+  },
+  'Спринклеры и сигнальные клапаны': {
+    applications: ['Автоматические спринклерные системы', 'Коммерческие и жилые здания', 'Промышленные склады', 'Дренчерные и преакшн-системы высокой опасности'],
+    testing: 'Испытания на давление и герметичность по серии GB 5135; чувствительность сигнализации проверяется сигнализаторами потока и пожарными гонгами.'
+  },
+  'Гидравлическая защита': {
+    applications: ['Регулирование уровня в водохранилищах', 'Управление давлением в водопроводных сетях', 'Защита от обратного потока в питьевой воде', 'Защита всасывания насосов'],
+    testing: 'Функциональные и гидравлические испытания по применимым стандартам; мембранные и уплотнительные узлы испытаны на долговечность.'
+  },
+  'Лафетные стволы пожаротушения': {
+    applications: ['Нефтехимические предприятия и парки резервуаров', 'Аэропорты и выставочные центры', 'Крупные склады', 'Пожарные автомобили и морское пожаротушение'],
+    testing: 'Испытания расхода, дальности струи и поворота; взрывозащищённые модели верифицированы по стандартам Ex (опционально).'
+  },
+  'Пожарные шкафы и соединительные устройства': {
+    applications: ['Внутренние пожарные станции', 'Зоны хранения химикатов и топлива', 'Рукавные системы зданий', 'Морские и офшорные установки'],
+    testing: 'Испытания на давление и проверку работы барабанов, насадков и пропорциональных устройств; коэффициент кратности пены верифицируется по каждой модели.'
+  }
+};
+
+// Приоритет: продуктовый FAQ, иначе универсальный FAQ по категории
+const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
+const info = categoryInfo[product.category];
+const relatedProducts = productsRu.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 6);
+const catAnchor = encodeURIComponent(product.category);
+
+// Связанные руководства по покупке по категориям (внутренние ссылки на /ru/guides/)
+const guideByCategory: Record<string, { href: string; title: string; description: string }[]> = {
+  'Запорная арматура и детали': [
+    { href: '/ru/guides/gate-valve-vs-butterfly-valve-fire-protection/', title: 'Задвижка против дискового затвора для противопожарных систем', description: 'Сравнение герметичности, пропускной способности, потерь давления и стоимости для правильного выбора изолирующего клапана в пожарных и водных сетях.' },
+    { href: '/ru/guides/check-valve-types-guide/', title: 'Типы обратных клапанов и выбор', description: 'Шаровый с качающимся шаром vs подвесной клапан: сопротивление, поведение при закрытии и наиболее подходящие применения для каждого типа.' }
+  ],
+  'Гидранты и насосные соединения': [
+    { href: '/ru/guides/how-to-choose-a-fire-hydrant/', title: 'Как выбрать пожарный гидрант', description: 'Внутренний vs наружный, сухотрубный vs мокрый, стандарты выходов и классы давления для муниципальных и промышленных проектов.' },
+    { href: '/ru/guides/fire-hydrant-valve-standards-guide/', title: 'Стандарты гидрантов, рукавов и клапанов: пояснение', description: 'AWWA C502, NFPA 1961, EN 14384, BS 750 — какой стандарт применим к вашему заказу и как проверить соответствие.' }
+  ],
+  'Спринклеры и сигнальные клапаны': [
+    { href: '/ru/guides/fire-sprinkler-control-valve-types/', title: 'Типы управляющих клапанов спринклерных систем: OS&Y, дисковые и обратные', description: 'Роль каждого управляющего клапана в спринклерной системе и как совместно работают OS&Y, дисковый и обратный клапаны.' },
+    { href: '/ru/guides/fire-sprinkler-system-wet-dry-preaction/', title: 'Спринклерные системы: мокрая, сухая или преакшн?', description: 'Сравнение конфигураций мокрых, сухих и преакшн-систем для соответствия классу опасности вашего здания.' }
+  ],
+  'Гидравлическая защита': [
+    { href: '/ru/guides/pressure-reducing-valve-guide/', title: 'Руководство по редукционным клапанам: гидравлический PRV 500X', description: 'Как пилотные редукционные клапаны защищают оборудование на напорной стороне, регулируют давление и предотвращают гидравлический удар.' },
+    { href: '/ru/guides/backflow-prevention-guide/', title: 'Руководство по предотвращению обратного потока', description: 'Когда сетям питьевой воды нужны двойные обратные клапаны и как HS41X защищает от обратного потока.' }
+  ],
+  'Лафетные стволы пожаротушения': [
+    { href: '/ru/guides/fire-water-monitor-selection-guide/', title: 'Выбор пожарного монитора: ручной vs автоматический следящий', description: 'Ручные мониторы PS vs автоматические стволы ZDMS: расход, дальность, управление и взрывозащищённые опции.' },
+    { href: '/ru/guides/fire-water-cannon-buying-guide/', title: 'Руководство по покупке пожарных стволов', description: 'Фиксированный, дистанционный или интеллектуальный? Дальность струи, расход и факторы установки для тушения на крупных площадях.' }
+  ],
+  'Пожарные шкафы и соединительные устройства': [
+    { href: '/ru/guides/fire-hose-reel-cabinet-guide/', title: 'Руководство по пожарным рукавным барабанам и шкафам', description: 'Барабаны JPS0.8-19, пенные шкафы PSG30 и клапаны SN65 — что нужно для полной внутренней пожарной станции.' },
+    { href: '/ru/guides/fire-extinguisher-selection-guide/', title: 'Руководство по покупке огнетушителей: сухой порошок ABC', description: 'Пожары классов A/B/C/E, классификации ISO 7165 и B2B-экспортная упаковка для переносных огнетушителей.' }
+  ]
+};
+
+const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
+---
+
+<Layout 
+  title={product.seoTitle} 
+  description={product.seoDescription}
+  productData={product}
+  type="product"
+  locale="ru"
+  faq={faqs}
+  breadcrumbs={[{ name: 'Продукция', href: '/ru/products/' }, { name: product.category, href: `/ru/products/#category=${catAnchor}` }, { name: product.name }]}
+>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mb-20">
+    <!-- Хлебные крошки -->
+    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-8 flex gap-2">
+      <a href="/ru/" class="hover:text-blue-600">Главная</a>
+      <span>/</span>
+      <a href="/ru/products/" class="hover:text-blue-600">Продукция</a>
+      <span>/</span>
+      <a href={`/ru/products/#category=${catAnchor}`} class="hover:text-blue-600">{product.category}</a>
+      <span>/</span>
+      <span class="text-gray-600">{product.name}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <!-- Изображение продукта -->
+      <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+        <img 
+          src={product.image} 
+          alt={product.name} 
+          class="w-full h-auto rounded-xl object-contain aspect-square"
+        />
+      </div>
+
+      <!-- Детали продукта -->
+      <div class="space-y-6">
+        <div>
+          <span class="text-blue-600 font-semibold uppercase tracking-wider text-sm">{product.category}</span>
+          <h1 class="text-4xl font-bold text-gray-900 mt-2">{product.name}</h1>
+        </div>
+
+        <p class="text-lg text-gray-600 leading-relaxed">
+          {product.description}
+        </p>
+
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold border-b pb-2">Ключевые особенности</h2>
+          <ul class="grid grid-cols-1 gap-2">
+            {product.features.map(feature => (
+              <li class="flex items-start">
+                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-gray-700">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-gray-100 p-6 rounded-xl space-y-4">
+          <h2 class="text-xl font-bold">Технические характеристики</h2>
+          <dl class="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+            {Object.entries(product.specs).map(([key, value]) => (
+              <div class="border-b border-gray-200 py-2">
+                <dt class="text-sm font-medium text-gray-500">{key}</dt>
+                <dd class="mt-1 text-sm font-bold text-gray-900">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        {product.materials && (
+          <div class="bg-gray-50 p-6 rounded-xl border border-gray-200/60 space-y-4">
+            <h2 class="text-xl font-bold text-gray-900">Комплектующие и материалы</h2>
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+              {Object.entries(product.materials).map(([part, material]) => (
+                <div class="border-b border-gray-200/60 py-2 flex justify-between items-center text-sm">
+                  <dt class="font-medium text-gray-500">{part}</dt>
+                  <dd class="font-bold text-gray-900 text-right">{material}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )}
+
+        {product.dimensions && (
+          <div class="bg-white p-6 rounded-xl border border-gray-100 space-y-4 shadow-sm overflow-x-auto">
+            <h2 class="text-xl font-bold text-gray-900">Размеры (стандартные)</h2>
+            <table class="min-w-full divide-y divide-gray-200 text-sm">
+              <thead class="bg-gray-50">
+                <tr>
+                  {product.dimensions.headers.map(header => (
+                    <th class="px-3 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">{header}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                {product.dimensions.rows.map(row => (
+                  <tr class="hover:bg-gray-50/50">
+                    {row.map(cell => (
+                      <td class="px-3 py-3 text-gray-700 font-medium whitespace-nowrap">{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {info && (
+          <div class="space-y-4">
+            <div class="bg-blue-50/50 p-6 rounded-xl border border-blue-100/50">
+              <h2 class="text-xl font-bold text-gray-900 mb-3">Применение</h2>
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {info.applications.map(app => (
+                  <li class="flex items-start text-sm text-gray-700">
+                    <svg class="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {app}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200/60">
+              <h2 class="text-xl font-bold text-gray-900 mb-3">Качество и испытания</h2>
+              <p class="text-sm text-gray-700 leading-relaxed">{info.testing}</p>
+            </div>
+          </div>
+        )}
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-6">
+          <a 
+            href={`/ru/contact/?product=${encodeURIComponent(product.name)}`} 
+            class="flex-1 text-center py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-600/20"
+          >
+            Запросить цену
+          </a>
+          <a 
+            href="/ru/contact/?product=Запрос%20на%20документацию%20продукта"
+            class="flex-1 text-center py-4 bg-white text-blue-600 font-bold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition"
+          >
+            Запросить документацию на продукт
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Связанные руководства по покупке (внутренние ссылки) -->
+    {relatedGuides.length > 0 && (
+      <section class="mt-20">
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Связанные руководства по покупке</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {relatedGuides.map(guide => (
+            <a href={guide.href} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-red/30 transition p-6 flex flex-col">
+              <span class="text-[10px] font-bold text-brand-blue uppercase tracking-wider mb-2">Руководство по покупке</span>
+              <h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-red transition leading-snug">{guide.title}</h3>
+              <p class="text-xs text-gray-500 leading-relaxed mt-2 flex-grow">{guide.description}</p>
+              <span class="mt-4 inline-flex items-center text-brand-red font-bold text-xs group-hover:gap-1 transition-all">
+                Читать руководство
+                <svg class="w-3.5 h-3.5 ml-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Раздел FAQ -->
+    {faqs.length > 0 && (
+      <section class="mt-20 max-w-4xl">
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Часто задаваемые вопросы</h2>
+        <div class="space-y-4">
+          {faqs.map((faq, index) => (
+            <details class="group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer px-6 py-5 font-bold text-gray-900 hover:bg-gray-50 transition list-none">
+                <span>{faq.question}</span>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-45 transition-transform flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                {faq.answer}
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Похожие продукты -->
+    {relatedProducts.length > 0 && (
+      <section class="mt-20">
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Похожие продукты</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {relatedProducts.map(related => (
+            <a href={`/ru/products/${related.slug}/`} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-blue/30 transition p-6 flex flex-col">
+              <img src={related.image} alt={related.name} class="w-full h-40 object-contain rounded-lg bg-gray-50 p-2 mb-4" loading="lazy" />
+              <span class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">{related.category}</span>
+              <h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-blue transition leading-snug">{related.name}</h3>
+              <span class="mt-4 inline-flex items-center text-brand-red font-bold text-xs group-hover:gap-1 transition-all">
+                Смотреть детали
+                <svg class="w-3.5 h-3.5 ml-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+  </main>
+</Layout>

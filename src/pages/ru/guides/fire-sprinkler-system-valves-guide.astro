@@ -1,0 +1,190 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'wet-pipe-systems-zsfz', label: '1. Системы с мокрым заполнением: мокрый сигнальный клапан ZSFZ' },
+	{ id: 'deluge-systems-zsfm', label: '2. Дренчерные системы: дренчерный клапан ZSFM' },
+	{ id: 'pre-action-systems-zsfy', label: '3. Системы предварительного действия (преакшн): клапан ZSFY с двойным срабатыванием' },
+	{ id: 'zone-detection-zsjz', label: '4. Зональная индикация: сигнализатор потока ZSJZ' },
+	{ id: 'selecting-the-right-valve', label: '5. Подбор правильного клапана для вашего проекта' },
+	{ id: 'faq', label: 'Часто задаваемые вопросы' }
+];
+
+const faq = [
+	{
+		question: 'Какова разница между мокрым сигнальным клапаном и дренчерным клапаном?',
+		answer: 'Мокрый сигнальный клапан (ZSFZ) устанавливается в спринклерные системы с мокрым заполнением, где трубопровод всегда заполнен водой; он фиксирует поток, возникающий при открытии спринклерного оросителя, и запускает тревогу. Дренчерный клапан (ZSFM) — сухой управляющий клапан, применяемый в дренчерных системах, которые при срабатывании одновременно затапливают всю защищаемую зону водой, — как правило, для объектов с высокой пожарной опасностью, таких как химические производства и электростанции.'
+	},
+	{
+		question: 'Когда следует применять систему предварительного действия (преакшн, ZSFY)?',
+		answer: 'Системы предварительного действия (ZSFY) сочетают дренчерный клапан с автоматическими спринклерами и требуют двух независимых сигналов (например, дым плюс температура) прежде, чем вода попадёт в трубопровод. Они применяются на объектах, чувствительных к воде: музеи, архивы, серверные и холодильные склады, где необходимо исключить случайную подачу воды.'
+	},
+	{
+		question: 'Что делает сигнализатор потока (ZSJZ) в спринклерной системе?',
+		answer: 'Лопастной сигнализатор потока (ZSJZ) устанавливается на магистральные отводы спринклеров и фиксирует поток воды, возникающий при открытии оросителя, посылая сигнал на прибор приёмно-контрольной пожарной сигнализации для идентификации сработавшей зоны. Настраиваемая задержка срабатывания отфильтровывает кратковременные гидравлические удары, которые в ином случае вызывали бы ложные тревоги.'
+	},
+	{
+		question: 'Взаимозаменяемы ли клапаны ZSFZ, ZSFM и ZSFY?',
+		answer: 'Нет. Каждый тип клапана соответствует конкретной архитектуре системы: ZSFZ — для систем с мокрым заполнением, ZSFM — для дренчерных систем, ZSFY — для систем предварительного действия. Замена одного на другой нарушит логику системы и может привести к провалу приёмки инспектором. Подбор следует выполнять по классу пожарной опасности объекта и проектной документации.'
+	},
+	{
+		question: 'Какие сертификаты требуются для сигнальных клапанов спринклерных систем?',
+		answer: 'Комплекты сигнальных клапанов спринклеров должны быть внесены в реестр уполномоченного органа по сертификации вашего рынка: как правило UL/FM для Северной Америки, CE для Европы, LPCB для проектов Великобритании и стран Содружества, плюс ISO 9001 как базовый уровень качества. Wanlian поставляет комплекты ZSFZ/ZSFM/ZSFY с пакетами сертификации, подобранными под рынок назначения.'
+	}
+];
+
+const valveProducts = [
+	{
+		slug: 'wet-alarm-check-valve-zsfz-150',
+		name: 'Мокрый сигнальный обратный клапан (ZSFZ-150)',
+		img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp',
+		desc: 'Сигнальный клапан для мокрой системы с индикацией потока и срабатыванием тревоги'
+	},
+	{
+		slug: 'deluge-alarm-valve-zsfm',
+		name: 'Комплект дренчерного сигнального клапана (серия ZSFM)',
+		img: '/assets/products/deluge-alarm-valve-zsfm.webp',
+		desc: 'Диафрагменный дренчерный клапан для объектов с высокой пожарной опасностью'
+	},
+	{
+		slug: 'pre-action-alarm-system-zsfy',
+		name: 'Система дренчерной сигнализации предварительного действия (серия ZSFY)',
+		img: '/assets/products/pre-action-alarm-system-zsfy.jpg',
+		desc: 'Преакшн-клапан с двойным срабатыванием для зон, чувствительных к воде'
+	},
+	{
+		slug: 'water-flow-indicator-zsjz',
+		name: 'Лопастной сигнализатор потока (серия ZSJZ)',
+		img: '/assets/products/water-flow-indicator-zsjz.png',
+		desc: 'Зональная индикация потока с настраиваемой задержкой для мокрых спринклеров'
+	}
+];
+---
+
+<Layout
+	title="Клапаны спринклерных систем: мокрые, дренчерные и преакшн"
+	description="Руководство по клапанам спринклерных систем: ZSFZ (мокрый сигнальный), ZSFM (дренчерный), ZSFY (преакшн) и ZSJZ (сигнализатор потока). Принцип работы и выбор."
+	type="article"
+	locale="ru"
+	faq={faq}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ru/" class="hover:text-blue-600">Главная</a>
+			<span>/</span>
+			<span class="text-gray-600">Руководства</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Руководство по спринклерным системам</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Клапаны спринклерных систем: полное руководство (мокрые, дренчерные и преакшн)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Каждая спринклерная система строится вокруг узла управляющих клапанов — точки, где водоснабжение становится системой пожаротушения. Если выбран неверный тип клапана, вся логика системы не пройдёт приёмку. В этом руководстве мы разбираем четыре типа клапанов, доминирующих в современном проектировании спринклерных систем, что делает каждый из них и для каких типов объектов они применяются. По запорным и секционирующим клапанам, окружающим узел, — задвижкам OS&amp;Y, сигнальным дисковым затворам и обратным клапанам, — см. наше <a href="/ru/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">руководство по типам управляющих клапанов спринклеров</a>.</p>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+				{valveProducts.map(p => (
+					<a href={`/ru/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			
+			<TableOfContents headings={toc} />
+
+			<h2 id="wet-pipe-systems-zsfz" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Системы с мокрым заполнением: мокрый сигнальный клапан ZSFZ</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Системы с мокрым заполнением — самая распространённая конфигурация спринклеров: трубопровод постоянно заполнен водой, и каждый спринклерный ороситель открывается индивидуально при разрушении его термочувствительного элемента. <a href="/ru/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">Мокрый сигнальный обратный клапан ZSFZ</a> устанавливается на подводящей магистрали и выполняет две функции: предотвращает обратный поток из системы в водоснабжение и фиксирует поток воды, возникающий при открытии оросителя, с срабатыванием механической и электрической сигнализации. Поток в систему продолжается до ручного перекрытия водоснабжения.</p>
+			<p class="text-gray-700 leading-relaxed">Системы с мокрым заполнением быстры, просты и дёшевы в обслуживании — однако их нельзя применять там, где температура среды может заморозить трубопровод.</p>
+
+			<h2 id="deluge-systems-zsfm" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Дренчерные системы: дренчерный клапан ZSFM</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Дренчерные системы защищают объекты с высокой пожарной опасностью, где огонь распространяется быстрее, чем способны отреагировать отдельные оросители: химические производства, цеха окраски, электростанции, самолётные ангары. Все насадки в дренчерной зоне открыты, и систему удерживает один управляющий клапан — <a href="/ru/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">дренчерный сигнальный клапан ZSFM</a>. Когда система обнаружения (дым/тепло/пламя) подаёт сигнал о пожаре, клапан открывается, и вода одновременно поступает ко всем насадкам.</p>
+			<p class="text-gray-700 leading-relaxed">Диафрагменный ZSFM открывается быстро и надёжно герметизируется после срабатывания — это важно, поскольку дренчерные зоны обычно большие, а клапан является единственной точкой отказа в системе.</p>
+
+			<h2 id="pre-action-systems-zsfy" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Системы предварительного действия (преакшн): клапан ZSFY с двойным срабатыванием</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Системы предварительного действия — это дренчерное оборудование с модификацией под спринклерные трубопроводы: трубопровод сухой, и вода поступает <em>только после подтверждения пожара двумя независимыми сигналами</em>. <a href="/ru/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">Система дренчерной сигнализации ZSFY с предварительным действием</a> — управляющий узел этой архитектуры: дренчерный клапан, управляемый сигналом системы обнаружения пожара, с автоматическими спринклерами на выходе, которые также служат индивидуальными предохранительными звеньями.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Почему выбирают преакшн? Три доминирующие причины:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Содержимое, чувствительное к воде</strong> — музеи, архивы, серверные, трансформаторные: вода не поступает, пока не подтверждены два сигнала.</li>
+				<li><strong>Зоны с риском заморозки</strong> — холодильные склады, невентилируемые склады: сухой трубопровод не замерзает.</li>
+				<li><strong>Страхование от ложных срабатываний</strong> — логика двойного срабатывания делает случайную подачу воды статистически пренебрежимо малой.</li>
+			</ul>
+
+			<h2 id="zone-detection-zsjz" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Зональная индикация: сигнализатор потока ZSJZ</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">После того как система в работе, пожарной бригаде и руководителю здания нужно знать, <em>какая именно зона</em> протекает. <a href="/ru/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">Лопастной сигнализатор потока ZSJZ</a> устанавливается на магистральные отводы спринклеров: когда вода начинает течь, лопасть отклоняется, и выключатель посылает сигнал на панель сигнализации, идентифицируя затронутую зону. Настраиваемая задержка по времени отфильтровывает гидравлические удары, которые в ином случае вызывали бы ложные тревоги.</p>
+
+			<h2 id="selecting-the-right-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Подбор правильного клапана для вашего проекта</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Тип объекта / потребность</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Тип системы</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Управляющий клапан</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Офисы, торговля, склады (отапливаемые)</td>
+							<td class="px-4 py-3 text-gray-700">С мокрым заполнением</td>
+							<td class="px-4 py-3 text-gray-700">ZSFZ мокрый сигнальный клапан</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Химия, энергетика, авиация, высокая опасность</td>
+							<td class="px-4 py-3 text-gray-700">Дренчерная</td>
+							<td class="px-4 py-3 text-gray-700">ZSFM дренчерный клапан</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Музеи, серверные, холодильные склады</td>
+							<td class="px-4 py-3 text-gray-700">Преакшн</td>
+							<td class="px-4 py-3 text-gray-700">ZSFY система преакшн</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Идентификация зоны (все мокрые системы)</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">ZSJZ сигнализатор потока</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Полный комплект, как правило, объединяет сигнальный клапан с вышестоящей сигнальной задвижкой, обратным клапаном, манометрами и сигнальной арматурой. Когда вы отправляете нам класс пожарной опасности и размер трубопровода, мы ценим полный узел клапанов, а не отдельный клапан — один сертифицированный пакет, один комплект документов.</p>
+
+			<!-- Related guide -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Связанное руководство: типы систем и спринклерные оросители</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Выбираете между мокрыми, сухими и системами предварительного действия, или подбираете оросители по K-фактору и температуре? Читайте <a href="/ru/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">Руководство по спринклерным системам</a>.</p>
+			</div>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Часто задаваемые вопросы</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Нужен расчёт узла спринклерных клапанов?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Пришлите тип системы, класс пожарной опасности и размер трубопровода — мы ответим полной спецификацией узла клапанов и заводской ценой в течение 12 часов.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ru/contact/?product=Sprinkler%20Valve%20Assembly" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Запросить цену</a>
+						<a href="https://wa.me/8618684324501?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BC%D0%BD%D0%B5%20%D0%BD%D1%83%D0%B6%D0%B5%D0%BD%20%D1%80%D0%B0%D1%81%D1%87%D1%91%D1%82%20%D1%83%D0%B7%D0%BB%D0%B0%20%D1%81%D0%BF%D1%80%D0%B8%D0%BD%D0%BA%D0%BB%D0%B5%D1%80%D0%BD%D1%8B%D1%85%20%D0%BA%D0%BB%D0%B0%D0%BF%D0%B0%D0%BD%D0%BE%D0%B2" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Написать в WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

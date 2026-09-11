@@ -1,0 +1,213 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'what-ul-listing-means', label: '1. Что такое листинг UL для пожарных клапанов' },
+	{ id: 'fire-valve-types', label: '2. Типы пожарных клапанов, которые вы действительно специфицируете' },
+	{ id: 'key-specifications', label: '3. Ключевые характеристики для сравнения' },
+	{ id: 'ul-vs-fm', label: '4. UL против FM: какой из них указан в вашем тендере' },
+	{ id: 'common-mistakes', label: '5. Типичные ошибки в закупках пожарных клапанов' },
+	{ id: 'procurement-checklist', label: '6. Чек-лист закупок перед оформлением заказа' },
+	{ id: 'faq', label: 'Часто задаваемые вопросы' }
+];
+
+const faq = [
+	{
+		question: 'Является ли сертификация UL обязательной для пожарных клапанов?',
+		answer: 'В Северной Америке и во многих международных проектах — да: противопожарные клапаны должны иметь листинг UL или ULC (или одобрение FM), чтобы соответствовать NFPA и местным строительным нормам. Для других рынков могут применяться CE, LPCB или местные стандарты. Всегда уточняйте сертификацию, требуемую рынком поставок.'
+	},
+	{
+		question: 'Какая разница между листингом UL и одобрением FM?',
+		answer: 'Оба — это сторонняя сертификация продукции противопожарной защиты. Листинг UL тестирует клапаны по стандартам UL/ULC на конструкцию и характеристики; одобрение FM добавляет инспекцию завода и требования по предотвращению убытков. Многие проекты принимают и то, и другое, но в некоторых спецификациях прямо указан один из них — проверьте тендерную документацию.'
+	},
+	{
+		question: 'Какие типы пожарных клапанов обычно имеют листинг UL?',
+		answer: 'Задвижки (OS&Y и NRS), дисковые затворы, обратные клапаны, дренчерные клапаны, преакшн-клапаны и сигнальные обратные клапаны — это типичные сертифицированные UL типы, используемые в спринклерных и стояковых системах в размерах примерно от 1½" до 12".'
+	},
+	{
+		question: 'Как проверить, что сертификат UL поставщика настоящий?',
+		answer: 'Запросите номер сертификата и номер дела, затем проверьте их в официальной базе UL Product iQ или онлайн-каталоге сертифицирующего органа. Копия в брошюре — не доказательство: листинг должен быть действующим и покрывать точную модель и размер, которые вы планируете купить.'
+	},
+	{
+		question: 'Может ли Wanlian поставить сертифицированные UL клапаны для моего проекта?',
+		answer: 'Да. Wanlian Fluid производит задвижки, дисковые затворы, обратные, дренчерные и преакшн-клапаны с сертификацией UL/ULC и FM, где это применимо. Смотрите нашу страницу UL-клапанов и страницу сертификатов — наши инженеры подтвердят подходящий пакет сертификации для вашего рынка поставок.'
+	}
+];
+
+const valveProducts = [
+	{
+		slug: 'resilient-seat-flanged-gate-valve-z41x',
+		name: 'Задвижка с эластичным седлом (Z41X)',
+		img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp',
+		desc: 'Клин в EPDM-оболочке, DN50–DN700'
+	},
+	{
+		slug: 'signal-grooved-wafer-butterfly-valve-dn80',
+		name: 'Сигнальный канавочный межфланцевый дисковый затвор',
+		img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
+		desc: 'DN80 PN16 с контролем состояния'
+	},
+	{
+		slug: 'deluge-alarm-valve-zsfm',
+		name: 'Группа дренчерных сигнальных клапанов (ZSFM)',
+		img: '/assets/products/deluge-alarm-valve-zsfm.webp',
+		desc: 'Мембранный привод, DN50–DN300'
+	},
+	{
+		slug: 'pre-action-alarm-system-zsfy',
+		name: 'Система предварительного действия (ZSFY)',
+		img: '/assets/products/pre-action-alarm-system-zsfy.jpg',
+		desc: 'Двойной сигнал срабатывания, защита от отказов'
+	}
+];
+---
+
+<Layout
+	title="Как выбрать UL-сертифицированные пожарные клапаны для проекта (2026)"
+	description="Выбор сертифицированных UL пожарных клапанов: типы, UL против FM, ключевые характеристики, проверка подлинности сертификатов и чек-лист закупок для B2B."
+	type="article"
+	locale="ru"
+	faq={faq}
+	breadcrumbs={[{ name: 'Блог', href: '/ru/blog/' }, { name: 'Гид по пожарным клапанам UL' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ru/" class="hover:text-blue-600">Главная</a>
+			<span>/</span>
+			<a href="/ru/blog/" class="hover:text-blue-600">Блог</a>
+			<span>/</span>
+			<span class="text-gray-600">Гид по пожарным клапанам UL</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Руководство по выбору противопожарных клапанов</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Как выбрать сертифицированные UL пожарные клапаны для вашего проекта (руководство 2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Пожарный клапан — это компонент, от которого зависит, сработает ли ваша спринклерная система в день пожара — и пройдёт ли здание инспекцию до этого. Листинг UL — критерий приёмки, по которому большинство североамериканских и многие международные проекты оценивают клапаны. Это руководство объясняет, что на самом деле означает листинг UL, какие типы клапанов сертифицированы, как проверить подлинность сертификата и что проверить перед выдачей заказа.</p>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+				{valveProducts.map(p => (
+					<a href={`/ru/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			
+			<TableOfContents headings={toc} />
+
+			<h2 id="what-ul-listing-means" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Что такое листинг UL для пожарных клапанов</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Листинг UL (Underwriters Laboratories) — это сторонняя сертификация, подтверждающая, что клапан испытан по стандартам UL/ULC, охватывающим класс давления, характеристики расхода, материалы и долговечность в эксплуатации систем противопожарной защиты. Это не маркетинговый знак — это задокументированное основание, по которому надзорные органы принимают клапан в спринклерную или стояковую систему.</p>
+			<p class="text-gray-700 leading-relaxed">Когда в спецификации указано «сертифицирован UL», проверьте три вещи: сертификат <strong>действующий</strong> (не просрочен), он покрывает <strong>точную модель и размер</strong>, который вы покупаете, и <strong>номер сертификата</strong> находится в официальной базе UL. Логотип, напечатанный на паспорте продукта, сам по себе ничего не доказывает.</p>
+
+			<h2 id="fire-valve-types" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Типы пожарных клапанов, которые вы действительно специфицируете</h2>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Задвижки — стандарт перекрытия системы</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Задвижки перекрывают участки спринклерной системы при обслуживании. <a href="/ru/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Задвижка Z41X с эластичным седлом</a> с клином, полностью заключённым в EPDM-оболочку, — основной выбор: полная герметичность при перекрытии, малое падение давления в полностью открытом положении, а размеры от DN50 до DN700 покрывают всё — от боковых линий до магистралей. Модификации OS&Y (выдвижной шпиндель с наружной резьбой) показывают статус открыто/закрыто одним взглядом, что ценят надзорные органы для секционных клапанов.</p>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Дисковые затворы — компактное управление с контролем</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Там, где место ограничено, дисковые затворы занимают лишь долю длины по присоединениям задвижки. <a href="/ru/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">Сигнальный канавочный межфланцевый дисковый затвор</a> оснащён встроенным микровыключателем, поэтому пожарная панель знает статус открыто/закрыто клапана — требование к контролируемым секционным клапанам в современных системах.</p>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Дренчерные и преакшн-клапаны — «мозг» системы</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">В дренчерных системах (открытые спринклеры или распылительные насадки) <a href="/ru/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">дренчерный сигнальный клапан ZSFM</a> удерживает воду системы под давлением мембраны и мгновенно открывается при электрическом, пневматическом или ручном срабатывании. Там, где нужно избегать водяных повреждений — архивы, центры обработки данных, музеи, — <a href="/ru/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">система предварительного действия ZSFY</a> требует двух независимых сигналов перед заполнением трубопроводов.</p>
+
+			<h2 id="key-specifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Ключевые характеристики для сравнения</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Характеристика</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Почему это важно</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Диапазон размеров</td>
+							<td class="px-4 py-3 text-gray-700">Совпадение с типоразмером трубопровода — типичные пожарные клапаны DN40–DN300 (1½"–12")</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Номинальное давление</td>
+							<td class="px-4 py-3 text-gray-700">PN16 (1,6 МПа) покрывает большинство сетей; PN25 для высотных зданий и зон высокого давления</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Тип присоединения</td>
+							<td class="px-4 py-3 text-gray-700">Фланцевое — для магистралей, с канавками — для быстрого монтажа, резьбовое — для малых веток</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Материал корпуса</td>
+							<td class="px-4 py-3 text-gray-700">Стандарт — высокопрочный чугун QT450; WCB/CF8/CF8M там, где нужна повышенная коррозионная стойкость</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Сертификация</td>
+							<td class="px-4 py-3 text-gray-700">UL/ULC, FM, CE, LPCB — в соответствии с нормой рынка поставок</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="ul-vs-fm" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. UL против FM: какой из них указан в вашем тендере</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Оба — принятые схемы сертификации противопожарного оборудования, но тендеры часто пишут под одну из них. Листинг UL распространён в коммерческом строительстве США; одобрение FM часто требуется для объектов, застрахованных FM Global, и для промышленных объектов риска. Некоторые проекты принимают и то, и другое. Если в вашей спецификации указано «сертифицирован UL или одобрен FM», поставщик с обеими схемами может участвовать в тендере по любой — перед расчётом цены подтвердите покрытие для конкретной модели и размера.</p>
+
+			<h2 id="common-mistakes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Типичные ошибки в закупках пожарных клапанов</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Покупка «совместимого с UL» вместо сертифицированного UL</strong> — «совместим» не является сертификацией. Считается только сертифицированный продукт с действующим номером сертификата.</li>
+				<li><strong>Игнорирование контроля статуса клапана</strong> — секционные клапаны, которые можно закрыть, и об этом не знает панель, — классический провал инспекции; на контролируемых секциях используйте сигнальные клапаны или модификации OS&Y.</li>
+				<li><strong>Несовпадение класса давления</strong> — клапан PN10 в сети PN16 не выдержит гидравлическое испытание.</li>
+				<li><strong>Неверный тип клапана в спецификации</strong> — задвижка не выполняет функции дренчерного клапана, и наоборот. Подбирайте клапан под функцию системы.</li>
+				<li><strong>Не проверено наличие запчастей</strong> — уплотнения, шпиндели и ремонтные комплексы следует подтверждать вместе с заказом.</li>
+			</ul>
+
+			<h2 id="procurement-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Чек-лист закупок перед оформлением заказа</h2>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Подтвердите сертификацию, требуемую рынком поставок (UL/ULC, FM, CE, LPCB).</li>
+				<li>Запросите номер сертификата и проверьте его в официальной базе UL/FM.</li>
+				<li>Сопоставьте DN, PN и присоединение с типоразмером вашего трубопровода.</li>
+				<li>Для контролируемых систем укажите в спецификации сигнальные клапаны или модификации OS&Y.</li>
+				<li>Запросите протокол гидравлических испытаний по партии, а не общий сертификат.</li>
+				<li>Подтвердите MOQ (минимальный заказ), срок производства и наличие запчастей в одном коммерческом предложении.</li>
+			</ol>
+
+			<!-- Ссылка на лендинг -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Наша линейка сертифицированных UL пожарных клапанов</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Полная серия — задвижки, дисковые затворы, обратные, дренчерные и преакшн-клапаны с сертификатами, опубликованными на нашей <a href="/ru/certificates/" class="text-brand-blue font-semibold hover:underline">странице сертификатов</a>, — представлена на <a href="/ru/ul-fire-valves/" class="text-brand-blue font-semibold hover:underline">странице UL-клапанов</a>.</p>
+			</div>
+
+			<!-- Связанное руководство -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Связанное руководство: проверка поставщика</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Нужен чек-лист проверки из 8 пунктов для любого производителя клапанов перед заказом? Прочитайте <a href="/ru/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">Чек-лист B2B-закупок клапанов</a>.</p>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">UL — лишь один элемент пазла соответствия нормам — прочитайте <a href="/ru/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Стандарты гидрантов, пожарных рукавов и клапанов: объяснение</a>, а затем проверьте любой завод по <a href="/ru/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">Как проверить китайского поставщика клапанов и противопожарного оборудования</a>.</p>
+			</div>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Часто задаваемые вопросы</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Нужны сертифицированные UL пожарные клапаны для вашего проекта?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Пришлите нам тип клапана, DN/PN и целевую сертификацию — наши инженеры ответят полным техническим паспортом и коммерческим предложением в течение 12 часов.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ru/contact/?product=UL%20Fire%20Valves" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Запросить цену</a>
+						<a href="https://wa.me/8618684324501?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BC%D0%BD%D0%B5%20%D0%BD%D1%83%D0%B6%D0%BD%D1%8B%20%D0%BF%D0%BE%D0%B6%D0%B0%D1%80%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%BB%D0%B0%D0%BF%D0%B0%D0%BD%D1%8B%20%D1%81%20%D1%81%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%D0%BE%D0%BC%20UL" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Чат в WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

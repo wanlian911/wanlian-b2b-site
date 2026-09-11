@@ -1,0 +1,190 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'manual-monitors-ps', label: '1. Ручные мониторы (серия PS): управление оператором' },
+	{ id: 'auto-tracking-monitors-zdms', label: '2. Автоматические следящие мониторы (ZDMS): автономный отклик' },
+	{ id: 'head-to-head-comparison', label: '3. Прямое сравнение' },
+	{ id: 'sizing-and-installation', label: '4. Подбор и монтаж: основы' },
+	{ id: 'faq', label: 'Часто задаваемые вопросы' }
+];
+
+const faq = [
+	{
+		question: 'В чём разница между ручным и автоматическим следящим пожарным лафетным стволом?',
+		answer: 'Ручной пожарный лафетный ствол (серия PS) наводится и обслуживается пожарным на месте — непосредственно на турели или через дистанционный маховик. Автоматический следящий ствол (серия ZDMS) непрерывно сканирует защищаемую зону инфракрасными/УФ-детекторами пламени, самостоятельно наводится на очаг возгорания и тушит его без участия оператора — это критично для больших пространств, где пожар нужно погасить за секунды.'
+	},
+	{
+		question: 'Где требуются автоматические следящие лафетные стволы (ZDMS)?',
+		answer: 'Автоматические следящие стволы обычно выбирают для больших внутренних помещений с высокими потолками, где обнаружение и тушение должны быть автоматическими: выставочные залы, атриумы, склады, самолётные ангары и производственные цеха. Высота потолков и площадь помещения определяют количество стволов и зоны их покрытия.'
+	},
+	{
+		question: 'Какова эффективная дальность пожарного лафетного ствола?',
+		answer: 'Дальность зависит от расхода и конфигурации насадка. Ручные мониторы PS обычно обеспечивают 20–60 л/с с дальностью 30–70 м; автоматические следящие стволы ZDMS для внутреннего покрытия обычно подбираются 20–40 л/с с временем реакции менее 30 секунд. Проект противопожарной защиты должен подбирать ствол исходя из требуемой плотности воды и площади покрытия.'
+	},
+	{
+		question: 'Можно ли использовать пожарные лафетные стволы вместе с пеной?',
+		answer: 'Да. Большинство стволов серии PS поддерживают подачу воды или пены с переключением режима насадка, поэтому они широко применяются на нефтехимических терминалах и резервуарных парках. Если планируется пеноподача, укажите это в запросе, чтобы ствол был поставлен с соответствующим интерфейсом дозирования пены.'
+	}
+];
+
+const monitorProducts = [
+	{
+		slug: 'manual-fire-water-cannon-ps',
+		name: 'Ручной пожарный лафетный ствол (серия PS)',
+		img: '/assets/products/manual-fire-water-cannon-ps.webp',
+		desc: 'Ручной ствол большого расхода для воды или пены, дальность 30–70 м'
+	},
+	{
+		slug: 'auto-tracking-jet-suppression-cannon-zdms',
+		name: 'Автоматический следящий лафетный ствольный узел (серия ZDMS)',
+		img: '/assets/06_extinguishing_cannons/cannon_p45.webp',
+		desc: 'Ствол с ИК/УФ-сканированием, автономным обнаружением и тушением'
+	}
+];
+---
+
+<Layout
+	title="Выбор пожарного лафетного ствола: ручной или следящий (ZDMS)"
+	description="Выбор пожарного лафетного ствола: ручные PS против следящих ZDMS — дальность, расход, детекция пламени, время реакции и стоимость для промышленности."
+	type="article"
+	locale="ru"
+	faq={faq}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ru/" class="hover:text-blue-600">Главная</a>
+			<span>/</span>
+			<span class="text-gray-600">Руководства</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Руководство по системам пожаротушения</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Выбор пожарного лафетного ствола: ручной против следящего (ZDMS)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Пожарные лафетные стволы — их также называют водяными стволами-мониторами — подают концентрированную струю большого расхода на расстояние. Они выпускаются в двух принципиально разных по управлению исполнениях: <strong>ручные мониторы</strong>, которые наводятся оператором, и <strong>автоматические следящие мониторы</strong>, которые самостоятельно обнаруживают, наводятся и тушат. Выбор между ними — вопрос времени реакции, рисков для персонала и бюджета. В этом руководстве мы разбираем это решение.</p>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+				{monitorProducts.map(p => (
+					<a href={`/ru/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-40 object-contain bg-white p-3" />
+						<div class="p-4">
+							<p class="text-sm font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-xs text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			
+			<TableOfContents headings={toc} />
+
+			<h2 id="manual-monitors-ps" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Ручные мониторы (серия PS): управление оператором</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/ru/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">Ручной пожарный лафетный ствол серии PS</a> — рабочая лошадка промышленного пожаротушения: стационарная турель, подающая 20–60 л/с на дальности до 70 м, переключаемая между компактной и распылённой струей, с подачей воды или пены. Управление непосредственное (маховик на месте или на турели) либо дистанционное оператором, наблюдающим за очагом.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Где применять:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Нефтехимические терминалы, резервуарные парки и погрузочные платформы</strong> — стволы с пеноподачей для защиты фиксированных точек.</li>
+				<li><strong>Открытые площадки и технологические зоны</strong>, где оператор может безопасно подойти к стволу или месту дистанционного управления.</li>
+				<li><strong>Охлаждение и дренчерное усиление</strong> — наводящиеся ручные струи дополняют автоматические системы.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Компромисс прост: ручной монитор столь же быстр, как и его оператор. Если при возгорании никто не может безопасно добраться до пункта управления, ствол может и не быть приведён в действие.</p>
+
+			<h2 id="auto-tracking-monitors-zdms" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Автоматические следящие мониторы (ZDMS): автономный отклик</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/ru/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">Автоматический следящий лафетный ствольный узел ZDMS</a> исключает человека из цикла реагирования. Детекторы пламени в двух диапазонах — ИК/УФ — непрерывно сканируют защищаемое пространство; когда сигнатура пламени подтверждается, ствол наводится на огонь, открывается клапан, и очаг тушится — обычно в течение 30 секунд от воспламенения, круглосуточно.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Где применять:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Большые внутренние помещения с высокими потолками</strong> — выставочные залы, атриумы, склады, цеха, ангары.</li>
+				<li><strong>Объекты, где пожар распространяется быстрее, чем персонал способен отреагировать</strong>.</li>
+				<li><strong>Риск без дежурного персонала или ночью</strong> — система всегда на страже.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Поскольку стволы ZDMS подбираются по зоне покрытия и высоте потолка, проектировщику необходимо отразить зоны обзора детекторов и плотность воды по всей площади. Поэтому инженерная поддержка поставщика так же важна, как и оборудование.</p>
+
+			<h2 id="head-to-head-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Прямое сравнение</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Критерий</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Ручной (PS)</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Следящий (ZDMS)</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Реакция</td>
+							<td class="px-4 py-3 text-gray-700">Зависит от досягаемости и реакции оператора</td>
+							<td class="px-4 py-3 text-gray-700">Автономная, обычно &lt;30 с от воспламенения</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Расход / дальность</td>
+							<td class="px-4 py-3 text-gray-700">20–60 л/с, 30–70 м</td>
+							<td class="px-4 py-3 text-gray-700">20–40 л/с, внутреннее покрытие по зонам</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Детекция</td>
+							<td class="px-4 py-3 text-gray-700">Нет (наводка оператором)</td>
+							<td class="px-4 py-3 text-gray-700">Двухдиапазонное ИК/УФ-сканирование</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Среда</td>
+							<td class="px-4 py-3 text-gray-700">Вода или пена (переключаемые)</td>
+							<td class="px-4 py-3 text-gray-700">Вода; пена в зависимости от исполнения</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Типичное применение</td>
+							<td class="px-4 py-3 text-gray-700">Резервуарные парки, площадки, технологические зоны</td>
+							<td class="px-4 py-3 text-gray-700">Атриумы, склады, залы, цеха</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Стоимость</td>
+							<td class="px-4 py-3 text-gray-700">Нижняя стоимость оборудования</td>
+							<td class="px-4 py-3 text-gray-700">Выше; включает детекцию и управление</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="sizing-and-installation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Подбор и монтаж: основы</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Сначала гидравлика</strong> — расход (л/с) и требуемое остаточное давление ствола должны быть подтверждены относительно насосов и трубопроводной сети до подбора.</li>
+				<li><strong>Карта покрытия для ZDMS</strong> — зона обзора детекторов, высота потолка и плотность воды определяют количество и расположение стволов; запросите у поставщика схему компоновки.</li>
+				<li><strong>Совместимость с пеной</strong> — для резервуарных парков подтвердите насадок ствола и интерфейс дозирования для пеноподачи.</li>
+				<li><strong>Протокол испытаний</strong> — договоритесь с поставщиком о пусконаладочных испытаниях (дальность и время реакции) в контракте.</li>
+			</ul>
+
+			<!-- Related guide -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Связанное руководство: решение о покупке</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Принимаете решение между стационарным, дистанционным и интеллектуальным управлением — и подбираете расход и дальность для вашего объекта? Читайте <a href="/ru/guides/fire-water-cannon-buying-guide/" class="text-brand-blue font-semibold hover:underline">Руководство по покупке пожарного лафетного ствола</a>.</p>
+			</div>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Часто задаваемые вопросы</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Подбираете систему лафетных стволов для вашего объекта?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Пришлите тип объекта, защищаемую площадь и высоту потолка — наши инженеры ответят схемой размещения стволов и ценой в течение 12 часов.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ru/contact/?product=Fire%20Water%20Monitor" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Запросить цену</a>
+						<a href="https://wa.me/8618684324501?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BC%D0%BD%D0%B5%20%D0%BD%D1%83%D0%B6%D0%BD%D0%B0%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%20%D1%81%20%D0%BF%D0%BE%D0%B4%D0%B1%D0%BE%D1%80%D0%BE%D0%BC%20%D0%BF%D0%BE%D0%B6%D0%B0%D1%80%D0%BD%D1%8B%D1%85%20%D0%BB%D0%B0%D1%84%D0%B5%D1%82%D0%BD%D1%8B%D1%85%20%D1%81%D1%82%D0%B2%D0%BE%D0%BB%D0%BE%D0%B2" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Написать в WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

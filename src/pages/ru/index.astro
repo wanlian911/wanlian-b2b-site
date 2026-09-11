@@ -1,0 +1,415 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import InquiryForm from '../../components/inquiry/InquiryForm.astro';
+import { productsRu, productsRuBySlug } from '../../utils/products.ru';
+
+// /ru/ главная: hero, о компании, категории, производственный цикл, бестселлеры/полная линия,
+// технические ресурсы (системные страницы + руководства), отрасли, форма запроса.
+
+const featuredSlugs = [
+  'resilient-seat-flanged-gate-valve-z41x',
+  'indoor-fire-hydrant-head-sn65',
+  'wet-alarm-check-valve-zsfz-150',
+  'signal-grooved-wafer-butterfly-valve-dn80',
+  'sliding-ball-check-valve-hq41x',
+  'hydraulic-water-level-control-valve-f745x',
+  'telescopic-y-strainer-sgl41h',
+  'anti-collision-pressure-regulating-outdoor-hydrant-ssft100'
+];
+const featuredProducts = featuredSlugs.map(slug => productsRuBySlug[slug]).filter(Boolean);
+
+const systemResources = [
+  { href: '/ru/fire-sprinkler-systems/', eyebrow: 'Описание системы', title: 'Клапаны для систем спринклерного пожаротушения', desc: 'Мокрые сигнальные, дренчерные и преакшн-клапаны — понятные объяснения для покупателей систем спринклеров.' },
+  { href: '/ru/fire-hydrant-systems/', eyebrow: 'Описание системы', title: 'Системы пожарных гидрантов', desc: 'Внутренние и наружные гидранты, соединения и нормативы для муниципальных и промышленных сетей.' },
+  { href: '/ru/fire-water-cannon/', eyebrow: 'Описание системы', title: 'Пожарные лафетные стволы и мониторы', desc: 'Ручные мониторы PS и автоматические следящие лафеты ZDMS для тушения в больших пространствах.' },
+  { href: '/ru/backflow-prevention/', eyebrow: 'Описание системы', title: 'Предотвращение обратного потока и гидравлический контроль', desc: 'Устройства предотвращения обратного потока и регулирующие клапаны для защиты сетей водоснабжения.' },
+  { href: '/ru/ul-fire-valves/', eyebrow: 'Описание системы', title: 'Сертифицированные UL противопожарные клапаны', desc: 'Что означает сертификат UL, чем UL отличается от FM и как проверить подлинность сертификатов.' },
+  { href: '/ru/certificates/', eyebrow: 'Сертификация', title: 'Сертификаты и одобрения', desc: 'UL Listing, одобрение FM, маркировка CE, ISO 9001 и LPCB: проверьте наши аккредитации.' }
+];
+
+const featuredGuides = [
+  { href: '/ru/guides/how-to-choose-a-fire-hydrant/', eyebrow: 'Гид по выбору', title: 'Как выбрать пожарный гидрант', desc: 'Типы, классы давления, стандарты присоединения и проверка на заводе перед оформлением заказа.' },
+  { href: '/ru/guides/fire-sprinkler-system-valves-guide/', eyebrow: 'Гид по выбору', title: 'Клапаны для систем спринклерного пожаротушения', desc: 'Как работают сигнальные клапаны ZSFZ, дренчерные ZSFM и преакшн-клапаны ZSFY.' },
+  { href: '/ru/guides/b2b-valve-sourcing-checklist/', eyebrow: 'Закупки B2B', title: 'Чек-лист проверки производителя', desc: '8 пунктов проверки контрагента: сертификаты, отчёты по партиям, аудит производства и образцы.' }
+];
+
+const categories = [
+  { name: 'Запорная арматура и детали', image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp' },
+  { name: 'Гидранты и насосные соединения', image: '/assets/products/indoor-fire-hydrant-head-sn65.jpg' },
+  { name: 'Спринклеры и сигнальные клапаны', image: '/assets/products/wet-alarm-check-valve-zsfz-150.webp' },
+  { name: 'Гидравлическая защита', image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp' },
+  { name: 'Лафетные стволы пожаротушения', image: '/assets/products/manual-fire-water-cannon-ps.webp' },
+  { name: 'Пожарные шкафы и соединительные устройства', image: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg' }
+];
+
+const qualitySteps = [
+  { step: '01', title: 'Точное ткачество', desc: 'Ткачество высокопрочной полиэстеровой основы для долговечных оболочек пожарных рукавов.' },
+  { step: '02', title: 'Нанесение покрытия', desc: 'Современный процесс вулканизации для герметичного резинового покрытия.' },
+  { step: '03', title: 'Обработка на ЧПУ', desc: 'Точная обработка корпусов и деталей клапанов из высокопрочного чугуна.' },
+  { step: '04', title: 'Испытания безопасности', desc: '100% испытание корпуса давлением и проверка на герметичность воздухом каждой единицы.' },
+  { step: '05', title: 'Эпоксидное покрытие', desc: 'Безопасное эпоксидное покрытие для превосходной коррозионной стойкости.' }
+];
+
+const industries = [
+  { name: 'Нефть и газ', desc: 'Надёжный транспорт жидкостей в экстремальных промышленных условиях.' },
+  { name: 'Очистка воды', desc: 'Муниципальные системы водоснабжения, водоотведения и фильтрации.' },
+  { name: 'Противопожарная защита', desc: 'Сертифицированные гидранты, клапаны спринклеров и системы пожаротушения.' }
+];
+
+const inquiryPoints = [
+  'Расчёт цены по запросу',
+  'Подбор оборудования и инженерная поддержка',
+  'Координация экспортной упаковки',
+  'Поддержка по документации продукции'
+];
+---
+
+<Layout
+  locale="ru"
+  title="Wanlian Fluid | Производство арматуры и пожарного оборудования"
+  description="Quanzhou Wanlian Fluid — производитель и экспортёр промышленной арматуры и оборудования пожаротушения: собственные линии, ISO 9001, цена по запросу."
+>
+  <!-- Hero Section -->
+  <section class="relative bg-gray-900 text-white min-h-[85vh] flex items-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/80 to-transparent z-10"></div>
+      <img
+        src="/og-image.jpg"
+        alt="Промышленная арматура Wanlian Fluid"
+        class="w-full h-full object-cover object-center opacity-40"
+      />
+    </div>
+
+    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div class="max-w-3xl space-y-8">
+        <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
+          <span class="flex h-2 w-2 rounded-full bg-brand-red animate-pulse"></span>
+          <span class="text-sm font-bold tracking-widest uppercase">Производитель и экспортёр — арматура и пожаротушение</span>
+        </div>
+
+        <h1 class="text-5xl sm:text-7xl font-black tracking-tight leading-[1.1]">
+          Точный поток <br/>
+          <span class="text-brand-red italic">Гарантия глобальной безопасности.</span>
+        </h1>
+
+        <p class="text-lg sm:text-xl text-gray-300 max-w-2xl leading-relaxed">
+          Quanzhou Wanlian Fluid Equipment Co., Ltd. расположена в Чжоушане провинции Фуцзянь — стартовой точке Морского Шёлкового пути и ядре китайской индустрии трубопроводов и арматуры. Мы производим и экспортируем клапаны, противопожарное оборудование, системы управления потоком жидкости и комплексные решения для промышленных, муниципальных объектов, противопожарной защиты, водоснабжения и водоотведения, с собственным инжинирингом для сопровождения подбора и изготовления по требованиям заказчика в каждом заказе.
+        </p>
+
+        <div class="flex flex-wrap gap-4 pt-4">
+          <a href="/ru/#inquiry" class="px-8 py-4 bg-brand-red hover:opacity-90 text-white font-bold rounded-lg transition shadow-xl shadow-brand-red/20 transform hover:-translate-y-1">
+            Запросить цену
+          </a>
+          <a href="/ru/#perfil" class="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-bold rounded-lg border border-white/30 transition">
+            О компании
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certification Wall -->
+  <div class="bg-gray-100 py-8 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition duration-500">
+        <span class="text-gray-900 font-black text-xl tracking-tighter">ТЕХНИЧЕСКИЕ ДАННЫЕ</span>
+        <span class="text-gray-900 font-black text-xl tracking-tighter">ЧЕРТЁЖИ ПРОДУКЦИИ</span>
+        <span class="text-gray-900 font-black text-xl tracking-tighter">МАТЕРИАЛЫ ИСПОЛНЕНИЯ</span>
+        <span class="text-gray-900 font-black text-xl tracking-tighter">КЛАССЫ ДАВЛЕНИЯ</span>
+        <span class="text-gray-900 font-black text-xl tracking-tighter">OEM / ODM</span>
+        <span class="text-gray-900 font-black text-xl tracking-tighter">ПОДДЕРЖКА ЭКСПОРТА</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Section: Factory Strength -->
+  <section id="perfil" class="py-24 bg-white overflow-hidden scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row items-center gap-16">
+        <div class="flex-1 space-y-8">
+          <div class="space-y-4">
+            <h2 class="text-sm font-black tracking-[0.3em] text-brand-red uppercase flex items-center gap-2">
+              <span class="w-8 h-[2px] bg-brand-red"></span>
+              О компании
+            </h2>
+            <h3 class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight leading-tight">
+              Решения по управлению потоком <br/><span class="text-brand-blue">для мировых проектов.</span>
+            </h3>
+          </div>
+
+          <div class="space-y-6 text-gray-600 text-lg leading-relaxed">
+            <p>
+              Компания Quanzhou Wanlian Fluid Equipment Co., Ltd., базирующаяся в Чжоушане провинции Фуцзянь — ядре китайской индустрии трубопроводов и арматуры, — производит и экспортирует промышленные клапаны, гидравлическое оборудование, компоненты гидрантов и средства противопожарной защиты для международных B2B-проектов. Производство ведётся на собственных линиях в Чжоушане, отдельные позиции выпускают квалифицированные производственные партнёры; корпуса клапанов обрабатываются на станках с ЧПУ, каждая единица проходит испытание корпуса давлением и проверку на герметичность воздухом перед отгрузкой, в рамках системы менеджмента качества ISO 9001.
+            </p>
+            <p>
+              Каждую страницу продукции мы строим вокруг реальных рабочих характеристик — класса давления, стандарта присоединения, материала корпуса и затвора, области применения, — с расчётом цены по запросу и инженерной поддержкой систем водоснабжения, промышленного управления потоком и противопожарной защиты.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+            <div class="p-5 bg-gray-50 rounded-xl border border-gray-100">
+              <span class="block text-3xl font-black text-brand-red tabular-nums">{productsRu.length}+</span>
+              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Модели на складе</span>
+            </div>
+            <div class="p-5 bg-gray-50 rounded-xl border border-gray-100">
+              <span class="block text-3xl font-black text-brand-blue tabular-nums">6</span>
+              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Линии продукции</span>
+            </div>
+            <div class="p-5 bg-gray-50 rounded-xl border border-gray-100">
+              <span class="block text-3xl font-black text-brand-red tabular-nums">100%</span>
+              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Испытаны под давлением</span>
+            </div>
+            <div class="p-5 bg-gray-50 rounded-xl border border-gray-100">
+              <span class="block text-3xl font-black text-brand-blue tabular-nums">ISO 9001</span>
+              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Система качества</span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-3 pt-2">
+            <span class="px-4 py-2 bg-brand-red/5 border border-brand-red/20 text-brand-red text-xs font-black uppercase tracking-widest rounded-full">НИОКР · Продажи · Сервис</span>
+            <span class="px-4 py-2 bg-brand-blue/5 border border-brand-blue/20 text-brand-blue text-xs font-black uppercase tracking-widest rounded-full">Сертификат ISO 9001</span>
+            <span class="px-4 py-2 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-black uppercase tracking-widest rounded-full">OEM · ODM · Изготовление под заказ</span>
+          </div>
+
+          <a href="/ru/#inquiry" class="inline-flex items-center gap-2 font-bold text-brand-blue hover:underline pt-2">
+            Запросить цену <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="flex-1 relative">
+          <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-100 rounded-full blur-3xl opacity-50 z-0"></div>
+          <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl shadow-gray-200">
+            <img
+              src="/og-image.jpg"
+              alt="Продукция промышленной арматуры Wanlian Fluid"
+              loading="lazy"
+              class="w-full h-auto object-cover"
+            />
+            <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
+              <p class="text-sm font-bold tracking-wide">Профессиональный промышленный уровень | B2B-решения по управлению потоком</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Classification Grid -->
+  <section class="py-24 bg-gray-50 border-y border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <h2 class="text-4xl font-black text-gray-900 tracking-tight uppercase">Основные категории продукции</h2>
+        <div class="h-1.5 w-20 bg-brand-red mx-auto"></div>
+        <p class="text-gray-500 font-medium italic">Точная инженерия для мировых систем пожаротушения и водоснабжения.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {categories.map(cat => (
+          <a href={`/ru/products/#category=${encodeURIComponent(cat.name)}`} class="group relative bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200">
+            <div class="aspect-[4/3] overflow-hidden bg-gray-50 p-6 flex items-center justify-center">
+              <img src={cat.image} alt={cat.name} loading="lazy" class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 p-6 bg-white/95 backdrop-blur-sm flex justify-between items-center group-hover:bg-brand-red group-hover:text-white transition-colors">
+              <div>
+                <h4 class="font-black text-lg">{cat.name}</h4>
+                <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Каталог доступен по запросу</p>
+              </div>
+              <span class="text-2xl font-light">→</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quality Control Workflow -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+        <div class="space-y-4">
+          <h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Производственный процесс</h2>
+          <h3 class="text-4xl font-black text-gray-900 tracking-tight">Наш производственный цикл</h3>
+        </div>
+        <p class="text-gray-500 max-w-md text-right hidden md:block">Каждая единица проходит один и тот же контролируемый цикл — от обработки на ЧПУ до 100% испытания давлением и нанесения эпоксидного покрытия.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+        {qualitySteps.map((step, idx) => (
+          <div class="relative group">
+            <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 space-y-4 h-full group-hover:bg-blue-50 transition-colors">
+              <div class="text-4xl font-black text-gray-200 group-hover:text-brand-blue/20 transition-colors">{step.step}</div>
+              <h4 class="font-bold text-gray-900">{step.title}</h4>
+              <p class="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+            </div>
+            {idx < qualitySteps.length - 1 && (
+              <div class="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                <svg class="w-8 h-8 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="py-24 bg-gray-50 border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-end mb-16">
+        <h2 class="text-4xl font-black text-gray-900 tracking-tight">Наши <span class="text-brand-red">бестселлеры</span></h2>
+        <a href="/ru/products/" class="text-brand-blue font-bold hover:underline">Полный каталог →</a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {featuredProducts.map(product => (
+          <div class="group bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+            <div class="aspect-square relative overflow-hidden bg-gray-50 p-6">
+              <img src={product.image} alt={product.name} loading="lazy" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
+              <div class="absolute top-4 left-4 flex gap-2">
+                <span class="px-2 py-1 bg-gray-900/80 text-white text-[10px] font-black uppercase tracking-widest rounded">
+                  {product.category}
+                </span>
+
+              </div>
+            </div>
+            <div class="p-6 space-y-4">
+              <h4 class="font-bold text-gray-900 line-clamp-2 min-h-[3rem] group-hover:text-brand-red transition-colors tracking-tight">{product.name}</h4>
+              <div class="pt-4 border-t border-gray-100 flex gap-2">
+                <a href={`/ru/products/${product.slug}/`} class="flex-1 py-2 text-center text-xs font-black border border-gray-200 rounded hover:bg-gray-50 transition">ДЕТАЛИ</a>
+                <a href={`/ru/contact/?product=${encodeURIComponent(product.name)}`} class="flex-1 py-2 text-center text-xs font-black bg-brand-red text-white rounded hover:opacity-90 transition">ЗАПРОС</a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Complete Product Line: полная линия продукции, перелинковка -->
+  <section class="py-24 bg-white border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-end mb-12 gap-4">
+        <h2 class="text-4xl font-black text-gray-900 tracking-tight">Полная <span class="text-brand-blue">линия продукции</span></h2>
+        <a href="/ru/products/" class="text-brand-red font-bold hover:underline shrink-0">Вся продукция →</a>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-1">
+        {productsRu.map(product => (
+          <a href={`/ru/products/${product.slug}/`} class="group flex items-center justify-between py-3 border-b border-gray-100 hover:border-brand-red transition-colors">
+            <span class="text-sm font-semibold text-gray-700 group-hover:text-brand-red transition-colors line-clamp-1 pr-3">{product.name}</span>
+            <span class="text-brand-blue opacity-0 group-hover:opacity-100 transition-opacity shrink-0">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- System Resources: системные страницы + руководства -->
+  <section class="py-24 bg-gray-50 border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-14 space-y-4">
+        <h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Технические ресурсы</h2>
+        <h3 class="text-4xl font-black text-gray-900 tracking-tight">Описания систем и сертификаты</h3>
+        <div class="h-1.5 w-20 bg-brand-red mx-auto"></div>
+        <p class="text-gray-500 font-medium">Паспорта данных полезны, но инженерный контекст ценнее. Изучите детали до оформления спецификации.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+        {featuredGuides.map(item => (
+          <a href={item.href} class="group flex flex-col justify-between bg-white rounded-xl border border-gray-200 p-7 hover:border-brand-red hover:shadow-lg transition-all duration-300">
+            <div>
+              <span class="text-[10px] font-black uppercase tracking-widest text-brand-red">{item.eyebrow}</span>
+              <h4 class="mt-3 text-lg font-black text-gray-900 leading-snug group-hover:text-brand-red transition-colors">{item.title}</h4>
+              <p class="mt-2 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+            </div>
+            <span class="mt-5 inline-flex items-center gap-1 text-brand-red font-bold text-xs group-hover:gap-2 transition-all">
+              Читать руководство
+              <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+            </span>
+          </a>
+        ))}
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {systemResources.map(item => (
+          <a href={item.href} class="group flex flex-col justify-between bg-white rounded-xl border border-gray-200 p-7 hover:border-brand-red hover:shadow-lg transition-all duration-300">
+            <div>
+              <span class="text-[10px] font-black uppercase tracking-widest text-brand-blue">{item.eyebrow}</span>
+              <h4 class="mt-3 text-lg font-black text-gray-900 leading-snug group-hover:text-brand-red transition-colors">{item.title}</h4>
+              <p class="mt-2 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+            </div>
+            <span class="mt-5 inline-flex items-center gap-1 text-brand-red font-bold text-xs group-hover:gap-2 transition-all">
+              Читать ресурс
+              <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Industry Scenarios -->
+  <section class="py-24 bg-gray-900 text-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 items-center">
+        <div class="space-y-6">
+          <h2 class="text-4xl font-black tracking-tight leading-tight">Созданы для <br/><span class="text-brand-blue">работы под высоким давлением.</span></h2>
+          <p class="text-gray-400">Наша инженерия сосредоточена на долговечности и надёжности в опасных и критически важных объектах инфраструктуры.</p>
+          <div class="pt-4">
+            <a href="/ru/#inquiry" class="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-lg font-bold hover:bg-white/10 transition">
+              Сертификаты и характеристики
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {industries.map(ind => (
+            <div class="p-8 bg-white/5 border border-white/10 rounded-2xl hover:border-brand-blue/50 transition-colors">
+               <h4 class="font-bold mb-2 uppercase tracking-wide">{ind.name}</h4>
+               <p class="text-xs text-gray-400 leading-relaxed">{ind.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Inquiry Section -->
+  <section id="inquiry" class="py-24 bg-white scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div class="space-y-8">
+          <div class="space-y-4">
+             <h2 class="text-4xl font-black text-gray-900 tracking-tight uppercase">Получите профессиональное предложение</h2>
+             <div class="h-1.5 w-20 bg-brand-red"></div>
+          </div>
+          <p class="text-lg text-gray-600 leading-relaxed">
+            Пришлите ваши технические чертежи или требования к продукции. Мы изучим детали и предоставим подходящую информацию о продукте и шаги по формированию цены.
+          </p>
+          <ul class="space-y-4">
+            {inquiryPoints.map(item => (
+              <li class="flex items-center gap-3 text-gray-700 font-bold">
+                <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <InquiryForm />
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-24 bg-brand-red text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+      <h2 class="text-4xl sm:text-6xl font-black tracking-tight leading-tight">Готовы к глобальной безопасности?</h2>
+      <p class="text-xl text-white/80 max-w-2xl mx-auto">Свяжитесь с нашей командой за подбором продукции, технической документацией и расчётом цены.</p>
+      <div class="flex justify-center gap-4">
+        <a href="/ru/#inquiry" class="px-10 py-5 bg-white text-brand-red font-black rounded-xl shadow-2xl hover:bg-gray-50 transition-transform hover:scale-105">
+          Отправить запрос сейчас
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
