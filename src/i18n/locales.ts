@@ -110,9 +110,7 @@ const TRANSLATED_PREFIXES: Record<Locale, string[]> = {
     '/blog/',
     '/tags/',
   ],
-  // 本波已建 14 页（首页 + 核心 12 页 + 产品列表/详情）。
-  // 注：/guides/、/blog/、/tags/ 本波未建（24 篇 FR 指南留下一波），
-  // 故不登记——导航/页脚指向这些未翻译路径时由 safeHref 回退到 /fr/ 首页，无死链。
+  // FR 全量：核心 14 页 + 24 指南 + blog/tags。
   fr: [
     '/',
     '/products/',
@@ -127,6 +125,9 @@ const TRANSLATED_PREFIXES: Record<Locale, string[]> = {
     '/fire-sprinkler-systems/',
     '/fire-water-cannon/',
     '/ul-fire-valves/',
+    '/guides/',
+    '/blog/',
+    '/tags/',
   ],
 };
 

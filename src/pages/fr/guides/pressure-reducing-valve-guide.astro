@@ -1,0 +1,190 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: "Comment un réducteur de pression hydraulique fonctionne-t-il sans électricité ?",
+		answer: "Un réducteur de pression hydraulique autopiloté utilise une vanne pilote et la pression de la ligne elle-même comme force motrice. Le pilote détecte la pression aval : lorsqu'elle dépasse le point de consigne, le pilote se ferme légèrement, la pression monte dans la chambre à membrane et la vanne principale réduit ; lorsqu'elle baisse, le pilote décharge la chambre et la vanne principale s'ouvre davantage. Aucune source d'énergie externe n'est nécessaire."
+	},
+	{
+		question: "Quelle plage de pression aval le réducteur de pression 500X peut-il maintenir ?",
+		answer: "Le réducteur de pression hydraulique réglable 500X Wanlian couvre DN20-DN600 (3/4\" à 24\") avec une pression aval réglable de 0,1 MPa à 1,6 MPa. Le corps de vanne est classé à 1,0 MPa, 1,6 MPa ou 2,5 MPa de pression nominale, indiquez donc votre pression d'entrée et la pression de consigne requise lors de la demande de devis."
+	},
+	{
+		question: "Quelle est la différence entre un réducteur de pression 500X et une vanne de régulation de niveau F745X ?",
+		answer: "Le réducteur de pression 500X maintient une pression aval constante quel que soient les fluctuations de débit. La vanne de contrôle de niveau hydraulique F745X maintient à la place un niveau d'eau prédéfini dans un réservoir, une cuve ou un château d'eau, en utilisant un pilote à flotteur pour ouvrir et fermer la vanne principale lorsque le niveau varie. Les deux sont des vannes de contrôle hydraulique autopilotées sans énergie externe."
+	},
+	{
+		question: "Quand choisir la F745X plutôt que la vanne à flotteur 100X-16P à commande à distance ?",
+		answer: "La F745X (DN50-DN400, 1,0/1,6 MPa, fonte ductile QT450-10) est le choix standard pour les grands réservoirs et châteaux d'eau. La vanne à flotteur à commande à distance 100X-16P (DN40-DN300, 0-1,0 MPa) a un corps en acier inoxydable fondu CF8, ce qui convient aux fluides corrosifs, aux exigences d'hygiène élevées ou aux installations proches de l'eau de mer, et peut être commandée à distance avec un pilote à flotteur."
+	},
+	{
+		question: "Pourquoi un filtre en Y est-il recommandé en amont des vannes de contrôle hydrauliques ?",
+		answer: "Les vannes de contrôle hydraulique sont pilotées par un pilote, et leurs orifices de pilote et vannes à aiguille sont sensibles aux particules. Le filtre en Y télescopique SGL41H est installé à l'entrée de la vanne pour filtrer les impuretés, avec des tamis en acier inoxydable 304/316 (18-30 mailles pour l'eau). Son joint de dilatation intégré télescopique permet de retirer la vanne pour maintenance sans couper la canalisation."
+	},
+	{
+		question: "Les vannes hydrauliques à fermeture lente aident-elles à prévenir le coup de bélier ?",
+		answer: "Oui. Le 500X et le F745X sont conçus avec une action de fermeture en douceur et lente, de sorte que la vanne ne se referme pas brutalement à l'arrêt du flux, ce qui évite les surpressions destructrices et le coup de bélier dans le réseau. Pour les lignes d'aspiration de pompes, ajoutez un dispositif anti-vortex d'aspiration EN12845 pour stopper l'entraînement d'air qui peut causer la cavitation et les pics de pression."
+	}
+];
+
+const toc = [
+	{ id: 'what-is-hydraulic-prv', label: '1. Qu’est-ce qu’un réducteur de pression hydraulique ?' },
+	{ id: 'how-pilot-prv-works', label: '2. Comment fonctionne le réducteur 500X autopiloté' },
+	{ id: 'hydraulic-control-valve-comparison', label: '3. Réducteur vs contrôle de niveau vs vanne à flotteur' },
+	{ id: 'typical-applications', label: '4. Où chaque vanne a sa place' },
+	{ id: 'installation-and-protection', label: '5. Installation et protection' },
+	{ id: 'specification-checklist', label: "6. Checklist de spécification B2B" },
+	{ id: 'faq', label: 'Questions Fréquentes' }
+];
+
+const products = [
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: 'Réducteur de Pression Hydraulique 500X', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'DN20-DN600, réglable 0,1-1,6 MPa' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'Vanne de Contrôle de Niveau Hydraulique F745X', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'Pilote à flotteur DN50-DN400, contrôle de niveau de cuve' },
+	{ slug: 'remote-control-float-valve-100x', name: 'Vanne à Flotteur 100X-16P à Commande à Distance (CF8)', img: '/assets/products/remote-control-float-valve-100x.webp', desc: 'Acier inoxydable, DN40-DN300, 0-1,0 MPa' },
+	{ slug: 'groove-solenoid-control-gate-valve-gkzf1', name: 'Vanne à Boisseau de Régulation Électromagnétique GKZF-1', img: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg', desc: 'DN50-DN300, AC220V/DC24V, 300 PSI' }
+];
+---
+
+<Layout
+	title="Guide des Réducteurs de Pression : Réducteur Hydraulique 500X pour l’Eau"
+	description="Fonctionnement des réducteurs de pression hydrauliques, quand choisir le réducteur 500X, le contrôle de niveau F745X ou la vanne à flotteur 100X, plus une checklist de spécification B2B pour l'approvisionnement en eau."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Guide des Réducteurs de Pression' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Guide des Réducteurs de Pression</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide des Vannes de Contrôle Hydraulique</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Guide des Réducteurs de Pression : Réducteur Hydraulique 500X &amp; Vannes de Contrôle pour l’Approvisionnement en Eau</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En bref : un réducteur de pression hydraulique est une vanne de contrôle autopilotée, pilotée par une vanne pilote, qui maintient une pression aval stable en utilisant uniquement la pression de la ligne — sans électricité. Pour les réseaux d’approvisionnement en eau, on choisit typiquement entre un réducteur de pression 500X (pression aval constante), une vanne de contrôle de niveau F745X (niveau de cuve constant) et une vanne à flotteur 100X à commande à distance (option compacte en acier inoxydable). Ce guide explique comment chacune fonctionne et comment les spécifier.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-hydraulic-prv" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Qu’est-ce qu’un réducteur de pression hydraulique ?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un réducteur de pression hydraulique (PRV) est une vanne de contrôle autopilotée qui réduit une pression d’entrée plus élevée et fluctuante à une pression aval plus basse et stable. Il est dit hydraulique parce que la vanne est actionnée entièrement par la pression de la canalisation via un système pilote — il n’y a ni électrovanne, ni moteur, ni armoire de contrôle. Cela en fait un composant économique et très fiable pour les zones d’approvisionnement en eau, les stations de relevage, les réseaux d’irrigation et les lignes d’eau de process.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">L’exemple classique est le <a href="/fr/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">réducteur de pression hydraulique réglable 500X</a> : une vanne principale en fonte ductile (QT450-10) avec un pilote en laiton forgé, couvrant DN20-DN600 avec une pression aval réglable de 0,1 MPa à 1,6 MPa. Le corps de vanne principale est disponible en pression nominale 1,0 MPa, 1,6 MPa ou 2,5 MPa, et la conception se conforme aux normes ANSI, JIS et GB.</p>
+			<p class="text-gray-700 leading-relaxed">L’ensemble membrane est en EPDM renforcé nylon et la tige interne est en acier inoxydable 304, avec une tuyauterie pilote en cuivre ou en acier inoxydable — les choix de matériaux qui déterminent si le réducteur tient encore son point de consigne après des années de service.</p>
+
+			<h2 id="how-pilot-prv-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Comment fonctionne le réducteur 500X autopiloté</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Le 500X est une vanne à obturateur à membrane avec un pilote réglable monté sur le dessus. Le pilote détecte en continu la pression aval par l’intermédiaire d’une ligne de détection. Lorsque la pression aval dépasse le point de consigne, le pilote module sa fermeture, la pression monte dans la chambre à membrane et la vanne principale évolue vers la position fermée. Lorsque la pression aval passe sous le point de consigne, le pilote s’ouvre davantage, la chambre se décharge et la vanne principale s’ouvre plus largement. La vanne module donc en continu pour maintenir la pression de consigne, quel que soit le débit ou la variation de pression d’entrée.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Parce que la vanne est entièrement autopilotée, elle continue de réguler même pendant une coupure de courant — une propriété importante pour l’eau incendie et les réseaux municipaux où une perte de pression peut être critique. Le caractère de fermeture en douceur et lente évite aussi les fortes surpressions et le coup de bélier à l’arrêt du flux, ce qui explique pourquoi les vannes de contrôle hydraulique sont souvent préférées aux vannes électriques rapides sur les grandes conduites.</p>
+			<p class="text-gray-700 leading-relaxed">Pour les projets où le contrôle électrique à distance est réellement requis plutôt qu’une modulation continue, une unité électromagnétique telle que la <a href="/fr/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">vanne à boisseau de régulation électromagnétique à gorge GKZF-1</a> (AC220V/DC24V, DN50-DN300, 300 PSI) assure une ouverture/fermeture automatique sur commande pendant que le réducteur prend en charge le contrôle de pression stable.</p>
+
+			<h2 id="hydraulic-control-valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Réducteur vs contrôle de niveau vs vanne à flotteur</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les vannes de contrôle hydraulique partagent le même principe de pilote autopiloté mais régulent différentes grandeurs de process. Le tableau ci-dessous compare les trois services les plus courants en approvisionnement en eau.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Comparaison</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Réducteur 500X</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Contrôle de niveau F745X</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Vanne à Flotteur 100X-16P</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Ce qu’elle contrôle</td>
+							<td class="px-4 py-3 text-gray-700">Pression aval</td>
+							<td class="px-4 py-3 text-gray-700">Niveau d’eau dans cuve/réservoir</td>
+							<td class="px-4 py-3 text-gray-700">Niveau d’eau (pilote à flotteur à distance)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Gamme de tailles</td>
+							<td class="px-4 py-3 text-gray-700">DN20 - DN600</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN400</td>
+							<td class="px-4 py-3 text-gray-700">DN40 - DN300</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Classe de pression</td>
+							<td class="px-4 py-3 text-gray-700">1,0 / 1,6 / 2,5 MPa ; consigne 0,1-1,6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">1,0 / 1,6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">0 - 1,0 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Matériau du corps</td>
+							<td class="px-4 py-3 text-gray-700">Fonte ductile QT450-10 / acier fondu</td>
+							<td class="px-4 py-3 text-gray-700">Fonte ductile QT450-10</td>
+							<td class="px-4 py-3 text-gray-700">Acier inoxydable fondu CF8</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Service typique</td>
+							<td class="px-4 py-3 text-gray-700">Zones de pression, refoulement de relevage</td>
+							<td class="px-4 py-3 text-gray-700">Réservoirs, cuves, châteaux d’eau</td>
+							<td class="px-4 py-3 text-gray-700">Cuves corrosives/à exigence d’hygiène</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Si votre projet a besoin à la fois de la régulation de pression et du remplissage de cuve, l’architecture standard est un réducteur 500X sur la ligne d’alimentation alimentant une vanne à flotteur F745X ou 100X à l’entrée de la cuve — chaque vanne faisant le service pour lequel elle est conçue.</p>
+
+			<h2 id="typical-applications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Où chaque vanne a sa place</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Réduction de pression (500X) :</strong> partout où une conduite principale à haute pression alimente une zone à pression plus basse — zones à comptage sectoriel, refoulement de relevage de grande hauteur, collecteurs d’irrigation et eau de process. Réglez la pression aval une fois et la vanne la maintient sur toute la courbe de demande journalière.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Contrôle de niveau (F745X) :</strong> la <a href="/fr/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">vanne de contrôle de niveau d’eau hydraulique F745X</a> maintient automatiquement un niveau prédéfini dans les réservoirs, cuves et châteaux d’eau à l’aide d’un pilote à flotteur, en empêchant le débordement et les niveaux très bas. Elle est actionnée entièrement par la pression de la canalisation et se ferme lentement, de sorte qu’elle convient aux grands stocks où une coupure brutale ferait chasser le réseau.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Flotteur à distance (100X) :</strong> la <a href="/fr/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">vanne à flotteur à commande à distance 100X-16P</a> fait le même travail en acier inoxydable fondu (CF8), couvrant DN40-DN300 à 0-1,0 MPa avec une plage de température de travail de -50°C à 100°C — la spécification pour les cuves contenant de l’eau corrosive ou de haute pureté, ou pour les usines côtières où la rouille est l’ennemi.</p>
+			<p class="text-gray-700 leading-relaxed">Pour l’une de ces vannes servant un réseau d’eau potable, placez un <a href="/fr/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">dispositif anti-retour anti-pollution HS41X</a> au point de connexion afin que le contenu de la cuve ne puisse jamais refluer vers la conduite d’eau potable — consultez notre <a href="/fr/guides/backflow-prevention-guide/" class="text-brand-blue font-semibold hover:underline">guide de la prévention du reflux</a> pour le tableau complet du contrôle des connexions croisées.</p>
+
+			<h2 id="installation-and-protection" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Installation et protection</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les vannes de contrôle hydraulique ne sont fiables que dans la mesure de fiabilité de leur système pilote, et les orifices de pilote sont sensibles aux particules. Installez un filtre à l’entrée de la vanne : le <a href="/fr/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">filtre en Y télescopique SGL41H</a> est conçu spécifiquement pour protéger les vannes de contrôle de l’eau hydraulique et les machines de précision, combinant le filtre et un joint de dilatation dans un seul corps, de sorte que la vanne peut être retirée pour service sans couper la canalisation. Les tamis filtrants sont en acier inoxydable 304/316, avec 18-30 mailles pour le service eau.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Équipez une vanne à boisseau d’isolement en amont et en aval de la vanne de contrôle afin que l’unité puisse être court-circuitée et entretenue sans vidanger le réseau. Sur les systèmes alimentés par pompe, protégez aussi le côté aspiration : un dispositif anti-vortex d’aspiration EN12845 monté à l’aspiration de la pompe élimine les vortex et l’entraînement d’air, ce qui prévient la cavitation et les pics de pression qui endommagent aussi bien les pompes que les vannes de contrôle.</p>
+			<p class="text-gray-700 leading-relaxed">Confirmez l’orientation et l’espace avant de commander — les vannes de contrôle hydrauliques à bride ont besoin d’un accès droit pour la tuyauterie pilote et de la place pour les vannes d’isolement. Le DN et le raccordement d’extrémité (perçage de brides ANSI/JIS/GB) doivent être indiqués sur la fiche technique.</p>
+
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Checklist de spécification B2B</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Définissez la grandeur contrôlée</strong> — pression aval (réducteur 500X), niveau de cuve (F745X / 100X), ou marche/arrêt électrique (vanne à boisseau électromagnétique GKZF-1). Une seule ligne en a souvent besoin de deux : un réducteur alimentant une vanne de contrôle de niveau à la cuve.</li>
+				<li><strong>Indiquez la taille et la pression</strong> — DN20-DN600 pour le 500X avec pression nominale 1,0/1,6/2,5 MPa ; DN50-DN400 à 1,0/1,6 MPa pour le F745X ; DN40-DN300 à 0-1,0 MPa pour le 100X-16P. Confirmez la pression d’entrée et la pression de consigne requise (le 500X se règle de 0,1 à 1,6 MPa).</li>
+				<li><strong>Choisissez le matériau du corps selon le fluide</strong> — fonte ductile QT450-10 pour l’eau propre ; acier inoxydable fondu CF8 (100X-16P) pour le service corrosif ou à exigence d’hygiène.</li>
+				<li><strong>Précisez la norme de raccordement</strong> — le perçage de brides ANSI, JIS ou GB doit correspondre à votre canalisation ; indiquez-le explicitement dans la demande.</li>
+				<li><strong>Ajoutez les accessoires de protection</strong> — filtre en Y télescopique SGL41H à l’entrée, vannes à boisseau d’isolement, et un dispositif anti-retour HS41X sur les connexions potables ; dispositifs anti-vortex d’aspiration EN12845 sur les aspirations de pompe.</li>
+				<li><strong>Vérifiez d’abord le fournisseur</strong> — la qualité du pilote est invisible sur les photos. Exigez les rapports d’essai corps/siège par lot et les certificats de matière, et appliquez notre <a href="/fr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">checklist d’approvisionnement B2B des vannes</a> avant de vous engager envers un fabricant.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Besoin de Réducteurs de Pression ou de Vannes de Contrôle Hydraulique ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Dites-nous votre DN, votre classe de pression, votre pression de consigne et votre norme de raccordement — nos ingénieurs confirment la configuration du pilote et devisent sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=R%C3%A9ducteur%20de%20Pression%20500X" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20j%27ai%20besoin%20de%20r%C3%A9ducteurs%20de%20pression%20pour%20l%27approvisionnement%20en%20eau" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

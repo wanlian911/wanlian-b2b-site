@@ -1,0 +1,208 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'Qu’est-ce qu’une vanne à extrémités à gorge et comment se raccorde-t-elle à la canalisation ?',
+		answer: 'Une vanne à extrémités à gorge possède une gorge circonférentielle usinée près de chaque extrémité au lieu de brides ou de filetages. Les tuyaux et les vannes sont assemblés avec un raccord mécanique — deux segments de boîtier qui se serrent sur les extrémités à gorge avec un joint à l’intérieur. Le joint se fait avec des boulons uniquement : ni soudage, ni filetage, ni flamme nue, c’est pourquoi les raccordements à gorge sont largement utilisés sur les conduites de protection incendie et d’eau.'
+	},
+	{
+		question: 'Quand choisir des vannes à gorge plutôt que des vannes à bride ?',
+		answer: 'Choisissez les extrémités à gorge lorsque la vitesse d’installation compte, lorsque le soudage ou les travaux à chaud sont restreints sur site, ou lorsque la ligne peut devoir être ouverte pour maintenance ultérieure — les raccords se dévissent simplement. Les joints à bride restent la spécification traditionnelle pour les conduites principales à grand diamètre et haute pression. Dans la gamme Wanlian, les vannes incendie à gorge sont classées PN16 (1,6 MPa), et la vanne à boisseau électromagnétique GKZF-1 est classée jusqu’à 300 PSI (2,0 MPa).'
+	},
+	{
+		question: 'Quelles vannes Wanlian sont disponibles avec des extrémités à gorge ?',
+		answer: 'Cinq modèles couvrent la famille des conduites incendie à gorge : la vanne à papillon à gorge D381X-16Q (DN50-DN300, PN16, réducteur à engrenage sans fin avec option de verrouillage à signal), la vanne à papillon wafer à gorge à signal DN80 (DN50-DN300 avec un interrupteur électrique de signal intégré), la vanne à boisseau OS&Y à siège élastomère certifiée UL/FM (2"-10", extrémités à gorge), la vanne à boisseau à gorge en acier inoxydable Z85X (DN40-DN300, CF8M 316 coulé), et la vanne à boisseau de régulation électromagnétique à gorge GKZF-1 (DN50-DN300, AC220V/DC24V, 300 PSI).'
+	},
+	{
+		question: 'Les vannes principales de gicleurs peuvent-elles signaler leur état ouvert/fermé ?',
+		answer: 'Oui. Une vanne à boisseau OS&Y montre sa position mécaniquement par la tige montante et le joue. Pour la supervision à distance, la vanne à papillon wafer à gorge à signal porte un interrupteur électrique de signal intégré pour la surveillance d’état, et la vanne à papillon à gorge D381X offre une option de dispositif de verrouillage à signal. Celles-ci permettent au panneau d’alarme incendie ou au système de gestion du bâtiment de voir si une vanne de section a été laissée fermée.'
+	},
+	{
+		question: 'Les vannes incendie à gorge sont-elles certifiées UL ou FM ?',
+		answer: 'La vanne à boisseau OS&Y à siège élastomère à extrémités à gorge est certifiée UL et FM pour le service de protection incendie. Les autres modèles de la gamme sont fabriqués selon les exigences GB et les normes d’usine — nous ne revendiquons pas une certification de toute la série lorsque seuls des modèles spécifiques la détiennent. Pour les projets nord-américains, indiquez la certification exigée par votre spécification et nous assortirons le modèle certifié ou organiserons l’évaluation du projet.'
+	},
+	{
+		question: 'Comment vérifier la qualité d’une vanne à gorge avant de commander ?',
+		answer: 'Demandez les rapports d’essai de pression du corps et du siège par lot, les certificats de matière (par exemple le corps CF8M 316 du Z85X), et confirmez que les dimensions de gorge correspondent à la norme de raccord que votre entrepreneur utilisera. Une inspection par un tiers avant expédition peut être organisée — notre checklist d’approvisionnement B2B des vannes détaille le processus complet de vérification.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'what-is-grooved-valve', label: '1. Qu’est-ce qu’une vanne à extrémités à gorge ?' },
+	{ id: 'grooved-vs-flanged', label: '2. À gorge vs à bride vs filetée' },
+	{ id: 'grooved-valve-family', label: '3. La famille de vannes à gorge pour conduites incendie' },
+	{ id: 'valve-supervision-signals', label: '4. Options de supervision et de signal' },
+	{ id: 'retrofit-installation', label: '5. Considerations de rénovation et d’installation' },
+	{ id: 'grooved-valve-spec-checklist', label: '6. Checklist de spécification B2B' },
+	{ id: 'faq', label: 'Questions Fréquentes' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'd381x-16q-grooved-butterfly-valve', name: 'Vanne à Papillon à Gorge D381X-16Q', img: '/assets/products/d381x-16q-grooved-butterfly-valve.webp', desc: 'DN50-DN300 PN16, réducteur à engrenage, option verrouillage signal' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Vanne à Papillon Wafer à Gorge à Signal', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', desc: 'DN50-DN300 PN16, interrupteur de signal intégré' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Vanne à Boisseau OS&Y UL/FM (à Gorge)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10", certifiée UL & FM, indicateur à tige montante' },
+	{ slug: 'z85x-stainless-steel-grooved-gate-valve', name: 'Vanne à Boisseau à Gorge en Inox Z85X', img: '/assets/products/z85x-stainless-steel-grooved-gate-valve.webp', desc: 'DN40-DN300, CF8M 316 coulé, raccordement à collier' }
+];
+---
+
+<Layout
+	title="Vannes de Protection Incendie à Gorge : À Gorge vs Raccords à Bride"
+	description="Vannes à extrémités à gorge pour conduites de gicleurs vs à bride : papillon à signal, boisseau OS&Y, boisseau inox et options électromagnétiques, vitesse d'installation et checklist B2B."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Guide des Vannes à Gorge' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Guide des Vannes à Gorge</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide des Vannes de Protection Incendie</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Vannes de Protection Incendie à Gorge : À Gorge vs Raccords à Bride</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En bref : les vannes à extrémités à gorge assemblent les tuyaux avec un raccord mécanique boulonné au lieu de brides, de filetages ou de soudage — ce qui rend l’installation des conduites incendie plus rapide, garde les flammes nues hors du chantier, et permet aux équipes de maintenance d’ouvrir une section en dévissant deux colliers. Si votre projet de gicleurs ou de colonnes d’eau utilise de la tuyauterie à gorge, chaque vanne d’arrêt et de régulation sur la conduite principale devrait porter les mêmes extrémités à gorge. Ce guide explique les compromis et la famille de vannes à spécifier.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="what-is-grooved-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Qu’est-ce qu’une Vanne à Extrémités à Gorge ?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Une vanne à extrémités à gorge est une vanne standard (boisseau, papillon ou obturateur) dont les extrémités sont usinées avec une gorge circonférentielle. Le joint est réalisé avec un raccord mécanique : deux segments de boîtier équipés d’un joint synthétique sont placés sur les deux extrémités à gorge et serrés avec des boulons, comprimant le joint dans les gorges pour former l’étanchéité.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Parce que la connexion est purement mécanique, l’installation ne nécessite ni soudeur, ni machine à fileter, ni permis de travail à chaud. Le raccord absorbe aussi les petits défauts d’alignement et les mouvements thermiques au joint, et il peut être ouvert ultérieurement avec les deux mêmes boulons — une propriété qui rapporte chaque fois qu’une vanne de section ou de régulation doit être remplacée.</p>
+			<p class="text-gray-700 leading-relaxed">Les raccordements à gorge sont la méthode d’assemblage dominante sur les conduites de protection incendie modernes dans de nombreux marchés, c’est pourquoi les vannes coupe-feu sont couramment spécifiées avec des extrémités à gorge en sortie d’usine plutôt qu’adaptées sur site.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="grooved-vs-flanged" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. À Gorge vs à Bride vs Filetée</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Comparaison</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">À Bride</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Filetée</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">À Gorge (Raccord)</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Installation</td>
+							<td class="px-4 py-3 text-gray-700">Boulonnage, nécessite un alignement précis</td>
+							<td class="px-4 py-3 text-gray-700">Filetage requis, taille limitée</td>
+							<td class="px-4 py-3 text-gray-700">Collier + boulons, raccord mécanique rapide</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Travaux à chaud / permis feu</td>
+							<td class="px-4 py-3 text-gray-700">Aucun au joint, mais brides lourdes</td>
+							<td class="px-4 py-3 text-gray-700">Aucun, mais filetage sur site</td>
+							<td class="px-4 py-3 text-gray-700">Aucun — ni soudage, ni flamme nue</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tolérance d’alignement</td>
+							<td class="px-4 py-3 text-gray-700">Faible — les brides doivent s’aligner</td>
+							<td class="px-4 py-3 text-gray-700">Moyenne</td>
+							<td class="px-4 py-3 text-gray-700">Élevée — le raccord absorbe les petits défauts</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Démontage</td>
+							<td class="px-4 py-3 text-gray-700">Dévisser de nombreuses fixations</td>
+							<td class="px-4 py-3 text-gray-700">Dévisser, peut gripper</td>
+							<td class="px-4 py-3 text-gray-700">Dévisser deux boulons par raccord</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Classement typique (gamme à gorge Wanlian)</td>
+							<td class="px-4 py-3 text-gray-700">PN10-PN40 selon modèle</td>
+							<td class="px-4 py-3 text-gray-700">Petits diamètres uniquement</td>
+							<td class="px-4 py-3 text-gray-700">PN16 ; GKZF-1 classée 300 PSI (2,0 MPa)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Service typique</td>
+							<td class="px-4 py-3 text-gray-700">Grandes conduites, usines de process</td>
+							<td class="px-4 py-3 text-gray-700">Petites lignes de dérivation</td>
+							<td class="px-4 py-3 text-gray-700">Conduites incendie, montants de gicleurs, réseaux d’eau</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Les vannes à bride restent la bonne réponse pour de nombreuses spécifications à grand diamètre et haute pression. Mais lorsque le système de tuyauterie lui-même est à gorge — le cas courant pour les conduites de gicleurs — une vanne à bride réintroduit des adaptateurs dans la ligne et annule l’avantage de vitesse de la méthode d’assemblage.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="grooved-valve-family" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. La Famille de Vannes à Gorge pour Conduites Incendie</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Arrêt principal avec position visible.</strong> La <a href="/fr/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">vanne à boisseau OS&amp;Y à siège élastomère UL/FM</a> porte des extrémités à gorge de 2" à 10" (DN50-DN250) avec une tige montante qui montre la position ouvert/fermé d’un coup d’œil — la vanne indicatrice qu’un inspecteur incendie attend sur une conduite de section. Le corps en fonte nodulaire avec siège EPDM élastomère donne une fermeture étanche sans goutte.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Régulation compacte à quart de tour.</strong> Pour la régulation de dérivation et de montant où l’espace est limité, la <a href="/fr/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">vanne à papillon wafer à gorge à signal</a> (DN50-DN300, PN16) combine un corps wafer avec un interrupteur électrique de signal intégré et un opérateur à engrenage sans fin, et la <a href="/fr/products/d381x-16q-grooved-butterfly-valve/" class="text-brand-blue font-semibold hover:underline">vanne à papillon à gorge D381X-16Q</a> offre les mêmes extrémités à gorge avec une option de dispositif de verrouillage à signal pour l’indication d’état.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Service résistant à la corrosion.</strong> Là où la qualité de l’eau ou des fluides agressifs excluent la fonte ductile, la <a href="/fr/products/z85x-stainless-steel-grooved-gate-valve/" class="text-brand-blue font-semibold hover:underline">vanne à boisseau à gorge en acier inoxydable Z85X</a> (DN40-DN300) utilise un corps en 316 CF8M coulé avec une tige non montante et des extrémités à collier à gorge pour les lignes de gaz, de pétrole et d’eau.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Commande à distance automatique.</strong> Lorsque la vanne doit s’ouvrir et se fermer sur commande depuis un tableau de contrôle, la <a href="/fr/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">vanne à boisseau de régulation électromagnétique à gorge GKZF-1</a> (DN50-DN300) pilote une vanne à boisseau en fonte ductile avec un électroaimant DC24V ou AC220V — classée 300 PSI (2,0 MPa) pour le contrôle automatique du débit d’eau municipal et de lutte incendie.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="valve-supervision-signals" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Options de Supervision et de Signal</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les codes de protection incendie traitent une vanne de section fermée comme un danger grave : si un réseau de gicleurs est isolé par une vanne principale fermée, le système ne peut pas protéger le bâtiment. C’est pourquoi les vannes de régulation des réseaux de gicleurs sont soit des vannes indicatrices (la position est visible sur la vanne), soit des vannes supervisées (la position est signalée électriquement).</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La famille à gorge couvre les deux voies. La vanne à boisseau OS&amp;Y est intrinsèquement indicatrice — la position de la tige montante est lisible à travers une pièce. La vanne à papillon wafer à gorge à signal ajoute un interrupteur électrique de signal intégré pour la surveillance d’état à distance, la D381X offre une option de dispositif de verrouillage à signal, et la vanne électromagnétique GKZF-1 est commandée électriquement par conception, de sorte que son état est connu du système de contrôle qui la pilote.</p>
+			<p class="text-gray-700 leading-relaxed">Lorsque les vannes sont supervisées, le câblage devrait remonter au même panneau d’alarme qui surveille les détecteurs de débit et les vannes d’alarme — consultez notre <a href="/fr/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">guide des types de vannes de contrôle des gicleurs</a> pour la répartition complète des services des vannes OS&amp;Y, papillon et anti-retour dans un réseau de gicleurs, et le <a href="/fr/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">guide des vannes incendie certifiées UL</a> pour vérifier les certifications authentiques avant d’acheter.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="retrofit-installation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Considérations de Rénovation et d’Installation</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les raccordements à gorge brillent dans les travaux de rénovation. Remplacer une vanne à l’intérieur d’une conduite de gicleurs existante signifie généralement vidanger la section et soit découper l’ancien joint, soit dévisser deux raccords — avec des vannes à gorge en amont et en aval, la nouvelle vanne se met en place avec deux raccords et la ligne est remise en service rapidement.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Dans les bâtiments occupés, l’absence de travaux à chaud est un véritable avantage : souder sur une conduite incendie en service exige des permis, une surveillance incendie et souvent des arrêts que la gestion du bâtiment refuse. Les raccords mécaniques éliminent cette contrainte, et les corps wafer compacts des modèles à papillon facilitent l’installation dans les locaux de montants encombrés.</p>
+			<p class="text-gray-700 leading-relaxed">Confirmez la spécification de gorge et de raccord avec votre entrepreneur avant de commander — les dimensions de gorge doivent correspondre à la marque et à la norme de raccord utilisées sur la tuyauterie du projet, et les corps de vannes commandés avec des extrémités à gorge ne peuvent pas être convertis sur site en brides.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="grooved-valve-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Checklist de Spécification B2B</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Assortir le système d’assemblage</strong> — si la conduite principale est à gorge, spécifiez des extrémités à gorge sur chaque vanne de section et de régulation afin qu’aucun adaptateur ne soit nécessaire ; indiquez la norme de gorge du raccord dans la demande.</li>
+				<li><strong>Définir le service et la taille</strong> — arrêt de section (boisseau OS&amp;Y, 2"-10"), régulation compacte à quart de tour (papillon à signal ou D381X, DN50-DN300) ou commande à distance automatique (GKZF-1, DN50-DN300).</li>
+				<li><strong>Fixer la pression et le matériau</strong> — la gamme à gorge est PN16 (1,6 MPa) avec la GKZF-1 classée 300 PSI (2,0 MPa) ; corps en fonte ductile QT450 pour l’eau standard, CF8M 316 coulé (Z85X) pour le service corrosif.</li>
+				<li><strong>Décider la supervision</strong> — OS&amp;Y indicatrice, interrupteur de signal intégré sur la vanne papillon, option de verrouillage à signal sur la D381X, ou commande électromagnétique sur la GKZF-1, assortis à ce que votre panneau d’alarme attend.</li>
+				<li><strong>Indiquer les besoins de certification</strong> — la vanne à boisseau OS&amp;Y certifiée UL/FM pour les projets nord-américains ; confirmez quel modèle porte la certification que votre spécification exige.</li>
+				<li><strong>Exiger les preuves d’essai</strong> — rapports d’essai de pression du corps et du siège par lot, certificats de matière, et appliquez notre <a href="/fr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">checklist d’approvisionnement B2B des vannes</a> avant de vous engager envers un fabricant.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Besoin de Vannes de Protection Incendie à Gorge pour une Conduite de Gicleurs ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Dites-nous votre DN, votre classe de pression, vos exigences de supervision et votre norme de raccord — nos ingénieurs confirment la vanne correspondante et devisent sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Vanne%20de%20Protection%20Incendie%20%C3%A0%20Gorge" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20j%27ai%20besoin%20de%20vannes%20de%20protection%20incendie%20%C3%A0%20gorge%20pour%20une%20conduite%20de%20gicleurs" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,189 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'Qu’est-ce qu’un raccord siamois et pourquoi y a-t-il deux entrées ?',
+		answer: "Un point de couplage des sapeurs-pompiers (FDC) est le point où les engins-pompes d'intervention refoulent l'eau dans le système de protection incendie d'un bâtiment — la colonne d'eau ou la conduite de gicleurs. Un raccord siamois possède deux entrées alimentant une seule sortie afin que deux engins puissent alimenter le même montant simultanément, doublant le débit disponible pour le système. Le SQD100-1.6 prend deux entrées DN65 (2,5\") et refoule par une seule sortie à bride DN100 (4\") dans la conduite principale du bâtiment."
+	},
+	{
+		question: 'Quelle norme de raccord d’entrée spécifier pour un FDC ?',
+		answer: "Les entrées doivent correspondre aux raccords de flexible que le service d'incendie local transporte réellement, car c'est ce qui doit se connecter sous pression à 3 heures du matin. Le SQD100-1.6 est fourni avec 2 entrées DN65 et bouchons en forme SQS65 / KWS65. Lorsqu'un projet utilise des raccords Storz de norme allemande, nos raccords Storz 2,5\" en aluminium couvrent DN50 à DN150 avec un bord auto-étanche, et les adaptateurs de la série HS (DN50/DN65, 1,6 MPa, GB12514) convertissent entre types de filetage — indiquez le raccord requis dans la demande."
+	},
+	{
+		question: 'Le SQD100 comprend-il une vanne de régulation ?',
+		answer: "Oui. Le SQD100-1.6 possède une vanne de régulation intégrée actionnée par un volant, de sorte que le débit à travers le raccord peut être régulé plutôt que simplement bloqué ou ouvert. Les deux entrées sont fournies avec des bouchons retenus par des câbles de sécurité en acier tressé, afin que les bouchons restent attachés à l'hydrant lorsqu'ils sont retirés pendant le pompage."
+	},
+	{
+		question: 'Quelles sont les spécifications de taille, de pression et de matériau ?',
+		answer: "Entrées : 2 × DN65 (2,5\") avec bouchons. Sortie : DN100 (4\") à bride. Classe de pression : 1,6 MPa. Longueur totale : 120 mm. Corps : fonte ductile / fonte avec une finition rouge revêtue poudre résistante à la corrosion ; tige de volant en laiton ou en acier inoxydable. La longueur de corps compacte convient à l'installation dans les salles de pompes exiguës et aux points de protection incendie d'aéroport ou municipaux."
+	},
+	{
+		question: 'Comment un point de couplage des sapeurs-pompiers doit-il être inspecté ?',
+		answer: "Vérifiez que les deux bouchons sont en place avec leurs joints intacts et les câbles de sécurité en bon état, que la sortie à bride ne montre ni fuite ni corrosion, que le volant fonctionne librement, et que le raccord est visible, signalé et jamais obstrué par des véhicules stationnés, des aménagements paysagers ou des marchandises stockées. En climat gelif, confirmez que le raccord se vidange correctement après usage afin que l'eau ne stagne pas dans le corps."
+	},
+	{
+		question: 'Quelle est la différence entre un FDC et un hydrant à incendie ?',
+		answer: "Ils fonctionnent en sens inverse. Un hydrant à incendie est un point d'alimentation sur la conduite d'eau municipale — les engins s'y connectent et en tirent l'eau. Un point de couplage des sapeurs-pompiers est une entrée côté bâtiment — les engins refoulent l'eau dans la colonne d'eau ou le réseau de gicleurs du bâtiment à travers lui. De nombreux sites ont besoin des deux, et les deux sont couverts par notre guide de sélection des hydrants."
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'what-is-fdc', label: '1. Qu’est-ce qu’un point de couplage des sapeurs-pompiers ?' },
+	{ id: 'how-siamese-works', label: '2. Deux entrées, une sortie' },
+	{ id: 'coupling-standards', label: '3. Normes de raccord d’entrée et adaptateurs' },
+	{ id: 'where-fdc-installed', label: '4. Où les FDC sont installés' },
+	{ id: 'fdc-comparison', label: '5. Corps siamois, raccord Storz ou adaptateur ?' },
+	{ id: 'fdc-spec-checklist', label: '6. Checklist de spécification et d’installation' },
+	{ id: 'faq', label: 'Questions Fréquentes' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'Adaptateur de Pompe Incendie SQD100-1.6 (Siamois)', img: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', desc: '2 entrées DN65, sortie à bride DN100, 1,6 MPa' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: 'Raccord Storz 2,5\" (Norme Allemande)', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'DN50-DN150, 1,6 MPa, aluminium auto-étanche' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Adaptateur de Raccord HS', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65, GB12514, aluminium anodisé' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Tête d’Hydrant Intérieur (SN65)', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'Tête d’hydrant intérieur DN65 pour sorties de colonne d’eau' }
+];
+---
+
+<Layout
+	title="Guide du Point de Couplage Sapeurs-Pompiers : Entrées Siamoises & Raccords"
+	description="Guide du point de couplage des sapeurs-pompiers (siamois) : deux entrées DN65, sortie DN100, options de raccords SQS65/KWS65 et Storz, vanne de régulation, installation et checklist B2B."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Guide du Point de Couplage' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Guide du Point de Couplage</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide de la Protection Incendie</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Guide du Point de Couplage des Sapeurs-Pompiers : Entrées Siamoises &amp; Raccords</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En bref : un point de couplage des sapeurs-pompiers (FDC) est l’entrée où les engins d’intervention refoulent l’eau dans la colonne d’eau ou le réseau de gicleurs d’un bâtiment. La version siamoise possède deux entrées alimentant une seule sortie afin que deux engins puissent alimenter le même montant, et ses entrées doivent correspondre aux raccords de flexible que le service d’incendie local transporte. Ce guide couvre le raccord siamois SQD100-1.6, les options de raccord qui l’entourent, et ce qu’il faut vérifier avant de commander.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="what-is-fdc" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Qu’est-ce qu’un Point de Couplage des Sapeurs-Pompiers ?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un point de couplage des sapeurs-pompiers est l’interface côté bâtiment pour le service d’incendie. Quand l’alimentation en eau propre du bâtiment est insuffisante — ou quand le réseau de gicleurs a été isolé — les engins d’intervention raccordent leurs flexibles au FDC et refoulent l’eau dans le montant de la colonne d’eau ou la conduite principale de gicleurs. Le raccord est donc un point d’entrée sous pression dans le bâtiment, et non une source d’eau.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Parce qu’il est utilisé dans des conditions d’urgence, un FDC est jugé sur trois questions pratiques : le service d’incendie peut-il s’y raccorder rapidement avec les raccords qu’il transporte, peut-on y délivrer suffisamment d’eau, et est-il accessible quand le bâtiment est plein de fumée et d’engins. Tout dans ce guide découle de ces trois questions.</p>
+			<p class="text-gray-700 leading-relaxed">Un raccord <strong>siamois</strong> répond à la question du débit avec deux entrées. Un seul engin peut alimenter le système seul si nécessaire ; lorsqu’un second engin arrive, les deux entrées sont utilisées et le débit dans le montant est à peu près doublé sans qu’aucune pompe ne fonctionne à un point défavorable de sa courbe.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="how-siamese-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Deux Entrées, Une Sortie</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">L’<a href="/fr/products/sqd100-1-6-fire-pump-adapter/" class="text-brand-blue font-semibold hover:underline">adaptateur de pompe incendie SQD100-1.6</a> est un corps siamois compact : deux entrées DN65 (2,5") avec bouchons d’un côté, et une seule sortie à bride DN100 (4") de l’autre qui se boulonne à la conduite principale du bâtiment. La pression de travail est de 1,6 MPa et le corps ne mesure que 120 mm de long, ce qui compte dans les salles de pompes et les chambres enterrées où l’espace est restreint.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Deux détails de conception méritent d’être soulignés pour l’approvisionnement. Premièrement, le corps porte une vanne de régulation intégrée actionnée par un volant, de sorte que le débit à travers le raccord peut être régulé plutôt que simplement bloqué ou ouvert. Deuxièmement, les bouchons d’entrée sont retenus par des câbles de sécurité en acier tressé — un petit détail qui prévient la scène la plus courante lors d’un incident réel, où les bouchons sont posés pendant le pompage et perdus.</p>
+			<p class="text-gray-700 leading-relaxed">La construction est en fonte ductile / fonte avec une finition rouge revêtue poudre résistante à la corrosion, avec une tige de volant en laiton ou en acier inoxydable. La disposition combinée à double entrée et sortie unique est ce qui distingue un siamois d’un raccord à entrée unique qui limiterait le système à un seul engin-pompe.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="coupling-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Normes de Raccord d’Entrée et Adaptateurs</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">C’est le point de spécification qui décide si un FDC est utilisable le jour J. Les raccords de flexible sont régionaux : un raccord qui correspond à l’équipement d’une brigade peut être inutile pour une autre. Le SQD100-1.6 est fourni avec 2 entrées DN65 et bouchons en forme <strong>SQS65 / KWS65</strong>, et le type de raccord doit être confirmé auprès du service d’incendie local avant de passer la commande.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Lorsqu’un projet utilise des raccords de norme allemande, le <a href="/fr/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">raccord Storz 2,5\" en aluminium</a> couvre DN50 à DN150 avec un bord auto-étanche et la géométrie à raccordement rapide Storz, en aluminium avec des options laiton ou chromé et une classe de 1,6 MPa — adapté à l’eau claire et au mélange de mousse.</p>
+			<p class="text-gray-700 leading-relaxed">Pour les transitions filetage-raccord sur site, l’<a href="/fr/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">adaptateur de raccord série HS</a> (DN50 / DN65, 1,6 MPa / 232 PSI) utilise un alliage d’aluminium anodisé avec des filetages internes et externes standard selon la GB12514 ou la norme d’usine, de sorte que les flexibles et les sorties d’hydrant ou de FDC puissent être assortis sans fuite. Lorsque les systèmes de raccordement sont spécifiés par norme de projet, notre <a href="/fr/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">guide de conformité CE &amp; EN 12845</a> explique comment les systèmes Storz, KWS et filetés sont traités dans les spécifications européennes.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="where-fdc-installed" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Où les FDC sont Installés</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un FDC est monté sur la face extérieure du bâtiment qu’il protège, à un point que le service d’incendie peut atteindre avec des flexibles depuis la rue ou une aire stabilisée — dégagé des débattements de portes, des aménagements paysagers, des panneaux et de tout ce qui pourrait devenir plus tard une place de stationnement. Il est normalement combiné à un panneau identifiant le système qu’il dessert, afin qu’une équipe arrivant sur un grand site sache quel montant elle met sous pression.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Côté bâtiment, il alimente le réseau de montants : le système de colonnes d’eau desservant les vannes d’étage et les <a href="/fr/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">têtes d’hydrant intérieur</a>, et/ou la conduite principale de gicleurs. C’est pourquoi le FDC appartient à la conversation de spécification aux côtés de l’équipement d’hydrants et de colonnes du bâtiment, plutôt qu’à un achat isolé.</p>
+			<p class="text-gray-700 leading-relaxed">Deux habitudes d’installation préviennent la plupart des défaillances. Gardez la bride de sortie et le corps vidangeables afin que l’eau ne puisse pas stagner dans le raccord par temps de gel, et assurez-vous que le raccord n’est jamais obstrué — un FDC caché derrière une camionnette de livraison stationnée est fonctionnellement absent, et c’est le défaut le plus courant constaté lors des visites de site.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="fdc-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Corps Siamois, Raccord Storz ou Adaptateur ?</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Composant</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Fonction</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Taille &amp; classe</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Matériau / notes</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Corps siamois SQD100-1.6</td>
+							<td class="px-4 py-3 text-gray-700">Deux engins refoulent dans une seule conduite principale</td>
+							<td class="px-4 py-3 text-gray-700">2 entrées DN65, sortie à bride DN100, 1,6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">Fonte ductile, revêtue poudre rouge, 120 mm de long, vanne de régulation intégrée, entrées avec bouchons et câbles de sécurité</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Raccord Storz 2,5\"</td>
+							<td class="px-4 py-3 text-gray-700">Connexion rapide flexible-flexible / flexible-entrée</td>
+							<td class="px-4 py-3 text-gray-700">DN50 – DN150, 1,6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">Aluminium (options laiton / chromé), norme Storz allemande, bord auto-étanche, eau et mousse</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Adaptateur de raccord HS</td>
+							<td class="px-4 py-3 text-gray-700">Adapte les types de filetage aux raccords de flexible sur site</td>
+							<td class="px-4 py-3 text-gray-700">DN50 / DN65, 1,6 MPa (232 PSI)</td>
+							<td class="px-4 py-3 text-gray-700">Alliage d’aluminium anodisé, GB12514 / norme d’usine, filetages internes et externes</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Les trois éléments résolvent des problèmes différents : le corps siamois est le FDC lui-même, le raccord Storz est le système de connexion là où un projet spécifie la norme allemande, et l’adaptateur est la solution de terrain qui permet à des filetages et raccords non concordants de fonctionner ensemble. Un projet bien spécifié a généralement besoin du corps et d’un système de raccord — les adaptateurs devraient être l’exception, pas le plan.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="fdc-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Checklist de Spécification et d’Installation</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Confirmer le raccord avec le service d’incendie</strong> — assortissez le type d’entrée aux raccords que les engins locaux transportent réellement (SQS65 / KWS65 tel que fourni, ou Storz là où le projet le spécifie) avant de passer la commande.</li>
+				<li><strong>Vérifier le chemin d’écoulement</strong> — 2 entrées DN65 dans une sortie à bride DN100 à 1,6 MPa de pression de travail ; confirmez que la bride de sortie correspond au raccordement du montant sur les plans d’atelier.</li>
+				<li><strong>Décider des détails de vanne et de bouchon</strong> — le SQD100-1.6 comprend une vanne de régulation à volant intégrée et des entrées avec bouchons et câbles de sécurité en acier tressé.</li>
+				<li><strong>Planifier l’emplacement</strong> — face extérieure, accessible par flexible depuis la rue, signalé, visible, et protégé d’un futur stationnement ou aménagement paysager ; spécifiez un corps qui se vidange afin que l’eau ne stagne pas par temps de gel.</li>
+				<li><strong>Spécifier la finition et le matériau</strong> — corps en fonte ductile / fonte revêtue poudre rouge, tige de volant en laiton ou inox, longueur de corps compacte de 120 mm pour les installations confinées.</li>
+				<li><strong>Demander la documentation</strong> — rapports d’essai de pression par lot et certificats de matière pour l’ensemble, et appliquez notre <a href="/fr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">checklist d’approvisionnement B2B des vannes</a> avant de vous engager envers un fournisseur. Pour le côté alimentation du même projet, voir <a href="/fr/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">comment choisir un hydrant</a>.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Besoin d’un Point de Couplage Sapeurs-Pompiers pour Votre Projet ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Dites-nous le type de raccord d’entrée requis par votre service d’incendie, la taille de la bride de sortie et la norme du projet — nos ingénieurs confirment le raccord siamois et devisent sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Point%20de%20Couplage%20Sapeurs-Pompiers%20(SQD100)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20j%27ai%20besoin%20d%27un%20point%20de%20couplage%20siamois%20pour%20les%20sapeurs-pompiers" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

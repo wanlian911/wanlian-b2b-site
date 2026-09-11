@@ -1,0 +1,72 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { tags } from '../../../utils/tags';
+import { tagsFr } from '../../../utils/tags.fr';
+
+// Pluriel français simple : 1 -> singulier, >1 -> pluriel
+const pluralFr = (n: number, sing: string, pl: string): string => (n === 1 ? sing : pl);
+
+const tagStats = tags.map(tag => ({
+  ...tag,
+  fr: tagsFr[tag.slug] ?? tag,
+  guideCount: tag.guideHrefs.length,
+  productCount: tag.productSlugs.length
+}));
+---
+
+<Layout
+  title="Centre de Connaissances : Sujets de Protection Incendie et de Vannes"
+  description="Sujets de protection incendie et de vannes : hydrants, gicleurs, canons d'eau, prévention du reflux, certification et guides B2B de Wanlian Fluid."
+  locale="fr"
+  breadcrumbs={[{ name: 'Sujets' }]}
+>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mb-20">
+    <div class="text-center mb-16 space-y-4">
+      <span class="text-xs font-bold tracking-widest text-brand-red uppercase">Centre de Connaissances</span>
+      <h1 class="text-4xl font-black text-gray-900 tracking-tight">Explorer par Sujet</h1>
+      <p class="mt-4 text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+        Des guides techniques et des produits regroupés par sujet — des hydrants et systèmes de gicleurs à la prévention du reflux et aux achats B2B.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {tagStats.map(tag => (
+        <a
+          href={`/fr/tags/${tag.slug}/`}
+          class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-blue/30 transition p-8 flex flex-col"
+        >
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-2.5 py-1 bg-brand-blue/10 text-brand-blue text-[11px] font-black rounded-full uppercase tracking-wider">Sujet</span>
+            <span class="text-xs text-gray-400">
+              {tag.guideCount} {pluralFr(tag.guideCount, 'guide', 'guides')} · {tag.productCount} {pluralFr(tag.productCount, 'produit', 'produits')}
+            </span>
+          </div>
+          <h2 class="text-xl font-black text-gray-900 group-hover:text-brand-blue transition leading-snug mb-3">
+            {tag.fr.name}
+          </h2>
+          <p class="text-sm text-gray-500 leading-relaxed flex-grow">{tag.fr.description}</p>
+          <div class="mt-6 flex flex-wrap gap-2">
+            {tag.relatedTags.slice(0, 3).map(rel => (
+              <a href={`/fr/tags/${rel}/`} class="text-[10px] font-bold text-gray-400 uppercase tracking-wider hover:text-brand-blue transition">#{rel.replace(/-/g, ' ')}</a>
+            ))}
+          </div>
+          <span class="mt-4 inline-flex items-center text-brand-red font-bold text-sm group-hover:gap-2 transition-all">
+            Explorer le sujet
+            <svg class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </span>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-20 p-10 bg-gray-900 rounded-3xl text-white text-center space-y-4">
+      <h2 class="text-2xl font-black">Vous cherchez une famille de produits précise ?</h2>
+      <p class="text-gray-400 max-w-xl mx-auto">
+        Parcourez le catalogue complet ou confiez à nos ingénieurs le choix de la bonne vanne pour votre projet.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="/fr/products/" class="inline-block px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:opacity-90 transition">Catalogue complet</a>
+        <a href="/fr/contact/" class="inline-block px-8 py-4 bg-white/10 border border-white/20 text-white font-bold rounded-xl hover:bg-white/20 transition">Poser une question à un ingénieur</a>
+      </div>
+    </div>
+  </main>
+</Layout>

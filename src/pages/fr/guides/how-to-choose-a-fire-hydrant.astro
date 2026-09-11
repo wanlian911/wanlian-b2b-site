@@ -1,0 +1,217 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'understand-your-requirement', label: "1. Comprendre d'abord votre besoin en hydrants" },
+	{ id: 'hydrant-types-explained', label: '2. Les types d’hydrants expliqués' },
+	{ id: 'key-specifications', label: '3. Les spécifications clés à comparer' },
+	{ id: 'certification-compliance', label: '4. Certification et conformité' },
+	{ id: 'common-mistakes', label: "5. Erreurs courantes dans le choix d'un hydrant" },
+	{ id: 'factory-checklist', label: "6. Checklist usine avant de commander" },
+	{ id: 'faq', label: 'Questions Fréquentes' }
+];
+
+const faq = [
+	{
+		question: 'Quelle est la différence entre un hydrant intérieur et un hydrant extérieur ?',
+		answer: "Les hydrants intérieurs (comme la tête SN65) se raccorderont aux colonnes d'eau et aux systèmes de flexibles internes des bâtiments, approvisionnant les flexibles aux postes de chaque étage. Les hydrants extérieurs (comme l'hydrant en colonne SS100) sont installés sur les réseaux d'eau municipaux ou industriels et alimentent les camions-pompe et les opérations d'extinction extérieures. Ils servent des points de distribution différents et ne sont pas interchangeables."
+	},
+	{
+		question: 'Quelle classe de pression doit avoir un hydrant municipal ?',
+		answer: 'Les hydrants municipaux standards sont classés PN16 (1,6 MPa), ce qui couvre la plupart des réseaux d’approvisionnement en eau urbains et industriels. Les zones avec immeubles de grande hauteur ou les zones industrielles à forte demande peuvent exiger des hydrants PN25 avec une capacité de débit vérifiée. Confirmez toujours la pression statique et la pression résiduelle de votre réseau avant de choisir une classe.'
+	},
+	{
+		question: "Les hydrants Wanlian sont-ils disponibles avec une certification UL ou FM ?",
+		answer: 'Oui. Wanlian Fluid propose des hydrants et des vannes avec les certifications UL, FM, CE, ISO 9001 et LPCB selon le modèle et le marché de destination. Contactez notre équipe commerciale avec la spécification de votre projet et la région cible afin que nous puissions sélectionner le bon package de certification.'
+	},
+	{
+		question: 'Quel est le type de raccordement standard pour les hydrants d’export ?',
+		answer: 'Les raccordements de sortie courants incluent le raccordement instantané BS336 (Royaume-Uni/Commonwealth), le filetage NIST (Moyen-Orient), le KWS (Allemagne) et les options de bride flexible. Wanlian peut fournir des hydrants SS100/65 et SSFT100/65 avec le type de raccordement spécifié pour votre marché, et les raccords peuvent être expédiés dans la même cargaison.'
+	},
+	{
+		question: 'Quels sont le MOQ et le délai pour les commandes d’hydrants en gros ?',
+		answer: 'Le MOQ standard est généralement de 20 unités par modèle pour les tailles en stock, avec des délais de production de 15 à 30 jours selon la quantité et la personnalisation. Les commandes d’échantillon sont disponibles pour les tests et approbations avant expédition. Votre ingénieur commercial peut fournir les délais exacts selon le volume de votre commande.'
+	}
+];
+
+const hydrantProducts = [
+	{
+		slug: 'indoor-fire-hydrant-head-sn65',
+		name: 'Tête d’Hydrant Intérieur SN65',
+		img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg',
+		desc: 'Hydrant intérieur en fonte ductile PN16 pour colonnes d’eau'
+	},
+	{
+		slug: 'overground-fire-hydrant-ss100',
+		name: 'Hydrant Extérieur Antigel (SS100/65)',
+		img: '/assets/products/overground-fire-hydrant-ss100.webp',
+		desc: 'Hydrant extérieur antigel pour réseaux municipaux en climat froid'
+	},
+	{
+		slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100',
+		name: 'Hydrant Anti-Collision à Régulation de Pression (SSFT100/65)',
+		img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp',
+		desc: 'Corps sécable avec régulation de pression pour les zones de circulation'
+	},
+	{
+		slug: 'iot-smart-ground-fire-hydrant-ss100zn',
+		name: 'Hydrant Sol Intelligent IoT (SS100/65-1.6ZN)',
+		img: '/assets/products/overground-fire-hydrant-ss100.webp',
+		desc: 'Surveillance en temps réel de pression, inclinaison et vol d’eau pour réseaux intelligents'
+	}
+];
+---
+
+<Layout
+	title="Comment Choisir un Hydrant pour des Projets Municipaux & Industriels"
+	description="Guide de sélection d'hydrants : intérieur vs extérieur, spécifications DN/PN, types de raccordement (BS336/NIST), certifications (UL/FM/CE) et checklist usine pour acheteurs B2B."
+	type="article"
+	locale="fr"
+	faq={faq}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Sélection d’hydrants</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide des Équipements de Protection Incendie</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Comment Choisir un Hydrant pour les Projets Municipaux et Industriels (Guide 2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Un hydrant est un équipement fixe qui restera dans votre réseau pendant 10 à 20 ans — et il ne sera utile que le jour où il devra fonctionner. Choisir le mauvais type, la mauvaise classe de pression ou la mauvaise norme de raccordement signifie remplacer un composant enterré dans des conditions d’urgence, ou pire, un hydrant qui ne délivrera pas d’eau à l’arrivée des pompiers. Ce guide détaille les six décisions que chaque service d’approvisionnement doit prendre, avec référence aux configurations produit réellement disponibles aujourd’hui.</p>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+				{hydrantProducts.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="understand-your-requirement" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Comprendre d’abord votre besoin en hydrants</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Avant de comparer les modèles, répondez à quatre questions avec votre autorité anti-incendie ou votre consultant en ingénierie :</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Où l’hydrant sera-t-il installé ?</strong> Colonne d’eau intérieure, réseau municipal extérieur ou cour industrielle — chaque cas appelle un type différent.</li>
+				<li><strong>Quel est le débit et la pression de conception ?</strong> Le débit d’extinction démarre généralement à 15–30 L/s par hydrant ; confirmez la pression résiduelle que votre réseau peut maintenir.</li>
+				<li><strong>Quelle norme régit votre projet ?</strong> NFPA 24/291, BS 750, GB 4452 ou les règlements municipaux régionaux définissent la taille des sorties, l’espacement et les règles de test.</li>
+				<li><strong>Quel est le climat ?</strong> Les hivers gelés exigent des conceptions antigel ou à barillet sec.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Répondre correctement à ces quatre questions élimine la plupart des erreurs ci-dessous avant même d’ouvrir un catalogue.</p>
+
+			<h2 id="hydrant-types-explained" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Les types d’hydrants expliqués</h2>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Hydrants Intérieurs (Colonnes d’Eau)</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Les têtes d’hydrant intérieur se raccordent aux montants de colonnes d’eau et alimentent les postes de flexibles de chaque étage. La <a href="/fr/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">tête d’hydrant intérieur SN65</a> est l’interface standard : corps en fonte ductile classé PN16, avec entrée à gorge ou à bride et une sortie de 65&nbsp;mm pour le raccordement du flexible. Pour les immeubles de grande hauteur et les bâtiments industriels, elle est généralement associée à des enrouleurs de flexible et des systèmes de pompes.</p>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Hydrants Extérieurs de Sol (Municipaux et Industriels)</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Les hydrants extérieurs puisent dans les conduites d’eau et alimentent les camions-pompe. Deux configurations dominent : l’<a href="/fr/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">hydrant en colonne SS100/65</a> pour les cours municipales et industrielles standards, et la variante anti-collision. Si votre hydrant est situé dans une voie de circulation ou un allée d’entrepôt où des véhicules circulent, l’<a href="/fr/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">hydrant anti-collision à régulation de pression SSFT100</a> ajoute deux mécanismes de sécurité : un corps sécable qui se rompt proprement à l’impact (en préservant la tuyauterie enterrée) et une régulation de pression qui protège les flexibles aval contre la surpression.</p>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Hydrants Intelligents pour Réseaux Digitalisés</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Pour les exploitants municipaux modernisant leur réseau d’eau, l’<a href="/fr/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">hydrant intelligent IoT SS100ZN</a> intègre des capteurs de pression en temps réel, d’inclinaison et de détection du vol d’eau, transmettant à la plateforme SCADA. C’est le même hydrant mécanique avec une couche de surveillance — utile lorsque votre appel d’offres exige une visibilité à distance de l’état.</p>
+
+			<h2 id="key-specifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Les spécifications clés à comparer</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Spécification</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">À vérifier</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typique pour hydrants d’export</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Diamètre nominal (DN)</td>
+							<td class="px-4 py-3 text-gray-700">Le diamètre d’entrée et de sortie doit correspondre à votre conduite et votre flexible</td>
+							<td class="px-4 py-3 text-gray-700">DN100/65 (SS100) ou DN65 (SN65)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Classe de pression (PN)</td>
+							<td class="px-4 py-3 text-gray-700">Doit dépasser la pression statique maximale du réseau</td>
+							<td class="px-4 py-3 text-gray-700">PN16 (1,6 MPa) standard ; PN25 pour les zones à haute pression</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Matériau du corps</td>
+							<td class="px-4 py-3 text-gray-700">La fonte ductile résiste aux impacts ; vérifiez le revêtement anticorrosion</td>
+							<td class="px-4 py-3 text-gray-700">Fonte ductile QT450 avec revêtement époxy/poudre</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Type de raccordement</td>
+							<td class="px-4 py-3 text-gray-700">Doit correspondre aux raccords de votre service de pompes local</td>
+							<td class="px-4 py-3 text-gray-700">BS336, NIST, KWS, à gorge ou à bride</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Fonctions spéciales</td>
+							<td class="px-4 py-3 text-gray-700">Antigel, sécable, régulation de pression, IoT</td>
+							<td class="px-4 py-3 text-gray-700">Selon les exigences du projet</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="certification-compliance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Certification et conformité</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les hydrants sont des équipements de sécurité des personnes — la certification n’est pas optionnelle dans la plupart des marchés. Demandez à votre fournisseur la certification correspondant à votre destination : <strong>UL / FM</strong> pour l’Amérique du Nord, <strong>CE</strong> pour l’Europe, <strong>LPCB</strong> pour les projets du Royaume-Uni/Commonwealth, et <strong>ISO 9001</strong> comme système qualité de base. Examinez les certificats réels, pas seulement les logos d’une brochure. Le package de certification de Wanlian est publié sur la <a href="/fr/certificates/" class="text-brand-blue font-semibold hover:underline">page certificats</a>, et nos ingénieurs confirmeront quelle norme s’applique à votre appel d’offres avant de deviser.</p>
+
+			<h2 id="common-mistakes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Erreurs courantes dans le choix d’un hydrant</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Norme de raccordement non conforme</strong> — un hydrant qui ne peut pas accepter les raccords du service de pompes local est pire que pas d’hydrant. Confirmez la norme de raccordement avant de commander.</li>
+				<li><strong>Ignorer la pression résiduelle</strong> — la pression statique ne dit rien sur ce que l’hydrant délivre lorsque trois sorties sont ouvertes simultanément.</li>
+				<li><strong>Installer des hydrants non antigel dans un climat gelé</strong> — les dommages du barillet par le gel sont une cause majeure de défaillance des hydrants dans les régions froides.</li>
+				<li><strong>Choisir un hydrant standard pour les zones à impact</strong> — les collisions de camions plient les tiges enterrées ; les conceptions sécables protègent le réseau.</li>
+				<li><strong>Négliger la conversation pièces de rechange</strong> — confirmez la disponibilité des kits de réparation (joints, tiges, raccords) avec votre commande, pas après la mise en service.</li>
+			</ul>
+
+			<h2 id="factory-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Checklist usine avant de commander</h2>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Demandez les copies des certificats (UL/FM/CE/ISO) pertinents pour votre marché — vérifiez-les, ne les collectez pas seulement.</li>
+				<li>Demandez le rapport d’essai hydrostatique du lot spécifique, pas un certificat de test générique.</li>
+				<li>Confirmez la norme de raccordement avec votre autorité anti-incendie <em>avant</em> de signer le bon de commande.</li>
+				<li>Pour les hydrants intelligents, demandez la spécification de l’interface de données (modbus/SCADA) et un appareil échantillon pour les tests d’intégration.</li>
+				<li>Clarifiez le MOQ, le délai, l’emballage pour fret maritime et la disponibilité des pièces de rechange dans une seule offre commerciale.</li>
+				<li>Conservez un échantillon pré-expédition pour vos propres tests et archivez les photos de test.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Un fournisseur fiable répondra à ces six points par écrit en une journée ouvrée. Si un devis est vague sur la certification ou les rapports de test, considérez cela comme un signal d’alerte.</p>
+
+			<!-- Related guide -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Guide Associé : Wanlian Fluid vs American AVK</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Vous hésitez entre une marque établie américaine et un fabricant chinois ? Lisez notre comparaison côte à côte : <a href="/fr/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian Fluid vs American AVK : quel fournisseur d’hydrants et de vannes convient à votre projet 2026 ?</a></p>
+			</div>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Besoin d’un Hydrant Spécifié pour Votre Projet ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez-nous votre DN/PN, votre norme de raccordement et votre certification cible — nos ingénieurs répondent avec une fiche technique complète et un devis sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=S%C3%A9lection%20d%27Hydrant" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20j%27ai%20besoin%20d%27aide%20pour%20choisir%20un%20hydrant" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

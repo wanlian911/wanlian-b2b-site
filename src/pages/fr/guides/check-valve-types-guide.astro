@@ -1,0 +1,195 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Comment fonctionne le clapet anti-retour à bille glissante HQ41X ?',
+		answer: 'Le HQ41X utilise une bille en acier recouverte de caoutchouc comme élément de fermeture. Quand le flux avance, la bille roule sur des guides internes et le passage plein s’ouvre ; quand le flux s’arrête ou s’inverse, la bille roule de nouveau sur le siège pour une fermeture étanche parfaite. Parce que la bille roule plutôt que de claquer sur une charnière, la vanne se ferme silencieusement, sans coup de bélier, avec une perte de charge plus faible qu’un clapet à battant de la même taille.'
+	},
+	{
+		question: "Quelle est la différence entre les clapets anti-retour à bille glissante HQ41X et à bille sphérique HQ44X ?",
+		answer: 'Le clapet anti-retour à bille glissante HQ41X couvre DN50-DN350 à 1,0/1,6 MPa avec une bille à cœur acier carbone entièrement recouverte de NBR, roulant sur des guides sphéroïdaux intégrés ; c’est un choix standard pour le service eaux usées et drainage. Le clapet anti-retour à bille sphérique HQ44X couvre DN50-DN400 en PN16 avec un corps en fonte nodulaire (QT450-10) et une bille en fonte vulcanisée EPDM, offrant un canal à passage plein anti-obstruction, un faible débit de démarrage et une fermeture silencieuse sans choc pour les lignes à grand débit.'
+	},
+	{
+		question: 'Pourquoi choisir un clapet anti-retour à bille plutôt qu’un clapet à battant ?',
+		answer: 'Les clapets anti-retour à bille sont conçus avec un passage à port plein et une bille recouverte de caoutchouc qui roule. Par rapport à un clapet à battant, le HQ41X est conçu pour délivrer environ 50 % de perte de charge en moins, la bille recouverte de caoutchouc empêche les engorgements, et la fermeture est silencieuse, sans coup de bélier. Les clapets à bille peuvent aussi s’installer horizontalement ou verticalement, ce que les clapets à battant ne peuvent souvent pas faire.'
+	},
+	{
+		question: 'Un clapet anti-retour peut-il prévenir le coup de bélier ?',
+		answer: 'Un clapet anti-retour sans choc élimine une cause du coup de bélier : le disque à charnière d’un clapet à battant peut claquer contre son siège quand le flux s’inverse brutalement, envoyant une onde de pression dans la ligne. Les clapets anti-retour à bille tels que le HQ41X et le HQ44X se ferment silencieusement au lieu de claquer. Pour les réseaux de pompes, combinez-les avec des vannes hydrauliques à fermeture lente et un dispositif anti-vortex d’aspiration EN12845 à l’aspiration de la pompe pour maîtriser les transitoires de démarrage et d’arrêt.'
+	},
+	{
+		question: 'Où les clapets anti-retour doivent-ils être installés ?',
+		answer: 'Les emplacements typiques sont les lignes de refoulement des pompes (pour empêcher le reflux de faire tourner la pompe à l’envers), les conduites principales d’eaux usées et d’assainissement municipal, les montants de pompes immergées où l’installation verticale est requise, et les réseaux de gicleurs anti-incendie — où un clapet anti-retour à alarme à mouillé tel que le ZSFZ-150 sert aussi de déclencheur de l’alarme de débit. Aux connexions croisées de l’eau potable, un dispositif anti-retour anti-pollution HS41X fournit la double barrière de clapets anti-retour exigée pour le contrôle du reflux.'
+	},
+	{
+		question: 'Quelle norme d’essai et quelle documentation demander lors de l’achat de clapets anti-retour ?',
+		answer: 'Confirmez la norme d’essai du corps et du siège appliquée au lot — le HQ44X est essayé selon GB/T13927. Demandez les rapports d’essai de pression du corps et du siège par lot et les certificats de matière pour le corps et le cœur de bille, et indiquez le DN, la classe de pression, la température de travail et l’orientation d’installation dans votre demande afin que le devis corresponde au service réel.'
+	}
+];
+
+const toc = [
+	{ id: 'what-is-a-check-valve', label: '1. Qu’est-ce qu’un clapet anti-retour ?' },
+	{ id: 'check-valve-types-overview', label: '2. Les types de clapets anti-retour en un coup d’œil' },
+	{ id: 'sliding-ball-vs-swing-check', label: '3. Bille glissante vs battant' },
+	{ id: 'water-hammer-prevention', label: '4. Coup de bélier et conception sans choc' },
+	{ id: 'where-check-valves-installed', label: '5. Où les clapets anti-retour sont installés' },
+	{ id: 'check-valve-specification-checklist', label: "6. Checklist de spécification B2B" },
+	{ id: 'faq', label: 'Questions Fréquentes' }
+];
+
+const products = [
+	{ slug: 'sliding-ball-check-valve-hq41x', name: 'Clapet Anti-Retour à Bille Glissante (HQ41X-16)', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50-DN350, bille NBR, ~50 % de perte de charge en moins' },
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'Clapet Anti-Retour à Bille Sphérique (HQ44X-16)', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50-DN400 PN16, fonte nodulaire, sans choc' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Clapet Anti-Retour à Alarme à Mouillé ZSFZ 150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Clapet d’alarme de gicleurs DN100/150/200' },
+	{ slug: 'anti-pollution-backflow-preventer-hs41x', name: 'Dispositif Anti-Retour Anti-Pollution (HS41X-16)', img: '/assets/products/anti-pollution-backflow-preventer-hs41x.webp', desc: 'Double clapet anti-retour + vidange pour eau potable' }
+];
+---
+
+<Layout
+	title="Types de Clapets Anti-Retour & Guide de Sélection : Bille Glissante vs Battant"
+	description="Comparaison des types de clapets anti-retour : battant vs bille glissante (HQ41X) vs bille sphérique (HQ44X) — perte de charge, coup de bélier, orientation d'installation et checklist de sélection B2B."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Guide des Types de Clapets Anti-Retour' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Guide des Types de Clapets Anti-Retour</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide des Vannes Industrielles</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Types de Clapets Anti-Retour &amp; Guide de Sélection : Bille Glissante vs Battant</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En bref : un clapet anti-retour laisse passer l’eau dans un seul sens et se ferme automatiquement quand le flux s’inverse — sans opérateur ni source d’énergie. Lorsque le service implique les eaux usées, le drainage ou les réseaux de pompes, les clapets anti-retour à bille tels que la conception à bille glissante HQ41X et à bille sphérique HQ44X se ferment silencieusement sans choc, ce qui évite le coup de bélier que les clapets à battant peuvent provoquer. Ce guide compare les types courants et indique ce qu’il faut spécifier.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-a-check-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Qu’est-ce qu’un clapet anti-retour ?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un clapet anti-retour est une vanne automatique à sens unique. Le fluide qui coule ouvre lui-même l’élément de fermeture ; quand le flux s’arrête ou tente de s’inverser, l’élément revient sur son siège et la vanne se ferme. Il n’y a ni volant, ni actionneur, ni connexion électrique — les clapets anti-retour protègent les pompes, les compteurs et les réseaux du flux inverse, gardent les lignes remplies après l’arrêt, et empêchent la contamination de refluer dans une alimentation propre.</p>
+			<p class="text-gray-700 leading-relaxed">Les deux choses qui distinguent un bon clapet anti-retour d’un mauvais sont la <strong>perte de charge</strong> (combien d’énergie de pompage il gaspille en position ouverte) et le <strong>comportement de fermeture</strong> (s’il claque en fermant et met la ligne en choc, ou s’il se ferme silencieusement). Les deux sont déterminés par le mécanisme de fermeture — c’est pourquoi le choix du type compte.</p>
+
+			<h2 id="check-valve-types-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Les types de clapets anti-retour en un coup d’œil</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Les clapets à battant</strong> utilisent un disque à charnière qui s’ouvre par balancement avec le flux avant et retombe sur le siège quand le flux s’arrête. Ils sont simples et bon marché, mais le disque a un long chemin de course — en cas d’inversion brutale du flux, il peut claquer contre le siège, et dans les fluides chargés, la charnière peut se gripper ou le disque rester ouvert en pendaison.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Les clapets à clapet (lift check)</strong> utilisent un piston ou une bille à ressort qui se soulève d’un siège. Ils ferment plus vite et conviennent aux fluides propres et à pression plus élevée, mais le chemin de flux restreint crée plus de perte de charge et ils s’engorgent facilement en service eaux usées.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Les clapets wafer (à double clapet)</strong> sont compacts et s’insèrent entre deux brides, avec deux clapets à ressort. Ils sont légers et bon marché pour les lignes incendie et CVC, mais les clapets ajoutent de la perte de charge et les ressorts peuvent se fatiguer en service de pompage continu.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Les clapets anti-retour à bille</strong> remplacent la charnière ou le ressort par une bille recouverte de caoutchouc qui roule. La bille se soulève hors du passage en flux avant et roule de nouveau sur le siège quand le flux s’arrête — une course courte et guidée qui ferme silencieusement et résiste aux engorgements. Le <a href="/fr/products/sliding-ball-check-valve-hq41x/" class="text-brand-blue font-semibold hover:underline">clapet anti-retour à bille glissante HQ41X</a> et le <a href="/fr/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">clapet anti-retour à bille sphérique HQ44X</a> sont les deux conceptions à bille de la gamme Wanlian.</p>
+
+			<h2 id="sliding-ball-vs-swing-check" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Bille glissante vs battant</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Comparaison</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Clapet à Battant</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">HQ41X Bille Glissante</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">HQ44X Bille Sphérique</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Élément de fermeture</td>
+							<td class="px-4 py-3 text-gray-700">Disque à charnière</td>
+							<td class="px-4 py-3 text-gray-700">Bille recouverte de caoutchouc sur guides internes</td>
+							<td class="px-4 py-3 text-gray-700">Sphère roulante recouverte de caoutchouc</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Perte de charge</td>
+							<td class="px-4 py-3 text-gray-700">Référence</td>
+							<td class="px-4 py-3 text-gray-700">Port plein, ~50 % de moins que le battant</td>
+							<td class="px-4 py-3 text-gray-700">Canal à passage plein anti-obstruction</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Comportement de fermeture</td>
+							<td class="px-4 py-3 text-gray-700">Le disque peut claquer à l’inversion rapide</td>
+							<td class="px-4 py-3 text-gray-700">Fermeture silencieuse, sans coup de bélier</td>
+							<td class="px-4 py-3 text-gray-700">Silencieux sans choc, faible débit de démarrage</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Résistance aux engorgements</td>
+							<td class="px-4 py-3 text-gray-700">La charnière peut se gripper dans les fluides chargés</td>
+							<td class="px-4 py-3 text-gray-700">La bille empêche les engorgements</td>
+							<td class="px-4 py-3 text-gray-700">Passage plein anti-obstruction</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Installation</td>
+							<td class="px-4 py-3 text-gray-700">Généralement horizontal</td>
+							<td class="px-4 py-3 text-gray-700">Horizontal ou vertical</td>
+							<td class="px-4 py-3 text-gray-700">Horizontal ou vertical</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Service typique</td>
+							<td class="px-4 py-3 text-gray-700">Lignes d’eau propre</td>
+							<td class="px-4 py-3 text-gray-700">Eaux usées, drainage, pompes immergées</td>
+							<td class="px-4 py-3 text-gray-700">Eau à grand débit, réseaux de pompes</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Les deux conceptions à bille utilisent un cœur métallique recouvert de caoutchouc : la bille HQ41X est en acier carbone entièrement recouvert de NBR, tandis que la bille HQ44X est un cœur en fonte avec un vulcanisage EPDM complet. Les caoutchoucs de siège et d’étanchéité sont en EPDM ou NBR, et la température de travail est de 0°C à 80°C sur toute la gamme standard.</p>
+
+			<h2 id="water-hammer-prevention" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Coup de bélier et conception sans choc</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Le coup de bélier se produit quand une colonne d’eau en mouvement est arrêtée brutalement — une pompe qui coupe, une vanne qui ferme vite, ou un clapet anti-retour qui claque. L’énergie cinétique de l’eau se convertit en un pic de pression qui peut faire éclater les tuyaux, endommager les pompes et désétaroner les instruments. Sur les longues lignes de refoulement, le pic peut atteindre plusieurs fois la pression de travail.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Un clapet à battant est une source classique de choc : quand la pompe s’arrête, le flux avant s’effondre et le disque lourd retombe à travers la colonne en décélération, claque contre le siège et envoie une onde en aval. Les clapets anti-retour à bille éliminent complètement la charnière — la bille roulante suit le flux en descendant doucement et se positionne sans impact. C’est pourquoi le HQ41X et le HQ44X sont décrits comme des clapets anti-retour à fermeture silencieuse, sans coup de bélier.</p>
+			<p class="text-gray-700 leading-relaxed">Pour un contrôle complet des transitoires sur les réseaux de pompes, utilisez le clapet anti-retour avec des vannes de contrôle hydrauliques à fermeture lente et un dispositif anti-vortex d’aspiration EN12845 à l’aspiration de la pompe, afin que les transitoires de démarrage et d’arrêt restent dans des limites sûres.</p>
+
+			<h2 id="where-check-valves-installed" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Où les clapets anti-retour sont installés</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Lignes de refoulement des pompes.</strong> Chaque pompe a besoin d’un clapet anti-retour en aval afin que, quand la pompe s’arrête, l’eau ne puisse pas refluer et faire tourner la roue à l’envers — une cause courante de défaillance prématurée des pompes. Les clapets à bille à faible perte de charge font aussi économiser de l’énergie en service de pompage continu.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Conduites principales d’eaux usées et d’assainissement.</strong> Les eaux usées brutes contiennent des solides, et un disque à charnière ou un mécanisme à ressort peut se bloquer. Le HQ41X a été conçu précisément pour ce service — la bille roulante recouverte de caoutchouc empêche les engorgements, et la vanne est excellente pour les eaux usées, le drainage municipal et les réseaux de pompes immergées.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Réseaux de gicleurs anti-incendie.</strong> Les clapets anti-retour ont un service spécifique dans les réseaux de gicleurs : le <a href="/fr/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">clapet anti-retour à alarme à mouillé ZSFZ</a> retient l’eau du système, puis, quand un gicleur s’ouvre et que l’eau coule, il soulève le clapet et déclenche la cloche d’alarme hydraulique et le pressostat — un clapet anti-retour qui est aussi le déclencheur de l’alarme de débit. Pour le tableau complet des vannes de contrôle dans les réseaux de gicleurs, consultez notre <a href="/fr/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">guide des types de vannes de contrôle des gicleurs</a>.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Connexions croisées de l’eau potable.</strong> Là où l’eau de cuve, l’irrigation ou l’eau de process peut théoriquement refluer dans une conduite d’eau de boisson, un clapet anti-retour unique ne suffit pas. Le <a href="/fr/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">dispositif anti-retour anti-pollution HS41X</a> utilise deux clapets anti-retour en série avec une vidange automatique intermédiaire — la configuration exigée pour un vrai contrôle des connexions croisées, approfondie dans notre <a href="/fr/guides/backflow-prevention-guide/" class="text-brand-blue font-semibold hover:underline">guide de la prévention du reflux</a>.</p>
+
+			<h2 id="check-valve-specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Checklist de spécification B2B</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Connaître votre fluide</strong> — eau propre, eaux usées avec solides, ou eau incendie ? Les solides et fibres pointent vers un clapet anti-retour à bille ; les lignes propres à haute pression peuvent tolérer un type à clapet (lift) ou à battant.</li>
+				<li><strong>Fixer la taille et la pression</strong> — le HQ41X couvre DN50-DN350 à 1,0/1,6 MPa ; le HQ44X couvre DN50-DN400 en PN16. Indiquez le DN et la norme de brides (GB, ANSI, DIN) dans la demande.</li>
+				<li><strong>Vérifier l’orientation d’installation</strong> — confirmez si le service est en tuyauterie horizontale ou verticale ; le HQ41X et le HQ44X acceptent les deux, ce que les clapets à battant ne peuvent souvent pas faire.</li>
+				<li><strong>Corrigez les matériaux de la bille et du corps à l’eau</strong> — bille en acier carbone recouverte NBR (HQ41X) ou bille en fonte vulcanisée EPDM (HQ44X), avec des corps en fonte grise (HT200), sphéroïdale (QT450) ou nodulaire (QT450-10) ; plage de température de travail de 0°C à 80°C.</li>
+				<li><strong>Demandez le comportement de fermeture</strong> — si la ligne est sujette aux arrêts de pompe ou aux fermetures rapides de vanne, spécifiez une conception sans choc, à fermeture silencieuse, pour éviter le coup de bélier.</li>
+				<li><strong>Exigez la preuve des essais</strong> — rapports d’essai de pression du corps et du siège pour le lot réel (le HQ44X est essayé selon GB/T13927), certificats de matière sur demande, et appliquez notre <a href="/fr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">checklist d’approvisionnement B2B des vannes</a> avant de vous engager envers un fabricant.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Besoin de Clapets Anti-Retour pour l’Eau, les Eaux Usées ou les Lignes Incendie ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Dites-nous votre DN, votre classe de pression, votre fluide et votre orientation d’installation — nos ingénieurs confirment le bon clapet anti-retour à bille et devisent sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Clapet%20Anti-Retour%20HQ41X" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20j%27ai%20besoin%20de%20clapets%20anti-retour%20pour%20des%20canalisations%20eau%2Feaux%20us%C3%A9es" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

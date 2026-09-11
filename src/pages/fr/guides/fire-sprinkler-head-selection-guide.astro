@@ -1,0 +1,209 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'Que signifie le coefficient K d’une tête de gicleur ?',
+		answer: 'Le coefficient K relie le débit d’une tête de gicleur à la pression à la tête par la formule Q = K × √P (débit en L/min, pression en bar). Une tête K=80 à 1 bar délivre environ 80 L/min ; une tête K=115 délivre environ 115 L/min à la même pression. Les coefficients K plus élevés sont utilisés là où plus d’eau doit atteindre le feu plus vite — occupations à danger exceptionnel ou à plafond haut — tandis que K=80 reste le standard courant pour les espaces à danger léger et ordinaire.'
+	},
+	{
+		question: 'Que signifient les classements de température et les couleurs d’ampoule ?',
+		answer: 'L’ampoule vitrée contient un liquide qui se dilate et éclate à sa température nominale, libérant le déflecteur. Les classements et codes couleur standards sont 57°C (orange), 68°C (rouge), 79°C (jaune), 93°C (vert) et 141°C (bleu). Une tête à ampoule rouge de 68°C est la valeur par défaut pour la plupart des bureaux et des entrepôts ; les classements plus élevés sont utilisés près des sources de chaleur comme les chaudières, les appareils de chauffage et les cuisines afin que la tête ne se déclenche pas accidentellement.'
+	},
+	{
+		question: 'Quelle est la différence entre les têtes de gicleurs à réponse rapide et à réponse standard ?',
+		answer: 'La vitesse de réponse est fixée par la masse thermique de l’élément sensible : une tête à réponse rapide utilise une ampoule de 3mm, une tête à réponse standard utilise une ampoule de 5mm. Les têtes à réponse rapide s’activent plus vite et sont préférées pour les occupations à danger léger et ordinaire où un déclenchement plus précoce sauve des vies et des biens ; les têtes à réponse standard sont courantes dans les contextes industriels et de stockage où un déclenchement légèrement plus lent et plus délibéré est acceptable. Notre série ZST est disponible dans les deux types de réponse.'
+	},
+	{
+		question: 'Quelles têtes de gicleurs sont certifiées UL dans la gamme Wanlian ?',
+		answer: 'Le gicleur dissimulé ZSTDY est certifié UL avec une ampoule rouge de 68°C et une finition chromée électrolytique. La série ZST à ampoule vitrée et le modèle mural horizontal T-ZSTBS sont fabriqués selon les exigences de la série GB 5135 et les normes d’usine — pour les projets nord-américains, confirmez la certification exigée par votre spécification et nous assortirons le modèle certifié ou organiserons l’évaluation du projet. Nous ne revendiquons pas une certification de toute la série lorsque seuls des modèles spécifiques la détiennent.'
+	},
+	{
+		question: 'Des têtes de gicleurs de classements de température différents peuvent-elles être mélangées dans une même zone ?',
+		answer: 'Non — et c’est une constatation d’inspection courante. Toutes les têtes protégeant une même zone de danger devraient porter le même classement de température, car une tête de classement inférieur près d’une source de chaleur se déclenchera prématurément et une tête de classement supérieur dans une zone normale répondra trop tard. Réservez strictement les têtes à température plus élevée aux emplacements présentant de véritables sources de chaleur, et indiquez la zone de classement sur les plans d’atelier.'
+	},
+	{
+		question: 'Quand choisir une tête dissimulée plutôt qu’une tête pendentif ?',
+		answer: 'Choisissez des têtes dissimulées (encastrées avec plaque de recouvrement) là où l’esthétique du plafond compte — bureaux, hôtels, aménagements commerciaux — car seule la plaque de recouvrement est visible. Les têtes pendentif pendent sous le plafond et donnent des motifs de pulvérisation non obstrués, c’est pourquoi elles restent standard pour les entrepôts, les plafonds industriels et les zones où le plafond lui-même est la surface de danger. Les deux types sont disponibles dans la gamme ; la tête dissimulée ZSTDY est l’option certifiée UL.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'system-type-first', label: '1. Commencez par le type de système, puis la tête' },
+	{ id: 'k-factor-flow', label: '2. Coefficient K et débit : assortir la livraison d’eau' },
+	{ id: 'temperature-ratings', label: '3. Classements de température et code couleur des ampoules' },
+	{ id: 'response-orientation', label: '4. Vitesse de réponse et orientation d’installation' },
+	{ id: 'us-standards-context', label: '5. Certification UL et contexte NFPA 13 pour les projets US' },
+	{ id: 'spec-checklist', label: '6. Checklist de spécification des têtes de gicleurs' },
+	{ id: 'faq', label: 'Questions Fréquentes' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'glass-bulb-fire-sprinkler-zst', name: 'Gicleur à Ampoule Vitrée (ZST)', img: '/assets/products/glass-bulb-fire-sprinkler-zst.webp', desc: 'K=80/K=115, 57-141°C, pendentif/en hauteur/mural' },
+	{ slug: 'horizontal-sidewall-fire-sprinkler-t-zstbs', name: 'Gicleur Mural Horizontal (T-ZSTBS)', img: '/assets/products/horizontal-sidewall-fire-sprinkler-t-zstbs.png', desc: 'Ampoule rouge 68°C, finition chromée, couverture périmétrique' },
+	{ slug: 'zstdy-concealed-fire-sprinkler', name: 'Gicleur Dissimulé (ZSTDY)', img: '/assets/products/zstdy-concealed-fire-sprinkler.webp', desc: 'Certifié UL, plaque encastrée, 68°C, chrome' }
+];
+---
+
+<Layout
+	title="Guide de Sélection des Têtes de Gicleurs : Coefficient K & Température"
+	description="Comment sélectionner les têtes de gicleurs : coefficient K et débit, classements de température, orientation pendentif vs murale vs dissimulée, certification UL et contexte de projet NFPA 13."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Sélection des Têtes de Gicleurs' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Sélection des Têtes de Gicleurs</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide de la Protection Incendie</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Guide de Sélection des Têtes de Gicleurs : Coefficient K, Température &amp; Réponse</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">La tête de gicleur est la seule partie du système qui décide quand l’eau est libérée et quelle quantité atteint le feu. Quatre paramètres font tout le travail : coefficient K, classement de température, vitesse de réponse et orientation. Ce guide explique chacun et comment spécifier correctement les têtes pour les projets commerciaux, d’entrepôt et du marché américain — y compris ce que « certifié UL » couvre réellement.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="system-type-first" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Commencez par le Type de Système, puis la Tête</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les têtes se spécifient dans une décision de système, pas isolément. Dans un <strong>système à mouillé</strong>, la tuyauterie reste pleine et chaque tête est un point de libération prêt à s’ouvrir ; dans un <strong>système à sec</strong>, la tuyauterie contient de l’air sous pression et les têtes doivent évacuer l’air avant que l’eau n’arrive ; dans les configurations <strong>à déluge et à pré-action</strong>, les têtes peuvent être des buses ouvertes ou des têtes scellées selon la conception de la zone. Le côté vanne de cette décision est couvert dans notre <a href="/fr/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">guide des systèmes à mouillé, à sec et à pré-action</a> et le <a href="/fr/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">guide des vannes pour réseaux de gicleurs</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Une fois le type de système fixé, la tête elle-même est sélectionnée sur le coefficient K, la température, la réponse et l’orientation — les quatre paramètres ci-dessous. Spécifier une tête avant le type de système est l’erreur d’approvisionnement la plus courante dans notre boîte de réception.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="k-factor-flow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Coefficient K et Débit : Assortir la Livraison d’Eau</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Le coefficient K définit la quantité d’eau qu’une tête délivre à une pression donnée : <strong>Q = K × √P</strong> (débit en L/min, pression en bar). C’est le nombre qui relie le calcul hydraulique du système à la tête physique.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>K=80 (nominal 80 ±4)</strong> — le standard historique pour les occupations à danger léger et ordinaire ; le choix par défaut pour les bureaux, le commerce de détail et la plupart des espaces commerciaux.</li>
+				<li><strong>K=115 (nominal 115 ±9)</strong> — livraison plus élevée pour les occupations de stockage, les plafonds hauts et les zones où la densité de conception exige plus d’eau par tête.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Les deux coefficients sont disponibles dans notre <a href="/fr/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">série de gicleurs à ampoule vitrée ZST</a>, qui couvre K=80 et K=115 avec des classements de température de 57°C à 141°C en configurations pendentif, en hauteur et murale. Le concepteur hydraulique calcule la densité requise par mètre carré pour la classe de danger ; le coefficient K est ensuite choisi pour que chaque tête délivre sa part à une pression réaliste.</p>
+			<p class="text-gray-700 leading-relaxed">Si une fiche technique n’indique que la taille du filetage et non le coefficient K, considérez-la comme incomplète : le coefficient K est le nombre le plus important qu’elle devrait porter.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="temperature-ratings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Classements de Température et Code Couleur des Ampoules</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">L’ampoule vitrée contient un liquide thermosensible ; à sa température nominale, l’ampoule éclate et la tête se déclenche. Les classements suivent un code couleur standard afin que les inspecteurs puissent lire une tête depuis le sol :</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Classement de Température</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Couleur d’Ampoule</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Usage Typique</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Dans la Gamme ZST</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">57°C (135°F)</td>
+							<td class="px-4 py-3 text-gray-700">Orange</td>
+							<td class="px-4 py-3 text-gray-700">Résidentiel / zones à faible chaleur</td>
+							<td class="px-4 py-3 text-gray-700">Disponible</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">68°C (155°F)</td>
+							<td class="px-4 py-3 text-gray-700">Rouge</td>
+							<td class="px-4 py-3 text-gray-700">Bureaux, entrepôts — le classement par défaut</td>
+							<td class="px-4 py-3 text-gray-700">Disponible (aussi T-ZSTBS, ZSTDY)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">79°C (175°F)</td>
+							<td class="px-4 py-3 text-gray-700">Jaune</td>
+							<td class="px-4 py-3 text-gray-700">Près des appareils de chauffage, verrières, toits chauds</td>
+							<td class="px-4 py-3 text-gray-700">Disponible</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">93°C (200°F)</td>
+							<td class="px-4 py-3 text-gray-700">Vert</td>
+							<td class="px-4 py-3 text-gray-700">Salles de chaudières, fours, zones à forte chaleur</td>
+							<td class="px-4 py-3 text-gray-700">Disponible</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">141°C (286°F)</td>
+							<td class="px-4 py-3 text-gray-700">Bleu</td>
+							<td class="px-4 py-3 text-gray-700">Sources de chaleur industrielles spéciales</td>
+							<td class="px-4 py-3 text-gray-700">Disponible</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Règle pratique : utilisez des têtes à ampoule rouge de 68°C pour les zones générales et augmentez le classement uniquement là où une véritable source de chaleur rend le déclenchement prématuré réellement risqué. Des classements plus élevés répondent plus tard en cas d’incendie réel, donc sur-classer « pour être sûr » n’est pas du tout sûr.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="response-orientation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Vitesse de Réponse et Orientation d’Installation</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La vitesse de réponse est fixée par la masse thermique de l’ampoule : une tête à <strong>réponse rapide</strong> utilise une ampoule de 3mm et s’active plus vite ; une tête à <strong>réponse standard</strong> utilise une ampoule de 5mm. La réponse rapide est préférée là où des occupants sont présents et où un déclenchement plus précoce compte ; la réponse standard convient aux contextes de stockage et industriels où le déclenchement est conçu autour du développement du feu. La série ZST est disponible dans les deux.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">L’orientation suit la surface de danger et le plafond :</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Pendentif</strong> — pend sous la conduite de dérivation, le standard pour les plafonds exposés et le motif couvert par la plupart de la gamme ZST.</li>
+				<li><strong>En hauteur</strong> — se tient au-dessus de la conduite de dérivation, courant dans les entrepôts à poutres ouvertes où le déflecteur doit projeter l’eau contre les obstructions de fermes.</li>
+				<li><strong>Mural</strong> — monté sur le mur près du plafond, pour les pièces où les conduites de dérivation à travers la dalle sont impraticables ; la <a href="/fr/products/horizontal-sidewall-fire-sprinkler-t-zstbs/" class="text-brand-blue font-semibold hover:underline">tête murale horizontale T-ZSTBS</a> (ampoule rouge 68°C, finition chromée) est le modèle de couverture périmétrique de la gamme.</li>
+				<li><strong>Dissimulé</strong> — encastré derrière une plaque de recouvrement qui tombe lorsque la tête s’active ; choisi pour les plafonds architecturaux sensibles. Le <a href="/fr/products/zstdy-concealed-fire-sprinkler/" class="text-brand-blue font-semibold hover:underline">gicleur dissimulé ZSTDY</a> porte une ampoule rouge de 68°C et une finition chromée électrolytique, et c’est l’option certifiée UL de la gamme.</li>
+			</ul>
+
+			<!-- 章节 5 -->
+			<h2 id="us-standards-context" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Certification UL et Contexte NFPA 13 pour les Projets US</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les projets nord-américains sont régis par la NFPA 13, dont les classifications de danger (léger, ordinaire et exceptionnel) fixent la densité de conception, l’espacement et, à leur tour, la spécification des têtes. À côté des paramètres hydrauliques, les spécifications américaines exigent presque toujours des têtes <strong>certifiées</strong> — UL ou une certification équivalente couvrant le modèle spécifique.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Soyez précis sur ce que notre gamme porte : le <strong>gicleur dissimulé ZSTDY est certifié UL</strong> (ampoule rouge 68°C, construction en acier inoxydable, DN15-DN20), ce qui en fait l’option directe pour les applications dissimulées spécifiées aux États-Unis. La série ZST à ampoule vitrée et le modèle mural T-ZSTBS sont fabriqués selon la série GB 5135 et les normes d’usine — ils se spécifient en confirmant la certification exigée pour votre projet, et nous assortirons le modèle certifié ou organiserons l’évaluation du projet plutôt que de revendiquer un statut UL de toute la série.</p>
+			<p class="text-gray-700 leading-relaxed">Cette distinction compte dans l’approvisionnement américain : un substitut non certifié sur une ligne exigeant une certification peut échouer à l’examen des plans et annuler la réception du système. Demandez que la certification soit nommée sur le devis, modèle par modèle — notre page <a href="/fr/certificates/" class="text-brand-blue font-semibold hover:underline">certificats et conformité</a> montre comment la documentation de certification est gérée.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Checklist de Spécification des Têtes de Gicleurs</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Coefficient K</strong> — K=80 pour danger léger/ordinaire, K=115 pour densité plus élevée ; indiquez la densité de conception cible avec la commande.</li>
+				<li><strong>Classement de température</strong> — 68°C par défaut ; classements plus élevés uniquement aux véritables sources de chaleur ; ne mélangez jamais les classements dans une même zone de danger.</li>
+				<li><strong>Réponse</strong> — réponse rapide (ampoule 3mm) ou réponse standard (ampoule 5mm) selon l’occupation et la conception du système.</li>
+				<li><strong>Orientation et finition</strong> — pendentif, en hauteur, mural ou dissimulé ; chrome, poli ou finition personnalisée selon le type de plafond.</li>
+				<li><strong>Certification par modèle</strong> — nommez la certification requise (p. ex. UL) sur le devis ; confirmez qu’elle couvre le modèle et la taille exacts.</li>
+				<li><strong>Documentation par lot</strong> — enregistrements d’essai de pression et de sensibilité pour le lot de production ; consultez notre <a href="/fr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">checklist d’approvisionnement B2B</a> pour la routine de vérification d’usine qui s’applique aussi aux fournisseurs de gicleurs.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Spécifier des Têtes de Gicleurs pour Votre Projet ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez-nous votre classe de danger, votre coefficient K, votre classement de température et votre exigence de certification — nos ingénieurs confirment le modèle correspondant sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=T%C3%AAtes%20de%20Gicleurs" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20j%27ai%20besoin%20de%20t%C3%AAtes%20de%20gicleurs%20(coefficient%20K%2Ftemp%C3%A9rature%2Fr%C3%A9ponse)" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

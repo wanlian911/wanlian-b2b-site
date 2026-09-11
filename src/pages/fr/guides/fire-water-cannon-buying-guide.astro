@@ -1,0 +1,192 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'do-you-need-a-water-cannon', label: '1. Avez-vous réellement besoin d’un canon d’eau ?' },
+	{ id: 'fixed-remote-or-auto-tracking', label: '2. Fixe, télécommandé ou à suivi automatique ?' },
+	{ id: 'sizing-flow-and-range', label: '3. Dimensionner le débit et la portée' },
+	{ id: 'control-and-integration', label: '4. Contrôle et intégration' },
+	{ id: 'procurement-checklist', label: '5. Checklist d’approvisionnement' },
+	{ id: 'faq', label: 'Questions Fréquentes' }
+];
+
+const faq = [
+	{
+		question: 'Quand ai-je besoin d’un canon d’eau anti-incendie plutôt que de gicleurs standards ?',
+		answer: 'Les canons d’eau conviennent aux grands espaces ouverts ou à plafond haut où la couverture par gicleurs est irréalisable : zones de process pétrochimiques, parcs de réservoirs à huile et GNL, terminaux de chargement, hangars aéronautiques et grands entrepôts. Ils délivrent un jet concentré à grand débit sur 50 à 110 mètres, contrôlé manuellement, à distance ou automatiquement.'
+	},
+	{
+		question: 'Quel débit et quelle portée me faut-il ?',
+		answer: 'Le débit suit le danger : 5–30 L/s convient à la protection d’entrepôts et d’atriums, tandis que 30–200 L/s sert les parcs de réservoirs et les unités de process. La portée dépend de la pression d’entrée — typiquement 50–110 m au débit nominal. Envoyez le plan de votre site et nos ingénieurs dimensionneront le modèle.'
+	},
+	{
+		question: 'Canon télécommandé ou à suivi automatique — lequel choisir ?',
+		answer: 'Si un opérateur peut être présent, les modèles télécommandés offrent une prise en main manuelle flexible à distance sûre. Pour les zones sans personnel ou à risque 24h/24, les canons à suivi automatique avec détection IR/UV détectent, visent et projettent en 30 secondes sans intervention humaine.'
+	},
+	{
+		question: 'Les canons d’eau peuvent-ils être utilisés avec de la mousse ?',
+		answer: 'Oui. Notre série PS supporte à la fois l’eau et la mousse, et le proportionnement de mousse peut être intégré pour les dangers de classe B (carburants liquides). L’armoire à mousse PSG30 est une option packagée complète pour les risques de carburants et de produits chimiques plus petits.'
+	},
+	{
+		question: 'Fournissez-vous le canon avec le système complet — vannes, raccords, pompes ?',
+		answer: 'Oui. Nous fabriquons le canon sur nos propres lignes de production et l’expédions avec des vannes, raccords, hydrants et accessoires correspondants pour le circuit d’extinction complet, afin que votre commande arrive comme un package d’une seule usine.'
+	}
+];
+
+const cannonProducts = [
+	{
+		slug: 'auto-tracking-jet-suppression-cannon-zdms',
+		name: 'Canon à Suivi Automatique (ZDMS)',
+		img: '/assets/06_extinguishing_cannons/cannon_p45.webp',
+		desc: 'Détection IR/UV, 5–150 L/s'
+	},
+	{
+		slug: 'manual-fire-water-cannon-ps',
+		name: 'Canon d’Eau Manuel (PS)',
+		img: '/assets/products/manual-fire-water-cannon-ps.webp',
+		desc: '20–200 L/s, jusqu’à 110 m'
+	},
+	{
+		slug: 'foam-fire-hydrant-cabinet-psg30',
+		name: 'Armoire à Mousse (PSG30)',
+		img: '/assets/06_extinguishing_cannons/cannon_p42.webp',
+		desc: '3% AFFF pour feux de carburants/produits chimiques'
+	}
+];
+---
+
+<Layout
+	title="Guide d’Achat des Canons d’Eau Anti-Incendie : Fixe, Télécommandé ou Intelligent ? (2026)"
+	description="Comment choisir un canon d'eau anti-incendie : fixe vs télécommandé vs suivi automatique, dimensionnement du débit et de la portée, modes de contrôle, compatibilité mousse et checklist d'approvisionnement."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Blog', href: '/fr/blog/' }, { name: 'Guide des Canons d’Eau' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Blog</a>
+			<span>/</span>
+			<span class="text-gray-600">Guide des Canons d’Eau</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide d’Extinction Industrielle</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Guide d’Achat des Canons d’Eau Anti-Incendie : Fixe, Télécommandé ou Intelligent ? (2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Un canon d’eau anti-incendie est un moniteur à grand débit qui projette un jet concentré sur 50 à 110 mètres — l’outil d’extinction de choix pour les usines pétrochimiques, parcs de réservoirs, terminaux et grands entrepôts où les gicleurs ne peuvent pas atteindre. La décision d’achat se réduit à quatre questions : fixe ou pilotable, quel débit, quelle portée, et doit-il penser par lui-même. Ce guide passe chaque question en revue.</p>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-2 lg:grid-cols-3 gap-4">
+				{cannonProducts.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="do-you-need-a-water-cannon" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Avez-vous réellement besoin d’un canon d’eau ?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les canons d’eau justifient leur coût dans trois situations : <strong>les grands espaces ouverts</strong> (entrepôts, atriums, hangars) où des gicleurs fixes exigeraient des densités irréalistes ; <strong>les dangers extérieurs</strong> (parcs de réservoirs, postes de chargement, unités de process) où il n’y a pas de plafond pour monter des gicleurs ; et <strong>les risques à haute valeur</strong> où une extinction rapide et concentrée vaut mieux que des dégâts des eaux étendus. Si votre site est un bâtiment clos à occupation standard, un système de gicleurs est probablement la bonne réponse — consultez notre <a href="/fr/fire-sprinkler-systems/" class="text-brand-blue font-semibold hover:underline">page des systèmes de gicleurs</a>.</p>
+
+			<h2 id="fixed-remote-or-auto-tracking" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Fixe, télécommandé ou à suivi automatique ?</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Type</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Fonctionnement</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Le plus adapté pour</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Moniteur fixe</td>
+							<td class="px-4 py-3 text-gray-700">Visée par levier manuel, engrenage à auto-verrouillage</td>
+							<td class="px-4 py-3 text-gray-700">Sites avec opérateurs en poste ; base économique</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Télécommandé</td>
+							<td class="px-4 py-3 text-gray-700">Contrôle filaire/sans fil à distance sûre, rotation 360°</td>
+							<td class="px-4 py-3 text-gray-700">Dangers trop proches pour une exploitation manuelle</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">À suivi automatique</td>
+							<td class="px-4 py-3 text-gray-700">Détection de flamme IR/UV, visée et jet autonomes en ~30s</td>
+							<td class="px-4 py-3 text-gray-700">Zones sans personnel, risque 24h/24, exigences de réponse rapide</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Le <a href="/fr/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">canon à suivi automatique ZDMS</a> combine la détection infrarouge et ultraviolette pour confirmer une vraie flamme avant d’agir — réduisant les fausses détections — et supporte la prise en main manuelle depuis un PC, une application mobile ou une armoire centrale. La <a href="/fr/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">série manuelle PS</a> reste le cheval de trait fiable et économique lorsque des opérateurs sont présents.</p>
+
+			<h2 id="sizing-flow-and-range" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Dimensionner le débit et la portée</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Deux chiffres définissent la capacité d’un canon : le <strong>débit</strong> (L/s) et la <strong>portée du jet</strong> (m). Le débit est fixé par le danger et le calcul de la demande en eau incendie ; la portée est fixée par la pression d’entrée et la conception de la buse.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Entrepôts et atriums</strong> : canons de 5–30 L/s, rayon de surveillance 40–65 m — le point fort du ZDMS.</li>
+				<li><strong>Parcs de réservoirs et unités de process</strong> : 30–200 L/s avec des portées de jet jusqu’à 110 m — la gamme de la série PS.</li>
+				<li><strong>Dangers à mousse</strong> : spécifiez le proportionnement de mousse ou une unité packagée comme l’<a href="/fr/products/foam-fire-hydrant-cabinet-psg30/" class="text-brand-blue font-semibold hover:underline">armoire à mousse PSG30</a> pour les risques de classe B.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Règle pratique : si vous ne parvenez pas à dimensionner le débit en toute confiance, envoyez le plan du site et la demande en eau incendie au fournisseur — le bon modèle découle du danger, pas d’une page de catalogue.</p>
+
+			<h2 id="control-and-integration" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Contrôle et intégration</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les canons à suivi automatique ne sont utiles que dans la mesure de leur intégration : ils devraient se relier au panneau d’alarme incendie, et le chemin de prise en main manuelle (armoire locale ou poste distant) doit être testé avec vos opérateurs. Vérifiez l’interface de communication, le classement anti-explosion si le canon est installé dans une zone classifiée (Exde II BT4 Gb est disponible), et le degré IP pour l’exposition extérieure.</p>
+
+			<h2 id="procurement-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Checklist d’approvisionnement</h2>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Définissez le danger et la demande en eau incendie ; confirmez le débit et la portée du canon avec le fournisseur.</li>
+				<li>Choisissez le mode de contrôle : fixe, télécommandé ou à suivi automatique — à adapter au personnel et au temps de réponse.</li>
+				<li>Confirmez la compatibilité du médium (eau seule, ou proportionnement de mousse).</li>
+				<li>Vérifiez les classements anti-explosion et IP pour l’environnement d’installation.</li>
+				<li>Demandez le package circuit complet : canon, vannes, raccords, hydrants — une seule nomenclature, une seule usine.</li>
+				<li>Clarifiez le MOQ, le délai, le support d’installation et les pièces de rechange dans l’offre commerciale.</li>
+			</ol>
+
+			<!-- Cross-link to landing page -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Explorez notre gamme de canons d’eau anti-incendie</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Comparez les modèles fixes, télécommandés et intelligents avec les spécifications complètes sur la <a href="/fr/fire-water-cannon/" class="text-brand-blue font-semibold hover:underline">page des canons d’eau anti-incendie</a>.</p>
+			</div>
+
+			<!-- Related guide -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Guide Associé : Manuel vs Suivi Automatique</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Besoin d’une comparaison technique détaillée des moniteurs manuels (PS) et à suivi automatique (ZDMS) ? Consultez le <a href="/fr/guides/fire-water-monitor-selection-guide/" class="text-brand-blue font-semibold hover:underline">Guide de Sélection des Moniteurs d’Eau</a>.</p>
+			</div>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Besoin d’un Canon d’Eau pour Votre Site ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez-nous le plan de votre site, la portée et le débit requis — nos ingénieurs recommandent le bon modèle et répondent avec un devis complet sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Canon%20d%27Eau%20Anti-Incendie" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20j%27ai%20besoin%20d%27un%20canon%20d%27eau%20anti-incendie" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,194 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Quelle est la différence entre un enrouleur de flexible et une armoire anti-incendie ?',
+		answer: "Un enrouleur de flexible (comme le JPS0.8-19) est une unité d'extinction semi-automatique reliée en permanence : un tambour avec un flexible plat qui puise directement l'eau de l'alimentation du bâtiment. L'armoire est l'enceinte qui abrite l'enrouleur, la vanne d'hydrant, le flexible et la buse — ou, dans le cas d'une armoire à mousse (PSG30), une unité de proportionnement de mousse autonome. De nombreux projets spécifient une armoire d'hydrant contenant à la fois la vanne SN65 et un enrouleur de flexible."
+	},
+	{
+		question: 'Quelle longueur et quel diamètre de flexible dois-je spécifier ?',
+		answer: 'Les enrouleurs intérieurs sont généralement fournis avec 20 m, 25 m ou 30 m de flexible plat de 19 mm (3/4"). La longueur requise est fixée par le rayon de couverture du poste d’enrouleur — les règlements exigent couramment que chaque point de la surface soit à portée du flexible (p. ex. à moins de 6 m de la portée de la buse). Confirmez le règlement applicable (NFPA 14, EN 671, GB 15090 / XF180) pour votre marché.'
+	},
+	{
+		question: 'Quand choisir une armoire à mousse plutôt qu’un enrouleur à eau ?',
+		answer: 'Les unités à mousse (PSG30 avec 3% AFFF) sont spécifiées lorsque des feux de liquides inflammables de classe B sont attendus : stockage de carburants, usines chimiques, ateliers de peinture, salles de transformateurs et dépôts de véhicules. L’eau est inefficace sur les liquides en combustion ; la mousse à basse expansion recouvre la surface et étouffe le feu. Pour une occupation commerciale générale avec seulement des charges de feu de classe A, un enrouleur à eau standard suffit et coûte moins cher.'
+	},
+	{
+		question: 'Quelle pression un enrouleur de flexible a-t-il besoin pour fonctionner ?',
+		answer: 'L’enrouleur JPS0.8-19 fonctionne à 0,8–1,0 MPa avec une portée du jet d’au moins 6 mètres. L’alimentation du bâtiment ou la pompe incendie doit délivrer cette pression à l’entrée de l’enrouleur en cas de demande. Si l’alimentation est marginale, ajoutez une pompe de relevage ou confirmez la pression de buse par le calcul hydraulique — un enrouleur qui n’atteint pas 6 m n’est pas conforme au règlement.'
+	},
+	{
+		question: 'Les enrouleurs et armoires sont-ils disponibles en configurations compatibles avec l’export ?',
+		answer: 'Oui. Wanlian fabrique des enrouleurs avec longueurs de flexible 20/25/30 m, buses en laiton ou alliage, brackets rotatifs muraux, et des armoires avec interfaces de vanne d’hydrant correspondantes (SN65 ou raccords BS336 via les adaptateurs série HS). Spécifiez la norme de votre marché et nous adapterons le raccordement et le package de documentation.'
+	}
+];
+
+const products = [
+	{ slug: 'fire-hose-reel-jpso8-19', name: 'Jeu d’Enrouleur de Flexible JPS0.8-19', img: '/assets/products/fire-hose-reel-jpso8-19.jpg', desc: 'Enrouleur en acier carbone, flexible PVC 20-30m, buse en laiton' },
+	{ slug: 'foam-fire-hydrant-cabinet-psg30', name: 'Armoire à Mousse PSG30', img: '/assets/06_extinguishing_cannons/cannon_p42.webp', desc: 'Unité 3% AFFF consolidée pour feux de classe B' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Tête d’Hydrant Intérieur SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'Vanne d’hydrant en fonte ductile PN16 pour armoires' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Adaptateur de Raccord HS', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'Raccords en aluminium pour connexions hydrant-flexible-buse' }
+];
+
+const toc = [
+	{ id: 'role', label: 'Le rôle des enrouleurs et des armoires' },
+	{ id: 'reel-vs-cabinet', label: 'Enrouleur vs armoire : définitions' },
+	{ id: 'hose-specs', label: 'Longueur, diamètre et pression du flexible' },
+	{ id: 'nozzle', label: 'Types de buses et modes de jet' },
+	{ id: 'foam', label: 'Armoires à mousse pour les feux de classe B' },
+	{ id: 'materials', label: 'Matériaux et résistance à la corrosion' },
+	{ id: 'compliance', label: 'Règlements, essais et notes d’export' },
+	{ id: 'faq', label: 'Questions Fréquentes' }
+];
+---
+
+<Layout
+	title="Guide des Enrouleurs de Flexible & Armoires Anti-Incendie : JPS0.8-19, PSG30 & SN65"
+	description="Comment spécifier des enrouleurs et armoires anti-incendie : longueur du flexible, modes de buse, mousse pour feux de classe B, matériaux et conformité (EN 671, NFPA 14, GB 15090)."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Guide des Enrouleurs & Armoires' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Enrouleurs &amp; Armoires</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide des Équipements de Protection Incendie</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Guide de Sélection des Enrouleurs de Flexible et Armoires Anti-Incendie</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Les enrouleurs de flexible et les armoires anti-incendie sont l’équipement que l’occupant du bâtiment utilise réellement dans les premières minutes d’un incendie — avant l’arrivée des pompiers. Ils doivent être assez simples pour du personnel non formé, assez robustes pour des années de veille, et spécifiés pour délivrer le jet requis à la pression requise. Ce guide détaille les spécifications du flexible, les modes de buse, les options de mousse, les matériaux et les règlements qui les régissent.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="role" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Le rôle des enrouleurs et des armoires</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un enrouleur de flexible donne à un occupant non formé une capacité d’extinction à eau fixe : ouvrir la vanne, dérouler le flexible, et un jet est immédiatement disponible. C’est la première ligne de défense pour les départs de feu en phase naissante dans les bâtiments commerciaux, hôteliers, de bureaux et industriels, complétant les gicleurs automatiques qui prennent en charge l’extinction pendant l’évacuation. Les armoires organisent l’équipement — vanne d’hydrant, flexible, enrouleur, buse — en une unité prévisible et accessible sur laquelle les inspecteurs et les utilisateurs peuvent tous compter.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Pour l’approvisionnement B2B, les questions pratiques sont : quelle couverture le règlement exige-t-il, quelle pression d’alimentation est disponible, et quelles classes de feu existent sur site. Ces trois réponses pilotent la spécification ci-dessous.</p>
+
+			<h2 id="reel-vs-cabinet" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Enrouleur de flexible vs armoire anti-incendie : définitions</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Unité</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Contenu</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Usage typique</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Jeu d’enrouleur (JPS0.8-19)</td>
+							<td class="px-4 py-3 text-gray-700">Bracket pivotant, tambour, flexible plat, buse</td>
+							<td class="px-4 py-3 text-gray-700">Postes autonomes, alimentation en eau raccordée</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Armoire d’hydrant</td>
+							<td class="px-4 py-3 text-gray-700">Vanne SN65 + enrouleur/flexible + buse dans une enceinte</td>
+							<td class="px-4 py-3 text-gray-700">Postes de lutte incendie intérieurs standards</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Armoire à mousse (PSG30)</td>
+							<td class="px-4 py-3 text-gray-700">Réservoir de mousse + proportionneur + enrouleur + buse à mousse</td>
+							<td class="px-4 py-3 text-gray-700">Zones de feux liquides de classe B</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Le <a href="/fr/products/fire-hose-reel-jpso8-19/" class="text-brand-blue font-semibold hover:underline">jeu d’enrouleur JPS0.8-19</a> est le composant central ; la <a href="/fr/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">tête d’hydrant intérieur SN65</a> est l’interface de vanne qui l’alimente depuis la colonne d’eau, et les <a href="/fr/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">adaptateurs de raccord HS</a> standardisent les connexions flexible-à-hydrant et flexible-à-buse.</p>
+
+			<h2 id="hose-specs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Longueur, diamètre et pression du flexible</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Trois chiffres définissent un enrouleur : la longueur du flexible, le diamètre intérieur et la pression de travail.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Longueur (20 / 25 / 30 m).</strong> Déterminée par le rayon de couverture. Des règlements comme l’EN 671-1 exigent que chaque point de la zone protégée soit à portée de l’enrouleur, généralement défini comme la longueur du flexible plus une portée nominale de buse. Un flexible plus long augmente la perte de charge, donc le calcul de pression doit suivre la longueur.</li>
+				<li><strong>Diamètre (19 mm / 3/4").</strong> Le diamètre standard des enrouleurs intérieurs. Les diamètres plus grands délivrent plus de débit mais un flexible plus lourd, plus difficile à tirer ; 19 mm équilibre portée et facilité d’utilisation pour les feux naissants de classe A.</li>
+				<li><strong>Pression (0,8–1,0 MPa).</strong> Le JPS0.8-19 fonctionne à 0,8–1,0 MPa avec une portée du jet d’au moins 6 m. Confirmez la pression de la colonne d’eau ou de l’alimentation à l’entrée de l’enrouleur en cas de demande simultanée — un échec courant consiste à spécifier un enrouleur sans avoir jamais fait le calcul hydraulique.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Pour les projets d’export, spécifiez la norme du flexible (EN 694 pour l’Europe, NFPA 1962 pour l’Amérique du Nord, GB 15090 / XF180 pour la certification chinoise) afin que le package de documentation corresponde à votre marché.</p>
+
+			<h2 id="nozzle" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Types de buses et modes de jet</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La buse est l’interface utilisateur — elle décide si un occupant peut combattre le feu ou non. Les buses d’enrouleur supportent deux modes :</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Jet droit.</strong> Portée maximale pour attaquer un feu à distance. La portée minimale requise est typiquement de 6 m à la pression nominale.</li>
+				<li><strong>Pulvérisation/brouillard.</strong> Un cône large pour protéger l’opérateur, refroidir la zone et mouiller les surfaces. Le mode brouillard consomme plus et est moins efficace à distance, donc l’opérateur change de mode selon la situation.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Le matériau compte : les buses en laiton résistent à la corrosion et conservent leur géométrie ; les buses en alliage coulé sont plus légères mais spécifiez des finitions anodisées pour les environnements humides ou côtiers. Le JPS0.8-19 est livré avec une buse à pulvérisation en laiton/alliage supportant les deux modes, avec une poignée de coupure pour arrêter le débit à la buse.</p>
+
+			<h2 id="foam" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Armoires à mousse pour les feux de classe B</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">L’eau ne peut pas éteindre un liquide en combustion : elle étend le feu. Là où des dangers de classe B existent — stockage de carburants, zones de process chimiques, salles de transformateurs, dépôts de peinture et de solvants, dépôts de véhicules — le règlement exige de la mousse. L’<a href="/fr/products/foam-fire-hydrant-cabinet-psg30/" class="text-brand-blue font-semibold hover:underline">armoire à mousse anti-incendie PSG30</a> consolide le système complet dans une seule unité murale : un réservoir de concentré de mousse, un proportionneur 3% AFFF, un enrouleur de flexible et une buse à mousse.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Lorsque l’enrouleur est ouvert, le proportionneur aspire du concentré de mousse dans le jet d’eau à 3 %, générant une mousse à basse expansion avec un ratio d’expansion d’au moins 4,5:1 et une portée du jet de 6 mètres et plus. La mousse à basse expansion recouvre la surface du liquide en combustion, coupant l’oxygène et les vapeurs — efficace sur les feux de carburants, de produits chimiques et de solvants.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Notes de spécification pour les armoires à mousse :</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Type de mousse.</strong> L’AFFF (mousse aqueuse filmogène) est le standard pour les dangers hydrocarbures mixtes ; confirmez la classe du concentré (AR-AFFF pour les solvants polaires) avec le consultant en incendie.</li>
+				<li><strong>Capacité.</strong> Alignez le volume du réservoir sur la durée de décharge attendue — vérifiez le temps minimal de fonctionnement à débit nominal dans le règlement local.</li>
+				<li><strong>Pression d’entrée.</strong> Le PSG30 fonctionne à 0,5–0,8 MPa ; l’alimentation doit le maintenir pendant la décharge.</li>
+			</ul>
+
+			<h2 id="materials" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Matériaux et résistance à la corrosion</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les équipements de veille vivent des années dans des couloirs humides, des salles de chaudières et des usines côtières. Le choix des matériaux est une décision de coût sur le cycle de vie :</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Tambour et bracket de l’enrouleur.</strong> Acier carbone laminé à froid avec revêtement poudre rouge anticorrosion (JPS0.8-19) — économique et conforme au règlement ; spécifiez l’acier inoxydable pour les environnements marins ou chimiques.</li>
+				<li><strong>Flexible.</strong> Les mélanges NBR/PVC avec renfort polyester tressé multi-brins résistent au plissement et à l’abrasion ; confirmez la stabilité UV si l’enrouleur est en plein soleil.</li>
+				<li><strong>Buse et proportionneur.</strong> Laiton pour la résistance à la corrosion et la métrologie précise ; le proportionneur PSG30 est en laiton massif avec un corps anticorrosion.</li>
+				<li><strong>Boîtier d’armoire.</strong> L’acier revêtu de poudre est le standard ; les faces vitrées ou en acier inoxydable sont utilisées dans les halls architecturaux. Spécifiez toujours un accès vitre brisée ou à clé correspondant à la préférence du service de pompes local.</li>
+			</ul>
+
+			<h2 id="compliance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Règlements, essais et notes d’export</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La conformité des enrouleurs et armoires est typiquement vérifiée par : essai de pression de l’ensemble, test de portée du jet et de débit à la pression nominale, et inspection des matériaux/revêtements. Les normes pertinentes incluent l’EN 671 (Europe), la NFPA 14 (Amérique du Nord, colonnes d’eau et systèmes de flexibles), les GB 15090 et XF180 (Chine), plus la BS 5306 pour la pratique britannique.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Checklist d’export :</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Confirmez la norme de raccordement du flexible pour votre marché — les adaptateurs série HS couvrent les raccords internationaux courants (BS336, NIST, KWS) et peuvent être expédiés avec la commande.</li>
+				<li>Demandez le rapport d’essai de pression par lot pour les enrouleurs et les armoires.</li>
+				<li>Vérifiez que le type d’accès et la signalétique de la porte d’armoire correspondent aux attentes du service de pompes local.</li>
+				<li>Pour les unités à mousse, confirmez le type de concentré et le traitement de l’expiration — le concentré AFFF a une durée de vie et doit être remplacé selon un calendrier.</li>
+				<li>Clarifiez les pièces de rechange (buses, flexible, joints, robinets d’essai) et les délais avant de commander.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Wanlian teste chaque enrouleur et chaque armoire avant expédition, et fournit le package de documentation — rapports d’essai de pression, certificats de matière et notices d’utilisation — avec le conteneur.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Besoin d’Enrouleurs ou d’Armoires pour Votre Projet ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez-nous la zone de couverture, la pression d’alimentation et les classes de feu — nos ingénieurs répondent avec une recommandation de disposition enrouleur/armoire et un devis sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=S%C3%A9lection%20Enrouleur%20%26%20Armoire" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20j%27ai%20besoin%20d%27aide%20pour%20choisir%20des%20enrouleurs%20de%20flexible%20et%20des%20armoires%20anti-incendie" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

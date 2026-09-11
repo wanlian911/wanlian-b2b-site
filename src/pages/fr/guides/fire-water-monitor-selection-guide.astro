@@ -1,0 +1,189 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'manual-monitors-ps', label: '1. Moniteurs Manuels (Série PS) : Contrôle par Opérateur' },
+	{ id: 'auto-tracking-monitors-zdms', label: '2. Moniteurs à Suivi Automatique (ZDMS) : Réponse Autonome' },
+	{ id: 'head-to-head-comparison', label: '3. Comparaison Directe' },
+	{ id: 'sizing-and-installation', label: '4. Dimensionnement et Installation' },
+	{ id: 'faq', label: 'Questions Fréquentes' }
+];
+
+const faq = [
+	{
+		question: 'Quelle est la différence entre un moniteur d’eau manuel et un moniteur à suivi automatique ?',
+		answer: 'Un moniteur d’eau anti-incendie manuel (série PS) est visé et opéré par un pompier sur site, soit directement sur la tourelle soit via un volant à distance. Un moniteur à suivi automatique (série ZDMS) scanne en continu la zone protégée avec des détecteurs de flamme infrarouge/UV et vise automatiquement le feu puis l’éteint sans action de l’opérateur — critique pour les grands espaces où un feu doit être touché en quelques secondes.'
+	},
+	{
+		question: 'Où les canons à suivi automatique (ZDMS) sont-ils requis ?',
+		answer: 'Les canons à suivi automatique sont généralement spécifiés pour les grands espaces intérieurs à plafond haut où la détection et la réponse doivent être automatiques : halls d’exposition, atriums, entrepôts, hangars aéronautiques et ateliers industriels. La hauteur du plafond et la surface au sol déterminent le nombre de canons et leurs zones de couverture.'
+	},
+	{
+		question: 'Quelle est la portée effective d’un moniteur d’eau anti-incendie ?',
+		answer: 'La portée effective dépend du débit et de la configuration de la buse. Les moniteurs manuels PS délivrent couramment 20–60 L/s avec des portées de 30 à 70 mètres ; les canons à suivi ZDMS sont typiquement dimensionnés à 20–40 L/s pour une couverture intérieure avec des temps de réponse de moins de 30 secondes. Votre conception de protection incendie doit dimensionner le moniteur à partir de la densité d’eau requise et de la surface à couvrir.'
+	},
+	{
+		question: 'Les moniteurs d’eau peuvent-ils être utilisés avec de la mousse ?',
+		answer: 'Oui. La plupart des moniteurs de la série PS supportent l’eau ou la mousse en changeant le réglage de la buse, c’est pourquoi ils sont courants dans les terminaux pétrochimiques et les parcs de réservoirs. Si un service à mousse est prévu, spécifiez-le dans votre demande afin que le moniteur soit configuré avec l’interface de proportionnement de mousse correcte.'
+	}
+];
+
+const monitorProducts = [
+	{
+		slug: 'manual-fire-water-cannon-ps',
+		name: 'Canon d’Eau Anti-Incendie Manuel (Série PS)',
+		img: '/assets/products/manual-fire-water-cannon-ps.webp',
+		desc: 'Moniteur manuel à grand débit pour eau ou mousse, portée 30-70 m'
+	},
+	{
+		slug: 'auto-tracking-jet-suppression-cannon-zdms',
+		name: 'Canon à Suivi Automatique par Jet (Série ZDMS)',
+		img: '/assets/06_extinguishing_cannons/cannon_p45.webp',
+		desc: 'Canon à balayage IR/UV avec détection et extinction autonomes'
+	}
+];
+---
+
+<Layout
+	title="Sélection de Moniteur d’Eau : Manuel vs Suivi Automatique (ZDMS)"
+	description="Guide des moniteurs d'eau : moniteurs manuels PS vs canons à suivi ZDMS sur portée, débit, détection, temps de réponse et coût pour la protection industrielle."
+	type="article"
+	locale="fr"
+	faq={faq}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Moniteurs d’Eau</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide des Équipements d’Extinction</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Sélection de Moniteur d’Eau Anti-Incendie : Manuel vs Suivi Automatique (ZDMS)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Les moniteurs d’eau — aussi appelés canons d’eau — délivrent un jet concentré et à grand débit sur une portée. Ils se présentent dans deux philosophies de fonctionnement fondamentalement différentes : les <strong>moniteurs manuels</strong> visés par des opérateurs, et les <strong>moniteurs à suivi automatique</strong> qui détectent, visent et éteignent par eux-mêmes. Le choix entre eux est une question de temps de réponse, de risque d’occupation et de budget. Ce guide détaille la décision.</p>
+
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+				{monitorProducts.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-40 object-contain bg-white p-3" />
+						<div class="p-4">
+							<p class="text-sm font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-xs text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="manual-monitors-ps" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Moniteurs Manuels (Série PS) : Contrôle par Opérateur</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Le <a href="/fr/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">moniteur d’eau manuel de la série PS</a> est le cheval de trait de la lutte incendie industrielle : une tourelle fixe délivrant 20–60 L/s à des portées jusqu’à 70 mètres, commutable entre jet droit et pulvérisation, et utilisable avec de l’eau ou de la mousse. L’exploitation est directe (volant ou tourelle) ou télécommandée par un opérateur observant la scène.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Où il a sa place :</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Terminaux pétrochimiques, parcs de réservoirs et postes de chargement</strong> — des moniteurs capables de mousse avec des points de protection fixes.</li>
+				<li><strong>Cours extérieures et zones de process</strong> où des opérateurs peuvent atteindre le moniteur ou un poste de télécommande en sécurité.</li>
+				<li><strong>Refroidissement et soutien à déluge</strong> où des jets manuels dirigés complètent les systèmes automatiques.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Le compromis est simple : un moniteur manuel n’est rapide que comme son opérateur. Si personne ne peut atteindre le point de contrôle en sécurité au moment où un feu démarre, il peut tout simplement ne pas être utilisé.</p>
+
+			<h2 id="auto-tracking-monitors-zdms" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Moniteurs à Suivi Automatique (ZDMS) : Réponse Autonome</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Le <a href="/fr/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">canon à suivi automatique par jet ZDMS</a> retire l’humain de la boucle de réponse. Des détecteurs de flamme infrarouge/UV double bande scanent en continu l’espace protégé ; lorsqu’une signature de flamme est confirmée, le canon pivote vers le feu, ouvre la vanne et l’éteint — typiquement dans les 30 secondes suivant l’ignition, jour et nuit.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Où il a sa place :</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Grands espaces intérieurs à plafond haut</strong> — halls d’exposition, atriums, entrepôts, ateliers, hangars.</li>
+				<li><strong>Occupations où un feu peut grandir plus vite que le personnel ne peut répondre</strong>.</li>
+				<li><strong>Risques sans surveillance ou nocturnes</strong> — le système veille en permanence.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Parce que les canons ZDMS sont dimensionnés par zone de couverture et hauteur de plafond, la conception doit cartographier les champs de vision des détecteurs et la densité d’eau sur toute la surface. C’est pourquoi le support ingénieur du fournisseur compte autant que le matériel.</p>
+
+			<h2 id="head-to-head-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Comparaison Directe</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Critère</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Manuel (PS)</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Suivi Automatique (ZDMS)</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Réponse</td>
+							<td class="px-4 py-3 text-gray-700">Dépend de la portée et de la réaction de l’opérateur</td>
+							<td class="px-4 py-3 text-gray-700">Autonome, typiquement &lt;30 s depuis l’ignition</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Débit / portée</td>
+							<td class="px-4 py-3 text-gray-700">20–60 L/s, 30–70 m</td>
+							<td class="px-4 py-3 text-gray-700">20–40 L/s, couverture intérieure par zone</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Détection</td>
+							<td class="px-4 py-3 text-gray-700">Aucune (dirigée par l’opérateur)</td>
+							<td class="px-4 py-3 text-gray-700">Balayage IR/UV double bande</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Médium</td>
+							<td class="px-4 py-3 text-gray-700">Eau ou mousse (commutable)</td>
+							<td class="px-4 py-3 text-gray-700">Eau ; mousse selon configuration</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Usage typique</td>
+							<td class="px-4 py-3 text-gray-700">Parcs de réservoirs, cours, zones de process</td>
+							<td class="px-4 py-3 text-gray-700">Atriums, entrepôts, halls, ateliers</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Coût</td>
+							<td class="px-4 py-3 text-gray-700">Coût matériel plus faible</td>
+							<td class="px-4 py-3 text-gray-700">Plus élevé ; inclut détection et contrôle</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="sizing-and-installation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Dimensionnement et Installation</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>L’hydraulique d’abord</strong> — la demande de débit du moniteur (L/s) et la pression résiduelle requise doivent être confirmées par rapport à la pompe et au réseau de canalisations avant sélection.</li>
+				<li><strong>Cartographie de couverture pour ZDMS</strong> — le champ de vision des détecteurs, la hauteur de plafond et la densité d’eau définissent le nombre et la position des canons ; demandez un plan de disposition au fournisseur.</li>
+				<li><strong>Compatibilité mousse</strong> — pour les parcs de réservoirs, confirmez la buse du moniteur et l’interface de proportionnement pour le service mousse.</li>
+				<li><strong>Protocole d’essai</strong> — convenez d’un essai de mise en service (portée et temps de réponse) avec le fournisseur dans le contrat.</li>
+			</ul>
+
+			<!-- Related guide -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Guide Associé : la Décision d’Achat</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Vous hésitez entre contrôle fixe, à distance et intelligent — et le dimensionnement du débit et de la portée pour votre site ? Lisez le <a href="/fr/guides/fire-water-cannon-buying-guide/" class="text-brand-blue font-semibold hover:underline">Guide d’Achat des Canons d’Eau Anti-Incendie</a>.</p>
+			</div>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Dimensionner un Système de Moniteurs pour Votre Site ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez-nous le type de votre site, la zone protégée et la hauteur de plafond — nos ingénieurs répondent avec la disposition des canons et le prix sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Moniteur%20d%27Eau%20Anti-Incendie" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20j%27ai%20besoin%20d%27aide%20pour%20dimensionner%20des%20moniteurs%20d%27eau%20anti-incendie" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

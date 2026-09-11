@@ -1,0 +1,213 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'Comment un hydrant antigel évite-t-il de geler en hiver ?',
+		answer: 'Un hydrant antigel est une conception à barillet sec : la vanne principale siège sous la ligne de gel et le barillet au-dessus se vidange automatiquement chaque fois que la vanne se ferme. Aucune eau ne reste stagnante dans la colonne, donc il n’y a rien à geler ni à fendre le corps. L’hydrant extérieur SS100/65 utilise exactement ce mécanisme de drainage antigel automatique et est fourni avec une embase à bride standard pour le raccordement enterré.'
+	},
+	{
+		question: 'Que se passe-t-il lorsqu’un hydrant anti-collision est heurté par un véhicule ?',
+		answer: 'Le SSFT100 est maintenu par des boulons de cisaillement calibrés. À l’impact, les boulons cèdent proprement à une force conçue, et la vanne interne se ferme automatiquement — au lieu d’un jaillissement d’eau à plein débit, l’hydrant s’auto-obture et l’inondation est évitée. Les réparations se font sous pression en remplaçant les boulons de cisaillement et en redémarrant l’hydrant, ce qui maintient le coût de maintenance bas et évite de vidanger la conduite principale.'
+	},
+	{
+		question: 'Les hydrants anti-collision fonctionnent-ils aussi en climat froid ?',
+		answer: 'Oui. Le SSFT100 combine trois fonctions dans un même corps : protection contre les collisions, un dispositif de régulation de pression intégré pour une décharge progressive et douce, et un système d’auto-vidange automatique qui empêche le gel en hiver. Cela le rend adapté aux réseaux municipaux et industriels des régions froides où les hydrants se trouvent aussi près de la circulation.'
+	},
+	{
+		question: 'Les hydrants à incendie peuvent-ils être surveillés à distance ?',
+		answer: 'L’hydrant intelligent IoT SS100ZN intègre des micro-capteurs et transmet via les réseaux cellulaires NB-IoT, LTE-M ou GPRS. Il surveille l’inclinaison/les vibrations, la pression d’eau de la canalisation et l’état de la vanne, et émet des alertes en cas d’usage illégal de l’eau, d’ouverture de vanne ou de collision de véhicule. L’alimentation vient d’une batterie au lithium d’une durée de vie de 5 ans avec appoint solaire, et la capsule du module est classée IP68 ; le corps de l’hydrant est construit selon la GB4452-2011.'
+	},
+	{
+		question: 'Quelle configuration de sorties et quelle classe de pression spécifier ?',
+		answer: 'Le SS100/65 et le SSFT100/65 sont tous deux fournis avec 2 sorties de 65mm plus 1 sortie de 100mm — la configuration attendue sur les hydrants extérieurs municipaux. La pression de travail est de 1,6 MPa, et le SS100 est testé à 2,4 MPa. Les filetages de sortie suivent la norme du projet ; les adaptateurs de raccord en aluminium de la série HS de Wanlian (DN50/DN65, 1,6 MPa, GB12514) relient les hydrants aux flexibles et buses sans fuite.'
+	},
+	{
+		question: 'Quelles normes s’appliquent aux hydrants à incendie pour les projets d’export ?',
+		answer: 'Le corps de l’hydrant intelligent IoT est construit selon la GB4452-2011, et les hydrants mécaniques sont fabriqués selon les exigences GB et les normes d’usine. Lorsqu’un projet exige des références AWWA, EN ou NFPA, la spécification doit être indiquée dans la demande afin que le modèle et la documentation d’essai y correspondent — notre guide des normes des hydrants et vannes explique comment lire ces familles de normes et les rapports d’essai avant de commander.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'cold-climate-problem', label: '1. Pourquoi les hydrants défaillent par temps froid' },
+	{ id: 'antifreeze-mechanism', label: '2. Comment fonctionnent les hydrants antigel (à barillet sec)' },
+	{ id: 'anti-collision-mechanism', label: '3. Comment les hydrants anti-collision se coupent' },
+	{ id: 'hydrant-comparison', label: '4. Standard vs anti-collision vs IoT' },
+	{ id: 'smart-hydrant-monitoring', label: '5. Surveillance intelligente des hydrants' },
+	{ id: 'hydrant-spec-checklist', label: '6. Checklist de spécification' },
+	{ id: 'faq', label: 'Questions Fréquentes' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hydrant Antigel (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'DN100, 1,6 MPa, drainage antigel auto, 2x65 + 1x100' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Hydrant Anti-Collision (SSFT100/65)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Coupure par boulons de cisaillement, régulation de pression, auto-vidange' },
+	{ slug: 'iot-smart-ground-fire-hydrant-ss100zn', name: 'Hydrant Intelligent IoT (SS100/65-1.6ZN)', img: '/assets/products/iot-smart-ground-fire-hydrant-ss100zn.webp', desc: 'NB-IoT/4G, capteurs d’inclinaison & de pression, batterie 5 ans' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Adaptateur de Raccord d’Hydrant (Série HS)', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65, 1,6 MPa, aluminium auto-étanche' }
+];
+---
+
+<Layout
+	title="Hydrants Antigel & Anti-Collision : Guide d’Achat B2B"
+	description="Comment les hydrants antigel à barillet sec empêchent le gel, comment les hydrants anti-collision à boulons de cisaillement se coupent à l'impact, plus la surveillance IoT et une checklist de sélection B2B."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Hydrants Antigel & Anti-Collision' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Hydrants Antigel &amp; Anti-Collision</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide des Hydrants</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Hydrants Antigel &amp; Anti-Collision : Guide d’Achat</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En bref : un hydrant extérieur standard a deux faiblesses en service municipal réel — l’eau stagnante dans le barillet peut geler et fendre le corps, et un hydrant heurté par un véhicule peut libérer un jaillissement d’eau à plein débit. Les hydrants antigel (à barillet sec) résolvent le premier problème en se vidangeant après chaque utilisation ; les hydrants anti-collision résolvent le second avec des boulons de cisaillement calibrés et une coupure interne automatique. Ce guide explique les deux mécanismes, compare les modèles et couvre ce que la surveillance IoT ajoute.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="cold-climate-problem" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Pourquoi les Hydrants Défaillent par Temps Froid</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un hydrant à barillet humide garde l’eau stagnante dans la colonne au-dessus de la vanne toute l’année. Lors d’une forte gelée, cette eau se dilate en gelant, et la pression n’a nulle part où aller : le barillet, le chapeau ou le corps de vanne se fend. La défaillance reste généralement cachée jusqu’au dégel, quand l’hydrant est ouvert et que l’eau jaillit d’un corps fracturé au lieu des sorties — au pire moment possible.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Le problème inverse est tout aussi courant : un hydrant non vidangé après usage laisse une poche d’eau au-dessus de la ligne de gel. C’est pourquoi les spécifications en climat froid ne demandent pas simplement un hydrant « plus solide » — elles demandent un hydrant dont le barillet est vide chaque fois que la vanne est fermée.</p>
+			<p class="text-gray-700 leading-relaxed">L’autre mode de défaillance n’a rien à voir avec la météo : les hydrants se dressent au bord de la route, et l’équipement en bord de route est heurté. Sans point de rupture conçu, un impact de véhicule cisaille le corps et laisse la pleine pression de la conduite s’échapper par la colonne brisée jusqu’à ce que quelqu’un atteigne la vanne d’isolement.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="antifreeze-mechanism" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Comment Fonctionnent les Hydrants Antigel (à Barillet Sec)</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Dans un hydrant à barillet sec, la vanne principale est enterrée sous la ligne de gel, et le barillet au-dessus est vide sauf pendant l’écoulement. Quand la tige de manœuvre est fermée, la vanne se met en place et l’eau restante dans la colonne s’écoule par un dispositif de drainage à la base — de sorte que le barillet est de nouveau sec avant la gelée suivante.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">L’<a href="/fr/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">hydrant extérieur antigel SS100/65</a> applique ce principe avec un mécanisme de drainage antigel automatique après fermeture. Données clés pour la spécification : DN100, pression de travail 1,6 MPa avec une pression d’essai de 2,4 MPa, 2 sorties de 65mm plus 1 sortie de 100mm, une colonne en fonte ductile QT450 renforcée, des sorties à double siège en laiton avec bouchons étanches aux intempéries, une tête de vanne inférieure encapsulée EPDM et un dispositif de drainage en acier inoxydable/laiton. Il traite l’eau et le mélange eau-mousse, et l’embase à bride enterrée standard simplifie l’installation.</p>
+			<p class="text-gray-700 leading-relaxed">Parce que le barillet se vidange après chaque opération, la protection contre le gel est reproductible plutôt qu’une étape d’hivernage unique — ce qui compte pour les réseaux inspectés à plusieurs mois d’intervalle.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="anti-collision-mechanism" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Comment les Hydrants Anti-Collision se Coupent</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un hydrant anti-collision est conçu pour défaillir de manière contrôlée. L’<a href="/fr/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">hydrant anti-collision à régulation de pression SSFT100/65</a> est assemblé avec des boulons de cisaillement calibrés spécialisés. Quand un véhicule heurte la colonne, ces boulons s’écrasent à leur force conçue et la vanne interne se ferme automatiquement — l’hydrant s’auto-obture au lieu de décharger la conduite principale.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Les conséquences sont pratiques plutôt que théoriques. La perte d’eau et l’inondation sont évitées, le réseau conserve sa pression pour le reste du district, et la réparation se fait sous pression : remplacer les boulons de sécurité, redémarrer l’hydrant — un coût de maintenance très faible comparé au remplacement d’un corps cisaillé et à l’excavation du raccordement.</p>
+			<p class="text-gray-700 leading-relaxed">Le même modèle porte aussi un dispositif de régulation de pression intégré, de sorte que la décharge peut être progressive et douce plutôt qu’un à-coup soudain à pleine pression sur l’équipe de flexible, et un système d’auto-vidange automatique pour prévenir le gel en hiver. Données de spécification : DN100 ou DN150, pression nominale 1,6 MPa, entrée à bride, 2 sorties de 65mm (KWS65) plus 1 sortie de 100mm, corps en fonte ductile QT450, siège de vanne inférieur en alliage de laiton massif/recouvert d’EPDM, ressorts en acier inoxydable 304 et bouchons en alliage d’aluminium anodisé ou en laiton.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="hydrant-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Standard vs Anti-Collision vs IoT</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Caractéristique</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SS100/65 Antigel</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SSFT100 Anti-Collision</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SS100ZN IoT Intelligent</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Protection contre le gel</td>
+							<td class="px-4 py-3 text-gray-700">Drainage antigel automatique après fermeture</td>
+							<td class="px-4 py-3 text-gray-700">Système d’auto-vidange automatique</td>
+							<td class="px-4 py-3 text-gray-700">Construction à barillet sec, état surveillé</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Impact de véhicule</td>
+							<td class="px-4 py-3 text-gray-700">Corps QT450 à paroi épaisse uniquement</td>
+							<td class="px-4 py-3 text-gray-700">Boulons de cisaillement calibrés + coupure automatique</td>
+							<td class="px-4 py-3 text-gray-700">Capteurs d’inclinaison/vibration émettant des alertes de collision</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Régulation de pression</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">Intégrée, décharge progressive</td>
+							<td class="px-4 py-3 text-gray-700">Surveillance continue de la pression</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Surveillance</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">NB-IoT / LTE-M / GPRS, alertes vanne &amp; vol</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Taille &amp; sorties</td>
+							<td class="px-4 py-3 text-gray-700">DN100, 2x65 + 1x100</td>
+							<td class="px-4 py-3 text-gray-700">DN100/DN150, 2xKWS65 + 1x100</td>
+							<td class="px-4 py-3 text-gray-700">Corps extérieur DN100 (GB4452-2011)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pression</td>
+							<td class="px-4 py-3 text-gray-700">1,6 MPa (testé 2,4 MPa)</td>
+							<td class="px-4 py-3 text-gray-700">1,6 MPa nominal</td>
+							<td class="px-4 py-3 text-gray-700">Pression du réseau surveillée en continu</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Idéal pour</td>
+							<td class="px-4 py-3 text-gray-700">Réseaux municipaux en climat froid</td>
+							<td class="px-4 py-3 text-gray-700">Emplacements en bord de route exposés à la circulation</td>
+							<td class="px-4 py-3 text-gray-700">Réseaux de ville intelligente et à faible supervision</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Les trois conceptions ne sont pas tant des alternatives que des réponses à trois risques différents — le gel, l’impact et l’usage non surveillé. Une ville en climat froid à circulation dense aura typiquement besoin des deux premiers ensemble, et ajoutera le troisième là où les équipes ne peuvent pas inspecter chaque hydrant à temps.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="smart-hydrant-monitoring" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Surveillance Intelligente des Hydrants</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">L’<a href="/fr/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">hydrant de sol intelligent IoT SS100ZN</a> ajoute une capsule de capteurs au corps extérieur standard. Il intègre des micro-capteurs qui transmettent via NB-IoT, LTE-M ou GPRS : détection d’inclinaison et de vibration, détection de pression d’eau de la canalisation et état de la vanne. La plateforme émet des alertes en cas d’usage illégal de l’eau, d’ouverture de vanne, de vol d’eau ou de collision de véhicule, et suit en continu la pression et le débit d’eau afin que les défauts de canalisation apparaissent avant un incident.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Pour les propriétaires d’actifs, la valeur est la visibilité. Un hydrant ouvert par un utilisateur non autorisé, renversé, ou situé sur une ligne à pression chutante reste normalement invisible jusqu’à la prochaine inspection physique. Un hydrant surveillé transforme ces événements en notifications. L’alimentation est assurée par une conception à très basse consommation avec une batterie au lithium d’une durée de vie de 5 ans et un appoint solaire, et la capsule du module IoT est en ABS renforcé résistant aux impacts avec étanchéité IP68 — un détail qui compte car la capsule vit sur un équipement destiné à être heurté.</p>
+			<p class="text-gray-700 leading-relaxed">Le corps de l’hydrant suit la GB4452-2011, avec une colonne en fonte ductile QT450, une sonde d’eau en acier inoxydable 316 et une tige inférieure et un siège de vanne en acier inoxydable ou en laiton. Lorsqu’un projet exige d’autres familles de normes, indiquez la norme dans la demande et consultez notre <a href="/fr/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">guide des normes des hydrants et vannes</a> pour la correspondance entre les références AWWA, EN, NFPA et ISO et la documentation d’essai.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="hydrant-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Checklist de Spécification</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Partir du climat</strong> — si le gel se produit, spécifiez un hydrant antigel à barillet sec (SS100/65) ou un modèle anti-collision à auto-vidange ; confirmez le type de dispositif de drainage et que le barillet se vide à la fermeture de la vanne.</li>
+				<li><strong>Évaluer le risque de circulation</strong> — les hydrants en bordure de trottoir, dans les cours de chargement et aux portails industriels devraient être équipés de boulons de cisaillement calibrés et d’une coupure interne automatique (SSFT100/65) afin qu’un impact ne décharge pas la conduite principale.</li>
+				<li><strong>Décider si vous avez besoin de visibilité</strong> — les réseaux de ville intelligente, de campus ou à faible supervision peuvent utiliser le SS100ZN pour la remontée d’inclinaison, de pression et d’état de vanne via NB-IoT/LTE-M/GPRS.</li>
+				<li><strong>Fixer la configuration des sorties</strong> — 2 sorties de 65mm plus 1 de 100mm est l’arrangement extérieur standard ; ajoutez des <a href="/fr/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">adaptateurs de raccord série HS</a> (DN50/DN65, 1,6 MPa, GB12514) pour que les flexibles et buses se connectent sans fuite.</li>
+				<li><strong>Indiquer la pression et les preuves d’essai</strong> — une pression de travail de 1,6 MPa est standard, avec le SS100 testé à 2,4 MPa ; demandez les rapports d’essai de pression par lot et les certificats de matière avant expédition.</li>
+				<li><strong>Confirmer les normes et le fournisseur</strong> — indiquez d’emblée toute exigence AWWA/EN/NFPA, et appliquez notre <a href="/fr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">checklist d’approvisionnement B2B des vannes</a> avant de vous engager envers un fabricant. Pour le contexte de sélection élargi, voir <a href="/fr/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">comment choisir un hydrant</a>.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Besoin d’Hydrants Antigel ou Anti-Collision ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Dites-nous vos conditions climatiques, votre exposition à la circulation, votre DN, votre configuration de sorties et votre norme — nos ingénieurs confirment le bon hydrant et devisent sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Hydrant%20Antigel%20SS100" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20j%27ai%20besoin%20d%27hydrants%20antigel%20ou%20anti-collision" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
