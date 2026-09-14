@@ -1,0 +1,130 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Что делает цифровой балансировочный клапан HVAC?',
+		answer: 'Балансировочный клапан устанавливает и проверяет проектную производительность (расход) в каждом ответвлении гидронной системы HVAC. SP45F имеет Y-образный проходной (запорный) корпус, цифровой дисплей с блокировкой и два контрольных отвода давления, поэтому инженер может регулировать клапан и измерять перепад давления, не заменяя клапан отдельным расходомером.'
+	},
+	{
+		question: 'Какой диапазон диаметров доступен для цифрового балансировочного клапана SP45F?',
+		answer: 'Фланцевый цифровой балансировочный клапан SP45F поставляется в диапазоне DN50–DN300. Корпус выполнен из высокопрочного чугуна QT450, контрольные отводы — из нержавеющей стали, маховик — из высокопрочного чугуна. Укажите в запросе номинальный диаметр, стандарт фланцевого прокола и требуемую среду.'
+	},
+	{
+		question: 'Почему для гидронной балансировки важны два контрольных отвода давления?',
+		answer: 'Пара контрольных отводов позволяет инженеру пусконаладки измерить давление перед и после клапана. Перепад давления вместе с установкой клапана и заводскими данными по расходу используется для проверки расхода в ответвлении и выявления контура с недостаточной или избыточной подачей.'
+	},
+	{
+		question: 'Можно ли заменить клапаном-регулятором давления балансировочный клапан?',
+		answer: 'Нет. Балансировочный клапан регулирует и проверяет расход в ответвлении; он не предназначен для удержания постоянного давления на выходе при изменяющихся условиях сети. Эту функцию регулирования давления выполняет гидравлический клапан-регулятор давления 500X. Выбирайте клапан по цели регулирования, а не по внешнему виду.'
+	},
+	{
+		question: 'Где должен устанавливаться фильтр в контуре балансировки HVAC?',
+		answer: 'Устанавливайте подходящий фильтр перед прецизионными регулировочными и балансировочными клапанами, если в трубопроводе могут находиться сварочные включения или твёрдые частицы. Y-образный телескопический фильтр SGL41H объединяет фильтрацию с телескопической распорной втулкой, а сита из SS304 или SS316 и съёмный корпус упрощают техническое обслуживание.'
+	},
+	{
+		question: 'Что указать в запросе цены (RFQ) на балансировочный клапан HVAC?',
+		answer: 'Укажите DN, стандарт фланцевого прокола, среду, проектную температуру, проектное давление, целевой расход, доступный перепад давления, материал корпуса, точки измерения, требование к приводу или маховику и необходимый комплект пусконаладочной документации. Для коммерческого предложения также укажите, требуется ли маркировка OEM или ODM.'
+	}
+];
+
+const toc = [
+	{ id: 'what-is-balancing', label: '1. Что такое балансировочный клапан HVAC?' },
+	{ id: 'how-digital-balancing-works', label: '2. Принцип работы цифрового клапана SP45F' },
+	{ id: 'balancing-vs-pressure-control', label: '3. Балансировочный клапан и клапан-регулятор давления' },
+	{ id: 'where-to-install', label: '4. Где устанавливать и как защищать' },
+	{ id: 'valve-comparison', label: '5. SP45F и варианты гидравлического регулирования' },
+	{ id: 'rfq-checklist', label: '6. Чек-лист RFQ на балансировочный клапан HVAC' },
+	{ id: 'faq', label: 'Часто задаваемые вопросы' }
+];
+
+const products = [
+	{ slug: 'sp45f-flange-digital-balancing-valve', name: 'Цифровой балансировочный клапан SP45F', img: '/assets/products/sp45f-flange-digital-balancing-valve.webp', desc: 'DN50–DN300, корпус QT450, цифровая блокировка и контрольные отводы' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'Y-образный телескопический фильтр SGL41H', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'DN50–DN600, сито SS304/316, доступ для обслуживания' },
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: 'Клапан-регулятор давления 500X', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'DN20–DN600, пилотное регулирование давления на выходе' },
+	{ slug: 'telescopic-resilient-seat-gate-valve-z41x-t', name: 'Телескопическая задвижка Z41X-T с эластичным седлом', img: '/assets/products/telescopic-resilient-seat-gate-valve-z41x-t.webp', desc: 'DN50–DN600, клин EPDM и компенсация температурных перемещений' }
+];
+---
+
+<Layout
+	title="Цифровой балансировочный клапан HVAC: гид по выбору SP45F"
+	description="Гид по цифровым балансировочным клапанам HVAC: как контрольные отводы и цифровая блокировка SP45F поддерживают пусконаладку, данные для RFQ и сравнение."
+	type="article"
+	locale="ru"
+	faq={faq}
+	breadcrumbs={[{ name: 'Руководства', href: '/ru/blog/' }, { name: 'Цифровой балансировочный клапан HVAC' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ru/" class="hover:text-blue-600">Главная</a><span>/</span>
+			<a href="/ru/blog/" class="hover:text-blue-600">Руководства</a><span>/</span>
+			<span class="text-gray-600">Цифровой балансировочный клапан HVAC</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Гид по клапанам HVAC</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Цифровой балансировочный клапан HVAC: гид по выбору SP45F</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Кратко: балансировочный клапан HVAC устанавливает расход в ответвлениях, чтобы гидронная система работала на проектную производительность. SP45F объединяет Y-образный проходной (запорный) корпус с цифровым дисплеем с блокировкой и двумя контрольными отводами давления, давая пусконаладочным командам воспроизводимый способ регулировки, измерения и документирования баланса ответвлений. В этом гиде — цель регулирования, точки установки и данные для спецификации в RFQ.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ru/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3"><p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p><p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p></div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-balancing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Что такое балансировочный клапан HVAC?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Гидронные системы HVAC распределяют хладоноситель или горячую воду по множеству ответвлений. Без балансировки ответвления, ближайшие к насосу, получают больший расход, чем заложен в проекте, тогда как удалённые теплообменники получают слишком мало. В результате — неравномерная температура в помещениях, шумящие регулировочные клапаны и насос, работающий с большей нагрузкой, чем требует проект.</p>
+			<p class="text-gray-700 leading-relaxed">Балансировочный клапан добавляет в каждое ответвление управляемое сопротивление. Во время пусконаладки инженер выставляет клапан в проектное положение, измеряет перепад давления и проверяет полученный расход. Цель — распределение и измерение расхода, а не изоляция и не автоматическое снижение давления по всей сети.</p>
+
+			<h2 id="how-digital-balancing-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Принцип работы цифрового клапана SP45F</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/ru/products/sp45f-flange-digital-balancing-valve/" class="text-brand-blue font-semibold hover:underline">Фланцевый цифровой балансировочный клапан SP45F</a> имеет Y-образный проходной (запорный) корпус из высокопрочного чугуна QT450. Цифровой дисплей с блокировкой фиксирует уставку клапана, а два контрольных отвода давления из нержавеющей стали образуют измерительный интерфейс для пусконаладочных приборов.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Заявленный диапазон диаметров — DN50–DN300. При выборе клапана соотнесите номинальный диаметр и фланцевый прокол с чертежом ответвления, затем подтвердите проектную производительность (расход) и доступный перепад давления. Цифровой дисплей повышает воспроизводимость между монтажом и последующим обслуживанием, потому что уставку можно записать, а не оценивать по положению маховика.</p>
+			<p class="text-gray-700 leading-relaxed">По паспорту изделия клапан предназначен для сред: вода, масло, газ. Для проекта HVAC укажите в запросе фактическую среду и температуру, чтобы материалы уплотнений, класс прочности корпуса и документация об испытаниях были проверены для заданных условий эксплуатации.</p>
+
+			<h2 id="balancing-vs-pressure-control" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Балансировочный клапан и клапан-регулятор давления</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Эти клапаны могут стоять в одном машинном зале, но решают разные задачи. Балансировочный клапан устанавливает расход в ответвлении и обеспечивает измерение. Клапан-регулятор давления автоматически удерживает пониженное давление на выходе при изменении входного давления или расхода. Использование одного вместо другого приводит к спецификации, не соответствующей цели регулирования системы.</p>
+			<p class="text-gray-700 leading-relaxed"><a href="/ru/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">Гидравлический клапан-регулятор давления 500X</a> работает по пилотной схеме и является саморегулируемым, заявленный диапазон регулировки давления на выходе — от 0,1 МПа до 1,6 МПа. Применяйте его там, где давление сети необходимо снизить и стабилизировать. Применяйте SP45F там, где пусконаладочной команде нужно управляемое сопротивление ответвления, фиксируемая уставка и измерение перепада давления.</p>
+
+			<h2 id="where-to-install" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Где устанавливать и как защищать</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Устанавливайте балансировочный клапан в ответвлении, указанном в гидронном проекте, с достаточным зазором для чтения дисплея и подключения измерительных зондов. Соблюдайте требования проектной документации по длине прямых участков трубы и сохраняйте доступ к контрольным отводам после теплоизоляции и закрытия подвесного потолка.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Перед пусконаладкой удалите сварочные включения и строительную грязь. <a href="/ru/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">Y-образный телескопический фильтр SGL41H</a> объединяет Y-образный фильтр с телескопической распорной втулкой, заявленные сита — SS304/SS316, покрытие DN50–DN600. Установленный на подводящей стороне там, где это уместно, он защищает пилотные каналы, измерительные приборы и седла клапана от твёрдых частиц, сохраняя путь для обслуживания.</p>
+			<p class="text-gray-700 leading-relaxed">Если в ответвлении необходимы также отсечка и компенсация температурных перемещений, <a href="/ru/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">телескопическая задвижка Z41X-T с эластичным седлом</a> обеспечивает отсечку с заявленным телескопическим диапазоном +/- 25 мм. Функцию отсечки в спецификации (ведомости материалов) разделяйте с функцией балансировки.</p>
+
+			<h2 id="valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. SP45F и варианты гидравлического регулирования</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5"><table class="min-w-full divide-y divide-gray-200 text-sm">
+				<thead class="bg-gray-50"><tr><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Клапан / компонент</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Основная задача</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Заявленные данные</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Проверка при пусконаладке</th></tr></thead>
+				<tbody class="bg-white divide-y divide-gray-200">
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Цифровой балансировочный клапан SP45F</td><td class="px-4 py-3 text-gray-700">Установить и проверить расход в ответвлении</td><td class="px-4 py-3 text-gray-700">DN50–DN300, QT450, пара контрольных отводов</td><td class="px-4 py-3 text-gray-700">Записать уставку и перепад давления</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Клапан-регулятор давления 500X</td><td class="px-4 py-3 text-gray-700">Удерживать давление на выходе</td><td class="px-4 py-3 text-gray-700">DN20–DN600, регулировка 0,1–1,6 МПа</td><td class="px-4 py-3 text-gray-700">Проверить уставку давления при изменении расхода</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Y-образный фильтр SGL41H</td><td class="px-4 py-3 text-gray-700">Защищать клапаны и приборы</td><td class="px-4 py-3 text-gray-700">DN50–DN600, водное сито 18–30 сот.</td><td class="px-4 py-3 text-gray-700">Осмотреть сито и измерить перепад на нём</td></tr>
+				</tbody>
+			</table></div>
+			<p class="text-gray-700 leading-relaxed">В типовом ответвлении может применяться несколько таких компонентов: фильтр защищает контур, запорная задвижка позволяет обслуживать линию, балансировочный клапан устанавливает расход, а регулировочный клапан давления управляет отдельной зоной давления. Выбирайте каждую позицию по функции и убедитесь, что суммарные потери давления остаются в допустимых пределах.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Чек-лист RFQ на балансировочный клапан HVAC</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Укажите проектный расчётный режим</strong> — целевой расход, доступный перепад давления и среду: хладоноситель, вода отопления или иная среда.</li>
+				<li><strong>Подтвердите размеры</strong> — DN, стандарт фланцевого прокола, межфланцевое (концевое) расстояние и зазор под теплоизоляцию; диапазон SP45F — DN50–DN300.</li>
+				<li><strong>Специфицируйте измерение</strong> — потребуйте пару контрольных отводов давления, цифровой дисплей уставок и пусконаладочный лист данных, необходимый для сдачи системы.</li>
+				<li><strong>Защитите контур</strong> — определите фильтр на подводящей стороне, процедуру промывки и доступ для обслуживания сита и клапана.</li>
+				<li><strong>Разделите функции</strong> — изоляцию, балансировку, снижение давления и компенсацию температурных перемещений указывайте как отдельные требования, а не одним общим описанием клапана.</li>
+				<li><strong>Запросите подтверждающие данные</strong> — перед подтверждением заказа запросите информацию о материале QT450 и контрольных отводах из нержавеющей стали, чертежи с размерами, записи испытаний давлением и требования к маркировке OEM/ODM.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Часто задаваемые вопросы</h2>
+			<div class="space-y-4">{faq.map(item => (<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30"><summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none"><span>{item.question}</span><span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span></summary><p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p></details>))}</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden"><div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+				<h2 class="text-2xl font-black text-white tracking-tight">Нужен балансировочный клапан HVAC SP45F?</h2>
+				<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Пришлите DN, стандарт фланца, целевой расход и среду проекта. Наши инженеры подтвердят конфигурацию балансировочного клапана и вышлем котировку в течение 12 часов.</p>
+				<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4"><a href="/ru/contact/?product=%D0%A6%D0%B8%D1%84%D1%80%D0%BE%D0%B2%D0%BE%D0%B9%20%D0%B1%D0%B0%D0%BB%D0%B0%D0%BD%D1%81%D0%B8%D1%80%D0%BE%D0%B2%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BB%D0%B0%D0%BF%D0%B0%D0%BD%20SP45F" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Запросить цену</a><a href="https://wa.me/8618684324501?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BC%D0%BD%D0%B5%20%D0%BD%D1%83%D0%B6%D0%B5%D0%BD%20%D1%86%D0%B8%D1%84%D1%80%D0%BE%D0%B2%D0%BE%D0%B9%20%D0%B1%D0%B0%D0%BB%D0%B0%D0%BD%D1%81%D0%B8%D1%80%D0%BE%D0%B2%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BB%D0%B0%D0%BF%D0%B0%D0%BD%20SP45F%20%D0%B4%D0%BB%D1%8F%20HVAC" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Чат в WhatsApp</a></div>
+			</div></div>
+		</article>
+	</main>
+</Layout>

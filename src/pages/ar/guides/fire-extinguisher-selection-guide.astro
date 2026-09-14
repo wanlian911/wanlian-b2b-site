@@ -1,0 +1,212 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'ما فئات الحريق التي تتعامل معها طفاية البودرة الجافة ABC؟',
+		answer: 'تغطي طفاية البودرة الجافة ABC حرائق الفئة A (الخشب، الورق، المنسوجات) والفئة B (السوائل القابلة للاشتعال) والفئة C (الغازات القابلة للاشتعال) والفئة E (المعدات الكهربائية)، ولهذا فهي الطفاية المحمولة الافتراضية للمباني التجارية والصناعية. وهي ليست الخيار المناسب لحرائق زيوت الطهي من الفئة F (استخدم الكيماوي الرطب) أو حرائق المعادن من الفئة D (استخدم بودرة المعادن المتخصصة).'
+	},
+	{
+		question: 'ماذا تعني شهادة ISO 7165 على طفاية الحريق؟',
+		answer: 'ISO 7165 هي المعيار الدولي لطفايات الحريق المحمولة، ويغطي الأداء والبنية والعلامات والاختبارات. تُصنَّع طفاية 5kg من البودرة الجافة ABC لدينا وفق ISO 7165 وتحمل أيضاً علامة CCCF. لاحظ أن CCCF هي شهادة الإلزام الصينية للمنتجات الحريقية — فهي تؤهّل الطفاية للسوق الصيني وليست في ذاتها شهادة تصدير. للتصدير، اطلب الشهادة الخاصة بالنموذج الدقيق وسوق الوصول.'
+	},
+	{
+		question: 'ما المقاسات المتاحة لطفايات البودرة الجافة ABC؟',
+		answer: 'تتوفر طفاية Wanlian من البودرة الجافة ABC بأوزان صافية للوسيط 3kg و4kg و5kg، مع زمن تفريغ يقارب 8-15 ثانية ومقياس ضغط ملوّن على أسطوانة من الفولاذ الكربوني. طفاية 5kg هي المواصفة الشائعة للمكاتب والمستودعات والتثبيتات التجارية؛ أكّد فئة الخطورة ونطاق التغطية عند طلب عرض سعر.'
+	},
+	{
+		question: 'هل يمكنني طلب طفايات حريق بعلامتي التجارية وتوسّمي الخاص (OEM)؟',
+		answer: 'نعم. ندعم OEM في لون الأسطوانة والتوسّم على الجسم والشعار ولغة التوسّم، ويمكننا مطابقة لغة التوسّم مع سوق الوصول. يُتأكَّد MOQ وتأكيد الرسومات ومدة التوريد في عرض السعر — أرسل الحجم المستهدف والسوق حتى نقدّم السعر على التكوين الصحيح.'
+	},
+	{
+		question: 'هل تحتاج طفايات البودرة الجافة إلى تغليف خاص للنقل التصديري؟',
+		answer: 'بما أن الأسطوانة مضغوطة، أكّد تصنيف البضائع الخطرة (رقم UN) ومتطلبات تغليف النقل مع وسيط الشحن للنموذج الدقيق. للشحنات المصدَّرة من الصين والمصنَّفة بضائع خطرة، يجب على المُصدِّر تقديم شهادة تقييم تغليف نقل البضائع الخطرة المصدَّرة؛ وتُظهر حالات الإنفاذ الجمركي أن الشحنات دونها قد تُحتجَز وتُعرَّض للغرامات. نتأكَّد من متطلبات التغليف والوثائق معك قبل الإنتاج.'
+	},
+	{
+		question: 'متى أختار CO2 بدل البودرة الجافة ABC؟',
+		answer: 'استخدم CO2 حيث تكون تكلفة تنظيف بقايا البودرة مرتفعة: غرف التحكم، غرف الخوادم، المختبرات ولوحات التوزيع الكهربائية. البودرة الجافة ABC هي القيمة الشاملة الأفضل للمناطق التجارية والمستودعات الصناعية العامة التي تغطي مخاطر الفئتين A/B المختلطة. إذا كان مشروعك يجمع بين النوعين، تجمع الحزمة النموذجية بين طفايات البودرة للمناطق المفتوحة وطفايات CO2 لغرف المعدات الحساسة.'
+	}
+];
+
+const toc = [
+	{ id: 'why-fire-extinguishers', label: '1. لماذا تتصدّر طفايات الحريق توريد الحماية من الحريق' },
+	{ id: 'fire-classes-agents', label: '2. فئات الحريق ووسائط الإطفاء' },
+	{ id: 'abc-specifications', label: '3. شرح مواصفات البودرة الجافة ABC' },
+	{ id: 'certification-compliance', label: '4. الشهادات والامتثال للتصدير' },
+	{ id: 'applications-scenarios', label: '5. أين تُركَّب الطفايات' },
+	{ id: 'factory-buying-checklist', label: '6. قائمة شراء المصنع: OEM وMOQ والتغليف' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const products = [
+	{ slug: 'abc-dry-powder-fire-extinguisher-5kg', name: 'طفاية حريق بودرة جافة ABC (5kg)', img: '/assets/products/abc-dry-powder-fire-extinguisher-5kg.webp', desc: 'وحدة ISO 7165 محمولة تغطي حرائق الفئات A/B/C/E' },
+	{ slug: 'stainless-steel-fire-extinguisher-box', name: 'خزانة طفاية حريق من الفولاذ المقاوم للصدأ', img: '/assets/products/stainless-steel-fire-extinguisher-box.jpg', desc: 'خزانة SS304/201 لتخزين الطفاية أو بكرة المرن' },
+	{ slug: 'metal-fire-extinguisher-box-red', name: 'خزانة طفاية حريق معدنية (حمراء)', img: '/assets/products/metal-fire-extinguisher-box-red.jpg', desc: 'خزانة بطلاء بودرة مع لوحة تعليمات تشغيل، مقاسات OEM' }
+];
+---
+
+<Layout
+	title="دليل اختيار طفايات الحريق: بودرة جافة ABC للتصدير والمشاريع"
+	description="دليل اختيار طفاية حريق بودرة جافة ABC للمشترين: فئات الحريق A/B/C/E، شهادة ISO 7165، المقاسات، التوريد OEM وتغليف التصدير من مصنع Wanlian للصين."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'اختيار طفايات الحريق' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">اختيار طفايات الحريق</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل معدات الحماية من الحريق</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">دليل اختيار طفايات الحريق: بودرة جافة ABC لمشاريع B2B والتصدير</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">طفايات الحريق المحمولة هي نقطة الدخول الأعلى حجمًا في توريد معدات الحماية من الحريق — لكن طفايات البودرة الجافة ABC وCO2 والرغوة والماء ليست بديلة عن بعضها. يساعد هذا الدليل المستوردين والموزعين ومشترِي المشاريع على مطابقة فئات الحريق مع وسائط الإطفاء، وفحص المواصفات التي تهمّ فعلًا، وضبط الشهادات ووثائق البضائع الخطرة قبل شحن الطلب.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-fire-extinguishers" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. لماذا تتصدّر طفايات الحريق توريد معدات الحماية من الحريق</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تُظهر بيانات البحث من منصات الصناعة لشهر أغسطس 2026 أن <strong>طفاية الحريق</strong> كانت الفئة الأكثر بحثًا في عيّنة معدات الحماية من الحريق — نحو 19,800 عملية بحث، أي نحو ثلث جميع عمليات البحث في الفئات الصدارة — مع إضافة آلاف أخرى من الصيغ المحمولة ذات الصلة مثل طفايات الهباء والطفاية ذات الشكل الكروي. سجّل مؤشر الاهتمام النسبي للبحث في Google عن «طفاية حريق» قيمة 80/100 في أغسطس 2026 بعد أن بلغ ذروته عند 100 مطلع العام، وكان الاهتمام النسبي الأقوى في قطر والإمارات والفلبين والولايات المتحدة والمملكة المتحدة.</p>
+			<p class="text-gray-700 leading-relaxed">ما تعنيه هذه الأرقام فعلًا للمورّد: الطلب يصل بثلاثة أنماط شراء مختلفة في آن واحد — موزّعون يعيدون تعبئة مخزون SKUs القياسية، ومقاولون يجهّزون المباني وفق مواصفات محددة، ومديرو مرافق يستبدلون الطفايات المنتهية الصلاحية. عرض عام عن «معدات الحريق» يمزج مشترّي التجزئة والمشترين الهندسيين في استفسار واحد غامض. عرض وسائط الإطفاء والسعة وتغطية الفئات والشهادات منذ البداية هو ما يتيح لكل مشترٍ اختيار عائلة المنتجات الصحيحة بنفسه.</p>
+
+			<h2 id="fire-classes-agents" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. فئات الحريق ووسائط الإطفاء</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">كل طفاية محمولة مصنَّفة ضد فئات الحريق، ويجب أن يطابق الوسيط الخطر. البودرة الجافة ABC هي الافتراض المتعدد الأغراض؛ وتربح وسائط أخرى حيث تغيّر البقايا أو خطر إعادة الاشتعال أو الوقود الخاص الصورة.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">فئة الحريق</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الوقود النموذجي</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">أكثر الوسائط فعالية</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">ملاءمة البودرة الجافة ABC</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Class A</td>
+							<td class="px-4 py-3 text-gray-700">خشب، ورق، منسوجات، بلاستيك</td>
+							<td class="px-4 py-3 text-gray-700">ماء، رغوة، بودرة ABC</td>
+							<td class="px-4 py-3 text-gray-700">الخيار القياسي</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Class B</td>
+							<td class="px-4 py-3 text-gray-700">بنزين، زيوت، مواد مذيبة، دهانات</td>
+							<td class="px-4 py-3 text-gray-700">بودرة ABC، رغوة، CO2</td>
+							<td class="px-4 py-3 text-gray-700">الخيار القياسي</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Class C</td>
+							<td class="px-4 py-3 text-gray-700">بروبان، بوتان، ميثان، LPG</td>
+							<td class="px-4 py-3 text-gray-700">بودرة ABC (أوقف المصدر أولًا)</td>
+							<td class="px-4 py-3 text-gray-700">مناسب</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Class E</td>
+							<td class="px-4 py-3 text-gray-700">معدات كهربائية تحت الجهد</td>
+							<td class="px-4 py-3 text-gray-700">CO2، بودرة ABC (غير موصلة)</td>
+							<td class="px-4 py-3 text-gray-700">مناسب — انتبه لبقايا البودرة</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Class F</td>
+							<td class="px-4 py-3 text-gray-700">زيوت ودهون الطهي</td>
+							<td class="px-4 py-3 text-gray-700">كيماوي رطب</td>
+							<td class="px-4 py-3 text-gray-700">غير موصى بها</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Class D</td>
+							<td class="px-4 py-3 text-gray-700">معادن قابلة للاحتراق (Mg, Na)</td>
+							<td class="px-4 py-3 text-gray-700">بودرة معدنية متخصصة</td>
+							<td class="px-4 py-3 text-gray-700">غير مناسب</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">للمرافق المختلطة التي يزوّد بها معظم مشترِي B2B — مكاتب، مستودعات، ورش، تجزئة — تغطي سلسلة البودرة الجافة ABC الواحدة عادةً 80% من الطفايات المحمولة في قائمة المواد، مع حجز CO2 لغرف الكهرباء والرغوة أو الكيماوي الرطب للمخاطر المتخصصة.</p>
+
+			<h2 id="abc-specifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. شرح مواصفات البودرة الجافة ABC</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">عند وصول عرض السعر، افحص هذه المعايير الخمسة قبل مقارنة الأسعار بين المورّدين:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>الوسيط والسعة</strong> — بودرة ABC المعتمدة على فوسفات الموني أمونيوم هي القياسي متعدد الأغراض؛ الوزن الصافي للوسيط (3kg / 4kg / 5kg في سلسلتنا) يحدّد التغطية وتكلفة الشحن معًا.</li>
+				<li><strong>المحتوى النشط</strong> — بودرتنا ABC محددة عند 90% محتوى نشط، وهو ما يؤثر في أداء الإطفاء لكل كيلوغرام.</li>
+				<li><strong>أداء التفريغ</strong> — توقّع تفريغًا فعّالًا مدّته تقريبًا 8-15 ثانية لطفاية 5kg؛ يجب أن تذكر ورقة المواصفات ذلك لا أن تتركه مفترضًا.</li>
+				<li><strong>تعمل بالضغط المخزّن والمقياس</strong> — يُبقي الوسيط الدافع والبودرة تحت ضغط في أسطوانة واحدة؛ المقياس الملوّن يُظهر أن الطفاية صالحة للاستخدام، لذا يهمّ تصميم المقياس في فحوصات الصيانة.</li>
+				<li><strong>جودة الأسطوانة والصمام</strong> — أسطوانة من الفولاذ الكربوني بطلاء أحمر مضاد للتآكل، وتجميع صمام من النحاس الأصفر، وخراطيم تفريغ بفوهة تُكمل الوحدة.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">طفايتنا <a href="/ar/products/abc-dry-powder-fire-extinguisher-5kg/" class="text-brand-blue font-semibold hover:underline">من البودرة الجافة ABC بسعة 5kg</a> مصنوعة وفق ISO 7165 بعلامة CCCF، تغطي حرائق الفئات A/B/C/E، متوفرة بأوزان صافية 3kg / 4kg / 5kg مع ضمان سنة واحدة. خراطيم التفريغ ومقياس الضغط وصمام النحاس الأصفر مشمولة كمواصفات قياسية.</p>
+			<p class="text-gray-700 leading-relaxed">ملاحظة صادقة تستحق تمريرها لعملائك: البودرة الجافة تترك بقايا رخيصة التنظيف من الأرضيات والمعدات لكنها ضارّة بالإلكترونيات — وهذا بالضبط سبب تحذير صف الفئة E في الجدول أعلاه.</p>
+
+			<h2 id="certification-compliance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. الشهادات والامتثال للتصدير</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">الشهادات هي ما يميّز توريد الطفايات المحمولة عن شراء السلع، إذ يجب أن تطابق العلامات النموذج الفعلي — لا العلامة التجارية أو السلسلة.</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>ISO 7165</strong> — المعيار الدولي لطفايات الحريق المحمولة، يغطي البنية والأداء والاختبارات. هو نقطة المرجع لمعظم أسواق التصدير وموسوم على طراؤنا 5kg.</li>
+				<li><strong>CCCF</strong> — شهادة الإلزام الصينية للمنتجات الحريقية. تؤهّل الطفاية للسوق الصيني؛ وهي <strong>ليست</strong> شهادة تصدير، وهذا التمييز مهم عندما يخطّط مشترٍ لإعادة البيع خارج الصين.</li>
+				<li><strong>شهادة سوق الوصول</strong> — للاتحاد الأوروبي، تحقّق من علامة CE مقابل المعيار المنطبق على النموذج الدقيق؛ وبعض التطبيقات في أمريكا الشمالية تبحث عن طفايات مسجّلة UL أو ULC. اطلب دائمًا من المُصنّع الشهادة التي تغطي النموذج وتوليفة الصمام التي تنوي استيرادها، ورفض التصريحات العامة «عبر السلسلة».</li>
+				<li><strong>العلامات واللغة</strong> — يجب تأييد رموز التشغيل التصويرية وشارات الفئات ولغة لوحة التعليمات لبلد الوصول قبل الإنتاج الجماعي، لأن إعادة التوسّم بعد الوصول مكلفة.</li>
+				<li><strong>تقارير اختبار الدفعات</strong> — اطلب تقرير اختبار الدفعة الإنتاجية الفعلية، لا قالبًا من نموذج آخر. صفحة <a href="/ar/certificates/" class="text-brand-blue font-semibold hover:underline">الشهادات والامتثال</a> لدينا تُظهر كيفية معالجة وثائق الشهادات لسلسلة معدات الحماية من الحريق لدينا.</li>
+			</ul>
+
+			<h2 id="applications-scenarios" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. أين تُركَّب الطفايات: التجاري والمستودعات والمركبات</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">الطفاية نفسها 5kg من ABC تخدم مستخدمين نهائيين مختلفين جدًا، وتتغيّر المواصفة مع الموقع:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>المباني التجارية والمكاتب</strong> — طفايات ABC جدارية 4-5kg قرب المخارج والمناطق العامة، مع CO2 في غرف الكهرباء. تحمي الخزائن الجدارية الطفاية وتسهّل الفحص.</li>
+				<li><strong>المستودعات والأرضيات الصناعية</strong> — بودرة ABC لمخاطر الفئتين A/B المختلطة؛ المناطق المفتوحة الكبيرة عادةً تجمع الطفايات مع أنظمة بكرة المرن، وللسقفات العالية جدًا أنظمة إطفاء ثابتة. راجع <a href="/ar/guides/fire-hose-reel-cabinet-guide/" class="text-brand-blue font-semibold hover:underline">دليل بكرة مرن الحريق وخزانته</a> للجانب الثابت من نفس الحزمة.</li>
+				<li><strong>المركبات والمحمول</strong> — طفايات مضغوطة للشاحنات ورافعات الشوك وغرف المعدات؛ خيارنا 3kg يناسب هذه المساحات ويمكن عرضه مع معدات التركيب.</li>
+				<li><strong>المحيطات الخارجية والبيئات التآكسية</strong> — <a href="/ar/products/stainless-steel-fire-extinguisher-box/" class="text-brand-blue font-semibold hover:underline">خزانة الطفاية من الفولاذ المقاوم للصدأ</a> (SS304/201 مع نافذة مشاهدة) تحمي الطفايات في المطارات والمواقع الساحلية والمصانع الكيميائية، بينما <a href="/ar/products/metal-fire-extinguisher-box-red/" class="text-brand-blue font-semibold hover:underline">خزانة الطفاية المعدنية الحمراء</a> مع تعليمات تشغيل مطبوعة هي القياسي الداخلي الاقتصادي.</li>
+			</ul>
+
+			<h2 id="factory-buying-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. قائمة شراء المصنع: OEM وMOQ وتغليف البضائع الخطرة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">شراء الطفايات من مصنع صيني هو عمل توثيق بقدر ما هو عمل منتجات. نفّذ هذه القائمة قبل التزامك:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>نطاق OEM</strong> — يمكن تخصيص لون الأسطوانة والتوسّم على الجسم والشعار ولغة التوسّم؛ أكّد الرسومات وتوقيت الموافقة في جدول الطلب.</li>
+				<li><strong>MOQ ومدة التوريد</strong> — كلاهما يعتمد على النموذج والكمية وتكوين التوسّم، لذا يُتأكَّد في عرض السعر؛ بيّن سوقك المستهدف وحجمك السنوي للحصول على رقم واقعي.</li>
+				<li><strong>تصنيف البضائع الخطرة</strong> — قد تُصنَّف الأسطوانة المضغوطة بضاعة خطرة للنقل. أكّد تصنيف UN ومتطلبات التغليف للنموذج الدقيق مع وسيط الشحن قبل حجز المكان.</li>
+				<li><strong>وثائق التصدير الصينية</strong> — حيث تُصنَّف الشحنة بضاعة خطرة، يجب على المُصدِّر الصيني تقديم شهادة تقييم تغليف نقل البضائع الخطرة المصدَّرة؛ وتُظهر حالات إنفاذ الجمارك احتجاز شحنات دونها وتعرّضها للغرامات. اطلب من مورّدك تأكيد توفّر هذا المستند.</li>
+				<li><strong>دمج الحزمة</strong> — طلب الطفايات معًا مع الخزائن الجدارية وبكرات المرن والصمامات من مُصنّع واحد يبسّط ملفات الشهادات والشحن. <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة توريد الصمامات B2B</a> لدينا تغطي جانب التحقق من المصنع من نفس العناية الواجبة.</li>
+			</ul>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">تبحث عن توريد طفايات حريق بودرة جافة ABC؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل سوقك المستهدف والكمية ولغة التوسّم — يؤكد فريقنا حالة الشهادة وMOQ ومتطلبات تغليف البضائع الخطرة خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=ABC%20Dry%20Powder%20Fire%20Extinguisher" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%B7%D9%81%D8%A7%D9%8A%D8%A7%D8%AA%20%D8%AD%D8%B1%D9%8A%D9%82%20%D8%A8%D9%88%D8%AF%D8%B1%D8%A9%20%D8%AC%D8%A7%D9%81%D8%A9%20ABC" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

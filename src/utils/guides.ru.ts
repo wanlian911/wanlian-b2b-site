@@ -257,5 +257,14 @@ export const guidesRu: Guide[] = [
     category: 'Закупки B2B',
     readTime: readTime('9'),
     tags: ['procurement', 'fire-hydrant', 'industrial-valves']
-  }
+  },
+  {
+    title: 'Цифровой балансировочный клапан HVAC: гид по выбору SP45F',
+    description: 'Гид по цифровым балансировочным клапанам HVAC: как контрольные отводы и цифровая блокировка SP45F поддерживают пусконаладку, данные для RFQ и сравнение.',
+    href: '/ru/guides/hvac-digital-balancing-valve-guide/',
+    date: '2026-09',
+    category: 'HVAC и промышленные клапаны',
+    readTime: '8 мин чтения',
+    tags: ['industrial-valves', 'backflow-prevention']
+  },
 ];

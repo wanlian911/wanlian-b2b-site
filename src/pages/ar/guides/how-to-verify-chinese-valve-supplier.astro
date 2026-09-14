@@ -1,0 +1,216 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'step-1-verify-company', label: '1. تحقق من الشركة، لا من الكتيّب' },
+	{ id: 'step-2-match-standard', label: '2. مطابقة المنتج مع معيار أمر الشراء' },
+	{ id: 'step-3-demand-testing', label: '3. افرض اختبارًا لكل وحدة وفحصًا من طرف ثالث' },
+	{ id: 'step-4-counterfeit-red-flags', label: '4. اعرف علامات الغش التحذيرية' },
+	{ id: 'step-5-documentation', label: '5. ثبّت المستندات قبل الدفع' },
+	{ id: 'wanlian-verification', label: '6. كيف تتعامل Wanlian Fluid مع التحقق' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' },
+	{ id: 'sources', label: 'المصادر' }
+];
+
+const faq = [
+	{
+		question: 'هل شهادة ISO 9001 كافية للثقة بمورد صيني؟',
+		answer: 'لا — هي نقطة بداية فقط. تحقّق من أن الشهادة سارية ضمن نطاقها لدى الجهة المصدرة، ثم اجمعها مع تدقيق مصنع مباشر وفحص من طرف ثالث. شهادة ISO 9001 تُصدَّر لنظام إدارة الجودة، لا لإثبات مطابقة أي منتج بعينه.'
+	},
+	{
+		question: 'ما الاختبارات التي يجب أن يجتازها خلاط الحريق قبل شحنه للتصدير؟',
+		answer: 'بحد أدنى: اختبار ضغط الجسم واختبار إحكام المقعد (التسريب) وفق المعيار الذي حددته (AWWA C502 أو EN 14384 مثلًا). اطلب سجلات اختبار لكل وحدة، وللمشاريع الحرجة اختبارًا بحضور جهة فاحصة من طرف ثالث قبل الشحن.'
+	},
+	{
+		question: 'هل أحتاج موافقة UL أو FM لاستيراد معدات مكافحة الحريق من الصين؟',
+		answer: 'فقط إذا كان سوق الوجهة أو العقد يطلبها — وهذا النمط شائع لمكونات أنظمة الحماية من الحريق في الولايات المتحدة وكندا. أما معظم المشاريع البلدية والصناعية الدولية فتعمل بمواصفات AWWA أو EN أو BS أو ISO بدلًا من ذلك.'
+	},
+	{
+		question: 'كيف أتحقق من أن شهادة مصنع صيني حقيقية؟',
+		answer: 'اطلب رقم الشهادة وتحقق منه مباشرة لدى الجهة المصدرة أو لدى قاعدة بيانات الاعتماد الوطنية. اعتبر صور الشهادات المرفقة بالبريد الإلكتروني غير مؤكدة حتى تتحقق منها بشكل مستقل.'
+	},
+	{
+		question: 'كم تكاليف الفحص من طرف ثالث؟',
+		answer: 'عادةً نسبة ضئيلة من قيمة الحاوية، حسب الوكالة ونطاق الفحص والموقع. ولأول طلبات معدات السلامة من الحريق فهي أرخص تأمين متاح.'
+	},
+	{
+		question: 'هل يمكنني طلب عينات أو دفعة أولى صغيرة قبل الالتزام؟',
+		answer: 'نعم — المصنّعون الموثوقون، ومنهم Wanlian Fluid، يدعمون طلبات العينات والطلبات الأولى القائمة على الاستفسار. استخدم جولة العينات لتطبيق قائمة فحصك الخاصة قبل توسيع الكميات.'
+	}
+];
+
+const productRows = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'خلاط حريق خارجي مضاد للتجميد SS100/65', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'خلاط حريق خارجي مضاد للتجميد بجسم جاف للشبكات البلدية' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'صمام بوابة بفلنجة بمقعد مرن من الحديد الزهر المطبوع (Z41X)', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'صمام عزل بكامل القطر للخطوط الرئيسية وخطوط أنابيب الحريق' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'خرطوم حريق مسطح بطبقة مطاطية PVC (موديل 8-65)', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'خرطوم مسطح مبطن بالمطاط لإطفاء الحريق ونقل المياه' }
+];
+---
+
+<Layout
+	title="كيف تتحقق من مورد صيني للصمامات ومعدات مكافحة الحريق"
+	description="دليل التحقق من موردي الصمامات ومعدات مكافحة الحريق الصينيين: فحص صلاحية ISO 9001، تقارير اختبار مطابقة للمعيار، الفحص من طرف ثالث، وعلامات الغش التحذيرية."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'التحقق من الموردين' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">التحقق من الموردين</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل التحقق من الموردين</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">كيف تتحقق من مورد صيني للصمامات ومعدات مكافحة الحريق في 2026: ISO 9001، فحص من طرف ثالث، وكشف المنتجات المقلدة</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">لا يستحق مورد صيني للصمامات أو معدات مكافحة الحريق طلبك إلا إذا تحققت من أربعة أمور بشكل مستقل: (1) مصنع حقيقي قابل للتدقيق يحمل شهادة ISO 9001 سارية، (2) تقارير اختبار منتج مطابقة للمعيار المحدد حرفيًا في أمر الشراء، (3) فحص من طرف ثالث قبل الشحن، و(4) مستندات يمكنك التحقق منها — لا مجرد لقطات شاشة. أما السعر فهو آخر متغير يتعيّن تفاوضك عليه، لا أول ما تستند إليه.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">لماذا وُجدت هذه القائمة:</strong> في مراقبة أجريناها في سبتمبر 2026 لـ 30 استفسار شراء حقيقيًا عبر محركات البحث الذكية، أسئلة مثل «كيف أتحقق من مورد صيني» و«كيف أتجنب خلاطات الحريق المقلدة» لم تُرجع إجابات موثوقة من مستوى المصنع — فالمصادر المقتبس منها كانت في الغالب هيئات معايير لا موردين. هذه الصفحة تحوّل هذه الهواجس الغامضة إلى عملية تحقق مكتوبة يمكن إدراجها في طلب عرض السعر (RFQ).</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="step-1-verify-company" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. تحقق من الشركة، لا من الكتيّب</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">ابدأ قبل أن تنظر إلى المنتجات.</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>أكّد الكيان القانوني.</strong> اطلب الرخصة التجارية وراجع الاسم المسجل مقابل الحساب البنكي الذي تُصدَر منه الفواتير. يجب أن تُوجَّه المدفوعات إلى الكيان القانوني، وليس أبدًا إلى حساب شخصي.</li>
+				<li><strong>تحقّق من أن شهادة ISO 9001 سارية.</strong> صورة الشهادة لا تثبت شيئًا. اطلب رقم الشهادة وتحقق منها في قاعدة بيانات الجهة المصدرة — فالشهادات الصادرة عن هيئات معتمدة مسجلة لدى هيئات الاعتماد الوطنية مثل CNAS في الصين أو لدى أعضاء IAF حول العالم. وتأكد من أن بيان النطاق يغطي المنتجات التي تشتريها — فنطاق ISO 9001 الذي يذكر «تجارة» يختلف عن نطاق يذكر «تصنيع».</li>
+				<li><strong>اطلب تدقيق مصنع مباشر.</strong> المصنّع الحقيقي يقدّم جولة فيديو عبر مناطق الإنتاج والاختبار والتغليف عند الطلب. الرفض يعني أنك على الأرجح تتحدث مع مكتب تجارة يتظاهر بأنه مصنع.</li>
+				<li><strong>افحص سجل التصدير.</strong> اطلب بوالص الشحن أو تصريحات الجمارك أو مراجع عملاء في منطقتك. ثلاث شحنات تصدير قابلة للتحقق خير دليل من أي عدد من ادعاءات التسويق.</li>
+			</ul>
+
+			<h2 id="step-2-match-standard" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. مطابقة المنتج مع معيار أمر الشراء</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">أكثر أخطاء الشراء شيوعًا هو شراء «خلاط حريق» عام بدلًا من «خلاط حريق يحقق <em>هذا</em> المعيار تحديدًا». قبل مقارنة العروض، اكتب المعيار الذي يتطلبه مشروعك:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>خلاطات الحريق:</strong> AWWA C502 (جسم جاف، مواصفات هيئات خدمات المياه الأمريكية) أو EN 14384 (خلاطات عمودية، أوروبا) أو BS 750 (بريطانيا) أو المعادل في كود بلدك.</li>
+				<li><strong>خرطوم الحريق:</strong> NFPA 1961 (خرطوم الهجوم الأمريكي) أو EN 14540 أو المعادلات الوطنية، بالإضافة إلى معيار الموصلات الذي تستخدمه هيئة الإطفاء فعلًا — خيوط NH في الولايات المتحدة، Storz في معظم أوروبا، والارتباط الفوري (BS 336) في بريطانيا.</li>
+				<li><strong>الصمامات:</strong> AWWA C515 (صمامات بوابة بمقاعد مرنة، الولايات المتحدة) أو EN 1074 (صمامات إمداد المياه، أوروبا) أو ISO 5208 (اختبار تسرب الصمامات) ودرجات تصنيف الضغط (PN أو ANSI class) التي يتطلبها نظامك.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">غير متأكد أي نظام معايير يحكم سوقك؟ يشرح <a href="/ar/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">دليل معايير خلاطات الحريق وخراطيم الحريق والصمامات</a> لدى موقعنا أنظمة AWWA وNFPA وEN وBS وISO بلغة مبسطة مع جدول مقارنة المعايير.</p>
+			<p class="text-gray-700 leading-relaxed">ثم اطلب من المورد <strong>تقرير الاختبار المطابق لذلك المعيار</strong> — للموديل المحدد في عرض السعر (مثل <a href="/ar/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">خلاط الحريق الخارجي المضاد للتجميد SS100</a> من Wanlian أو <a href="/ar/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">صمام البوابة بفلنجة بمقعد مرن Z41X</a> أو <a href="/ar/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">خرطوم الحريق المسطح المبطن بالمطاط 8-65</a>) — لا شهادة جودة عامة.</p>
+
+			<h2 id="step-3-demand-testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. افرض اختبارًا لكل وحدة وفحصًا من طرف ثالث</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">المعايير تنص على الاختبارات، والمورد هو من يحدد مدى صرامة إجرائها. اصطُر على:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>اختبار ضغط وتسريب لكل وحدة.</strong> المصنّع المسؤول يختبر ضغط جسم كل صمام وكل خلاط، ويجري اختبار تسريب الهواء على كل وحدة — لا سياسة «عينة لكل دفعة» مخفية في سطور صغيرة. Wanlian Fluid مثلًا تصرّح بإجراء اختبار 100% لضغط الجسم واختبار تسريب الهواء على كل وحدة قبل طلاء الإبوكسي والتغليف.</li>
+				<li><strong>فحص من طرف ثالث قبل الشحن.</strong> عيّن وكالة فحص مستقلة (SGS أو Bureau Veritas أو Intertek أو TÜV أو شركة محلية معروفة) لحضور الاختبارات وفحص المواد ومراجعة المستندات في المصنع قبل مغادرة البضاعة. فلمعظم المشترين تكون هذه التكلفة أقل بكثير من حاوية سيئة واحدة.</li>
+				<li><strong>خطة عينات تتناسب مع خطرك.</strong> إذا حدّد المعيار الذي تشتري عليه مستوى فحص، فالتزم به. لمعدات السلامة من الحريق الحرجة بلديًا أو صناعيًا، فضّل الفحص 100% في الطلب الأول، ثم اتفق على خطة أخذ عينات مبنية على AQL للطلبات المتكررة.</li>
+			</ul>
+
+			<h2 id="step-4-counterfeit-red-flags" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. اعرف علامات الغش التحذيرية</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">خلاطات الحريق والصمامات المقلدة مشكلة موثقة في سلاسل إمداد السلامة من الحريق على مستوى العالم. انتبه إلى:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>سعر أقل بكثير من السوق</strong> لمنتج مطابق للمعيار نفسه — فالأجسام المصبوبة من الحديد الزهر المطبوع المطابقة، وتغليف EPDM، والطلاءات المعتمدة كلها لها أدنى حدود تكلفة حقيقية.</li>
+				<li><strong>شهادات لا تطابق المنتج.</strong> اسم شركة خاطئ، أو خط منتجات خاطئ، أو تواريخ منتهية، أو شهادات باسم علامة تجارية ليست هي المذكورة في عرض سعرك.</li>
+				<li><strong>الرفض إجراء تدقيق فيديو، أو عنوان مصنع غير موجود، أو عبارة «المصنع بعيد ونحن نتولى كل شيء».</strong></li>
+				<li><strong>اختصارات في اللوحة التعريفية والعلامات.</strong> معظم المعايير تشترط علامات دائمة (رقم المعيار، المقاس، تصنيف الضغط، هوية المصنّع، تتبّع الإنتاج). العلامة المفقودة أو غير المتسقة هي فشل في الفرز.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">إذا ورثت سلسلة إمداد قائمة، فتأكد من تطابق العلامات مع متطلبات المعيار، واطلب سجلات اختبار المصنع للدفعة، وافحص عينات عشوائية عبر فحص من طرف ثالث قبل إعادة الطلب.</p>
+
+			<h2 id="step-5-documentation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. ثبّت المستندات قبل الدفع</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">حزمة التصدير الكاملة من مصنع صيني يجب أن تشمل، على الأقل: فاتورة تجارية، وقائمة تغليف، وبوليصة شحن، وشهادة منشأ، وشهادة ISO 9001 (سارية ومُتحقَّق منها)، وتقارير اختبار لكل دفعة مطابقة لمعيارك، و — إن طلبتها — تقرير الفحص من طرف ثالث. ضع قائمة المستندات في أمر الشراء لتكون دينًا تعاقديًا لا طلبًا مهذبًا.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">المستند</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">ما يُثبته</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">علامة تحذير عند الفرز</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الفاتورة التجارية وقائمة التغليف</td>
+							<td class="px-4 py-3 text-gray-700">محتويات الشحنة القانونية والكميات وأسعار الوحدات</td>
+							<td class="px-4 py-3 text-gray-700">الكيان على الفاتورة يختلف عن صاحب الحساب البنكي</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">بوليصة الشحن</td>
+							<td class="px-4 py-3 text-gray-700">البضاعة التي شُحنت فعلًا والمسار والتواريخ</td>
+							<td class="px-4 py-3 text-gray-700">بوليصة شحن «مسودة» بدل بوليصة شحن شُحنت فعلًا في طلب أول</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">شهادة المنشأ</td>
+							<td class="px-4 py-3 text-gray-700">ادعاء المنشأ لأغراض الجمارك والتعرفة</td>
+							<td class="px-4 py-3 text-gray-700">بلد منشأ لا يطابق المصنع الذي تدققته</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">شهادة ISO 9001</td>
+							<td class="px-4 py-3 text-gray-700">نظام إدارة جودة سارٍ وضمن النطاق</td>
+							<td class="px-4 py-3 text-gray-700">جهة إصدار أو رقم شهادة لا يمكن التحقق منه لدى المصدِر</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">تقارير اختبار لكل دفعة</td>
+							<td class="px-4 py-3 text-gray-700">المنتج يحقق المعيار المذكور في أمر الشراء</td>
+							<td class="px-4 py-3 text-gray-700">تقرير يشير إلى معيار أو موديل مختلف عن عرض السعر</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">تقرير الفحص من طرف ثالث</td>
+							<td class="px-4 py-3 text-gray-700">مراقبة مستقلة للاختبارات والعلامات</td>
+							<td class="px-4 py-3 text-gray-700">«فحص» أجراه موظفو البائع نفسه</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="wanlian-verification" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. كيف تتعامل Wanlian Fluid مع التحقق</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">إذا كان Wanlian Fluid ضمن قائمتك المختصرة، فإن عملية التحقق أعلاه هي الحوار الذي نتوقع إجراءه معك. الإنتاج يتم على خطوط إنتاجنا في Quanzhou, Fujian (China)، مع إنتاج عناصر محددة بواسطة شركاء تصنيع مؤهلين، ضمن نظام إدارة جودة ISO 9001؛ أجسام الصمامات تُصنع داخل المنشأة على ماكينات CNC، وكل صمام وخلاط وخرطوم يخضع لاختبار ضغط جسم واختبار تسريب هواء بنسبة 100% قبل التشطيب؛ عروض السعر القائمة على الاستفسار تتضمن أوراق المواصفات ودعم التطبيق؛ وتنسيق OEM/ODM وتغليف التصدير ومستندات المنتج يتم مع الطلب. اطلب منا الشهادات وتقارير الاختبار المطابقة للمعيار في أمر الشراء — فنحن نعتبر هذا الطلب علامة على مشترٍ جاد.</p>
+			<p class="text-gray-700 leading-relaxed">إطار تدقيق المصنع في صيغة قائمة تحقق: انظر <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة تحقق شراء الصمامات B2B</a>؛ وللمقارنة بين مصنع غربي وموقعنا قبل التصفية النهائية، اقرأ <a href="/ar/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian Fluid مقابل American AVK</a>.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Sources -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">المصادر</h2>
+			<ul class="list-disc ps-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>ISO — معايير إدارة الجودة والصمامات/السوائل: <a href="https://www.iso.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">iso.org</a></li>
+				<li>AWWA — معايير خلاطات الحريق والصمامات (مثل AWWA C502، C515): <a href="https://www.awwa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">awwa.org</a></li>
+				<li>NFPA — معايير خراطيم الحريق ومعدات الحماية من الحريق (مثل NFPA 1961): <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+				<li>Wanlian Fluid — الملف التعريفي للشركة وشهادة ISO 9001 وسياسة الاختبارات: <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">تختلف متطلبات التحقق حسب سوق الوجهة ومواصفات المشروع — تحقّق دائمًا من المعيار الساري ونظام الفحص مع جهة التعاقد قبل وضع الطلبات. المعلومات حالية حتى سبتمبر 2026.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">تخطط لأول طلب من مورد صيني للصمامات أو معدات مكافحة الحريق؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل إلينا معيار مشروعك وجهة الشحن ومتطلبات الفحص — نرد خلال 12 ساعة بالشهادات وتقارير اختبار لكل دفعة وملف تحقق كامل.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Supplier%20Verification%20%26%20RFQ" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%2C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D8%AD%D9%82%D9%82%20%D9%85%D9%86%20%D9%85%D8%B5%D9%86%D8%B9%D9%83%D9%85%20%D9%88%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D8%A7%D9%84%D8%B4%D9%87%D8%A7%D8%AF%D8%A7%D8%AA%20%D9%88%D8%AA%D9%82%D8%A7%D8%A6%D8%B1%20%D8%A7%D9%84%D8%A7%D8%AE%D8%AA%D8%A8%D8%A7%D8%B1" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

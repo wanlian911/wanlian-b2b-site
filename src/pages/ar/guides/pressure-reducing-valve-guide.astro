@@ -1,0 +1,199 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'كيف يعمل صمام خفض الضغط الهيدروليكي دون كهرباء؟',
+		answer: 'صمام خفض الضغط الهيدروليكي الذاتي التشغيل يستخدم صمام طيار مع ضغط الخط نفسه كقوة الدافع. يحسّ الطيار ضغط أسفل التيار: عندما يرتفع فوق نقطة الضبط، يُغلق الطيار قليلًا، ويتراكم ضغط في غرفة الغشاء ويُخنق الصمام الرئيسي؛ وعندما يهبط، يفرّغ الطيار الغرفة ويفتح الصمام الرئيسي أوسع. لا يُحتاج مصدر طاقة خارجي.'
+	},
+	{
+		question: 'ما نطاق ضغط أسفل التيار الذي يستطيع صمام خفض الضغط 500X ثباته؟',
+		answer: 'صمام خفض الضغط الهيدروليكي القابل للضبط 500X من Wanlian يغطي DN20-DN600 (من 3/4" إلى 24") مع ضغط أسفل التيار قابل للضبط من 0.1 MPa إلى 1.6 MPa. جسم الصمام مصنف بضغط اسمي 1.0 MPa أو 1.6 MPa أو 2.5 MPa، لذا اذكر ضغط المدخل وضبط الضغط المطلوب عند طلب عرض السعر.'
+	},
+	{
+		question: 'ما الفرق بين صمام خفض الضغط 500X وصمام التحكم بالمستوى F745X؟',
+		answer: 'صمام خفض الضغط 500X يحافظ على ضغط أسفل التيار ثابتًا بغضّ النظر عن تذبذب التدفق. صمام التحكم بالمستوى الهيدروليكي للماء F745X يحافظ بدلًا من ذلك على مستوى ماء مُقدَّم سلفًا في خزان أو حوض أو برج ماء، باستخدام طيار طافية يفتح ويغلق الصمام الرئيسي مع تغير المستوى. كلاهما صمام تحكم هيدروليكي ذاتي التشغيل دون طاقة خارجية.'
+	},
+	{
+		question: 'متى أختار F745X بدل صمام الطافية عن بعد 100X-16P؟',
+		answer: 'F745X (DN50-DN400، 1.0/1.6 MPa، حديد زهر مطبوع QT450-10) هو الخيار القياسي للخزانات الكبيرة وأبراج الماء. صمام الطافية عن بعد 100X-16P (DN40-DN300، 0-1.0 MPa) له جسم فولاذ مقاوم صدأ CF8 مصبوب، يناسب الوسائط المتآكلة أو المتطلبات الصحية الأعلى أو التركيبات القريبة من مياه البحر، ويمكن تشغيله عن بعد بطيار طافية تحكم.'
+	},
+	{
+		question: 'لماذا يوصى بفلتر Y أعلى التيار من صمامات التحكم الهيدروليكي؟',
+		answer: 'صمامات التحكم الهيدروليكي تعمل بالطيار، وموانع الطيار وصمامات الإبرة فيها حساسة للجسيمات. يُركَّب فلتر Y التلسكوبي SGL41H عند مدخل الصمام لترشيح الشوائب، بشاشات من الفولاذ المقاوم للصدأ 304/316 (شبكة 18-30 للماء). يوفّر موصّل التمدد المدمج إمكانية إزالة الصمام للصيانة دون قطع خط الأنابيب.'
+	},
+	{
+		question: 'هل تساعد صمامات التحكم الهيدروليكي بطيئة الإغلاق في منع صدمة الماء؟',
+		answer: 'نعم. صُمم 500X وF745X بإجراء إغلاق بطيء سلس حتى لا يُغلق الصمام بعنف عند توقف التدفق، مما يتجنب ارتفاعات الضغط المدمرة وصدمة الماء في الشبكة. لخطوط سحب المضخات، أضف مانع دوامة سحب EN12845 لإيقاف دخول الهواء الذي يمكن أن يسبّب التكهف وذروات الضغط.'
+	}
+];
+
+const toc = [
+	{ id: 'what-is-hydraulic-prv', label: 'ما هو صمام خفض الضغط الهيدروليكي؟' },
+	{ id: 'how-pilot-prv-works', label: 'كيف يعمل صمام 500X الذاتي' },
+	{ id: 'hydraulic-control-valve-comparison', label: 'خفض الضغط مقابل التحكم بالمستوى مقابل الطافية' },
+	{ id: 'typical-applications', label: 'أين ينتمي كل صمام' },
+	{ id: 'installation-and-protection', label: 'التركيب والحماية' },
+	{ id: 'specification-checklist', label: 'قائمة مواصفات B2B' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const products = [
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: 'صمام خفض ضغط هيدروليكي 500X', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'DN20-DN600، قابل للضبط 0.1-1.6 MPa' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'صمام تحكم مستوى ماء هيدروليكي F745X', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'DN50-DN400 طيار طافية، تحكم مستوى خزان' },
+	{ slug: 'remote-control-float-valve-100x', name: 'صمام طافية عن بعد 100X-16P (CF8)', img: '/assets/products/remote-control-float-valve-100x.webp', desc: 'فولاذ مقاوم صدأ، DN40-DN300، 0-1.0 MPa' },
+	{ slug: 'groove-solenoid-control-gate-valve-gkzf1', name: 'GKZF-1 صمام بوابة تحكم كهرومغناطيسي', img: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg', desc: 'DN50-DN300، AC220V/DC24V، 300 PSI' }
+];
+---
+
+<Layout
+	title="دليل صمامات خفض الضغط: 500X هيدروليكي لإمداد المياه"
+	description="كيف تعمل صمامات خفض الضغط الهيدروليكي، متى تختار 500X خفض ضغط أو F745X تحكم مستوى أو 100X طافية، مع قائمة مواصفات B2B لإمداد المياه."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'دليل صمامات خفض الضغط' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">دليل صمامات خفض الضغط</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل صمامات التحكم الهيدروليكي</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">دليل صمامات خفض الضغط: 500X هيدروليكي وصمامات تحكم إمداد المياه</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">باختصار: صمام خفض الضغط الهيدروليكي صمام تحكم ذاتي التشغيل يعمل بالطيار يحافظ على ضغط أسفل التيار ثابت باستخدام ضغط الخط فقط — دون كهرباء. لشبكات إمداد المياه تختار عادةً بين صمام خفض الضغط 500X (ضغط أسفل التيار ثابت) وصمام التحكم بالمستوى F745X (مستوى خزان ثابت) وصمام الطافية عن بعد 100X (خيار فولاذ مقاوم صدأ مدمج). يشرح هذا الدليل كيف يعمل كل صمام وكيف تخصصه.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="what-is-hydraulic-prv" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. ما هو صمام خفض الضغط الهيدروليكي؟</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">صمام خفض الضغط الهيدروليكي (PRV) صمام تحكم ذاتي التشغيل يخفض ضغط مدخل أعلى متذبذب إلى ضغط أسفل التيار أقل ثابت. يُسمّى هيدروليكيًا لأن الصمام يُقَدَّر تمامًا بضغط خط الأنابيب عبر نظام طيار — لا يوجد كهرومغناطيس أو محرك أو خزانة تحكم. وهذا يجعله عنصر بناء منخفض التكلفة وعالي الموثوقية لمناطق إمداد المياه ومحطات تعزيز وشبكات الري وخطوط ماء المعالجة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">المثال الكلاسيكي هو <a href="/ar/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">صمام خفض الضغط الهيدروليكي القابل للضبط 500X</a>: صمام رئيسي من حديد الزهر المطبوع (QT450-10) مع طيار نحاس مخربش، يغطي DN20-DN600 مع ضغط أسفل التيار قابل للضبط من 0.1 MPa إلى 1.6 MPa. جسم الصمام الرئيسي متوفر بضغط اسمي 1.0 MPa أو 1.6 MPa أو 2.5 MPa، والتصميم يتوافق مع معايير ANSI وJIS وGB.</p>
+			<p class="text-gray-700 leading-relaxed">تجميع الغشاء EPDM معزز بالنايلون والعمود الداخلي من الفولاذ المقاوم للصدأ 304، مع أنابيب طيار من النحاس أو الفولاذ المقاوم للصدأ — اختيارات المواد التي تحدد ما إذا كان صمام خفض الضغط ما زال يحافظ على نقطة ضبطه بعد سنوات من الخدمة.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="how-pilot-prv-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. كيف يعمل صمام 500X الذاتي</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">500X هو صمام جلوب من نوع الغشاء مع طيار قابل للضبط مركّب أعلى. يحسّ الطيار ضغط أسفل التيار باستمرار عبر خط حسّ. عندما يرتفع ضغط أسفل التيار فوق نقطة الضبط، يُخنق الطيار نحو الإغلاق، ويتراكم ضغط في غرفة الغشاء ويتحرك الصمام الرئيسي نحو الإغلاق. عندما يهبط ضغط أسفل التيار دون نقطة الضبط، يفتح الطيار أوسع، وتُفرَّغ الغرفة ويفتح الصمام الرئيسي أوسع. وبالتالي يُعدّل الصمام باستمرار ليحافظ على الضغط المضبوط بغضّ النظر عن تغيّر التدفق أو ضغط المدخل.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">لأن الصمام ذاتي التشغيل تمامًا، يواصل التنظيم حتى أثناء انقطاع الكهرباء — خاصية مهمة لماء الحريق والشبكات البلدية حيث قد يكون فقدان الضغط حرجًا. سمة الإغلاق البطيء السلس تتجنب أيضًا ارتفاعات الضغط العالية وصدمة الماء عند توقف التدفق، ولهذا تُفضَّل صمامات التحكم الهيدروليكي كثيرًا على الصمامات الكهربائية سريعة العمل على الخطوط الرئيسية الكبيرة.</p>
+			<p class="text-gray-700 leading-relaxed">للمشاريع التي تتطلب تشغيل كهربائي عن بٌعد حقيقي بدل تعديل مستمر، وحدة تعمل بالكهرومغناطيس مثل <a href="/ar/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">صمام البوابة الكهرومغناطيسي بمسار GKZF-1</a> (AC220V/DC24V، DN50-DN300، 300 PSI) يوفر فتح/إغلاق تلقائيًا بالأمر بينما يتكفل صمام خفض الضغط بالتحكم الثابت في الضغط.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="hydraulic-control-valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. خفض الضغط مقابل التحكم بالمستوى مقابل الطافية</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">صمامات التحكم الهيدروليكي تشترك في مبدأ الطيار الذاتي نفسه لكن تنظّم متغيرات عملية مختلفة. يقارن الجدول أدناه الخدمات الثلاث الأكثر شيوعًا في إمداد المياه.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">المقارنة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">خفض ضغط 500X</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">تحكم مستوى F745X</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">طافية 100X-16P</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">ما يتحكم به</td>
+							<td class="px-4 py-3 text-gray-700">ضغط أسفل التيار</td>
+							<td class="px-4 py-3 text-gray-700">مستوى الماء في خزان/حوض</td>
+							<td class="px-4 py-3 text-gray-700">مستوى الماء (طيار طافية عن بعد)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">نطاق المقاس</td>
+							<td class="px-4 py-3 text-gray-700">DN20 - DN600</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN400</td>
+							<td class="px-4 py-3 text-gray-700">DN40 - DN300</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">تصنيف الضغط</td>
+							<td class="px-4 py-3 text-gray-700">1.0 / 1.6 / 2.5 MPa؛ ضبط 0.1-1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">1.0 / 1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">0 - 1.0 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">مادة الجسم</td>
+							<td class="px-4 py-3 text-gray-700">حديد زهر مطبوع QT450-10 / فولاذ مصبوب</td>
+							<td class="px-4 py-3 text-gray-700">حديد زهر مطبوع QT450-10</td>
+							<td class="px-4 py-3 text-gray-700">فولاذ مقاوم صدأ CF8 مصبوب</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الخدمة النموذجية</td>
+							<td class="px-4 py-3 text-gray-700">مناطق ضغط، طرد تعزيز</td>
+							<td class="px-4 py-3 text-gray-700">خزانات، أحواض، أبراج ماء</td>
+							<td class="px-4 py-3 text-gray-700">خزانات متآكلة/حرجة صحيًا</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">إذا كان مشروعك يحتاج تنظيم ضغط مع تعبئة خزان، فإن البنية القياسية صمام خفض ضغط 500X على خط الإمداد يغذي صمام طافية F745X أو 100X عند مدخل الخزان — كل صمام يؤدي الخدمة التي صُمم لها.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="typical-applications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. أين ينتمي كل صمام</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>خفض الضغط (500X):</strong> أي مكان يغذي فيه خط رئيسي عالي الضغط منطقة ضغط أقل — مناطق عدادات محلية، طرد تعزيز للمباني العالية، رؤوس ريّ وماء المعالجة. اضبط ضغط أسفل التيار مرة ويحافظ الصمام عليه عبر منحنى الطلب اليومي.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>التحكم بالمستوى (F745X):</strong> <a href="/ar/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">صمام التحكم بمستوى الماء الهيدروليكي F745X</a> يحافظ تلقائيًا على مستوى مُقدَّم سلفًا في الخزانات وأحواض الماء وأبراج الماء باستخدام طيار طافية، مانعًا الفيضان والمستويات المنخفضة جدًا. يُقَدَّر تمامًا بضغط خط الأنابيب ويُغلق ببطء، فيناسب التخزين الكبير حيث يكون الإيقاف المفاجئ يضرب الشبكة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>الطافية عن بعد (100X):</strong> <a href="/ar/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">صمام الطافية عن بعد 100X-16P</a> يؤدي نفس المهمة في فولاذ مقاوم صدأ CF8 مصبوب، يغطي DN40-DN300 عند 0-1.0 MPa بنطاق حرارة تشغيل من -50°C إلى 100°C — المواصفة للخزانات التي تحتفظ بماء متآكل أو عالي النقاوة، أو للمصانع الساحلية حيث الصدأ هو العدو.</p>
+			<p class="text-gray-700 leading-relaxed">لأي من هذه الصمامات يخدم شبكة مياه شرب، ضَع <a href="/ar/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">مانع الارتداد المضاد للتلوث HS41X</a> عند نقطة الاتصال حتى لا يعود محتوى الخزان أبدًا إلى خط الشرب — راجع <a href="/ar/guides/backflow-prevention-guide/" class="text-brand-blue font-semibold hover:underline">دليل منع الارتداد</a> للصورة الكاملة للتحكم في الاتصالات المتقاطعة.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="installation-and-protection" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. التركيب والحماية</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">صمامات التحكم الهيدروليكي موثوقة بقدر موثوقية نظام الطيار، وموانع الطيار حساسة للجسيمات. ركّب فلترًا عند مدخل الصمام: <a href="/ar/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">فلتر Y التلسكوبي SGL41H</a> صُمم تحديدًا لحماية صمامات التحكم بالماء الهيدروليكي والآلات الدقيقة، يجمع الفلتر وموصّل التمدد في جسم واحد حتى يمكن إزالة الصمام للصيانة دون قطع خط الأنابيب. شاشات الترشيح من الفولاذ المقاوم للصدأ 304/316، بشبكة 18-30 لخدمة الماء.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">ركّب صمام بوابة عزل أعلى وأسفل التيار من صمام التحكم حتى يمكن تجاوزها وصيانتها وصيانتها دون تصريف الشبكة. في الأنظمة المغذية بالمضخة، احمِ جانب السحب أيضًا: مانع دوامة سحب EN12845 مركّب عند سحب المضخة يلغي الدوامة ودخول الهواء، مما يمنع التكهف وذروات الضغط التي تضر بالمضخات وصمامات التحكم معًا.</p>
+			<p class="text-gray-700 leading-relaxed">أكّد الاتجاه والمساحة قبل الطلب — صمامات التحكم الهيدروليكي بفلنجة تحتاج وصولًا مستقيمًا لأنابيب الطيار ومساحة لصمامات العزل. يجب ذكر DN وطرف الاتصال (ثقب فلنجة ANSI/JIS/GB) على ورقة البيانات.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. قائمة مواصفات B2B</h2>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>حدّد المتغير المتحكم به</strong> — ضغط أسفل التيار (PRV 500X)، مستوى خزان (F745X / 100X)، أو تشغيل كهربائي (صمام بوابة كهرومغناطيسي GKZF-1). خط واحد غالبًا يحتاج اثنين: PRV يغذي صمام تحكم بمستوى عند الخزان.</li>
+				<li><strong>اذكر المقاس والضغط</strong> — DN20-DN600 للـ 500X بضغط اسمي 1.0/1.6/2.5 MPa؛ DN50-DN400 عند 1.0/1.6 MPa للـ F745X؛ DN40-DN300 عند 0-1.0 MPa للـ 100X-16P. أكّد ضغط المدخل وضبط الضغط المطلوب (500X يضبط 0.1-1.6 MPa).</li>
+				<li><strong>اختر مادة الجسم حسب الوسيط</strong> — حديد زهر مطبوع QT450-10 للماء النظيف؛ فولاذ مقاوم صدأ CF8 مصبوب (100X-16P) لخدمة متآكلة أو حرجة صحيًا.</li>
+				<li><strong>سمِّ معيار الاتصال</strong> — ثقب فلنجة ANSI أو JIS أو GB يجب أن يطابق خط أنابيبك؛ اذكره صراحةً في الاستفسار.</li>
+				<li><strong>أضف ملحقات الحماية</strong> — فلتر Y تلسكوبي SGL41H عند المدخل، صمامات بوابة عزل، ومانع ارتداد HS41X للاتصالات الشرب؛ موانع دوامة سحب EN12845 لسحب المضخات.</li>
+				<li><strong>تحقق من المورد أولًا</strong> — جودة الطيار غير مرئية في الصور. اطلب تقارير اختبار الغلاف/المقعد بالدفعة وشهادات المواد، وطبّق <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة التحقق من مصادر صمامات B2B</a> لدينا قبل الالتزام بمصنع.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">هل تحتاج صمامات خفض ضغط أو صمامات تحكم هيدروليكي؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أخبرنا DN وتصنيف الضغط وضبط الضغط ومعيار الاتصال — يأكّد مهندسونا تكوين الطيار ويرسل عرض السعر خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Pressure%20Reducing%20Valve%20500X" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%20%D8%AE%D9%81%D8%B6%20%D8%B6%D8%BA%D8%B7%20%D9%84%D8%A5%D9%85%D8%AF%D8%A7%D8%AF%20%D9%85%D9%8A%D8%A7%D9%87" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

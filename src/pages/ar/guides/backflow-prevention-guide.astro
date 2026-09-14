@@ -1,0 +1,224 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'متى يكون مانع الارتداد مطلوبًا قانونيًا؟',
+		answer: 'في كل مرة يتصل فيها نظام غير صالح للشرب بمصدر مياه الشرب. نقاط إلزامية نموذجية: اتصالات أنظمة الرش وعمود الماء للحريق، أنظمة الري، خطوط تغذية الغلايات، أبراج التبريد ومياه المعالجة الصناعية. تطبّق معظم الولايات القضائية أكواد التحكم في الاتصالات المتقاطعة المستندة إلى AWWA M14 أو EN 1717 أو أكواد السباكة الوطنية — تحقّق من فئة الخطورة التي يقع فيها اتصالك لدى هيئة المياه المحلية.'
+	},
+	{
+		question: 'ما الفرق بين تجميع صمام الرجوع المزدوج وتجميع منطقة الضغط المخفّض (RPZ)؟',
+		answer: 'تجميع صمام الرجوع المزدوج (DCVA) مثل HS41X يوفّر صمامي رجوع مستقلين مع غرفة تصريف وسيطة، وهو الخيار القياسي للحماية من الحريق والاتصالات منخفضة إلى متوسطة الخطورة. أما تجميع RPZ فيضيف صمام تخفيف يفرّغ عند انخفاض ضغط المنطقة، حمايةً ضد شفط رجوع ملوثات عالية الخطورة — وهو مطلوب لاتصالات الصرف الصحي والكيميائية وغيرها من الاتصالات المتقاطعة عالية الخطورة، ويتطلب اختبارًا سنويًا.'
+	},
+	{
+		question: 'هل يسبب مانع الارتداد فقد ضغط في خط الحريق الرئيسي؟',
+		answer: 'نعم، كل جهاز منع ارتداد يضيف فقد رأس. يضيف تجميع رجوع مزدوج مصمم جيدًا عادةً 0.5–1.5 بار عند التدفق التصميمي. يجب أن تشمل مضخة الحريق والحسابات الهيدروليكية فقد الجهاز، وإلا قد لا تصل رؤوس الرش أسفل التيار إلى ضغطها المتبقي المطلوب. أبلغنا بمعدل التدفق وسنوفّر منحنى فقد الرأس لـ HS41X بمقاسك.'
+	},
+	{
+		question: 'هل يمكن تركيب HS41X أفقيًا أو رأسيًا؟',
+		answer: 'صُمم مانع الارتداد برجوع مزدوج HS41X للتركيب الأفقي في اتجاه التدفق المُعلَّم على الجسم، مع وضع غرفة التصريف الوسيطة أسفله. للمنازل الرأسية، تحقّق من الاتجاه مع مهندسينا — يمكن تركيب بعض المقاسات رأسيًا بتدفق صاعد عندما يسمح الترتيب الداخلي للتصريف بذلك.'
+	},
+	{
+		question: 'بأي تردد يجب اختبار مانع الارتداد؟',
+		answer: 'الفترات النموذجية للاختبار: اختبار سنوي لتجميعات الرجوع المزدوج وأجهزة RPZ في الأنظمة التجارية، وأكثر تكرارًا (ربع سنوية إلى نصف سنوية) للاتصالات عالية الخطورة أو حيثما يتطلب ذلك التنظيم المحلي. مجموعة الاختبار تحقّق من أن صمامي الرجوع يحافظان على 1.0 بار دون تسرب وأن الغرفة الوسيطة تتصرف بشكل صحيح.'
+	}
+];
+
+const products = [
+	{ slug: 'anti-pollution-backflow-preventer-hs41x', name: 'مانع ارتداد مضاد للتلوث HS41X', img: '/assets/products/anti-pollution-backflow-preventer-hs41x.webp', desc: 'تجميع صمام رجوع مزدوج مع تصريف وسيط آلي' },
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: 'صمام خفض ضغط هيدروليكي 500X', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'تحكم ضغط ذاتي التشغيل بالطيار، بلا طاقة خارجية' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'صمام تحكم مستوى ماء F745X', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'تحكم مستوى بطيار طافية للخزانات والأحواض' },
+	{ slug: 'groove-solenoid-control-gate-valve-gkzf1', name: 'صمام بوابة تحكم كهرومغناطيسي GKZF-1', img: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg', desc: 'صمام بمسار بطيار كهربائي للشبكات المؤتمتة' }
+];
+
+const toc = [
+	{ id: 'why-backflow', label: 'لماذا يُهمّ منع الارتداد' },
+	{ id: 'hazard-classes', label: 'فئات الخطورة وأنواع الأجهزة' },
+	{ id: 'double-check', label: 'كيف يعمل تجميع الرجوع المزدوج HS41X' },
+	{ id: 'fire-main', label: 'الارتداد في خطوط الحريق الرئيسية' },
+	{ id: 'sizing', label: 'اعتبارات حساب المقاس وفقد الرأس' },
+	{ id: 'specs-compare', label: 'HS41X مقابل صمامات التحكم الهيدروليكي' },
+	{ id: 'testing', label: 'الاختبار والصيانة والامتثال' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+---
+
+<Layout
+	title="دليل منع الارتداد: صمامات رجوع مزدوجة لمياه الشرب"
+	description="منع الارتداد في شبكات مياه الشرب والحريق: فئات الخطورة، تجميعات الرجوع المزدوج، مبدأ HS41X، حساب المقاس، فقد الرأس، الاختبار والامتثال."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'دليل منع الارتداد' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">منع الارتداد</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل معدات السلامة الهيدروليكية</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">منع الارتداد في شبكات حماية الحريق ومياه الشرب</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">قد تؤدّي حادثة ارتداد ملوثة واحدة إلى إغلاق إمداد بلدي، أو تلويث خزان حريق احتياطي، أو إبطال اعتماد مياه الشرب لمبنى بأكمله. يقع مانعوا الارتداد في نقطة اتصال الأنظمة غير الصالحة للشرب — خطوط الرش، الري، الغلايات، خطوط المعالجة — بمياه الشرب. يشرح هذا الدليل فئات الخطورة، وكيف يعمل تجميع الرجوع المزدوج، وكيف تحسب وتخصص الجهاز المناسب لمشروعك.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-backflow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. لماذا يُهمّ منع الارتداد</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يحدث الارتداد عندما يتجاوز الضغط في نظام غير صالح للشرب ضغط الإمداد (ارتداد ضغط)، أو عندما يفقد خط الإمداد ضغطه ويشفط الماء إلى الخلف (شفط ارتداد). في مبنى يجمع مياه الشرب مع نظام رش الحريق، يكون خط الرش اتصالًا متقاطعًا دائمًا: مياه راكدة، منتجات تآكل وحيمة بكتيرية تعيش في خط الحريق، وأي هزة ضغط قد تدفع تلك المياه إلى إمداد الشرب.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">تعامل الجهات التنظيمية حول العالم مع هذه المسألة كقضية صحية عامة لا تفضيلًا في المعدات. تطبّق الممارسة الأوروبية (EN 1717) تصنيف السوائل حسب خطر التلوث وتفرض أجهزة الحماية تبعًا لذلك؛ تتبع الممارسة الأمريكية الشمالية التحكم في الاتصالات المتقاطعة AWWA M14 وكود السباكة المحلي؛ وتطبّق الصين GB 50084 (رش) وGB 17051 إلى جانب لوائح إمداد المياه المحلية. في كل الأطر تقريبًا، يتطلب اتصال حماية الحريق بمياه الشرب على الأقل <strong>تجميع صمام رجوع مزدوج</strong>، وغالبًا جهاز منطقة ضغط مخفّض لفئات الخطورة الأعلى.</p>
+
+			<h2 id="hazard-classes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. فئات الخطورة وأنواع الأجهزة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يُختار جهاز الحماية من فئة الخطورة للنظام المتصل. يُلخّص الجدول أدناه الفئات الشائعة والأجهزة المقبولة عادةً:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">فئة الخطورة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الاتصال النموذجي</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الجهاز النموذجي</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">منخفضة (سائل 2)</td>
+							<td class="px-4 py-3 text-gray-700">ماء بارد، غير سام، بلا خطر صحي</td>
+							<td class="px-4 py-3 text-gray-700">رجوع مفرد / فجوة هوائية</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">متوسطة (سائل 3)</td>
+							<td class="px-4 py-3 text-gray-700">خطوط رش الحريق، حلقات التدفئة، المياه الرمادية</td>
+							<td class="px-4 py-3 text-gray-700">تجميع رجوع مزدوج (HS41X) / DCVA</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">عالية (سائل 4)</td>
+							<td class="px-4 py-3 text-gray-700">كيميائيات، صرف صحي، سوائل معالجة صناعية</td>
+							<td class="px-4 py-3 text-gray-700">تجميع منطقة ضغط مخفّض (RPZ)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">عالية جدًا (سائل 5)</td>
+							<td class="px-4 py-3 text-gray-700">وسائط ممرضة أو مشعّة</td>
+							<td class="px-4 py-3 text-gray-700">فصل فجوة هوائية (بلا جهاز ميكانيكي)</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">اتصالات حماية الحريق في الغالب دائمًا متوسطة الخطورة (سائل 3)، ولهذا يكون <a href="/ar/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">مانع الارتداد المضاد للتلوث HS41X</a> — تجميع رجوع مزدوج مع غرفة تصريف وسيطة — جهاز العمل الشاق في هذا التطبيق.</p>
+
+			<h2 id="double-check" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. كيف يعمل تجميع الرجوع المزدوج HS41X</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يتكوّن HS41X من صمامي رجوع مستقلين موصولين على التوالي مع تجويف تصريف بينهما. في التدفق الطبيعي، يمرّ الماء عبر الرجوعين ويبقى التجويف جافًا. إذا انخفض ضغط الإمداد دون ضغط أسفل التيار، يغلق صماما الرجوع. إذا تسرّب الرجوع الأول، يمتلئ التجويف ويفتح التصريف الوسيط الآلي نحو الغلاف الجوي، مفرغًا الماء الملوّث بشكل مرئي — تصميم «تسرب قبل فشل» الكلاسيكي الذي يجعل تجميعات الرجوع المزدوج قابلة للاختبار وموثوقة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">نقاط بناء أساسية في HS41X-16 من Wanlian: جسم من حديد الزهر المطبوع (QT450) بطلاء إبوكسي للبيئات البلدية والصناعية، وتغليف مقعد EPDM لإغلاق إيجابي، وداخليات من الفولاذ المقاوم للصدأ 304 في آلية الرجوع والتصريف. المقاسات من DN50 إلى DN600، بفئات ضغط PN10 / PN16 / PN25، تغطي معظم اتصالات الخدمة للمباني والمرافق.</p>
+
+			<h2 id="fire-main" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. الارتداد في خطوط الحريق الرئيسية</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">نظام رش حريق أو عمود ماء متصل بالخط الرئيسي الشرب هو الاتصال المتقاطع متوسط الخطورة النموذجي: خط الحريق راكد عادةً، يحتوي منتجات تآكل، وقد يحتفظ بمياه راكدة لسنوات بين الفحوصات. يُركّب مانع الارتداد على اتصال خدمة الحريق، أعلى التيار من سحب مضخة الحريق أو منزل النظام.</p>
+			<p class="text-700 leading-relaxed mb-4">نقاط تصميمية اثنتان تهمّان في أنظمة الحريق:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>ميزانية فقد الضغط.</strong> يقع الجهاز في خط سحب مضخة الحريق أو في تقسيم الشرب/الحريق؛ يجب إدراج فقد رأسه في الحساب الهيدروليكي. تصميم رجوع مزدوج منخفض الفقد يحافظ على الفقد عند نحو 0.5–1.0 بار عند التدفق التصميمي.</li>
+				<li><strong>ضغط النظام.</strong> للمنازل المغذية من مضخة حريق، تحقّق من أن ضغط طرد المضخة يبقى ضمن ضغط التشغيل المقنّن للجهاز (HS41X: PN16 أو PN25). تجاوز المقاس برقم DN وحده لا يكفي — تحقّق من التدفق والفقد معًا.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">حيث تحتاج الشبكة نفسها إلى إدارة الضغط — مثل نظام رش مغذّى من خزان مع ضاغطة — يعمل جهاز منع الارتداد أعلى التيار من صمامات التحكم الهيدروليكي الأخرى مثل <a href="/ar/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">صمام خفض الضغط 500X</a>، الذي يحمي المكونات أسفل التيار من الضغط الزائد بينما يحمي تجميع الرجوع الإمداد.</p>
+
+			<h2 id="sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. اعتبارات حساب المقاس وفقد الرأس</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">حسب مانع الارتداد على أساس <strong>سرعة التدفق وفقد الرأس</strong>، لا على قطر الأنبوب وحده. يجب أن يتعامل الجهاز مع أسوأ حالة تدفق — لاتصال حريق، أكبر طلب رش مفرد أو تدفق خلاط؛ لخدمة مبنى، مجموع طلبات الشرب والحريق المتزامنة. تجاوز المقاس يزيد خطر عمل الرجوع الصاخب غير المستقر عند تدفق منخفض؛ تقليل المقاس يجوّع النظام عند الطلب.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">قائمة الاختيار:</p>
+			<ol class="list-decimal ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>حدّد أقصى تدفق تصميمي (ل/ث أو م³/س) والضغط المتبقي المطلوب أسفل التيار.</li>
+				<li>أكّد فئة الخطورة ونوع الجهاز المطلوب لدى السلطة المحلية.</li>
+				<li>اختر مقاس DN الذي يحافظ فيه التدفق التصميمي على سرعة دون ~2.5 م/ث عبر التجميع.</li>
+				<li>اطلب منحنى فقد الرأس لذلك المقاس وأضف الفقد إلى الحساب الهيدروليكي.</li>
+				<li>أكّد نوع الاتصال (بفلنجة/بمسار)، المادة للوسيط، وأي متطلبات اختبار من طرف ثالث.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">تصنع Wanlian الـ HS41X بطرفين بفلنجة أو بمسار، ويمكنها توفير منحنى التدفق مقابل الفقد للمقاس الذي تحدده. اطلب من مهندسينا مراجعة الحساب الهيدروليكي معك قبل الطلب.</p>
+
+			<h2 id="specs-compare" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. HS41X مقابل صمامات التحكم الهيدروليكي الأخرى</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">منع الارتداد وظيفة واحدة ضمن عائلة أوسع من صمامات التحكم الهيدروليكي. كثيرًا ما تُخصص في نفس غرفة الصمامات، لذا من المفيد التمييز بين الأدوار:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الصمام</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الوظيفة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الموضع النموذجي</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">مانع ارتداد HS41X</td>
+							<td class="px-4 py-3 text-gray-700">يوقف الارتداد الملوّث، رجوع مزدوج + تصريف</td>
+							<td class="px-4 py-3 text-gray-700">اتصال الخدمة / مدخل خط الحريق</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">صمام خفض ضغط 500X</td>
+							<td class="px-4 py-3 text-gray-700">يحافظ على ضغط أسفل التيار ثابت</td>
+							<td class="px-4 py-3 text-gray-700">بعد العداد / إمداد المنطقة</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">صمام تحكم مستوى F745X</td>
+							<td class="px-4 py-3 text-gray-700">يحافظ على مستوى خزان/حوض الماء</td>
+							<td class="px-4 py-3 text-gray-700">مدخل الخزان، الخزانات السقفية والأحواض</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">صمام تحكم كهرومغناطيسي GKZF-1</td>
+							<td class="px-4 py-3 text-gray-700">تحكم تشغيل/إيقاف عن بعد عبر DC24V/AC220V</td>
+							<td class="px-4 py-3 text-gray-700">الخطوط المؤتمتة وصمامات المناطق</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">في غرفة مضخات نموذجية ستراها بالترتيب: مانع ارتداد عند مدخل الخدمة، صمام خفض ضغط أسفل التيار لمناطق الضغط، صمامات تحكم مستوى على تغذية الخزانات، وصمامات كهرومغناطيسية حيث تكون الشبكة مؤتمتة. تخصيصها كحزمة — كما تصنعها Wanlian — يتجنب مشاكل التوافق بين الطيارات والتفريغات وفئات الضغط.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. الاختبار والصيانة والامتثال</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">مانع الارتداد يحمي فقط طالما يعمل، لذا تفرض معظم الأكواد اختبارًا دوريًا بجهة فاحصة معتمدة. لتجميعات الرجوع المزدوج، يتحقق الاختبار القياسي من أن الرجوعين يحافظان على 1.0 بار على الأقل دون تسرب وأن غرفة التصريف الوسيطة تعمل. الفترات النموذجية: سنوية للتركيبات التجارية؛ أكثر تكرارًا حيثما تطلبه هيئة المياه المحلية.</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>حافظ على إمكانية الوصول للجهاز</strong> — صنبورات الاختبار وغرفة التصريف يجب أن تكون قابلة للوصول لمجموعة الاختبار.</li>
+				<li><strong>افحص تفريغ التصريف</strong> — قطرة متواصلة من الغرفة الوسيطة تعني أن رجوعًا يتسرب؛ أصلح قبل الاختبار التالي.</li>
+				<li><strong>احمِ من التجمد</strong> — التركيبات الخارجية في المناخات الباردة تحتاج عزلًا أو وحدة مدفأة؛ الجليد الداخلي قد يشقّ الجسم والأحكام.</li>
+				<li><strong>احتفظ بأحكام احتياطية</strong> — مجموعات مقاعد EPDM وتجميعات الرجوع قطع تآكل؛ احتفظ بمجموعات في المخزون لتجنّب توقف مطوّل.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">يمكن لـ Wanlian بناء تكوينات صنبورات اختبار، أطراف بفلنجة أو بمسار، ومجموعات أحكام احتياطية في الطلب الأولي. جميع وحدات HS41X تُختبَر 100% بالضغط قبل الشحن وفق GB/T13927، مع توفير تقارير اختبار لكل دفعة.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">تحتاج تخصيص مانع ارتداد لشبكتك؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل لنا DN وفئة الضغط ونوع الاتصال والتدفق التصميمي — يردّ مهندسونا بمنحنى فقد الرأس وورقة البيانات التقنية وعرض السعر خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Backflow%20Prevention%20Selection" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D9%85%D8%A7%D9%86%D8%B9%20%D8%A7%D8%B1%D8%AA%D8%AF%D8%A7%D8%AF" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

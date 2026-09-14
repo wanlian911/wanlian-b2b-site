@@ -1,0 +1,189 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ: 4-6 real procurement questions (generates FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'ما هو اتصال الشيميز ولماذا يوجد به مدخلان؟',
+		answer: 'اتصال هيئة الإطفاء (FDC) هو النقطة التي تضخ من خلالها عربات الإطفاء الوافدة الماء إلى نظام حماية المبنى من الحريق — إما نظام عمود الماء أو خط الرش الرئيسي. يتكوّن اتصال الشيميز من مدخلين يغذّيان مخرجًا واحدًا حتى تستطيع عربتان تغذية نفس العمود في آن واحد، مما يضاعف التدفق المتاح للنظام. يقبل SQD100-1.6 مدخلين بمقاس DN65 (2.5") ويُفْرِغ عبر مخرج بفلنجة واحد بمقاس DN100 (4") إلى خط المبنى الرئيسي.'
+	},
+	{
+		question: 'أي معيار لموصلات المدخل يجب أن أخصصه لاتصال هيئة الإطفاء؟',
+		answer: 'يجب أن تتطابق مداخل الاتصال مع موصلات المرن التي تستخدمها هيئة الإطفاء المحلية فعليًا، فهذا هو ما يتوجب توصيله تحت الضغط في الثالثة فجرًا. يُسلَّم SQD100-1.6 مع مدخلين بمقاس DN65 وأغطية بصيغة SQS65 / KWS65. حيث يعتمد المشروع اتصالات Storz الألمانية القياسية، تغطي موصلات Storz من الألومنيوم 2.5" النطاق من DN50 إلى DN150 بحافة ذاتية الإحكام، وتحوّل موصلات سلسلة HS (DN50/DN65، 1.6 MPa، GB12514) بين أنواع الخيوط — اذكر الموصّل المطلوب في الاستفسار.'
+	},
+	{
+		question: 'هل يتضمن SQD100 صمام تحكم؟',
+		answer: 'نعم. يأتي SQD100-1.6 مع صمام تحكم مدموج يُشغَّل بعجلة يد، فيُمنح التدفق عبر الاتصال تنظيمًا لا مجرد غلق أو فتح. يُسلَّم كلا المدخلين مع أغطية مثبتة بكابلات أمان فولاذية مضفورة، فتبقى الأغطية معلقة بالاتصال عند نزعها أثناء الضخ.'
+	},
+	{
+		question: 'ما هي مواصفات المقاس والضغط والمادة؟',
+		answer: 'المداخل: 2 × DN65 (2.5") مع أغطية. المخرج: بفلنجة بمقاس DN100 (4"). تصنيف الضغط: 1.6 MPa. الطول الإجمالي: 120 mm. الجسم: حديد زهر مطبوع / حديد زهر بطلاء بودرة أحمر مضاد للتآكل؛ وعمود عجلة اليد من نحاس أصفر أو فولاذ مقاوم للصدأ. طول الجسم المضغوط يناسب التركيب في غرف المضخات الضيقة وعند نقاط حماية الحريق في المطارات والمنشآت البلدية.'
+	},
+	{
+		question: 'كيف يجب فحص اتصال هيئة الإطفاء؟',
+		answer: 'تحقّق من أن الغطائين في موضعهما وأن الأحكام سليمة وكابلات الأمان بخير، ومن أن المخرج البفلنجي لا يظهر فيه تسرب أو تآكل، ومن أن عجلة اليد تعمل بحرية، ومن أن الاتصال مرئي ومُعلَّم ولا يُحجَب أبدًا بمركبات متوقفة أو تنسيق حدائق أو بضائع مخزّنة. في المناخات شديدة البرودة، أكّد أن الاتصال يفرّغ بشكل صحيح بعد الاستخدام حتى لا يبقى ماء راكد في الجسم.'
+	},
+	{
+		question: 'ما الفرق بين اتصال هيئة الإطفاء (FDC) وخلاط الحريق؟',
+		answer: 'يعملان باتجاهين متعاكسين. خلاط الحريق نقطة إمداد على خط المياه البلدي الرئيسي — تتصل به العربات وتسحب منه الماء. أما اتصال هيئة الإطفاء فهو مدخل على جانب المبنى — تضخ من خلاله العربات الماء إلى نظام عمود الماء أو نظام الرش في المبنى. كثير من المواقع تحتاج الاثنين معًا، وكلاهما مغطّى في دليل اختيار خلاط الحريق الخاص بنا.'
+	}
+];
+
+// TOC: one id per H2 in the body
+const toc = [
+	{ id: 'what-is-fdc', label: '1. ما هو اتصال هيئة الإطفاء؟' },
+	{ id: 'how-siamese-works', label: '2. مدخلان ومخرج واحد' },
+	{ id: 'coupling-standards', label: '3. معايير موصلات المداخل والموصّلات' },
+	{ id: 'where-fdc-installed', label: '4. أين تُركَّب اتصالات هيئة الإطفاء' },
+	{ id: 'fdc-comparison', label: '5. جسم الشيميز أم موصّل Storz أم موصّل مرن؟' },
+	{ id: 'fdc-spec-checklist', label: '6. قائمة التحقق من المواصفات والتركيب' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+// Related products (slug matches products.ts)
+const products = [
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'موصل مضخة حريق SQD100-1.6 (شيميز)', img: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', desc: 'مدخلان DN65، مخرج بفلنجة DN100، 1.6 MPa' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: 'موصّل Storz مقاس 2.5" (المعيار الألماني)', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'DN50-DN150، 1.6 MPa، ألومنيوم ذاتي الإحكام' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'موصل مرن حريق سلسلة HS', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65، GB12514، ألومنيوم أنوديك' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'رأس خلاط حريق داخلي (SN65)', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'رأس خلاط داخلي DN65 لمخارج عمود الماء' }
+];
+---
+
+<Layout
+	title="دليل اتصال هيئة الإطفاء: مداخل الشيميز والموصلات"
+	description="دليل اتصال هيئة الإطفاء (الشيميز): مدخلان DN65، مخرج بفلنجة DN100، خيارات SQS65/KWS65 وStorz، صمام تحكم، التركيب وقائمة تحقق B2B من مصنع Wanlian Fluid."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'دليل اتصال هيئة الإطفاء' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">دليل اتصال هيئة الإطفاء</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل الحماية من الحريق</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">دليل اتصال هيئة الإطفاء: مداخل الشيميز والموصلات</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">بإيجاز: اتصال هيئة الإطفاء (FDC) هو المدخل الذي تضخ من خلاله عربات الإطفاء الوافدة الماء إلى نظام عمود الماء أو نظام الرش في المبنى. يأتي اتصال الشيميز بمدخلين يغذّيان مخرجًا واحدًا حتى تستطيع عربتان تغذية نفس العمود، ويجب أن تتطابق مداخله مع موصلات المرن التي تحملها هيئة الإطفاء المحلية. يغطي هذا الدليل اتصال SQD100-1.6 الشيميز، وخيارات الموصّلات المرتبطة به، وما يجب فحصه قبل الطلب.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Section 1 -->
+			<h2 id="what-is-fdc" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. ما هو اتصال هيئة الإطفاء؟</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">اتصال هيئة الإطفاء هو الواجهة الوسيطة على جانب المبنى لخدمة الحريق. عندما لا يكون إمداد المبنى الذاتي من المياه كافيًا — أو عندما يُعزل نظام الرش — تتصل العربات الوافدة بخراطيمها بالاتصال وتضخ الماء في عمود الماء أو في خط الرش الرئيسي. لذلك يُعَد الاتصال نقطة دخول ضغط إلى المبنى، وليس مصدر مياه.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">لأنه يُستخدم في حالات الطوارئ، يُقيَّم اتصال هيئة الإطفاء بثلاثة أسئلة عملية: هل تستطيع هيئة الإطفاء الاتصال به بسرعة بالموصلات التي تحملها، وهل يمكن توصيل كمية كافية من الماء من خلاله، وهل يمكن الوصول إليه عندما يكون المبنى ممتلئًا بالدخان والمعدات. ينبثق كل ما في هذا الدليل عن تلك الأسئلة الثلاثة.</p>
+			<p class="text-gray-700 leading-relaxed">يجيب <strong>الاتصال الشيميز</strong> عن سؤال التدفق بمدخلين. تستطيع عربة واحدة تغذية النظام بمفردها عند الحاجة؛ وعندما تصل العربة الثانية يُستخدم المدخلان معًا فيزداد التدفق إلى العمود تقريبًا ضعفًا دون أن تعمل أي مضخة في نقطة غير مواتية على منحنى أدائها.</p>
+
+			<!-- Section 2 -->
+			<h2 id="how-siamese-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. مدخلان ومخرج واحد</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/ar/products/sqd100-1-6-fire-pump-adapter/" class="text-brand-blue font-semibold hover:underline">موصل مضخة الحريق SQD100-1.6</a> هو جسم شيميز مضغوط: مدخلان بمقاس DN65 (2.5") مع أغطية على جهة، ومخرج بفلنجة واحد بمقاس DN100 (4") على الجهة الأخرى يُثبَّت بالصوامت على خط المبنى الرئيسي. ضغط التشغيل 1.6 MPa وطول الجسم 120 mm فقط، وهو ما يفيده في غرف المضخات والمحابس تحت الأرض حيث المكان ضيق.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">تفصيلان تصميميان يستحقان الذكر من جهة الشراء. أولهما أن الجسم يحمل صمام تحكم مدموجًا يُشغَّل بعجلة يد، فيُمنح التدفق عبر الاتصال تنظيمًا لا مجرد غلق أو فتح. وثانيهما أن أغطية المداخل مثبتة بكابلات أمان فولاذية مضفورة — ميزة صغيرة تمنع أكثر المشاهد شيوعًا في حادث حريق حقيقي، حيث تُترك الأغطية على الأرض أثناء الضخ وتُفقَد.</p>
+			<p class="text-gray-700 leading-relaxed">البنية من حديد زهر مطبوع / حديد زهر بطلاء بودرة أحمر مضاد للتآكل، مع عمود عجلة يد من نحاس أصفر أو فولاذ مقاوم للصدأ. هذا الترتيب (مدخلان ومخرج واحد) هو ما يميّز اتصال الشيميز عن اتصال المدخل الواحد الذي يحدّ النظام بعربة ضخ واحدة.</p>
+
+			<!-- Section 3 -->
+			<h2 id="coupling-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. معايير موصلات المداخل والموصّلات</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">هذه نقطة المواصفات التي تحدد ما إذا كان اتصال هيئة الإطفاء صالحًا للاستخدام في اليوم الفعلي. موصلات المرن إقليمية: اتصال يطابق معدات فرقة إطفاء قد يكون عديم الفائدة لفرقة أخرى. يُسلَّم SQD100-1.6 مع مدخلين بمقاس 2 × DN65 وأغطية بصيغة <strong>SQS65 / KWS65</strong>، ويجب تأكيد نوع الموصّل مع هيئة الإطفاء المحلية قبل إصدار الطلب.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">حيث يستخدم المشروع اتصالات المعيار الألماني، يغطي <a href="/ar/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">موصّل Storz من الألومنيوم مقاس 2.5"</a> النطاق من DN50 إلى DN150 بحافة ذاتية الإحكام وهيكل التوصيل السريع Storz، من الألومنيوم مع خيارات من نحاس أصفر أو مطلي بالكروم وتصنيف 1.6 MPa — مناسب للماء الصافي ومزيج الرغوة.</p>
+			<p class="text-gray-700 leading-relaxed">لانتقالات الخيوط إلى الموصّلات في الموقع، يستخدم <a href="/ar/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">موصل مرن حريق من سلسلة HS</a> (DN50 / DN65، 1.6 MPa / 232 PSI) سبائك ألومنيوم أنوديك بخيوط داخلية وخارجية قياسية حسب GB12514 أو معيار المصنع، لتتوافق المرن مع مخارج الخلاط أو مخارج اتصال هيئة الإطفاء دون تسرب. حيث تُحدَّد أنظمة التوصيل بمعيار المشروع، يشرح <a href="/ar/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">دليل الامتثال CE وEN 12845</a> كيف تُعامَل أنظمة Storz وKWS والأنظمة الماسنّنة في المواصفات الأوروبية.</p>
+
+			<!-- Section 4 -->
+			<h2 id="where-fdc-installed" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. أين تُركَّب اتصالات هيئة الإطفاء</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يُثبَّت اتصال هيئة الإطفاء على الوجه الخارجي للمبنى الذي يحميه، في نقطة تستطيع هيئة الإطفاء الوصول إليها بالمرن من الشارع أو الرصيف — بعيدًا عن نطاق فتح الأبواب والتشطيبات وأعمدة اللوحات وأي شيء قد يتحول مستقبلًا إلى موقف سيارات. وعادةً يُدمج مع لافتة تحدد النظام الذي يخدمه، حتى يعرف الطاقم الوافد إلى موقع كبير أي عمود ماء هو الذي يشغّله.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">على جانب المبنى يغذي شبكة الأعمدة: نظام عمود الماء الذي يخدم صمامات الأدوار ورؤوس <a href="/ar/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">خلاط الحريق الداخلي</a>، و/أو خط الرش الرئيسي. ولهذا ينتمي اتصال هيئة الإطفاء إلى نقاش المواصفات بجانب معدات الخلاط والأعمدة في المبنى، لا كعملية شراء مستقلة.</p>
+			<p class="text-gray-700 leading-relaxed">عادة تركيب اثنتان تمنعان أغلب الأعطال. حافظ على مخرج الفلنجة والجسم قابلًا للتفريغ حتى لا يتراكم الماء في الاتصال في الطقس شديد البرودة، وأكّد أن الاتصال لا يُحجَب أبدًا — اتصال هيئة إطفاء مختبئ خلف شاحنة توصيل متوقفة غائب وظيفيًا، وهو أكثر عيب يُرصد في زيارات الموقع.</p>
+
+			<!-- Section 5 -->
+			<h2 id="fdc-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. جسم الشيميز أم موصّل Storz أم موصّل مرن؟</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">المكوّن</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الوظيفة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">المقاس والتصنيف</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">المادة / ملاحظات</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">جسم الشيميز SQD100-1.6</td>
+							<td class="px-4 py-3 text-gray-700">عربتان تضخان في خط مبنى رئيسي واحد</td>
+							<td class="px-4 py-3 text-gray-700">مدخلان 2 × DN65، مخرج بفلنجة DN100، 1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">حديد زهر مطبوع، طلاء بودرة أحمر، طول 120 mm، صمام تحكم مدموج، مداخل مغطاة بكابلات أمان</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">موصّل Storz مقاس 2.5"</td>
+							<td class="px-4 py-3 text-gray-700">اتصال سريع مرن-مرن / مرن-مدخل</td>
+							<td class="px-4 py-3 text-gray-700">DN50 – DN150، 1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">ألومنيوم (خيارات نحاس أصفر / كروم)، المعيار الألماني Storz، حافة ذاتية الإحكام، ماء ورغوة</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">موصل مرن حريق HS</td>
+							<td class="px-4 py-3 text-gray-700">يحوّل أنواع الخيوط إلى موصلات المرن في الموقع</td>
+							<td class="px-4 py-3 text-gray-700">DN50 / DN65، 1.6 MPa (232 PSI)</td>
+							<td class="px-4 py-3 text-gray-700">سبائك ألومنيوم أنوديك، GB12514 / معيار المصنع، خيوط داخلية وخارجية</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">الحلول الثلاث تعالج مشاكل مختلفة: جسم الشيميز هو اتصال هيئة الإطفاء نفسه، وموصّل Storz هو نظام التوصيل عندما يخصص المشروع المعيار الألماني، والموصّل التحويلي هو الحل الميداني الذي يسمح للخيوط والموصلات غير المطابقة بالعمل معًا. المشروع المخصص جيدًا يحتاج عادةً الجسم ونظام موصّل واحد — فموصّلات التحويل يجب أن تكون استثناءً لا خطة.</p>
+
+			<!-- Section 6 -->
+			<h2 id="fdc-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. قائمة التحقق من المواصفات والتركيب</h2>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>أكّد الموصّل مع هيئة الإطفاء</strong> — طابق نوع المدخل مع الموصلات التي تحملها العربات المحلية فعليًا (SQS65 / KWS65 كما يُسلَّم، أو Storz حيث يخصصه المشروع) قبل إصدار الطلب.</li>
+				<li><strong>افحص مسار التدفق</strong> — مدخلان 2 × DN65 يغذّيان مخرجًا بفلنجة DN100 عند ضغط تشغيل 1.6 MPa؛ أكّد تطابق فلنجة المخرج مع اتصال العمود في مخططات المصنع.</li>
+				<li><strong>قرر تفاصيل الصمام والأغطية</strong> — يتضمن SQD100-1.6 صمام تحكم مدموجًا بعجلة يد ومداخل مغطاة بكابلات أمان فولاذية مضفورة.</li>
+				<li><strong>خطط للموقع</strong> — الوجه الخارجي، قابل للبلوغ بالمرن من الشارع، مُعلَّم ومرئي، ومحفوظ من مواقف السيارات أو التشطيبات المستقبلية؛ خصص جسمًا قابلًا للتفريغ حتى لا يتراكم الماء في الطقس شديد البرودة.</li>
+				<li><strong>خصص التشطيب والمادة</strong> — جسم من حديد زهر مطبوع / حديد زهر بطلاء بودرة أحمر، عمود عجلة يد من نحاس أصفر أو فولاذ مقاوم للصدأ، طول جسم مضغوط 120 mm للتركيبات المزدحمة.</li>
+				<li><strong>اطلب المستندات</strong> — تقارير اختبار الضغط لكل دفعة وشهادات المواد للتجميع، وطبّق <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة التحقق من توريد الصمامات B2B</a> قبل الالتزام بمورد. لجانب الإمداد في نفس المشروع راجع <a href="/ar/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">كيف تختار خلاط الحريق</a>.</li>
+			</ul>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">هل تحتاج اتصال هيئة إطفاء لمشروعك؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أخبرنا بنوع موصّل المدخل الذي تتطلبه هيئة الإطفاء لديك، ومقاس فلنجة المخرج، ومعيار المشروع — يردّ مهندسونا بتأكيد اتصال الشيميز وعرض سعر خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Fire%20Department%20Connection%20(SQD100)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%A7%D8%AA%D8%B5%D8%A7%D9%84%20%D8%B4%D9%8A%D9%85%D9%8A%D8%B2%20%D9%84%D9%87%D9%8A%D8%A9%20%D8%A7%D9%84%D8%A5%D8%B7%D9%81%D8%A7%D8%A1" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,204 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'كيف يعمل صمام الرجوع الكروي المنزلق HQ41X؟',
+		answer: 'يستخدم HQ41X كرة فولاذية مغطاة بالمطاط كعنصر الإغلاق. عند مرور التدفق للأمام، تتدحرج الكرة على دعامات داخلية ويفتح كامل القطر؛ وعندما يتوقف التدفق أو يعكس، تعود الكرة للتدحرج على المقعد لإغلاق محكم هوائي. وبما أن الكرة تتدحرج بدل الارتطام على مفصلة، يُغلق الصمام بهدوء دون صدمة ماء وبفقد ضغط أقل من صمام رجوع متذبذب من نفس المقاس.'
+	},
+	{
+		question: 'ما الفرق بين صمامات الرجوع الكروي المنزلق HQ41X وصمام الرجوع بالكرة الكروية HQ44X؟',
+		answer: 'صمام الرجوع الكروي المنزلق HQ41X يغطي DN50-DN350 عند 1.0/1.6 MPa بكرة بنواة فولاذ كربوني مغطاة بالكامل بـ NBR، تتدحرج على دعامات كروية مدمجة؛ وهو خيار قياسي لخدمة الصرف الصحي والصرف. أمّا صمام الرجوع بالكرة الكروية HQ44X فيغطي DN50-DN400 عند PN16 بجسم من حديد الزهر المطبوع (QT450-10) وكرة من حديد الزهر مغطاة بـ EPDM مطاطة، ويقدم قناة تدفق كاملة دون انسداد، وتدفق انطلاقة منخفض، وإغلاق هادئ بلا ارتطام للخطوط عالية التدفق.'
+	},
+	{
+		question: 'لماذا تختار صمام رجوع كروي بدل صمام رجوع متذبذب؟',
+		answer: 'صمامات الرجوع الكروية مصممة بقطر كامل وكرات مغطاة بالمطاط تتدحرج. مقارنةً بصمام الرجوع المتذبذب، صُمم HQ41X ليوفّر نحو 50% أقل فقد رأس، والكرة المغطاة بالمطاط تمنع الانسداد، والإغلاق هادئ دون صدمة ماء. يمكن أيضًا تركيب صمامات الرجوع الكروي أفقيًا أو رأسيًا، وهو ما لا تستطيع صمامات الرجوع المتذبذبة غالبًا فعله.'
+	},
+	{
+		question: 'هل يمكن لصمام الرجوع منع صدمة الماء؟',
+		answer: 'صمام الرجوع بلا ارتطام يزيل أحد أسباب صدمة الماء: القرص المفصلي لصمام الرجوع المتذبذب يمكنه الارتطام بمقعده عند انعكاس مفاجئ للتدفق، باعثًا على ارتفاع ضغط عبر الخط. صمامات الرجوع الكروية مثل HQ41X وHQ44X تُغلق بهدوء بدل الارتطام. لشبكات المضخات، اقترن بينها مع صمامات تحكم هيدروليكي بطيء الإغلاق ومانع دوامة سحب EN12845 عند سحب المضخة للتحكم بالارتفاع عند الانطلاقة والانقطاع.'
+	},
+	{
+		question: 'أين يجب تركيب صمامات الرجوع؟',
+		answer: 'المواقع النموذجية: خطوط طرد المضخات (لوقف الارتداد الذي يدور المضخة عكسيًا)، وخطوط الصرف الصحي والصرف البلدي، ومصاعد مضخات الغاطسة حيث يُحتاج التركيب الرأسي، وشبكات رش الحريق — حيث يعمل صمام الرجوع للإنذار الرطب مثل ZSFZ-150 كمشغّل لإنذار التدفق. عند الاتصالات المتقاطعة لمياه الشرب، يوفر مانع الارتداد المضاد للتلوث HS41X حاجز صمامي رجوع مزدوج المطلوب للتحكم في الارتداد.'
+	},
+	{
+		question: 'أي معيار اختبار ووثائق يجب أن أطلبها عند شراء صمامات الرجوع؟',
+		answer: 'أكّد معيار اختبار الغلاف والمقعد المطبق على الدفعة — يُختبر HQ44X وفق GB/T13927. اطلب تقارير اختبار ضغط الغلاف/المقعد للدفعة وشهادات المواد للجسم ولنواة الكرة، واذكر DN وتصنيف الضغط وحرارة التشغيل واتجاه التركيب في استفسارك ليوافق العرض السعر الفعلي للخدمة.'
+	}
+];
+
+const toc = [
+	{ id: 'what-is-a-check-valve', label: 'ما هو صمام الرجوع؟' },
+	{ id: 'check-valve-types-overview', label: 'أنواع صمامات الرجوع في لمحة' },
+	{ id: 'sliding-ball-vs-swing-check', label: 'الكرة المنزلقة مقابل الرجوع المتذبذب' },
+	{ id: 'water-hammer-prevention', label: 'صدمة الماء والتصميم بلا ارتطام' },
+	{ id: 'where-check-valves-installed', label: 'أين تُركَّب صمامات الرجوع' },
+	{ id: 'check-valve-specification-checklist', label: 'قائمة مواصفات B2B' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const products = [
+	{ slug: 'sliding-ball-check-valve-hq41x', name: 'صمام رجوع كرة منزلقة (HQ41X-16)', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50-DN350، كرة NBR، أقل فقد رأس بنحو 50%' },
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'صمام رجوع كرة كروية (HQ44X-16)', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50-DN400 PN16، حديد مطبوع، بلا ارتطام' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'صمام إنذار رطب برجوع ZSFZ 150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'DN100/150/200 إنذار رش' },
+	{ slug: 'anti-pollution-backflow-preventer-hs41x', name: 'مانع ارتداد مضاد تلوث (HS41X-16)', img: '/assets/products/anti-pollution-backflow-preventer-hs41x.webp', desc: 'صماما رجوع + تصريف لمياه الشرب' }
+];
+---
+
+<Layout
+	title="أنواع صمامات الرجوع ودليل الاختيار: كرة منزلقة مقابل متذبذب"
+	description="مقارنة أنواع صمامات الرجوع: متذبذب مقابل كرة منزلقة (HQ41X) مقابل كرة كروية (HQ44X) — فقد الرأس، صدمة الماء، اتجاه التركيب، وقائمة اختيار B2B."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'دليل أنواع صمامات الرجوع' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">دليل أنواع صمامات الرجوع</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل الصمامات الصناعية</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">أنواع صمامات الرجوع ودليل الاختيار: كرة منزلقة مقابل متذبذب</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">باختصار: صمام الرجوع يسمح للماء بالمرور في اتجاه واحد ويُغلق تلقائيًا عند انعكاس التدفق — دون مشغّل أو مصدر طاقة. عندما تتعلق الخدمة بالصرف الصحي أو الصرف أو شبكات المضخات، تُغلق صمامات الرجوع الكروية مثل تصميمي HQ41X الكرة المنزلقة وHQ44X الكرة الكروية بهدوء دون ارتطام، مما يتجنب صدمة الماء التي قد تسببها صمامات الرجوع المتذبذبة. يقارن هذا الدليل الأنواع الشائعة ويخبرك بما يجب أن تحدده.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="what-is-a-check-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. ما هو صمام الرجوع؟</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">صمام الرجوع صمام أحادي اتجاه تلقائي. الوسيط المتدفق نفسه يفتح عنصر الإغلاق؛ وعندما يتوقف التدفق أو يحاول الانعكاس، يعود العنصر إلى مقعده ويُغلق الصمام. لا يوجد عجلة يد أو مشغّل أو توصيل كهربائي — صمامات الرجوع تحمي المضخات والعدادات والشبكات من التدفق العكسي، وتبقي الخطوط ممتلئة بعد الإيقاف، وتمنع تلوث الوسيط النظيف بالتدفق العكسي.</p>
+			<p class="text-gray-700 leading-relaxed">الشيئان اللذان يميزان صمام الرجوع الجيد عن السيء هما <strong>فقد الضغط</strong> (كم من طاقة ضخك يهدرها أثناء الفتح) و<strong>سلوك الإغلاق</strong> (هل يُغلق بعنف فيُطرق الخط، أو يُغلق بهدوء). كلاهما يحدده آلية الإغلاق — ولهذا يهمّ اختيار النوع.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="check-valve-types-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. أنواع صمامات الرجوع في لمحة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>صمامات الرجوع المتذبذبة</strong> تستخدم قرصًا مفصليًا يتمايل مع التدفق الأمامي ويسقط على المقعد عند توقف التدفق. بسيطة وغير مكلفة، لكن للقرص مسار سفر طويل — عند انعكاس مفاجئ للتدفق يمكنه الارتطام بالمقعد، وفي الوسائط المتسخة يمكن أن يعلق المفصل أو يعلق القرص مفتوحًا.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>صمامات الرجوع الرفعية</strong> تستخدم مكبسًا أو كرة بمساعد نابض ترفع عن المقعد. تُغلق أسرع ومناسبة للوسائط النظيفة أعلى الضغط، لكن مسار التدفق المقيد يُحدث فقد ضغط أكبر وتنسد بسهولة في خدمة الصرف الصحي.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>صمامات الرجوع من نوع الوافر (قرص مزدوج)</strong> مدمجة وتدخل بين الفلنجتين، بقرصين بمساعد نابض. خفيفة ورخيصة لخطوط الحريق والتكييف (HVAC)، لكن الأقراص تضيف فقد رأس ويمكن أن تتعب النوابض في خدمة الضخ المستمرة.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>صمامات الرجوع الكروية</strong> تستبدل المفصل أو النابض بكرات مغطاة بالمطاط تتدحرج. ترفع الكرة عن القطر مع التدفق الأمامي وتعود للتدحرج على المقعد عند توقف التدفق — سفر قصير موجَّه يُغلق بهدوء ويقاوم الانسداد. <a href="/ar/products/sliding-ball-check-valve-hq41x/" class="text-brand-blue font-semibold hover:underline">صمام الرجوع الكروي المنزلق HQ41X</a> و<a href="/ar/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">صمام الرجوع بالكرة الكروية HQ44X</a> هما التصميمان الكرويان في نطاق Wanlian.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="sliding-ball-vs-swing-check" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. الكرة المنزلقة مقابل الرجوع المتذبذب</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">المقارنة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">رجوع متذبذب</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">HQ41X كرة منزلقة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">HQ44X كرة كروية</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">عنصر الإغلاق</td>
+							<td class="px-4 py-3 text-gray-700">قرص مفصلي</td>
+							<td class="px-4 py-3 text-gray-700">كرة مغطاة مطاطًا على دعامات داخلية</td>
+							<td class="px-4 py-3 text-gray-700">كروي تتدحرج مغطى مطاطًا</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">فقد الرأس</td>
+							<td class="px-4 py-3 text-gray-700">خط أساس</td>
+							<td class="px-4 py-3 text-gray-700">كامل القطر، أقل بنحو 50% من المتذبذب</td>
+							<td class="px-4 py-3 text-gray-700">قناة تدفق كاملة بلا انسداد</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">سلوك الإغلاق</td>
+							<td class="px-4 py-3 text-gray-700">قد يرتطم القرص عند انعكاس سريع</td>
+							<td class="px-4 py-3 text-gray-700">إغلاق هادئ، لا صدمة ماء</td>
+							<td class="px-4 py-3 text-gray-700">هادئ بلا ارتطام، تدفق انطلاقة منخفض</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">مقاومة الانسداد</td>
+							<td class="px-4 py-3 text-gray-700">قد يعلق المفصل في وسائط متسخة</td>
+							<td class="px-4 py-3 text-gray-700">الكرة تمنع الانسداد</td>
+							<td class="px-4 py-3 text-gray-700">كامل القطر ضد الانسداد</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">التركيب</td>
+							<td class="px-4 py-3 text-gray-700">غالبًا أفقي</td>
+							<td class="px-4 py-3 text-gray-700">أفقي أو رأسي</td>
+							<td class="px-4 py-3 text-gray-700">أفقي أو رأسي</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الخدمة النموذجية</td>
+							<td class="px-4 py-3 text-gray-700">خطوط ماء نظيفة</td>
+							<td class="px-4 py-3 text-gray-700">صرف صحي، صرف، مضخات غاطسة</td>
+							<td class="px-4 py-3 text-gray-700">ماء عالي التدفق، شبكات مضخات</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">كلا التصميمين الكرويين يستخدم نواة معدنية مغطاة بالمطاط: كرة HQ41X فولاذ كربوني مغطاة بالكامل بـ NBR، بينما كرة HQ44X نواة حديد زهر مطاطة بالكامل بـ EPDM. مطاطات المقعد والحزام EPDM أو NBR، وحرارة التشغيل من 0°C إلى 80°C عبر النطاق القياسي.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="water-hammer-prevention" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. صدمة الماء والتصميم بلا ارتطام</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تحدث صدمة الماء عندما يتوقف عمود ماء متحرك فجأة — انقطاع مضخة، إغلاق صمام سريع، أو ارتطام صمام رجوع. تتحول الطاقة الحركية للماء إلى ذروة ضغط يمكنها تمزيق الأنابيب وتلف المضخات وإزاحة الأجهزة عن المعايرة. في خطوط الطرد الطويلة يمكن أن تكون الذروة بعدة أضعاف ضغط التشغيل.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">صمام الرجوع المتذبذب مصدر ارتطام كلاسيكي: عند توقف المضخة ينهار التدفق الأمامي ويسقط القرص الثقيل عبر العمود المتباطئ، يرتطم بالمقعد ويبعث على ارتفاع في اتجاه أسفل التيار. صمامات الرجوع الكروية تتجنب المفصل بالكامل — الكرة المتدحرجة تتبع التدفق بسلاسة وتُحكم دون ارتطام. ولهذا يُوصف HQ41X وHQ44X بوصفهما صمامات رجوع بإغلاق هادئ دون صدمة ماء.</p>
+			<p class="text-gray-700 leading-relaxed">للتحكم الكامل في الارتفاع على شبكات المضخات، استخدم صمام الرجوع مع صمامات تحكم هيدروليكي بطيء الإغلاق ومانع دوامة سحب EN12845 على سحب المضخة، حتى تبقى كلتا حالتَي الانطلاقة والانقطاع ضمن حدود آمنة.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="where-check-valves-installed" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. أين تُركَّب صمامات الرجوع</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>خطوط طرد المضخات.</strong> كل مضخة تحتاج صمام رجوع في اتجاه أسفل التيار حتى لا يتدفق الماء عكسيًا ويدور الدوّار عكسيًا عند توقف المضخة — سبب شائع لفشل المضخة المبكر. صمامات الرجوع الكروي بفقد رأس منخفض توفر أيضًا الطاقة في خدمة الضخ المستمرة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>خطوط الصرف الصحي والصرف.</strong> الصرف الخام يحمل مواد صلبة، ويمكن لقرص مفصلي أو آلية نابض أن يعلق. صُمم HQ41X لخدمةٍ كهذه تمامًا — الكرة المتدحرجة المغطاة بالمطاط تمنع الانسداد، والصمام ممتاز للصرف الصحي والصرف البلدي وشبكات المضخات الغاطسة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>أنظمة رش الحريق.</strong> لصمامات الرجوع مهمة خاصة في شبكات الرش: <a href="/ar/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">صمام الرجوع للإنذار الرطب ZSFZ</a> يحبس ماء النظام، ثم عند فتح رأس رش وتدفق الماء يرفع الكفة (الفلقة) ويُشغّل جرس الإنذار الهيدروليكي ومفتاح الضغط — صمام رجوع هو أيضًا مشغّل إنذار التدفق. للصورة الكاملة لصمامات التحكم في أنظمة الرش، راجع <a href="/ar/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">دليل أنواع صمامات التحكم في رش الحريق</a>.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>الاتصالات المتقاطعة لمياه الشرب.</strong> حيث يمكن لماء الخزان أو الري أو ماء المعالجة أن يعود نظريًا إلى خط الشرب، صمام رجوع وحده حماية غير كافية. <a href="/ar/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">مانع الارتداد المضاد للتلوث HS41X</a> يستخدم صمامي رجوع متسلسلين مع تصريف وسيط تلقائي — التكوين المطلوب للتحكم الفعلي في الاتصالات المتقاطعة، موضّح بالتفصيل في <a href="/ar/guides/backflow-prevention-guide/" class="text-brand-blue font-semibold hover:underline">دليل منع الارتداد</a>.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="check-valve-specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. قائمة مواصفات B2B</h2>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>اعرف وديتك</strong> — ماء نظيف، صرف صحي بصلب، أم ماء حريق؟ الصلب والألياف تدل على صمام رجوع كروي؛ الخطوط النظيفة عالية الضغط قد تتحمل نوع رفع أو متذبذب.</li>
+				<li><strong>ثبّت المقاس والضغط</strong> — HQ41X يغطي DN50-DN350 عند 1.0/1.6 MPa؛ HQ44X يغطي DN50-DN400 عند PN16. اذكر DN ومعيار الفلنجة (GB، ANSI، DIN) في الاستفسار.</li>
+				<li><strong>تحقق من اتجاه التركيب</strong> — أكّد ما إذا كانت الخدمة أنبوب أفقي أو رأسي؛ يقبل HQ41X وHQ44X كلاهما، وهو ما لا تقبله صمامات الرجوع المتذبذبة غالبًا.</li>
+				<li><strong>طابق مواد الكرة والجسم مع الماء</strong> — كرة فولاذ كربوني مغطاة NBR (HQ41X) أو كرة حديد زهر مطاطة EPDM (HQ44X)، مع أجسام حديد زهر (HT200) أو كروية (QT450) أو مطبوعة (QT450-10)؛ نطاق حرارة التشغيل 0°C إلى 80°C.</li>
+				<li><strong>اسأل عن سلوك الإغلاق</strong> — إذا كان الخط عرضة لانقطاع المضخات أو إغلاق الصمامات السريع، حدد تصميمًا بلا ارتطام بإغلاق هادئ لتجنب صدمة الماء.</li>
+				<li><strong>اطلب أدلة اختبار</strong> — تقارير اختبار ضغط الغلاف والمقعد للدفعة الفعلية (يُختبر HQ44X وفق GB/T13927)، شهادات المواد عند الطلب، وطبّق <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة التحقق من مصادر صمامات B2B</a> لدينا قبل الالتزام بمصنع.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">هل تحتاج صمامات رجوع لخطوط ماء أو صرف صحي أو حريق؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أخبرنا DN وتصنيف الضغط والوسيط واتجاه التركيب — يأكّد مهندسونا الصمام الرجوع الكروي المناسب ويرسل عرض السعر خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Check%20Valve%20HQ41X" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%20%D8%B1%D8%AC%D9%88%D8%B9%20%D9%84%D8%AE%D8%B7%D9%88%D8%B7%20%D9%85%D8%A7%D8%A1%2F%D8%B5%D8%B1%D9%81%20%D8%B5%D8%AD%D9%8A" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

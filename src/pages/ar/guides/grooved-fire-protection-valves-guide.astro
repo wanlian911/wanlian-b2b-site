@@ -1,0 +1,198 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'ما هو الصمام بنهايات بمسار وكيف يتصل بالأنابيب؟',
+		answer: 'يحمل الصمام بنهايات بمسار شقًا حلقيًا معياريًا عند كل نهاية بدلًا من الفلنجات أو المسنّنات. تُربط الأنابيب والصمامات بموصّل ميكانيكي — قطعتا غلاف يُحكمان فوق النهايات المسّارّتين مع حشوة داخلية. تُشكَّل الوصلة بالبراغي فقط: لا لحام، ولا تمسيك، ولا لهب مكشوف، ولهذا تُستخدم الوصلات بمسار على نطاق واسع في خطوط الحماية من الحريق وشبكات المياه.'
+	},
+	{
+		question: 'متى أختار صمامات بمسار بدلًا من صمامات بفلنجة؟',
+		answer: 'اختر النهايات بمسار عندما تكون سرعة التركيب مهمة، أو عندما تكون أعمال اللحام أو الأعمال الساخنة مقيدة في الموقع، أو عندما قد يحتاج الخط إلى الفتح للصيانة لاحقًا — فالموصّل يُحرَّر ببساطة. تبقى الوصلات بفلنجة المواصفة التقليدية للخطوط الرئيسية كبيرة الفتحة عالية الضغط. في سلسلة Wanlian، صمامات الحريق بمسار بتصنيف PN16 (1.6 MPa)، وصمام البوابة الكهرومغناطيسي GKZF-1 بتصنيف حتى 300 PSI (2.0 MPa).'
+	},
+	{
+		question: 'ما صمامات Wanlian المتوفرة بنهايات بمسار؟',
+		answer: 'خمسة موديلات تغطي عائلة خطوط الحريق بمسار: صمام الفراشة D381X-16Q بمسار (DN50-DN300، PN16، ترس حلزوني مع خيار قفل إشارة)، صمام الفراشة الوافر بإشارة DN80 بمسار (DN50-DN300 مع مبدّل إشارة كهربائي مدمج)، صمام البوابة OS&Y بمقعد مرن مدرج UL/FM (2"-10"، نهايات بمسار)، صمام البوابة Z85X من الفولاذ المقاوم للصدأ بمسار (DN40-DN300، مصبوب CF8M 316)، وصمام البوابة GKZF-1 الكهرومغناطيسي للتحكم بمسار (DN50-DN300، AC220V/DC24V، 300 PSI).'
+	},
+	{
+		question: 'هل يمكن لصمامات الرش الرئيسية إبلاغ حالة الفتح/الإغلاق؟',
+		answer: 'نعم. يُظهر صمام البوابة OS&Y موضعه ميكانيكيًا عبر العمود الصاعد والوصاد. للإشراف عن بعد، يحمل صمام الفراشة الوافر بمسار والإشارة مبدّل إشارة كهربائيًا مدمجًا لمراقبة الحالة، ويوفر صمام الفراشة D381X بمسار خيار جهاز قفل الإشارة. هذا يتيح للوحة إنذار الحريق أو نظام إدارة المبنى معرفة ما إذا كان صمام مقطع معين قد بقي مغلقًا.'
+	},
+	{
+		question: 'هل صمامات الحريق بمسار مدرجة UL أو FM؟',
+		answer: 'صمام البوابة OS&Y بمقعد مرن بنهايات بمسار مدرج UL وFM لخدمة الحماية من الحريق. الموديلات الأخرى في السلسلة مصنعة وفق متطلبات معايير GB ومواصفات المصنع — لا ندّعي تسجيلًا شاملًا للسلسلة عندما يحمل موديلات محددة فقط. لمشاريع أمريكا الشمالية، اذكر التسجيل المطلوب حسب مواصفاتك وسنطابق الموديل المعتمد أو نرتب تقييمًا للمشروع.'
+	},
+	{
+		question: 'كيف أتحقق من جودة صمامات بمسار قبل الطلب؟',
+		answer: 'اطلب تقارير اختبار ضغط الجسم والمقعد بالدفعات، وشهادات المواد (مثل جسم CF8M 316 في Z85X)، وتحقق من أن أبعاد المسار تتطابق مع معيار الموصّل الذي سيستخدمه مقاولك. يمكن ترتيب فحص من طرف ثالث قبل الشحن — وقائمتنا لمصادر صمامات B2B تتناول عملية التحقق الكاملة.'
+	}
+];
+
+const products = [
+	{ slug: 'd381x-16q-grooved-butterfly-valve', name: 'صمام فراشة بمسار D381X-16Q', img: '/assets/products/d381x-16q-grooved-butterfly-valve.webp', desc: 'DN50-DN300، PN16، ترس حلزوني، خيار قفل إشارة' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'صمام فراشة وافر بمسار بإشارة', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', desc: 'DN50-DN300، PN16، مبدّل إشارة مدمج' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'صمام بوابة OS&Y بمقعد مرن UL/FM (بمسار)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10"، مدرج UL وFM، مؤشر عمود صاعد' },
+	{ slug: 'z85x-stainless-steel-grooved-gate-valve', name: 'صمام بوابة بمسار Z85X من فولاذ مقاوم للصدأ', img: '/assets/products/z85x-stainless-steel-grooved-gate-valve.webp', desc: 'DN40-DN300، جسم CF8M 316 مصبوب، توصيل بموصّل' }
+];
+
+const toc = [
+	{ id: 'what-is-grooved-valve', label: '1. ما هو الصمام بمسار؟' },
+	{ id: 'grooved-vs-flanged', label: '2. بمسار مقابل بفلنجة مقابل مسنّن' },
+	{ id: 'grooved-valve-family', label: '3. عائلة صمامات الحريق بمسار' },
+	{ id: 'valve-supervision-signals', label: '4. خيارات الإشراف والإشارة' },
+	{ id: 'retrofit-installation', label: '5. اعتبارات التركيب على الأنظمة القائمة' },
+	{ id: 'grooved-valve-spec-checklist', label: '6. قائمة مواصفات B2B' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+---
+
+<Layout
+	title="صمامات الحماية من الحريق بمسار: وصل بمسار مقابل بفلنجة"
+	description="صمامات حريق بمسار لأنظمة الرش: فراشة إشارة وبوابة OS&Y وبوابة فولاذ مقاوم للصدأ وتحكم كهرومغناطيسي، مقارنة بمسار بفلنجة وقائمة B2B من Wanlian."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'دليل صمامات الحريق بمسار' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">دليل الصمامات بمسار</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل صمامات الحماية من الحريق</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">صمامات الحماية من الحريق بمسار: وصل بمسار مقابل بفلنجة</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">باختصار: تصل الصمامات بمسار الأنابيب عبر موصّل ميكانيكي يُحكَم بالبراغي بدلًا من الفلنجات أو المسنّنات أو اللحام — وهذا يجعل تركيب خطوط الحريق الرئيسية أسرع، ويُبقي اللهب المكشوف بعيدًا عن الموقع، ويتيح لفريق الصيانة فتح أي مقطع بتحرير براغي الموصّلين. إذا كان مشروع الرش أو نظام عمود الماء يستخدم أنابيب بمسار، فعليّ كل صمام إيقاف وتحكم على الخط الرئيسي أن يحمل نهايات بمسار مطابقة. يشرح هذا الدليل المقايضات بين طرق الوصل وعائلة الصمامات التي ينبغي تخصيصها.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-grooved-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. ما هو الصمام بمسار؟</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">الصمام بمسار هو صمام قياسي (بوابة أو فراشة أو جلوب) تُنقَش في كلتا نهايتَيْه شق حلقي (مسار). يُشكَّل الوصل بموصّل ميكانيكي: قطعتا غلاف مبطنتان بحشوة من المطاط الصناعي تُوضَعان فوق النهايتين المسّارّتين ويُحكمان بالبراغي، فتُضغط الحشوة داخل المسارين لتكوين الإحكام.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">لأن الوصل ميكانيكي بحت، لا يحتاج التركيب إلى لحام أو ماكينة تمسيك أو تصريح أعمال ساخنة. كما يمتص الموصّل انحرافات المحاذاة والحركة الحرارية الصغيرة عند الوصلة، ويمكن فتحه لاحقًا بالبراغي نفسها — خاصية تتجلى قيمتها كل مرة يحتاج فيها صمام مقطع أو صمام تحكم إلى الاستبدال.</p>
+			<p class="text-gray-700 leading-relaxed">الوصلات بمسار هي طريقة الربط السائدة في خطوط الحماية من الحريق الحديثة في كثير من الأسواق، ولهذا تُخصص صمامات الحريق من المصنع بنهايات بمسار بدلًا من تكييفها في الموقع.</p>
+
+			<h2 id="grooved-vs-flanged" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. بمسار مقابل بفلنجة مقابل مسنّن</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">المقارنة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">بفلنجة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">بمسنّن</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">بمسار (موصّل)</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">التركيب</td>
+							<td class="px-4 py-3 text-gray-700">تثبيت بالبراغي، يتطلب محاذاة دقيقة</td>
+							<td class="px-4 py-3 text-gray-700">يتطلب تمسيك، محدود بالمقاس</td>
+							<td class="px-4 py-3 text-gray-700">كلمب + براغي، موصّل ميكانيكي سريع</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">أعمال ساخنة / تصريح حريق</td>
+							<td class="px-4 py-3 text-gray-700">لا شيء عند الوصلة، لكن الفلنجات ثقيلة</td>
+							<td class="px-4 py-3 text-gray-700">لا شيء، لكن تمسيك في الموقع</td>
+							<td class="px-4 py-3 text-gray-700">لا شيء — لا لحام ولا لهب مكشوف</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">تسامح المحاذاة</td>
+							<td class="px-4 py-3 text-gray-700">منخفض — يجب محاذاة الفلنجات</td>
+							<td class="px-4 py-3 text-gray-700">متوسط</td>
+							<td class="px-4 py-3 text-gray-700">مرتفع — الموصّل يمتص الانحراف الطفيف</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الفك</td>
+							<td class="px-4 py-3 text-gray-700">تحرير براغي كثيرة</td>
+							<td class="px-4 py-3 text-gray-700">فك لولبي، قد يعلق</td>
+							<td class="px-4 py-3 text-gray-700">تحرير برغيين لكل موصّل</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">التصنيف النموذجي (سلسلة Wanlian بمسار)</td>
+							<td class="px-4 py-3 text-gray-700">PN10-PN40 حسب الموديل</td>
+							<td class="px-4 py-3 text-gray-700">فتحات صغيرة فقط</td>
+							<td class="px-4 py-3 text-gray-700">PN16؛ تصنيف GKZF-1 عند 300 PSI (2.0 MPa)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الاستخدام النموذجي</td>
+							<td class="px-4 py-3 text-gray-700">خطوط رئيسية كبيرة، محطات عمليات</td>
+							<td class="px-4 py-3 text-gray-700">خطوط فرعية صغيرة</td>
+							<td class="px-4 py-3 text-gray-700">خطوط حريق رئيسية، أعمدة رش صاعدة، شبكات مائية</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">تبقى الصمامات بفلنجة الخيار الصحيح لكثير من مواصفات الفتحات الكبيرة والضغوط العالية. لكن عندما تكون شبكة الأنابيب نفسها بمسار — وهو الحال الشائع في خطوط الرش الرئيسية — يفرض الصمام بفلنجة إدخال محولات إلى الخط ويُسقط ميزة السرعة الخاصة بطريقة الوصل.</p>
+
+			<h2 id="grooved-valve-family" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. عائلة صمامات الحريق بمسار</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>إيقاف رئيسي بموضع ظاهر.</strong> يحمل <a href="/ar/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">صمام البوابة OS&amp;Y بمقعد مرن UL/FM</a> نهايات بمسار من 2" إلى 10" (DN50-DN250) بعمود صاعد يُظهر موضع الفتح/الإغلاق على نحو مباشر — الصمام الدالّ الذي يتوقعه مفتش الحريق على الخط المقطعي. جسم حديد الزهر المطبوع مع مقعد EPDM المرن يوفر إغلاقًا محكمًا ضد التنقيط.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>تحكم بربع دورة مدمج.</strong> للتحكم في الفروع والأعمدة الصاعدة حيث المساحة محدودة، يجمع <a href="/ar/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">صمام الفراشة الوافر بمسار بالإشارة</a> (DN50-DN300، PN16) بين جسم وافر ومبدّل إشارة كهربائي مدمج ومشغّل ترس حلزوني، بينما يقدم <a href="/ar/products/d381x-16q-grooved-butterfly-valve/" class="text-brand-blue font-semibold hover:underline">صمام الفراشة D381X-16Q بمسار</a> النهايات المسّارّتين نفسها مع خيار جهاز قفل الإشارة لتوضيح الموضع.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>خدمة مقاومة للتآكل.</strong> حيث يستبعد جودة المياه أو الوسائط العدوانية استخدام حديد الزهر المطبوع، يستخدم <a href="/ar/products/z85x-stainless-steel-grooved-gate-valve/" class="text-brand-blue font-semibold hover:underline">صمام البوابة Z85X بمسار من الفولاذ المقاوم للصدأ</a> (DN40-DN300) جسمًا مصبوبًا من 316 CF8M بعمود غير صاعد ونهايات بمسار لخطوط الغاز والنفط والماء.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>تحكم عن بعد آلي.</strong> عندما يجب أن يفتح الصمام ويُغلق بأمر من لوحة تحكم، يشغّل <a href="/ar/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">صمام البوابة GKZF-1 بمسار للتحكم الكهرومغناطيسي</a> (DN50-DN300) صمام بوابة من حديد الزهر المطبوع عبر كهرومغناطيس DC24V أو AC220V — بتصنيف 300 PSI (2.0 MPa) للتحكم الآلي في تدفق المياه البلدية والإطفائية.</p>
+
+			<h2 id="valve-supervision-signals" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. خيارات الإشراف والإشارة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تعامل أكواد الحماية من الحريق صمام المقطع المغلق كخطر جسيم: إذا أُعزل نظام الرش بصمام رئيسي مغلق، لا يستطيع النظام حماية المبنى. ولهذا تكون صمامات التحكم في أنظمة الرش إما صمامات دالة (يظهر الموضع على الصمام نفسه) أو صمامات مُشرَف عليها (يُبلَّغ عن الموضع كهربائيًا).</p>
+			<p class="text-gray-700 leading-relaxed mb-4">تغطي العائلة بمسار الطريقتين معًا. صمام البوابة OS&amp;Y دالّ بطبيعته — موضع العمود الصاعد يُقرأ من الطرف الآخر للغرفة. يضيف صمام الفراشة الوافر بمسار والإشارة مبدّل إشارة كهربائيًا مدمجًا لمراقبة الحالة عن بعد، ويقدم D381X خيار جهاز قفل الإشارة، بينما صمام GKZF-1 الكهرومغناطيسي يعمل كهربائيًا بتصميمه، فحاله معروف للنظام الذي يشغّله.</p>
+			<p class="text-gray-700 leading-relaxed">عندما تكون الصمامات مُشرَف عليها، ينبغي أن تُبلَّغ الأسلاك إلى نفس لوحة الإنذار التي تراقب مفاتيح التدفق وصمامات الإنذار — راجع <a href="/ar/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">دليل أنواع صمامات التحكم في رش الحريق</a> للشرح الكامل لمهام OS&amp;Y وصمامات الفراشة وصمامات الرجوع في نظام الرش، و<a href="/ar/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">دليل صمامات الحريق المدرجة UL</a> للتحقق من تسجيلات UL الحقيقية قبل الشراء.</p>
+
+			<h2 id="retrofit-installation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. اعتبارات التركيب على الأنظمة القائمة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تتألق الوصلات بمسار في أعمال التعديل على الأنظمة القائمة. استبدال صمام داخل خط رش رئيسي قائم يعني عادةً تصريف المقطع وقطع الوصلة القديمة أو تحرير موصّلين اثنين — ومع وجود صمامات بمسار أعلى وأسفل التيار، يُثبَّت الصمام الجديد بموصّلين وتعود الخط إلى الخدمة بسرعة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">في المباني المأهولة، غياب الأعمال الساخنة ميزة عملية حقيقية: اللحام على خط حريق نشط يتطلب تصاريح ومراقبة حريق وأحيانًا توقفات تقاومها إدارة المبنى. الموصّلات الميكانيكية تزيل هذا القيد، والأجسام الوافرة المدمجة لموديلات الفراشة يسهّل التثبيت في غرف الأعمدة الضيقة.</p>
+			<p class="text-gray-700 leading-relaxed">تحقق من مواصفات المسار والموصّل مع المقاول قبل الطلب — أبعاد المسار يجب أن تتطابق مع علامة ومعيار الموصّل المستخدم على أنابيب المشروع، وجسم الصمام المطلوب بنهايات بمسار لا يمكن تحويله في الموقع إلى بفلنجة.</p>
+
+			<h2 id="grooved-valve-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. قائمة مواصفات B2B</h2>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>طابق نظام الوصل</strong> — إذا كان الخط الرئيسي بمسار، فخصص نهايات بمسار لكل صمامات المقطع والتحكم حتى لا تكون هناك حاجة إلى محولات؛ اذكر معيار المسار للموصّل في الاستفسار.</li>
+				<li><strong>حدّد المهمة والمقاس</strong> — إيقاف مقطع (بوابة OS&amp;Y، 2"-10")، تحكم بربع دورة مدمج (فراشة بإشارة أو D381X، DN50-DN300)، أو تحكم عن بعد آلي (GKZF-1، DN50-DN300).</li>
+				<li><strong>ثبّت الضغط والمادة</strong> — سلسلة بمسار عند PN16 (1.6 MPa) مع تصنيف GKZF-1 عند 300 PSI (2.0 MPa)؛ أجسام من حديد الزهر المطبوع QT450 للماء القياسي، ومصبوب CF8M 316 (Z85X) لخدمة التآكل.</li>
+				<li><strong>قرر الإشراف</strong> — OS&amp;Y دالّ، مبدّل إشارة مدمج على الفراشة، خيار قفل الإشارة على D381X، أو تشغيل كهرومغناطيسي على GKZF-1، بما يتوافق مع ما تتوقعه لوحة الإنذار.</li>
+				<li><strong>اذكر متطلبات الشهادات</strong> — صمام البوابة OS&amp;Y المدرج UL/FM لمشاريع أمريكا الشمالية؛ تحقق أي موديل يحمل التسجيل الذي تطلبه مواصفاتك.</li>
+				<li><strong>اطلب أدلة الاختبار</strong> — تقارير اختبار الضغط بالجسب والمقعد بالدفعات، وشهادات المواد، وطبّق <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة مصادر صمامات B2B</a> قبل الالتزام بمصنع.</li>
+			</ul>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">هل تحتاج صمامات حماية حريق بمسار لخط الرش؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل لنا DN وتصنيف الضغط ومتطلبات الإشراف ومعيار الموصّل — يراجع مهندسونا مطابقة الصمام ويقدّمون عرض سعر خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Grooved%20Fire%20Protection%20Valve" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%20%D8%AD%D9%85%D8%A7%D9%8A%D8%A9%20%D8%AD%D8%B1%D9%8A%D9%82%20%D8%A8%D9%85%D8%B3%D8%A7%D8%B1" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

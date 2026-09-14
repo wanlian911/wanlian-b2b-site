@@ -263,5 +263,14 @@ export const guidesFr: GuideFr[] = [
     category: 'Achats B2B',
     readTime: '9 min de lecture',
     tags: ['procurement', 'fire-hydrant', 'industrial-valves']
-  }
+  },
+  {
+    title: 'Guide Vanne d’Équilibrage Numérique HVAC : Sélection SP45F',
+    description: 'Guide vanne d’équilibrage numérique HVAC : points d’essai de pression et verrouillage du SP45F, données RFQ et comparatif — fournisseur usine de Chine.',
+    href: '/fr/guides/hvac-digital-balancing-valve-guide/',
+    date: '2026-09',
+    category: 'HVAC et vannes industrielles',
+    readTime: '8 min de lecture',
+    tags: ['industrial-valves', 'backflow-prevention']
+  },
 ];

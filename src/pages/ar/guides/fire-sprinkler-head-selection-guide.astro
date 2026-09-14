@@ -1,0 +1,209 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ: أسئلة شراء حقيقية (تولّد FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'ماذا يعني معامل K لرأس الرش؟',
+		answer: 'يربط معامل K تدفق رأس الرش بالضغط عند الرأس عبر المعادلة Q = K × √P (التدفق باللتر/دقيقة، والضغط بالبار). يوفر رأس K=80 عند 1 بار نحو 80 لتر/دقيقة؛ ويوفر رأس K=115 نحو 115 لتر/دقيقة عند الضغط نفسه. تُستخدم معاملات K الأعلى حيث يجب أن يصل مزيد من الماء إلى الحريق أسرع — احتلالات الخطورة الزائدة أو السقف العالي — بينما يبقى K=80 المعيار الشائع للمساحات ذات الخطورة الخفيفة والعادية.'
+	},
+	{
+		question: 'ماذا تعني تصنيفات الحرارة وألوان الكبسولات؟',
+		answer: 'تحتوي الكبسولة الزجاجية سائلًا يتمدد وينفجر عند حرارتها الاسمية، فيُطلَق الموزّع. التصنيفات القياسية ورموز الألوان: 57°C (برتقالي)، 68°C (أحمر)، 79°C (أصفر)، 93°C (أخضر) و141°C (أزرق). رأس الكبسولة الحمراء 68°C هو الافتراضي لمعظم المكاتب والمخازن؛ وتُستخدم تصنيفات أعلى قرب مصادر الحرارة كالغلايات والمدفئات والمطابخ حتى لا يطلق الرأس عن غير قصد.'
+	},
+	{
+		question: 'ما الفرق بين رأس الاستجابة السريعة ورأس الاستجابة القياسية؟',
+		answer: 'تُحدد سرعة الاستجابة بالكتلة الحرارية لعنصر الاستشعار: يستخدم رأس الاستجابة السريعة كبسولة زجاجية 3mm، ويستخدم رأس الاستجابة القياسية كبسولة 5mm. ينشط الرؤوس سريعة الاستجابة أسرع، وتُفضَّل في احتلالات الخطورة الخفيفة والعادية حيث يوفر الإطلاق المبكر أرواحًا وممتلكات؛ بينما شائعة رؤوس الاستجابة القياسية في البيئات الصناعية والتخزينية حيث يُقبل إطلاق أبطأ قليلًا وأكثر تدقيقًا. تتوفر سلسلة ZST لدينا بنوعي الاستجابة.'
+	},
+	{
+		question: 'أي رؤوس رش في نطاق Wanlian تحمل قائمة UL؟',
+		answer: 'رأس الرش المخفي ZSTDY حاصل على قائمة UL بكبسولة حمراء 68°C وتشطيب كروم مجلفن كهربائيًا. تُصنع سلسلة ZST الكبسولية الزجاجية ونموذج T-ZSTBS الجانبي الأفقي وفق متطلبات سلسلة GB 5135 ومعايير المصنع — لمشاريع أمريكا الشمالية، أكّد الترخيص المطلوب في مواصفاتك وسنطابق النموذج المعتمد أو ننظّم تقييمًا للمشروع. لا نَدّعي قائمة على مستوى السلسلة حيث تحملها نماذج محددة فقط.'
+	},
+	{
+		question: 'هل يمكن خلط رؤوس ذات تصنيفات حرارة مختلفة في منطقة واحدة؟',
+		answer: 'لا — وهذا من أكثر ملاحظات التفتيش شيوعًا. يجب أن تحمل جميع الرؤوس التي تحمي منطقة خطورة واحدة التصنيف الحراري نفسه، لأن رأسًا بتصنيف أدنى قرب مصدر حراري سينطلق مبكرًا، ورأسًا بتصنيف أعلى في منطقة عادية يستجيب متأخرًا. ابقِ رؤوس الحرارة الأعلى حصريًا للمواقع ذات المصادر الحرارية الحقيقية، وأدرج منطقة التصنيف على مخططات الورشة.'
+	},
+	{
+		question: 'متى أختار رأسًا مخفيًا بدل رأس معلّق؟',
+		answer: 'اختر رؤوسًا مخفية (مغروسة خلف لوحة غطاء) حيث تهم جمالية السقف — مكاتب، فنادق، تجهيزات تجارية — لأن لوحة الغطاء وحدها هي الظاهر. تتدلى الرؤوس المعلقة أسفل السقف وتوفر أنماط رش غير معرقلة، ولهذا تبقى المعيار للمخازن والسقوف الصناعية والمناطق التي يكون السقف نفسه سطح الخطورة. كلا النموذجين متوفر في السلسلة؛ والمخفي ZSTDY هو الخيار الحاصل على قائمة UL.'
+	}
+];
+
+// TOC: مطابقة id لعناوين H2 في النص
+const toc = [
+	{ id: 'system-type-first', label: '1. ابدأ من نوع النظام ثم الرأس' },
+	{ id: 'k-factor-flow', label: '2. معامل K والتدفق: مطابقة إمداد الماء' },
+	{ id: 'temperature-ratings', label: '3. تصنيفات الحرارة وترميز ألوان الكبسولة' },
+	{ id: 'response-orientation', label: '4. سرعة الاستجابة واتجاه التركيب' },
+	{ id: 'us-standards-context', label: '5. شهادة UL وسياق NFPA 13 لمشاريع الولايات المتحدة' },
+	{ id: 'spec-checklist', label: '6. قائمة تحقق مواصفات رؤوس الرش' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+// المنتجات المرتبطة (slug متطابق مع products.ts)
+const products = [
+	{ slug: 'glass-bulb-fire-sprinkler-zst', name: 'رأس رش حريق بكبسولة زجاجية (ZST)', img: '/assets/products/glass-bulb-fire-sprinkler-zst.webp', desc: 'K=80/K=115، 57–141°C، معلّق/صاعد/جانبي' },
+	{ slug: 'horizontal-sidewall-fire-sprinkler-t-zstbs', name: 'رأس رش جانبي أفقي (T-ZSTBS)', img: '/assets/products/horizontal-sidewall-fire-sprinkler-t-zstbs.png', desc: 'كبسولة حمراء 68°C، طلاء كروم، تغطية محيطية' },
+	{ slug: 'zstdy-concealed-fire-sprinkler', name: 'رأس رش حريق مخفي (ZSTDY)', img: '/assets/products/zstdy-concealed-fire-sprinkler.webp', desc: 'قائمة UL، لوحة غطاء مغروسة، 68°C، كروم' }
+];
+---
+
+<Layout
+	title="دليل اختيار رؤوس رش الحريق: معامل K ودرجة الحرارة"
+	description="كيف تختار رؤوس رش الحريق: معامل K والتدفق، تصنيفات الحرارة وألوان الكبسولات، سرعة الاستجابة، الاتجاهات، وشهادات UL وفق NFPA 13 لمشاريع المباني. مورد من الصين."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'اختيار رؤوس رش الحريق' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">اختيار رؤوس الرش</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل الحماية من الحريق</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">دليل اختيار رؤوس رش الحريق: معامل K ودرجة الحرارة والاستجابة</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">رأس الرش هو الجزء الوحيد في النظام الذي يقرر متى يُطلَق الماء وكم يبلغ ما يصل إلى الحريق. أربعة معاملات تقوم بكل العمل: معامل K، تصنيف الحرارة، سرعة الاستجابة، واتجاه التركيب. يشرح هذا الدليل كلاً منها وكيف تخصص الرؤوس بشكل صحيح لمشاريع المباني التجارية والمخازن والسوق الأمريكية — بما في ذلك ما يغطيه مصطلح «قائمة UL» فعليًا.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Section 1 -->
+			<h2 id="system-type-first" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. ابدأ من نوع النظام ثم الرأس</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يُحدَّد الرأس ضمن قرار النظام، لا بمعزل عنه. في <strong>النظام الرطب</strong> تبقى المواسي مملوءة ومعدّة للتدفق، وكل رأس نقطة إطلاق مفتوحة جاهزة؛ وفي <strong>النظام الجاف</strong> تحتفظ المواسي بهواء مضغوط، ويجب على الرؤوس إطلاق الهواء قبل وصول الماء؛ وفي تكوينات <strong>الرش الشامل (دلج) والفعل المسبق</strong> قد تكون الرؤوس فوهات مفتوحة أو رؤوسًا محكمة حسب تصميم المنطقة. يُغطّى جانب الصمامات من هذا القرار في <a href="/ar/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">دليل الأنظمة الرطبة والجافة والفعل المسبق</a> و<a href="/ar/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">دليل صمامات نظام الرش</a>.</p>
+			<p class="text-gray-700 leading-relaxed">بمجرّد تثبيت نوع النظام، يُختار الرأس نفسه على أساس معامل K والحرارة وسرعة الاستجابة والاتجاه — المعاملات الأربعة أدناه. تخصيص الرأس قبل تحديد نوع النظام هو الخطأ الأكثر شيوعًا في صندوق استفساراتنا.</p>
+
+			<!-- Section 2 -->
+			<h2 id="k-factor-flow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. معامل K والتدفق: مطابقة إمداد الماء</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يُعرّف معامل K كمية الماء التي يطلقها الرأس عند ضغط معين: <strong>Q = K × √P</strong> (التدفق باللتر/دقيقة، والضغط بالبار). هو الرقم الذي يربط الحساب الهيدروليكي للنظام بالرأس المادي.</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>K=80 (اسمي 80 ±4)</strong> — المعيار الراسخ لاحتلالات الخطورة الخفيفة والعادية؛ الخيار الافتراضي للمكاتب والمساحات التجارية ومعظم الفراغات التجارية.</li>
+				<li><strong>K=115 (اسمي 115 ±9)</strong> — تدفق أعلى لاحتلالات التخزين والسقف العالي والمناطق التي تتطلب فيها الكثافة التصميمية مزيدًا من الماء لكل رأس.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">معاملتا K متوفرتان في <a href="/ar/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">سلسلة ZST لرؤوس رش الحريق الكبسولية الزجاجية</a> التي تغطي K=80 وK=115 بتصنيفات حرارة من 57°C إلى 141°C بأنماط معلّق وصاعد وجانبي. المهندس الهيدروليكي يحسب الكثافة المطلوبة لكل متر مربع لفئة الخطورة؛ ثم يُختار معامل K بحيث يوفر كل رأس حصته عند ضغط واقعي.</p>
+			<p class="text-gray-700 leading-relaxed">إذا أدرجت ورقة المواصفات مقاس اللولب فقط دون معامل K، فاعتبرها غير مكتملة: معامل K هو الرقم الأهم وحده عليها.</p>
+
+			<!-- Section 3 -->
+			<h2 id="temperature-ratings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. تصنيفات الحرارة وترميز ألوان الكبسولة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تحتوي الكبسولة الزجاجية سائلًا حساسًا للحرارة؛ عند بلوغ حرارتها الاسمية تنفجر الكبسولة وينطلق الرأس. تتبع التصنيفات ترميز ألوان قياسي يستطيع المفتش قراءة الرأس من الأرض:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">تصنيف الحرارة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">لون الكبسولة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الاستخدام النموذجي</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">في سلسلة ZST</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">57°C (135°F)</td>
+							<td class="px-4 py-3 text-gray-700">برتقالي</td>
+							<td class="px-4 py-3 text-gray-700">سكني / مناطق منخفضة الحرارة</td>
+							<td class="px-4 py-3 text-gray-700">متوفر</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">68°C (155°F)</td>
+							<td class="px-4 py-3 text-gray-700">أحمر</td>
+							<td class="px-4 py-3 text-gray-700">مكاتب ومخازن — التصنيف الافتراضي</td>
+							<td class="px-4 py-3 text-gray-700">متوفر (أيضًا T-ZSTBS وZSTDY)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">79°C (175°F)</td>
+							<td class="px-4 py-3 text-gray-700">أصفر</td>
+							<td class="px-4 py-3 text-gray-700">قرب المدفئات والسحابات والسقوف الدافئة</td>
+							<td class="px-4 py-3 text-gray-700">متوفر</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">93°C (200°F)</td>
+							<td class="px-4 py-3 text-gray-700">أخضر</td>
+							<td class="px-4 py-3 text-gray-700">غرف الغلايات والأفران والمناطق عالية الحرارة</td>
+							<td class="px-4 py-3 text-gray-700">متوفر</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">141°C (286°F)</td>
+							<td class="px-4 py-3 text-gray-700">أزرق</td>
+							<td class="px-4 py-3 text-gray-700">مصادر حرارية صناعية خاصة</td>
+							<td class="px-4 py-3 text-gray-700">متوفر</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">قاعدة إبهام: استخدم رؤوسًا بكبسولة حمراء 68°C للمناطق العامة، وارفع التصنيف فقط حيث يجعل مصدر حراري حقيقي الإطلاق المبكر خطرًا فعليًا. التصنيفات الأعلى تتأخر استجابتها في حريق حقيقي، لذا لا يحمي التصنيف «لأمان أكبر» إطلاقًا.</p>
+
+			<!-- Section 4 -->
+			<h2 id="response-orientation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. سرعة الاستجابة واتجاه التركيب</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تحددها سرعة الاستجابة الكتلة الحرارية للكبسولة: رأس <strong>الاستجابة السريعة</strong> يستخدم كبسولة 3mm وينشط أسرع، ورأس <strong>الاستجابة القياسية</strong> يستخدم كبسولة 5mm. تُفضَّل الاستجابة السريعة حيث يوجد مشغّلون والإطلاق المبكر يصنع فرقًا؛ وتناسب القياسية بيئات التخزين والصناعة حيث يُصمَّم الإطلاق حول تطور الحريق. تتوفر سلسلة ZST بنوعي الاستجابة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">يتبع الاتجاه سطح الخطورة والسقف:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>معلّق</strong> — يتدلى أسفل خط التفرع، وهو المعيار للسقوف المكشوفة والنمط الذي تغطيه معظم سلسلة ZST.</li>
+				<li><strong>صاعد</strong> — يُثبَّت فوق خط التفرع، شائع في المخازن ذات الجسور المكشوفة حيث يجب أن يرسل الموزّع الماء متجاوزًا عوائق الإطار.</li>
+				<li><strong>جانبي (حائطي)</strong> — يُثبَّت على الجدار قرب السقف، للغرف التي لا تتسع فيها خطوط التفرع عبر البلكة؛ نموذج <a href="/ar/products/horizontal-sidewall-fire-sprinkler-t-zstbs/" class="text-brand-blue font-semibold hover:underline">الرأس الجانبي الأفقي T-ZSTBS</a> (كبسولة حمراء 68°C، طلاء كروم) هو نموذج تغطية المحيط في السلسلة.</li>
+				<li><strong>مخفي</strong> — مغروس خلف لوحة غطاء تسقط عند تشغيل الرأس؛ يُختار للسقوف الحساسة معماريًا. يحمل <a href="/ar/products/zstdy-concealed-fire-sprinkler/" class="text-brand-blue font-semibold hover:underline">رأس الرش المخفي ZSTDY</a> كبسولة حمراء 68°C وطلاء كروم مجلفنًا كهربائيًا، وهو الخيار الحامل لقائمة UL في السلسلة.</li>
+			</ul>
+
+			<!-- Section 5 -->
+			<h2 id="us-standards-context" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. شهادة UL وسياق NFPA 13 لمشاريع الولايات المتحدة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تتجه مشاريع أمريكا الشمالية وفق NFPA 13، وتحدد تصنيفاتها للخطورة (الخفيفة والعادية والزائدة) الكثافة التصميمية والمسافات، وبذلك مواصفات الرأس. إلى جانب المعاملات الهيدروليكية، تطلب مواصفات الولايات المتحدة دائمًا تقريبًا رؤوسًا <strong>مرخّصة (listed)</strong> — UL أو ترخيص مكافٍ يغطي النموذج المحدد.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">كن دقيقًا فيما تحمله سلسلتنا: <strong>رأس الرش المخفي ZSTDY حاصل على قائمة UL</strong> (كبسولة حمراء 68°C، بناء من الفولاذ المقاوم للصدأ، DN15-DN20)، ما يجعله الخيار المباشر للتطبيقات المخفية المطلوبة في الولايات المتحدة. تُصنع سلسلة ZST الكبسولية الزجاجية ونموذج T-ZSTBS الجانبي وفق سلسلة GB 5135 ومعايير المصنع — وتُخصص بتأكيد الترخيص المطلوب لمشروعك، فنطابق النموذج المعتمد أو ننظّم تقييمًا للمشروع بدل الادعاء بحالة UL على مستوى السلسلة.</p>
+			<p class="text-gray-700 leading-relaxed">تأخذ هذه التفرقة أهمية في الشراء الأمريكي: بديل غير معتمد على بند مطلوب قائمة له قد يفشل مراجعة المخططات ويبطل قبول النظام. اطلب إدراج الترخيص المطلوب على عرض السعر، نموذجًا بنموذج — يعرض <a href="/ar/certificates/" class="text-brand-blue font-semibold hover:underline">صفحة الشهادات والامتثال</a> لدينا كيفية توثيق القوائم.</p>
+
+			<!-- Section 6 -->
+			<h2 id="spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. قائمة تحقق مواصفات رؤوس الرش</h2>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>معامل K</strong> — K=80 للخطورة الخفيفة/العادية، K=115 لكثافة أعلى؛ أدرج الكثافة التصميمية المستهدفة مع الطلب.</li>
+				<li><strong>تصنيف الحرارة</strong> — 68°C افتراضيًا؛ تصنيفات أعلى فقط عند مصادر حرارية حقيقية؛ ولا تخلط التصنيفات داخل منطقة خطورة واحدة.</li>
+				<li><strong>الاستجابة</strong> — استجابة سريعة (كبسولة 3mm) أو قياسية (كبسولة 5mm) حسب الاستخدام وتصميم النظام.</li>
+				<li><strong>الاتجاه والتشطيب</strong> — معلّق، صاعد، جانبي أو مخفي؛ كروم مصقول أو تشطيب مخصص حسب نوع السقف.</li>
+				<li><strong>الترخيص بالنموذج</strong> — أدرج الترخيص المطلوب (مثل UL) على عرض السعر؛ تأكد أنه يغطي النموذج والمقاس الدقيقين.</li>
+				<li><strong>وثائق الدفعة</strong> — سجلات اختبار الضغط والحساسية لدفعة الإنتاج؛ راجع <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة التحقق من التوفير B2B</a> لدينا لروتين التحقق من المصنع الذي ينطبق على موردي الرؤوس أيضًا.</li>
+			</ul>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">تخصص رؤوس رش لمشروعك؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل لنا فئة الخطورة ومعامل K وتصنيف الحرارة ومتطلب الترخيص — يؤكد مهندسونا النموذج المطابق خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Fire%20Sprinkler%20Heads" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%B1%D9%88%D8%A6%D8%B3%20%D8%B1%D8%B4%20%D8%AD%D8%B1%D8%A7%D8%A7%D9%82%20(%D9%85%D8%B9%D8%A7%D9%85%D9%84%20K%2F%D8%A7%D9%84%D8%AD%D8%B1%D8%A7%D8%B1%D8%A9%2F%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%AC%D8%A7%D8%A8%D8%A9)" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

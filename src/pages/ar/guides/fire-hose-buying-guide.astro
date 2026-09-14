@@ -1,0 +1,247 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ (generate FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'ما الفرق بين خرطوم الحريق المسطع وبكرة خرطوم الحريق؟',
+		answer: 'خرطوم الحريق المسطع هو خط إمداد مرن يطوى مسطحًا عند فراغه ويُخزَّن على رفوف أو في المركبات أو في خزائن حتى النشر؛ هو الخرطوم نفسه ويُباع بالمتر. أما بكرة خرطوم الحريق فهي وحدة داخلية ثابتة ملفوف خراطيمها مسبقًا على طبلون وموصولة دائمًا بإمداد الماء — وحدة متكاملة وليست قطعة خراطيم. إذا كنت تجهّز محطات إطفاء داخلية، راجع دليل بكرة خرطوم الحريق والخزانة لدينا؛ أما إذا كنت تشتري خراطيم استبدال أو إمداد بالجملة، فينطبق هذا الدليل عليك.'
+	},
+	{
+		question: 'ما المقاسات المتوفرة لخرطوم الحريق المسطع؟',
+		answer: 'خرطوم الحريق المسطع ببطانة مطاط PVC لدينا يغطي 19mm إلى 400mm قطرًا داخليًا، مع تكوين النموذج 8-65 (مقاس موصل 65mm القياسي) كخط الإطفاء الشائع. الأطوال قابلة للتخصيص، بحيث يمكن للموزّع توريد لفائف قياسية وقصّ أطوال محددة أو طلبها لكل مشروع.'
+	},
+	{
+		question: 'ما الموصلات المناسبة لخرطوم الحريق المسطع؟',
+		answer: 'يُورَّد الخراطيم مع موصلات خراطيم حريق قياسية من الألمنيوم أو النحاس الأصفر، ووصلاتنا الألمنيوم من سلسلة HS (DN50/DN65، مبنية على GB12514) تصل خلاط الحريق والخراطيم والفوهات بسدادات ذاتية الإحكام. للأنظمة ذات المعيار الألماني نوفر أيضًا موصلات Storz ألمنيوم 2.5" (DN50-DN150، 1.6 MPa). أخبرنا بسوقك وسنطابق نظام السدادات — BS336 (المملكة المتحدة/الكومنولث)، NIST (الشرق الأوسط)، KWS (ألمانيا) أو غيره — عند عرض السعر.'
+	},
+	{
+		question: 'هل يمكن استخدام خرطوم الحريق المسطع للرغوة ونقل المياه الصناعي؟',
+		answer: 'نعم. الخراطيم مُوصَّفة لإطفاء الحرائق من الفئة أ وب، وحماية المطارات من الحريق، ونقل المياه الصناعي، وبطانة مطاط PVC تناسب الماء الصافي وكذلك وسائط مزيج الرغوة. تحقّق من الوسيط الدقيق والضغط لقطر الخراطيم مع مهندسينا ليتم تحديد جدار الخراطيم والموصلات بشكل صحيح.'
+	},
+	{
+		question: 'هل يمكنني طلب خراطيم الحريق بشعاري الخاص (OEM)؟',
+		answer: 'نعم. الطول والقطر الداخلي والشعار كلها قابلة للتخصيص، ويمكن إنتاج الخراطيم بلغة تسميتك وحلقاتك اللونية. تُؤكَّد مدة التوريد والحد الأدنى لـ OEM عند عرض السعر — حدد الأقطار والأطوال والكميات التي تخطط لتخزينها.'
+	},
+	{
+		question: 'كيف يُخزَّن خرطوم الحريق المسطع بين الاستخدامات؟',
+		answer: 'نظّف الخراطيم وجفّفه قبل التخزين طويل الأمد، واطوِه أو لفّه مسطحًا، واحمِه من أشعة الشمس المباشرة والأوزون والحواف الحادة. صُمم الخراطيم المسطع ليَطوى مسطحًا عند تفريغه، مما يحافظ على حجم تخزين صغير مقارنة بخراطيم القناة المستديرة. الفحص الدوري للغلاف المنسوج من التآكل وللموصلات من أضرار السدادات هو روتين الصيانة العملي.'
+	}
+];
+
+// TOC (ids match H2 one-to-one)
+const toc = [
+	{ id: 'layflat-vs-reel', label: '1. الخرطوم المسطع مقابل بكرة خرطوم الحريق' },
+	{ id: 'hose-construction', label: '2. تصنيع الخراطيم: الغلاف والبطانة وإحكام الحواف' },
+	{ id: 'sizing-fire-hose', label: '3. تحديد المقاس: القطر والطول والتطبيقات' },
+	{ id: 'couplings-standards', label: '4. الموصلات ومعايير التوصيل' },
+	{ id: 'nozzles-flow', label: '5. الفوهات وتحكم التدفق' },
+	{ id: 'factory-checklist', label: '6. قائمة الشراء من المصنع: OEM والجودة' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+// Related products (slugs match products.ts)
+const products = [
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'خرطوم حريق مسطع ببطانة مطاط PVC', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'النموذج 8-65، قطر داخلي 19-400mm، غلاف منسوج، أطوال OEM' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: 'موصل Storz ألمنيوم 2.5"', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'توصيل سريع بمعيار ألماني، DN50-DN150، 1.6 MPa' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'فوهة بمقبض مسدسي قابلة للتعديل', img: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg', desc: '150-500 LPM، من النفاث المستقيم إلى الضباب، مدخل 1.5"-2.5"' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'موصل مرن حريق من سلسلة HS', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'سلسلة HS من الألمنيوم، DN50/DN65، سدادات ذاتية الإحكام' }
+];
+---
+
+<Layout
+	title="دليل شراء خراطيم الحريق المسطعة: المقاسات والبطانات والموصلات"
+	description="دليل شراء خراطيم الحريق المسطعة للمشتريات B2B: مقاسات خرطوم الحريق المبطن بمطاط PVC، الغلاف المنسوج، موصلات Storz وموصلات 65مم، الفوهات وتوريد OEM من المصنع."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'شراء خراطيم الحريق' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">شراء خراطيم الحريق</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل حماية الحريق</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">دليل شراء خرطوم الحريق المسطع: المقاسات والبطانات والموصلات</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">يبدو خرطوم الحريق سلعة عادية، لكن قرار الشراء يدور حول أربعة تفاصيل: هل تحتاج خط إمداد أم وحدة بكرة خراطيم، وكيف يُصنع الغلاف والبطانة، وأي قطر وطول يناسب مهمة التوصيل لديك، وما نظام الموصلات المستخدم في سوقك. يرشدك هذا الدليل — الموزّعين والمستوردين — عبر كل تفصيل منها، ويوضح أين تُلزم موردك بوضوح ورقة المواصفات.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Section 1 -->
+			<h2 id="layflat-vs-reel" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. الخرطوم المسطع مقابل بكرة خرطوم الحريق: اعرف ماذا تشتري</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">أسرع طريق للخطأ في تحديد المواصفات هو الخلط بين الخراطيم والوحدة. <strong>خرطوم الحريق المسطع</strong> هو مقطع من خراطيم مرنة قابلة للطَي المسطح، تثبّته فرقة الإطفاء أو مشغّل المضخة على طرفيه؛ أما <strong>بكرة خرطوم الحريق</strong> فهي وحدة جدارية ملفوف خراطيمها مسبقًا على طبلون، وموصولة دائمًا بإمداد المبنى، وجاهزة للاستخدام من قِبل أي شخص غير مدرّب.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الميزة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الخرطوم المسطع</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">بكرة خرطوم الحريق والخزانة</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">ما هو</td>
+							<td class="px-4 py-3 text-gray-700">خط إمداد مرن، يُباع حسب الطول</td>
+							<td class="px-4 py-3 text-gray-700">وحدة خزانة ثابتة بطبلون + فوهة</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">اتصال الماء</td>
+							<td class="px-4 py-3 text-gray-700">يوصَل بالمضخة أو خلاط الحريق أو المانيفولد حسب الحاجة</td>
+							<td class="px-4 py-3 text-gray-700">موصول دائمًا بإمداد المبنى</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">التخزين</td>
+							<td class="px-4 py-3 text-gray-700">يطوى مسطحًا؛ رفوف، أدراج مركبات، مخزون احتياطي</td>
+							<td class="px-4 py-3 text-gray-700">ملفوف على طبلون داخل خزانة جدارية</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">المشتري النموذجي</td>
+							<td class="px-4 py-3 text-gray-700">فرق الإطفاء، المواقع الصناعية، موزّعو مخزون الخراطيم</td>
+							<td class="px-4 py-3 text-gray-700">مقاولو المباني ومالكو المرافق</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">إذا كان طلبك مخصصًا فعلًا لمحطات إطفاء داخلية، فإن حزمة البكرة والخزانة هي النطاق الصحيح — راجع <a href="/ar/guides/fire-hose-reel-cabinet-guide/" class="text-brand-blue font-semibold hover:underline">دليل اختيار بكرة خرطوم الحريق والخزانة</a> لدينا. يغطي هذا الدليل الخراطيم نفسه: التصنيع، تحديد المقاس، الموصلات والتوريد.</p>
+
+			<!-- Section 2 -->
+			<h2 id="hose-construction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. تصنيع الخراطيم: الغلاف والبطانة وإحكام الحواف</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">خرطوم الحريق المسطع مركّب متعدد الطبقات: <strong>الغلاف المنسوج</strong> يتحمّل الضغط ويصمد أمام التآكل؛ و<strong>البطانة</strong> تحكُم القناة وتحدّد توافق الوسيط؛ أما <strong>الحواف والأطراف</strong> فتحدّد مدى بقاء الخراطيم تحت الاستخدام القاسي.</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>الغلاف</strong> — ابحث عن غلاف من ألياف تركيبية منسوجة بكثافة عالية. خراطيمنا تستخدم غلافًا منسوجًا من ألياف تركيبية مع بطانة مطاط PVC؛ وكثافة النسج هي ما يقاوم الخدش على الخرسانة ويمنع انفجار الخراطيم عند نقاط الطَي.</li>
+				<li><strong>البطانة</strong> — بطانة مطاط PVC تمنح قناة ناعمة بفقد احتكاك منخفض وتناسب الماء الصافي ووسائط مزيج الرغوة. للمواد الكيميائية الأقسى يجب تغيير مواصفات البطانة — تحقّق من الوسيط قبل الطلب بدل افتراض أن بطانة واحدة تصلح لكل وسائط.</li>
+				<li><strong>تدعيم الحواف والزوايا</strong> — خراطيم الطَي المسطحة أكثر عرضة للتلف عند نقاط الطَي وأماكن تثبيت الأطراف. إحكام الحواف المنسوج والزوايا المدعّمة هما الميزتان اللتان تمنعان الانفصال الطبقي عند تلك النقاط بالتحديد؛ وكلاهما قياسي في إنتاجنا.</li>
+				<li><strong>معالجة الأطراف</strong> — تُثبّت الموصلات أو تُورَّد مفكوكة حسب الطلب؛ الأطراف المفكوكة تناسب الموزّعين الذين يثبّتون الموصلات محليًا بالضغط أو الحصر، والأطراف المثبّتة من المصنع تضمن وصلة مختبرة.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">عند مقارنة أوراق مواصفات الموردين، اطرح ثلاثة أسئلة: ما مادة النسج وكثافته؟ ما خليط البطانة؟ وكيف تُحكَم الحواف؟ الأوصاف العامة مثل «خرطوم مطاطي» تخفي الإجابات الثلاث.</p>
+
+			<!-- Section 3 -->
+			<h2 id="sizing-fire-hose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. تحديد المقاس: القطر والطول والتطبيقات</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">القطر الداخلي يحدّد قدرة التدفق، والطول يحدّد المدى، والزوج الخاطئ يعني إما تجويع الفوهة أو سحب وزن زائد. يمتد نطاق خراطيمنا المسطحة من <strong>19mm إلى 400mm قطرًا داخليًا</strong>، مع النموذج 8-65 (تكوين موصل 65mm القياسي) كخط الإطفاء الأساسي. كقاعدة عامة في ممارسة الإطفاء:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>19-25mm</strong> — خطوط ذات قناة صغيرة للأعمال الخفيفة وبعض تطبيقات نمط البكرة.</li>
+				<li><strong>40-50mm</strong> — خطوط تفرع تعمل فيها الفرق بخطوط يدوية وتدفقات أصغر.</li>
+				<li><strong>65mm (2.5")</strong> — مقاس خط الهجوم/الإمداد القياسي لمعظم إطفاء المباني والصناعي، وهو تكوين النموذج 8-65.</li>
+				<li><strong>100mm وما فوق</strong> — خطوط التتابع وإمداد خلاط الحريق لنقل كميات كبيرة عبر مسافات، حتى 400mm في نطاقنا للنقل بالجملة.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">الطول هو الجانب الأهم الذي تتجلّى فيه قيمة OEM: <a href="/ar/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">خرطوم الحريق المسطع ببطانة مطاط PVC</a> لدينا يُصنَع بطول وقطر وشعار قابلة للتخصيص، وتحمل ورقة المواصفات قدرة تحميل 50-200 kN كمرجع قوة للتصنيع المنسوج. لاحظ أن قدرة التحميل رقم شدّ/هيكل، وليس ضغط التشغيل — اطلب دائمًا تصنيف الضغط لقطرك الدقيق بشكل منفصل، ولا تستنتجه من تصنيفات الموصلات وحدها.</p>
+			<p class="text-gray-700 leading-relaxed">تطبيقات نطاق المنتجات تشمل إطفاء الحرائق من الفئة أ وب، وحماية المطارات من الحريق، ونقل المياه الصناعي — طرفا السوق الذي يتفوّق فيه الخراطيم المسطع على البدائل الصلبة أو ذات القناة المستديرة لأنه يُثبَّت في حيز صغير وينشر بسرعة.</p>
+
+			<!-- Section 4 -->
+			<h2 id="couplings-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. الموصلات ومعايير التوصيل</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">أكثر أخطاء التصدير شيوعًا هي طلب الخراطيم دون تثبيت معيار الموصلات، ثم اكتشاف أن السدادات لا تطابق خلاط الحريق أو الفوهات في بلد الوجهة. اتصالات خرطوم الحريق إقليمية، وأبرز عائلاتها:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">نظام الموصلات</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">المناطق الشائعة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">منتج Wanlian المطابق</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Storz (توصيل سريع)</td>
+							<td class="px-4 py-3 text-gray-700">ألمانيا، أوروبا، معظم آسيا</td>
+							<td class="px-4 py-3 text-gray-700">موصل Storz ألمنيوم 2.5"، DN50-DN150، 1.6 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">BS336</td>
+							<td class="px-4 py-3 text-gray-700">أسواق المملكة المتحدة ودول الكومنولث</td>
+							<td class="px-4 py-3 text-gray-700">وصلات مسنّنة حسب المشروع</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">NIST</td>
+							<td class="px-4 py-3 text-gray-700">اتصالات خلاط الحريق في الشرق الأوسط</td>
+							<td class="px-4 py-3 text-gray-700">وصلات مسنّنة حسب المشروع</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">GB12514 / سدة 65mm</td>
+							<td class="px-4 py-3 text-gray-700">الأنظمة ذات المعيار الصيني وخلاط الحريق 2.5"</td>
+							<td class="px-4 py-3 text-gray-700">واصل ألمنيوم من سلسلة HS، DN50/DN65</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">لتركيبات المعيار الألماني، يوفر <a href="/ar/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">موصل Storz الألمنيوم 2.5"</a> توصيلًا سريعًا بوصلة حواف ذاتية الإحكام بتصنيف 1.6 MPa للماء الصافي ومزيج الرغوة. حيث يجب أن يتصل الخراطيم بفتحات خلاط حريق أو فوهات من نظام مختلف، يتولّى <a href="/ar/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">موصل مرن الحريق من سلسلة HS</a> (DN50/DN65، سدادات داخلية ذاتية الإحكام، 1.6 MPa) وصل النظامين — وهذا أيضًا سبب توفيرنا لنطاق خلاط الحريق بخيارات BS336 وNIST وKWS وبفلنجة عند الطلب.</p>
+			<p class="text-gray-700 leading-relaxed">حدد نظام الموصلات في الاستفسار، وليس بعد الإنتاج: إعادة تركيب السدادات على أطراف خراطيم مكتملة مكلفة، ونادرًا ما تكون موثوقة مثل الموصلات المطابقة من المصنع.</p>
+
+			<!-- Section 5 -->
+			<h2 id="nozzles-flow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. الفوهات وتحكم التدفق</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">لا يكون الخراطيم مفيدًا إلا بقدر فوهته. للخطوط اليدوية، تغطي الفوهة القابلة للتعديل بتدفق وأنماط رش متغيرة النطاق من النفاث المستقيم (المدى) إلى الضباب (حجب الحرارة والخنق السريع). يوفر <a href="/ar/products/adjustable-pistol-grip-fire-nozzle/" class="text-brand-blue font-semibold hover:underline">فوهة الإطفاء القابلة للتعديل بمقبض مسدسي</a> لدينا تدفق 150-500 LPM بأنماط من النفاث المستقيم إلى الضباب، ويتناسب مع مداخل 1.5" و2" و2.5" — بما يطابق عائلة خطوط 65mm المغطاة في هذا الدليل.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">قاعدتا تحديد مقاس تحافظان على تماسك التجهيز:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>طابق مدخل الفوهة مع موصل الخراطيم</strong> — خط 2.5" يجب أن ينتهي بفوهة بمدخل 2.5" ما لم يكن الواصل مقصودًا.</li>
+				<li><strong>طابق تدفق الفوهة مع قدرة الخراطيم</strong> — فوهة تتطلب أكثر مما يمكن لقطر الخراطيم توفيره تجوّع النفاث وتهدر طاقة المضخة؛ حدد التدفق المقصود عند تحديدنا قطر الخراطيم.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">عادةً يجمع الموزّعون الخراطيم والموصلات والفوهات في عائلة SKU واحدة كي تبقى البدائل الطارئة متوافقة — سبب آخر لتوحيد الحزمة مع مصنّع واحد.</p>
+
+			<!-- Section 6 -->
+			<h2 id="factory-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. قائمة الشراء من المصنع: OEM والجودة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">عند توريد خراطيم الحريق المسطعة من مصنع صيني، تحقّق من هذه النقاط قبل بدء الإنتاج:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>اكتب معيار الموصلات في الطلب</strong> — Storz أو BS336 أو NIST أو KWS أو سدة 65mm؛ وأكّد أطرافًا مفكوكة أم مثبّتة من المصنع، ومن يختبر الوصلة المكتملة.</li>
+				<li><strong>اطلب تصنيف الضغط لكل قطر</strong> — لا تقبل تصنيفًا واحدًا للنطاق كله؛ سماكة الجدار وكثافة النسج تتغيران مع حجم القناة.</li>
+				<li><strong>أكّد توافق الوسيط</strong> — الماء الصافي ومزيج الرغوة قياسي لبطانة مطاط PVC؛ حدد أي وسائط كيميائية قبل الطلب.</li>
+				<li><strong>ثبّت نطاق OEM</strong> — الطول، القطر، الشعار، لغة التسمية والحلقات اللونية؛ أضف محطات اعتماد التصاميم إلى الجدول الزمني.</li>
+				<li><strong>اطلب أدلة جودة الدفعة</strong> — فحوصات كثافة النسج، فحص إحكام الحواف، واختبارات سحب الموصلات للدفعة الفعلية. استخدم <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة توريد الصمامات B2B</a> لدينا كروتين توثيق مصانع ينطبق بنفس القوة على موردي الخراطيم.</li>
+				<li><strong>خطط للتخزين والتغليف</strong> — يُشحن الخراطيم المسطع مطويًا؛ أكّد تغليف البكرة/التلّة وتحميل الحاوية مع المورّد لتجنّب أضرار النقل عند نقاط الطَي.</li>
+			</ul>
+
+			<!-- Related guides -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">أدلة ذات صلة</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">قارن موردي الخراطيم وجهًا لوجه: <a href="/ar/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian Fluid مقابل American AVK</a>.</p>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">غير متأكد أي معيار خراطيم ينطبق على طلبك؟ راجع <a href="/ar/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">شرح معايير خلاط الحريق وخراطيم الحريق والصمامات</a>.</p>
+			</div>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">توريد خراطيم الحريق المسطع بالجملة؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل الأقطار والأطوال ومعيار الموصلات والسوق المستهدف — يأكّد فريقنا تصنيفات الضغط وخيارات OEM ومدة التوريد خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Layflat%20Fire%20Hose" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%AE%D8%B1%D8%B7%D9%88%D9%85%20%D8%AD%D8%B1%D9%8A%D9%82%20%D9%85%D8%B3%D8%B7%D8%B9%20%D9%85%D8%B9%20%D8%A7%D9%84%D9%85%D9%88%D8%B5%D9%84%D8%A7%D8%AA" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

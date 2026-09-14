@@ -1,0 +1,190 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ: أسئلة شراء حقيقية (تُولّد FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'هل يجب أن تكون صمامات التحكم في رش الحريق منسّبة بشهادات UL أو FM؟',
+		answer: 'لمعظم المشاريع الشمالية الأمريكية وكثير من المشاريع الدولية، يجب أن يكون صمام تحكم الرش مسجَّلًا لخدمة الحماية من الحريق. نصنع في Wanlian صمامات بوابة وفراشة ورجوع ورش شامل وفعل مسبق بشهادتي UL/FM عند الطلب — تحقّق من الشهادة المطلوبة في مواصفات مشروعك وسوق الوجهة قبل الطلب.'
+	},
+	{
+		question: 'ما الفرق بين صمام البوابة OS&Y وصمام البوابة بعمود غير صاعد لرؤوس الرش؟',
+		answer: 'صمام البوابة OS&Y (برغي خارجي ووصاد) بعمود صاعد، فيُظهر وضع العمود بصريًا إن كان الصمام مفتوحًا أو مغلقًا. أما تصاميم العمود غير الصاعد فتخفي العمود وتتطلب مؤشر وضع منفصلًا. صمام البوابة OS&Y الذي نصنعه بشهادتي UL/FM يجمع بين مؤشر العمود الصاعد والأطراف بمسار للوصل الميكانيكي السريع.'
+	},
+	{
+		question: 'لماذا يحتاج صمام مقطع الرش إلى مفتاح مراقبة (Tamper Switch)؟',
+		answer: 'يرسل مفتاح المراقبة أو مفتاح الحد إشارة كهربائية إلى لوحة إنذار الحريق كلما أُغلق الصمام أو أُغلق جزئيًا، فلا يُترَك نظام الرش معزولًا دون قصد — وهو متطلب أمان إلزامي في تركيبات نمط NFPA-13. صمامات الفراشة بالإشارة مثل نموذج DN80 الوافر بمسار من منتجاتنا تتكامل مع هذا المفتاح قياسيًا.'
+	},
+	{
+		question: 'أين يُركَّب صمام الرجوع الإنذاري الرطب؟',
+		answer: 'يُركَّب صمام الرجوع الإنذاري الرطب ZSFZ على عمود الصعود (الرايزر) في النظام الرطب. يحافظ على الضغط في الأنابيب في الظروف الاعتيادية، ولحظة أن يتدفق الماء إلى رأس رش ترفع التدفق الكفة (الفلقة) فيدق جرس الإنذار الهيدروليكي ويطلق مفتاح الضغط. غرفة التأخير المتكاملة تمنع الإنذارات الكاذبة من الموجات العابرة في الضغط.'
+	},
+	{
+		question: 'ما مدى المقاسات التي تغطيها صمامات التحكم في الرش من Wanlian؟',
+		answer: 'صمام البوابة OS&Y بشهادتي UL/FM يغطي من 2" إلى 10" (DN50-DN250) بأطراف بمسار؛ صمامات الفراشة الوافر بمسار بالإشارة تغطي DN50-DN300 عند PN16؛ وصمامات الرجوع الإنذارية الرطبة متوفرة بمقاسات DN100 وDN150 وDN200 عند 1.6 MPa. أكّد مقاسات عمود الصعود والمقاطع عند طلب عرض السعر.'
+	}
+];
+
+// TOC: مطابق لـ id عناوين H2 في النص
+const toc = [
+	{ id: 'what-control-valves-do', label: 'دور صمامات التحكم في رش الحريق' },
+	{ id: 'osy-gate-valves', label: 'صمامات البوابة OS&Y: عزل رئيسي مُراقب' },
+	{ id: 'signal-butterfly-valves', label: 'صمامات الفراشة بالإشارة لتحكم المقاطع' },
+	{ id: 'check-and-alarm-valves', label: 'صمامات الرجوع وصمامات الإنذار' },
+	{ id: 'control-valve-comparison', label: 'جدول مقارنة صمامات التحكم' },
+	{ id: 'specification-checklist', label: 'كيف تخصص: قائمة B2B' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+// المنتجات المرتبطة (slug متطابق مع products.ts)
+const products = [
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'صمام بوابة OS&Y بمقعد مرن (بمسار)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: 'صمام بوابة بعمود صاعد بشهادتي UL/FM، من 2" إلى 10"، أطراف بمسار' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'صمام فراشة بالإشارة بمسار', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', desc: 'DN80 PN16 مع مفتاح مراقبة مدمج' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'صمام رجوع إنذاري رطب ZSFZ-150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'صمام رجوع إنذاري DN100-DN200 بغرفة تأخير' },
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'مجموعة صمام إنذار رش شامل (ZSFM)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'صمام تحكم نظام يعمل بالحجاب، DN50-DN300' },
+	{ slug: 'pre-action-alarm-system-zsfy', name: 'نظام إنذار الفعل المسبق (ZSFY)', img: '/assets/products/pre-action-alarm-system-zsfy.jpg', desc: 'حماية مزدوجة الإشارة للغرف الحساسة للماء' }
+];
+---
+
+<Layout
+	title="أنواع صمامات تحكم رش الحريق: صمامات OS&Y وفراشة ورجوع"
+	description="أنواع صمامات التحكم في أنظمة رش الحريق: صمام بوابة OS&Y، صمام فراشة بإشارة، صمامات رجوع وإنذار — دليل التخصص الصحيح بشهادات UL/FM من المصنع."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'أنواع صمامات تحكم الرش' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">أنواع صمامات تحكم الرش</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل الحماية من الحريق</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">أنواع صمامات التحكم في رش الحريق: OS&Y والفراشة ورجوع</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">لا يكون نظام الرش موثوقًا إلا بقدر موثوقية صماماته التحكمية. باختصار: استخدم صمام بوابة OS&Y مُراقبًا للعزل الرئيسي، وصمامات فراشة بالإشارة للمقاطع، وصمامات رجوع داخل تجميع صمام الإنذار، وصمام رش شامل أو فعل مسبق حيث يجب أن يبقى النظام جافًا حتى إشارة الحريق. يشرح هذا الدليل كل نوع من صمامات التحكم في رش الحريق وكيف تخصصه بالشكل الصحيح.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Section 1 -->
+			<h2 id="what-control-valves-do" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. ما الذي تفعله صمامات التحكم في رش الحريق</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تقع صمامات التحكم بين إمداد المياه ورؤوس الرش. تعزل أجزاءً من النظام للصيانة، وتحتجز الماء حتى الحاجة إليه، والأهم: يجب أن <strong>تبلّغ عن وضعها المفتوح/المغلق</strong> حتى لا يقطع أحد حماية الحريق بالخطأ. هذا متطلب المراقبة هو سبب عدم قابلية استبدال أنواع الصمامات أدناه بصمامات صناعية عادية.</p>
+			<p class="text-gray-700 leading-relaxed">عندما تبحث عن «صمام تحكم رش الحريق»، فأنت غالبًا تبحث عن واحد من أربعة: صمام بوابة OS&Y للإمداد الرئيسي، صمام فراشة بإشارة لتحكم المقاطع، تجميع صمام الرجوع/الإنذار عند عمود الصعود، أو صمام رش شامل/فعل مسبق لأنظمة الأخطار الخاصة. لجولة كاملة على تجميعات صمامات الأنظمة الرطبة والشاملة والفعل المسبق، راجع <a href="/ar/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">دليل صمامات نظام رش الحريق</a>.</p>
+
+			<!-- Section 2 -->
+			<h2 id="osy-gate-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. صمامات البوابة OS&Y: عزل رئيسي مُراقب</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">صمام البوابة OS&Y (برغي خارجي ووصاد) هو صمام التحكم الرئيسي الكلاسيكي لأعمدة صعود الرش والخطوط الرئيسية للحريق. لأن العمود المُسامر خارج الغطاء، يرتفع العمود بصريًا مع فتح الصمام — فيمكن لأي عابر أن يرى إن كان الصمام مفتوحًا، بينما يُبلّغ مفتاح المراقبة على الوصاد عن الوضع إلى لوحة إنذار الحريق.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">لخدمة الحماية من الحريق يجب أن يحمل الصمام شهادة معترفًا بها. <a href="/ar/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">صمام البوابة OS&Y بمقعد مرن بشهادتي UL/FM</a> الذي نصنعه يُزوَّد بأطراف بمسار من 2" إلى 10" (DN50-DN250) من الحديد الزهر المطبوع، مع مؤشر عمود صاعد ومقعد مرن EPDM لإغلاق محكم بلا تقطير. حيث تُخصص المشاريع بالاتصال بفلنجة بدلًا من ذلك، يكون <a href="/ar/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">صمام البوابة Z41X بمقعد مرن من الحديد الزهر المطبوع بفلنجة</a> البديل الكلاسيكي بالمقطع الكامل للعزل الرئيسي.</p>
+			<p class="text-gray-700 leading-relaxed">قاعدة إبهام: صمامات البوابة تُفتح وتُغلق ببطء (عدة لفات) وتوفر فقد ضغط شبه معدوم عند الفتح الكامل — الخيار الصحيح لصمام يعمل نادرًا لكن يجب ألا يُقيّد التدفق.</p>
+
+			<!-- Section 3 -->
+			<h2 id="signal-butterfly-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. صمامات الفراشة بالإشارة لتحكم المقاطع</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">حيث تُكدَّس الصمامات في غرف أعمدة الصعود وغرف المحطات ووحدات التوزيع، المكان ذهب. صمام الفراشة يُركَّب بطول وجه-إلى-وجه ووزن أقل بكثير من صمام البوابة، وتشغيله الربع لفة يجعله سهل التحريك. لكن: صمام الفراشة العادي لا يعطي أي مؤشر بصري أو كهربائي للوضع، لذا يستخدم تحكم مقاطع الرش <strong>صمامات فراشة بالإشارة</strong> مع مفتاح مراقبة/حد مدمج.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">نموذج <a href="/ar/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">صمام الفراشة بالإشارة بمسار DN80</a> مثال نموذجي: DN80 PN16، جسم من الحديد الزهر المطبوع QT450، محرك قردوني، ومفتاح ميكرو مقاوم للماء يبلّغ عن وضع المفتوح/المغلق إلى لوحة الإنذار. الاتصال بمسار يسمح بتركيبه في الأنابيب بالموصلات بدل الفلنجات، مختصرًا زمن التركيب على خطوط فروع الرش.</p>
+			<p class="text-gray-700 leading-relaxed">عندما يقول المخطط «صمام فراشة مُراقب»، فتخصيص مفتاح المراقبة هو الأهم — اطلب نوع مفتاح الحد وتصنيف IP ليتكامل بسلاسة مع لوحة الإنذار لديك.</p>
+
+			<!-- Section 4 -->
+			<h2 id="check-and-alarm-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. صمامات الرجوع وصمامات الإنذار</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">عمود صعود الرش الرطب يُحافظ على ضغطه عادةً بواسطة <strong>صمام الرجوع الإنذاري الرطب</strong>. <a href="/ar/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">صمام الرجوع الإنذاري الرطب ZSFZ-150</a> يحافظ على الماء في أنابيب النظام، ولحظة أن يفتح رأس رش يرفع التدفق الكفة (الفلقة) فيدق جرس الإنذار الهيدروليكي ويطلق مفتاح الضغط. غرفة التأخير تمتص الموجات العابرة حتى لا يُطلق الإنذار بتقلبات الإمداد الاعتيادية. مقاسات ZSFZ من DN100/DN150/DN200 عند 1.6 MPa.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">لأنظمة يجب أن تبقى جافة حتى تأكيد الحريق — إشغالات عالية الخطورة، غرف حساسة للماء — يتحول صمام التحكم نفسه إلى <strong>صمام رش شامل أو فعل مسبق</strong>. <a href="/ar/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">صمام الإنذار الشامل ZSFM</a> يحتجز الإمداد بضغط الحجاب ويفتح فورًا عند إشارة الكشف بغمر كل فوهة مفتوحة، بينما يتطلب نظام الفعل المسبق ZSFY إشارتين مستقلتين قبل غمر الأنابيب.</p>
+			<p class="text-gray-700 leading-relaxed">تظهر صمامات الرجوع الكروية أيضًا في ترتيبات المضخات والإمداد حيث يجب منع الارتداد؛ راجع <a href="/ar/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">مقارنة صمام البوابة مع صمام الفراشة</a> لرؤية كيف تتكامل واجبتا العزل والرجوع على خط الحريق الرئيسي.</p>
+
+			<!-- Section 5 -->
+			<h2 id="control-valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. جدول مقارنة صمامات التحكم</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">نوع الصمام</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الوظيفة الرئيسية</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">مراقبة الوضع</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الموضع النموذجي</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">صمام بوابة OS&Y</td>
+							<td class="px-4 py-3 text-gray-700">عزل الإمداد الرئيسي</td>
+							<td class="px-4 py-3 text-gray-700">عمود صاعد + مفتاح مراقبة</td>
+							<td class="px-4 py-3 text-gray-700">عمود الصعود، خط الحريق الرئيسي، طرد المضخة</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">صمام فراشة بالإشارة</td>
+							<td class="px-4 py-3 text-gray-700">تحكم المقاطع/الطوابق</td>
+							<td class="px-4 py-3 text-gray-700">مفتاح مراقبة مدمج</td>
+							<td class="px-4 py-3 text-gray-700">خطوط الفروع، غرف أعمدة الصعود، وحدات التوزيع</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">صمام رجوع إنذاري رطب</td>
+							<td class="px-4 py-3 text-gray-700">حفظ الضغط، إنذار عند التدفق</td>
+							<td class="px-4 py-3 text-gray-700">كفة + جرس + مفتاح ضغط</td>
+							<td class="px-4 py-3 text-gray-700">عمود صعود الرش الرطب</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">صمام رش شامل / فعل مسبق</td>
+							<td class="px-4 py-3 text-gray-700">تحكم النظام لمناطق الأنابيب الجافة</td>
+							<td class="px-4 py-3 text-gray-700">يعمل بإشارة الكشف</td>
+							<td class="px-4 py-3 text-gray-700">مناطق أخطار عالية / حساسة للماء</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">معظم المشاريع تحتاج الفئات الأربع جميعًا — السؤال ليس أبدًا «بوابة أم فراشة» بل «أي صمام لأي موضع».</p>
+
+			<!-- Section 6 -->
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. كيف تخصص: قائمة B2B</h2>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>أكّد متطلب الشهادة أولًا</strong> — UL/ULC أو FM إلزامي لمعظم المشاريع الشمالية الأمريكية؛ طابق الشهادة مع سوق الوجهة ونوع الصمام قبل مقارنة الأسعار.</li>
+				<li><strong>طابق فئة الضغط</strong> — PN16 (1.6 MPa) هو المعيار لصمامات تحكم الرش؛ تحقّق من أقصى ضغط ساكن في شبكتك وخصص PN25 إن لزم.</li>
+				<li><strong>اختر نوع الاتصال مقابل جداول أنابيبك</strong> — الأطراف بمسار تختصر زمن التركيب على الأنابيب الفولاذية؛ الفلنجة تناسب المشاريع المُخصصة مسبقًا بالفلنجات.</li>
+				<li><strong>صِف تخصيص مفتاح المراقبة بوضوح</strong> — نوع المفتاح والجهد وتصنيف IP يجب أن تتكامل مع لوحة إنذار الحريق لديك.</li>
+				<li><strong>اطلب تقارير اختبار الدفعات</strong> — شهادات اختبار ضغط الجسم والمقعد للدفعات الفعلية من الإنتاج، لا نموذج عام.</li>
+				<li><strong>اجمع حزمة الصمامات</strong> — طلب صمامات OS&Y والفراشة والإنذار من مصنع واحد يبسّط وثائق الشهادات. استخدم <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة توريد صمامات B2B</a> قبل الالتزام بمورد.</li>
+			</ul>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">تخصص حزمة صمامات تحكم رش؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل مقاسات عمود الصعود ونوع الاتصال والشهادة المطلوبة — يردّ مهندسونا بوراق البيانات التقنية وعرض السعر خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Sprinkler%20Control%20Valves" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%20%D8%AA%D8%AD%D9%83%D9%85%20%D8%B1%D8%B4%20%D8%A7%D9%84%D8%AD%D8%B1%D9%8A%D9%82" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

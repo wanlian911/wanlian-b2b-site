@@ -137,9 +137,7 @@ const TRANSLATED_PREFIXES: Record<Locale, string[]> = {
     '/blog/',
     '/tags/',
   ],
-  // AR 第一波：核心 14 页 + 产品列表/详情（RTL）。
-  // /guides/、/blog/、/tags/ 留待第二波（24 篇阿语指南 + blog/tags），
-  // 未登记时导航/页脚指向这些未翻译路径由 safeHref 回退到 /ar/ 首页，无死链。
+  // AR 全量：核心 14 页 + 28 篇指南 + blog/tags（RTL）。
   ar: [
     '/',
     '/products/',
@@ -154,6 +152,9 @@ const TRANSLATED_PREFIXES: Record<Locale, string[]> = {
     '/fire-sprinkler-systems/',
     '/fire-water-cannon/',
     '/ul-fire-valves/',
+    '/guides/',
+    '/blog/',
+    '/tags/',
   ],
 };
 

@@ -1,0 +1,209 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'the-three-system-types', label: 'أنواع الأنظمة الثلاثة مقارنةً' },
+	{ id: 'choosing-sprinkler-heads', label: 'اختيار رؤوس الرش' },
+	{ id: 'components-your-bom-needs', label: 'المكونات التي يحتاجها BOM' },
+	{ id: 'compliance-notes', label: 'ملاحظات الامتثال' },
+	{ id: 'procurement-checklist', label: 'قائمة الشراء' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const faq = [
+	{
+		question: 'رطب أم جاف أم فعل مسبق — كيف أختار نظام الرش الصحيح؟',
+		answer: 'الأنظمة الرطبة هي الافتراضي للمباني المدفأة: أسرع استجابة وأقل تكلفة. الأنظمة الجافة تناسب المساحات غير المدفأة (مواقف سيارات، مخازن باردة) حيث يمكن للأنابيب أن تتجمد. أنظمة الفعل المسبق تحمي المناطق الحساسة للماء (مراكز بيانات، أرشيفات، متاحف) بحبس الماء حتى تؤكد إشارتان مستقلتان حريقًا. كود البناء لديك وفئة الخطر يحددان الحد الأدنى المطلوب.'
+	},
+	{
+		question: 'ماذا يعني معامل K وتصنيف الحرارة لرأس الرش؟',
+		answer: 'معامل K يحدد كم من الماء يوزعه الرأس عند ضغط معين — K80 وK115 هما المعايير الشائعة. تصنيف الحرارة يحدد نقطة التفعيل (من 57°C إلى 141°C، كبسولات زجاجية ملونة). طابق كلاهما مع الخطر وارتفاع السقف؛ رؤوس الاستجابة السريعة (كبسولة 3مم) تستجيب أسرع من نماذج الاستجابة القياسية (كبسولة 5مم).'
+	},
+	{
+		question: 'هل مكونات الرش من Wanlian مسجلة UL؟',
+		answer: 'نعم. رؤوس الرش لدينا ومكونات النظام مسجلة UL/ULC حيثما ينطبق، مع شهادات متوفرة في صفحة الشهادات. يأكّد مهندسونا حزمة الشهادات الدقيقة لسوق وجهتك قبل التسعير.'
+	},
+	{
+		question: 'هل يمكنكم توريد BOM كامل لنظام رش؟',
+		answer: 'نعم. أرسل مرسومات المشروع أو قائمة المكونات ونقدّم عرض سعر الرؤوس والاتصالات المرنة وصمامات الإنذار ومؤشرات التدفق والفلاتر والملحقات كحزمة واحدة — طلب مصنع واحد للحلقة كاملة، بمواصفات مطابقة.'
+	},
+	{
+		question: 'ما دور صمام الرجوع للإنذار في النظام الرطب؟',
+		answer: 'صمام الرجوع للإنذار الرطب (مثل ZSFZ) يفصل الخط الرئيسي للإمداد عن أنابيب الرش ويضرب جرس إنذار هيدروليكي عندما يبدأ التدفق، بينما تفلتر غرفته التأخيرية الإنذارات الكاذبة الناتجة عن ذورات الضغط. ثم حدد مؤشرات التدفق (ZSJZ) المنطقة المتفعيل إلى اللوحة.'
+	}
+];
+
+const sprinklerProducts = [
+	{
+		slug: 'glass-bulb-fire-sprinkler-zst',
+		name: 'رأس رش بكبسولة زجاجية (ZST)',
+		img: '/assets/05_sprinklers_alarms/sprinkler_p32_head_white.png',
+		desc: 'K=80/115، 57–141°C، معلق/واقف/جداري'
+	},
+	{
+		slug: 'wet-alarm-check-valve-zsfz-150',
+		name: 'صمام إنذار رطب برجوع (ZSFZ)',
+		img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp',
+		desc: 'جرس إنذار + غرفة تأخير، DN100–DN200'
+	},
+	{
+		slug: 'pre-action-alarm-system-zsfy',
+		name: 'نظام فعل مسبق (ZSFY)',
+		img: '/assets/products/pre-action-alarm-system-zsfy.jpg',
+		desc: 'فشل-آمن بمشغّلين مزدوجين للغرف الحرجة'
+	},
+	{
+		slug: 'water-flow-indicator-zsjz',
+		name: 'مؤشر تدفق (ZSJZ)',
+		img: '/assets/products/water-flow-indicator-zsjz.png',
+		desc: 'تأخير قابل للضبط 2–60 ثانية، DN50–DN200'
+	},
+	{
+		slug: 'deluge-alarm-valve-zsfm',
+		name: 'مجموعة صمام رش شامل (ZSFM)',
+		img: '/assets/products/deluge-alarm-valve-zsfm.webp',
+		desc: 'لأنظمة رش الشامل ورذاذ الماء'
+	}
+];
+---
+
+<Layout
+	title="أنظمة رش الحريق: رطب أم جاف أم فعل مسبق؟ (دليل 2026)"
+	description="مقارنة عملية لأنظمة الرش الرطبة والجافة والفعل المسبق: متى تخصص كل نظام، اختيار رؤوس الرش (معامل K، تصنيف الحرارة، الاستجابة السريعة) وقائمة المكونات والامتثال للمشروع."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'دليل أنظمة الرش' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">دليل أنظمة الرش</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل أنظمة رش الحريق</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">أنظمة رش الحريق: رطب أم جاف أم فعل مسبق؟ (دليل 2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">تشترك أنظمة الرش في هدف واحد — وضع الماء على الحريق بسرعة — لكن السباكة بين إمداد الماء ورأس الرش تغيّر كل شيء في زمن الاستجابة ومقاومة التجمد ومخاطر أضرار الماء. يقارن هذا الدليل الأنواع الرئيسية الثلاثة، ويشرح كيف تختار رؤوس الرش، ويقدم المكونات التي يحتاجها BOM فعليًا.</p>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-2 lg:grid-cols-5 gap-4">
+				{sprinklerProducts.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="the-three-system-types" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. أنواع الأنظمة الثلاثة مقارنةً</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">النوع</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">كيف يعمل</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الاستخدام النموذجي</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">نظام رطب</td>
+							<td class="px-4 py-3 text-gray-700">أنابيب ممتلئة دائمًا؛ رأس يفتح ← توزيع فوري</td>
+							<td class="px-4 py-3 text-gray-700">مباني تجارية وسكنية وصناعية مدفأة</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">نظام جاف</td>
+							<td class="px-4 py-3 text-gray-700">أنابيب تحتفظ بهواء/نيتروجين مضغوط؛ صمام الأنابيب الجافة يسمح للماء عند التفعيل</td>
+							<td class="px-4 py-3 text-gray-700">مساحات غير مدفأة: مواقف سيارات، مخازن باردة، أرصفة تحميل</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">فعل مسبق</td>
+							<td class="px-4 py-3 text-gray-700">أنابيب ممتلئة هواء؛ يُسمح للماء فقط بعد إشارتين مستقلتين</td>
+							<td class="px-4 py-3 text-gray-700">مراكز بيانات، أرشيفات، متاحف، غرف حواسيب</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">الأنظمة الرطبة تستجيب أسرع وأقل تكلفة في الصيانة، ولهذا افتراض أكواد البناء لها كلما كان المساحة مدفأة. الأنظمة الجافة تبادل ثوانٍ من الاستجابة مقابل حماية من التجمد. أنظمة الفعل المسبق تؤجل الجرف عمداً حتى يؤكد الكشف حريقًا — التبادل الصحيح حيث التوزيع الكاذب بنفس ضرر الحريق نفسه.</p>
+
+			<h2 id="choosing-sprinkler-heads" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. اختيار رؤوس الرش</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">الرأس هو حيث يلتقي النظام بالحريق، وثلاثة معايير تعرفه:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>معامل K</strong> — قدرة التوزيع. K80 وK115 يغطيان معظم الإشغال؛ معاملات K الأعلى تخدم أخطارًا عالية التحدي. <a href="/ar/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">سلسلة ZST</a> لدينا توفّر كليهما.</li>
+				<li><strong>تصنيف الحرارة</strong> — نقطة التفعيل، من 57°C (أحمر) إلى 141°C (أزرق)، كبسولات زجاجية ملونة. أسقف الخطورة العادية تأخذ 68°C؛ مناطق معدات تولد حرارة تحتاج تصنيفات أعلى.</li>
+				<li><strong>نوع الاستجابة</strong> — الاستجابة السريعة (كبسولة 3مم) تستجيب أسرع وغالبًا مطلوبة لإشغال سكني وخطر منخفض؛ الاستجابة القياسية (كبسولة 5مم) تناسب مجموعات الخطورة العادية والإضافية.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">الاتجاه يهم أيضاً: رؤوس معلقة تتدلى أسفل الأنبوب، رؤوس واقفة تقف فوقه، ورؤوس جدارية تحمي الممرات والغرف الصغيرة. طابق الرأس مع بناء السقف، لا مجرد صورة الكتالوج.</p>
+
+			<h2 id="components-your-bom-needs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. المكونات التي يحتاجها BOM</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">خلاف الرؤوس، يشمل نظام رش كامل تجميع صمامات الإنذار وكشف التدفق وملحقات الحماية:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>صمام رجوع إنذار رطب</strong> (<a href="/ar/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ</a>) — يفصل الإمداد عن أنابيب الرش، يضرب جرس الهيدروليك، وتفلتر غرفته التأخيرة إنذارات ذورات الضغط الكاذبة.</li>
+				<li><strong>صمامات رش شامل/فعل مسبق</strong> (<a href="/ar/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM</a>، <a href="/ar/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">ZSFY</a>) — أعصاب التحكم لتركيبات رش الشامل والفعل المسبق.</li>
+				<li><strong>مؤشرات تدفق</strong> (<a href="/ar/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">ZSJZ</a>) — تكتشف التدفق في كل منطقة وتحدد المنطقة المتفعيل إلى اللوحة.</li>
+				<li><strong>فلاتر Y</strong> (<a href="/ar/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">SGL41H</a>) — تبقي الجسيمات بعيدًا عن الصمامات والرؤوس؛ مكوّن رخيص يمنع انسدادات مكلفة.</li>
+			</ul>
+
+			<h2 id="compliance-notes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. ملاحظات الامتثال</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">NFPA 13 يحكم التركيب في أمريكا الشمالية وهو المرجع الفعلي في كثير من أسواق التصدير. نقاط رئيسية تصيب المشترين: مكونات معتمدة (مسجلة UL/ULC حيثما ينطبق)، تصنيف الخطر الصحيح قبل اختيار الكثافة، والتوثيق — اطلب الشهادات الفعلية وتقارير اختبار الدفعة، لا شعارات الكتالوج. صفحة <a href="/ar/certificates/" class="text-brand-blue font-semibold hover:underline">الشهادات</a> لدينا تنشر حزمة الشهادات.</p>
+
+			<h2 id="procurement-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. قائمة الشراء</h2>
+			<ol class="list-decimal ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>صنّف خطورة الإشغال (منخفضة/عادية/إضافية) وأكّد الكثافة التصميمية.</li>
+				<li>اختر نوع النظام: رطب، جاف أو فعل مسبق بناءً على حرارة المبنى وحساسية الماء.</li>
+				<li>اختر الرؤوس بمعامل K وتصنيف الحرارة ونوع الاستجابة والاتجاه.</li>
+				<li>أكّد شهادة المكونات (UL/ULC) تطابق سوق الوجهة.</li>
+				<li>اطلب عرض سعر BOM واحد يغطي الرؤوس والصمامات والمؤشرات والفلاتر.</li>
+				<li>وضّح MOQ ومدة التوريد وقطع الغيار في العرض التجاري.</li>
+			</ol>
+
+			<!-- Cross-link to landing page -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">استكشف مكونات أنظمة الرش لدينا</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">شاهد نطاق المكونات الكامل — رؤوس، صمامات إنذار، مؤشرات تدفق — في <a href="/ar/fire-sprinkler-systems/" class="text-brand-blue font-semibold hover:underline">صفحة أنظمة رش الحريق</a>.</p>
+			</div>
+
+			<!-- Related guide -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">دليل ذو صلة: صمامات أنظمة الرش</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">تفصيل في تجميعات الصمامات — ZSFZ إنذار رطب، ZSFM رش شامل، ZSFY فعل مسبق وZSJZ مؤشرات تدفق؟ اقرأ <a href="/ar/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">دليل صمامات أنظمة رش الحريق</a>.</p>
+			</div>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">هل تحتاج مكونات أنظمة رش؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل لنا نوع المبنى وقائمة المكونات — نرد بعرض سعر BOM كامل خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Fire%20Sprinkler%20Systems" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D9%85%D9%83%D9%88%D9%86%D8%A7%D8%AA%20%D8%A3%D9%86%D8%B8%D9%85%D8%A9%20%D8%B1%D8%B4%20%D8%AD%D8%B1%D9%8A%D9%82" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

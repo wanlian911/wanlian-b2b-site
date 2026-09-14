@@ -1,0 +1,209 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'كيف يمنع خلاط الحريق المقاوم للتجمد من التجمد في الشتاء؟',
+		answer: 'خلاط الجاف (مقاوم التجمد) يعمل بمبدأ البرميل الجاف: الصمام الرئيسي مدفون أسفل خط التجمد، والبرميل فوقه يُفرَّغ تلقائيًا في كل مرة يُغلق فيها الصمام. لا يبقى ماء راكد في العمود، فلا يوجد ما يتجمد ويشق الجسم. خلاط SS100/65 الخارجي يستخدم تمامًا آلية تصريف الصقيع التلقائية هذه، ويوفَّر بفلنجة قاعدة قياسية للاتصال المدفون.'
+	},
+	{
+		question: 'ماذا يحدث عند اصطدام مركبة بخلاط مضاد للاصطدام؟',
+		answer: 'يُجمَّع خلاط SSFT100 بمسامير قصّ معايرة. عند الاصطدام تنقطع المسامير نظيفًا عند القوة المصمَّمة لها، ويُغلق الصمام الداخلي تلقائيًا — فلا يتدفق الماء بكامل القطر كما في الحالة العادية، بل يحكم الختم ذاته ويتجنَّب الطوفان. يتم الإصلاح تحت الضغط عبر استبدال مسامير القص وإعادة تشغيل الخلات، ما يحافظ على تكلفة صيانة منخفضة ويجنّب تصريف الخط الرئيسي.'
+	},
+	{
+		question: 'هل تعمل الخلاطات المضادة للاصطدام أيضًا في المناخات الباردة؟',
+		answer: 'نعم. يجمع SSFT100 ثلاث وظائف في جسم واحد: حماية من الاصطدام، وجهاز تنظيم ضغط مدمج لتفريغ تدريجي وسلس، ونظام تصريف ذاتي تلقائي يمنع التجمد في الشتاء. وهذا يجعله مناسبًا للشبكات البلدية والصناعية في المناطق الباردة حيث تقف الخلاطات أيضًا قرب الطرق المزدحمة.'
+	},
+	{
+		question: 'هل يمكن مراقبة خلاطات الحريق عن بُعد؟',
+		answer: 'يتكامل خلاط SS100ZN الذكي IoT مع حساسات دقيقة ويرسل البيانات عبر شبكات NB-IoT أو LTE-M أو GPRS الخلوية. يراقب الميل/الاهتزاز، ضغط خط الماء، وحالة الصمام، ويرفع تنبيهات للاستخدام غير المشروع للماء أو فتح الصمام أو اصطدام المركبات. الطاقة من بطارية ليثيوم مصممة لعمر 5 سنوات مع دعم شمسي، وغلاف الوحدة متين بمعدل IP68، وجسم الخلات مبني وفق GB4452-2011.'
+	},
+	{
+		question: 'أي تكوين مخارج وتصنيف ضغط يجب أن أحدده؟',
+		answer: 'يُوفَّر كل من SS100/65 وSSFT100/65 مع خراجين 65 ملم ومخرج واحد 100 ملم — التكوين المتوقع في الخلاطات البلدية الخارجية. ضغط التشغيل 1.6 MPa، ويُختبر SS100 عند 2.4 MPa. مسمار المخارج يتبع معيار المشروع؛ موصلات سلسلة HS من الألومنيوم من Wanlian (DN50/DN65، 1.6 MPa، GB12514) تصل الخلاطات بالخراطيم والفوهات دون تسرب.'
+	},
+	{
+		question: 'ما المعايير المطبقة على خلاطات الحريق لمشاريع التصدير؟',
+		answer: 'يُبنى جسم خلاط IoT الذكي وفق GB4452-2011، وتُصنع الخلاطات الميكانيكية وفق متطلبات GB ومعايير المصنع. حيثما يطلب المشروع مراجع AWWA أو EN أو NFPA، يجب ذكر المواصفة في الاستفسار ليطابقها النموذج ووثائق الاختبار — دليل معايير خلاطات وصمامات الحريق لدينا يشرح كيفية قراءة تلك عائلات المعايير وتقارير الاختبار قبل الطلب.'
+	}
+];
+
+const toc = [
+	{ id: 'cold-climate-problem', label: 'لماذا تفشل الخلاطات في الطقس البارد' },
+	{ id: 'antifreeze-mechanism', label: 'كيف تعمل الخلاطات المقاومة للتجمد (البرميل الجاف)' },
+	{ id: 'anti-collision-mechanism', label: 'كيف تُغلق الخلاطات المضادة للاصطدام' },
+	{ id: 'hydrant-comparison', label: 'قياسي مقابل مضاد اصطدام مقابل ذكي' },
+	{ id: 'smart-hydrant-monitoring', label: 'مراقبة الخلاطات الذكية' },
+	{ id: 'hydrant-spec-checklist', label: 'قائمة التحقق من المواصفات' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const products = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'خلاط حريق مقاوم تجمد (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'DN100، 1.6 MPa، تصريف صقيع تلقائي، 2x65 + 1x100' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'خلاط مضاد اصطدام (SSFT100/65)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'إغلاق بمسامير قصّ، تنظيم ضغط، تصريف ذاتي' },
+	{ slug: 'iot-smart-ground-fire-hydrant-ss100zn', name: 'خلاط ذكي IoT (SS100/65-1.6ZN)', img: '/assets/products/iot-smart-ground-fire-hydrant-ss100zn.webp', desc: 'NB-IoT/4G، حساسات ميل وضغط، بطارية 5 سنوات' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'موصل خراطيم الخلات (سلسلة HS)', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65، 1.6 MPa، ألومنيوم بختم ذاتي' }
+];
+---
+
+<Layout
+	title="خلاطات حريق مقاومة تجمد ومضادة اصطدام: دليل المشتري"
+	description="كيف تمنع خلاطات البرميل الجاف التجمد، وكيف تُغلق خلاطات مسامير القص المضادة للاصطدام عند الدهس، مع مراقبة IoT وقائمة اختيار B2B للمواصفات."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'خلاطات مقاومة تجمد ومضادة اصطدام' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">خلاطات مقاومة تجمد ومضادة اصطدام</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل خلاطات الحريق</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">خلاطات حريق مقاومة تجمد ومضادة اصطدام: دليل المشتري</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">باختصار: للخلاط الخارجي القياسي ضعفان في الخدمة البلدية الحقيقية — الماء الراكد في البرميل قد يتجمد ويشق الجسم، والخلاط الذي تصطدم به مركبة قد يُفرِّغ دفعة ماء بكامل القطر. تحل الخلاطات المقاومة للتجمد (البرميل الجاف) المشكلة الأولى بتصريف ذاتي بعد كل استخدام، وتحل الخلاطات المضادة للاصطدام المشكلة الثانية بمسامير قص معايرة وإغلاق داخلي تلقائي. يشرح هذا الدليل الآليتين، ويقارن النماذج، ويغطي ما تضيفه مراقبة IoT.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="cold-climate-problem" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. لماذا تفشل الخلاطات في الطقس البارد</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يحفظ خلاط البرميل الرطب ماءً راكدًا في العمود فوق الصمام طوال العام. مع الصقيع القاسي يتمدد الماء وهو يتحول إلى ثلج، ولا يجد الضغط طريقًا: ينشق البرميل أو الغطاء أو جسم الصمام. غالبًا تبقى العطل خفية حتى الذوبان، عندئذ يُفتح الخلات فيصب الماء من جسم مشقوق بدل الفوهات — في أسوأ لحظة ممكنة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">المشكلة العكسية شائعة بنفس القدر: خلاط لا يُصَرَّف بعد الاستخدام يترك كتلة ماء راكدة فوق خط التجمد. ولهذا المواصفات المصاغة للمناخات الباردة لا تطلب خلاطًا "أقوى" ببساطة — بل خلاطًا يكون برميله فارغًا في كل مرة يُغلق صمامه.</p>
+			<p class="text-gray-700 leading-relaxed">نمط الفشل الآخر لا علاقة له بالطقس: الخلاطات تقف على حافة الطريق، ومعدات الحافة تُصطدم. بلا نقطة انفصال مصمَّمة، يقطع الاصطدام الجسم ويدفع ضغط الخط الرئيسي كاملًا عبر العمود المكسور حتى يصل أحدهم إلى صمام العزل.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="antifreeze-mechanism" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. كيف تعمل الخلاطات المقاومة للتجمد (البرميل الجاف)</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">في خلاط البرميل الجاف يدفن الصمام الرئيسي أسفل خط التجمد، والبرميل فوقه فارغ إلا أثناء تدفق الخلات. عند إغلاق عمود التشغيل يحكم الصمام مقعده، والماء المتبقي في العمود يتصرف عبر جهاز تصريف عند القاعدة — فيعود البرميل جافًا قبل الصقيع التالي.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">يطبق <a href="/ar/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">خلاط SS100/65 الخارجي المقاوم للتجمد</a> هذا المبدأ بآلية تصريف صقيع تلقائية بعد الإغلاق. بيانات أساسية للمواصفات: DN100، ضغط تشغيل 1.6 MPa مع ضغط اختبار 2.4 MPa، خراجان 65 ملم مع مخرج 100 ملم واحد، عمود من حديد الزهر المطبوع QT450 عالي التحمل، مخارج بمقاعد نحاسية مزدوجة مع أغطية إغلاق مقاومة الطقس، رأس صمام سفلي مغلف EPDM، وجهاز تصريف من الفولاذ المقاوم للصدأ/النحاس. يتعامل مع الماء ومزيج رغوة الحريق، وفلنجة القاعدة المدفونة القياسية تبسط التركيب.</p>
+			<p class="text-gray-700 leading-relaxed">لأن البرميل يتصرف بعد كل عملية، تكون الحماية من التجمد قابلة للتكرار وليست إجراء شتوي مرة واحدة — وهذا يهم الشبكات التي تُفحص على فترات تمتد لأشهر.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="anti-collision-mechanism" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. كيف تُغلق الخلاطات المضادة للاصطدام</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يُصمم خلاط مضاد للاصطدام ليفشل بطريقة مضبوطة. يُجمَّع <a href="/ar/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">خلاط SSFT100/65 المضاد للاصطدام المنظم للضغط</a> بمسامير قص معايرة متخصصة. عندما تصطدم مركبة بالعمود، تنقطع تلك المسامير عند قوتها المصممة ويُغلق الصمام الداخلي تلقائيًا — فيحكم الخلات ختمه نفسه بدل تصريف الخط الرئيسي.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">العواقب عملية لا نظرية: يتجنَّب فقدان الماء والطوفان، يحافظ الخط على ضغطه لبقية المنطقة، ويجري الإصلاح تحت الضغط: استبدال مسامير السلامة، إعادة تشغيل الخلات — تكلفة صيانة منخفضة جدًا مقارنة باستبدال جسم مقطوع وحفر الاتصال.</p>
+			<p class="text-gray-700 leading-relaxed">النموذج نفسه يحمل أيضًا جهاز تنظيم ضغط مدمج، فيكون التفريغ تدريجيًا وسلسًا بدل دفعة ضغط مفاجئة على فريق الخراطيم، مع نظام تصريف ذاتي تلقائي يمنع التجمد في الشتاء. بيانات المواصفات: DN100 أو DN150، ضغط اسمي 1.6 MPa، مدخل بفلنجة، خراجان 65 ملم (KWS65) مع مخرج 100 ملم واحد، جسم حديد زهر مطبوع QT450، مقعد صمام سفلي بسبيكة نحاس صلب/مغلف EPDM، نوابض من الفولاذ المقاوم للصدأ 304، وأغطية بسبائك ألومنيوم مُعامَلة أو نحاس.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="hydrant-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. قياسي مقابل مضاد اصطدام مقابل ذكي</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الخاصية</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">SS100/65 مقاومة تجمد</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">SSFT100 مضاد اصطدام</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">SS100ZN ذكي IoT</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">حماية من التجمد</td>
+							<td class="px-4 py-3 text-gray-700">تصريف صقيع تلقائي بعد الإغلاق</td>
+							<td class="px-4 py-3 text-gray-700">نظام تصريف ذاتي تلقائي</td>
+							<td class="px-4 py-3 text-gray-700">بناء برميل جاف، حالة تحت المراقبة</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">اصطدام المركبات</td>
+							<td class="px-4 py-3 text-gray-700">جسم QT450 بسماكة جدار فقط</td>
+							<td class="px-4 py-3 text-gray-700">مسامير قص معايرة + إغلاق تلقائي</td>
+							<td class="px-4 py-3 text-gray-700">حساسات ميل/اهتزاز ترفع تنبيهات اصطدام</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">تنظيم الضغط</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">مدمج، تفريغ تدريجي</td>
+							<td class="px-4 py-3 text-gray-700">مراقبة ضغط مستمرة</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">المراقبة</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">NB-IoT / LTE-M / GPRS، تنبيهات صمام وسرقة</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">المقاس والمخارج</td>
+							<td class="px-4 py-3 text-gray-700">DN100، 2x65 + 1x100</td>
+							<td class="px-4 py-3 text-gray-700">DN100/DN150، 2xKWS65 + 1x100</td>
+							<td class="px-4 py-3 text-gray-700">جسم خارجي DN100 (GB4452-2011)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الضغط</td>
+							<td class="px-4 py-3 text-gray-700">1.6 MPa (مُختبر 2.4 MPa)</td>
+							<td class="px-4 py-3 text-gray-700">1.6 MPa اسمي</td>
+							<td class="px-4 py-3 text-gray-700">ضغط الخط مراقب باستمرار</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الأفضل لـ</td>
+							<td class="px-4 py-3 text-gray-700">شبكات بلدية في مناخ بارد</td>
+							<td class="px-4 py-3 text-gray-700">مواقع حافة الطريق مكشوفة للمرور</td>
+							<td class="px-4 py-3 text-gray-700">مدن ذكية وشبكات منخفض الإشراف</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">التصاميم الثلاثة ليست بدائل بقدر ما هي أجوبة على ثلاثة مخاطر مختلفة — الصقيع، والاصطدام، والاستخدام غير المراقب. مدينة طقس بارد بطرق مزدحمة ستحتاج عادةً النوعين الأولين معًا، وتضيف الثالث حيث لا تستطيع الفرق التفتيش كل خلاط في موعده.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="smart-hydrant-monitoring" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. مراقبة الخلاطات الذكية</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يضيف <a href="/ar/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">خلاط SS100ZN الأرضي الذكي IoT</a> كبسولة حساسات إلى الجسم الخارجي القياسي. يتكامل مع حساسات دقيقة ترسل عبر NB-IoT أو LTE-M أو GPRS: استشعار الميل والاهتزاز، كشف ضغط خط الماء، وحالة الصمام. ترفع المنصة تنبيهات للاستخدام غير المشروع للماء أو فتح الصمام أو سرقة المياه أو اصطدام المركبات، وتتتبع ضغط الماء والتدفق باستمرار حتى تظهر أعطال الخط قبل وقوع الحادث.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">لأصحاب الأصول القيمة هي الرؤية. خلاط فتحه مستخدم غير مخول، أو أُسقط، أو يقف على خط يهبط ضغطه يبقى عادةً غير مرئي حتى التفتيش المادي التالي. الخلاط المراقب يحول تلك الأحداث إلى إشعارات. الطاقة بتصميم منخفض الاستهلاك الفائق مع بطارية ليثيوم بعمر 5 سنوات ودعم شمسي، وكبسولة وحدة IoT ABS مقاوم للصدمات مع ختم IP68 — تفصيلة تهم لأن الكبسولة تعيش على معدة يُتوقع أن تُصطدم.</p>
+			<p class="text-gray-700 leading-relaxed">جسم الخلات يتبع GB4452-2011، بعمود حديد زهر مطبوع QT450، ومجس ماء من الفولاذ المقاوم للصدأ 316، وعمود سفلي ومقعد صمام من الفولاذ المقاوم للصدأ أو النحاس. حيثما يطلب المشروع عائلات معايير أخرى، اذكر المعيار في الاستفسار وشاهد <a href="/ar/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">دليل معايير خلاطات وصمامات الحريق</a> لدينا لكيفية مطابقة مراجع AWWA وEN وNFPA وISO مع وثائق الاختبار.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="hydrant-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. قائمة التحقق من المواصفات</h2>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>ابدأ من المناخ</strong> — إذا كان الصقيع قائمًا، فحدد خلاط برميل جاف مقاوم تجمد (SS100/65) أو نموذجًا مضاد اصطدام مع تصريف ذاتي؛ تأكد من نوع جهاز التصريف وأن البرميل يفرغ عند إغلاق الصمام.</li>
+				<li><strong>قيّم مخاطر المرور</strong> — الخلاطات عند حواف الأرصفة وساحات التحميل وبوابات المناطق الصناعية يجب تزويدها بمسامير قص معايرة وإغلاق داخلي تلقائي (SSFT100/65) حتى لا يُفرغ الاصطدام الخط الرئيسي.</li>
+				<li><strong>قرر هل تحتاج رؤية</strong> — شبكات المدن الذكية والحدائق الجامعية ومنخفضة الإشراف يمكنها استخدام SS100ZN لتقارير الميل والضغط وحالة الصمام عبر NB-IoT/LTE-M/GPRS.</li>
+				<li><strong>ثبّت تكوين المخارج</strong> — خراجان 65 ملم مع مخرج 100 ملم هو الترتيب الخارجي القياسي؛ أضف <a href="/ar/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">موصلات سلسلة HS</a> (DN50/DN65، 1.6 MPa، GB12514) حتى تتصل الخراطيم والفوهات دون تسرب.</li>
+				<li><strong>اذكر الضغط وأدلة الاختبار</strong> — ضغط تشغيل 1.6 MPa هو القياسي مع SS100 المختبر عند 2.4 MPa؛ اطلب تقارير اختبار ضغط الدفعة وشهادات المواد قبل الشحن.</li>
+				<li><strong>أكّد المعايير والمورد</strong> — اذكر أي متطلبات AWWA/EN/NFPA مبكرًا، وطبّق <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة التحقق من مصادر صمامات B2B</a> قبل الالتزام بمصنع. للسياق الأوسع للاختيار راجع <a href="/ar/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">كيف تختار خلاط الحريق</a>.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">هل تحتاج خلاطات حريق مقاومة تجمد أو مضادة اصطدام؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أخبرنا بشرط المناخ، والتعرض للمرور، وDN، وتكوين المخارج، والمعيار — يأكّد مهندسونا الخلات المناسب ويرسل عرض السعر خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Antifreeze%20Fire%20Hydrant%20SS100" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%AE%D9%84%D8%A7%D8%B7%D8%A7%D8%AA%20%D8%AD%D8%B1%D9%8A%D9%82%20%D9%85%D9%82%D8%A7%D9%88%D9%85%D8%A9%20%D8%AA%D8%AC%D9%85%D8%AF%20%D8%A3%D9%88%20%D9%85%D8%B6%D8%A7%D8%AF%D8%A9%20%D9%84%D9%84%D8%A7%D8%B5%D8%B7%D8%AF%D8%A7%D9%85" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

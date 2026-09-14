@@ -1,0 +1,194 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'ما الفرق بين بكرة مرن الحريق وخزانة الحريق؟',
+		answer: 'بكرة مرن الحريق (مثل JPS0.8-19) وحدة إطفاء شبه آلية متصلة دائمًا بخط ثابت: بكرة تحمل مرنًا مفلطحًا قابلًا للطي يسحب الماء مباشرة من إمداد المبنى. أما خزانة الحريق فهي الغلاف الذي يضم البكرة وصمام الخلاط والمرن والفوهة — أو، في حالة خزانة الرغوة (PSG30)، وحدة تباين رغوة متكاملة بذاتها. كثير من المشاريع تطلب خزانة خلاط حريق تحتوي صمام الخلاط SN65 وبكرة مرن معًا.'
+	},
+	{
+		question: 'ما طول المرن وقطره اللذان يجب عليّ تخصيصهما؟',
+		answer: 'تُزوَّد بكرات مرن الداخلية عادةً بمرن مفلطح بطول 20 م أو 25 م أو 30 م وبقطر 19 مم (3/4"). يُحدَّد الطول المطلوب بنطاق تغطية محطة البكرة — فأكواد المباني تشترط عادةً أن تكون كل نقطة من مساحة الطابق ضمن متناول البكرة (مثلًا ضمن 6 م من مدى قذف الفوهة). تأكّد من الكود الساري (NFPA 14 أو EN 671 أو GB 15090 / XF180) في سوقك.'
+	},
+	{
+		question: 'متى أختار خزانة رغوة حريق بدلًا من بكرة مرن ماء؟',
+		answer: 'تُخصص وحدات الرغوة (PSG30 مع AFFF بتركيز 3%) حيث يتوقع حدوث حرائق سوائل قابلة للاشتعال من الفئة B: مخازن الوقود، المصانع الكيميائية، ورش الطلاء، غرف المحولات وأسطول المركبات. الماء غير فعّال على السوائل الملتهبة؛ فالرغوة منخفضة التمدد تغطي السطح وتخنق الحريق. أما في الاستخدام التجاري العام ذي أحمال حريق من الفئة A فقط، فبكرة مرن الماء القياسية كافية وأرخص.'
+	},
+	{
+		question: 'ما الضغط اللازم لتشغيل بكرة المرن؟',
+		answer: 'تعمل بكرة JPS0.8-19 عند ضغط 0.8–1.0 MPa بمدى نفاث لا يقل عن 6 أمتار. يجب أن يوفّر إمداد المبنى أو مضخة الحريق هذا الضغط عند مدخل البكرة أثناء الطلب. وإذا كان الإمداد هزيلًا، أضف مضخة رفع أو توثّق ضغط الفوهة بالحساب الهيدروليكي — فبكرة لا تبلغ مدى 6 م غير مطابقة للكود.'
+	},
+	{
+		question: 'هل بكرات المرن والخزائن متوفرة بتكوينات متوافقة مع التصدير؟',
+		answer: 'نعم. تصنع Wanlian بكرات بأطوال مرن 20/25/30 م، فوهات من النحاس الأصفر أو السبائك، حاملات جدارية دوّارة، وخزائن بواجهات صمامات خلاط متوافقة (موصّلات SN65 أو BS336 عبر موفّسات سلسلة HS). حدّد معيار سوقك وسنطابق الاتصال وحزمة التوثيق.'
+	}
+];
+
+const products = [
+	{ slug: 'fire-hose-reel-jpso8-19', name: 'طقم بكرة مرن الحريق JPS0.8-19', img: '/assets/products/fire-hose-reel-jpso8-19.jpg', desc: 'بكرة من الفولاذ الكربوني، مرن PVC بطول 20-30 م، فوهة نحاس أصفر' },
+	{ slug: 'foam-fire-hydrant-cabinet-psg30', name: 'خزانة رغوة حريق PSG30', img: '/assets/06_extinguishing_cannons/cannon_p42.webp', desc: 'وحدة رغوة AFFF مركزة 3% متكاملة لحرائق الفئة B' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'رأس خلاط حريق داخلي SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'صمام خلاط من حديد الزهر المطبوع PN16 للخزائن' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'موصل مرن الحريق HS', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'موصّلات من الألومنيوم لاتصالات خلاط-مرن-فوهة' }
+];
+
+const toc = [
+	{ id: 'role', label: 'دور بكرات مرن والخزائن' },
+	{ id: 'reel-vs-cabinet', label: 'بكرة مرن مقابل خزانة حريق: التعريفات' },
+	{ id: 'hose-specs', label: 'طول المرن وقطره وضغطه' },
+	{ id: 'nozzle', label: 'أنواع الفوهات وأنماط النفاث' },
+	{ id: 'foam', label: 'خزائن الرغوة لحرائق الفئة B' },
+	{ id: 'materials', label: 'المواد ومقاومة التآكل' },
+	{ id: 'compliance', label: 'الأكواد والاختبارات وملاحظات التصدير' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+---
+
+<Layout
+	title="دليل بكرات مرن وخزائن الحريق: JPS0.8-19 وPSG30 وSN65 من Wanlian"
+	description="كيف تخصص بكرات مرن الحريق وخزائنه؟ أطوال المرن، أنماط الفوهة، الرغوة لحرائق الفئة B، والامتثال لمعايير EN 671 وNFPA 14. مصنع Wanlian Fluid، الصين."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'دليل بكرات مرن وخزائن الحريق' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">بكرات مرن وخزائن الحريق</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل معدات الحماية من الحريق</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">دليل اختيار بكرات مرن الحريق وخزائن الحريق</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">بكرات مرن الحريق وخزائن الحريق هي المعدات التي يستخدمها شاغل المبنى فعليًا في الدقائق الأولى من الحريق — قبل وصول هيئة الإطفاء. يجب أن تكون بسيطة بما يكفي لغير المدرَّبين، ومتينة بما يكفي لسنوات الاستعداد، ومُخصصة لتوفير النفاث المطلوب عند الضغط المطلوب. يتناول هذا الدليل مواصفات المرن، وأنماط الفوهات، وخيارات الرغوة، والمواد، والأكواد الناظمة لها.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="role" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. دور بكرات مرن والخزائن</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تُزوّد بكرة مرن الحريق شاغلًا غير مدرَّب بقدرات إطفاء من خط ماء ثابت: افتح الصمام، اسحب المرن، ويتوفَّر النفاث فورًا. إنها خط الدفاع الأول ضد الحرائق في مراحله الأولى في المباني التجارية والفندقية والمكتبية والصناعية، وتكمّل أنظمة الرش الآلية التي تتولى الإطفاء أثناء إخلاء الشاغلين. وتنظّم خزائن الحريق المعدات — صمام الخلاط، المرن، البكرة، الفوهة — في وحدة متوقعة وسهلة الوصول يعتمد عليها المفتشون والمستخدمون على حد سواء.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">في التزويد بين الشركات (B2B)، الأسئلة العملية هي: ما مدى التغطية الذي يشترطه الكود، ما ضغط الإمداد المتوفر، وما فئات الحريق الموجودة في الموقع. هذه الإجابات الثلاث تقود المواصفات أدناه.</p>
+
+			<h2 id="reel-vs-cabinet" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. بكرة مرن مقابل خزانة حريق: التعريفات</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الوحدة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">ما تحتويه</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الاستخدام النموذجي</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">طقم بكرة مرن (JPS0.8-19)</td>
+							<td class="px-4 py-3 text-gray-700">حامل دوّار، طبلون، مرن مفلطح، فوهة</td>
+							<td class="px-4 py-3 text-gray-700">محطات مستقلة متصلة بإمداد المياه</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">خزانة خلاط حريق</td>
+							<td class="px-4 py-3 text-gray-700">صمام SN65 + بكرة/مرن + فوهة داخل غلاف</td>
+							<td class="px-4 py-3 text-gray-700">محطات الإطفاء الداخلية القياسية</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">خزانة رغوة (PSG30)</td>
+							<td class="px-4 py-3 text-gray-700">خزان تركيز الرغوة + وحدة تباين + بكرة مرن + فوهة رغوة</td>
+							<td class="px-4 py-3 text-gray-700">مناطق حرائق السوائل من الفئة B</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">طقم بكرة <a href="/ar/products/fire-hose-reel-jpso8-19/" class="text-brand-blue font-semibold hover:underline">JPS0.8-19</a> هو المكوّن الأساسي؛ ورأس خلاط الحريق الداخلي <a href="/ar/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">SN65</a> هو واجهة الصمام التي تغذيه من نظام عمود الماء، بينما توحّد <a href="/ar/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">موفّسات موصل HS</a> اتصالات المرن بالخلاط والمرن بالفوهة.</p>
+
+			<h2 id="hose-specs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. طول المرن وقطره وضغطه</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">ثلاثة أرقام تعرّف البكرة: طول المرن، القطر الداخلي، وضغط التشغيل.</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>الطول (20 / 25 / 30 م).</strong> يُحدَّد بنطاق التغطية. أكواد مثل EN 671-1 تشترط أن تكون كل نقطة في المنطقة المحمية ضمن متناول البكرة، ويُعرَّف ذلك عادةً بطول المرن زائد مدى قذف الفوهة الاسمي. والزيادة في طول المرن ترفع فقد الاحتكاك، فيجب أن يتبع الحساب الضغطي الطول.</li>
+				<li><strong>القطر (19 مم / 3/4").</strong> هو القطر القياسي لبكرات الداخلية. الأقطار الأكبر توفر تدفقًا أعلى لكنها تعني مرنًا أثقل يصعب على الشاغلين سحبه؛ و19 مم يوازن بين المدى وسهولة الاستخدام لحرائق الفئة A في مراحله الأولى.</li>
+				<li><strong>الضغط (0.8–1.0 MPa).</strong> تعمل بكرة JPS0.8-19 عند 0.8–1.0 MPa بمدى نفاث لا يقل عن 6 م. توثّق ضغط عمود الماء أو الإمداد عند مدخل البكرة تحت الطلب المتزامن — فأحد الأخطاء الشائعة هو تخصيص بكرة دون إجراء الحساب الهيدروليكي أصلًا.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">لمشاريع التصدير، حدّد معيار المرن (EN 694 لأوروبا، NFPA 1962 لأمريكا الشمالية، GB 15090 / XF180 للاعتمادات الصينية) حتى تتطابق حزمة التوثيق مع سوقك.</p>
+
+			<h2 id="nozzle" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. أنواع الفوهات وأنماط النفاث</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">الفوهة هي واجهة المستخدم — فهي التي تحدد ما إذا كان شاغل المبنى قادرًا على مكافحة الحريق من الأساس. تدعم فوهات البكرات نمطين:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>نفاث مستقيم.</strong> أقصى مدى لهجوم الحريق من بُعد. المدى الأدنى المطلوب عادةً 6 م عند الضغط المقنّن.</li>
+				<li><strong>رذاذ/ضباب.</strong> مخروط واسع لحماية المشغّل، وتبريد المنطقة، وتبليل الأسطح. يستهلك نمط الرذاذ هواءً أكثر وهو أقل فعالية من بُعد، فيبدّل المشغّل النمط حسب الموقف.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">المادة مهمة: فوهات النحاس الأصفر تقاوم التآكل وتحافظ على هندستها؛ فوهات السبائك المصبوبة أخف وزنًا، لكن حدّد طلاء أكسدة (أنودايز) للبيئات الرطبة أو الساحلية. تُشحن بكرة JPS0.8-19 مع فوهة رذاذ من النحاس الأصفر/السبائك تدعم النمطين، ومزودة بمقبض قطع يسمح بوقف التدفق عند الفوهة نفسها.</p>
+
+			<h2 id="foam" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. خزائن الرغوة لحرائق الفئة B</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">لا يمكن للماء إطفاء سائل ملتهب: بل يوسّع نطاق الحريق. حيث توجد مخاطر الفئة B — مخازن الوقود، مناطق العمليات الكيميائية، غرف المحولات، مخازن الطلاء والمذيبات، أسطول المركبات — يشترط الكود الرغوة. تجمع <a href="/ar/products/foam-fire-hydrant-cabinet-psg30/" class="text-brand-blue font-semibold hover:underline">خزانة رغوة الحريق PSG30</a> النظام كاملًا في وحدة جدارية واحدة: خزان تركيز الرغوة، وحدة تباين AFFF بنسبة 3%، بكرة مرن، وفوهة رغوة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">عند فتح البكرة، تسحب وحدة التباين تركيز الرغوة إلى تيار الماء بنسبة 3%، فتنتج رغوة منخفضة التمدد بنسبة تمدد لا تقل عن 4.5:1 ومدى نفاث 6 أمتار فأكثر. تغطي الرغوة منخفضة التمدد سطح السائل الملتهب فتقطع الأكسجين والأبخرة — فعّالة على حرائق الوقود والكيميائيات والمذيبات.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">ملاحظات المواصفات لخزائن الرغوة:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>نوع الرغوة.</strong> رغوة AFFF (مكوّنة لطبقة مائية) هي المعيار لمخاطر الهيدروكربونات المختلطة؛ توثّق فئة التركيز (AR-AFFF للمذيبات القطبية) مع مستشار الحريق.</li>
+				<li><strong>السعة.</strong> طابق حجم الخزان مع مدة التفريغ المتوقعة — راجع الكود المحلي لأدنى زمن تشغيل عند معدل التدفق المقنّن.</li>
+				<li><strong>ضغط المدخل.</strong> تعمل PSG30 عند 0.5–0.8 MPa؛ ويجب أن يحافظ الإمداد على هذا الضغط طوال التفريغ.</li>
+			</ul>
+
+			<h2 id="materials" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. المواد ومقاومة التآكل</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">معدات الاستعداد تعيش لسنوات في ممرات رطبة وغرف غلايات ومنشآت ساحلية. اختيار المواد قرار يخص تكلفة دورة الحياة:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>طبلون البكرة وحاملها.</strong> فولاذ كربوني مدوّر على البارد بطلاء بودرة أحمر مضاد للتآكل (JPS0.8-19) — اقتصادي ومطابق للكود؛ حوّل إلى الفولاذ المقاوم للصدأ للبيئات البحرية أو الكيميائية.</li>
+				<li><strong>المرن.</strong> خلطات NBR/PVC بتدعيم من نسيج بوليستر متشابك متعدد تقاوم الانحناء والاحتكاك؛ توثّق ثبات الأشعة فوق البنفسجية إذا كانت البكرة معرضة لأشعة الشمس المباشرة.</li>
+				<li><strong>الفوهة ووحدة التباين.</strong> النحاس الأصفر لمقاومة التآكل ودقة القياس؛ وحدة تباين PSG30 من النحاس الأصفر المصبوب بجسم مقاوم للتآكل.</li>
+				<li><strong>جسم الخزانة.</strong> الفولاذ بطلاء بودرة هو المعيار؛ وتُستخدم واجبات زجاجية أو من الفولاذ المقاوم للصدأ في الردهات المميزة معماريًا. حدّد دائمًا بابًا زجاجيًا قابلًا للكسر أو بابًا بمفتاح يتناسب مع تفضيلات هيئة الإطفاء المحلية.</li>
+			</ul>
+
+			<h2 id="compliance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. الأكواد والاختبارات وملاحظات التصدير</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تُوثَّق مطابقة بكرات المرن والخزائن عادةً من خلال: اختبار الضغط للتجميع، واختبار مدى النفاث والتدفق عند الضغط المقنّن، والفحص المادي للمواد والطلاء. المعايير ذات الصلة تشمل EN 671 (أوروبا)، NFPA 14 (أمريكا الشمالية، أنظمة عمود الماء والمرن)، GB 15090 وXF180 (الصين)، إضافة إلى BS 5306 للممارسة البريطانية.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">قائمة تحقق التصدير:</p>
+			<ol class="list-decimal ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>توثّق معيار موصّل المرن في سوقك — موفّسات سلسلة HS تغطي الموصّلات الدولية الشائعة (BS336 وNIST وKWS) ويمكن شحنها مع الطلب.</li>
+				<li>اطلب تقرير اختبار الضغط للدفعة لكل من البكرات والخزائن.</li>
+				<li>تحقق من أن نوع فتح باب الخزانة واللوحات الإرشادية يتطابق مع متطلبات هيئة الإطفاء المحلية.</li>
+				<li>لوحود الرغوة، توثّق نوع التركيز والتعامل مع تاريخ الانتهاء — تركيز AFFF له مدة صلاحية ويجب استبداله وفق الجدول.</li>
+				<li>وضّح قطع الغيار (فوهات، مرن، أحكام، صنبورات اختبار) ومدة التوريد قبل الطلب.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">تختبر Wanlian كل بكرة وكل خزانة قبل الشحن، وتوفر حزمة التوثيق — تقارير اختبار الضغط، شهادات المواد، وتعليمات التشغيل — مع الحاوية.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">هل تحتاج بكرات مرن أو خزائن لمشروعك؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل لنا نطاق التغطية وضغط الإمداد وفئات الحريق — يردّ مهندسونا بتوصية تخطيط للبكرات والخزائن وعرض سعر خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Hose%20Reel%20%26%20Cabinet%20Selection" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D8%A9%20%D9%81%D9%8A%20%D8%A7%D8%AE%D8%AA%D9%8A%D8%A7%D8%B1%20%D8%A8%D9%83%D8%B1%D8%A7%D8%AA%20%D9%85%D8%B1%D9%86%20%D9%88%D8%AE%D8%B2%D8%A7%D8%A6%D9%86%20%D8%A7%D9%84%D8%AD%D8%B1%D9%8A%D9%82" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

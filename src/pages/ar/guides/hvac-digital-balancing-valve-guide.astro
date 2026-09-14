@@ -1,0 +1,174 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'ماذا يفعل صمام موازنة HVAC الرقمي؟',
+		answer: 'يضبط صمام الموازنة التدفق التصميمي لكل فرع في نظام HVAC الهيدروليكي ويحققه. يستخدم SP45F جسم جلوب بنمط Y وعرضًا رقميًا مقفلًا ونقطتي اختبار ضغط، فيستطيع المهندس ضبط الصمام وقياس فرق الضغط دون استبداله بعداد تدفق منفصل.'
+	},
+	{
+		question: 'ما نطاق المقاسات المتاح لصمام الموازنة الرقمي SP45F؟',
+		answer: 'صمام الموازنة الرقمي بفلنجة SP45F متوفر من DN50 إلى DN300. جسمه من حديد الزهر المطبوع QT450 مع نقاط اختبار من الفولاذ المقاوم للصدأ وعجلة يد من الزهر المطبوع. ذكّر القطر الاسمي ومعايير الفلنجة والوسيط المطلوب في الاستفسار.'
+	},
+	{
+		question: 'لماذا نقطتا اختبار الضغط مهمتان في موازنة الأنظمة الهيدروليكية؟',
+		answer: 'تسمح نقطتا الاختبار لمهندس التسليم التشغيلي بقياس الضغط أعلى التيار وأسفله من الصمام. يُستخدم فرق الضغط، مع وضعية الضبط وبيانات تدفق المصنع، للتحقق من تدفق الفرع وتحديد الدائرة ذات التزويد الناقص أو الزائد.'
+	},
+	{
+		question: 'هل يمكن لصمام الموازنة أن يستبدل صمام خفض الضغط؟',
+		answer: 'لا. صمام الموازنة ينظّم تدفق الفرع ويحققه؛ وهو غير مصمم للحفاظ على ضغط ثابت أسفل التيار عبر ظروف الشبكة المتغيرة. صمام خفض الضغط الهيدروليكي 500X يؤدي وظيفة التحكم في الضغط هذه. اختر الصمام حسب هدف التحكم لا حسب المظهر.'
+	},
+	{
+		question: 'أين يجب تركيب الفلتر في دائرة موازنة HVAC؟',
+		answer: 'ركّب فلترًا مناسبًا أعلى التيار من صمامات التحكم والموازنة الدقيقة عندما قد تحتوي الأنابيب على حطام لحام أو مواد جسيمية. يجمع فلتر Y التلسكوبي SGL41H بين التصفية وكبسولة تمدد، وتبسط شبكته SS304 أو SS316 وجسمه القابل للفكّ أعمال الصيانة.'
+	},
+	{
+		question: 'ما الذي يجب إدراجه في RFQ لصمام موازنة HVAC؟',
+		answer: 'أدرج DN ومعايير ثقب الفلنجة والوسيط وحرارة التصميم وضغط التصميم والتدفق المستهدف وفرق الضغط المتاح ومادة الجسم ونقاط القياس ومتطلب المحرك أو العجلة اليد ووثائق التسليم التشغيلي المطلوبة. ولعرض السعر، ذكّر ما إذا كان يلزم شعار OEM أو ODM.'
+	}
+];
+
+const toc = [
+	{ id: 'what-is-balancing', label: '1. ما هو صمام موازنة HVAC؟' },
+	{ id: 'how-digital-balancing-works', label: '2. كيف يعمل صمام SP45F الرقمي' },
+	{ id: 'balancing-vs-pressure-control', label: '3. صمام الموازنة مقابل صمام خفض الضغط' },
+	{ id: 'where-to-install', label: '4. أين يتم التثبيت وكيف يُحمى' },
+	{ id: 'valve-comparison', label: '5. SP45F مقابل خيارات التحكم الهيدروليكي' },
+	{ id: 'rfq-checklist', label: '6. قائمة بيانات RFQ لصمام موازنة HVAC' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const products = [
+	{ slug: 'sp45f-flange-digital-balancing-valve', name: 'صمام موازنة رقمي بفلنجة SP45F', img: '/assets/products/sp45f-flange-digital-balancing-valve.webp', desc: 'DN50-DN300، جسم QT450، قفل رقمي ونقاط اختبار' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'فلتر Y تلسكوبي SGL41H', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'DN50-DN600، شبكة SS304/316، سهولة الوصول للصيانة' },
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: 'صمام خفض ضغط 500X', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'DN20-DN600، تحكم ضغط أسفل التيار بالطيار' },
+	{ slug: 'telescopic-resilient-seat-gate-valve-z41x-t', name: 'صمام بوابة تلسكوبي بمقعد مرن Z41X-T', img: '/assets/products/telescopic-resilient-seat-gate-valve-z41x-t.webp', desc: 'DN50-DN600، شفة EPDM وتعوّض التمدد' }
+];
+---
+
+<Layout
+	title="دليل صمام موازنة رقمي HVAC: اختيار SP45F"
+	description="دليل صمام موازنة HVAC الرقمي SP45F: نقاط اختبار الضغط، القفل الرقمي، التثبيت وموازنة الأنظمة الهيدروليكية، مع قائمة بيانات RFQ — من مصنع Quanzhou Wanlian Fluid."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'الأدلة', href: '/ar/blog/' }, { name: 'دليل صمام موازنة HVAC الرقمي' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">دليل صمام موازنة HVAC الرقمي</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل صمامات HVAC</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">دليل صمام موازنة HVAC الرقمي: اختيار SP45F</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">خلاصة: صمام موازنة HVAC يضبط تدفق كل فرع حتى يقدّم النظام الهيدروليكي أداءه التصميمي. يجمع SP45F بين جسم جلوب بنمط Y وعرض رقمي مقفل ونقطتي اختبار ضغط، فيوفّر فرق التسليم التشغيلي طريقة مكررة لضبط الفروع وقياسها وتوثيق توازنها. يشرح هذا الدليل هدف التحكم ونقاط التثبيت وبيانات RFQ المطلوبة للتخصيص.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-balancing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. ما هو صمام موازنة HVAC؟</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">توزّع أنظمة HVAC الهيدروليكية ماء التبريد أو الماء الساخن عبر فروع متعددة. بدون الموازنة، يمكن أن تأخذ الفروع الأقرب إلى المضخة تدفقًا أكبر من التصميم بينما تتلقى الملفات البعيدة القليل. النتيجة تفاوت في درجة حرارة الغرف، وضوضاء صمامات التحكم، ومضخة تعمل بجهد أكبر مما يتطلبه التصميم.</p>
+			<p class="text-gray-700 leading-relaxed">يضيف صمام الموازنة مقاومة مضبوطة إلى كل فرع. أثناء التسليم التشغيلي، يضبط المهندس الصمام على الوضعية التصميمية، ويقيس فرق الضغط، ويحقق التدفق الناتج. الغرض توزيع التدفق والقياس، لا العزل ولا خفض ضغط الشبكة بأكملها آليًا.</p>
+
+			<h2 id="how-digital-balancing-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. كيف يعمل صمام SP45F الرقمي</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يستخدم <a href="/ar/products/sp45f-flange-digital-balancing-valve/" class="text-brand-blue font-semibold hover:underline">صمام الموازنة الرقمي بفلنجة SP45F</a> هيكل جلوب بنمط Y مع جسم من حديد الزهر المطبوع QT450. يسجّل عرض القفل الرقمي وضعية الصمام، بينما توفر نقطتا اختبار الضغط من الفولاذ المقاوم للصدأ واجهة القياس لأجهزة التسليم.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">النطاق المدرج هو DN50-DN300. عند اختيار الصمام، طابق القطر الاسمي وثقب الفلنجة مع رسم الفرع، ثم أكّد التدفق التصميمي وفرق الضغط المتاح. يحسّن العرض الرقمي إمكانية التكرار بين التثبيت والصيانة اللاحقة، إذ يمكن تسجيل الوضعية بدل تقديرها من موقع العجلة اليد.</p>
+			<p class="text-gray-700 leading-relaxed">الصمام مدرج لوسائط الماء والزيت والغاز في بيانات المنتج. لمشروع HVAC، ذكّر الوسيط الفعلي وحرارته في الاستفسار حتى تُراجع مواد الإحكام وتصنيف الجسم ووثائق الاختبار للخدمة المقصودة.</p>
+
+			<h2 id="balancing-vs-pressure-control" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. صمام الموازنة مقابل صمام خفض الضغط</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">قد تظهر هذه الصمامات في غرفة معدات واحدة لكنها تحلّ مشاكل مختلفة. صمام الموازنة يضبط تدفق الفرع ويدعم القياس. صمام خفض الضغط يحافظ آليًا على ضغط أدنى أسفل التيار عند تغيّر ضغط المدخل أو التدفق. استخدام أحدهما بديلًا عن الآخر ينتج مواصفات لا تتوافق مع هدف تحكم النظام.</p>
+			<p class="text-gray-700 leading-relaxed">صمام خفض الضغط الهيدروليكي <a href="/ar/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">500X</a> ذاتي التشغيل بالطيار، مع ضبط ضغط أسفل التيار مدرج من 0.1 MPa إلى 1.6 MPa. استخدمه حيث يجب خفض ضغط الشبكة وتثبيته. استخدم SP45F حيث يحتاج فريق التسليم مقاومة فرع مضبوطة ووضعية قابلة للتسجيل وقياس فرق الضغط.</p>
+
+			<h2 id="where-to-install" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. أين يتم التثبيت وكيف يُحمى</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">ركّب صمام الموازنة على الفرع المعروض في التصميم الهيدروليكي، مع مسافة كافية لقراءة العرض وتوصيل مجسات القياس. اتبع رسومات المشروع لمتطلبات الأنابيب المستقيمة، وأبقِ نقاط الاختبار قابلة للوصول بعد العزل وإغلاق الأسقف.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">أزل حطام اللحام والأوساخ الإنشائية قبل التسليم التشغيلي. يجمع <a href="/ar/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">فلتر Y التلسكوبي SGL41H</a> بين فلتر Y وكبسولة تمدد، وهو مدرج بشبكات SS304/SS316 وتغطية DN50-DN600. عند استخدامه أعلى التيار حيث يناسب، يحمي فتحات الطيار وأجهزة القياس ومقاعد الصمامات من الجسيمات مع ترك مسار صيانة.</p>
+			<p class="text-gray-700 leading-relaxed">إذا احتاج الفرع أيضًا إلى عزل وتعوّض تمدد، يوفر <a href="/ar/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">صمام البوابة التلسكوبي بمقعد مرن Z41X-T</a> قطع تدفق بنطاق تلسكوبي مدرج +/- 25 mm. افصل وظيفة العزل عن وظيفة الموازنة في قائمة المواد.</p>
+
+			<h2 id="valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. SP45F مقابل خيارات التحكم الهيدروليكي</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الصمام / المكوّن</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الوظيفة الأساسية</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">البيانات المدرجة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">فحص التسليم</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">صمام موازنة رقمي SP45F</td>
+							<td class="px-4 py-3 text-gray-700">ضبط تدفق الفرع وتحققه</td>
+							<td class="px-4 py-3 text-gray-700">DN50-DN300، QT450، نقطتا اختبار</td>
+							<td class="px-4 py-3 text-gray-700">تسجيل الوضعية وفرق الضغط</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">صمام خفض ضغط 500X</td>
+							<td class="px-4 py-3 text-gray-700">الحفاظ على ضغط أسفل التيار</td>
+							<td class="px-4 py-3 text-gray-700">DN20-DN600، ضبط 0.1-1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">التحقق من ضغط الضبط مع تغيّر التدفق</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">فلتر Y SGL41H</td>
+							<td class="px-4 py-3 text-gray-700">حماية الصمامات والأجهزة</td>
+							<td class="px-4 py-3 text-gray-700">DN50-DN600، شبكة ماء 18-30 mesh</td>
+							<td class="px-4 py-3 text-gray-700">فحص الشبكة ونظافة فرق الضغط</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">قد يستخدم الفرع النموذجي أكثر من مكوّن واحد: الفلتر يحمي الدائرة، صمام العزل يتيح الصيانة، صمام الموازنة يضبط التدفق، وصمام التحكم في الضغط يدير منطقة ضغط منفصلة. اختر كل مكوّن حسب الوظيفة وأكّد أن مجموع فقد الضغط يبقى ضمن الحد المقبول.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. قائمة بيانات RFQ لصمام موازنة HVAC</h2>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>حدّد النقطة التصميمية</strong> — التدفق المستهدف وفرق الضغط المتاح وما إذا كان الصمام لماء التبريد أو ماء التدفئة أو وسيط آخر.</li>
+				<li><strong>أكّد الأبعاد</strong> — DN ومعايير ثقب الفلنجة والمسافة الوجهية ومسافة العزل؛ نطاق SP45F هو DN50-DN300.</li>
+				<li><strong>حدّد القياس</strong> — اطلب نقطتي اختبار ضغط وعرضًا رقميًا للوضعية وورقة بيانات التسليم اللازمة للتسليم النهائي.</li>
+				<li><strong>احمِ الدائرة</strong> — حدد فلترًا أعلى التيار وإجراء التنظيف ومسار الوصول لشبكة الفلتر والصمام للصيانة.</li>
+				<li><strong>افصل الوظائف</strong> — ادرج العزل والموازنة وخفض الضغط وتعوّض التمدد متطلبات منفصلة بدل وصف صمام عام واحد.</li>
+				<li><strong>اطلب الأدلة</strong> — اطلب معلومات مواد QT450 ونقاط الاختبار الفولاذية، رسومات الأبعاد، سجلات اختبار الضغط ومتطلبات شعار OEM/ODM قبل تأكيد الطلب.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">تحتاج صمام موازنة HVAC SP45F؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل لنا DN ومعايير الفلنجة والتدفق المستهدف ووسيط المشروع. يأكّد مهندسونا تكوين صمام الموازنة ويردون بعرض سعر خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=SP45F%20Digital%20Balancing%20Valve" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%B5%D9%85%D8%A7%D9%85%20%D9%85%D9%88%D8%A7%D8%B2%D9%86%D8%A9%20%D8%B1%D9%82%D9%85%D9%8A%20HVAC%20SP45F" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

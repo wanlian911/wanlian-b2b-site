@@ -1,0 +1,248 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'cert-landscape', label: '1. مشهد الاعتمادات لمشاريع الحريق في أمريكا اللاتينية' },
+	{ id: 'cert-table', label: '2. الاعتماد بالتفصيل: ما هو وكيف تتحقق منه' },
+	{ id: 'per-model-vs-plant', label: '3. على مستوى النموذج مقابل على مستوى المصنع: التمييز الذي يهم' },
+	{ id: 'genuine-certs', label: '4. طلب شهادات حقيقية وتقارير اختبار لكل دفعة' },
+	{ id: 'fake-red-flags', label: '5. أعلام حمراء في الشهادات المزوّرة' },
+	{ id: 'wanlian-documents', label: '6. وثائق Wanlian وكيف تؤهّل النماذج' },
+	{ id: 'verification-checklist', label: '7. قائمة التحقق قبل الطلب' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' },
+	{ id: 'sources', label: 'المصادر' }
+];
+
+const faq = [
+	{
+		question: 'هل يتطلب مشروع حريق بلدي في أمريكا اللاتينية دائمًا اعتماد UL أو FM؟',
+		answer: 'ليس دائمًا. كثير من عطاءات أمريكا اللاتينية تحدد AWWA أو NFPA أو EN أو معايير محلية (NOM/NR في المكسيك، ABNT في البرازيل) بدلًا من UL أو FM. يظهر إدراج UL واعتماد FM عادةً في المشاريع ذات المواصفات الأمريكية، والمرافق الصناعية التي يقودها المتأمنون، وأوامر إعادة التصدير. اقرأ بند الاعتمادات في وثائق عطاءك وتأكد من النظام الدقيق قبل الطلب.'
+	},
+	{
+		question: 'ما الفرق بين ISO 9001 وإدراج UL أو اعتماد FM؟',
+		answer: 'ISO 9001 يشهد على نظام إدارة الجودة لدى المصنّع، لا على منتج محدد. إدراج UL واعتماد FM بمستوى المنتج: يختبران نموذجًا ومقاسًا ومادة محددة وفق معيار مسمّى ويطلبان متابعة مستمرة. شهادة ISO 9001 على مستوى المصنع لا تنطق بشيء عن ما إذا كان صمام بعينه مدرجًا لدى UL أو FM — تحقّق دائمًا على مستوى النموذج.'
+	},
+	{
+		question: 'كيف أتأكد من أن شهادة UL أو FM حقيقية وتغطي نموذجي؟',
+		answer: 'اطلب رقم الشهادة أو رقم الملف، ثم ابحث عنه في الدليل الرسمي للجسم المصدِر (UL Product iQ على ul.com، وقاعدة بيانات FM Global على fmglobal.com). تأكّد من أن الإدراج نشط وأنه يسمّي النموذج والمقاس وفئة الضغط التي تشتريها بالضبط. شعار مطبوع في نشرة إعلانية ليس دليلًا.'
+	},
+	{
+		question: 'ما الوثائق التي يمكن أن يوفرها Wanlian Fluid لطلب صمامات حريق أو خلاطات؟',
+		answer: 'تعمل Wanlian Fluid ضمن نظام إدارة جودة ISO 9001، وتختبر كل وحدة لاختبار ضغط الجسم واختبار تسرب الهواء قبل الشحن، وتنسّق وثائق التصدير لكل طلب. لأي معيار محدد (UL، FM، AWWA، NOM وما شابه)، يُؤكَّد الامتثال لكل نموذج مع تقارير الاختبار والشهادات المناسبة قبل الطلب.'
+	},
+	{
+		question: 'أي معيار خلاط تحدده معظم جهات المياه في أمريكا اللاتينية؟',
+		answer: 'AWWA C502 شائعة في المشاريع ذات المواصفات الأمريكية والممولة من الولايات المتحدة (خلاطات جافة البوصلة). أسواق أوروبا وكثير من الأسواق الأخرى تشير إلى خلاطات EN 14384 العمودية. تأكّد من المعيار الذي كتبته هيئتك أو مستشارك في العطاء، ثم طابق الخلاط وموصلاته ووصلاته المسننة معه.'
+	},
+	{
+		question: 'ما أوضح علامات الشهادة المزوّرة؟',
+		answer: 'رقم شهادة لا يظهر في قاعدة بيانات الجسم المصدِر، إدراج لا يسمّي نموذجك ومقاسك بالضبط، صياغة عامة بلا إصدار معيار، أو وثيقة يرفض المورّد إعادة إصدارها عند الطلب. دليلنا لكشف المقلّدات يشرح كامل عملية الفرز.'
+	}
+];
+---
+
+<Layout
+	title="متطلبات اعتماد صمامات وخلاطات الحريق في أمريكا اللاتينية (2026)"
+	description="UL وFM وAWWA وNOM وNFPA: متطلبات اعتماد صمامات الحريق في أمريكا اللاتينية، كيف تتحقق من الشهادات، وقائمة فحص قبل الطلب لعام 2026 من Wanlian Fluid."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'الأدلة', href: '/ar/blog/' }, { name: 'اعتمادات صمامات الحريق في أمريكا اللاتينية' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">اعتمادات صمامات الحريق في أمريكا اللاتينية</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل الاعتمادات والامتثال</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">متطلبات اعتماد صمامات وخلاطات الحريق في مشاريع أمريكا اللاتينية (2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">إن نجاحك في عقد صمامات أو خلاطات حريق في أمريكا اللاتينية يعتمد على شيء واحد: مطابقة الاعتماد الدقيق الذي يسميه عطاؤك. لكن المنطقة لا تستخدم نظامًا واحدًا — مشروع بلدي في المكسيك، ومرافق صناعية في البرازيل، وإعادة تصدير ممولة من الولايات المتحدة، قد تطلب كلٌّ منها AWWA أو NOM/ABNT أو NFPA أو EN أو UL أو FM. يرسم هذا الدليل مشهد الاعتمادات، ويشرح كيف تتحقق من أن الشهادة حقيقية وتغطي نموذجك فعلًا، ويفرق بين ISO 9001 على مستوى المصنع وإدراج المنتج لكل نموذج، ويمنحك قائمة تحقق قبل الطلب حتى لا تشتري صمامًا لا تستطيع توثيقه.</p>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="cert-landscape" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. مشهد الاعتمادات لمشاريع الحريق في أمريكا اللاتينية</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">لا تخضع معدات الحماية من الحريق في أمريكا اللاتينية لمعيار واحد. يعتمد النظام المطبق على الدولة، ومصدر التمويل، والمتأمن، وعلى ما إذا كانت المعدات لمشروع بمواصفات أمريكية أم لإعادة تصدير. كمشتري عام، ستواجه ما يلي — وقد يُطلَب في عطاء أمريكا اللاتينية، ولا تُقدَّم هنا كحالة اعتماد لمورّد بعينه:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>إدراج UL / اعتماد FM</strong> — اعتماد حماية حريق بمستوى المنتج، الأشياع في المشاريع ذات المواصفات الأمريكية، والمرافق الصناعية التي يقودها المتأمنون، وأوامر إعادة التصدير.</li>
+				<li><strong>AWWA C502 / C515</strong> — معايير American Water Works Association لخلاطات الحريق الجافة البوصلة (C502) وصمامات البوابة بمقعد مرن (C515)، شائعة في الباقات البلدية الممولة من الولايات المتحدة.</li>
+				<li><strong>NFPA 13 / NFPA 24</strong> — معايير الأنظمة للرش وتركيب خلاطات الحريق الخاصة؛ وهي تحدد الصمامات والخلاطات التي يجوز للأنظمة استخدامها.</li>
+				<li><strong>NOM / NR في المكسيك وABNT في البرازيل</strong> — أطر المعايير الوطنية، يسميها العطاءات البلدية والصناعية المحلية.</li>
+				<li><strong>EN / CE</strong> — المعايير الأوروبية (مثل خلاطات EN 14384، وصمامات EN 1074 / ISO 5208)، ذات صلة بإعادة التصدير إلى الاتحاد الأوروبي/المملكة المتحدة أو المشاريع المحددة بالمعايير الأوروبية.</li>
+				<li><strong>ISO 9001</strong> — خط أساس نظام إدارة الجودة على مستوى المصنع، تطلبه معظم العطاءات كشرط مسبق، منفصلًا عن أي إدراج منتج.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">الخلاصة العملية: اقرأ بند الاعتمادات في عطاءك أولًا، سمِّ المعيار وإصداره كتابةً، وعامل أي وثيقة أخرى (UL، FM، AWWA، NOM، ABNT، CE) كأمر يُؤكَّد <strong>لكل نموذج</strong>. هذه المعايير مراجع قطاعية؛ فإن كان صمام أو خلاط معيّن يطابق معيارًا أو لا يطابقه هو سؤال لكل نموذج تُجيب عنه تقارير الاختبار والشهادات، لا شارة المصنع.</p>
+
+			<h2 id="cert-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. الاعتماد بالتفصيل: ما هو وكيف تتحقق منه</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الاعتماد</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">ما هو</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">متى يطلبه عطاء أمريكا اللاتينية</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">كيف تتحقق منه</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">إدراج UL</td>
+							<td class="px-4 py-3 text-gray-700">إدراج بمستوى المنتج يختبر صمامًا/نموذجًا محددًا وفق معايير UL لحماية الحريق، مع متابعة دورية.</td>
+							<td class="px-4 py-3 text-gray-700">مشاريع حريق بمواصفات أمريكية، وبعض أوامر التمويل الأمريكي أو إعادة التصدير؛ يُسمّى أحيانًا في العطاءات الصناعية.</td>
+							<td class="px-4 py-3 text-gray-700">تحقّق من رقم الملف/الشهادة في دليل UL Product iQ (ul.com)؛ أكّد الحالة النشطة والنموذج والمقاس الدقيقين.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">اعتماد FM</td>
+							<td class="px-4 py-3 text-gray-700">اعتماد منتج من FM Global يجمع الاختبار مع مراجعة المصنع ومنع الخسائر.</td>
+							<td class="px-4 py-3 text-gray-700">مرافق صناعية وعالية القيمة، خصوصًا حيث يسمّي المتأمن أو المواصفات FM.</td>
+							<td class="px-4 py-3 text-gray-700">أكّد الاعتماد في قاعدة بيانات FM Global (fmglobal.com)؛ تحقّق من تغطيته النموذج والمقاس وفئة الضغط بدقة.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">AWWA C502</td>
+							<td class="px-4 py-3 text-gray-700">معيار AWWA لخلاطات الحريق الجافة البوصلة.</td>
+							<td class="px-4 py-3 text-gray-700">باقات خلاطات بلدية بمواصفات أو تمويل أمريكي في عموم المنطقة.</td>
+							<td class="px-4 py-3 text-gray-700">AWWA جسم معايير (awwa.org)؛ طابق الإصدار المُشار إليه وأطلِب تقرير الاختبار الذي يستشهد بـ C502؛ تحقّق من مواد الخلاط وواجهته.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">AWWA C515</td>
+							<td class="px-4 py-3 text-gray-700">معيار AWWA لصمامات البوابة بمقعد مرن لخدمات المياه والحريق.</td>
+							<td class="px-4 py-3 text-gray-700">عطاءات صمامات بوابة مياه/حريق بلدية مكتوبة وفق AWWA.</td>
+							<td class="px-4 py-3 text-gray-700">تحقّق من الإصدار المسمّى في المواصفة وتقرير الاختبار على مستوى النموذج؛ مطابقة AWWA تُؤكَّد لكل نموذج.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">NFPA 13 / NFPA 24</td>
+							<td class="px-4 py-3 text-gray-700">معايير الأنظمة للرش (13) وتركيب خلاطات الحريق الخاصة (24).</td>
+							<td class="px-4 py-3 text-gray-700">هي تحكم الأنظمة التي تغذيها الصمامات والخلاطات، فتحدد المنتجات المقبولة.</td>
+							<td class="px-4 py-3 text-gray-700">أشِر إلى الإصدار الحالي (nfpa.org)؛ NFPA تحدد متطلبات النظام — وتُتحقق المنتجات الفردية عبر إدراجاتها أو معاييرها الخاصة.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">NOM / NR في المكسيك</td>
+							<td class="px-4 py-3 text-gray-700">المعايير الرسمية المكسيكية ومتطلباتها المرتبطة المستخدمة في المشتريات داخل المكسيك.</td>
+							<td class="px-4 py-3 text-gray-700">عطاءات المكسيك البلدية والصناعية، والمشاريع الخاضعة لقواعد الاستيراد والمعايير المكسيكية.</td>
+							<td class="px-4 py-3 text-gray-700">حدّد NOM المحدد المُستشهد به في العطاء وأطلِب دليل امتثال على مستوى النموذج لذلك NOM قبل الطلب.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">ABNT في البرازيل</td>
+							<td class="px-4 py-3 text-gray-700">الجمعية البرازيلية للمعايير الفنية — إطار المعايير الوطني.</td>
+							<td class="px-4 py-3 text-gray-700">عطاءات الحريق/المياه البلدية والصناعية في البرازيل.</td>
+							<td class="px-4 py-3 text-gray-700">حدّد معيار ABNT المسمّى في العطاء وأكّد المطابقة لكل نموذج مع تقارير اختبار قبل الطلب.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">EN / CE (إعادة تصدير)</td>
+							<td class="px-4 py-3 text-gray-700">معايير أوروبية (مثل خلاطات EN 14384، وصمامات EN 1074 / ISO 5208) بالإضافة إلى علامة CE لسوق الاتحاد الأوروبي/المملكة المتحدة.</td>
+							<td class="px-4 py-3 text-gray-700">إعادة التصدير إلى الاتحاد الأوروبي/المملكة المتحدة أو المشاريع المحددة بالمعايير الأوروبية.</td>
+							<td class="px-4 py-3 text-gray-700">تحقّق من معيار EN المحدد وأي تصريح مطابقة CE مقابل النموذج الدقيق؛ أكّد أن العلامة تنطبق على ما تشتريه.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">ISO 9001</td>
+							<td class="px-4 py-3 text-gray-700">معيار دولي لنظام إدارة الجودة (على مستوى المصنع).</td>
+							<td class="px-4 py-3 text-gray-700">مطلب أساسي في كثير من العطاءات لإثبات عملية تصنيع مضبوطة.</td>
+							<td class="px-4 py-3 text-gray-700">تحقّق من الشهادة لدى هيئة الاعتماد المصدرة وحدّدها للمنتج الذي تشتريه. هذه شهادة عملية، ليست إدراج منتج.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">عمودان يهمّان أكثر عند الشراء فعلًا: العمود الثالث يقول لك <em>لماذا</em> يسمّي العطاء نظامًا، والرابع يقول لك <em>أين</em> تثبت ذلك. المورّد الذي يستطيع أن يدلّك على قاعدة بيانات الجسم المصدِر نفسه وتقرير اختبار على مستوى النموذج هو صنف مختلف جذريًا من المورّدين عمّن لا يستطيع إرسال شعار فقط.</p>
+
+			<h2 id="per-model-vs-plant" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. على مستوى النموذج مقابل على مستوى المصنع: التمييز الذي يهم</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">أكثر فشل امتثال شيوعًا في هذه الفئة هو الخلط بين <strong>شهادة على مستوى المصنع</strong> و<strong>تأهيل منتج على مستوى النموذج</strong>. هما يجيبان على سؤالين مختلفين:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>على مستوى المصنع (مثل ISO 9001)</strong> — نظام إدارة الجودة لدى المصنّع مُعتمَد. يغطي المنظمة وعملياتها، لا منتجًا محددًا. يخبرك أن المصنع يعمل بنظام مضبوط.</li>
+				<li><strong>على مستوى النموذج (مثل إدراج UL، اعتماد FM، مطابقة AWWA / NOM / ABNT)</strong> — نموذج ومقاس ومادة وفئة ضغط محددة مُؤهَّلة وفق معيار مسمّى، مع متابعة أو اختبارات مستمرة.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">شهادة المصنع لا تعوّض أبدًا تأهيل النموذج. إذا سمّى عطاؤك AWWA C515 أو NOM محددًا، فالإجابة التي تحتاجها <strong>خاصة بالنموذج</strong>: يجب تأييد الامتثال لذلك المعيار لكل نموذج مع تقارير الاختبار والشهادات المناسبة قبل الطلب. اسأل عن النماذج الدقيقة المؤهلة، وأي مقاسات، وتحت أي إصدار معيار — وحصل على ذلك كتابةً في العرض التجاري.</p>
+
+			<h2 id="genuine-certs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. طلب شهادات حقيقية وتقارير اختبار لكل دفعة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">التوثيق الحقيقي أمر <em>تطلبه وتتحرى فيه</em>، لا تفترضه. اجعل هذه الطلبات جزءًا من RFQ لتكون مستحقة عقدًا لا معروفًا:</p>
+			<ol class="list-decimal ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>سمِّ المعيار وإصداره.</strong> سطر دقيق واحد (مثل «صمام بوابة بمقعد مرن، DN50–DN300، وفق AWWA C515، الإصدار الحالي») يصفّي المورّدين الذين لا يستطيعون توثيق هذا النطاق بالضبط.</li>
+				<li><strong>اطلب أرقام الشهادات أو الملفات.</strong> لـ UL/FM، رقم الإدراج؛ للمعايير الوطنية، الشهادة المناسبة. رقم تستطيع البحث فيه هو كل الغاية.</li>
+				<li><strong>أطلِب تقارير اختبار لكل دفعة (لكل شحنة).</strong> سجلات اختبار ضغط الجسم وتسرب الهواء مطابقة لطلبك، لا تقريرًا عامًا واحدًا من سنوات مضت.</li>
+				<li><strong>اطلب تقارير اختبار المواد (Mill Test).</strong> أدلة مادة الجسم (حديد زهر مطبوع وما شابه) ليتطابق البناء مع المعيار، لا الملصق فقط.</li>
+				<li><strong>تحقّق في دليل الجسم المصدِر نفسه.</strong> استخلص أرقام UL/FM على ul.com أو fmglobal.com؛ لأجسام معايير مثل AWWA وNFPA، أكّد الإصدار المُشار إليه.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">عندما يكون النطاق صمامات حماية حريق، ستكون عادةً تحدد عناصر مثل <a href="/ar/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">صمام البوابة OS&amp;Y بمقعد مرن</a> لدينا للتحكم في التقاطعات المراقبة، أو <a href="/ar/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">صمام البوابة Z41X بفلنجة بمقعد مرن</a> لعزل الخطوط الرئيسية كاملة البور، أو <a href="/ar/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">مانع الارتداد المضاد للتلوث</a> حيث يطلب إمداد المياه ذلك. أي نموذج تحدده، سؤال التأهيل واحد: أكّد المعيار والنموذج والمقاس كتابةً قبل إصدار أمر الشراء.</p>
+
+			<h2 id="fake-red-flags" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. أعلام حمراء في الشهادات المزوّرة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">معدات الحريق المقلّدة خطر حقيقي في هذه الفئة لأن الحريق سلامة حرجة والفجوة السعرية واسعة. عامل ما يلي كفشل فرز، لا تفصيلًا صغيرًا:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>رقم شهادة أو ملف <strong>لا يظهر</strong> في قاعدة البيانات الرسمية للجسم المصدِر.</li>
+				<li>إدراج يسمّي <strong>نموذجًا أو مقاسًا أو فئة ضغط مختلفة</strong> عن الذي تشتريه.</li>
+				<li><strong>صياغة عامة بلا إصدار معيار</strong>، أو شعار ملصوق على ورقة بيانات بلا سجل خلفي.</li>
+				<li><strong>غياب سجلات اختبار لكل وحدة أو كل دفعة</strong> — يجب أن توجد نتائج اختبار ضغط الجسم وتسرب الهواء وأن يمكن مطابقتها لطلبك.</li>
+				<li>مورّد <strong>يرفض إعادة إصدار شهادة عند الطلب</strong>، أو يقاوم فحص طرف ثالث أو طلب عينة صغيرة أولًا.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">إذا ظهر أي من ذلك، توقف وصعّد. دليلنا المتخصص، <a href="/ar/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">كيف تكشف الصمامات المزيّفة وشهادات معدات الحريق المقلّدة</a>، يغطي عملية الكشف الكاملة — من لوحات الأسماء المنسوخة إلى ملفات PDF المزوّرة وكيف تدير سير تحقق قبل الطلب مع فاحص من طرف ثالث.</p>
+
+			<h2 id="wanlian-documents" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. وثائق Wanlian وكيف تؤهّل النماذج</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Wanlian Fluid (Quanzhou Wanlian Fluid Equipment Co., Ltd.) مصنِّع ومصدّر من Quanzhou, Fujian للصمامات وخلاطات الحريق ومعدات الحماية من الحريق. موقفها المنشور محدّد عمدًا حتى تقدر أن تتحقق منه لا أن تأخذه إيمانًا:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>نظام إدارة جودة <strong>ISO 9001</strong>، بخطوط إنتاج خاصة بها في Quanzhou وبعض العناصر تُنتج بشراكة مصنّعين مؤهلين؛ أجسام الصمامات تُصنَع بتقطع CNC داخليًا.</li>
+				<li><strong>اختبار لكل وحدة</strong> — كل وحدة تخضع لاختبار ضغط الجسم واختبار تسرب الهواء قبل الشحن، فيحمل كل عنصر دليل اختبار يمكنك مطابقته لطلبك.</li>
+				<li><strong>وثائق التصدير</strong> منسقة لكل طلب، إلى جانب خيارات OEM/ODM والتخصيص بالعلامة التجارية.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">بالنسبة للاعتمادات التي قد يسمّيها عطاء أمريكا اللاتينية — UL، FM، AWWA، NOM، ABNT، أنظمة المرجعية NFPA أو CE لإعادة التصدير — تنتهج Wanlian نهج <strong>تأهيل لكل نموذج</strong> بدل ادّعاء اعتماد شامل: <em>يجب تأكيد الامتثال لمعيار محدد لكل نموذج مع تقارير اختبار وشهادات قبل الطلب.</em> هذا هو الموقف الصادق القابل للتحقق، وهو بالضبط ما يجب أن يعكسه ملف مشترياتك. بالنسبة للخلاطات مثلًا، <a href="/ar/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">خلاط الحريق الخارجي</a> لدينا يُحدد وفق معيار الخلاط الذي يسميه عطاؤك، وتُؤكَّد مطابقة C502/EN المناسبة وسجلات الاختبار لذلك النموذج والمقاس قبل تحرير الطلب.</p>
+			<p class="text-gray-700 leading-relaxed">إذا كانت مواصفاتك تطلب صمامات حريق بمواصفات أمريكية، اقرأ <a href="/ar/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">كيف تختار صمامات الحريق المدرجة لدى UL</a> للتعرف على طريقة التحقق من سجلات الإدراج الحقيقية؛ وإذا كان مشروعك بمواصفات أوروبية أو يعيد التصدير إلى الاتحاد الأوروبي/المملكة المتحدة، انظر <a href="/ar/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">امتثال CE / EN 12845 لحماية الحريق</a>.</p>
+
+			<!-- Related Guides -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">أدلة ذات صلة</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">لفهم المعايير الأساسية، اقرأ <a href="/ar/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">معايير خلاطات الحريق وخراطيم الحريق والصمامات مفسَّرة</a>. قبل موافقتك على أوراق أي مورّد، اعمل عبر <a href="/ar/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">كشف الصمامات المزيّفة ومعدات الحريق المقلّدة</a>.</p>
+			</div>
+
+			<h2 id="verification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. قائمة التحقق قبل الطلب</h2>
+			<ol class="list-decimal ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>استخلص بند الاعتمادات الدقيق وإصدار المعيار من وثائق العطاء.</li>
+				<li>أكّد هل المطلب على مستوى المصنع (ISO 9001) أم على مستوى النموذج (UL، FM، AWWA، NOM، ABNT، CE) — أو كلاهما.</li>
+				<li>اطلب رقم الشهادة أو الملف وتحقّق منه في الدليل الرسمي للجسم المصدِر.</li>
+				<li>أكّد أن التأهيل يسمّي النموذج والمقاس وفئة الضغط التي تشتريها بالضبط.</li>
+				<li>أطلِب تقارير اختبار ضغط الجسم وتسرب الهواء لكل دفعة مطابقة لطلبك.</li>
+				<li>اطلب تقارير اختبار المواد (Mill Test) ليتطابق البناء مع المعيار لا الملصق فقط.</li>
+				<li>ضعّ كل ما سبق في أمر الشراء حتى تكون التوثيقات مستحقة عقدًا.</li>
+				<li>للاوامر الأولى، فكّر في فحص من طرف ثالث وطلب عينة صغيرة قبل الالتزام بالحجم.</li>
+			</ol>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Sources -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">المصادر</h2>
+			<ul class="list-disc ps-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>Underwriters Laboratories — دليل إدراج UL Product iQ: <a href="https://www.ul.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ul.com</a></li>
+				<li>FM Global — قاعدة بيانات اعتماد منتجات حماية الحريق: <a href="https://www.fmglobal.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">fmglobal.com</a></li>
+				<li>AWWA — معايير الخلاطات والصمامات (AWWA C502, C515): <a href="https://www.awwa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">awwa.org</a></li>
+				<li>NFPA — معايير تركيب الرش وخلاطات الحريق (NFPA 13, NFPA 24): <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">مرجعيات الاعتمادات دليل عام للمشترين حتى عام 2026 — أكّد دائمًا الإصدار الحالي وملاءمته مع محدّد المواصفات والجسم المصدِر قبل المشتريات.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">تستعد لعرض سعر صمامات حريق أو خلاطات لأمريكا اللاتينية؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل إلينا مواصفاتك وجهة الوصول — نرد بعرض سعر مفصّل لكل بند خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Fire%20Valve%20Certification%20RFQ%20(LatAm)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%B9%D8%B1%D8%B6%20%D8%B3%D8%B9%D8%B1%20%D9%84%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%20%D8%AD%D8%B1%D9%8A%D9%82%20%D9%88%D8%AE%D9%84%D8%A7%D8%B7%D8%A7%D8%AA%20%D9%84%D9%85%D8%B4%D8%B1%D9%88%D8%B9%20%D9%81%D9%8A%20%D8%A3%D9%85%D8%B1%D9%8A%D9%83%D8%A7%20%D8%A7%D9%84%D9%84%D8%A7%D8%AA%D9%8A%D9%86%D9%8A%D8%A9" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

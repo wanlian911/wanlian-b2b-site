@@ -1,0 +1,206 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'how-they-work', label: 'كيف تعمل: مقارنة سريعة' },
+	{ id: 'head-to-head-gate-vs-butterfly', label: 'بوابة مقابل فراشة: مقارنة مباشرة' },
+	{ id: 'where-each-valve-belongs', label: 'مكان كل صمام في أنظمة الحماية من الحريق' },
+	{ id: 'signal-valves-dn80', label: 'صمامات الإشارة: متخصّصو DN80' },
+	{ id: 'purchasing-considerations', label: 'اعتبارات الشراء للمشتريين الصناعيين (B2B)' },
+	{ id: 'recommendation-summary', label: 'ملخص التوصيات' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const faq = [
+	{
+		question: 'أيهما أستخدم على الخط الرئيسي للحريق: صمام بوابة أم صمام فراشة؟',
+		answer: 'للخطوط الرئيسية للحريق التي تتطلب تدفقًا كاملًا غير معوق بأقل فقد للضغط، يُعد صمام البوابة بمقعد مرن (مثل Z41X) الخيار التقليدي لوظيفة العزل. أما صمامات الفراشة (مثل D71X) فتُفضَّل حيث يكون المساحة ضيقة، أو حيث يلزم التشغيل بربع لفة، أو حيث يهمل الوزن في المعادلة — كما في غرف وموزعات الصمامات وخطوط فروع الرش. تستعمل كثير من المشاريع النوعين معًا: صمامات البوابة للعزل الرئيسي، وصمامات الفراشة للتحكم في الفروع.'
+	},
+	{
+		question: 'أيهما الأرخص سعرًا: صمام البوابة أم صمام الفراشة؟',
+		answer: 'عند نفس المقاس الاسمي وفئة الضغط، تكون صمامات الفراشة من نوع الوافر أرخص عمومًا بنسبة 20–40% من صمامات البوابة البفلنجية، لأنها أخف وزنًا وتستهلك مادة أقل ولها جسم أبسط. غير أن التكلفة الإجمالية المثبتة تعتمد أيضًا على الفلنجات والمشغّلات والمساحة. للمقاسات الكبيرة (DN200 وما فوق) يتسع تفوق الفراشة في التكلفة بشكل ملحوظ.'
+	},
+	{
+		question: 'ما وظيفة صمام الإشارة (فراشة) في نظام رش الحريق؟',
+		answer: 'صمام الإشارة (مثل صمام الفراشة الوافر بمسار DN80) يُزوَّد بمفتاح حدّ وكشف غلق يرسل إشارة كهربائية إلى لوحة إنذار الحريق كلما أُغلق الصمام أو أُغلق جزئيًا. هذا يضمن ألا يُترك نظام الرش معزولًا عن غير قصد — وهو شرط أمان إلزامي في التجهيزات بنمط NFPA-13.'
+	},
+	{
+		question: 'ما الفرق في تصنيف الضغط بين صمامات Z41X وD71X؟',
+		answer: 'صمام البوابة بمقعد مرن Z41X من الحديد الزهر المطبوع وصمام الفراشة الوافر D71X يُسوّق كلاهما عادةً بفئة PN16 (1.6 MPa)، مع توفر نسخ PN10. لخدمة الحماية من الحريق، تغطي PN16 الأنظمة البلدية والصناعية القياسية. تحقّق دائمًا من أقصى ضغط ساكن في شبكتك وحدّد PN25 إن لزم.'
+	}
+];
+
+const valveProducts = [
+	{
+		slug: 'resilient-seat-flanged-gate-valve-z41x',
+		name: 'صمام بوابة بفلنجة بمقعد مرن من الحديد الزهر المطبوع (Z41X)',
+		img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp',
+		desc: 'صمام عزل بمدخل كامل وإحكام هوائي لخطوط الحريق الرئيسية'
+	},
+	{
+		slug: 'wafer-type-butterfly-valve-d71x',
+		name: 'صمام فراشة وافر بطبقة مطاطية من الحديد الزهر المطبوع (D71X)',
+		img: '/assets/products/wafer-type-butterfly-valve-d71x.webp',
+		desc: 'صمام ربع لفة مدمج للمساحات الضيقة وخطوط الفروع'
+	},
+	{
+		slug: 'signal-grooved-wafer-butterfly-valve-dn80',
+		name: 'صمام فراشة وافر بالإشارة وبمسار (DN80-PN16)',
+		img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
+		desc: 'صمام إشارة بمسار مع مفتاح كشف غلق لأنظمة الرش'
+	},
+	{
+		slug: 'telescopic-resilient-seat-gate-valve-z41x-t',
+		name: 'صمام بوابة تلسكوبي بمقعد مرن (Z41X-T)',
+		img: '/assets/products/telescopic-resilient-seat-gate-valve-z41x-t.webp',
+		desc: 'صمام بوابة تلسكوبي مدمج لخطوط الحريق التعويضية للتمدد'
+	}
+];
+---
+
+<Layout
+	title="صمام بوابة مقابل صمام فراشة لأنظمة حماية الحريق"
+	description="صمام بوابة Z41X مقابل صمام فراشة D71X في أنظمة الحماية من الحريق: التدفق، فقد الضغط، التكلفة والمقاس. دليل اختيار للمشتريين الصناعيين من Wanlian Fluid."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'الأدلة', href: '/ar/blog/' }, { name: 'صمام بوابة مقابل صمام فراشة' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<span class="text-gray-600">الأدلة</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل الصمامات الصناعية</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">صمام البوابة مقابل صمام الفراشة: أيهما لأنظمة الحماية من الحريق؟</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">من أكثر الأسئلة شيوعًا في توريد معدات الحماية من الحريق: صمام بوابة أم صمام فراشة؟ الإجابة الصادقة أنهما لا يتبادلان الأدوار — بل يكمل أحدهما الآخر. لكل منهما مجال يكون فيه الخيار الصائب بوضوح، وأكثر أنظمة الحريق المُهندَسة جيدًا تستخدم النوعين معًا. يقدّم هذا الدليل إطارًا للقرار مبنيًا على التدفق والمساحة وسرعة التشغيل والتكلفة، مع الإشارة إلى التكوينات الفعلية للصمامات المستخدمة في الخطوط الرئيسية وأنظمة الرش.</p>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{valveProducts.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			
+			<TableOfContents headings={toc} />
+
+			<h2 id="how-they-work" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. كيف تعمل: مقارنة سريعة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يعمل <strong>صمام البوابة</strong> بشفة تنزلق عموديًا على مسار التدفق. عند الفتح الكامل، تخرج الشفة كليًا من ممر الماء، تاركةً فتحةً مستقيمة بعرض المدخل الكامل — ولهذا تكون خسارة الضغط في صمامات البوابة شبه معدومة. أما <strong>صمام الفراشة</strong> فيعتمد قرصًا دوّارًا على محور مركزي. يبقى القرص في ممر الماء حتى عند الفتح، مما يولّد فقد ضغط صغيرًا لكنه قابل للقياس، غير أن الصمام يعمل بربع لفة واحدة بسيطة.</p>
+			<p class="text-gray-700 leading-relaxed">هذا الفرق الميكانيكي وحده هو الذي يحدّد تقريبًا كل الفروق العملية بينهما.</p>
+
+			<h2 id="head-to-head-gate-vs-butterfly" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. بوابة مقابل فراشة: مقارنة مباشرة</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">معيار التقييم</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">صمام البوابة (Z41X)</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">صمام الفراشة (D71X)</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">خصائص التدفق</td>
+							<td class="px-4 py-3 text-gray-700">مدخل كامل، فقد ضغط شبه معدوم</td>
+							<td class="px-4 py-3 text-gray-700">القرص في مسار التدفق، فقد ضغط صغير</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">سرعة التشغيل</td>
+							<td class="px-4 py-3 text-gray-700">لفاف متعددة (أبطأ، خاصة بالمقاسات الكبيرة)</td>
+							<td class="px-4 py-3 text-gray-700">ربع لفة (سريع، سهل التشغيل)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">المساحة والوزن</td>
+							<td class="px-4 py-3 text-gray-700">طول بين الوجهين أطول، أثقل عند مقاسات DN الكبيرة</td>
+							<td class="px-4 py-3 text-gray-700">جسم وافر مدمج، أخف حتى 70%</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">التكلفة (نفس DN/PN)</td>
+							<td class="px-4 py-3 text-gray-700">تكلفة مادة ومخرطة أعلى</td>
+							<td class="px-4 py-3 text-gray-700">أقل عادةً بنسبة 20–40%</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الإحكام</td>
+							<td class="px-4 py-3 text-gray-700">إحكام هوائي بمقعد مرن</td>
+							<td class="px-4 py-3 text-gray-700">بطبقة مطاطية، محكم عند الضغط المقنّن</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">أفضل استخدام</td>
+							<td class="px-4 py-3 text-gray-700">العزل الرئيسي، فتح/إغلاق بتدفق كامل</td>
+							<td class="px-4 py-3 text-gray-700">تحكم الفروع، تنظيم التدفق، المساحات الضيقة</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="where-each-valve-belongs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. مكان كل صمام في أنظمة الحماية من الحريق</h2>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">صمامات البوابة للعزل الرئيسي</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">على خطوط الحريق الرئيسية وخطوط طرد المضخات، الأولوية هي توفير أقصى تدفق بأقل فقد احتكاك. يُعد <a href="/ar/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">صمام البوابة بمقعد مرن Z41X من الحديد الزهر المطبوع</a> صمام العزل القياسي هنا: مدخل كامل، إغلاق محكم هوائيًا، وممر ماء مسطح غير معوق عند الفتح. ولأن هذه الصمامات تُشغَّل نادرًا (فتح/إغلاق فقط)، فإن التشغيل الأبطأ باللفاف المتعددة لا يُعد عيبًا عمليًا.</p>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">صمامات الفراشة لخطوط الفروع والمساحات الضيقة</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">حيث تزدحم الصمامات في غرف عمود رش الحريق وغرف المحطات وموزعات الصمامات، تكون المساحة عملةً بالغة الثمن. يركّب <a href="/ar/products/wafer-type-butterfly-valve-d71x/" class="text-brand-blue font-semibold hover:underline">صمام الفراشة الوافر D71X</a> بين فلنجتين بطول بين الوجهين ووزن أقل بكثير من صمام البوابة، ويجعل ذراع ربع الفة أو ترس الدودة من عملية التشغيل وتركيب المشغّل أمرًا بسيطًا. ولهذا فهو الخيار الافتراضي للتحكم في فروع الرش والعزل التقسيمي.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">لتفصيل كامل لصمامات أنظمة الرش — صمام إنذار رطب، صمام رش شامل، ونظام فعل مسبق — راجع <a href="/ar/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">دليل صمامات أنظمة رش الحريق</a>.</p>
+
+			<h2 id="signal-valves-dn80" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. صمامات الإشارة: متخصّصو DN80</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">أنظمة الرش وفق أكواد بنمط NFPA-13 تتطلب صمام عزل مُراقب: إذا أغلق أحد صمام الإمداد، يجب أن تعرف لوحة إنذار الحريق ذلك فورًا. يدمج <a href="/ar/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">صمام الفراشة الوافر بالإشارة وبمسار DN80</a> مفتاح حدّ وكشف غلق مع توصيل بمسار، فيربط بخط الأنابيب عبر موصّل المسار، ويبلغ حالته مفتوح/مغلق للوحة، مع الاحتفاظ بفوائد الفراشة في المساحة والتكلفة. هذا هو الصمام الذي تحدده عندما يذكر المخطط «صمام OS&amp;Y أو فراشة مُراقب».</p>
+			<p class="text-gray-700 leading-relaxed mb-4">ما تزال تتردد بين أنظمة رطبة وجافة وفعل مسبق؟ يوضح <a href="/ar/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">مقارنة أنظمة الرش الرطبة والجافة والفعل المسبق</a> أي نظام يناسب أي ملف مخاطر مباني.</p>
+
+			<h2 id="purchasing-considerations" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. اعتبارات الشراء للمشتريين الصناعيين (B2B)</h2>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>حدّد مادة الجسم والطبقة الواقية</strong> — الحديد الزهر المطبوع QT450 مع طلاء إبوكسي يقاوم التآكل في أنظمة الحريق الرطبة؛ اطلب مواصفات الطلاء ضمن عرض السعر.</li>
+				<li><strong>طابق فئة الضغط مع شبكتك</strong> — PN16 قياسية؛ تحقّق من الضغط الساكن قبل الطلب، وPN25 لمناطق المباني المرتفعة.</li>
+				<li><strong>نوع التوصيل مهم</strong> — بفلنجة لصمامات البوابة، وافر أو بمسار للفراشة؛ تحقّق من جدول أنابيبك (موصلات المسار توفر وقت التركيب).</li>
+				<li><strong>يجب أن تذكر صمامات الإشارة مواصفات المفتاح</strong> — اطلب نوع مفتاح الحدّ وتقييم IP للتكامل مع لوحة الإنذار.</li>
+				<li><strong>اطلب تقارير الاختبار</strong> — شهادات اختبار الهيدروستاتيكي وتسريب المقاعد للدفعة الفعلية، لا قالبًا عامًا.</li>
+				<li><strong>وحّد طلبك</strong> — طلب صمامات البوابة والفراشة والإشارة من مصنع معتمد واحد يبسّط مستندات الاعتماد وإدارة قطع الغيار. نفّذ <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة توريد الصمامات للمشتريين الصناعيين (B2B)</a> قبل الإلتزام بمورد.</li>
+			</ul>
+
+			<h2 id="recommendation-summary" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. ملخص التوصيات</h2>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2">
+					<li><strong>خطوط الحريق الرئيسية / طرد المضخات: صمام بوابة (Z41X)</strong> — تدفق كامل، فقد ضئيل، عزل موثوق.</li>
+					<li><strong>خطوط الفروع / غرف العمود / موزعات الصمامات: صمام فراشة (D71X)</strong> — مدمج، خفيف، تشغيل سريع.</li>
+					<li><strong>العزل المُراقب في أنظمة الرش: صمام إشارة (DN80)</strong> — مفتاح كشف غلق مدمج، بمسار لتسريع التركيب.</li>
+					<li>عند الشك، تحقّق من مصمم النظام — معظم المشاريع تحتاج إلى الثلاثة معًا.</li>
+				</ul>
+			</div>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">هل تبني حزمة صمامات لنظام حريق؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل لنا جدول الأنابيب وفئة الضغط — نعرض السعر على صمامات البوابة والفراشة والإشارة كحزمة معتمدة واحدة خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Valve%20Selection" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%AB%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D8%A9%20%D9%81%D9%8A%20%D8%A7%D8%AE%D8%AA%D9%8A%D8%A7%D8%B1%20%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%20%D9%84%D9%86%D8%B8%D8%A7%D9%85%20%D8%AD%D8%B1%D9%8A%D9%82" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

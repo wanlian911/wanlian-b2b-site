@@ -257,5 +257,14 @@ export const guidesEs: Guide[] = [
     category: 'Compras B2B',
     readTime: readTime('9'),
     tags: ['procurement', 'fire-hydrant', 'industrial-valves']
-  }
+  },
+  {
+    title: 'Guía: Válvula de Equilibrado Digital HVAC SP45F (Selección)',
+    description: 'Guía de válvula de equilibrado digital HVAC SP45F: puntos de prueba de presión, bloqueo digital, datos RFQ y comparación con reductoras. Cotización en 12 h.',
+    href: '/es/guides/hvac-digital-balancing-valve-guide/',
+    date: '2026-09',
+    category: 'HVAC y válvulas industriales',
+    readTime: '8 min de lectura',
+    tags: ['industrial-valves', 'backflow-prevention']
+  },
 ];

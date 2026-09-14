@@ -1,0 +1,157 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'هل تورد Wanlian منتجات حماية حريق معتمدة بـ CE؟',
+		answer: 'الشهادة دائمًا مرتبطة بالموديل وجهة التصدير. نوفر الشهادات والتصريحات وتقارير اختبار الدفعات المطبقة على الموديل الدقيق وتكوين الصمام/الخراطيم الذي تطلبه، ولا نرفع ادعاءً شاملًا بمعايير الاعتماد على مستوى كامل سلاسل المنتجات. أخبرنا بالمنتج والبلد المستهدف وسنتحقق من حزمة الوثائق المطبقة قبل بدء الإنتاج.'
+	},
+	{
+		question: 'ما هو EN 12845 وكيف يرتبط بمنتجاتكم؟',
+		answer: 'EN 12845 هو المعيار الأوروبي لتصميم وتركيب أنظمة رش الحريق الثابتة. وهو يضع متطلبات لترتيب إمداد المياه كاملًا، بما في ذلك منع الدوامات عند مواسير سحب المضخات. يُصنع مانع دوامة السحب لدينا وفق EN 12845 وGB50974-2014: يُثبَّت على موصل السحب داخل خزان الماء لمنع انجراف الهواء والتكهف، ما يسمح بتفريغ حجم الخزان حتى مستويات منخفضة جدًا بأمان.'
+	},
+	{
+		question: 'ما الفرق بين ISO 7165 وعلامة CE وشهادة CCCF على طفاية حريق؟',
+		answer: 'ISO 7165 هو المعيار الدولي لأداء طفايات الحريق المحمولة، ويغطي البناء والاختبار والوسم. علامة CE هي علامة مطابقة الاتحاد الأوروبي للمنتجات المعروضة في السوق الأوروبية — وتتعتمد متطلباتها على الديراتيفات المعمول بها لذلك المنتج. أما CCCF فهي الشهادة الإلزامية الصينية للمنتجات الحِرَقية وتأهيل الوحدة للسوق الصينية فقط، وهي ليست شهادة تصدير. اطلب دائمًا الشهادة المطبقة على سوقك الوجهة وعلى الموديل الدقيق.'
+	},
+	{
+		question: 'ما معايير الموصلات والاتصالات المستخدمة في أنظمة الحريق الأوروبية؟',
+		answer: 'موصلات Storz للتوصيل السريع هي النظام الأكثر شيوعًا في أوروبا وكثير من آسيا؛ وتظهر أيضًا مخارج KWS بنمط ألماني على اتصالات خلاطات الحريق وأنظمة عمود الماء، فيما تستخدم أسواق المملكة المتحدة ودول الكومنولث لوازم BS336. يغطي موصل Storz الألومنيوم 2.5" لدينا (DN50-DN150، 1.6 MPa) عائلة اتصالات المعيار الألماني، وتُورَّد خلاطات الحريق الخارجية مثل SSFT100 بمخارج KWS65. حدّد في الاستفسار نظام اللوازم المستخدم في سوقك حتى تتطابق اتصالات الخراطيم وخلاطات الحريق والفوهات.'
+	},
+	{
+		question: 'هل يمكنكم تقديم تقارير اختبار دفعات وفق EN 12266-1 للصمامات؟',
+		answer: 'نعم. صمامات خطنا تخضع لاختبار ضغط الهيكل والمقعد (Shell and Seat) عند الطلب وفق GB/T13927 أو EN 12266-1، وتخضع خلاطات الحريق لاختبار الضغط الهيدروستاتيكي (2.4 MPa نموذجيًا) مع اختبار التدفق وفق المعيار المعمول به. اطلب تقرير الاختبار الذي يغطي دفعة الإنتاج الفعلية لا قالبًا عامًا.'
+	},
+	{
+		question: 'هل يمكن وسم المنتجات وتوثيقها لدول محددة في الاتحاد الأوروبي؟',
+		answer: 'نعم. يمكن مطابقة لغة الوسم والرموز البيانية ولغة التعليمات والوثائق المصاحبة لبلدك الوجهة ضمن نطاق OEM. وبما أن إعادة الوسم بعد الوصول مكلفة، أكد لغة الوسم وصيغة الوثائق قبل الإنتاج الضخم.'
+	}
+];
+
+const toc = [
+	{ id: 'european-market', label: 'لماذا يُهمّ الامتثال الأوروبي لمعدات الحريق' },
+	{ id: 'ce-marking-basics', label: 'أساسيات علامة CE: على مستوى الموديل لا السلسلة' },
+	{ id: 'en12845-pump-suction', label: 'EN 12845 وحزمة سحب مضخة الحريق' },
+	{ id: 'testing-standards', label: 'أدلة الاختبار: EN 12266-1 وتقارير الدفعات' },
+	{ id: 'connections-regional', label: 'الموصلات والواجهات والمعدات المحمولة' },
+	{ id: 'european-checklist', label: 'قائمة مواصفات للمشترين الأوروبيين' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const products = [
+	{ slug: 'suction-vortex-preventer-en12845', name: 'مانع دوامة السحب (EN12845)', img: '/assets/products/suction-vortex-preventer-en12845.webp', desc: 'SS304/316، DN50-DN1000، وفق EN12845 وGB50974-2014' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: 'موصل Storz ألومنيوم 2.5"', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'توصيل سريع بمعيار ألماني، DN50-DN150، 1.6 MPa' },
+	{ slug: 'abc-dry-powder-fire-extinguisher-5kg', name: 'طفاية بودرة جافة ABC (5kg)', img: '/assets/products/abc-dry-powder-fire-extinguisher-5kg.webp', desc: 'طفاية محمولة وفق ISO 7165 لحرائق الفئات A/B/C/E' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'خلاط حريق خارجي مضاد للاصطدام (SSFT100)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'تنظيم الضغط، مخارج KWS65، حديد زهر مطبوع PN16' }
+];
+---
+
+<Layout
+	title="دليل الامتثال CE وEN 12845 لمعدات الحماية من الحريق"
+	description="امتثال CE وEN 12845 لتصدير معدات الحماية من الحريق: منع دوامات سحب المضخة، اختبار الصمامات وفق EN 12266-1، موصلات Storz وطفايات وفق ISO 7165."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'الامتثال CE وEN 12845' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">الامتثال CE وEN 12845</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل الشهادات والامتثال</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">دليل الامتثال CE وEN 12845: معدات الحماية من الحريق للسوق الأوروبي</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">إن بيع معدات الحماية من الحريق إلى أوروبا مسألة وثائقية قبل أن تكون مسألة منتجات. يحدد EN 12845 كيفية بناء إمدادات مياه الرش، وEN 12266-1 يحدد كيفية اختبار الصمامات، وISO 7165 يحدد أداء الطفايات المحمولة — وعلامة CE، حيثما تنطبق، يجب أن تُرجَع إلى موديل محدد، لا إلى سلسلة كاملة. يشرح هذا الدليل الإطار وما على المشتري الأوروبي أن يطلبه من الأدلة من مورد صيني.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="european-market" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. لماذا يُهمّ الامتثال الأوروبي لمعدات الحريق</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">أوروبا ليست سوقًا هامشيًا لموردي معدات الحماية من الحريق. ففي عينة المشترين على المنصة الصناعية التي يستند إليها البحث التسويقي لهذا الدليل (أغسطس 2026)، كانت أوروبا أكبر منطقة مشترِة فردية لفئة الحماية من الحريق بنسبة 20.05%، مع نحو 39% لأوروبا وجنوب شرق آسيا مجتمعتين. وفي العينة نفسها، كانت شهادة CE الخاصّية الأكثر شيوعًا في إدراجات طفايات الحريق (42.35%)، ما يُظهر أن المشترين الأوروبيين يرشّحون العروض وفق الامتثال الموثّق قبل أن يرشّحوها وفق السعر.</p>
+			<p class="text-gray-700 leading-relaxed">ما يفحصه المشتري الهندسي الأوروبي فعليًا هو سجلّ من الأوراق: أي معيار صُنع المنتج وفقه، وأي معيار اختبار خضعت له الدفعة، وأي شهادة تغطي الموديل الدقيق، وأي نظام موصلات ولوازم تتصل به المعدات. كل ما يلي يعالج واحدًا من هذه الأسئلة الأربعة.</p>
+
+			<h2 id="ce-marking-basics" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. أساسيات علامة CE: على مستوى الموديل لا السلسلة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">علامة CE هي علامة مطابقة للمنتجات المعروضة في السوق الأوروبية. يتغير أساسها القانوني حسب المنتج — فالديراتيفات والمعايير المنسّقة المعمول بها تعتمد على طبيعة المنتج — ولهذا بالتحديد لا يصدر مورد مسؤول أيّ تعميم.</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>العلامة تُنسَب إلى موديل</strong> — علامة CE وتصريح المطابقة الداعم يغطيان منتجًا محددًا بخصائص محددة. إذا تغيّر مقاس الصمام أو مادته أو تكوينه، تغيّر تقييم المطابقة معه.</li>
+				<li><strong>ارفض الادعاءات على مستوى السلسلة</strong> — شهادة تُسمّي علامة تجارية أو كامل خط المنتجات دون معرّفات موديلات هي إشارة تحذير في المشتريات الأوروبية. اطلب المستند الذي يُسمّي الموديل والمواصفة الدقيقين اللذين تشتريهما.</li>
+				<li><strong>توقّع ملفاً تقنيًا</strong> — يجب أن يكون بإمكان المصنّع إظهار تقارير الاختبار والوثائق التقنية خلف التصريح. يشرح <a href="/ar/certificates/" class="text-brand-blue font-semibold hover:underline">صفحة الشهادات والامتثال لدينا</a> كيفية إدارة هذه الوثائق لخط الحماية من الحريق لدينا.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">إذا كان عرض السعر يجيب عن سؤال «هل هو حاصل على CE؟» بـ «نعم، السلسلة بأكملها»، فإن السؤال الصحيح بعد ذلك هو: أي ديراتيف، أي معيار، أي موديل، وهل يمكنني الاطلاع على تصريح المطابقة؟</p>
+
+			<h2 id="en12845-pump-suction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. EN 12845 وحزمة سحب مضخة الحريق</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">EN 12845 هو المعيار الأوروبي لأنظمة رش الحريق الثابتة — التصميم والتركيب. وهو يحكم سلسلة إمداد المياه كاملة: خزانات التخزين، مواسير سحب المضخات، المضخات، الصمامات والتوزيع. أحد متطلباته المتكررة أن تمنع مواسير السحب السحبة من الخزانات تكوّن الدوامات، لأن الدوامة تسحب الهواء إلى المضخة، وتُسبّب التكهف، وقد تجوّع نظام الرش بالتحديد في اللحظة التي يحتاج فيها التدفق الكامل.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">هذه هي مهمة <a href="/ar/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">مانع دوامة السحب</a> في خطنا: تجميع ألواح من الفولاذ المقاوم للصدأ الأوستنيتي (SS304/316) يُثبَّت على موصل السحب داخل الخزان، مصنّع وفق EN 12845 وGB50974-2014، بمقاسات من DN50 إلى DN1000. يُزيل الدوامة، ويسمح بتفريغ الخزان حتى مستويات ماء منخفضة جدًا (نحو 100mm)، ولا يحمل أيّ أجزاء متحركة تتطلب صيانة.</p>
+			<p class="text-gray-700 leading-relaxed">بقية حزمة السحب والطرد تتبع المنطق نفسه: صمامات بوابة أو صمامات فراشة للعزل، وصمامات رجوع على خط طرد المضخة، وصمامات إنذار عند عمود الماء. للصورة الكاملة للمكونات داخل ترتيب رش بنمط EN 12845، راجع <a href="/ar/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">دليل صمامات نظام رش الحريق لدينا</a>.</p>
+
+			<h2 id="testing-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. أدلة الاختبار: EN 12266-1 وتقارير الدفعات</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">نادرًا ما يقبل المشترون الأوروبيون عبارة «تم الاختبار وفق المعيار» العامة؛ هم يريدون تسمية معيار الاختبار وتحديد الدفعة. اتفاقيات اختبارات مصنعنا هي:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>الصمامات</strong> — اختبار ضغط الهيكل والمقعد 100% وفق GB/T13927 أو <strong>EN 12266-1</strong> (المعيار الأوروبي لاختبار الصمامات الصناعية) عند الطلب.</li>
+				<li><strong>خلاطات الحريق</strong> — اختبار ضغط هيدروستاتيكي (2.4 MPa نموذجيًا) واختبار تدفق وفق GB 4452 أو معيار التصدير المعمول به.</li>
+				<li><strong>طفايات الحريق</strong> — الأداء والبناء والوسم وفق ISO 7165، مع وسم الموديل على الأسطوانة.</li>
+				<li><strong>أدلة الدفعات</strong> — يجب أن تغطي تقارير الاختبار دفعة الإنتاج الفعلية التي تستلمها، لا قالبًا من موديل آخر أو جولة إنتاج مختلفة.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">ضع معيار الاختبار المسمّى في الاستفسار وأمر الشراء. فالمورد الذي يلتزم بالمعيار كتابيًا هو مورد قادر على إنتاج التقرير.</p>
+
+			<h2 id="connections-regional" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. الموصلات والواجهات والمعدات المحمولة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">الامتثال لا يتوقف عند الشهادات — فالاتصالات والمعدات المحمولة لها قواعد محلية خاصة. في أنحاء أوروبا وكثير من آسيا، <strong>موصلات Storz للتوصيل السريع</strong> هي نظام خراطيم الحريق السائد. يتبع <a href="/ar/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">موصل Storz الألومنيوم 2.5" لدينا</a> المعيار الألماني بحافة ذاتية الإحكام، مصنّف عند 1.6 MPa، ومناسب لوسائط الماء الصافي وخليط الرغوة. تستخدم أسواق المملكة المتحدة ودول الكومنولث لوازم BS336، وتظهر مخارج KWS بنمط ألماني على اتصالات خلاطات الحريق وأنظمة عمود الماء — ويُورَّد <a href="/ar/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">خلاط الحريق الخارجي المضاد للاصطدام SSFT100 لدينا</a> قياسيًا مع مخرجين KWS65 ومخرج DN100.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">بالنسبة لطفايات الحريق المحمولة المخصصة لأوروبا، حافظ على حدود الشهادة واضحة: <a href="/ar/products/abc-dry-powder-fire-extinguisher-5kg/" class="text-brand-blue font-semibold hover:underline">طفاية البودرة الجافة ABC 5kg لدينا</a> مصنّعة وفق ISO 7165 وتحمل CCCF. يغطي ISO 7165 أداء الطفايات المحمولة الدوليًا؛ وعلامة CE للسوق الأوروبي تعتمد على الديراتيفات المعمول بها للموديل؛ وCCCF حصرية بالصين ولا تنتقل إلى المبيعات الأوروبية. يجب تأكيد لغة الوسم والرموز البيانية ولغة التعليمات للبلد الوجهة قبل الإنتاج.</p>
+			<p class="text-gray-700 leading-relaxed">الخلاصة لجانب المشتري: سمِّ نظام الموصلات ومعيار الطفاية في الجملة نفسها مع طلب الشهادة — فهي تسافر معًا عبر المواصفات.</p>
+
+			<h2 id="european-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. قائمة مواصفات للمشترين الأوروبيين</h2>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>سمِّ معيار المكوّن</strong> — EN 12845 لترتيب إمداد مياه الرش، وEN 12266-1 لاختبار الصمامات، وISO 7165 للطفايات المحمولة، فضلًا عن المعيار المعمول به لخلاطات الحريق والموصلات.</li>
+				<li><strong>اطلب شهادات على مستوى الموديل</strong> — تصريح مطابقة CE (حيث ينطبق)، والشهادة التي تُسمّي الموديل والمقاس والتكوين الدقيقين اللذين تطلبهما.</li>
+				<li><strong>أكّد نظام الواجهة</strong> — Storz أو BS336 أو KWS أو لوازم أخرى لاتصالات الخراطيم وخلاطات الحريق والفوهات؛ واكتب ذلك صراحةً.</li>
+				<li><strong>ثبّت لغة الوثائق</strong> — لغة الوسم والتعليمات للبلد الوجهة ضمن نطاق OEM.</li>
+				<li><strong>اطلب تقارير اختبار الدفعات</strong> — سجلات الاختبار لدفعة الإنتاج التي تستلمها فعليًا، لا ملفًا عامًا.</li>
+				<li><strong>وحّد مسار الوثائق</strong> — طلب الصمامات وخلاطات الحريق والطفايات من مصنّع واحد يبقي الشهادات والشحن في ملف واحد. استعن بـ<a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة فحص توريد الصمامات B2B لدينا</a> قبل الالتزام بمورد.</li>
+			</ul>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">هل تستعد لطلب حماية حريق للسوق الأوروبي؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أخبرنا بالمنتجات والكميات والبلد الوجهة — يتحقق فريقنا من المعايير المطبقة وحزمة الشهادات ونظام التوصيل خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=European%20Compliance%20Package" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8E%D8%A7%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D9%85%D8%B9%D8%AF%D8%A7%D8%AA%20%D8%AD%D9%85%D8%A7%D9%8A%D8%A9%20%D9%85%D9%86%20%D8%A7%D9%84%D8%AD%D8%B1%D9%8A%D9%82%20%D9%84%D9%84%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D8%A3%D9%88%D8%B1%D9%88%D8%A8%D9%8A" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

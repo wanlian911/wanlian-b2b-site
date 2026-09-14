@@ -1,0 +1,247 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'why-counterfeits-concentrate', label: '1. لماذا تتركّز المقلّدات في هذه الفئة' },
+	{ id: 'common-forms-of-fakes', label: '2. الأشكال الشائعة للمنتجات المقلّدة' },
+	{ id: 'detection-checklist', label: '3. قائمة كشف من سبعة خطوات' },
+	{ id: 'red-flags-table', label: '4. الأصيل مقابل المقلّد في نظرة: جدول الإشارات التحذيرية' },
+	{ id: 'how-wanlian-operates', label: '5. كيف تعمل Wanlian Fluid: أدلة العملية' },
+	{ id: 'pre-order-workflow', label: '6. سير عمل التحقق قبل الطلب' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' },
+	{ id: 'sources', label: 'المصادر' }
+];
+
+const faq = [
+	{
+		question: 'هل يعرض السعر الأدنى بكثير علامة موثوقة على منتج مقلّد؟',
+		answer: 'إنه إشارة فرز وليس دليلًا. للصبّات المطابقة من الحديد الزهر المطبوع، والاختبار بالضغط، والوثائق التصديرية أدنى حدود تكلفة فعلية، لذا يستحق السعر الذي ينخفض عن سعر السوق انخفاضًا كبيرًا التحقق. لكن بعض العروض السعرية تكون ببساطة لمواصفة أدنى. قارن المعيار، ودرجة المادة، ومتطلبات الاختبار في كل عرض قبل الحكم على الفارق.'
+	},
+	{
+		question: 'كيف أتحقق من شهادة UL أو FM قبل طلب صمام حريق؟',
+		answer: 'اطلب رقم الشهادة أو رقم الإدراج الدقيق للنموذج المعروض عليك سعرًا، ثم تحقّق منه بشكل مستقل عبر البوابة الرسمية للجهة المصدرة. تأكّد من تطابق المنتج المدرج والنموذج والمصنع مع مورّدك. حتى تقوم بالتحقق، عامل أي صورة شهادة في البريد الإلكتروني كوثيقة غير مؤكدة.'
+	},
+	{
+		question: 'ماذا ينبغي أن تتضمن سجلات الاختبار لكل وحدة فعليًا؟',
+		answer: 'بحدٍّ أدنى: الرقم التسلسلي للوحدة، تاريخ الاختبار، نتيجة اختبار ضغط الجسم، ونتيجة اختبار تسرّب الهواء، وهوية المُشغِّل أو المفتِّش. يجب أن تتطابق الأرقام التسلسلية مع قائمة التغليف واللوحة التعريفية والوثائق التصديرية. التقرير الذي يغطي «دفعة» فقط دون معرِّفات وحدات هو إشارة تحذير.'
+	},
+	{
+		question: 'هل أحتاج فحصًا من طرف ثالث في طلبي الأول؟',
+		answer: 'لمعدات الحريق الحرجة من حيث السلامة ننصح به بشدة، وفي الطلب الأول على الأقل. يمكن لجهة مستقلة مثل SGS أو Bureau Veritas أن تشهد الاختبارات، وتفقّد المواد، وتراجع السجلات في المصنع. الرسم جزء صغير من قيمة حاوية واحدة، وهو أرخص بكثير من وحدة واحدة فاشلة.'
+	},
+	{
+		question: 'ماذا يمكن لـ Wanlian أن ترسله قبل أن أدفع؟',
+		answer: 'يمكن لـ Wanlian Fluid تقديم شهادة ISO 9001 للتحقق لدى الجهة المصدرة، وشهادات اختبار المصنع (MTC) لدرجة الصب، وفيديو اختبار ضغط وتسرب هوائي برقم تسلسلي لوحدة عينة، ومجموعة وثائقها التصديرية القياسية. أما المطابقة لمعيار محدد (مثل AWWA أو NFPA) فيُثبَت لكل نموذج بتقارير اختبار وشهادات قبل الطلب.'
+	},
+	{
+		question: 'ماذا أفعل إذا اكتشفت وحدة مقلّدة في شحنة استلمتها؟',
+		answer: 'أوقف تشغيل المعدات المتأثرة، وصوّر الوحدة مع لوحتها التعريفية ورقمها التسلسلي، واحفظ كل سجلات الاختبار والوثائق. قدّم مطالبة رسمية بعدم المطابقة لدى المورّد، واطلب وثائق التتبع، وأشرك مفتّشك من الطرف الثالث أو السلطة المتعاقد معها. للأنظمة الحرجة، اعزل الجزء المتأثر حتى تتحقق من وحدات الاستبدال.'
+	}
+];
+
+const productRows = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'صمام بوابة بفلنجة بمقعد مرن (Z41X)', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'صمام بوابة بمقعد مرن بممر كامل لخطوط الحريق وشبكات المياه' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'خلاط حريق خارجي (SS100)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'خلاط خارجي مضاد للصقيع لشبكات الحريق البلدية' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'مرن حريق، ببطانة مطاطية (نموذج 8-65)', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'مرن قابل للتمدد بغطاء من البوليستر وبطانة مطاطية مبلمرة' }
+];
+---
+
+<Layout
+	title="كشف الصمامات المزيفة وشهادات الحريق المقلّدة — دليل 2026"
+	description="دليل المشترين من الصين: كشف الصمامات المزيفة وشهادات UL وFM المقلّدة وخلاطات الحريق المنسوخة. قائمة كشف، إشارات تحذيرية، وتحقيق المورّد قبل الدفع."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'كشف المنتجات المقلّدة' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">كشف المنتجات المقلّدة</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل مخاطر المشتريات</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">كيف تكشف الصمامات المزيفة وشهادات معدات الحريق المقلّدة (دليل المشتري 2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">يواجه مشترو صمامات الحريق وخلاطات الحريق والمرنة من الصين بانتظام صبّات مقلّدة ولوحات تعريفية منسوخة وشهادات مزوّرة. الوحدة المزيفة لا تعلن عن نفسها في الصور أو قائمة الأسعار — بل تكشفها المعاينة المادية، وسجلات الاختبار لكل وحدة، والوثائق التي يمكنك التحقق منها بشكل مستقل. يمنحك هذا الدليل الإشارات الدقيقة، وقائمة كشف خطوة بخطوة، وسير عمل للتحقق قبل الطلب يمكنك إرفاقه بأي أمر شراء.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">لماذا وُجد هذا الدليل:</strong> معدات الحريق المقلّدة ليست خطرًا افتراضيًا — الأرقام التسلسلية المنسوخة، ولوحات التعريف المنقولة، وملفات الشهادات المزوّرة هي العهدة القياسية للمورّدين غير المطابقين في الفئات الحرجة من حيث السلامة. يحوّل هذا الدليل ذلك الخطر إلى عملية كشف مكتوبة يمكنك تطبيقها على أي مورّد صيني، بما فيه Wanlian Fluid، قبل الدفع.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="why-counterfeits-concentrate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. لماذا تتركّز المقلّدات في هذه الفئة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">ثلاث خصائص للبنية التحتية للحريق والمياه تجعلها هدفًا مفضّلًا للتقليد:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>معدات الحريق حرجة من حيث السلامة.</strong> على الصمام أو الخلاط المطابق أن يصمد أمام حدث ضغط بممر كامل في اللحظة التي لا يوجد فيها وقت لاستبداله. وهذا بالضبط ما تعجز عنه الصبّات غير المطابقة.</li>
+				<li><strong>المشتريات ضخمة الحجم ومدفوعة بالمواصفات.</strong> مناقصات البلديات ومشاريع المباني تشتري كميات كبيرة بأسعار تنافسية، وتسير الأوراق — الشهادات وسجلات الاختبار — مع أمر الشراء. تسمح الأوراق المزوّرة لمنتج غير مطابق بالدخول إلى عرض سعر مشروع.</li>
+				<li><strong>المعدات لا «تفشل» إلا أثناء الطوارئ.</strong> قد يبدو جسم خلاط بسماكة جدار رقيقة، أو صمام بوابة لم يُختبر بما يكفي، مثاليًا في المستودع لسنوات. يظهر العيب تحت الضغط، في الليل، وفي خضم أرواح وممتلكات على المحك.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">المحرّك الفعلي هو فجوة السعر. للصبّات المطابقة من الحديد الزهر المطبوع، والتغليف بربط راتنجي أو مطاطي، والاختبار بالضغط لكل وحدة، والوثائق التصديرية أدنى حدود تكلفة فعلية. تتيح الشهادة المزوّرة لمنتج غير مطابق تسعير نفسه أدنى منها، والمشتري — وهو يقارن العروض على الورق — لا يرى الفارق.</p>
+			<p class="text-gray-700 leading-relaxed">بمجرد أن تُظهر لك شهادة مزوّرة مرة واحدة، لم تعد تستطيع الحكم على أي مورّد بالوثائق وحدها. الإجابة العملية هي التحقق من الوحدة المادية، وسجلات الاختبار لكل وحدة، والوثائق القابلة للتحقق بشكل مستقل. تحدد الأقسام التالية بالضبط ما الذي ينبغي البحث عنه.</p>
+
+			<h2 id="common-forms-of-fakes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. الأشكال الشائعة للمنتجات المقلّدة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تتخذ معدات الحريق المقلّدة في هذه الفئة قائمة قصيرة من الأشكال المتكررة. اطلع على هذه الأشكال الستة وستلتقط معظم المخاطر:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>أرقام تسلسلية منسوخة.</strong> الرقم التسلسلي نفسه على وحدات متعددة، أرقام تسلسلية تتبع نمطًا ظاهرًا، أو أرقام منسوخة من صور الكتالوجات المنشورة. الصانع الحقيقي يصدر أرقامًا تسلسلية فريدة تتطابق مع سجلات الصب وقائمة التغليف.</li>
+				<li><strong>لوحات تعريفية منسوخة.</strong> لوحة تحمل علامة تجارية لا تشتري منها فعلًا، أو اسم علامة متوقفة عن العمل، أو لوحة لا تتطابق مواصفاتها أو مقاسها أو تصنيف ضغطها مع أمر الشراء. العلامات دائمة على المنتج المطابق — لوحة تبدو مثبّتة بعجل، أو غير متسقة، هي فشل في الفحص الأولي.</li>
+				<li><strong>مواد غير مطابقة وصبّات بسماكة جدار رقيقة.</strong> سبيكة خاطئة، أو خردة معاد تدويرها، أو جدران مصبوبة دون التسامحات الأبعادية للمعيار. هذه الأجسام تعبر الفحص البصري وتفشل اختبار ضغط الجسم — أو، والأسوأ، تعبره في المصنع وتفشل في الخدمة.</li>
+				<li><strong>سجلات اختبار مفقودة أو عامة.</strong> لا توجد سجلات لكل وحدة أصلًا، أو «تقرير دفعة» واحد يغطي مئات الوحدات دون أرقام تسلسلية أو تواريخ أو قيم اختبار.</li>
+				<li><strong>ملفات شهادات مزوّرة بصيغة PDF.</strong> وثائق UL أو FM أو AWWA أنتجها معالج نصوص: خط خاطئ، اسم شركة عام، تواريخ تسبق خط الإنتاج، أو أرقام شهادات غير موجودة لدى الجهة المصدرة.</li>
+				<li><strong>استبدالات المرنة الحريق.</strong> المرن الحقيقي للحريق يجمع غطاءً من البوليستر عالي المقاومة مع بطانة مطاطية مبلمرة محكمة هوائيًا. توفّر المقلّدات في البطانة أو الغطاء فيبدو المرن سليمًا في المستودع ثم يتسرّب أو تتقشّر بطانته عند ضغط التشغيل.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">لا يظهر أيٌّ من هذه الأشكال في صورة كتالوج. وكلها تظهر في سجلات الاختبار، وشهادات المواد، وفيديو قصير للوحدة على طاولة الاختبار — ولهذا تطلب قائمة الفحص أدناه تلك العناصر بالتحديد.</p>
+
+			<h2 id="detection-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. قائمة كشف من سبعة خطوات</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">طبّق هذه الخطوات السبع على كل مورّد في القائمة المختصرة. الخطوتان 1–2 على مستوى الشركة؛ الخطوات 3–7 على مستوى الوحدة. مورّد يقاوم أياً منها تكون إجابته قد صدرت.</p>
+			<ol class="list-decimal ps-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>تحقّق من الشركة أولًا.</strong> الاسم القانوني في السجل التجاري، حساب بنك مطابق، والجهة المُصدِرة للفواتير. جولة مصوّرة لمناطق الإنتاج والاختبار والتغليف عند الطلب. إذا تعذّر إظهار «المصنع»، فإنك تتعامل مع مكتب تجارة — قد يكون بصَبّات مستعملة ولوحات تعريفية جديدة.</li>
+				<li><strong>اطلب سجلات اختبار لكل وحدة.</strong> كل صمام وخلاط تطلبه ينبغي أن يحمل نتيجة اختبار ضغط جسم ونتيجة اختبار تسرّب هواء مقابِلَتين لرقمه التسلسلي الخاص. اطلب من المورّد إرسال سجلات وحدة عينة قبل الدفع — الصانع الحقيقي يحفظها، والمقلِّد لا يستطيع تقديمها.</li>
+				<li><strong>تحقّق من الشهادات في البوابة الرسمية للجهة المصدرة.</strong> لإدراج UL أو اعتماد FM، تحقّق من الرقم في البوابة الرسمية للجهة المصدرة (مثل دليل منتجات UL أو بحث اعتمادات FM Global) وتأكّد من تطابق النموذج المدرج والمصنع مع مورّدك. لـ AWWA، تحقّق من رقم الشهادة أو التسجيل لدى AWWA. إذا لم يُحل الرقم، فإن ملف PDF مزوّر مهما بدا نظيفًا.</li>
+				<li><strong>اطلب عينة أولًا.</strong> وحدة واحدة من كل نموذج، مع رقمها التسلسلي وصورة لوحتها التعريفية ووثائقها الكاملة. طُبّق قائمة الفحص كاملة على العينة — العلامات، شهادة المادة، فيديو الاختبار، السجلات — قبل الالتزام بالكميات. هذه أرخص تأمين ضد التقليد المتاح.</li>
+				<li><strong>اطلب شهادات المواد (شهادات اختبار المصنع MTC).</strong> درجة الصب في شهادة MTC يجب أن تطابق الدرجة في مخططك. مورّد لا يستطيع تقديم شهادة MTC للمادة الدقيقة التي حددتها لا يصنع المنتج الذي تشتريه.</li>
+				<li><strong>شاهد فيديو الأبعاد والاختبار بالضغط.</strong> اطلب فيديو قصيرًا للوحدة العينة المحددة على طاولة اختبار الضغط مع ظهور رقمها التسلسلي. الصانع الحقيقي يسجّل هذه الفيديوهات روتينيًا؛ المورّد الذي لا يستطيع تقديم واحد لا يختبر وحداتك بالضغط.</li>
+				<li><strong>نفّذ تدقيقًا للمصنع أو فحصًا من طرف ثالث.</strong> زُر المصنع إذا كفل حجمك ذلك؛ وإلا عيّن جهة مستقلة (SGS أو Bureau Veritas أو Intertek أو شركة محلية رصينة) تشهد الاختبارات وتفقّد الصبّات وتراجع السجلات قبل الشحن.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed mb-4">طبّق القائمة الفاحصة على المنتجات الفعلية في قوائمك المختصرة — مثل <a href="/ar/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">صمام البوابة بمقعد مرن OS&Y معتمد UL/FM</a>، و<a href="/ar/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">خلاط الحريق الخارجي SS100</a>، و<a href="/ar/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">صمام البوابة بفلنجة بمقعد مرن Z41X</a>، أو <a href="/ar/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">مرن الحريق القابل للتمدد ببطانة مطاطية 8-65</a> — وسجلات اختبار لكل نموذج، لا عبارات جودة عامة.</p>
+			<p class="text-gray-700 leading-relaxed">للإطار الأوسع لتأهيل المورّد (الكيان القانوني، سجل التصدير، المراجع)، راجع <a href="/ar/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">دليلنا للتحقق من مورّد الصمامات الصيني</a>. ولقائمة الوثائق والفحص الكاملة التي تُكتب في أمر الشراء، راجع <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة مصادر الصمامات B2B</a>.</p>
+
+			<h2 id="red-flags-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. الأصيل مقابل المقلّد في نظرة: جدول الإشارات التحذيرية</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">نفس طلب التحقق ينتج استجابات مختلفة تمامًا من الصانع المشروع والمقلِّد. الجدول أدناه هو أسرع أداة فرز في هذا الدليل:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الإشارة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">ما يقدمه المورّد الحقيقي</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">ما يكشفه المقلّد</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">وثائق الشركة</td>
+							<td class="px-4 py-3 text-gray-700">السجل التجاري والجهة المُصدِرة للفواتير وحساب البنك متطابقة جميعها؛ جولة مصوّرة عند الطلب</td>
+							<td class="px-4 py-3 text-gray-700">تضارب في الأسماء، حسابات بنكية شخصية، رفض إظهار الإنتاج</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">سجلات الاختبار لكل وحدة</td>
+							<td class="px-4 py-3 text-gray-700">نتائج ضغط الجسم وتسرب الهواء بأرقام تسلسلية، مع تواريخ وهوية المُشغِّل</td>
+							<td class="px-4 py-3 text-gray-700">«تقرير دفعة» فقط، بلا أرقام تسلسلية ولا تواريخ، أو سجلات لا تتطابق مع قائمة التغليف</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">شهادات UL / FM / AWWA</td>
+							<td class="px-4 py-3 text-gray-700">الشهادة تُحل في البوابة الرسمية للجهة المصدرة للنموذج والمصنع الدقيقين</td>
+							<td class="px-4 py-3 text-gray-700">ملف PDF لا يُحل، اسم شركة خاطئ، تواريخ تسبق المنتج، شعار عام</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">إثبات المادة</td>
+							<td class="px-4 py-3 text-gray-700">شهادة اختبار مصنع MTC تطابق درجة الصب في المخطط</td>
+							<td class="px-4 py-3 text-gray-700">لا توجد شهادة MTC، أو شهادة لدرجة أخرى أو لمصنع آخر</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">فيديو اختبار الضغط</td>
+							<td class="px-4 py-3 text-gray-700">وحدة برقم تسلسلي على طاولة الاختبار، مسجّلة ومُرسلة عند الطلب</td>
+							<td class="px-4 py-3 text-gray-700">لقطات جاهزة أو متكررة، لا يظهر رقم تسلسلي، «طاولة الاختبار مشغولة اليوم»</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">اللوحة التعريفية والعلامات</td>
+							<td class="px-4 py-3 text-gray-700">رقم المعيار، المقاس، تصنيف الضغط، هوية الصانع، ورمز تسلسلي فريد — دائمة ومتسقة</td>
+							<td class="px-4 py-3 text-gray-700">اسم علامة منسوخ، أرقام تسلسلية متكررة، تصنيفات لا تطابق أمر الشراء</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">طلب العينة</td>
+							<td class="px-4 py-3 text-gray-700">يُقبل كروتين، مع وثائق كاملة لوحدة العينة</td>
+							<td class="px-4 py-3 text-gray-700">مقاومة، رسوم إضافية، أو عينة تختلف عن منتجات التشغيل</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">موقع السعر</td>
+							<td class="px-4 py-3 text-gray-700">عند أدنى حدود تكلفة المادة المطابقة والاختبار بنسبة 100% أو فوقها</td>
+							<td class="px-4 py-3 text-gray-700">أدنى من السوق بكثير لنفس المعيار — الفارق مدفوع بسماكة الجدار واختبارات مُتجاوزة</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">إجابتان «مقلَّد» أو أكثر لمورّد واحد ينبغي أن تنهيا التقييم. فجوة «حقيقية» واحدة يسدّها المورّد خلال يوم (مثل إرسال شهادة MTC مفقودة) أمر طبيعي؛ أما الفجوة التي تدرّ الأعذار فهي حكم.</p>
+
+			<h2 id="how-wanlian-operates" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. كيف تعمل Wanlian Fluid: أدلة العملية</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">إذا كانت Wanlian Fluid في قائمتك المختصرة، فهذه أدلة العملية التي ينبغي أن تتوقعها منا — بصيغة ما نفعله، لا بدعاوى اعتماد:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>نظام إدارة جودة ISO 9001.</strong> إنتاجنا في Quanzhou, Fujian (China) يعمل ضمن نظام ISO 9001؛ اطلب رقم الشهادة وتحقّق من الجهة المصدرة كما تفعل مع أي مورّد.</li>
+				<li><strong>أجسام صمامات مُخرَصة CNC داخليًا.</strong> أجسام الصمامات تُخرَص CNC في مصنعنا الخاص في Quanzhou؛ وبعض الأصناف تُنتج لدى شركاء تصنيع مؤهلين، مع توثيق موقع الإنتاج في الأمر.</li>
+				<li><strong>اختبار ضغط جسم وتسرب هواء بنسبة 100%.</strong> كل وحدة — كل صمام وخلاط ومرن — تُختبر بالضغط وبتسرب الهواء قبل الشحن. يمكننا إرسال فيديو اختبار برقم تسلسلي لوحدة عينة، وتسجيلات كل وحدة تسافر مع الشحنة.</li>
+				<li><strong>بنية المرنة الحريق.</strong> مرنة الحريق لدينا تجمع غطاء بوليستر عالي المقاومة مع بطانة مطاطية مبلمرة، مبنية لتكون محكمة هوائيًا — هي البنية نفسها التي يحاول قسم التقليد أعلاه تقليدها.</li>
+				<li><strong>مطابقة المعايير، مؤكدة لكل نموذج.</strong> المطابقة لمعيار محدد (AWWA أو NFPA أو إدراج UL أو اعتماد FM أو NOM وغيرها) تُثبَت لكل نموذج بتقارير اختبار وشهادات قبل الطلب — لا نطلب منك افتراض شهادة على مستوى المصنع بالكامل.</li>
+				<li><strong>الوثائق التصديرية.</strong> الفاتورة التجارية، وقائمة التغليف، والبوليصة، وشهادة المنشأ، وتقارير اختبار لكل دفعة ترافق الشحنات؛ ويُنسَّق OEM/ODM والتعريف المخصص والتعبئة التصديرية مع الأمر، مع التزام بالرد على عروض السعر خلال 12 ساعة.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">هذه القائمة هي أيضًا اختبارك: أرسل لنا قائمة الفحص السبع الخطوات وشاهد سرعة عودة كل بند. إذا كنت تقارننا بصنّاع غربيين من حيث التأهيل، راجع <a href="/ar/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">كيف تختار صمامات الحريق المدرجة لدى UL</a> و<a href="/ar/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">متطلبات الاعتماد لصمامات الحريق في مشاريع أمريكا اللاتينية</a>.</p>
+
+			<h2 id="pre-order-workflow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. سير عمل التحقق قبل الطلب</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تتحول عملية الكشف أعلاه إلى سير عمل بمجرد إرفاقها بأمر الشراء. خمس مراحل، بالترتيب:</p>
+			<ol class="list-decimal ps-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>حدّد المعيار كتابةً.</strong> المعيار الذي يتطلبه مشروعك (مثل AWWA C502 لخلاطات الحريق ذات العمود الجاف، وAWWA C515 لصمامات البوابة بمقعد مرن، وNFPA 1961 للمرنة الحريق) وقائمة الوثائق الكاملة — سجلات اختبار لكل وحدة، وشهادة MTC، والوثائق التصديرية. ضع الاثنين في أمر الشراء لتكون المطابقة تعاقدية لا مجرد مطلوبة.</li>
+				<li><strong>أشّر على المورّدين وتحقّق على مستوى الشركة.</strong> الكيان القانوني، نطاق ISO 9001، وشهادات المنتجات المحلولة في بوابة الجهة المصدرة. استبعد أي مورّد يفشل خطوة تحقق هنا.</li>
+				<li><strong>طلب عينة.</strong> وحدة واحدة لكل نموذج. طُبّق قائمة الفحص كاملة على العينة: اللوحة التعريفية، الرقم التسلسلي، شهادة MTC، فيديو اختبار الضغط، وسجلات كل وحدة.</li>
+				<li><strong>فحص من طرف ثالث.</strong> عيّن جهة مستقلة تشهد الاختبارات وتراجع السجلات في المصنع قبل شحن التشغيل. اكتب بند الفحص في أمر الشراء.</li>
+				<li><strong>مجموعة الوثائق ثم الإفراج.</strong> قبل الدفع النهائي: وثائق التصدير مكتملة، وسجلات اختبار لكل وحدة للأرقام التسلسلية في قائمة التغليف، وفيديو اختبار لوحدة عينة من دفعة التشغيل. عندئذٍ فقط أفرج عن الأمر.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">هذا السير عمل لأي مورّد — بما فيه Wanlian Fluid. عند تشغيله في بداية التقييم، يستغرق أيامًا لا شهورًا، وهو مرشّح التقليد الأكثر فعالية وحيدًا في مشتريات معدات الحريق.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Sources -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">المصادر</h2>
+			<ul class="list-disc ps-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>UL — دليل المنتجات والتحقق من الإدراج: <a href="https://www.ul.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ul.com</a></li>
+				<li>FM Global — التحقق من الاعتماد: <a href="https://www.fmglobal.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">fmglobal.com</a></li>
+				<li>AWWA — معايير الخلاطات والصمامات (مثل AWWA C502، C515): <a href="https://www.awwa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">awwa.org</a></li>
+				<li>NFPA — معايير الحماية من الحريق والمرنة الحريق (مثل NFPA 1961): <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+				<li>ISO — معايير إدارة الجودة والصمامات (ISO 9001، ISO 5208): <a href="https://www.iso.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">iso.org</a></li>
+				<li>Wanlian Fluid — نبذة عن الشركة وسياسة الاختبار: <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">متطلبات التحقق تختلف حسب سوق الوجهة ومواصفات المشروع — تحقّق دائمًا من المعيار المطبق والنظام الفاحص مع السلطة المتعاقد معها قبل تقديم الطلبات. المعلومات محدثة حتى سبتمبر 2026.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">هل تتحقق من معدات الحريق من مورّد صيني؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل إلينا مواصفاتك وجهة الشحن — نرد عليك بعرض سعر مفصّل خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Verify%20fake%20valves%20%26%20counterfeit%20fire%20equipment" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%A5%D9%84%D9%89%20%D8%A7%D9%84%D8%AA%D8%AD%D9%82%D9%82%20%D9%85%D9%86%20%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%20%D9%88%D8%AE%D9%84%D8%A7%D8%B7%D8%A7%D8%AA%20%D8%AD%D8%B1%D9%8A%D9%82%20%D9%82%D8%A8%D9%84%20%D8%A7%D9%84%D8%B7%D9%84%D8%A8%20%E2%80%94%20%D8%A3%D8%B1%D8%B3%D9%84%D9%88%D8%A7%20%D9%84%D9%8A%20%D8%A7%D9%84%D8%B4%D9%87%D8%A7%D8%AF%20%D9%88%D8%B3%D8%AC%D9%84%D8%A7%D8%AA%20%D8%A7%D8%AE%D8%AA%D8%A8%D8%A7%D8%B1%20%D9%83%D9%84%20%D9%88%D8%AD%D8%AF%D9%87%20%D9%88%D9%81%D9%8A%D8%AF%D9%8A%D9%88%20%D8%A7%D8%AE%D8%AA%D8%A8%D8%A7%D8%B1%20%D8%A7%D9%84%D8%B6%D8%BA%D9%88%D9%85" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

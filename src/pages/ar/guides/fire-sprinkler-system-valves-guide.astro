@@ -1,0 +1,190 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'wet-pipe-systems-zsfz', label: '1. أنظمة الأنابيب الرطبة: صمام الإنذار الرطب ZSFZ' },
+	{ id: 'deluge-systems-zsfm', label: '2. أنظمة الرش الشامل: صمام الرش الشامل ZSFM' },
+	{ id: 'pre-action-systems-zsfy', label: '3. أنظمة الفعل المسبق: صمام التشغيل المزدوج ZSFY' },
+	{ id: 'zone-detection-zsjz', label: '4. كشف الوحدات: مؤشر تدفق الماء ZSJZ' },
+	{ id: 'selecting-the-right-valve', label: '5. اختيار الصمام المناسب لمشروعك' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const faq = [
+	{
+		question: 'ما الفرق بين صمام الإنذار الرطب وصمام الرش الشامل؟',
+		answer: 'صمام الإنذار الرطب (ZSFZ) يُركَّب في أنظمة رش الأنابيب الرطبة حيث تكون الأنابيب ممتلئة بالماء دائمًا؛ يكتشف التدفق الناتج عن فتح رأس رش ويُطلق الإنذار. أما صمام الرش الشامل (ZSFM) فهو صمام تحكم جاف يُستخدم في أنظمة الرش الشامل التي تفتح لغمر كامل المنطقة المحمية بالماء في آن واحد — عادةً للمنشآت عالية الخطورة مثل المصانع الكيميائية ومحطات الطاقة.'
+	},
+	{
+		question: 'متى ينبغي استخدام نظام الفعل المسبق (ZSFY)؟',
+		answer: 'أنظمة الفعل المسبق (ZSFY) تجمّع صمامًا بنوع الرش الشامل مع رؤوس رش آلية، وتتطلب مساري تشغيل مستقلين (مثل كشف الدخان مع الحرارة) قبل دخول الماء إلى الأنابيب. تُخصص للبيئات الحساسة للماء مثل المتاحف والأرشيف ومراكز البيانات ومخازن التبريد، حيث يجب تجنّب التفريغ العرضي.'
+	},
+	{
+		question: 'ما وظيفة مؤشر تدفق الماء (ZSJZ) في نظام الرش؟',
+		answer: 'مؤشر تدفق الماء الريشي (ZSJZ) يُركَّب على خطوط رش التفرعية ويكتشف تدفق الماء الناتج عن فتح رأس رش، ويرسل إشارة إلى لوحة إنذار الحريق لتحديد الوحدة النشطة. يتوفر عليه تأخير زمني قابل للضبط لفلترة موجات الضغط العابرة.'
+	},
+	{
+		question: 'هل صمامات ZSFZ وZSFM وZSFY قابلة للاستبدال فيما بينها؟',
+		answer: 'لا. كل نوع صمام مُطابق لبنية نظام محددة: ZSFZ للأنظمة الرطبة، وZSFM لأنظمة الرش الشامل، وZSFY لأنظمة الفعل المسبق. استبدال أحدها بالآخر يُكسر منطق النظام وقد يُفشل فحص الكود. اختر حسب فئة خطورة المنشأة وأساس التصميم.'
+	},
+	{
+		question: 'ما الشهادات المطلوبة لصمامات إنذار الرش؟',
+		answer: 'يجب أن تكون تجميعات صمامات إنذار الرش مسجّلة لدى هيئة الاعتماد المطبقة في سوقك — عادةً UL/FM لأمريكا الشمالية، وCE لأوروبا، وLPCB لمشاريع المملكة المتحدة ودول الكومنولث، إضافة إلى ISO 9001 كخط أساس للجودة. توفّر Wanlian تجميعات ZSFZ/ZSFM/ZSFY بحزم شهادات مُطابقة لسوق الوجهة.'
+	}
+];
+
+const valveProducts = [
+	{
+		slug: 'wet-alarm-check-valve-zsfz-150',
+		name: 'صمام إنذار رطب برجوع (ZSFZ-150)',
+		img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp',
+		desc: 'صمام إنذار للأنابيب الرطبة مع كشف تدفق وتشغيل إنذار'
+	},
+	{
+		slug: 'deluge-alarm-valve-zsfm',
+		name: 'تجميع صمام إنذار رش شامل (سلسلة ZSFM)',
+		img: '/assets/products/deluge-alarm-valve-zsfm.webp',
+		desc: 'صمام رش شامل يعمل بالحجاب للمنشآت عالية الخطورة'
+	},
+	{
+		slug: 'pre-action-alarm-system-zsfy',
+		name: 'نظام إنذار فعل مسبق رش شامل (سلسلة ZSFY)',
+		img: '/assets/products/pre-action-alarm-system-zsfy.jpg',
+		desc: 'صمام فعل مسبق مزدوج التشغيل للوحدات الحساسة للماء'
+	},
+	{
+		slug: 'water-flow-indicator-zsjz',
+		name: 'مؤشر تدفق الماء الريشي (سلسلة ZSJZ)',
+		img: '/assets/products/water-flow-indicator-zsjz.png',
+		desc: 'كشف تدفق الوحدات بتأخير قابل للضبط لأنظمة الرطبة'
+	}
+];
+---
+
+<Layout
+	title="دليل صمامات أنظمة رش الحريق: الرطب، الرش الشامل والفعل المسبق"
+	description="صمامات أنظمة رش الحريق من Wanlian: صمام إنذار رطب ZSFZ، صمام رش شامل ZSFM، نظام فعل مسبق ZSFY ومؤشر تدفق الماء ZSJZ — عملها واختيارها حسب نوع المنشأة من الصين."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'أدلة', href: '/ar/blog/' }, { name: 'دليل صمامات رش الحريق' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">صمامات رش الحريق</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل أنظمة رش الحريق</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">صمامات أنظمة رش الحريق: دليل شامل (النظام الرطب، الرش الشامل والفعل المسبق)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">يُبنى كل نظام رش حول تجميع صمام تحكم — النقطة التي يتحول عندها إمداد الماء إلى نظام إطفاء الحريق. تخصيص نوع صمام خاطئ يُفشل منطق النظام بأكمله في الفحص. يوضح هذا الدليل أنواع الصمامات الأربعة السائدة في تصميم رش الحريق الحديث، وما تقوم به كل صمامة، وأنواع المنشآت التي تحميها. أما صمامات العزل والتحكم الجزئي المحيطة بالتجميع — صمام بوابة OS&amp;Y، صمام الفراشة بالإشارة وصمامات الرجوع — فاقرأ <a href="/ar/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">دليل أنواع صمامات التحكم في أنظمة رش الحريق</a>.</p>
+
+			<div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+				{valveProducts.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="wet-pipe-systems-zsfz" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. أنظمة الأنابيب الرطبة: صمام الإنذار الرطب ZSFZ</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">أنظمة الأنابيب الرطبة هي تكوين الرش الأكثر شيوعًا: تبقى الأنابيب ممتلئة بالماء دائمًا، ويفتح كل رأس رش على حدة عند انفجار عنصره الحساس للحرارة. يقع <a href="/ar/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">صمام الإنذار الرطب برجوع ZSFZ</a> عند عمود النظام ويؤدّي وظيفتين: يمنع التدفق العكسي من النظام إلى الإمداد، ويكتشف تدفق الماء الناتج عن فتح رأس، مطلقًا الإنذارات الميكانيكية والكهربائية. يستمر التدفق إلى النظام حتى يُغلق الإمداد يدويًا.</p>
+			<p class="text-gray-700 leading-relaxed">الأنظمة الرطبة سريعة وبسيطة وقليلة التكلفة في الصيانة — لكنها غير قابلة للاستخدام حيث تخاطر الحرارة المحيطة بتجمّد الأنابيب.</p>
+
+			<h2 id="deluge-systems-zsfm" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. أنظمة الرش الشامل: صمام الرش الشامل ZSFM</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">أنظمة الرش الشامل تحمي المنشآت عالية الخطورة حيث ينتشر الحريق أسرع مما تستجيب له رؤوس الرش الفردية: المصانع الكيميائية، ورش الطلاء، محطات الطاقة، حظائر الطائرات. جميع الفوهات في وحدة الرش الشامل مفتوحة، ويعود كبح النظام إلى صمام تحكم واحد — <a href="/ar/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">صمام الإنذار للرش الشامل ZSFM</a>. عندما يُصدر نظام الكشف (دخان/حرارة/لهب) إشارة حريق، يفتح الصمام ويغمر الماء كل الفوهات في آن واحد.</p>
+			<p class="text-gray-700 leading-relaxed">صمام ZSFM العامل بالحجاب يفتح بسرعة ويعيد الإحكام بثقة بعد التشغيل، وهذا مهم لأن وحدات الرش الشامل غالبًا كبيرة الحجم والصمام هو نقطة الفشل الوحيدة في النظام.</p>
+
+			<h2 id="pre-action-systems-zsfy" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. أنظمة الفعل المسبق: صمام التشغيل المزدوج ZSFY</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">أنظمة الفعل المسبق هي معدات رش شامل بلمسة أنابيب رش: الأنابيب جافة، ولا يدخل الماء <em>إلا بعد تأكيد الحريق من مساري تشغيل مستقلين</em>. <a href="/ar/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">نظام الإنذار للفعل المسبق ZSFY</a> هو تجميع التحكم لهذه البنية — صمام بنوع الرش الشامل يعمل بإشارة كشف الحريق، مع رؤوس رش آلية أسفل التيار تعمل أيضًا كمصاهر فردية.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">لماذا نخصص الفعل المسبق؟ ثلاثة أسباب سائدة:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>محتويات حساسة للماء</strong> — المتاحف، الأرشيف، مراكز البيانات، غرف المحولات: لا ماء يدخل ما لم يؤكد مساران الإشارة.</li>
+				<li><strong>بيئات التجمّد</strong> — مخازن التبريد، المستودعات غير المدفأة: الأنابيب الجافة لا تتجمد.</li>
+				<li><strong>تأمين ضد التفريغ الخاطئ</strong> — منطق التشغيل المزدوج يجعل التفريغ العرضي ضئيلًا إحصائيًا.</li>
+			</ul>
+
+			<h2 id="zone-detection-zsjz" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. كشف الوحدات: مؤشر تدفق الماء ZSJZ</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">بمجرد تشغيل النظام، تحتاج قوة الإطفاء ومدير المبنى إلى معرفة <em>أي وحدة</em> هي المتدفقة. يُركَّب <a href="/ar/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">مؤشر تدفق الماء الريشي ZSJZ</a> على خطوط رش التفرعية: عندما يتحرك الماء ينحرف الريش، ويرسل المفتاح إشارة إلى لوحة الإنذار تحدد الوحدة المتأثرة. تأخير زمني قابل للضبط يفلت موجات الضغط التي كانت ستسبب إنذارات مزعجة.</p>
+
+			<h2 id="selecting-the-right-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. اختيار الصمام المناسب لمشروعك</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">المنشأة / الحاجة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">نوع النظام</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">صمام التحكم</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">المكاتب، التجزئة، المستودعات (مدفأة)</td>
+							<td class="px-4 py-3 text-gray-700">أنابيب رطبة</td>
+							<td class="px-4 py-3 text-gray-700">صمام إنذار رطب ZSFZ</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الكيميائية، الطاقة، الطيران، الخطورة العالية</td>
+							<td class="px-4 py-3 text-gray-700">رش شامل</td>
+							<td class="px-4 py-3 text-gray-700">صمام رش شامل ZSFM</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">المتاحف، مراكز البيانات، التخزين المبرد</td>
+							<td class="px-4 py-3 text-gray-700">فعل مسبق</td>
+							<td class="px-4 py-3 text-gray-700">نظام فعل مسبق ZSFY</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">تحديد الوحدات (جميع الأنظمة الرطبة)</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">مؤشر تدفق ZSJZ</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">التجميع الكامل يقرن عادةً صمام الإنذار بصمام بوابة بالإشارة أعلى التيار، وصمام رجوع، وعدادات ضغط وتجهيزات الإنذار. عندما ترسل إلينا فئة الخطورة ومقاس الأنبوب، نعرض سعر تجميع الصمام كاملًا لا صمامًا واحدًا — حزمة معتمدة واحدة، ووثائق واحدة.</p>
+
+			<!-- Related guide -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">دليل ذو صلة: أنواع الأنظمة ورؤوس الرش</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">الاختيار بين الأنظمة الرطبة والجافة والفعل المسبق، أو اختيار رؤوس الرش حسب معامل K ودرجة الحرارة؟ اقرأ <a href="/ar/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">دليل أنظمة رش الحريق</a>.</p>
+			</div>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">تحتاج عرض سعر لتجميع صمامات الرش؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل إلينا نوع النظام وفئة الخطورة ومقاس الأنبوب — نردّ خلال 12 ساعة بتفاصيل تجميع الصمام الكامل وسعر المصنع.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Sprinkler%20Valve%20Assembly" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%B9%D8%B1%D8%B6%20%D8%B3%D8%B9%D8%B1%20%D9%84%D8%AA%D8%AC%D9%85%D9%8A%D8%B9%20%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%20%D8%B1%D8%B4%20%D8%AD%D8%B1%D9%8A%D9%82" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
