@@ -261,5 +261,14 @@ export const guides: Guide[] = [
     category: 'Procurement',
     readTime: '9 min read',
     tags: ['procurement', 'fire-hydrant', 'industrial-valves']
+  },
+  {
+    title: 'HVAC Digital Balancing Valve Guide: SP45F Selection (2026)',
+    description: 'HVAC digital balancing valve guide: how SP45F dual pressure test points and digital lock support hydronic commissioning, plus RFQ data and a balancing valve comparison.',
+    href: '/guides/hvac-digital-balancing-valve-guide/',
+    date: '2026-09',
+    category: 'HVAC & Industrial Valves',
+    readTime: '8 min read',
+    tags: ['industrial-valves', 'backflow-prevention']
   }
 ];
