@@ -1,9 +1,23 @@
 # Cloudflare Pages merges headers of ALL matching rules (no override), so
-# multiple Cache-Control rules for the same asset produce duplicate max-age
-# values with undefined browser behavior. Keep ONE simple rule for everything:
-# HTML (deploys auto-propagate within 5 min) and hashed assets (content-hash
-# URLs make long caching unnecessary — a new hash is a new URL).
-# Edge TTL is enforced at 300s by the Cloudflare Cache Rule "wanlian911 HTML
-# edge cache"; the Browser side revalidates via must-revalidate after 300s.
+# two rules that both set Cache-Control for the same path emit two header
+# lines. We keep the rules disjoint in effect: /contact/* carries no-store
+# (strongest directive wins the merge, so the form page is never edge-cached),
+# and everything else carries one clean HTML caching policy.
+#
+# Speed fix (2026-09-14, P0): HTML cold requests were hitting a 5.6-8.5s origin
+# because the edge TTL was only 300s + must-revalidate. Now:
+#   - CF edge:   s-maxage=3600 (1h) + stale-while-revalidate=86400 (24h)
+#                -> after the 1h, stale HTML is served instantly while CF
+#                revalidates in the background; users/bots never hit cold origin.
+#   - Browser:   max-age=300 (unchanged 5-min revalidate, no worse for visitors).
+# CF honours s-maxage over max-age for edge caching. The zone cache rule
+# "wanlian911 HTML edge cache" stays in "respect origin / age-from-header" mode,
+# so it now picks up the 3600s from here.
+
+/contact/*
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
 /*
-  Cache-Control: public, max-age=300, must-revalidate
+  Cache-Control: public, max-age=300, s-maxage=3600, stale-while-revalidate=86400
