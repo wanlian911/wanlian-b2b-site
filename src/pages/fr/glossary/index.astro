@@ -1,0 +1,166 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { glossaryTerms, GLOSSARY_CATEGORIES, type GlossaryTerm } from '../../../utils/glossary';
+
+const categoryLabel: Record<GlossaryTerm['category'], string> = {
+  'Valves': 'Vannes',
+  'Fire Hydrants': 'Hydrants',
+  'Sprinklers': 'Gicleurs',
+  'Fire Hose': 'Flexibles',
+  'Certification & Standards': 'Certifications et Normes',
+  'Testing & Procurement': 'Essais et Approvisionnement'
+};
+
+// Traductions FR des entrées du glossaire (le source reste EN + ES dans utils/glossary.ts)
+const frTerms: Record<string, { term: string; definition: string }> = {
+  'resilient-seated-gate-valve': {
+    term: 'Vanne à boisseau à siège élastomère (RSGV)',
+    definition: 'Vanne à boisseau à passage complet dont le clapet est encapsulé dans un élastomère flexible (généralement EPDM) qui se loge contre un corps métallique, assurant une obturation parfaite sans fuite avec un couple de manœuvre faible et sans reprise de garniture. Les RSGV sont la vanne de sectionnement dominante des réseaux d\'eau, d\'assainissement et d\'incendie, spécifiées selon AWWA C515 (États-Unis), ISO 5208 et EN 1074.'
+  },
+  'awwa-c515': {
+    term: 'AWWA C515',
+    definition: 'La norme de l\'American Water Works Association pour les vannes à boisseau à siège élastomère en fonte ductile. Elle définit les matériaux, les dimensions, le couple de manœuvre, les exigences de pression et de débit ainsi que les essais obligatoires de corps et de siège pour les vannes des réseaux d\'eau et d\'assainissement des spécifications nord-américaines.'
+  },
+  'dry-barrel-fire-hydrant': {
+    term: 'Hydrant à colonne sèche',
+    definition: 'Hydrant enterré qui reste vide sous le niveau du sol ; la colonne ne se remplit d\'eau que lorsqu\'une prise est ouverte, ce qui empêche l\'eau d\'entrer dans la colonne en climat froid et évite le gel. Les hydrants à colonne sèche sont le standard des réseaux municipaux protégés du gel, spécifiés selon AWWA C502 (États-Unis) et EN 14384 (Europe).'
+  },
+  'awwa-c502': {
+    term: 'AWWA C502',
+    definition: 'La norme AWWA pour les hydrants à colonne sèche. Elle précise le design, les matériaux, la pression de service (typiquement 125–250 psi), la capacité de débit et les essais de pression et d\'étanchéité requis pour les hydrants des réseaux municipaux d\'eau et d\'incendie en Amérique du Nord.'
+  },
+  'ul-listing': {
+    term: 'Listage UL',
+    definition: 'Une certification de sécurité délivrée par Underwriters Laboratories (UL) après essai du produit selon une norme désignée et évaluation de l\'usine. Une vanne ou un gicleur listé peut être exigé dans les bâtiments où le code ou l\'assureur l\'impose ; le listage s\'applique à un produit et à un modèle précis, pas à l\'entreprise entière.'
+  },
+  'fm-approval': {
+    term: 'Agrémentation FM',
+    definition: 'Une approbation de FM Global (FM Global / FM Approvals) fondée sur des essais de performance et de durabilité au-delà des exigences minimales du code. L\'approbation FM est souvent exigée par les grandes assurances et les projets industriels ; comme UL, elle est attribuée par produit et par modèle.'
+  },
+  'k-factor': {
+    term: 'Coefficient K (gicleur)',
+    definition: 'Un nombre qui caractérise le débit d\'un gicleur à une pression donnée, exprimé par le coefficient de décharge. Le débit (gpm) est égal à K multiplié par la racine carrée de la pression (psi) ; les valeurs courantes sont K=5.6, K=80 et K=115. Le coefficient K, avec la classification de risque selon NFPA 13, détermine l\'écartement et la disposition des têtes.'
+  },
+  'quick-response': {
+    term: 'Réponse rapide vs réponse standard',
+    definition: 'Une classification des têtes de gicleur selon la vitesse d\'activation de leur élément thermique. Les têtes à réponse rapide (RTI < 51 °C·s^½) détectent plus tôt un départ de feu et sont généralement exigées dans les zones à risque élevé ou occupées ; les têtes à réponse standard conviennent à la plupart des systèmes commerciaux à risque ordinaire.'
+  },
+  'preaction': {
+    term: 'Système à pré-action',
+    definition: 'Système de gicleurs à sec dont la tuyauterie est maintenue à sec et qui exige deux signaux indépendants avant l\'arrivée de l\'eau dans les lignes — typiquement une détection d\'alarme incendie plus une activation de gicleur distincte. Il protège les zones où les dégâts des eaux par fuite accidentelle sont le risque principal, comme les centres de données et les archives.'
+  },
+  'deluge': {
+    term: 'Système à déluge',
+    definition: 'Système à sec doté de buses ouvertes, alimenté par une vanne à déluge qui s\'ouvre au signal de détection pour que toutes les têtes ouvertes déchargent simultanément. Les systèmes à déluge répondent aux process industriels à risque élevé et aux feux flash, associés au groupe de vannes d\'alarme à déluge.'
+  },
+  'backflow-prevention': {
+    term: 'Prévention du reflux (double retenue)',
+    definition: 'Dispositifs installés là où un réseau d\'eau potable pourrait être contaminé par un reflux depuis une connexion croisée. Le type le plus courant est un ensemble de double retenue avec deux clapets anti-retour indépendants et une connexion essayable ; il est obligatoire sur les prises de flexible, l\'irrigation et la plupart des connexions croisées industrielles.'
+  },
+  'pressure-reducing-valve': {
+    term: 'Réducteur de pression (PRV)',
+    definition: 'Vanne qui abaisse automatiquement une pression d\'alimentation élevée à une pression de consigne plus basse et constante en aval. Les réducteurs hydrauliques auto-manipulés (tels que la 500X) protègent les réseaux et colonnes d\'incendie de la surpression et du coup de bélier en maintenant stable le point de consigne aval.'
+  },
+  'osy': {
+    term: 'OS&Y (tige extérieure et joues)',
+    definition: 'Un arrangement de bonnet avec la tige de manœuvre à l\'extérieur de la canalisation et des joues qui lèvent la tige à l\'ouverture, de sorte que sa position est visible. Les vannes à boisseau OS&Y sont la vanne de sectionnement lourde classique pour l\'incendie et les réseaux ; l\'étanchéité de tige est en dehors du trajet du fluide.'
+  },
+  'pn-ansi-flange': {
+    term: 'Classes de brides PN et ANSI',
+    definition: 'Deux systèmes de classement des brides : PN (pression nominale, métrique, p. ex. PN10/PN16) suit EN/DIN, tandis que les classes ANSI/ASME (Class 150/300) suivent les États-Unis et la plus grande partie de l\'Amérique. La face de bride d\'une vanne doit correspondre à la norme et à la classe du système — mélanger des faces PN et ANSI sur la même ligne est une erreur de spécification courante.'
+  },
+  'nps': {
+    term: 'Diamètre nominal (DN / NPS)',
+    definition: 'Une désignation de taille qui n\'est pas égale au diamètre physique de la canalisation. DN (diamètre nominal) est la désignation métrique (DN80, DN100) ; NPS (nominal pipe size) est la désignation américaine (3", 4"). Les tailles DN et NPS se correspondent pour le choix, mais les dimensions de brides diffèrent selon la norme.'
+  },
+  'fire-department-connection': {
+    term: 'Raccord de pompiers (FDC / siamois)',
+    definition: 'Une connexion sur un bâtiment ou un système qui permet aux pompiers d\'injecter de l\'eau par leurs flexibles. Un FDC siamois comporte typiquement deux entrées DN65 (2.5") et une sortie à bride DN100, et constitue le point d\'entrée des systèmes à déluge et de gicleurs.'
+  },
+  'storz-coupling': {
+    term: 'Raccord Storz',
+    definition: 'Un raccord universel de flexible à baïonnette, dimensionné selon le diamètre du flexible (Storz 2, 3, 4, 5), qui se connecte sans outil et s\'étanche automatiquement par un quart de tour. C\'est la norme de raccordement de flexible internationale dominante, aux côtés de NIST (États-Unis) et de BS336 (Royaume-Uni).'
+  },
+  'nfpa-1961': {
+    term: 'NFPA 1961 (flexible incendie)',
+    definition: 'La norme NFPA des flexibles incendie. Elle définit la construction (gaine, doublure, raccord), la pression de service admissible (couramment 150 ou 250 psi) et les essais d\'usine et périodiques requis. Un flexible d\'attaque conforme associe une gaine en tissu haute résistance à une doublure en caoutchouc vulcanisé.'
+  },
+  'nfpa-13': {
+    term: 'NFPA 13 (systèmes de gicleurs)',
+    definition: 'La norme NFPA d\'installation des systèmes de gicleurs automatiques. Elle établit les classifications de risque, l\'écartement des têtes et les règles de coefficient K, la tuyauterie et les vannes requises, ainsi que les types de système (mouillé, sec, déluge, pré-action) pour les bâtiments commerciaux et industriels.'
+  },
+  'nom-mexico': {
+    term: 'NOM / NR (Mexique)',
+    definition: 'Les Normes Officielles Mexicaines (NOM) et le régime NR (Norma de Riesgo / incendie) régissent les produits de protection incendie sur le marché mexicain, avec une certification par des autorités désignées. Un appel d\'offres au Mexique peut exiger la conformité NOM pour les hydrants et les équipements incendie ; la conformité est confirmée par modèle.'
+  },
+  'shell-pressure-test': {
+    term: 'Essai de pression de corps et d\'étanchéité à l\'air',
+    definition: 'Deux essais par unité qui vérifient une vanne ou un hydrant avant expédition : un essai hydrostatique du corps qui contrôle l\'absence de fuite ou de déformation en surpression, et un essai d\'étanchéité à l\'air qui confirme que la vanne obtient parfaitement en position de service. Les enregistrements par numéro de série constituent la preuve principale d\'un fabricant authentique.'
+  }
+};
+
+const grouped = GLOSSARY_CATEGORIES.map(cat => ({
+  cat,
+  label: categoryLabel[cat],
+  terms: glossaryTerms.filter(t => t.category === cat)
+})).filter(g => g.terms.length > 0);
+---
+
+<Layout
+  title="Glossaire Incendie & Vannes — Termes Clés | Wanlian Fluid"
+  description="Vocabulaire technique de l'usine Wanlian Fluid : RSGV, AWWA C502/C515, UL, FM, coefficient K, pré-action, reflux, PN/ANSI, Storz. Définitions par normes."
+  type="website"
+  locale="fr"
+  breadcrumbs={[{ name: 'Glossaire' }]}
+>
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+      <a href="/fr/" class="hover:text-blue-600">Accueil</a>
+      <span>/</span>
+      <span class="text-gray-600">Glossaire</span>
+    </nav>
+
+    <article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+      <p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Référence</p>
+      <h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Glossaire de l'Industrie des Vannes et de la Protection Incendie</h1>
+      <p class="mt-5 text-gray-600 leading-relaxed text-lg">Des définitions claires et conformes aux normes des termes qui figurent dans les spécifications, appels d'offres et fiches techniques de l'approvisionnement en vannes, hydrants, gicleurs et flexibles incendie. Utilisez-le comme vocabulaire commun pour spécifier les produits, lire la documentation d'un fabricant ou vérifier la conformité — chaque entrée renvoie vers notre guide détaillé sur le sujet.</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-8">
+        {grouped.map(g => (
+          <a href={`#${g.cat.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} class="px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-xs font-bold text-brand-blue hover:bg-brand-blue/10 transition text-center">{g.label}</a>
+        ))}
+      </div>
+
+      {grouped.map(g => (
+        <section class="mt-12">
+          <h2 id={g.cat.toLowerCase().replace(/[^a-z0-9]+/g, '-')} class="text-2xl font-black text-gray-900 mb-5 tracking-tight scroll-mt-24">{g.label}</h2>
+          <div class="space-y-4">
+            {g.terms.map(t => {
+              const fr = frTerms[t.id];
+              return (
+              <div class="bg-gray-50 rounded-xl border border-gray-100 p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 class="text-lg font-black text-gray-900">{fr.term}</h3>
+                  <a href={`/fr${t.href}`} class="text-xs font-bold text-brand-red hover:underline">Lire le guide →</a>
+                </div>
+                <p class="mt-2 text-gray-700 leading-relaxed text-sm">{fr.definition}</p>
+              </div>
+              );
+            })}
+          </div>
+        </section>
+      ))}
+
+      <div class="mt-12 rounded-2xl overflow-hidden">
+        <div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+          <h2 class="text-2xl font-black text-white tracking-tight">Prêt à Spécifier ou Approvisionner Ces Composants ?</h2>
+          <p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez-nous votre spécification, vos quantités et votre destination — nous vous répondrons avec un devis détaillé sous 12 heures.</p>
+          <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+            <a href="/fr/contact/?product=Glossaire%20et%20Sp%C3%A9cification" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+            <a href="https://wa.me/8618684324501?text=Bonjour%2C%20j'ai%20une%20specification%20et%20je%20souhaiterais%20un%20devis%20pour%20des%20vannes%20%2F%20hydrants" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+</Layout>

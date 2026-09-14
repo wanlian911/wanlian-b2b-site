@@ -1,0 +1,163 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const faq = [
+  {
+    question: 'كم يستغرق عملية التوريد الكاملة من تحديد المواصفات حتى الشحن؟',
+    answer: 'لنماذج المتوفرة في المخزون عادةً بضعة أسابيع: تحديد المواصفات وعرض السعر خلال أيام، عينة من أسبوع إلى 3 أسابيع، فحص من طرف ثالث قبل الإنتاج، ثم التصنيع وتحميل الحاوية. بنود OEM أو العلامات المخصصة تضيف وقت تجهيز وعلامات. Wanlian Fluid ترد على مواصفات كاملة خلال 12 ساعة، ما يبقي المراحل الأولى بإيقاع محكم.'
+  },
+  {
+    question: 'ما المستندات التي يجب على صانع صيني للصمامات ومعدات الحريق تقديمها مع الشحنة؟',
+    answer: 'بحد الأدنى: فاتورة تجارية، قائمة تعبئة، بوليصة شحن، شهادة منشأ، وسجلات اختبار ضغط الجسم وتسرب الهواء لكل دفعة/وحدة مطابقة للأرقام التسلسلية في قائمة التعبئة. أضف شهادات المواد (MTC) وأي شهادات معيارية مطلوبة. حزمة مستندات كاملة وقابلة للمطابقة هي في حد ذاتها إشارة جودة.'
+  },
+  {
+    question: 'هل يجب طلب عينة قبل طلب بالجملة؟',
+    answer: 'لمعدات الحريق الحرجة للسلامة، نعم. وحدة عينة من كل نموذج تتيح لك التحقق من اللوحة المعدنية والرقم التسلسلي والمادة وفيديو اختبار ضغط مقابل مواصفاتك قبل الالتزام بالكمية. إنها أرخص تأمين متاح ضد التزوير ومخاطر المواصفات.'
+  },
+  {
+    question: 'كيف أقارن عروض أسعار صانع صيني مع مورد محلي؟',
+    answer: 'قارن على أساس متكافئ: نفس النموذج والمعيار والمادة والكمية وشرط التصدير. ابدأ بأداة تخطيط نسبية لتحديد محركات التكلفة (الحجم، شرط التصدير، الوجهة)، ثم اطلب عروض أسعار مفصلة من كلا الطرفين. احتسب التكلفة الإجمالية عند الوجهة وخطر تنسيق صمامات وخلاطات وخراطيم من عدة موردين.'
+  }
+];
+
+const steps = [
+  {
+    n: '01',
+    title: 'حدد المواصفة كتابيًا',
+    body: 'ثبّت المعيار (AWWA، ISO 5208، NFPA، NOM أو شرط المناولة)، المقاسات، فئات الضغط، المواد، الكميات وجهة الشحن. الغموض هنا هو أغلى عيب لاحقًا. ابدأ بمفردات المسرد الصناعي المشتركة حتى تعني مواصفاتك والمناولة والمورد الشيء نفسه.',
+    links: [
+      { label: 'المسرد الصناعي', href: '/ar/glossary/' },
+      { label: 'دليل معايير خلاطات الحريق والخراطيم والصمامات', href: '/ar/guides/fire-hydrant-valve-standards-guide/' }
+    ]
+  },
+  {
+    n: '02',
+    title: 'قيّم المورد وتحقق منه',
+    body: 'أكد الكيان القانوني ونطاق ISO 9001 وسجل التصدير وقدرة المصنع. نفّذ عملية كشف لاستبعاد مخاطر التزوير: اطلب سجلات اختبار لكل وحدة، وتحقق من أي شهادة لدى الجهة المصدرة، واطلب عينة. مورد يقاوم التحقق فقد أجاب على السؤال.',
+    links: [
+      { label: 'قائمة التحقق للتوريد B2B', href: '/ar/guides/b2b-valve-sourcing-checklist/' },
+      { label: 'التحقق من مورد صيني للصمامات', href: '/ar/guides/how-to-verify-chinese-valve-supplier/' },
+      { label: 'كشف صمامات مزيفة وشهادات مغلوطة', href: '/ar/guides/detect-fake-valves-fire-equipment-counterfeits/' }
+    ]
+  },
+  {
+    n: '03',
+    title: 'اطلب عروض أسعار مفصلة وقارنها',
+    body: 'اطلب عرض سعر مفصلًا لكل نموذج — لا رقمًا مجمّعًا واحدًا — وقارن على أساس متكافئ بالمعيار والمادة والكمية وشرط التصدير. استخدم حاسبة التكلفة النسبية لتحديد أثر الحجم والشرط التجاري وجهة الشحن قبل أن تشرح ميزانيتك لفريقك.',
+    links: [
+      { label: 'حاسبة التكلفة (مؤشر نسبي)', href: '/ar/cost-calculator/' },
+      { label: 'متطلبات اعتماد صمامات الحريق', href: '/ar/guides/latinamerica-certification-requirements-fire-valves/' }
+    ]
+  },
+  {
+    n: '04',
+    title: 'اطلب عينة وافحصها',
+    body: 'اشترِ وحدة واحدة من كل نموذج. افحص اللوحة المعدنية والرقم التسلسلي وتقييم المادة وفيديو اختبار ضغط بالرقم التسلسلي مقابل مواصفاتك. لطلبات الكمية، عيّن وكالة طرف ثالث (SGS، Bureau Veritas، Intertek) تشهد الاختبارات وتراجع السجلات في المصنع قبل الشحن.',
+    links: [
+      { label: 'كيف تختار خلاط حريق', href: '/ar/guides/how-to-choose-a-fire-hydrant/' }
+    ]
+  },
+  {
+    n: '05',
+    title: 'الإنتاج وضبط الجودة والتوثيق',
+    body: 'أكد جدول الإنتاج ثم اطلب حزمة المستندات قبل الدفع النهائي: فاتورة تجارية، قائمة تعبئة، شهادة منشأ، وسجلات اختبار الضغط وتسرب الهواء لكل وحدة مطابقة للأرقام التسلسلية في قائمة التعبئة. تطبيق علامات OEM/ODM وتعبئة التصدير يتم في هذه المرحلة.',
+    links: [
+      { label: 'Wanlian Fluid — المصنع والاختبارات', href: '/ar/about/' }
+    ]
+  },
+  {
+    n: '06',
+    title: 'اللوجستيات وشروط Incoterms وخدمة ما بعد البيع',
+    body: 'اختر شرط التصدير المناسب لتقاسم المخاطر والتكلفة (EXW، FOB، CIF، DDP)، واتفق على تحميل الحاوية، واحتفظ بسجلات الاختبارات والشهادات للاستقبال والصيانة المستقبلية. ثبّت قناة واضحة للضمان وقطع الغيار وطلبات التكرار.',
+    links: [
+      { label: 'اطلب عرض سعر', href: '/ar/contact/' }
+    ]
+  }
+];
+---
+
+<Layout
+  title="دليل توريد صمامات وخلاطات الحريق (2026) | Wanlian Fluid"
+  description="رحلة B2B كاملة لشراء صمامات حريق وخلاطات وخراطيم حريق من صانع صيني: تحديد المواصفات والتحقق من المورد والعينات والجودة والتوثيق واللوجستيات وخدمة ما بعد البيع."
+  type="website"
+  locale="ar"
+  faq={faq}
+  breadcrumbs={[{ name: 'الموارد' }, { name: 'دليل التوريد' }]}
+>
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+      <a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+      <span>/</span>
+      <span class="text-gray-600">دليل التوريد</span>
+    </nav>
+
+    <article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+      <p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">مركز المشتريات</p>
+      <h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">توريد صمامات حريق وخلاطات ومعدات حريق: الرحلة الكاملة</h1>
+      <p class="mt-5 text-gray-600 leading-relaxed text-lg">خارطة طريق مشتريات B2B خطوة بخطوة لشراء صمامات حريق وخلاطات وخراطيم حريق من صانع صيني — من المواصفة المكتوبة إلى خدمة ما بعد البيع. كل مرحلة تربطك بالدلائل والأدوات والمستندات التي تحتاجها لتقليل مخاطر القرار. استخدمها كقائمة تحقق وكرجوع مشترك مع فِرق الهندسة والمشتريات.</p>
+
+      <div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+        <p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">لماذا خارطة طريق واحدة:</strong> يفشل توريد معدات الحريق أكثر ما يفشل في الفواصل — بين تحديد المواصفات والتحقق والعينات والتوثيق — لا في أي خطوة بمفردها. المرور بالمراحل الست التالية بالترتيب مع الدلائل المترابطة يلتقط المخاطر قبل تحرك الأموال.</p>
+      </div>
+
+      {steps.map(s => (
+        <section class="mt-10">
+          <h2 id={`step-${s.n}`} class="text-2xl font-black text-gray-900 mb-3 tracking-tight scroll-mt-24 flex items-center gap-3">
+            <span class="text-brand-red text-2xl tabular-nums">{s.n}</span>{s.title}
+          </h2>
+          <p class="text-gray-700 leading-relaxed mb-3">{s.body}</p>
+          <div class="flex flex-wrap gap-2">
+            {s.links.map(l => (
+              <a href={l.href} class="inline-flex items-center gap-1 px-3 py-1.5 bg-gray-100 hover:bg-brand-blue/10 text-gray-700 hover:text-brand-blue text-xs font-bold rounded-full transition">{l.label} →</a>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <h2 id="documentation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">المستندات المطلوبة في كل مرحلة</h2>
+      <div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">المرحلة</th>
+              <th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">ما تطلبه</th>
+              <th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">لماذا يهم</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr><td class="px-4 py-3 font-bold text-gray-900">تحديد المواصفات</td><td class="px-4 py-3 text-gray-700">معيار كتابي، مقاسات، فئات، كميات، وجهة</td><td class="px-4 py-3 text-gray-700">يجعل المطابقة التزامًا عقديًا لا مجرد طلب</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">التحقق</td><td class="px-4 py-3 text-gray-700">رخصة تجارية، نطاق ISO 9001، فيديو للمصنع، أرقام الشهادات</td><td class="px-4 py-3 text-gray-700">يستبعد مكاتب التجارة والشهادات المغلوطة</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">العينة</td><td class="px-4 py-3 text-gray-700">سجلات اختبار لكل وحدة، MTC، فيديو اختبار ضغط بالرقم التسلسلي</td><td class="px-4 py-3 text-gray-700">يؤكد المنتج الحقيقي قبل الكمية</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">الإنتاج</td><td class="px-4 py-3 text-gray-700">جدول زمني، سجلات اختبار لكل دفعة، عينات علامات OEM</td><td class="px-4 py-3 text-gray-700">يثبت الجدول والعلامة قبل التحميل</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">الشحن</td><td class="px-4 py-3 text-gray-700">فاتورة، قائمة تعبئة، B/L، شهادة منشأ، أرقام تسلسلية مطابقة</td><td class="px-4 py-3 text-gray-700">يمكن الجمارك والاستقبال والتتبع</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">ما بعد البيع</td><td class="px-4 py-3 text-gray-700">شروط الضمان، قناة قطع الغيار، أسعار طلبات التكرار</td><td class="px-4 py-3 text-gray-700">يبقي المشروع مدعومًا عبر عمره</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+      <div class="space-y-4">
+        {faq.map(item => (
+          <details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+            <summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+              <span>{item.question}</span>
+              <span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+          </details>
+        ))}
+      </div>
+
+      <div class="mt-12 rounded-2xl overflow-hidden">
+        <div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+          <h2 class="text-2xl font-black text-white tracking-tight">ابدأ توريدك بعرض سعر خلال 12 ساعة</h2>
+          <p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل مواصفاتك وجهة الشحن — نرد بعرض سعر مفصل ومنهجية اختبار لكل نموذج وخيارات لوجستية خلال 12 ساعة.</p>
+          <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+            <a href="/ar/contact/?product=%D9%85%D8%B4%D8%B1%D9%88%D8%B9%20%D8%AA%D9%88%D8%B1%D9%8A%D8%AF" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+            <a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%AC%D9%87%D9%91%D8%B2%20%D8%AA%D9%88%D8%B1%D9%8A%D8%AF%D9%8B%D8%A7%20%D9%84%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%20%D8%AD%D8%B1%D9%8A%D9%82%20%D9%88%D8%AE%D9%84%D8%A7%D8%B7%D8%A7%D8%AA%20%D9%88%D8%AE%D8%B1%D8%A7%D8%B7%D9%8A%D9%85%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%B9%D8%B1%D8%B6%20%D8%B3%D8%B9%D8%B1" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">تحدث معنا عبر واتساب</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+</Layout>

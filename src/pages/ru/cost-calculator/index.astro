@@ -1,0 +1,249 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const faq = [
+  {
+    question: 'Почему этот инструмент показывает индекс, а не цену?',
+    answer: 'Wanlian Fluid отвечает на запросы ценами, поэтому мы не публикуем unit-цены. Индекс планирования — относительное число (базовый уровень: 100 = один гидрант, EXW, направление Восточная Азия), позволяющий сравнивать конфигурации и видеть, какие рычаги — объём, инкотерм и направление — сдвигают вашу полную стоимость. Только для планирования; реальная детализированная цена приходит по запросу в течение 12 часов.'
+  },
+  {
+    question: 'Что делают уровни количества с индексом?',
+    answer: 'Модель применяет коэффициент эффективности по общему числу единиц: 1–9 (образец) ×1,00, 10–99 (партия) ×0,90, 100–999 (опт) ×0,82 и 1000+ (проект) ×0,75. Чем больше объём, тем ниже индекс планирования на единицу — это отражает эффект масштаба в производстве и логистике.'
+  },
+  {
+    question: 'Насколько влияют инкотермы и направление на результат?',
+    answer: 'Инкотерм добавляет логистический коэффициент (EXW ×1,00, FOB ×1,05, CIF ×1,15, DDP ×1,25), а направление добавляет коэффициент расстояния/сложности (Восточная Азия ×1,00, до Северной Америки ×1,30). Вместе они обычно сдвигают индекс на 10–50% относительно базового уровня EXW Восточная Азия.'
+  },
+  {
+    question: 'Меняет ли что-нибудь пакет в одном заказе (клапаны + гидранты + рукава)?',
+    answer: 'Да. Консолидация клапанов, гидрантов и пожарных рукавов у одного производителя и в одном заказе устраняет маржу нескольких поставщиков, отдельную доставку и риск координации. Введите каждую строку в инструмент, чтобы увидеть суммарный индекс планирования в сравнении с заказом каждой позиции у разных источников.'
+  }
+];
+---
+
+<Layout
+  title="Калькулятор стоимости закупок арматуры и гидрантов | Wanlian Fluid"
+  description="Интерактивный инструмент: относительный индекс полной стоимости арматуры, гидрантов и рукавов по объёму, инкотерму и направлению. Запросите цену за 12 часов."
+  type="website"
+  locale="ru"
+  faq={faq}
+  breadcrumbs={[{ name: 'Ресурсы' }, { name: 'Калькулятор стоимости' }]}
+>
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+      <a href="/ru/" class="hover:text-blue-600">Главная</a>
+      <span>/</span>
+      <span class="text-gray-600">Калькулятор стоимости</span>
+    </nav>
+
+    <article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+      <p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Интерактивный инструмент</p>
+      <h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Калькулятор стоимости закупок пожарной арматуры и гидрантов</h1>
+      <p class="mt-5 text-gray-600 leading-relaxed text-lg">Оцените <strong>относительный индекс полной стоимости</strong> пакета для противопожарной защиты или водной инфраструктуры, регулируя количества, торговые условия и направление. Это модель планирования, а не прайс-лист: Wanlian Fluid отвечает на запросы ценами, поэтому на выходе — сопоставимый индекс, показывающий, как объём, инкотерм и регион сдвигают вашу стоимость. Используйте его, чтобы сформировать спецификацию до запроса официальной цены.</p>
+
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 my-6">
+        <p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-red">Как читать индекс:</strong> базовый уровень 100 = один пожарный гидрант, EXW, направление Восточная Азия. Индекс относительный, только для планирования. Показанные множители — заявленные допущения модели; ваша реальная детальная цена зависит от точной модели, размера, материала, стандарта и количества и предоставляется по запросу в течение 12 часов.</p>
+      </div>
+
+      <!-- ESTIMATOR -->
+      <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 my-6">
+        <h2 class="text-lg font-black text-gray-900 mb-4">1 · Настройте ваш пакет</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="line-items">
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Пожарные гидранты (SS100)</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="100" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Задвижки (Z41X)</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="70" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Спринклерные сигнальные клапаны</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="120" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Пожарные рукава (8-65, за 20 м)</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="25" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Устройства предотвращения обратного потока</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="60" />
+          </label>
+          <label class="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <span class="text-sm font-semibold text-gray-800">Огнетушители</span>
+            <input type="number" min="0" step="1" value="0" class="w-20 text-right border border-gray-200 rounded-lg px-2 py-1 text-sm qty" data-index="20" />
+          </label>
+        </div>
+
+        <h2 class="text-lg font-black text-gray-900 mt-6 mb-4">2 · Торговые условия и направление</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <label class="block">
+            <span class="text-sm font-semibold text-gray-800">Инкотерм</span>
+            <select id="incoterm" class="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white">
+              <option value="1.00">EXW (с завода, Китай)</option>
+              <option value="1.05">FOB (порт Китая)</option>
+              <option value="1.15" selected>CIF (ваш порт)</option>
+              <option value="1.25">DDP (доставлено с оплатой пошлин)</option>
+            </select>
+          </label>
+          <label class="block">
+            <span class="text-sm font-semibold text-gray-800">Регион направления</span>
+            <select id="region" class="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white">
+              <option value="1.00">Восточная Азия</option>
+              <option value="1.10">Ближний Восток</option>
+              <option value="1.15">Африка</option>
+              <option value="1.20">Латинская Америка</option>
+              <option value="1.25" selected>Европа</option>
+              <option value="1.30">Северная Америка</option>
+            </select>
+          </label>
+        </div>
+
+        <button id="estimate" type="button" class="mt-6 w-full sm:w-auto px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Рассчитать индекс планирования</button>
+      </div>
+
+      <!-- OUTPUT -->
+      <div id="result" class="hidden rounded-2xl border border-brand-blue/30 bg-brand-blue/5 p-6 sm:p-8 my-6">
+        <p class="text-xs font-black uppercase tracking-widest text-brand-blue mb-2">Ваш индекс планирования</p>
+        <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+          <span id="index-value" class="text-5xl font-black text-gray-900">–</span>
+          <span id="band-label" class="text-lg font-bold text-brand-blue">–</span>
+        </div>
+        <p class="mt-3 text-sm text-gray-600"><span id="tier-label" class="font-semibold text-gray-800">–</span> · <span id="units-label">–</span> ед. · <span id="incoterm-label">–</span> · <span id="region-label">–</span></p>
+        <ul id="drivers" class="mt-4 list-disc pl-6 text-sm text-gray-700 leading-relaxed space-y-1"></ul>
+        <div class="mt-5 rounded-xl bg-white border border-gray-100 p-4">
+          <p class="text-sm font-semibold text-gray-900 mb-2">Следующий шаг: превратите это в реальную цену</p>
+          <p class="text-sm text-gray-600 mb-4">Этот индекс — только для планирования. Пришлите ту же спецификацию нашей команде и получите детальную цену на каждую единицу с записями испытаний — в течение 12 часов.</p>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="/ru/contact/?product=%D0%9A%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%20%D1%86%D0%B5%D0%BD%D0%B0" class="px-6 py-3 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition text-center">Запросить детализированную цену</a>
+            <a href="https://wa.me/8618684324501?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%8F%20%D0%B2%D0%BE%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BB%D1%81%D1%8F%20%D0%B2%D0%B0%D1%88%D0%B8%D0%BC%20%D0%BA%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%D0%BE%D0%BC%20%D0%B7%D0%B0%D1%82%D1%80%D0%B0%D1%82%2C%20%D0%BF%D1%80%D0%B8%D1%88%D0%BB%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D0%B4%D0%B5%D1%82%D0%B0%D0%BB%D0%B8%D0%B7%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D1%80%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5%20%D0%BF%D1%80%D0%B5%D0%B4%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5" class="px-6 py-3 bg-white border border-brand-blue text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition text-center" target="_blank" rel="noopener">Чат в WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Citable driver model -->
+      <h2 id="driver-model" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Факторы стоимости за индексом</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">Калькулятор прозрачен в своих допущениях, чтобы вы могли ссылаться на них в бюджете или тендере. Четыре фактора сдвигают относительный индекс полной стоимости; каждый — множитель, применяемый к базовому уровню пакета.</p>
+      <div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Фактор</th>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Уровни</th>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Влияние на индекс</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Количество / объём</td><td class="px-4 py-3 text-gray-700">Образец (1–9) · Партия (10–99) · Опт (100–999) · Проект (1000+)</td><td class="px-4 py-3 text-gray-700">×1,00 до ×0,75 — эффективность на единицу растёт с объёмом</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Инкотерм</td><td class="px-4 py-3 text-gray-700">EXW · FOB · CIF · DDP</td><td class="px-4 py-3 text-gray-700">×1,00 до ×1,25 — ответственность за доставку, страховку и пошлины</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Регион направления</td><td class="px-4 py-3 text-gray-700">Восточная Азия → Северная Америка</td><td class="px-4 py-3 text-gray-700">×1,00 до ×1,30 — расстояние и логистическая сложность</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Консолидация пакета</td><td class="px-4 py-3 text-gray-700">Один заказ (клапаны + гидранты + рукава) в сравнении с несколькими поставщиками</td><td class="px-4 py-3 text-gray-700">Устраняет дублирование маржи, доставки и риск координации</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-gray-700 leading-relaxed">В этой модели переход от образца к оптовому объёму снижает индекс планирования на единицу примерно на 10–25%; условия CIF добавляют около 10–20% к FOB за морскую доставку и страховку; а направления Латинская Америка или Европа добавляют около 15–30% к Восточной Азии за логистическую сложность. Это заявленные допущения за каждой цифрой, которую выдаёт инструмент.</p>
+
+      <!-- Citable supplier comparison matrix -->
+      <h2 id="supplier-matrix" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Сопоставление: китайский производитель vs западный региональный дистрибьютор</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">Справедливая качественная матрица двух типичных путей закупок пожарной арматуры, гидрантов и рукавов вне Северной Америки. Используйте её как точку отсчёта при согласовании с командой или участии в тендере.</p>
+      <div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Фактор</th>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Китайский производитель (напр. Wanlian Fluid)</th>
+              <th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Крупный западный региональный дистрибьютор</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Происхождение производства</td><td class="px-4 py-3 text-gray-700">Напрямую с производственных линий Китая</td><td class="px-4 py-3 text-gray-700">Региональный склад / продукция группы</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Полный комплект в одном заказе</td><td class="px-4 py-3 text-gray-700">Да — консолидировано у одного производителя</td><td class="px-4 py-3 text-gray-700">Часто только основная линейка; рукава через партнёров</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">OEM / индивидуальная маркировка</td><td class="px-4 py-3 text-gray-700">Стандартная услуга OEM/ODM</td><td class="px-4 py-3 text-gray-700">Как правило, только собственный бренд</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">100%-е испытание корпуса давлением и герметичности</td><td class="px-4 py-3 text-gray-700">По каждой единице, с записями</td><td class="px-4 py-3 text-gray-700">По политике контроля качества производителя</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Структура цены</td><td class="px-4 py-3 text-gray-700">По запросу; выгодная для экспорта стоимость</td><td class="px-4 py-3 text-gray-700">Прайс-лист/каталог; включает региональную маржу</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Срок поставки (позиции на складе)</td><td class="px-4 py-3 text-gray-700">Модели со склада отгружаются быстро; OEM — по программе</td><td class="px-4 py-3 text-gray-700">Местный склад, быстрая региональная доставка</td></tr>
+            <tr><td class="px-4 py-3 font-bold text-gray-900">Оптимально подходит</td><td class="px-4 py-3 text-gray-700">Международные проекты, консолидирующие объём, OEM и полную стоимость</td><td class="px-4 py-3 text-gray-700">Покупатели, приоритизирующие местный склад и присутствие бренда</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-gray-700 leading-relaxed mb-2">Для более глубокого взгляда на два подразделения AVK см. наши сравнения <a href="/ru/guides/wanlian-fluid-vs-avk-latinamerica/" class="text-brand-blue font-semibold hover:underline">Wanlian vs AVK Latinoamérica</a> и <a href="/ru/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian vs American AVK</a>. Для стандартов, стоящих за любой спецификацией, см. <a href="/ru/glossary/" class="text-brand-blue font-semibold hover:underline">отраслевой глоссарий</a>.</p>
+
+      <!-- FAQ -->
+      <h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Частые вопросы</h2>
+      <div class="space-y-4">
+        {faq.map(item => (
+          <details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+            <summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+              <span>{item.question}</span>
+              <span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+          </details>
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-12 rounded-2xl overflow-hidden">
+        <div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+          <h2 class="text-2xl font-black text-white tracking-tight">Увидьте вашу реальную детальную цену</h2>
+          <p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Индекс — это план; цена — решение. Пришлите спецификацию и направление и получите детальную цену на каждую единицу с записями испытаний в течение 12 часов.</p>
+          <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+            <a href="/ru/contact/?product=%D0%94%D0%B5%D1%82%D0%B0%D0%BB%D0%B8%D0%B7%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BF%D1%80%D0%B5%D0%B4%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Запросить цену</a>
+            <a href="https://wa.me/8618684324501?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BF%D1%80%D0%B8%D1%88%D0%BB%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D0%B4%D0%B5%D1%82%D0%B0%D0%BB%D0%B8%D0%B7%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D1%80%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5%20%D0%BF%D1%80%D0%B5%D0%B4%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BF%D0%BE%20%D0%BF%D0%BE%D0%B6%D0%B0%D1%80%D0%BD%D1%8B%D0%BC%20%D0%BA%D0%BB%D0%B0%D0%BF%D0%B0%D0%BD%D0%B0%D0%BC%2C%20%D0%B3%D0%B8%D0%B4%D1%80%D0%B0%D0%BD%D1%82%D0%B0%D0%BC%20%D0%B8%20%D1%80%D1%83%D0%BA%D0%B0%D0%B2%D0%B0%D0%BC" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Чат в WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+</Layout>
+
+<script>
+  const tierLabel = (u) => u < 10 ? 'Образец' : u < 100 ? 'Партия' : u < 1000 ? 'Опт' : 'Проект';
+  const tierMult = (u) => u < 10 ? 1.0 : u < 100 ? 0.9 : u < 1000 ? 0.82 : 0.75;
+  const band = (i) => i < 150 ? 'Базовый / стартовый' : i < 500 ? 'Стандартный заказ' : i < 1500 ? 'Комплексный пакет' : i < 5000 ? 'Крупный проект' : 'Объём уровня программы';
+
+  function estimate() {
+    const inputs = [...document.querySelectorAll('.qty')];
+    let base = 0; let units = 0;
+    for (const inp of inputs) {
+      const q = Math.max(0, parseInt(inp.value || '0', 10));
+      const idx = parseFloat(inp.dataset.index || '0');
+      base += q * idx; units += q;
+    }
+    if (units === 0) {
+      document.getElementById('result').classList.remove('hidden');
+      document.getElementById('index-value').textContent = '0';
+      document.getElementById('band-label').textContent = 'позиции не выбраны';
+      document.getElementById('tier-label').textContent = 'Образец';
+      document.getElementById('units-label').textContent = '0';
+      const d = document.getElementById('drivers'); d.innerHTML = '<li>Добавьте хотя бы одну строку, чтобы увидеть индекс планирования и его факторы стоимости.</li>';
+      return;
+    }
+    const incoterm = document.getElementById('incoterm');
+    const region = document.getElementById('region');
+    const incMult = parseFloat(incoterm.value);
+    const regMult = parseFloat(region.value);
+    const tMult = tierMult(units);
+    const index = Math.round(base * tMult * incMult * regMult);
+    const tLabel = tierLabel(units);
+
+    document.getElementById('index-value').textContent = String(index);
+    document.getElementById('band-label').textContent = band(index);
+    document.getElementById('tier-label').textContent = tLabel;
+    document.getElementById('units-label').textContent = String(units);
+    document.getElementById('incoterm-label').textContent = incoterm.options[incoterm.selectedIndex].text.split(' (')[0];
+    document.getElementById('region-label').textContent = region.options[region.selectedIndex].text;
+
+    const drivers = [
+      `Базовый уровень пакета (индексы стоимости на единицу × количества): ${base}.`,
+      `Уровень объёма «${tLabel}» (${units} ед.) умножает на ${tMult.toFixed(2)} — ${units >= 100 ? 'оптовая эффективность снижает индекс на единицу.' : 'размерение образца/партии.'}`,
+      `Условия ${incoterm.options[incoterm.selectedIndex].text.split(' (')[0]} умножают на ${incMult.toFixed(2)} за ответственность за доставку/страховку.`,
+      `Направление ${region.options[region.selectedIndex].text} умножает на ${regMult.toFixed(2)} за расстояние и логистическую сложность.`,
+      'Относительный индекс — только для планирования; запросите детальную цену, чтобы увидеть реальную стоимость.'
+    ];
+    document.getElementById('drivers').innerHTML = drivers.map(x => `<li>${x}</li>`).join('');
+    document.getElementById('result').classList.remove('hidden');
+    document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  document.getElementById('estimate').addEventListener('click', estimate);
+</script>

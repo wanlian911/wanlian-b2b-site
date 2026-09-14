@@ -1,0 +1,162 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { glossaryTerms, GLOSSARY_CATEGORIES, type GlossaryTerm } from '../../../utils/glossary';
+
+const categoryLabel: Record<GlossaryTerm['category'], string> = {
+  'Valves': 'الصمامات',
+  'Fire Hydrants': 'خلاطات الحريق',
+  'Sprinklers': 'رؤوس رش الحريق',
+  'Fire Hose': 'خراطيم الحريق',
+  'Certification & Standards': 'الشهادات والمعايير',
+  'Testing & Procurement': 'الاختبار والتوريد'
+};
+
+const arTerms: Record<string, { term: string; definition: string }> = {
+  'resilient-seated-gate-valve': {
+    term: 'صمام بوابة بمقعد مرن (RSGV)',
+    definition: 'صمام بوابة بممر كامل تكون سدته مغلّفة بمادة مطاطية مرنة (عادة EPDM) تضغط على جسم معدني، مما يحقق إغلاقًا محكمًا بلا فقاعات بعزم تشغيل منخفض وبدون إعادة تغليف. وهو صمام العزل السائد في شبكات المياه والصرف والحريق، ويُطلب وفق AWWA C515 (أمريكا) وISO 5208 وEN 1074.'
+  },
+  'awwa-c515': {
+    term: 'AWWA C515',
+    definition: 'معيار الجمعية الأمريكية لمياه الشرب (American Water Works Association) لصمامات البوابة بمقعد مرن من الحديد الزهر المطبوع. يحدد المواد والأبعاد وعزم التشغيل ومتطلبات الضغط والتدفق والاختبارات الإلزامية للجسم والمقعد لصمامات المياه والصرف في مواصفات أمريكا الشمالية.'
+  },
+  'dry-barrel-fire-hydrant': {
+    term: 'خلاط حريق ببندقية جافة (Dry-Barrel)',
+    definition: 'خلاط حريق مدفون تبقى بندقيته فارغة أسفل مستوى الأرض؛ تمتلئ بالمياه فقط عند فتح إحدى المنافذ، ما يبقي الماء خارجها في المناخات الباردة حتى لا يتجمد. وهو المعيار المتبع في الشبكات البلدية المضادة للتجمد، ويُطلب وفق AWWA C502 (أمريكا) وEN 14384 (أوروبا).'
+  },
+  'awwa-c502': {
+    term: 'AWWA C502',
+    definition: 'معيار AWWA لخلاطات الحريق ببندقية جافة. يحدد التصميم والمواد وضغط التشغيل (عادة 125–250 psi) وسعة التدفق والاختبارات المطلوبة للضغط والتسرب للخلاطات المستخدمة في شبكات المياه والحريق البلدية عبر أمريكا الشمالية.'
+  },
+  'ul-listing': {
+    term: 'اعتماد UL',
+    definition: 'شهادة سلامة تصدرها Underwriters Laboratories بعد اختبار المنتج وفق معيار محدد وتقييم المصنع. يمكن طلب صمام أو رأس رش حاصل على الاعتماد في المباني التي يشترط ذلك فيها الكود أو شركة التأمين؛ والاعتماد يخص منتجًا ونموذجًا محددين لا الشركة بأكملها.'
+  },
+  'fm-approval': {
+    term: 'اعتماد FM',
+    definition: 'اعتماد من FM Global مبني على اختبارات الأداء والمتانة تتجاوز الحد الأدنى للكود. يطلب اعتماد FM كثيرًا من شركات التأمين الكبرى والمشاريع الصناعية؛ وكحال UL يُمنح لكل منتج ولكل نموذج على حدة.'
+  },
+  'k-factor': {
+    term: 'معامل K (رأس رش)',
+    definition: 'رقم يصف معدل تدفق رأس رش عند ضغط معين، ويُعبر عنه بمعامل التفريغ. التدفق (gpm) يساوي K مضروبًا في الجذر التربيعي للضغط (psi)؛ القيم الشائعة K=5.6 وK=80 وK=115. ومعامل K، إلى جانب تصنيف الخطر وفق NFPA 13، هو ما يحدد تباعد الرؤوس وتخطيط النظام.'
+  },
+  'quick-response': {
+    term: 'استجابة سريعة مقابل استجابة قياسية',
+    definition: 'تصنيف لرؤوس الرش حسب سرعة تفعيل العنصر الحراري. رؤوس الاستجابة السريعة (RTI < 51 °C·s^½) تكتشف الحريق المتصاعد مبكرًا وتُشترط عمومًا في مناطق الخطر العالي والمناطق المأهولة؛ ورؤوس الاستجابة القياسية تناسب معظم الأنظمة التجارية ذات الخطر العادي.'
+  },
+  'preaction': {
+    term: 'نظام الفعل المسبق',
+    definition: 'نظام رش جاف تُبقي فيه الأنابيب جافة ولا تدخل المياه إلا بعد إشارتين مستقلتين — عادة تفعيل إنذار حريق إضافة إلى تفعيل رأس رش منفصل. يحمي المناطق التي يكون فيها ضرر الماء من تسرب عرضي هو الخطر الرئيسي، كمراكز البيانات والأرشيفات.'
+  },
+  'deluge': {
+    term: 'نظام الرش الشامل (Deluge)',
+    definition: 'نظام جاف بفوهات مفتوحة، يُغذى عبر صمام رش شامل يفتح عند إشارة الكشف فتخرج كل الفوهات المفتوحة معًا. الأنظمة الشاملة تخدم العمليات الصناعية عالية الخطر والحرائق السريعة الاشتعال، وتُستخدم مع مجموعة صمام الإنذار الشامل.'
+  },
+  'backflow-prevention': {
+    term: 'منع الارتداد (فحص مزدوج)',
+    definition: 'أجهزة تُركب حيث قد تتلوث إمدادات مياه الشرب بتدفق عكسي من اتصال متقاطع. النوع الأشيع هو مجموعة صمامي رجوع مستقلين مع اتصال قابل للاختبار؛ وهي إلزامية في منافذ الخراطيم وأنظمة الري ومعظم الاتصالات المتقاطعة الصناعية.'
+  },
+  'pressure-reducing-valve': {
+    term: 'صمام خفض الضغط (PRV)',
+    definition: 'صمام يخفض تلقائيًا ضغط إمداد مرتفعًا إلى ضغط تشغيل ثابت أدنى عند المصب. صمامات الخفض الهيدروليكية ذاتية التشغيل (مثل 500X) تحمي شبكات الحريق وأعمدة المباني من ارتفاع الضغط وصدمة الماء مع إبقاء نقطة الضبط عند المصب مستقرة.'
+  },
+  'osy': {
+    term: 'OS&Y (برغي خارجي ووصاد)',
+    definition: 'تصميم غطاء صمام يكون فيه عمود التشغيل خارج الأنبوب مع وصاد يرفع العمود عند الفتح، فيكون وضع الصمام ظاهرًا. صمامات البوابة OS&Y هي صمام العزل الثقيل الكلاسيكي للحريق والشبكات؛ وختم العمود يقع خارج مسار المائع.'
+  },
+  'pn-ansi-flange': {
+    term: 'تصنيفات فلنجات PN وANSI',
+    definition: 'نظامان لتصنيف الفلنجات: PN (ضغط اسمي، نظام مترى، مثل PN10/PN16) وفق EN/DIN، وفئات ANSI/ASME (Class 150/300) وفق أمريكا ومعظم الأمريكيتين. يجب أن تتطابق واجهة فلنجة الصمام مع معيار النظام وتصنيفه — فخلط واجهات PN مع ANSI في خط واحد خطأ شائع في المواصفات.'
+  },
+  'nps': {
+    term: 'القطر الاسمي (DN / NPS)',
+    definition: 'تسمية مقاس لا تعادل القطر الفيزيائي للأنبوب. DN هي التسمية المترية (DN80، DN100) وNPS (مقاس الأنبوب الاسمي) هي تسمية أمريكا (3"، 4"). مقاسات DN وNPS يقابل بعضها عند الاختيار، لكن أبعاد الفلنجة تختلف حسب المعيار.'
+  },
+  'fire-department-connection': {
+    term: 'اتصال هيئة الإطفاء (FDC / سيامي)',
+    definition: 'اتصال في مبنى أو نظام يتيح لهيئة الإطفاء ضخ المياه عبر خراطيمها. اتصال FDC سياسي يكون عادة بفتحتين DN65 (2.5") ومخرج بفلنجة DN100، وهو نقطة الدخول لأنظمة الرش الشامل وأنظمة رؤوس الرش.'
+  },
+  'storz-coupling': {
+    term: 'موصل ستورز (Storz)',
+    definition: 'موصل حريق عالمي بنمط بايونيت مقاس على قطر الخرطوم (Storz 2، 3، 4، 5) يُوصَل دون أدوات ويُحكم تلقائيًا عند تدويره. وهو معيار الموصلات الدولي السائد، إلى جانب NIST (أمريكا) وBS336 (بريطانيا).'
+  },
+  'nfpa-1961': {
+    term: 'NFPA 1961 (خراطيم الحريق)',
+    definition: 'معيار NFPA لخراطيم الحريق. يحدد البناء (الغلاف، البطانة، الموصل) وضغط التشغيل المعتمد (عادة 150 أو 250 psi) والاختبارات المطلوبة في المصنع والدورية. خرطوم الهجوم المطابق يجمع غلاف قماش متين مع بطانة مطاطية مبلمرة.'
+  },
+  'nfpa-13': {
+    term: 'NFPA 13 (أنظمة الرش)',
+    definition: 'معيار NFPA لتركيب أنظمة الرش التلقائي. يحدد تصنيفات الخطر وتباعد الرؤوس وقواعد معامل K والأنابيب والصمامات المطلوبة وأنواع الأنظمة (رطب، جاف، شامل، فعل مسبق) للمباني التجارية والصناعية.'
+  },
+  'nom-mexico': {
+    term: 'NOM / NR (المكسيك)',
+    definition: 'المعايير الرسمية المكسيكية (NOM) ونظام NR (الخطر/الحريق) ينظمان منتجات الحماية من الحريق في السوق المكسيكية مع اعتماد عبر هيئات معيّنة. قد تشترط مناقصة في المكسيك مطابقة NOM لخلاطات الحريق ومعداته؛ وتُؤكد المطابقة لكل نموذج على حدة.'
+  },
+  'shell-pressure-test': {
+    term: 'اختبار ضغط الجسم وتسرب الهواء',
+    definition: 'اختباران لكل وحدة يتم بهما التحقق من الصمام أو الخلاط قبل الشحن: اختبار هيدروستاتيكي للجسم يتحقق من عدم التسرب أو التشوه عند ضغط زائد، واختبار تسرب الهواء يؤكد إحكام الصمام (بلا فقاعات) عند وضع التشغيل. سجلات الأرقام التسلسلية هي الدليل الأساسي على صانع حقيقي.'
+  }
+};
+
+const grouped = GLOSSARY_CATEGORIES.map(cat => ({
+  cat,
+  label: categoryLabel[cat],
+  terms: glossaryTerms.filter(t => t.category === cat)
+})).filter(g => g.terms.length > 0);
+---
+
+<Layout
+  title="مسرد الصمامات وحماية الحريق: المصطلحات الأساسية | Wanlian Fluid"
+  description="تعريفات تقنية مبنية على المعايير للمصطلحات الأساسية في توريد الصمامات وخلاطات الحريق ورؤوس الرش وخراطيم الحريق: RSGV وAWWA C502/C515 وUL وFM ومعامل K ومنع الارتداد"
+  type="website"
+  locale="ar"
+  breadcrumbs={[{ name: 'المسرد' }]}
+>
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+      <a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+      <span>/</span>
+      <span class="text-gray-600">المسرد</span>
+    </nav>
+
+    <article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+      <p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">مرجع</p>
+      <h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">مسرد مصطلحات صناعة الصمامات وحماية الحريق</h1>
+      <p class="mt-5 text-gray-600 leading-relaxed text-lg">تعريفات واضحة مبنية على المعايير الدولية للمصطلحات التي تظهر في المواصفات والمناقصات والبطاقات الفنية لتوريد صمامات وخلاطات حريق ورؤوس رش وخراطيم حريق. استخدمه كمفردات مشتركة عند تحديد المنتجات أو قراءة توثيق الصانع أو التحقق من المطابقة — كل مدخل يربطنا بدليلنا المفصل في هذا الموضوع.</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-8">
+        {grouped.map(g => (
+          <a href={`#${g.cat.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} class="px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-xs font-bold text-brand-blue hover:bg-brand-blue/10 transition text-center">{g.label}</a>
+        ))}
+      </div>
+
+      {grouped.map(g => (
+        <section class="mt-12">
+          <h2 id={g.cat.toLowerCase().replace(/[^a-z0-9]+/g, '-')} class="text-2xl font-black text-gray-900 mb-5 tracking-tight scroll-mt-24">{g.label}</h2>
+          <div class="space-y-4">
+            {g.terms.map(t => (
+              <div class="bg-gray-50 rounded-xl border border-gray-100 p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 class="text-lg font-black text-gray-900">{arTerms[t.id].term}</h3>
+                  <a href={`/ar${t.href}`} class="text-xs font-bold text-brand-red hover:underline">اقرأ الدليل →</a>
+                </div>
+                <p class="mt-2 text-gray-700 leading-relaxed text-sm">{arTerms[t.id].definition}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <div class="mt-12 rounded-2xl overflow-hidden">
+        <div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+          <h2 class="text-2xl font-black text-white tracking-tight">هل أنت مستعد لتحديد مواصفات هذه المكونات أو توريدها؟</h2>
+          <p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل لنا مواصفاتك وكمياتك وجهة الشحن — نرد عليك بعرض سعر تفصيلي خلال 12 ساعة.</p>
+          <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+            <a href="/ar/contact/?product=%D8%A7%D9%84%D9%85%D8%B3%D8%B1%D8%AF%20%D9%88%D8%A7%D9%84%D9%85%D9%88%D8%A7%D8%B5%D9%81%D8%A7%D8%AA" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+            <a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D9%84%D8%AF%D9%8A%D9%91%20%D9%85%D9%88%D8%A7%D8%B5%D9%81%D8%A9%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%B9%D8%B1%D8%B6%20%D8%B3%D8%B9%D8%B1%20%D9%84%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%20%2F%20%D8%AE%D9%84%D8%A7%D8%B7%D8%A7%D8%AA%20%D8%AD%D8%B1%D9%8A%D9%82" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">تحدث معنا عبر واتساب</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+</Layout>

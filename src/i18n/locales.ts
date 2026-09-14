@@ -117,8 +117,12 @@ const TRANSLATED_PREFIXES: Record<Locale, string[]> = {
     '/guides/',
     '/blog/',
     '/tags/',
+    '/sourcing-guide/',
+    '/whitepaper/',
+    '/glossary/',
+    '/cost-calculator/',
   ],
-  // FR 全量：核心 14 页 + 24 指南 + blog/tags。
+  // FR 全量：核心 14 页 + 29 指南 + blog/tags + 内容工厂静态页。
   fr: [
     '/',
     '/products/',
@@ -136,8 +140,12 @@ const TRANSLATED_PREFIXES: Record<Locale, string[]> = {
     '/guides/',
     '/blog/',
     '/tags/',
+    '/sourcing-guide/',
+    '/whitepaper/',
+    '/glossary/',
+    '/cost-calculator/',
   ],
-  // AR 全量：核心 14 页 + 28 篇指南 + blog/tags（RTL）。
+  // AR 全量：核心 14 页 + 29 篇指南 + blog/tags + 内容工厂静态页（RTL）。
   ar: [
     '/',
     '/products/',
@@ -155,6 +163,10 @@ const TRANSLATED_PREFIXES: Record<Locale, string[]> = {
     '/guides/',
     '/blog/',
     '/tags/',
+    '/sourcing-guide/',
+    '/whitepaper/',
+    '/glossary/',
+    '/cost-calculator/',
   ],
 };
 
