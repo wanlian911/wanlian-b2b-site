@@ -1365,5 +1365,115 @@ export const products: Product[] = [
       { question: 'Does the coupling come with barbs for hose fitting?', answer: 'Yes — the Storz connection uses quick-connect with barbs for attaching to layflat hose ends, and can be supplied factory-fitted or loose depending on the order.' },
       { question: 'Can it be used with the Model 8-65 layflat fire hose?', answer: 'Yes. The 2.5" size matches the Model 8-65 (65mm) hose configuration — pair it with our layflat fire hose and adjustable pistol grip nozzles for a complete line set.' }
     ]
+  },
+  {
+    id: '44',
+    slug: 'underground-fire-hydrant-sa',
+    name: 'Underground Fire Hydrant (SA Series)',
+    category: 'Hydrants & Pump Connections',
+    description: 'Wanlian SA series underground fire hydrant is installed flush with the ground, keeping the valve body protected in the soil to resist winter freezing and vehicle impact. It provides two KWS65 outlets (65mm or a 65/80mm combination) for fire engines and hose lines, making it the standard choice for cold-climate municipal roads, industrial parks and warehouse fire protection networks.',
+    features: [
+      'Flush underground installation keeps the body frost-protected and collision-resistant',
+      'Two KWS65 outlets (65/80mm options) with chain-retained caps for fast engine connection',
+      'Heavy-duty ductile iron body with full red anti-corrosive powder coating',
+      'Brass-seated lower valve for reliable shutoff and low maintenance',
+      'Anti-freeze drainage variant available for very cold regions'
+    ],
+    specs: {
+      'Nominal Inlet': 'DN100 / DN150',
+      'Outlet Config': '2 x 65mm (KWS65), 65 + 80mm option',
+      'Nominal Pressure': '1.6 MPa (PN16)',
+      'Installed Height': '0.71 - 0.92 m (model dependent, incl. elbow)',
+      'Body Material': 'Ductile Iron QT450',
+      'Application': 'Municipal roads, cold-climate outdoor fire networks'
+    },
+    materials: {
+      'Hydrant Body': 'Ductile Iron (QT450)',
+      'Outlets & Bonnet': 'Ductile Iron, red powder coated',
+      'Lower Valve': 'Brass Seat / EPDM Seal',
+      'Caps': 'Cast Iron / Zinc Alloy with safety chain'
+    },
+    image: '/assets/products/underground-fire-hydrant-sa.webp',
+    seoTitle: 'SA Underground Fire Hydrant DN100/DN150 | Antifreeze',
+    seoDescription: 'SA series underground fire hydrant with two KWS65 outlets, ductile iron body, 1.6 MPa. Antifreeze flush installation for municipal and industrial fire networks. Factory direct from Wanlian.',
+    faqs: [
+      { question: 'How is the SA underground hydrant different from an overground (SS) hydrant?', answer: 'The SA hydrant is installed mostly below grade — only the bonnet and outlet caps break through the ground surface — so the body stays protected from winter freezing and vehicle impact. The overground SS hydrant stands fully on top of grade. Choose SA for cold climates and high-traffic roads.' },
+      { question: 'What outlet sizes does the SA underground hydrant offer?', answer: 'Standard is two 65mm KWS outlets, with a 65 + 80mm combination available on the DN150 models, matching most international fire engine coupling threads (KWS / BS336 / NIST on request).' },
+      { question: 'What is the installed height of the SA hydrant?', answer: 'Installed height including the elbow ranges from about 0.71m on the SA100/65 small body up to 0.92m on the SA150 models, so it can be matched to local road camber and frost-depth requirements.' },
+      { question: 'Will the SA hydrant freeze in winter?', answer: 'Because the valve body sits in the ground, the SA hydrant is far more frost-resistant than overground types, and an anti-freeze drainage variant is available for very cold regions to ensure the barrel drains completely after each use.' }
+    ]
+  },
+  {
+    id: '45',
+    slug: 'dry-alarm-valve-zsfc',
+    name: 'Dry Alarm Valve (ZSFC Series)',
+    category: 'Sprinklers & Alarm Valves',
+    description: 'The ZSFC dry alarm valve is the core control valve for dry-pipe and pre-action sprinkler systems. It stays closed by air (or nitrogen) pressure on the system side while the water side is held full, and opens automatically when an actuated sprinkler releases the system air, letting water fill the dry piping and reach the discharging sprinkler. Ideal for unheated buildings, cold-climate warehouses and pre-action systems.',
+    features: [
+      'Air-pressure operated clapper for a reliable closed state in dry and pre-action systems',
+      'Instant opening when system air is released by an actuated sprinkler',
+      'Integrated alarm mechanism with delay chamber and water-motor gong for early warning',
+      'Heavy-duty ductile iron body rated for the full dry-pipe pressure cycle',
+      'Flanged connections available in DN100 - DN200'
+    ],
+    specs: {
+      'Size Range': 'DN100 / DN150 / DN200 (ZSFC100 / ZSFC150 / ZSFC200)',
+      'Nominal Pressure': '1.6 MPa (PN16)',
+      'System Side': 'Air / Nitrogen (0.03 - 0.05 MPa typical)',
+      'Connection Type': 'Flanged',
+      'Accessory': 'Delay Chamber, Water-Motor Alarm Gong, Pressure Gauges'
+    },
+    materials: {
+      'Valve Body': 'Ductile Iron (QT450)',
+      'Clapper / Seat': 'EPDM / NBR Covered Ductile Iron',
+      'Delay Chamber': 'Cast Iron / Brass',
+      'Alarm Gong': 'Aluminum Alloy',
+      'Trim & Fittings': 'Galvanized Steel / Brass'
+    },
+    image: '/assets/products/dry-alarm-valve-zsfc.webp',
+    seoTitle: 'ZSFC Dry Alarm Valve DN100-DN200 | Dry Sprinkler System',
+    seoDescription: 'ZSFC dry alarm valve for dry-pipe and pre-action sprinkler systems, DN100-DN200, 1.6 MPa, with delay chamber and water-motor alarm gong. Ductile iron. Factory direct from Wanlian.',
+    faqs: [
+      { question: 'What is the difference between a dry alarm valve and a wet alarm valve (ZSFZ)?', answer: 'A wet alarm valve protects a system whose pipes are always full of water. A dry alarm valve (ZSFC) protects a dry-pipe system whose water side is full but the pipe network is held under air pressure and empty of water, so it stays shut until a sprinkler opens and releases the air. Use ZSFC where the protected space can freeze or where pre-action dual-protection is required.' },
+      { question: 'What sizes is the ZSFC dry alarm valve available in?', answer: 'The ZSFC is available in DN100, DN150 and DN200 (models ZSFC100 / ZSFC150 / ZSFC200) with a 1.6 MPa nominal rating and flanged connections, covering the majority of dry-pipe and pre-action installations.' },
+      { question: 'What alarm devices come with the ZSFC valve?', answer: 'The valve group includes the delay chamber, a water-motor alarm gong, and inlet and outlet pressure gauges so operators can confirm both the air pressure on the system side and water pressure on the supply side at a glance.' },
+      { question: 'Can the ZSFC be used in a pre-action system?', answer: 'Yes. The ZSFC dry alarm valve is used as the water control valve in pre-action systems, working with a pre-action control device so water only enters the dry piping after both the sprinkler and the detection system actuate.' }
+    ]
+  },
+  {
+    id: '46',
+    slug: 'esfr-sprinkler-head',
+    name: 'ESFR Early Suppression Fast Response Sprinkler',
+    category: 'Sprinklers & Alarm Valves',
+    description: 'ESFR (Early Suppression Fast Response) sprinklers deliver very high water discharge with fast thermal response, engineered to suppress or control severe fires in high-pile storage, warehouses and large industrial facilities. A large engineered deflector with a high flow coefficient and a 74°C glass bulb give the coverage and reaction speed required by NFPA 13 / GB 50084 for storage protection.',
+    features: [
+      'High discharge rate (K-factor per NFPA 13) to knock down fast-growing storage fires',
+      'Fast-response operation with a 74°C glass bulb for early suppression',
+      'Large engineered deflector for wide, uniform water distribution under racking',
+      'Pendent and upright (PY / UY) orientations for rack and open-storage layouts',
+      'Durable forged brass construction, packed 50 pcs per box for project supply'
+    ],
+    specs: {
+      'Model Series': 'ESFR-202 / ESFR-242 / ESFR-363, ZSTX-161',
+      'Temperature Rating': '74°C (165°F)',
+      'Orientation': 'Pendent (PY) / Upright (UY)',
+      'Thread Connection': 'R1/2" / R3/4" NPT',
+      'Packing': '50 pcs / box',
+      'Application': 'High-Pile Storage, Warehouses, Industrial Facilities'
+    },
+    materials: {
+      'Body Frame': 'Forged Brass (H59)',
+      'Glass Bulb': '74°C Fast-Response Glass',
+      'Deflector': 'Stainless / Copper Alloy, High-Flow Pattern'
+    },
+    image: '/assets/products/esfr-sprinkler-head.webp',
+    seoTitle: 'ESFR Sprinkler Head 74°C | Warehouse High-Pile Storage',
+    seoDescription: 'ESFR early suppression fast response sprinkler, 74°C glass bulb, pendent and upright, high discharge for warehouse and high-pile storage fire protection. Factory price from Wanlian.',
+    faqs: [
+      { question: 'What makes an ESFR sprinkler different from a standard fire sprinkler?', answer: 'ESFR (early suppression fast response) sprinklers are designed to throw a very large volume of water quickly to knock down fast-growing fires. They use a high K-factor and a fast-response 74°C bulb, and are sized for high-pile storage and warehouses where standard sprinklers are not sufficient.' },
+      { question: 'What temperature rating does this ESFR use?', answer: 'All the ESFR models in this range use a 74°C (165°F) fast-response glass bulb, the standard rating for storage and industrial environments.' },
+      { question: 'Are the ESFR sprinklers available in pendent and upright orientations?', answer: 'Yes. The series is offered in pendent (PY, hanging down) and upright (UY, facing up) orientations so it can be matched to open-spray storage layouts and rack environments.' },
+      { question: 'What are ESFR sprinklers used for?', answer: 'ESFR sprinklers protect high-pile storage, warehouses, distribution centers and large industrial facilities, and are the go-to head type where NFPA 13 / GB 50084 storage-protection criteria apply.' }
+    ]
   }
 ];

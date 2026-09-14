@@ -6,12 +6,14 @@ import { productsArPart1 } from './ar-parts/part1';
 import { productsArPart2 } from './ar-parts/part2';
 import { productsArPart3 } from './ar-parts/part3';
 import { productsArPart4 } from './ar-parts/part4';
+import { productsArPart5 } from './ar-parts/part5';
 
 export const productsArBySlug: Record<string, Product> = {
   ...productsArPart1,
   ...productsArPart2,
   ...productsArPart3,
-  ...productsArPart4
+  ...productsArPart4,
+  ...productsArPart5
 };
 
 export const productsAr: Product[] = Object.values(productsArBySlug);

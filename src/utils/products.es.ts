@@ -5,11 +5,13 @@ import type { Product } from './products';
 import { productsEsPart1 } from './es-parts/part1';
 import { productsEsPart2 } from './es-parts/part2';
 import { productsEsPart3 } from './es-parts/part3';
+import { productsEsPart4 } from './es-parts/part4';
 
 export const productsEsBySlug: Record<string, Product> = {
   ...productsEsPart1,
   ...productsEsPart2,
   ...productsEsPart3,
+  ...productsEsPart4,
 };
 
 export const productsEs: Product[] = Object.values(productsEsBySlug);
