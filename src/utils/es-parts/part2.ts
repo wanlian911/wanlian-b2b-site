@@ -279,7 +279,7 @@ export const productsEsPart2: Record<string, Product> = {
       'Vástago de Operación': 'Acero inoxidable / Acero al carbono medio',
       'Tapas Ciegas': 'Hierro fundido / Aluminio con cadena'
     },
-    image: '/assets/products/overground-fire-hydrant-ss100.webp',
+    image: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp',
     seoTitle: 'Hidrante Exterior SS100 Anticongelante | Listado UL',
     seoDescription: 'Hidrante exterior de alta presión SS100 con drenaje antihielo y cuerpo de hierro dúctil para suministro de agua municipal. Precio de fábrica Wanlian China.'
   },

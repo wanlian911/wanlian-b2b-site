@@ -60,7 +60,7 @@ export const productsArPart3: Record<string, Product> = {
       'عمود التشغيل': 'فولاذ مقاوم للصدأ / فولاذ كربوني متوسط',
       'الأغطية الفارغة': 'حديد زهر / ألومنيوم مع سلسلة'
     },
-    image: '/assets/products/overground-fire-hydrant-ss100.webp',
+    image: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp',
     seoTitle: 'خلاط حريق خارجي SS100 | مضاد للتجمد معتمد UL',
     seoDescription: 'خلاط حريق خارجي عالي الضغط SS100 مع تصريف صقيع. جسم حديد زهر مطبوع ثقيل. معتمد لإمداد المياه البلدية وسلامة الغابات.'
   },

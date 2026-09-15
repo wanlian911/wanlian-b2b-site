@@ -739,7 +739,7 @@ export const products: Product[] = [
       'Operating Stem': 'Stainless Steel / Medium Carbon Steel',
       'Blank Caps': 'Cast Iron / Aluminum with chain'
     },
-    image: '/assets/products/overground-fire-hydrant-ss100.webp',
+    image: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp',
     seoTitle: 'SS100 Overground Fire Hydrant | Antifreeze UL Listed',
     seoDescription: 'High-pressure overground fire hydrant SS100 with frost-drainage. Heavy duty ductile iron body. Approved for municipal water supply and forest safety.'
   },

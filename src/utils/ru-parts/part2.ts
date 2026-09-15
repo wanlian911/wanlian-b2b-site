@@ -279,7 +279,7 @@ export const productsRuPart2: Record<string, Product> = {
       'Рабочий шток': 'Нержавеющая сталь / Углеродистая сталь средней прочности',
       'Заглушки': 'Чугун / Алюминий с цепочкой'
     },
-    image: '/assets/products/overground-fire-hydrant-ss100.webp',
+    image: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp',
     seoTitle: 'Наружный пожарный гидрант SS100 | Защита от замерзания',
     seoDescription: 'Наружный пожарный гидрант SS100 высокого давления с дренажной защитой от замерзания. Тяжёлый корпус из высокопрочного чугуна. Для городского водопровода и лесной безопасности.'
   },
