@@ -190,7 +190,7 @@ export const productsEsPart2: Record<string, Product> = {
       'Piloto Ajustable': 'Aleación de latón forjado macizo',
       'Tuberías y Accesorios': 'Cobre / Acero inoxidable 304'
     },
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp',
+    image: '/assets/products/pressure-reducing-valve-500x-dn50.webp',
     seoTitle: 'Válvula Reductora de Presión 500X | Suministro de Agua',
     seoDescription: 'Válvula reductora de presión hidráulica autooperada 500X en hierro dúctil, con opciones OEM y diseño personalizado. Precio de fábrica Wanlian Fluid China.'
   },

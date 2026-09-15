@@ -308,7 +308,7 @@ export const productsArPart2: Record<string, Product> = {
       'الطيار القابل للضبط': 'سبائك نحاس أصفر مصوبة',
       'الأنابيب والوصلات': 'نحاس / فولاذ مقاوم للصدأ 304'
     },
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp',
+    image: '/assets/products/pressure-reducing-valve-500x-dn50.webp',
     seoTitle: 'صمام خفض ضغط هيدروليكي 500X | إمداد المياه',
     seoDescription: 'صمام خفض ضغط ذاتي التشغيل هيدروليكي صناعي 500X. هيكل حديد زهر مطبوع عالي المتانة. متوفر تصميم OEM ومخصص.'
   },

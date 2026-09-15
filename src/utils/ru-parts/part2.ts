@@ -190,7 +190,7 @@ export const productsRuPart2: Record<string, Product> = {
       'Регулируемый пилотный клапан': 'Массивный кованый латунный сплав',
       'Трубки и фитинги': 'Медь / Нержавеющая сталь 304'
     },
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp',
+    image: '/assets/products/pressure-reducing-valve-500x-dn50.webp',
     seoTitle: 'Редукционный клапан 500X | Водоснабжение',
     seoDescription: 'Редукционный клапан 500X гидравлический саморегулируемый для водопроводных сетей: корпус из высокопрочного чугуна, устойчивый к коррозии. Заводская цена Wanlian.'
   },

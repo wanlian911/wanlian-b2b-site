@@ -650,7 +650,7 @@ export const products: Product[] = [
       'Adjustable Pilot': 'Solid Forged Brass Alloy',
       'Tubes & Fittings': 'Copper / Stainless Steel 304'
     },
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp',
+    image: '/assets/products/pressure-reducing-valve-500x-dn50.webp',
     seoTitle: '500X Hydraulic Pressure Reducing Valve | Water Supply',
     seoDescription: 'Industrial hydraulic self-operated pressure reducing valve 500X. High durability ductile iron construction. OEM and custom designs available.'
   },

@@ -349,7 +349,7 @@ export const productsFrPart2: Record<string, Product> = {
       'Pilote réglable': 'Alliage de laiton forgé massif',
       'Tubes et raccords': 'Cuivre / Acier inoxydable 304',
     },
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp',
+    image: '/assets/products/pressure-reducing-valve-500x-dn50.webp',
     seoTitle: 'Réducteur de Pression Hydraulique 500X | Alimentation en Eau',
     seoDescription:
       'Réducteur de pression hydraulique autopiloté 500X industriel. Construction en fonte ductile haute durabilité. Conceptions OEM et sur mesure disponibles.',
