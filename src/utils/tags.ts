@@ -61,7 +61,7 @@ export const tags: Tag[] = [
     seoTitle: 'Industrial Valves: Gate, Butterfly & Check Valves',
     description: 'Resilient seat gate valves, wafer butterfly valves, ball check valves and Y-strainers for water supply, sewage, HVAC and industrial process pipelines.',
     guideHrefs: ['/guides/gate-valve-vs-butterfly-valve-fire-protection/', '/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-choose-ul-listed-fire-valves/', '/guides/bellows-seal-gate-valve-guide/', '/guides/check-valve-types-guide/', '/guides/wanlian-fluid-vs-american-avk/', '/guides/wanlian-fluid-vs-avk-latinamerica/', '/guides/hvac-digital-balancing-valve-guide/'],
-    productSlugs: ['resilient-seat-flanged-gate-valve-z41x', 'telescopic-resilient-seat-gate-valve-z41x-t', 'wafer-type-butterfly-valve-d71x', 'signal-grooved-wafer-butterfly-valve-dn80', 'sliding-ball-check-valve-hq41x', 'spherical-ball-check-valve-hq44x', 'telescopic-y-strainer-sgl41h', 'flange-manual-bellows-gate-valve'],
+    productSlugs: ['resilient-seat-flanged-gate-valve-z41x', 'telescopic-resilient-seat-gate-valve-z41x-t', 'wafer-type-butterfly-valve-d71x', 'signal-grooved-wafer-butterfly-valve-dn80', 'spherical-ball-check-valve-hq44x', 'telescopic-y-strainer-sgl41h', 'flange-manual-bellows-gate-valve'],
     relatedTags: ['fire-protection', 'backflow-prevention']
   },
   {

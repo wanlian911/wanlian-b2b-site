@@ -133,35 +133,6 @@ export const productsEsPart1: Record<string, Product> = {
     seoTitle: 'Válvula de Mariposa Wafer con Señal DN80 | PN16',
     seoDescription: 'Válvula de mariposa tipo wafer con señal en hierro dúctil QT450 para sistemas de agua contra incendios: monitoreo integrado y operación suave.'
   },
-  'sliding-ball-check-valve-hq41x': {
-    id: '5',
-    slug: 'sliding-ball-check-valve-hq41x',
-    name: 'Válvula de Retención de Bola Deslizante (HQ41X-16)',
-    category: 'Válvulas y Piezas',
-    description: 'La válvula de retención de bola deslizante HQ41X utiliza una esfera recubierta de caucho como obturador. La bola rueda sobre guías internas siguiendo el flujo del fluido, garantizando baja pérdida de presión, cierre silencioso y ausencia de golpe de ariete.',
-    features: [
-      'Diseño de paso total: 50% menos pérdida de carga que las válvulas de retención de clapeta',
-      'Bola de acero recubierta de caucho que evita obstrucciones y asegura un sellado hermético',
-      'Puede instalarse tanto en posición horizontal como vertical',
-      'Excelente para aguas residuales, drenaje municipal y redes de bombas sumergibles'
-    ],
-    specs: {
-      'Diámetro Nominal': 'DN50 - DN350',
-      'Presión Nominal': '1.0 MPa / 1.6 MPa',
-      'Material del Cuerpo': 'Hierro fundido / Hierro dúctil / Acero fundido',
-      'Material de la Bola': 'Núcleo de acero con recubrimiento NBR',
-      'Temperatura de Trabajo': '0°C a 80°C'
-    },
-    materials: {
-      'Cuerpo y Tapa': 'Hierro fundido (HT200) / Fundición esferoidal (QT450)',
-      'Bola Rodante': 'Núcleo de acero al carbono + recubrimiento total NBR',
-      'Guías/Deslizadores': 'Segmentos esferoidales integrados',
-      'Junta de la Tapa': 'EPDM / Asbesto de alta temperatura'
-    },
-    image: '/assets/products/spherical-ball-check-valve-hq44x.webp',
-    seoTitle: 'Válvula de Retención de Bola HQ41X | Baja Pérdida de Carga',
-    seoDescription: 'Válvula de retención de bola deslizante HQ41X para aguas residuales y agua: baja pérdida de carga, anti-obstrucción y cierre sin golpe de ariete.'
-  },
   'hydraulic-water-level-control-valve-f745x': {
     id: '6',
     slug: 'hydraulic-water-level-control-valve-f745x',

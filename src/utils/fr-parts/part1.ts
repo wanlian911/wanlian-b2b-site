@@ -141,37 +141,6 @@ export const productsFrPart1: Record<string, Product> = {
     seoDescription:
       'Vanne à papillon wafer à signal en fonte ductile QT450, idéale pour le contrôle des réseaux anti-incendie. Interrupteur de surveillance intégré, manœuvre fluide à engrenage.',
   },
-  'sliding-ball-check-valve-hq41x': {
-    id: '5',
-    slug: 'sliding-ball-check-valve-hq41x',
-    name: 'Clapet Anti-Retour à Bille Glissante (HQ41X-16)',
-    category: 'Vannes et Pièces',
-    description:
-      "Le clapet anti-retour à bille glissante HQ41X utilise une sphère recouverte de caoutchouc comme clapet. La bille roule sur les guides internes selon le flux, garantissant une faible perte de charge, une fermeture silencieuse et sans coup de bélier.",
-    features: [
-      'Le passage plein assure 50 % de perte de charge en moins que les clapets à battant',
-      "La bille en acier recouverte de caoutchouc évite l'encrassement et garantit une étanchéité parfaite",
-      'Peut être installé en position horizontale et verticale',
-      'Excellente pour l\u2019assainissement, les drainages municipaux et les réseaux de pompes immergées',
-    ],
-    specs: {
-      'Diamètre nominal': 'DN50 - DN350',
-      'Pression nominale': '1.0 MPa / 1.6 MPa',
-      'Matériau du corps': 'Fonte grise / Fonte ductile / Acier fondu',
-      'Matériau de la bille': 'Cœur acier avec revêtement NBR',
-      'Température de service': '0°C à 80°C',
-    },
-    materials: {
-      'Corps et bonnet': 'Fonte grise (HT200) / Fonte sphéroïdale (QT450)',
-      'Bille roulante': 'Cœur acier carbone + NBR entièrement recouvert',
-      'Guides/glissières': 'Fragments sphéroïdaux intégrés',
-      'Joint de bonnet': 'EPDM / Amiante haute température',
-    },
-    image: '/assets/products/spherical-ball-check-valve-hq44x.webp',
-    seoTitle: 'Clapet Anti-Retour à Bille Glissante HQ41X | Faible Perte',
-    seoDescription:
-      "Clapet anti-retour à bille glissante HQ41X fiable pour réseaux d'eaux usées et d'eau. Faible perte de charge, bille roulante anti-obstruction, fermeture silencieuse.",
-  },
   'hydraulic-water-level-control-valve-f745x': {
     id: '6',
     slug: 'hydraulic-water-level-control-valve-f745x',

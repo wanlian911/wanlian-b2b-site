@@ -150,35 +150,6 @@ export const products: Product[] = [
     seoDescription: 'Ductile Iron QT450 Signal Wafer Butterfly Valve. Perfect for firefighting water system control. Integrated monitoring switch, smooth worm gear operation.'
   },
   {
-    id: '5',
-    slug: 'sliding-ball-check-valve-hq41x',
-    name: 'Sliding Ball Check Valve (HQ41X-16)',
-    category: 'Valves & Parts',
-    description: 'The HQ41X Sliding Ball Check Valve uses a rubber-coated sphere as its valve disk. The ball rolls up and down on the internal guides with fluid flow, ensuring low pressure loss, quiet closure, and no water hammer.',
-    features: [
-      'Full-port design ensures 50% less head loss than swing check valves',
-      'Rubber-covered steel ball prevents clogging and ensures bubble-tight seal',
-      'Can be installed both horizontally and vertically',
-      'Excellent for sewage, municipal drainage, and submersible pump networks'
-    ],
-    specs: {
-      'Nominal Diameter': 'DN50 - DN350',
-      'Nominal Pressure': '1.0 MPa / 1.6 MPa',
-      'Body Material': 'Cast Iron / Ductile Iron / Cast Steel',
-      'Ball Material': 'Steel Core with NBR Coating',
-      'Working Temperature': '0°C to 80°C'
-    },
-    materials: {
-      'Body & Bonnet': 'Cast Iron (HT200) / Spheroidal Iron (QT450)',
-      'Rolling Ball': 'Carbon Steel Core + NBR Fully Covered',
-      'Guides/Slides': 'Integrated Spheroidal Slices',
-      'Bonnet Gasket': 'EPDM / High Temperature Asbestos'
-    },
-    image: '/assets/products/spherical-ball-check-valve-hq44x.webp',
-    seoTitle: 'HQ41X Sliding Ball Check Valve | Low Pressure Loss',
-    seoDescription: 'Reliable sliding ball check valve HQ41X for sewage and water pipelines. Low head loss, non-clogging rolling ball design, quiet closing.'
-  },
-  {
     id: '6',
     slug: 'hydraulic-water-level-control-valve-f745x',
     name: 'Hydraulic Water Level Control Valve (F745X)',
