@@ -59,6 +59,11 @@ export interface UIStrings {
     country: string;
     countryPlaceholder: string;
     product: string;
+    productCol: string;
+    expectedPrice: string;
+    quantity: string;
+    expectedPricePlaceholder: string;
+    quantityPlaceholder: string;
     message: string;
     messagePlaceholder: string;
     send: string;
@@ -189,6 +194,11 @@ const en: UIStrings = {
     country: 'Country/Region *',
     countryPlaceholder: 'Select Country/Region',
     product: 'Product of Interest',
+    productCol: 'Product of Interest',
+    expectedPrice: 'Expected Price',
+    quantity: 'Order Quantity',
+    expectedPricePlaceholder: 'e.g. USD 120 / unit',
+    quantityPlaceholder: 'e.g. 500',
     message: 'Message & Specific Requirements *',
     messagePlaceholder:
       'Please describe your requirements, quantity, and any customization needed...',
@@ -330,6 +340,11 @@ const es: UIStrings = {
     country: 'País/Región *',
     countryPlaceholder: 'Seleccione país/región',
     product: 'Producto de Interés',
+    productCol: 'Producto de Interés',
+    expectedPrice: 'Precio Esperado',
+    quantity: 'Cantidad Pedida',
+    expectedPricePlaceholder: 'p. ej. USD 120 / ud',
+    quantityPlaceholder: 'p. ej. 500',
     message: 'Mensaje y Requisitos Específicos *',
     messagePlaceholder:
       'Describa sus requisitos, cantidades y cualquier personalización necesaria...',
@@ -471,6 +486,11 @@ const ru: UIStrings = {
     country: 'Страна/регион *',
     countryPlaceholder: 'Выберите страну/регион',
     product: 'Интересующая продукция',
+    productCol: 'Интересующая продукция',
+    expectedPrice: 'Ожидаемая цена',
+    quantity: 'Количество',
+    expectedPricePlaceholder: 'напр. 120 USD / шт',
+    quantityPlaceholder: 'напр. 500',
     message: 'Сообщение и конкретные требования *',
     messagePlaceholder:
       'Опишите ваши требования, количество и необходимую кастомизацию...',
@@ -614,6 +634,11 @@ const fr: UIStrings = {
     country: 'Pays/Région *',
     countryPlaceholder: 'Sélectionner le pays/région',
     product: "Produit d'intérêt",
+    productCol: "Produit d'intérêt",
+    expectedPrice: 'Prix Attendu',
+    quantity: 'Quantité Commandée',
+    expectedPricePlaceholder: 'ex. 120 USD / u',
+    quantityPlaceholder: 'ex. 500',
     message: 'Message et exigences spécifiques *',
     messagePlaceholder:
       "Veuillez décrire vos exigences, la quantité et toute personnalisation nécessaire...",
@@ -758,6 +783,11 @@ const ar: UIStrings = {
     country: 'الدولة/المنطقة *',
     countryPlaceholder: 'اختر الدولة/المنطقة',
     product: 'المنتج المطلوب',
+    productCol: 'المنتج المطلوب',
+    expectedPrice: 'السعر المتوقع',
+    quantity: 'الكمية المطلوبة',
+    expectedPricePlaceholder: 'مثال: 120 دولار/وحدة',
+    quantityPlaceholder: 'مثال: 500',
     message: 'الرسالة والمتطلبات المحددة *',
     messagePlaceholder:
       'يرجى وصف متطلباتكم، الكمية، وأي تخصيص مطلوب...',

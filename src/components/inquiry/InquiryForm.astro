@@ -21,6 +21,31 @@ const waFollowupHref = `https://wa.me/8618684324501?text=${encodeURIComponent(di
     data-i18n-verify={dict.inquiry.verifyRequired}
     data-i18n-failed={dict.inquiry.submitFailed}
   >
+    <!-- 预填商品行：静态站构建时读不到 ?product=，无 prop 时先隐藏，由页尾脚本按 URL 参数激活 -->
+    <div id="productRowTable" class:list={["rounded-lg border border-gray-200 overflow-hidden", productName ? 'block' : 'hidden']}>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-gray-50">
+            <th scope="col" class="px-4 py-3 text-start font-black text-gray-700">{dict.inquiry.productCol}</th>
+            <th scope="col" class="px-4 py-3 text-start font-black text-gray-700">{dict.inquiry.expectedPrice}</th>
+            <th scope="col" class="px-4 py-3 text-start font-black text-gray-700">{dict.inquiry.quantity}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-t border-gray-100 align-middle">
+            <td class="px-4 py-3 font-semibold text-gray-800 max-w-[13rem] line-clamp-2"><span id="productRowName">{productName}</span></td>
+            <td class="px-2 py-2">
+              <input type="text" name="expectedPrice" class="w-full px-3 py-2 rounded border border-gray-200 focus:ring-2 focus:ring-brand-blue outline-none transition" placeholder={dict.inquiry.expectedPricePlaceholder} />
+            </td>
+            <td class="px-2 py-2">
+              <input type="number" name="quantity" min="1" class="w-full px-3 py-2 rounded border border-gray-200 focus:ring-2 focus:ring-brand-blue outline-none transition" placeholder={dict.inquiry.quantityPlaceholder} />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <input type="hidden" name="product" id="productRowInput" value={productName} />
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
         <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">{dict.inquiry.fullName}</label>
@@ -82,10 +107,12 @@ const waFollowupHref = `https://wa.me/8618684324501?text=${encodeURIComponent(di
       </div>
     </div>
 
-    <div>
-      <label for="product" class="block text-sm font-semibold text-gray-700 mb-2">{dict.inquiry.product}</label>
-      <input type="text" id="product" name="product" value={productName} class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:ring-2 focus:ring-brand-blue outline-none transition" />
-    </div>
+    {!productName ? (
+      <div id="productStandalone">
+        <label for="product" class="block text-sm font-semibold text-gray-700 mb-2">{dict.inquiry.product}</label>
+        <input type="text" id="product" name="product" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-brand-blue outline-none transition" />
+      </div>
+    ) : null}
 
     <div>
       <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">{dict.inquiry.message}</label>
@@ -142,6 +169,21 @@ const waFollowupHref = `https://wa.me/8618684324501?text=${encodeURIComponent(di
   const successEl = document.getElementById('formSuccess');
   const sendAnotherBtn = document.getElementById('sendAnotherBtn') as HTMLButtonElement;
 
+  // 静态站构建时读不到 ?product=：产品页 INQUIRE 链接携带该参数，此处客户端激活预填商品行
+  // （移除独立 product 输入框，避免同表单出现两个 product 字段导致 FormData 取值互相覆盖）
+  const productRowTable = document.getElementById('productRowTable');
+  const productRowName = document.getElementById('productRowName');
+  const productRowInput = document.getElementById('productRowInput') as HTMLInputElement | null;
+  const productStandalone = document.getElementById('productStandalone');
+  const queryProduct = new URLSearchParams(window.location.search).get('product');
+  if (productRowTable && productRowInput && queryProduct && !productRowInput.value) {
+    if (productRowName) productRowName.textContent = queryProduct;
+    productRowInput.value = queryProduct;
+    productRowTable.classList.remove('hidden');
+    productRowTable.classList.add('block');
+    productStandalone?.remove();
+  }
+
   // 运行时文案由服务端按语言注入（data-i18n-*），脚本本身与语言无关
   const sendingText = form?.dataset.i18nSending ?? 'Sending...';
   const sendText = form?.dataset.i18nSend ?? 'Send Inquiry Now';
@@ -158,6 +200,10 @@ const waFollowupHref = `https://wa.me/8618684324501?text=${encodeURIComponent(di
     successEl!.classList.add('hidden');
     resetTurnstile();
     statusEl!.className = "text-center text-sm mt-4 hidden";
+    // form.reset() 会把预填商品行的隐藏字段还原为空，这里恢复
+    if (productRowTable && productRowInput && productRowName && !productRowTable.classList.contains('hidden')) {
+      productRowInput.value = productRowName.textContent;
+    }
   });
 
   // 等待 Turnstile 脚本与组件加载完成
