@@ -95,6 +95,8 @@ export interface UIStrings {
     chatWhatsapp: string;
     sendAnother: string;
     waFollowupMessage: string;
+    floatLabel: string;
+    close: string;
   };
   notFound: {
     title: string;
@@ -233,6 +235,8 @@ const en: UIStrings = {
     sendAnother: '← Leave Another Contact',
     waFollowupMessage:
       'Hi, I just left my contact details on wanlian911.com and would like a quick follow-up.',
+    floatLabel: 'Leave Contact',
+    close: 'Close',
   },
   notFound: {
     title: '404 - Page Not Found | Wanlian Fluid Equipment',
@@ -372,6 +376,8 @@ const es: UIStrings = {
     sendAnother: '← Dejar Otro Contacto',
     waFollowupMessage:
       'Hola, acabo de dejar mis datos de contacto en wanlian911.com y deseo un seguimiento rápido.',
+    floatLabel: 'Dejar Contacto',
+    close: 'Cerrar',
   },
   notFound: {
     title: '404 - Página No Encontrada | Wanlian Fluid Equipment',
@@ -512,6 +518,8 @@ const ru: UIStrings = {
     sendAnother: '← Оставить ещё контакты',
     waFollowupMessage:
       'Здравствуйте! Я только что оставил свои контакты на wanlian911.com и хотел бы получить быстрый ответ.',
+    floatLabel: 'Оставить контакты',
+    close: 'Закрыть',
   },
   notFound: {
     title: '404 — Страница не найдена | Wanlian Fluid Equipment',
@@ -654,6 +662,8 @@ const fr: UIStrings = {
     sendAnother: '← Laisser d’autres coordonnées',
     waFollowupMessage:
       "Bonjour, je viens de laisser mes coordonnées sur wanlian911.com et souhaiterais un suivi rapide.",
+    floatLabel: 'Laisser coordonnées',
+    close: 'Fermer',
   },
   notFound: {
     title: '404 - Page Introuvable | Wanlian Fluid Equipment',
@@ -793,6 +803,8 @@ const ar: UIStrings = {
     sendAnother: '→ اترك بيانات أخرى',
     waFollowupMessage:
       'مرحبا، لقد تركت بيانات التواصل الخاصة بي على wanlian911.com وأرغب بمتابعة سريعة.',
+    floatLabel: 'اترك بياناتك',
+    close: 'إغلاق',
   },
   notFound: {
     title: '404 - الصفحة غير موجودة | Wanlian Fluid',
