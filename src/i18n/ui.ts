@@ -72,6 +72,30 @@ export interface UIStrings {
     sendAnother: string;
     waFollowupMessage: string;
   };
+  lead: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    bullets: [string, string, string];
+    cardTitle: string;
+    fullName: string;
+    email: string;
+    phone: string;
+    phonePlaceholder: string;
+    message: string;
+    messagePlaceholder: string;
+    submit: string;
+    sending: string;
+    verifyRequired: string;
+    submitFailed: string;
+    privacyNote: string;
+    successTitle: string;
+    successBody: string;
+    successWhatsappHint: string;
+    chatWhatsapp: string;
+    sendAnother: string;
+    waFollowupMessage: string;
+  };
   notFound: {
     title: string;
     description: string;
@@ -178,6 +202,37 @@ const en: UIStrings = {
     sendAnother: '← Send Another Inquiry',
     waFollowupMessage:
       'Hi, I just submitted an inquiry on wanlian911.com and would like a quick follow-up.',
+  },
+  lead: {
+    eyebrow: 'Lead Capture',
+    title: 'Leave Your Contact — We Follow Up',
+    body:
+      'Not ready to write a full inquiry? Leave your name and a phone number or e-mail, and our sales team will reach out with product information, documentation and a quotation exactly when you need it.',
+    bullets: [
+      'Reply within 12 hours, 7 days a week',
+      'WhatsApp, e-mail or phone — your choice',
+      'Your details are used only for your follow-up, no spam',
+    ],
+    cardTitle: 'Leave Your Contact Details',
+    fullName: 'Full Name *',
+    email: 'E-mail Address *',
+    phone: 'Phone / WhatsApp',
+    phonePlaceholder: '+1 555 123 4567',
+    message: 'Product or Requirement (Optional)',
+    messagePlaceholder: 'e.g. gate valves DN50-300, quantity, destination port...',
+    submit: 'Leave My Contact Info',
+    sending: 'Sending...',
+    verifyRequired: 'Please complete the verification check before sending.',
+    submitFailed: 'Submission failed. Please try again or contact us via WhatsApp.',
+    privacyNote: 'We use your details only to follow up on your request. No spam, no sharing.',
+    successTitle: 'Contact Info Received!',
+    successBody:
+      'Thank you. Our sales team will contact you within 12 hours with product information and quotation options.',
+    successWhatsappHint: 'Prefer instant chat? Reach us directly on WhatsApp:',
+    chatWhatsapp: 'Chat on WhatsApp',
+    sendAnother: '← Leave Another Contact',
+    waFollowupMessage:
+      'Hi, I just left my contact details on wanlian911.com and would like a quick follow-up.',
   },
   notFound: {
     title: '404 - Page Not Found | Wanlian Fluid Equipment',
@@ -287,6 +342,37 @@ const es: UIStrings = {
     waFollowupMessage:
       'Hola, acabo de enviar una consulta en wanlian911.com y deseo un seguimiento rápido.',
   },
+  lead: {
+    eyebrow: 'Deje su Contacto',
+    title: 'Déjese Contactar — Nosotros Le Llamamos',
+    body:
+      '¿Aún no está listo para enviar una consulta completa? Deje su nombre y un número de teléfono o correo electrónico, y nuestro equipo de ventas le contactará con información de productos, documentación y cotización cuando la necesite.',
+    bullets: [
+      'Respuesta en 12 horas, los 7 días de la semana',
+      'WhatsApp, correo o teléfono — usted elige',
+      'Sus datos se usan solo para su seguimiento, sin spam',
+    ],
+    cardTitle: 'Deje sus Datos de Contacto',
+    fullName: 'Nombre Completo *',
+    email: 'Correo Electrónico *',
+    phone: 'Teléfono / WhatsApp',
+    phonePlaceholder: '+34 600 123 456',
+    message: 'Producto o Requisito (Opcional)',
+    messagePlaceholder: 'p. ej. válvulas de compuerta DN50-300, cantidad, puerto de destino...',
+    submit: 'Dejar mi Contacto',
+    sending: 'Enviando...',
+    verifyRequired: 'Por favor complete la verificación antes de enviar.',
+    submitFailed: 'Error al enviar. Por favor intente nuevamente o contáctenos por WhatsApp.',
+    privacyNote: 'Usamos sus datos solo para seguir su solicitud. Sin spam, sin compartirlas.',
+    successTitle: '¡Datos de Contacto Recibidos!',
+    successBody:
+      'Gracias. Nuestro equipo de ventas le contactará en un plazo de 12 horas con información de productos y opciones de cotización.',
+    successWhatsappHint: '¿Prefiere chat instantáneo? Contáctenos directamente por WhatsApp:',
+    chatWhatsapp: 'Chatear por WhatsApp',
+    sendAnother: '← Dejar Otro Contacto',
+    waFollowupMessage:
+      'Hola, acabo de dejar mis datos de contacto en wanlian911.com y deseo un seguimiento rápido.',
+  },
   notFound: {
     title: '404 - Página No Encontrada | Wanlian Fluid Equipment',
     description:
@@ -394,6 +480,38 @@ const ru: UIStrings = {
     sendAnother: '← Отправить ещё один запрос',
     waFollowupMessage:
       'Здравствуйте! Я только что отправил запрос на wanlian911.com и хотел бы получить быстрый ответ.',
+  },
+  lead: {
+    eyebrow: 'Оставьте контакты',
+    title: 'Оставьте контакты — мы сами свяжемся',
+    body:
+      'Пока не готовы оформить полный запрос? Оставьте имя и номер телефона или e-mail — наша команда продаж свяжется с вами с информацией о продукции, документацией и ценой, когда это будет нужно.',
+    bullets: [
+      'Ответ в течение 12 часов, 7 дней в неделю',
+      'WhatsApp, e-mail или телефон — на ваш выбор',
+      'Контакты используются только для вашей заявки, без спама',
+    ],
+    cardTitle: 'Оставьте ваши контактные данные',
+    fullName: 'Полное имя *',
+    email: 'Адрес электронной почты *',
+    phone: 'Телефон / WhatsApp',
+    phonePlaceholder: '+7 900 123-45-67',
+    message: 'Продукция или требования (необязательно)',
+    messagePlaceholder: 'напр. запорные клапаны DN50–300, количество, порт назначения...',
+    submit: 'Оставить мои контакты',
+    sending: 'Отправка...',
+    verifyRequired: 'Пожалуйста, пройдите проверку перед отправкой.',
+    submitFailed: 'Ошибка отправки. Попробуйте снова или свяжитесь с нами через WhatsApp.',
+    privacyNote:
+      'Ваши данные используются только для связи по вашей заявке. Без спама, без передачи третьим лицам.',
+    successTitle: 'Контакты получены!',
+    successBody:
+      'Спасибо. Наша команда продаж свяжется с вами в течение 12 часов с информацией о продукции и вариантами ценового предложения.',
+    successWhatsappHint: 'Предпочитаете мгновенный чат? Свяжитесь с нами напрямую в WhatsApp:',
+    chatWhatsapp: 'Чат в WhatsApp',
+    sendAnother: '← Оставить ещё контакты',
+    waFollowupMessage:
+      'Здравствуйте! Я только что оставил свои контакты на wanlian911.com и хотел бы получить быстрый ответ.',
   },
   notFound: {
     title: '404 — Страница не найдена | Wanlian Fluid Equipment',
@@ -506,6 +624,37 @@ const fr: UIStrings = {
     waFollowupMessage:
       "Bonjour, je viens de soumettre une demande sur wanlian911.com et souhaiterais un suivi rapide.",
   },
+  lead: {
+    eyebrow: 'Laissez vos Coordonnées',
+    title: 'Laissez vos coordonnées — Nous vous rappelons',
+    body:
+      "Pas encore prêt à rédiger une demande complète ? Laissez votre nom et un numéro de téléphone ou une adresse e-mail, notre équipe commerciale vous recontactera avec les informations produits, la documentation et un devis quand vous en aurez besoin.",
+    bullets: [
+      'Réponse sous 12 h, 7 jours sur 7',
+      'WhatsApp, e-mail ou téléphone — votre choix',
+      'Vos coordonnées servent uniquement à votre demande, sans spam',
+    ],
+    cardTitle: 'Laissez vos coordonnées',
+    fullName: 'Nom complet *',
+    email: 'Adresse e-mail *',
+    phone: 'Téléphone / WhatsApp',
+    phonePlaceholder: '+33 6 12 34 56 78',
+    message: 'Produit ou exigence (facultatif)',
+    messagePlaceholder: "p. ex. vannes à boisseau DN50-300, quantité, port de destination...",
+    submit: 'Laisser mes coordonnées',
+    sending: 'Envoi...',
+    verifyRequired: "Veuillez d'abord effectuer la vérification avant d'envoyer.",
+    submitFailed: "L'envoi a échoué. Veuillez réessayer ou nous contacter via WhatsApp.",
+    privacyNote: "Vos coordonnées ne servent qu'à traiter votre demande. Pas de spam, pas de partage.",
+    successTitle: 'Coordonnées bien reçues !',
+    successBody:
+      "Merci. Notre équipe commerciale vous recontactera sous 12 heures avec les informations produits et les options de devis.",
+    successWhatsappHint: "Préférez-vous le chat instantané ? Contactez-nous directement sur WhatsApp :",
+    chatWhatsapp: 'Discuter sur WhatsApp',
+    sendAnother: '← Laisser d’autres coordonnées',
+    waFollowupMessage:
+      "Bonjour, je viens de laisser mes coordonnées sur wanlian911.com et souhaiterais un suivi rapide.",
+  },
   notFound: {
     title: '404 - Page Introuvable | Wanlian Fluid Equipment',
     description:
@@ -613,7 +762,37 @@ const ar: UIStrings = {
     chatWhatsapp: 'تواصل عبر واتساب',
     sendAnother: '→ أرسل استفساراً آخر',
     waFollowupMessage:
-      'مرحباً، لقد أرسلت استفساراً على wanlian911.com وأرغب بمتابعة سريعة.',
+      'مرحبا، لقد أرسلت استفسارا على wanlian911.com وأرغب بمتابعة سريعة.',
+  },
+  lead: {
+    eyebrow: 'اترك بيانات التواصل',
+    title: 'اترك بياناتك — سنتواصل معك',
+    body:
+      'لست مستعدا بعد لكتابة استفسار كامل؟ اترك اسمك ورقم هاتف أو بريد إلكتروني، وسيتواصل معك فريق المبيعات لدينا بمعلومات المنتجات والوثائق وعرض السعر عندما تحتاجها.',
+    bullets: [
+      'رد خلال 12 ساعة، طوال أيام الأسبوع',
+      'واتساب أو بريد إلكتروني أو هاتف — اختيارك',
+      'تستخدم بياناتك لمتابعة طلبك فقط، بدون رسائل مزعجة',
+    ],
+    cardTitle: 'اترك بيانات التواصل الخاصة بك',
+    fullName: 'الاسم الكامل *',
+    email: 'البريد الإلكتروني *',
+    phone: 'الهاتف / واتساب',
+    phonePlaceholder: '+971 50 123 4567',
+    message: 'المنتج أو المتطلب (اختياري)',
+    messagePlaceholder: 'مثال: صمامات بوابة DN50-300، الكمية، ميناء الوجهة...',
+    submit: 'اترك بياناتي',
+    sending: 'جارٍ الإرسال...',
+    verifyRequired: 'يرجى إكمال التحقق قبل الإرسال.',
+    submitFailed: 'فشل الإرسال. حاول مرة أخرى أو تواصل معنا عبر واتساب.',
+    privacyNote: 'نستخدم بياناتك لمتابعة طلبك فقط. لا رسائل مزعجة، لا مشاركة.',
+    successTitle: 'تم استلام بيانات التواصل!',
+    successBody: 'شكرا. سيتواصل معك فريق المبيعات خلال 12 ساعة بمعلومات المنتجات وخيارات التسعير.',
+    successWhatsappHint: 'تفضل المحادثة الفورية؟ تواصل معنا مباشرة عبر واتساب:',
+    chatWhatsapp: 'تواصل عبر واتساب',
+    sendAnother: '→ اترك بيانات أخرى',
+    waFollowupMessage:
+      'مرحبا، لقد تركت بيانات التواصل الخاصة بي على wanlian911.com وأرغب بمتابعة سريعة.',
   },
   notFound: {
     title: '404 - الصفحة غير موجودة | Wanlian Fluid',
