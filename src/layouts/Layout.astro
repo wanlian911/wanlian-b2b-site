@@ -16,6 +16,7 @@ interface Props {
 	productData?: any; // 用于传递产品数据生成 JSON-LD
 	faq?: { question: string; answer: string }[]; // FAQ 区块 + FAQPage JSON-LD
 	breadcrumbs?: { name: string; href?: string }[]; // 面包屑 + BreadcrumbList JSON-LD
+	video?: { name: string; description: string; thumbnail: string; src: string; duration: string; uploadDate: string }; // 页面视频 + VideoObject JSON-LD
 }
 
 const { 
@@ -28,7 +29,8 @@ const {
 	locale: localeProp,
 	productData,
 	faq = [],
-	breadcrumbs = []
+	breadcrumbs = [],
+	video
 } = Astro.props;
 
 const locale = localeProp ?? localeFromPath(Astro.url.pathname);
@@ -118,6 +120,19 @@ const faqJsonLd = faq.length ? {
 	}))
 } : null;
 
+// VideoObject 结构化数据 (JSON-LD) — 用于页面内嵌视频（如首页公司介绍视频）
+const videoJsonLd = video ? {
+	"@context": "https://schema.org",
+	"@type": "VideoObject",
+	name: video.name,
+	description: video.description,
+	thumbnailUrl: absoluteUrl(video.thumbnail),
+	contentUrl: absoluteUrl(video.src),
+	duration: video.duration,
+	uploadDate: video.uploadDate,
+	publisher: { "@id": "https://wanlian911.com/#organization" }
+} : null;
+
 // BreadcrumbList 结构化数据 (JSON-LD)
 const breadcrumbJsonLd = breadcrumbs.length ? {
 	"@context": "https://schema.org",
@@ -197,6 +212,9 @@ const breadcrumbJsonLd = breadcrumbs.length ? {
 		)}
 		{faqJsonLd && (
 			<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+		)}
+		{videoJsonLd && (
+			<script type="application/ld+json" set:html={JSON.stringify(videoJsonLd)} />
 		)}
 		{breadcrumbJsonLd && (
 			<script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
