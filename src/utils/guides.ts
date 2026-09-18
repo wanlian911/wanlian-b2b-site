@@ -279,5 +279,14 @@ export const guides: Guide[] = [
     category: 'Procurement',
     readTime: '9 min read',
     tags: ['procurement', 'fire-protection']
+  },
+  {
+    title: 'Wanlian Fluid vs Forede: Choosing a Chinese Fire Monitor & Equipment Manufacturer (2026)',
+    description: 'Wanlian Fluid vs Forede compared for 2026: fire monitors, water cannons, foam systems, hydrants & valves — which Chinese fire equipment manufacturer fits your project?',
+    href: '/guides/wanlian-fluid-vs-forede/',
+    date: '2026-09',
+    category: 'Procurement',
+    readTime: '9 min read',
+    tags: ['procurement', 'fire-protection', 'fire-water-cannon']
   }
 ];

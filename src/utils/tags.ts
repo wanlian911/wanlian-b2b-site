@@ -42,7 +42,7 @@ export const tags: Tag[] = [
     name: 'Fire Water Cannons',
     seoTitle: 'Fire Water Cannons & Monitors: Manual vs Auto-Tracking',
     description: 'Manual PS fire monitors and auto-tracking ZDMS cannons for large-space and industrial fire suppression, with jet range, flow and control integration guidance.',
-    guideHrefs: ['/guides/fire-water-monitor-selection-guide/', '/guides/fire-water-cannon-buying-guide/'],
+    guideHrefs: ['/guides/fire-water-monitor-selection-guide/', '/guides/fire-water-cannon-buying-guide/', '/guides/wanlian-fluid-vs-forede/'],
     productSlugs: ['manual-fire-water-cannon-ps', 'auto-tracking-jet-suppression-cannon-zdms'],
     relatedTags: ['fire-protection', 'fire-hose-reel']
   },
@@ -87,7 +87,7 @@ export const tags: Tag[] = [
     name: 'B2B Procurement',
     seoTitle: 'B2B Valve & Fire Equipment Sourcing Checklist',
     description: 'Factory verification, certificate checking, batch test reports, sample policies and red flags when sourcing valves and fire protection equipment from China.',
-    guideHrefs: ['/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-choose-a-fire-hydrant/', '/guides/wanlian-fluid-vs-american-avk/', '/guides/how-to-verify-chinese-valve-supplier/', '/guides/fire-hydrant-valve-standards-guide/', '/guides/municipal-water-fire-infrastructure-latinamerica/', '/guides/latinamerica-certification-requirements-fire-valves/', '/guides/detect-fake-valves-fire-equipment-counterfeits/', '/guides/wanlian-fluid-vs-avk-latinamerica/', '/guides/wanlian-fluid-vs-ca-fire/'],
+    guideHrefs: ['/guides/b2b-valve-sourcing-checklist/', '/guides/how-to-choose-a-fire-hydrant/', '/guides/wanlian-fluid-vs-american-avk/', '/guides/how-to-verify-chinese-valve-supplier/', '/guides/fire-hydrant-valve-standards-guide/', '/guides/municipal-water-fire-infrastructure-latinamerica/', '/guides/latinamerica-certification-requirements-fire-valves/', '/guides/detect-fake-valves-fire-equipment-counterfeits/', '/guides/wanlian-fluid-vs-avk-latinamerica/', '/guides/wanlian-fluid-vs-ca-fire/', '/guides/wanlian-fluid-vs-forede/'],
     productSlugs: [],
     relatedTags: ['certification', 'industrial-valves']
   },
