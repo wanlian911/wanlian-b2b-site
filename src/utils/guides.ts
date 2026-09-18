@@ -270,5 +270,14 @@ export const guides: Guide[] = [
     category: 'HVAC & Industrial Valves',
     readTime: '8 min read',
     tags: ['industrial-valves', 'backflow-prevention']
+  },
+  {
+    title: 'Wanlian Fluid vs CA-FIRE: Which Chinese Fire Protection Manufacturer Fits Your 2026 Project?',
+    description: 'Wanlian Fluid vs CA-FIRE compared for 2026: FM-approved sprinklers, fire monitors, hydrants, alarm valves & full fire kits — which Chinese fire manufacturer fits your project.',
+    href: '/guides/wanlian-fluid-vs-ca-fire/',
+    date: '2026-09',
+    category: 'Procurement',
+    readTime: '9 min read',
+    tags: ['procurement', 'fire-protection']
   }
 ];
