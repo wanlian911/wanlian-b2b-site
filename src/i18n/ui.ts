@@ -45,6 +45,13 @@ export interface UIStrings {
       terms: string;
       support: string;
     };
+    subscribeTitle: string;
+    subscribeDesc: string;
+    subscribePlaceholder: string;
+    subscribeButton: string;
+    subscribeSuccess: string;
+    subscribeVerify: string;
+    subscribeError: string;
     copyright: string;
   };
   whatsapp: {
@@ -136,6 +143,13 @@ const en: UIStrings = {
     companyDesc:
       'Quanzhou Wanlian Fluid Equipment Co., Ltd. manufactures and exports valves, fire protection equipment, hydraulic control products and fluid system components from its own production lines in Quanzhou, Fujian, with selected items produced by qualified manufacturing partners. Valve bodies are CNC-machined in-house and every unit is shell pressure and air-leakage tested before shipment, under an ISO 9001 quality management system.',
     tagline: '"Flow Far, Link Global."',
+    subscribeTitle: 'Stay Updated',
+    subscribeDesc: 'New products, guides and factory news. No spam, unsubscribe anytime.',
+    subscribePlaceholder: 'you@company.com',
+    subscribeButton: 'Subscribe',
+    subscribeSuccess: 'Subscribed — thank you!',
+    subscribeVerify: 'Please complete the verification check before sending.',
+    subscribeError: 'Submission failed. Please try again.',
     quickLinksTitle: 'Quick Links',
     quickLinks: [
       { name: 'Home', href: '/' },
@@ -282,6 +296,13 @@ const es: UIStrings = {
     companyDesc:
       'Quanzhou Wanlian Fluid Equipment Co., Ltd. fabrica y exporta válvulas, equipos de protección contra incendios, productos de control hidráulico y componentes para sistemas de fluidos desde sus propias líneas de producción en Quanzhou, Fujian, con artículos seleccionados producidos por socios de fabricación cualificados. Los cuerpos de válvula se mecanizan por CNC en la propia planta y cada unidad se somete a pruebas de presión de cuerpo y de estanqueidad al aire antes del envío, bajo un sistema de gestión de calidad ISO 9001.',
     tagline: '"Flow Far, Link Global."',
+    subscribeTitle: 'Manténgase Informado',
+    subscribeDesc: 'Nuevos productos, guías y noticias de la fábrica. Sin spam, cancele cuando quiera.',
+    subscribePlaceholder: 'usted@empresa.com',
+    subscribeButton: 'Suscribirse',
+    subscribeSuccess: '¡Suscrito — gracias!',
+    subscribeVerify: 'Complete la verificación antes de enviar.',
+    subscribeError: 'Error al enviar. Inténtelo de nuevo.',
     quickLinksTitle: 'Enlaces Rápidos',
     quickLinks: [
       { name: 'Inicio', href: '/' },
@@ -428,6 +449,13 @@ const ru: UIStrings = {
     companyDesc:
       'Quanzhou Wanlian Fluid Equipment Co., Ltd. производит и экспортирует клапаны, противопожарное оборудование, гидравлическую регулирующую арматуру и компоненты жидкостных систем на собственных производственных линиях в Цюаньчжоу (Фуцзянь); отдельные позиции выпускаются квалифицированными производственными партнёрами. Корпуса клапанов обрабатываются на станках с ЧПУ на собственном производстве, каждая единица проходит испытания на прочность корпуса и герметичность перед отгрузкой в рамках системы менеджмента качества ISO 9001.',
     tagline: '"Flow Far, Link Global."',
+    subscribeTitle: 'Будьте в Курсе',
+    subscribeDesc: 'Новые продукты, гайды и новости фабрики. Без спама, отписка в один клик.',
+    subscribePlaceholder: 'вы@компания.com',
+    subscribeButton: 'Подписаться',
+    subscribeSuccess: 'Вы подписаны — спасибо!',
+    subscribeVerify: 'Пройдите проверку перед отправкой.',
+    subscribeError: 'Ошибка отправки. Попробуйте ещё раз.',
     quickLinksTitle: 'Быстрые ссылки',
     quickLinks: [
       { name: 'Главная', href: '/' },
@@ -575,6 +603,13 @@ const fr: UIStrings = {
     companyDesc:
       "Quanzhou Wanlian Fluid Equipment Co., Ltd. fabrique et exporte des vannes, des équipements de protection incendie, des produits de régulation hydraulique et des composants de systèmes fluides depuis ses propres lignes de production à Quanzhou, Fujian, certains articles étant fabriqués par des partenaires de fabrication qualifiés. Les corps de vanne sont usinés par CNC en interne et chaque unité est contrôlée par essai de pression du corps et d'étanchéité à l'air avant expédition, dans le cadre d'un système de management de la qualité ISO 9001.",
     tagline: '"Flow Far, Link Global."',
+    subscribeTitle: 'Restez Informé',
+    subscribeDesc: "Nouveaux produits, guides et actualités de l'usine. Sans spam, désinscription à tout moment.",
+    subscribePlaceholder: 'vous@entreprise.com',
+    subscribeButton: "S'abonner",
+    subscribeSuccess: "Inscription confirmée — merci !",
+    subscribeVerify: "Veuillez compléter la vérification avant l'envoi.",
+    subscribeError: "Échec de l'envoi. Veuillez réessayer.",
     quickLinksTitle: 'Liens Rapides',
     quickLinks: [
       { name: 'Accueil', href: '/' },
@@ -725,6 +760,13 @@ const ar: UIStrings = {
     companyDesc:
       'شركة قوانتشو وانليان للمعدات السائلة المحدودة (Quanzhou Wanlian Fluid Equipment Co., Ltd.) تصنع وتصّدر الصمامات ومعدات الحماية من الحريق ومنتجات التحكم الهيدروليكي ومكونات أنظمة السوائل من خطوط إنتاجها الخاصة في قوانتشو، فوجيان، مع إنتاج مختارات من قبل شركاء تصنيع مؤهلين. يتم تشغيل أجسام الصمامات بواسطة CNC داخل المصنع وتخضع كل وحدة لاختبار ضغط الغلاف واختبار التسرب الهوائي قبل الشحن، وفق نظام إدارة جودة ISO 9001.',
     tagline: '"Flow Far, Link Global."',
+    subscribeTitle: 'ابق على اطلاع',
+    subscribeDesc: 'منتجات جديدة وأدلة وأخبار المصنع — بدون رسائل مزعجة، وإلغاء الاشتراك في أي وقت.',
+    subscribePlaceholder: 'you@company.com',
+    subscribeButton: 'اشترك',
+    subscribeSuccess: 'تم الاشتراك — شكراً!',
+    subscribeVerify: 'أكمل التحقق قبل الإرسال.',
+    subscribeError: 'فشل الإرسال. حاول مرة أخرى.',
     quickLinksTitle: 'روابط سريعة',
     quickLinks: [
       { name: 'الرئيسية', href: '/' },
