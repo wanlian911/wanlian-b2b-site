@@ -1,0 +1,94 @@
+---
+// Rotating factory background video for the hero section (desktop only).
+// Progressive enhancement: the static og-image stays as the LCP element and the
+// fallback for mobile / prefers-reduced-motion; clips crossfade over it in order.
+// Clips are self-hosted H.264 (muted, no audio track) at /videos/factory/.
+interface Props {
+  locale?: 'en' | 'es' | 'ru' | 'fr' | 'ar';
+}
+
+const { locale = 'en' } = Astro.props;
+
+const copy = {
+  en: { alt: 'Rotating real footage: assembly, production and dispatch at Wanlian Fluid factory' },
+  es: { alt: 'Vídeo real en rotación: montaje, producción y envío en la planta de Wanlian Fluid' },
+  ru: { alt: 'Реальные кадры в ротации: сборка, производство и отгрузка на заводе Wanlian Fluid' },
+  fr: { alt: "Images réelles en rotation : assemblage, production et expédition à l'usine Wanlian Fluid" },
+  ar: { alt: 'مشاهد حقيقية متناوبة: التجميع والإنتاج والشحن في مصنع وانليان فليد' }
+};
+
+const t = copy[locale] ?? copy.en;
+
+// order: craftsmanship → production scale → export dispatch
+const clips = [
+  { src: '/videos/factory/assembly.mp4', poster: '/videos/factory/assembly-poster.webp', hold: 12000 },
+  { src: '/videos/factory/red-field.mp4', poster: '/videos/factory/red-field-poster.webp', hold: 8000 },
+  { src: '/videos/factory/dispatch.mp4', poster: '/videos/factory/dispatch-poster.webp', hold: 8000 }
+];
+---
+
+<div data-hero-video class="absolute inset-0">
+  <img
+    src="/og-image.jpg"
+    alt={t.alt}
+    class="w-full h-full object-cover object-center opacity-40"
+  />
+  <div class="absolute inset-0" aria-hidden="true">
+    {clips.map((c, i) => (
+      <video
+        data-hold={c.hold}
+        class="hero-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
+        style="opacity:0"
+        muted
+        playsinline
+        loop
+        preload={i === 0 ? 'auto' : 'none'}
+        poster={c.poster}
+      >
+        <source src={c.src} type="video/mp4" />
+      </video>
+    ))}
+  </div>
+</div>
+
+<script>
+  const heroRoot = document.querySelector<HTMLElement>('[data-hero-video]');
+  const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (heroRoot && isDesktop && !reducedMotion) {
+    const slides = Array.from(heroRoot.querySelectorAll<HTMLVideoElement>('.hero-slide'));
+    const holds = slides.map((v) => Number(v.dataset.hold) || 10000);
+    let idx = 0;
+    let timer: number | undefined;
+
+    const activate = (v: HTMLVideoElement) => {
+      if (v.readyState < 3) v.load();
+      v.play().then(() => { v.style.opacity = '0.45'; }).catch(() => {});
+    };
+    const retire = (v: HTMLVideoElement) => {
+      window.setTimeout(() => {
+        v.style.opacity = '0';
+        window.setTimeout(() => v.pause(), 1200);
+      }, 250);
+    };
+    const next = () => {
+      const prev = slides[idx];
+      idx = (idx + 1) % slides.length;
+      activate(slides[idx]);
+      retire(prev);
+      timer = window.setTimeout(next, holds[idx]);
+    };
+    activate(slides[0]);
+    timer = window.setTimeout(next, holds[0]);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        window.clearTimeout(timer);
+        slides.forEach((v) => v.pause());
+      } else {
+        activate(slides[idx]);
+        timer = window.setTimeout(next, holds[idx]);
+      }
+    });
+  }
+</script>
