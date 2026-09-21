@@ -1,0 +1,257 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'risk-frame', label: '1. Why Cross-Border Procurement Fails: The Risk Frame' },
+	{ id: 'eight-risk-families', label: '2. The Eight Risk Families' },
+	{ id: 'counterparty-risk', label: '3. Counterparty & Authenticity Risk' },
+	{ id: 'quality-risk', label: '4. Quality & Specification Risk' },
+	{ id: 'certification-risk', label: '5. Certification & Compliance Risk' },
+	{ id: 'payment-risk', label: '6. Payment & Financial Risk' },
+	{ id: 'logistics-risk', label: '7. Logistics, Customs & Delivery Risk' },
+	{ id: 'dispute-risk', label: '8. Dispute, Warranty & Continuity Risk' },
+	{ id: 'control-checklist', label: '9. The Control Checklist by Stage' },
+	{ id: 'red-flags', label: '10. Red Flags: Stop and Re-Verify' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const faq = [
+	{
+		question: 'What is the most common cause of failed cross-border equipment purchases?',
+		answer: 'Not price, and not even counterfeits — the most common failure is a specification that was never complete enough to hold the supplier accountable. When the standard, size, pressure class, material and acceptance test are not fixed in writing, "the product does not match" has no measurable definition, and the dispute becomes unresolvable. Completing the specification in writing before quotation is the single highest-leverage risk control in this whitepaper.'
+	},
+	{
+		question: 'What payment structure is safest for a first order with a Chinese manufacturer?',
+		answer: 'A milestone T/T structure is the standard defensible shape: a deposit against order (the market norm is in the 30% range for equipment orders) and the balance against shipping documents or after a pre-shipment inspection passes. For a large first order, a sight letter of credit governed by UCP 600 adds bank-to-bank assurance. What to avoid: 100% advance payment to an unverified counterparty, personal-account transfers outside the contract entity, and accepting a price that is dramatically below the peer quotes you collected — the discount is the risk, not the protection.'
+	},
+	{
+		question: 'How do I protect against forged UL, FM or CE certificates?',
+		answer: 'Treat any certificate number as a claim, not a fact: resolve it at the issuing body\u2019s official portal against the exact model and the exact factory before you specify it. A number that does not resolve is a forgery regardless of how clean the PDF looks. Add the verification step to the contract as a condition of acceptance, require per-unit test records that reconcile with the serial numbers on the packing list, and run a sample order first. Our counterfeit-detection guide lists the physical tells — cloned serials, copied nameplates, thin-wall castings.'
+	},
+	{
+		question: 'Which Incoterm puts the most risk on the buyer?',
+		answer: 'EXW (Ex Works) puts nearly everything on the buyer: you arrange collection at the factory, export customs clearance, main carriage and insurance, so any weakness in your local logistics chain becomes your cost. DDP (Delivered Duty Paid) inverts the problem: the supplier carries everything, which creates pricing opacity — the buyer cannot audit what is being priced, and any export-side complication lands on the supplier with you waiting. FOB and CIF are the common middle ground with a clear risk-transfer point and auditable pricing; choose based on which leg of the journey you can control better.'
+	},
+	{
+		question: 'What clauses must the contract contain before signature?',
+		answer: 'At minimum: the technical specification as an annex (standard, size, pressure class, material, finish), written acceptance criteria tied to per-unit test records, your right to inspect or appoint a third-party inspector before shipment, the payment milestone schedule, an Incoterm and port, force majeure, the governing law and dispute forum (arbitration clauses are enforceable across borders more reliably than foreign courts), the warranty period, and a spare-parts commitment for the equipment\u2019s service life. A quotation is not a contract; the signed contract with the spec annex is the risk document.'
+	},
+	{
+		question: 'Can I run all of these controls without visiting the factory?',
+		answer: 'Yes, in graduated form — and it is the normal path for first orders. Video factory walk-through, export documentation history, a one-unit sample per model with a serial-numbered pressure-test video, then a pre-shipment inspection by an independent agency (SGS, Bureau Veritas or Intertek) covers most of the verification a physical visit provides, at a fraction of the cost. Reserve the physical visit for the second order, or for value levels where the inspection fee is a rounding error. What you should never skip, with or without a visit: certificate resolution at the issuing body and the sample order.'
+	}
+];
+---
+
+<Layout
+	title="Cross-Border Procurement Risk Control: A B2B Buyer's Whitepaper (2026) | Wanlian Fluid"
+	description="How to control cross-border procurement risk for fire & water infrastructure equipment: 8 risk families, pre-shipment controls, payment structures and a red-flags checklist."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Procurement Risk Whitepaper' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Procurement Risk Whitepaper</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Industry Whitepaper · 2026</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Cross-Border Procurement Risk Control: How to Control It Before You Pay</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Buying valves, hydrants and fire-protection equipment across a border is a risk-management exercise that happens to produce equipment. The failures that cost buyers money are rare and dramatic (a supplier that disappears with a prepayment, a container of counterfeit valves) but the usual damage is quieter: a specification that never closed, a certificate that never resolved, an Incoterm that priced the wrong leg of the journey. This whitepaper organizes cross-border procurement risk into eight families, assigns each one a control sequence, and ends with a stage-by-stage checklist and a red-flags table you can attach to a purchase order.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Method:</strong> We are a manufacturer on the supplying side of these transactions, and we state that openly — the counterparty-authenticity section is the one section where our interest could be read as self-serving, so it is written to apply symmetrically to any supplier, including us. The mechanisms cited (Incoterms 2020, UCP 600, milestone T/T, third-party inspection, issuing-body certificate resolution) are the standard instruments buyers actually use; where a figure is a market convention rather than a verified fact, it is labeled as such.</p>
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="risk-frame" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Why Cross-Border Procurement Fails: The Risk Frame</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Domestic procurement has three risk dimensions — quality, price, delivery. Cross-border procurement adds at least four more: <strong>counterparty authenticity</strong> (is the entity you pay the entity that ships, and will it still exist at warranty time), <strong>regulatory translation</strong> (the standard your destination enforces must be the standard the product was made to), <strong>currency and payment instruments</strong> (the money moves before the goods move), and <strong>enforceability</strong> (a contract you cannot enforce is a polite document). The distance is the point: every control you omit is priced by the supplier's risk appetite, and the only way to lower the price of risk is to reduce the risk in writing.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Two principles govern everything below. First, <strong>risk is managed in the paper trail, not in the relationship.</strong> A supplier that resists documentation — test records, certificate resolution, inspection rights, milestone payment — has already answered the question of what happens when something goes wrong. Second, <strong>sequence matters more than any single control.</strong> Verifying the company before the certificate, the certificate before the sample, the sample before the volume, and the balance before the shipment is a sequence; run it out of order and the later step inherits all the risk the earlier step was supposed to retire.</p>
+			<p class="text-gray-700 leading-relaxed">For the vocabulary that makes the rest precise — Incoterms, pressure class, shell test, nameplate, bill of lading — our <a href="/glossary/" class="text-brand-blue font-semibold hover:underline">industry glossary</a> defines each term, and the <a href="/whitepaper/" class="text-brand-blue font-semibold hover:underline">specification and verification whitepaper</a> covers what a defensible written specification looks like.</p>
+
+			<h2 id="eight-risk-families" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. The Eight Risk Families</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Every cross-border procurement loss we have seen decomposes into one of eight families. The table is the map; sections 3–8 are the control sequences for each family. Likelihood and impact are stated qualitatively because they depend on the supplier's behavior, which is exactly what the controls are for.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Risk family</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">How it shows up</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Primary control</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">1. Counterparty &amp; authenticity</td><td class="px-4 py-3 text-gray-700">Trading desk resells castings as its own; entity disappears after prepayment; website and legal entity do not match</td><td class="px-4 py-3 text-gray-700">Entity verification + factory video/visit + export history (§3)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">2. Quality &amp; specification</td><td class="px-4 py-3 text-gray-700">Material grade downgraded; unit fails the standard the tender assumed; batch inconsistent</td><td class="px-4 py-3 text-gray-700">Closed written spec + sample order + per-unit test records (§4)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">3. Certification &amp; compliance</td><td class="px-4 py-3 text-gray-700">Forged or stale certificates; per-plant certificate applied to per-model requirement; destination standard mismatch</td><td class="px-4 py-3 text-gray-700">Issuing-body resolution per model + contract acceptance condition (§5)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">4. Price &amp; commercial</td><td class="px-4 py-3 text-gray-700">Bait-and-switch quote; tooling, packaging or currency costs added after signature; "best price" below physical possibility</td><td class="px-4 py-3 text-gray-700">Itemized like-for-like quotes + price validity + outturn clause (§4, §6)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">5. Payment</td><td class="px-4 py-3 text-gray-700">100% advance to unverified counterparty; balance demanded before inspection; personal-account diversion</td><td class="px-4 py-3 text-gray-700">Milestone T/T or L/C + entity-matched account + inspection gate (§6)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">6. Logistics &amp; customs</td><td class="px-4 py-3 text-gray-700">Incoterm priced the wrong leg; documents fail destination customs; missed vessel; DG items misdeclared</td><td class="px-4 py-3 text-gray-700">Incoterm choice + document pack + pre-shipment container check (§7)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">7. Delivery &amp; continuity</td><td class="px-4 py-3 text-gray-700">Schedule slips the program; no spare parts at year five; supplier out of business at warranty claim</td><td class="px-4 py-3 text-gray-700">Schedule with remedies + spare-parts clause + supplier longevity check (§8)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">8. Dispute &amp; legal</td><td class="px-4 py-3 text-gray-700">No governing law; warranty unenforceable; arbitration clause missing; records lost</td><td class="px-4 py-3 text-gray-700">Contract annex + arbitration clause + retained test records (§8)</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="counterparty-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Counterparty &amp; Authenticity Risk</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">This is the only family where you cannot inspect the risk out after the fact — the control is entirely before money moves. The pattern it catches is the trading desk that presents itself as a manufacturer: it quotes factory prices, shows factory photos (photographed at a factory it visits but does not own), and ships castings that a real manufacturer rebranded. In a cluster industry like Chinese fire equipment, several hundred companies work from the same metro area, so "factory photos" prove geography, not ownership.</p>
+		<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+			<li><strong>Verify the legal entity, not the brand.</strong> Company name, registration number, registered address, business scope and registered capital — against the supplier's own business license, not its website. A brand name on a website and a legal entity on a bank remittance must be the same entity.</li>
+			<li><strong>Verify the quality system's scope.</strong> An ISO 9001 certificate covers a named scope at a named address. "Valves and fire equipment" at the factory address is a signal; "trading" or a different address is a different signal.</li>
+			<li><strong>Run a live video factory walk-through.</strong> Not a pre-recorded tour: a live call where the camera is walked from the gate through casting, machining, assembly and testing. A manufacturer with something to hide will offer the recorded tour and the brochure instead.</li>
+			<li><strong>Check the export track record.</strong> Years exporting, destination countries, and a reference order you can independently contact. In the fire-equipment cluster, ask specifically: which of these units did <em>you</em> manufacture, and which did your partners manufacture? A manufacturer answers this question; a desk deflects it.</li>
+			<li><strong>Cross-check the presence.</strong> Website domain age, the Alibaba or trade-platform profile against the legal entity, and whether the contact works from a corporate domain rather than a personal mailbox.</li>
+		</ol>
+		<p class="text-gray-700 leading-relaxed">The step-by-step method — including the five checks and the questions that separate a factory from a desk — is in our <a href="/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">Chinese supplier verification guide</a>. The 8-point diligence checklist in our <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> is written to be pasted into a first email.</p>
+
+			<h2 id="quality-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Quality &amp; Specification Risk</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The quality risk is usually planted at quotation time, not at the factory. If your request said "DN100 gate valve, AWWA preferred, 200 pcs," every supplier can answer it — and every supplier answers it with a different product. The three highest-value quality controls are therefore specification controls, executed before a single unit is cast:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Close the specification in writing.</strong> Governing standard (AWWA C502/C515, ISO 5208, EN 1074, NFPA 13, or the tender's reference), size and pressure class, material grade and finish, connection type, and the required test per unit. A quotation against an open spec is a conversation, not a risk document. The <a href="/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">standards guide</a> maps the regimes side by side.</li>
+				<li><strong>Order the sample before the volume.</strong> One unit per model: nameplate, serial number, material (mill) certificate, and a serial-numbered shell-pressure and air-leakage test video. A <a href="/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ-150 wet alarm check valve</a> or an <a href="/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">SS100/65 overground hydrant</a> is cheap enough as a sample that skipping the step is never the rational choice — the sample is the cheapest counterfeit and specification-risk insurance available.</li>
+				<li><strong>Require per-unit, not per-batch, test records.</strong> A batch report says "we tested some." A per-unit record with serials that reconcile to the packing list says "we tested yours." This is also the document your destination inspector will ask for at acceptance.</li>
+				<li><strong>Appoint a third-party inspection for the volume.</strong> SGS, Bureau Veritas or Intertek witnessing the test and reviewing records before shipment converts "the supplier says" into "an independent agency witnessed." The fee is a rounding error against the cost of one wrong container.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">On the price side of this family: a quote dramatically below the peer quotes you collected is not a bargain, it is a priced-in risk — the discount has to come from the material grade, the wall thickness, the testing, or your future balance payment. Our <a href="/cost-calculator/" class="text-brand-blue font-semibold hover:underline">procurement cost estimator</a> sizes the legitimate cost drivers (volume, Incoterm, destination) so a low quote can be checked against the physics of the order rather than felt.</p>
+
+			<h2 id="certification-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Certification &amp; Compliance Risk</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Certification is the most counterfeited document in this industry and the most commonly misapplied one. Two distinct failures: <strong>forgery</strong> (the certificate is fake, or cloned from a real one) and <strong>scope drift</strong> (the certificate is real but covers a different model, a different factory, or a different year than your PO assumes). The control for both is the same instrument: <strong>resolution at the issuing body's official portal</strong> — the UL product-iQ directory, the FM approvals database, the LPCB RedBook, the issuing body's certificate registry for Chinese fire product certification. A certificate number that does not resolve to your supplier's entity and your model is a forgery, full stop, no matter how clean the PDF looks.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The second control is contractual: make certificate resolution a <em>condition of acceptance</em>, not a description of the product. "UL listed" in the description column of a quotation carries no weight; "the supplier warrants that model Z41X-100 is listed under UL 262 certificate number [X], verifiable in UL product-iQ as of shipment, with a copy of the certificate delivered before balance payment" carries weight. The physical tells of forged valves — cloned serials, copied nameplates, thin-wall castings, paint too thick over a stamping — are covered in our <a href="/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">counterfeit-detection guide</a>.</p>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Per-model vs per-plant: the distinction that matters</p>
+				<p class="text-sm text-gray-700 leading-relaxed">A system certificate (ISO 9001, a factory license) says the <em>company</em> runs a controlled process. A product certificate (UL listing, FM approval, CE marking under the applicable directive, fire product certification) says the <em>model</em> was tested. Your destination inspector enforces the product certificate. A supplier that offers its system certificate when you asked for a product certificate is answering a different question than you asked — and the question you asked is the one that determines whether your container is accepted.</p>
+			</div>
+			<p class="text-gray-700 leading-relaxed">For the destination-specific mapping — what a Latin American tender means by UL/FM/AWWA/NOM, what the EU means by CE per model, what NFPA 13 means for an <a href="/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">AWWA-style gate valve</a> — see the <a href="/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">UL listing guide</a>, the <a href="/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">Latin American certification guide</a> and the <a href="/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">CE &amp; EN 12845 compliance guide</a>.</p>
+
+			<h2 id="payment-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Payment &amp; Financial Risk</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">In cross-border equipment trade the money moves before the goods move, and the structure of that movement is the control. Four instruments, in ascending order of buyer protection for a first order:</p>
+			<table class="w-full text-sm my-5 border-collapse">
+				<thead>
+					<tr class="bg-gray-50">
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">Instrument</th>
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">What it does</th>
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">Where it fits</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-gray-200">
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Milestone T/T</td><td class="px-4 py-3 text-gray-700">Deposit against order; balance against shipping documents or after passed pre-shipment inspection</td><td class="px-4 py-3 text-gray-700">The standard defensible shape for verified suppliers — the market norm for the deposit on equipment orders sits in the 30% range</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Sight L/C (UCP 600)</td><td class="px-4 py-3 text-gray-700">Bank pays on compliant documents; bank-to-bank assurance replaces trust</td><td class="px-4 py-3 text-gray-700">Large first orders, or any order where the deposit alone exceeds your risk appetite</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Platform escrow</td><td class="px-4 py-3 text-gray-700">The platform holds payment against delivery/inspection</td><td class="px-4 py-3 text-gray-700">Small orders and sample purchases with a new counterparty</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Export credit insurance</td><td class="px-4 py-3 text-gray-700">Insures the receivable against supplier default (China Ex&I / Sinosure on the export side; local credit insurers on yours)</td><td class="px-4 py-3 text-gray-700">Programs and repeat orders once the counterparty is proven</td></tr>
+				</tbody>
+			</table>
+			<p class="text-gray-700 leading-relaxed mb-4">Three payment rules are worth stating as hard lines. <strong>First:</strong> 100% advance payment is only defensible against a counterparty that has already passed §3 verification and has carried a track record you independently contacted — and even then, against a contract that makes the advance refundable on inspection failure. <strong>Second:</strong> every remittance goes to the bank account of the legal entity in the contract — a request to pay a different company or a personal account is a fraud signal on its own, full stop. <strong>Third:</strong> currency is a priced variable; quote and contract in one stated currency, and treat "price in USD, pay in RMB at the rate of the day" as an open FX position you have just accepted. FX hedging exists for a reason, and for most equipment orders the simpler control is a single-currency contract.</p>
+
+			<h2 id="logistics-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Logistics, Customs &amp; Delivery Risk</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The Incoterm is the risk map of the journey, and most disputes in this family are Incoterm disputes wearing a different costume. Under Incoterms 2020:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>EXW</strong> — you take over at the factory gate: export clearance, main carriage, insurance, all yours. Maximum control, maximum burden; right when you have your own freight chain in China.</li>
+				<li><strong>FOB</strong> — supplier clears export and loads; risk passes on board. The most common term for containerized equipment; you control the vessel and the insurance on your side.</li>
+				<li><strong>CIF</strong> — supplier adds carriage and insurance to your port; risk still passes on board at origin. You pay for a carrier you did not choose — price it accordingly.</li>
+				<li><strong>DDP</strong> — supplier delivers duty paid to your door: total control, total opacity. Every cost element is inside a number you cannot audit; use it only with a supplier whose logistics you have already seen work.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">The documentation pack is the second control, and it doubles as your quality evidence: commercial invoice, packing list, bill of lading, certificate of origin, and the <strong>per-lot and per-unit test records reconciled to the serial numbers on the packing list</strong>. A complete, reconcilable document pack is itself a quality signal — and it is what your destination inspector and your maintenance team will hold at acceptance and at year five. Pressurized items (portable extinguishers) are dangerous goods and require DG-compliant packing and declaration; water-based equipment is general cargo — the distinction changes your freight options and your insurance, so declare it correctly in the inquiry, as the <a href="/guides/fire-extinguisher-selection-guide/" class="text-brand-blue font-semibold hover:underline">extinguisher guide</a> details. Finally, put a pre-shipment container check into the inspection scope: seal numbers photographed, packing list count verified, the test records in the container's document folder. The cost is trivial; it is the last moment the goods are visible to you before the risk crosses the ocean.</p>
+
+			<h2 id="dispute-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. Dispute, Warranty &amp; Continuity Risk</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A cross-border contract's job is to make the worst case manageable. The clauses that actually carry weight in an equipment purchase:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Specification as an annex</strong> — the closed spec from §4 is an annex to the contract, not an attachment to an email. The contract incorporates it by reference and it governs acceptance.</li>
+				<li><strong>Acceptance criteria with test rights</strong> — per-unit shell pressure and air-leakage test per the named standard, your right to inspect or appoint a third party before shipment, and the remedy (replace, retest, refund) defined for each failure mode.</li>
+				<li><strong>Certificate resolution condition</strong> — per §5: named certificate, named model, resolvable at the issuing body, copy delivered before balance payment.</li>
+				<li><strong>Payment milestones</strong> — the §6 structure written into the contract so it cannot be renegotiated under time pressure.</li>
+				<li><strong>Force majeure and schedule</strong> — a delivery date with a defined remedy for delay, not just a "best effort." Programs slip because contracts make slipping cheap.</li>
+				<li><strong>Governing law and arbitration</strong> — an arbitration clause (a neutral seat, a named arbitration institution) is enforceable across borders under the New York Convention far more reliably than a promise to sue in the other side's courts. For most buyers this single clause is the difference between a recoverable loss and an expensive letter.</li>
+				<li><strong>Warranty and spare parts</strong> — the warranty period stated per model, and a spare-parts availability commitment sized to the equipment's service life. A valve that cannot be re-seated at year eight becomes a replacement you hope the supplier still makes.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Continuity risk is the quiet one: the supplier that ships your container and is gone at warranty time. The check is the same §3 evidence — registered years, capital, export history, the breadth of the customer base — plus a structural one: <strong>never design a single-source dependency for a safety-critical line item without a second qualified source on file.</strong> We do not ask you to qualify a competitor as your hedge; we ask you to keep the specification and the test records complete enough that you could, if you ever had to.</p>
+
+			<h2 id="control-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">9. The Control Checklist by Stage</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The controls from sections 3–8, arranged in execution order. Print it, attach it to the PO, tick it off — the sequence is the point: each stage's controls retire the risk the next stage's money would otherwise price in.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Stage</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Controls</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Gate to pass</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Before qualification</td><td class="px-4 py-3 text-gray-700">Closed written spec; 3+ like-for-like quotes; cost drivers sized</td><td class="px-4 py-3 text-gray-700">Spec annex ready; peer price band established</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Qualification</td><td class="px-4 py-3 text-gray-700">Entity + ISO scope + live video factory walk + export references (§3)</td><td class="px-4 py-3 text-gray-700">Factory confirmed; references independently contacted</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Contract</td><td class="px-4 py-3 text-gray-700">Acceptance criteria, certificate condition, milestones, Incoterm, arbitration clause (§6–8)</td><td class="px-4 py-3 text-gray-700">Signed contract with spec annex — not a quotation</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Sample</td><td class="px-4 py-3 text-gray-700">One unit per model: nameplate, serial, mill cert, test video (§4)</td><td class="px-4 py-3 text-gray-700">Sample accepted against the annex; certificates resolved at issuing body</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Production</td><td class="px-4 py-3 text-gray-700">Schedule confirmed; milestone 1 paid; periodic photo/video evidence</td><td class="px-4 py-3 text-gray-700">Progress against schedule, exceptions flagged in writing</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Pre-shipment</td><td class="px-4 py-3 text-gray-700">Third-party inspection witnesses test + records review; container check; documents packed</td><td class="px-4 py-3 text-gray-700">Inspection passed; document pack complete and reconciled</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Payment &amp; shipping</td><td class="px-4 py-3 text-gray-700">Balance released against passed inspection / shipping docs; B/L verified</td><td class="px-4 py-3 text-gray-700">Risk passed on board; documents in hand</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Arrival &amp; beyond</td><td class="px-4 py-3 text-gray-700">Destination acceptance vs test records; records filed for maintenance; warranty channel tested</td><td class="px-4 py-3 text-gray-700">Acceptance recorded; records filed for the equipment's life</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">How the same controls run on our own production</p>
+				<p class="text-sm text-gray-700 leading-relaxed">We are a manufacturer, and the honest way to use this whitepaper is to let the controls run against us too. Our process evidence, stated as what we do: production under an ISO 9001:2015 system (certificate available for verification with the issuing body); 100% per-unit shell pressure and air-leakage testing with per-unit records reconciled to the packing list; a serial-numbered test video available on a sample unit; per-model certificates from our <a href="/certificates/" class="text-brand-blue font-semibold hover:underline">certificates page</a> provided on request; export documentation coordinated with the shipment; and a 12-hour response commitment on a full specification. Every claim in this paragraph is checkable by exactly the procedure this whitepaper describes — which is the point of publishing it.</p>
+			</div>
+
+			<h2 id="red-flags" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">10. Red Flags: Stop and Re-Verify</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ten signals that stop the process and send you back to the checklist. Any one of them is worth a week; two or more is worth a different supplier.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">#</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Signal</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Why it matters</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-black text-gray-400">1</td><td class="px-4 py-3 font-bold text-gray-900">Declines a live video factory walk-through</td><td class="px-4 py-3 text-gray-700">A manufacturer has nothing to hide in its own plant; only a desk does</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">2</td><td class="px-4 py-3 font-bold text-gray-900">Certificate number does not resolve at the issuing body</td><td class="px-4 py-3 text-gray-700">The forgery is confirmed regardless of how the PDF looks</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">3</td><td class="px-4 py-3 font-bold text-gray-900">Payment requested to a personal account or a different entity</td><td class="px-4 py-3 text-gray-700">The contract entity and the payee must match; this is a fraud signal on its own</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">4</td><td class="px-4 py-3 font-bold text-gray-900">100% advance demanded for a first large order</td><td class="px-4 py-3 text-gray-700">It prices all remaining risk onto you with no control left in the structure</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">5</td><td class="px-4 py-3 font-bold text-gray-900">Quote far below the peer band with no stated trade-off</td><td class="px-4 py-3 text-gray-700">The discount is funded from material, wall thickness, testing — or your balance</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">6</td><td class="px-4 py-3 font-bold text-gray-900">Refuses a sample order</td><td class="px-4 py-3 text-gray-700">A sample costs the supplier little and proves the most; refusal is a statement</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">7</td><td class="px-4 py-3 font-bold text-gray-900">"Batch report" offered instead of per-unit test records</td><td class="px-4 py-3 text-gray-700">Your units are not "some of the batch"; the serial-reconciled record is the acceptance document</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">8</td><td class="px-4 py-3 font-bold text-gray-900">Nameplate model does not match the PO</td><td class="px-4 py-3 text-gray-700">Substitution has already happened; the question is how much else differs</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">9</td><td class="px-4 py-3 font-bold text-gray-900">Cannot state which standard each model is tested to</td><td class="px-4 py-3 text-gray-700">A manufacturer of safety equipment knows its standards; vagueness is a different business</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">10</td><td class="px-4 py-3 font-bold text-gray-900">Resistance to inspection rights or third-party inspection in the contract</td><td class="px-4 py-3 text-gray-700">A factory that passes its own tests does not fear an independent witness to them</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Run a Live Risk Check on Your Next Order</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send your specification, the supplier you are working with, and your destination — within 12 hours we will walk it against the checklist in this whitepaper: spec closure, certificate resolution, the payment structure, and the document pack that should travel with the shipment.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Procurement%20Risk%20Check" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20would%20like%20a%20procurement%20risk%20check%20for%20my%20order" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

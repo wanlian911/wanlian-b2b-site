@@ -1,0 +1,174 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TableOfContents from '../components/sections/TableOfContents.astro';
+
+// 全站 FAQ:大模型抓取高价值段落(FAQPage JSON-LD 由 Layout 生成)
+const faq = [
+	{
+		question: 'What products does Wanlian Fluid manufacture and export?',
+		answer: 'Six product lines and 45 published models: fire water monitors (the ZDMS auto-tracking jet suppression cannon and manual PS series), fire hydrants (SS100/65 overground antifreeze, SSFT100/65 anti-collision, SA underground, SN65 indoor heads and the IoT smart ground hydrant), sprinkler and alarm valves (ZSFZ wet, ZSFC dry, ZSFM deluge, ZSFY pre-action) with ZST/ESFR/concealed heads and ZSJZ water flow indicators, fire-protection and industrial valves (resilient-seat gate, butterfly, check, Y-strainer, bellows seal, digital balancing), hydraulic control valves (500X pressure reducing, 100X remote float, F745X water level control, HS41X backflow preventer, EN 12845 suction vortex preventer), and firefighting accessories (extinguisher cabinets, hose reels, layflat fire hose, nozzles, Storz couplings and ABC dry powder extinguishers).'
+	},
+	{
+		question: 'Which standards are your products made and tested to?',
+		answer: 'Standards are a property of the model and the destination, not of the brand, so we state them per model: AWWA C502/C515 for North American-spec hydrants and valves, ISO 5208 and EN 1074 for water supply service, EN 12266-1 for valve type testing, and the Chinese national standards (GB 5135 series, GB 4452, GB 50974) for fire protection equipment. Per-model test reports are provided on request. Our standards guide maps the AWWA, NFPA, EN and ISO regimes side by side so you can check your tender against what each model is actually tested to.'
+	},
+	{
+		question: 'Can you supply a complete bill of materials — hydrants, valves, hose, cabinets — under one purchase order?',
+		answer: 'Yes, this is one of our core strengths. A consolidated one-PO package removes multiple suppliers\' margins, separate freight and the coordination risk of one line slipping the program. The export document pack — commercial invoice, packing list, certificate of origin and per-unit test records — travels with the single container, which also simplifies customs and acceptance. Send the full BOM and destination and we quote it as one export line.'
+	},
+	{
+		question: 'Do you provide CAD drawings, datasheets and test reports?',
+		answer: 'Yes — certificate copies, hydrostatic test reports, technical datasheets, CAD drawings and installation manuals are available for our product range on request. Specify the certification, product model and your target market when you ask, and we confirm the applicable scope and attach the documents to the quotation or the shipment, depending on your stage.'
+	},
+	{
+		question: 'Do your valves carry UL or FM certification?',
+		answer: 'UL and FM certification is granted per model, and ours is stated the same way: our certificates page publishes UL 262/UL 1091 coverage for gate and check valves for fire-protection service and FM Class 1120/1130 approval for OS&Y and NRS fire service control valves, together with LPCB RedBook entries and CE documentation. The coverage applies to the specific models listed in each certificate — contact us to confirm model coverage for your specification and request copies before you order.'
+	},
+	{
+		question: 'How can I verify your certificates are genuine?',
+		answer: 'Resolve the certificate number at the issuing body\'s official portal — UL product-iQ for UL listings, the FM approvals database for FM approvals, the LPCB RedBook, or the certification body\'s registry for ISO 9001 — against our legal entity and the exact model on your PO. A number that does not resolve is a forgery regardless of how clean the PDF looks, and this check belongs in your contract as a condition of acceptance. Our fake-certificate detection guide explains the physical tells as well.'
+	},
+	{
+		question: 'Can you supply CE-marked equipment for the European market?',
+		answer: 'CE marking is model-level, never series-level, and we state it that way: pressure equipment is tested and marked under the applicable EU directives with EN 12266-1 type testing, and the EN 12845 fire-pump suction package is covered by our stainless suction vortex preventer. For a European project we confirm the applicable directive, category and model coverage with you before order — the CE & EN 12845 compliance guide walks through each step.'
+	},
+	{
+		question: 'What do you offer on Chinese national standards (GB)?',
+		answer: 'Our fire protection equipment is manufactured and tested in accordance with the relevant Chinese national standards — the GB 5135 series for fire protection products, GB 4452 and GB 50974 for water supply and fire hydrant service — and per-model test reports are available on request. For projects outside China, the mapping to AWWA, EN or NFPA references is stated per model in the quotation, because the governing standard is a property of the model and the destination, not of the brand.'
+	},
+	{
+		question: 'What do you offer on MOQ and sample orders?',
+		answer: 'Standard MOQ is typically 20 units per model for stock sizes, with production lead times of 15–30 days depending on quantity and customization; sample orders are available for pre-shipment testing and approval. For safety-critical equipment we always recommend a one-unit sample per model: nameplate, serial number, material certificate and a serial-numbered pressure-test video checked against your specification before volume.'
+	},
+	{
+		question: 'Why are there no public prices on your website?',
+		answer: 'We quote per inquiry, the standard practice in B2B industrial supply: a fair price depends on the exact model, quantity, Incoterm and destination, and publishing a single figure would price it wrong for most buyers. A complete specification gets an itemized quote — per model, not a blended number — typically within 12 hours. The procurement cost estimator lets you size the legitimate cost drivers (volume, incoterm, destination) yourself before comparing quotes.'
+	},
+	{
+		question: 'What payment terms do you work with?',
+		answer: 'The standard structure for orders is milestone payment — a deposit against order and the balance against shipping documents or after a passed pre-shipment inspection — with a letter of credit available for larger orders. The final terms are confirmed per order in the contract. We follow the same logic we publish in our procurement risk whitepaper: the payment structure should match the verification you have completed, and every remittance goes to the contract entity.'
+	},
+	{
+		question: 'What is the typical lead time from inquiry to shipment?',
+		answer: 'A complete specification gets a quote within 12 hours. A sample order typically runs 1–3 weeks. Production for stock sizes is 15–30 days depending on quantity and customization; OEM or custom-branded items add tooling and branding time. The itemized quote states the schedule for your exact order, and we track it in writing — a schedule with a defined remedy is the point, not the promise.'
+	},
+	{
+		question: 'Can you quote FOB, CIF or other Incoterms?',
+		answer: 'Yes — we work under Incoterms 2020, and every quotation states the Incoterm and the named port explicitly, because the Incoterm is the risk map of the journey. FOB keeps the vessel and insurance on your side of a clear transfer point; CIF adds carrier-priced freight; EXW and DDP shift more of the journey to one party or the other and are used where a buyer\'s logistics chain justifies it. Tell us the destination and the term your project requires and we price it on that basis.'
+	},
+	{
+		question: 'Do you manufacture everything in your own factory?',
+		answer: 'Production runs on our own lines in Quanzhou, with selected items made by qualified manufacturing partners under our ISO 9001 quality-management system; valve bodies are CNC-machined in-house. We state that mix openly on every page rather than claiming single-factory production for every SKU, and the order documentation records the manufacturing arrangement for the items on your PO — which is exactly what our counterparty-verification checklist says to ask any supplier, including us.'
+	},
+	{
+		question: 'How are products tested before shipment?',
+		answer: '100% of units — every valve, hydrant, hose and alarm valve group — is shell pressure-tested and air-leakage tested before shipment, with per-unit records that reconcile to the serial numbers on the packing list. A serial-numbered test video is available for a sample unit. A batch report says "we tested some"; a per-unit record says "we tested yours" — and the per-unit record is the document your destination inspector will ask for at acceptance.'
+	},
+	{
+		question: 'Can I appoint a third-party inspection before shipment?',
+		answer: 'Yes, and for a first order we encourage it. SGS, Bureau Veritas and Intertek (or your own nominated agency) can witness the per-unit testing and review the records at the factory before the production run ships. Inspection rights belong in the contract — "the buyer may inspect or appoint an independent inspector before shipment" — so the step is a right, not a favor.'
+	},
+	{
+		question: 'Should I order a sample before a bulk order?',
+		answer: 'For safety-critical fire equipment, yes. A one-unit sample of each model lets you verify the nameplate, serial number, material grade and a serial-numbered pressure-test video against your specification before committing to volume — it is the cheapest counterfeit and specification-risk insurance available, and it is the sequence our risk whitepaper recommends for every first order with any supplier.'
+	},
+	{
+		question: 'What shipping documents will I receive with my order?',
+		answer: 'At minimum: commercial invoice, packing list, bill of lading, certificate of origin, and per-lot and per-unit shell pressure and air-leakage test records that reconcile with the serial numbers on the packing list. Material (mill) test certificates and standard-specific certificates are added where your project requires them. A complete, reconcilable document pack is itself a quality signal, and it is what your maintenance team will hold at acceptance and at year five.'
+	},
+	{
+		question: 'Are fire extinguishers dangerous goods for shipping?',
+		answer: 'Portable fire extinguishers are pressurized and require dangerous-goods-compliant packing and declaration, which changes freight options and insurance; water-based equipment — valves, hydrants, hose, alarm valves — is general cargo. State the extinguisher line items in your inquiry so the container plan and the documentation are set up correctly from the quotation stage; the extinguisher selection guide covers the packaging in detail.'
+	},
+	{
+		question: 'How is the equipment packed for export?',
+		answer: 'Export packaging is applied per item class — crate, pallet and container loading are planned against the bill of materials, and the loading plan is confirmed with the quotation. Seal numbers and the packed document set are verified in the pre-shipment container check when a third-party inspection is appointed, so the container you see on the bill of lading is the container that was inspected.'
+	},
+	{
+		question: 'Do you handle export orders internationally?',
+		answer: 'Yes — we are an export manufacturer, and the full site is published in English, Spanish, Russian, French and Arabic to match the markets we serve. Port, Incoterm and the document pack are confirmed per order in the quotation; tell us your destination country and project type and we structure the shipment to it.'
+	},
+	{
+		question: 'Do you support OEM and private-label programs?',
+		answer: 'Yes — custom branding, export packaging and a five-language technical asset set (EN/ES/RU/FR/AR) are available for distributors building their own brand, with the OEM arrangement documented on the order. Portable extinguishers carry custom labels to your brand, and the extinguisher selection guide covers the MOQ and dangerous-goods packaging for OEM fire-fighting kits.'
+	},
+	{
+		question: 'What warranty do you provide?',
+		answer: 'The warranty period is stated per model in the contract, together with a spare-parts commitment sized to the equipment\'s service life — a valve that can be re-seated and a hydrant whose parts remain available is what "warranty" means at year five. The per-unit test records from your order are the baseline the warranty runs against, which is why we file them with every shipment.'
+	},
+	{
+		question: 'How do I reach you after an order?',
+		answer: 'The same channel as before: email at sales@wanlian911.com, phone/WhatsApp at +86 186 8432 4501, or LinkedIn — with the 12-hour response commitment applied to after-sales as to inquiries. Keep the test records and certificates from your order with the equipment\'s maintenance file, and reference the serial numbers in any warranty or spare-parts request.'
+	}
+];
+
+const toc = [
+	{ id: 'products-specs', label: 'Products & Specifications' },
+	{ id: 'certification-compliance', label: 'Certification & Compliance' },
+	{ id: 'pricing-payment-moq', label: 'Pricing, Payment & MOQ' },
+	{ id: 'production-qc', label: 'Production, QC & Inspection' },
+	{ id: 'shipping-documentation', label: 'Shipping, Logistics & Documentation' },
+	{ id: 'oem-aftersales', label: 'OEM, Warranty & After-Sales' }
+];
+
+const sections = [
+	{ id: 'products-specs', title: 'Products & Specifications', items: faq.slice(0, 4) },
+	{ id: 'certification-compliance', title: 'Certification & Compliance', items: faq.slice(4, 8) },
+	{ id: 'pricing-payment-moq', title: 'Pricing, Payment & MOQ', items: faq.slice(8, 13) },
+	{ id: 'production-qc', title: 'Production, QC & Inspection', items: faq.slice(13, 17) },
+	{ id: 'shipping-documentation', title: 'Shipping, Logistics & Documentation', items: faq.slice(17, 21) },
+	{ id: 'oem-aftersales', title: 'OEM, Warranty & After-Sales', items: faq.slice(21, 24) }
+];
+---
+
+<Layout
+	title="Frequently Asked Questions: Sourcing Fire Protection Equipment & Valves from China | Wanlian Fluid"
+	description="B2B answers before you order: MOQ and lead time, UL/FM/CE certification verification, payment terms, third-party inspection, export documents, OEM and after-sales support."
+	type="website"
+	faq={faq}
+	breadcrumbs={[{ name: 'FAQ' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<span class="text-gray-600">FAQ</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Buyer FAQ · Updated 2026</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Frequently Asked Questions: Sourcing Fire Protection Equipment &amp; Valves</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">The questions B2B buyers actually ask before ordering from a Chinese fire-equipment manufacturer — answered the way we answer them on a live inquiry: per model, per standard, per destination, with the document that proves it. Every answer here is consistent with the specification, quotation and shipment process described across our guides and whitepapers.</p>
+
+			<TableOfContents headings={toc} />
+
+			{sections.map(section => (
+				<>
+					<h2 id={section.id} class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">{section.title}</h2>
+					<div class="space-y-4">
+						{section.items.map(item => (
+							<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+								<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+									<span>{item.question}</span>
+									<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+								</summary>
+								<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+							</details>
+						))}
+					</div>
+				</>
+			))}
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Question Not Covered? Ask an Engineer.</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send your specification or the question as you would ask it on an inquiry — models, sizes, destination, project type — and an engineer replies within 12 hours, with the per-model documentation attached where it applies.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20have%20a%20question%20about%20your%20fire%20equipment" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

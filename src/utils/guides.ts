@@ -321,5 +321,25 @@ export const guides: Guide[] = [
     category: 'Procurement',
     readTime: '9 min read',
     tags: ['procurement', 'fire-protection', 'fire-water-cannon']
+  },
+  {
+    title: 'Wanlian Fluid vs Zhiyuan Fire: Water-Based vs Gas-Based Fire Protection Suppliers (2026)',
+    description: 'Wanlian Fluid vs Zhiyuan Fire for 2026: hydrants, monitors & valves vs FM200/IG541 gas suppression — which Chinese fire equipment supplier fits your project?',
+    href: '/guides/wanlian-fluid-vs-zhiyuan/',
+    tocPreview: ["1. Zhiyuan Fire: What They Actually Are","2. Wanlian Fluid: What We Actually Are","3. Side-by-Side Comparison"],
+    date: '2026-09',
+    category: 'Procurement',
+    readTime: '9 min read',
+    tags: ['procurement', 'fire-protection']
+  },
+  {
+    title: 'Cross-Border Procurement Risk Control: A B2B Buyer’s Whitepaper (2026)',
+    description: 'How to control cross-border procurement risk for fire & water infrastructure equipment: 8 risk families, pre-shipment controls, payment structures and a red-flags checklist.',
+    href: '/guides/cross-border-procurement-risk-whitepaper/',
+    tocPreview: ["1. Why Cross-Border Procurement Fails: The Risk Frame","2. The Eight Risk Families","3. Counterparty & Authenticity Risk"],
+    date: '2026-09',
+    category: 'Whitepaper',
+    readTime: '12 min read',
+    tags: ['procurement', 'certification']
   }
 ];

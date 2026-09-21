@@ -176,6 +176,7 @@ const en: UIStrings = {
     resources: [
       { name: 'Sourcing Guide', href: '/sourcing-guide/' },
       { name: 'Industry Whitepaper', href: '/whitepaper/' },
+      { name: 'FAQ', href: '/faq/' },
       { name: 'Glossary', href: '/glossary/' },
       { name: 'Cost Estimator', href: '/cost-calculator/' },
     ],
