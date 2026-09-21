@@ -1,0 +1,136 @@
+---
+// Full-bleed factory video carousel: the second screen of the homepage.
+// Pure, unobstructed footage — no blur, no overlay text. Crossfade slides with
+// prev/next arrows and bar-dot pagination; autoplay every 9s, paused outside
+// the viewport and under prefers-reduced-motion (arrows still work).
+interface Props {
+  locale?: 'en' | 'es' | 'ru' | 'fr' | 'ar';
+}
+
+const { locale = 'en' } = Astro.props;
+
+const labels = {
+  en: ['Assembly', 'Inspection', 'Ready Stock', 'Packing & Loading', 'Dispatch'],
+  es: ['Montaje', 'Inspección', 'Stock Disponible', 'Embalaje y Carga', 'Envío'],
+  ru: ['Сборка', 'Контроль', 'Готовая Продукция', 'Упаковка и Погрузка', 'Отгрузка'],
+  fr: ['Assemblage', 'Inspection', 'Stock Disponible', 'Conditionnement et Chargement', 'Expédition'],
+  ar: ['التجميع', 'الفحص', 'مخزون جاهز', 'التعبئة والتحميل', 'الشحن']
+};
+
+const t = labels[locale] ?? labels.en;
+
+const slides = [
+  { src: '/videos/factory/assembly.mp4', poster: '/videos/factory/assembly-poster.webp' },
+  { src: '/videos/factory/blue-valves.mp4', poster: '/videos/factory/blue-valves-poster.webp' },
+  { src: '/videos/factory/red-field.mp4', poster: '/videos/factory/red-field-poster.webp' },
+  { src: '/videos/factory/loading-close.mp4', poster: '/videos/factory/loading-close-poster.webp' },
+  { src: '/videos/factory/dispatch.mp4', poster: '/videos/factory/dispatch-poster.webp' }
+];
+---
+
+<section data-carousel data-labels={JSON.stringify(t)} class="relative bg-gray-950">
+  <div class="relative w-full h-[55vh] sm:h-[70vh] min-h-[380px]">
+    {slides.map((s, i) => (
+      <video
+        data-cv-slide
+        class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out"
+        style="opacity:0"
+        muted
+        playsinline
+        preload={i === 0 ? 'auto' : 'none'}
+        poster={s.poster}
+      >
+        <source src={s.src} type="video/mp4" />
+      </video>
+    ))}
+
+    <button
+      data-cv-prev
+      class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center border border-white/40 rounded-md bg-black/30 text-white hover:bg-brand-red hover:border-brand-red transition-colors"
+      aria-label="Previous video"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+    </button>
+    <button
+      data-cv-next
+      class="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center border border-white/40 rounded-md bg-black/30 text-white hover:bg-brand-red hover:border-brand-red transition-colors"
+      aria-label="Next video"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+    </button>
+
+    <div class="absolute bottom-4 sm:bottom-6 left-4 sm:left-8 z-20 flex items-center gap-3">
+      <span data-cv-index class="text-white/50 text-xs font-black tracking-widest">01</span>
+      <span data-cv-label class="text-white text-xs sm:text-sm font-black uppercase tracking-[0.2em]">{t[0]}</span>
+    </div>
+    <div class="absolute bottom-5 sm:bottom-7 right-4 sm:right-8 z-20 flex items-center gap-2">
+      {slides.map((s, i) => (
+        <button
+          data-cv-dot
+          data-i={i}
+          class={`w-6 h-1.5 rounded-full transition-colors ${i === 0 ? 'bg-brand-red' : 'bg-white/30 hover:bg-white/60'}`}
+          aria-label={`Video ${i + 1}: ${t[i]}`}
+        ></button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-carousel]');
+  if (root) {
+    const slides = Array.from(root.querySelectorAll<HTMLVideoElement>('[data-cv-slide]'));
+    const dots = Array.from(root.querySelectorAll<HTMLElement>('[data-cv-dot]'));
+    const labelEl = root.querySelector<HTMLElement>('[data-cv-label]');
+    const indexEl = root.querySelector<HTMLElement>('[data-cv-index]');
+    const labels = (JSON.parse(root.dataset.labels ?? '[]') as string[]) || [];
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const HOLD = 9000;
+    let idx = 0;
+    let timer: number | undefined;
+
+    const show = (i: number) => {
+      idx = (i + slides.length) % slides.length;
+      slides.forEach((v, j) => {
+        if (j === idx) {
+          if (v.readyState < 3) v.load();
+          v.play().catch(() => {});
+          v.style.opacity = '1';
+        } else {
+          v.style.opacity = '0';
+          window.setTimeout(() => v.pause(), 750);
+        }
+      });
+      dots.forEach((d, j) => {
+        d.className = `w-6 h-1.5 rounded-full transition-colors ${j === idx ? 'bg-brand-red' : 'bg-white/30 hover:bg-white/60'}`;
+      });
+      if (labelEl && labels[idx]) labelEl.textContent = labels[idx];
+      if (indexEl) indexEl.textContent = String(idx + 1).padStart(2, '0');
+    };
+    const next = () => show(idx + 1);
+    const resetTimer = () => {
+      window.clearTimeout(timer);
+      if (!reducedMotion) timer = window.setTimeout(next, HOLD);
+    };
+    const inView = () => {
+      if (slides[idx]) slides[idx].play().catch(() => {});
+      resetTimer();
+    };
+    const outView = () => {
+      window.clearTimeout(timer);
+      slides.forEach((v) => v.pause());
+    };
+
+    root.querySelector<HTMLElement>('[data-cv-next]')?.addEventListener('click', () => { next(); resetTimer(); });
+    root.querySelector<HTMLElement>('[data-cv-prev]')?.addEventListener('click', () => { show(idx - 1); resetTimer(); });
+    dots.forEach((d) => d.addEventListener('click', () => { show(Number(d.dataset.i) || 0); resetTimer(); }));
+
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => (e.isIntersecting ? inView() : outView())),
+      { threshold: 0.3 }
+    );
+    observer.observe(root);
+
+    show(0);
+  }
+</script>
