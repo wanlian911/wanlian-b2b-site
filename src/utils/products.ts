@@ -12,6 +12,7 @@ export interface Product {
     rows: string[][];
   };
   image: string;
+  infographic?: string;
   seoTitle: string;
   seoDescription: string;
   faqs?: { question: string; answer: string }[];
@@ -122,9 +123,9 @@ export const products: Product[] = [
   {
     id: '4',
     slug: 'signal-grooved-wafer-butterfly-valve-dn80',
-    name: 'Signal Grooved Wafer Butterfly Valve (DN80-PN16)',
+    name: 'Signal Butterfly Valve (DN80 PN16) — Reports Its Own Position to Your Panel',
     category: 'Valves & Parts',
-    description: 'DN80 PN16 QT450 Manual Worm Gear Signal Grooved Wafer Butterfly Valve. Highly suitable for firefighting pipelines and industrial water systems where valve open/close status monitoring is required.',
+    description: "The most dangerous valve is the one you can't see. When the control room thinks the main is open and it is closed, the fire meets a shut valve. Walking the line to check takes an hour, and nobody does it.\n\nThis valve reports its own position. A waterproof microswitch flips the open or closed status to your panel the moment the handwheel moves, so the operator 500 meters away never walks down the line to check. One quarter turn of the worm gear handwheel, low torque, bi-directional EPDM or NBR sealing.\n\nQT450 wafer body, compact enough for tight riser spaces, DN50 to DN300 at PN16, 100% shell and seat pressure tested per GB/T 13927 or EN 12266-1. For fire mains, water supply, and industrial lines where position matters.",
     features: [
       'Integrated electrical signal switch for remote status monitoring',
       'Compact wafer body design for space-saving installation',
@@ -145,7 +146,8 @@ export const products: Product[] = [
       'Gear Operator': 'Cast Iron / Spheroidal Iron',
       'Microswitch': 'Highly Conductive Waterproof Microswitch'
     },
-    image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
+    image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80-overlay.png',
+    infographic: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80-infographic.svg',
     seoTitle: 'DN80 Signal Wafer Butterfly Valve | PN16 Fire System',
     seoDescription: 'Ductile Iron QT450 Signal Wafer Butterfly Valve. Perfect for firefighting water system control. Integrated monitoring switch, smooth worm gear operation.'
   },
@@ -241,9 +243,9 @@ export const products: Product[] = [
   {
     id: '9',
     slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100',
-    name: 'Anti-Collision Pressure-Regulating Outdoor Fire Hydrant (SSFT100/65)',
+    name: 'Self-Closing Anti-Collision Fire Hydrant (SSFT100/65) — Bolt-Shear Shutdown, Pressurized Repair',
     category: 'Hydrants & Pump Connections',
-    description: 'Designed to eliminate the risk of massive water gushes after accidents. In the event of a traffic collision, the specialized safety bolts shear cleanly, and the internal valve automatically shuts off water immediately, allowing pressurized repairs.',
+    description: 'When a truck hits a standard fire hydrant, the street floods for days and the whole main has to go down for repairs. The SSFT100/65 is built for that exact moment.\n\nIn a collision, two calibrated safety bolts shear cleanly and the internal valve shuts the water off immediately. The hydrant stands, the outlet stays dry, and your network keeps its pressure. When it is time to repair, the crew pulls the two sheared bolts and fits two new ones. No draining the line, no digging up a flanged valve.\n\nA built-in pressure regulating device gives progressive, smooth discharge at the outlets, and the automatic self-draining system keeps it frost-safe in winter. Ductile iron QT450 body, DN100/DN150, PN16, 2×KWS65 plus one DN100 outlet, hydrostatically tested to 2.4 MPa per GB 4452.',
     features: [
       'Automatic sealing upon collision prevents severe water loss and flooding',
       'Built-in pressure regulating device allows progressive and smooth water discharge',
@@ -264,7 +266,8 @@ export const products: Product[] = [
       'Springs': 'Stainless Steel 304',
       'Caps & Interfaces': 'Anodized Aluminum Alloy / Brass'
     },
-    image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp',
+    image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100-overlay.png',
+    infographic: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100-infographic.svg',
     seoTitle: 'SSFT100 Anti-Collision Outdoor Fire Hydrant | Pressure Regulating',
     seoDescription: 'SSFT100 anti-collision, pressure-regulating fire hydrant with double safety shut-off for municipal and industrial fire protection. Factory price from Wanlian.'
   },
@@ -328,9 +331,9 @@ export const products: Product[] = [
   {
     id: '12',
     slug: 'auto-tracking-jet-suppression-cannon-zdms',
-    name: 'Auto-Tracking Jet Suppression Fire Cannon (ZDMS Series)',
+    name: 'Auto-Tracking Fire Cannon (ZDMS Series) — Detects, Tracks and Extinguishes on Its Own',
     category: 'Extinguishing Water Cannons',
-    description: 'A smart intelligent fire water cannon designed for large high-ceiling spaces like airports, malls, exhibition centers, and warehouses. It utilizes multi-band infrared and ultraviolet sensors to automatically detect, track, and extinguish fires within 30 seconds.',
+    description: 'Fires in large high-ceiling spaces start when nobody is watching. By the time a person spots the flame it has already grown, and a hand-held hose may not reach a thirty-metre ceiling.\n\nThe ZDMS watches for you. Multi-band infrared and ultraviolet sensors detect the flame, the cannon locks on and tracks the fire as it moves, then delivers a high-range concentrated jet that knocks it down. Fully automatic: detection, positioning and discharge, with manual remote override from PC, mobile APP or the central cabinet whenever you want a human in the loop.\n\nRated flows from 5 to 30 L/s, customizable up to 150 L/s at 0.6-0.8 MPa. Horizontal 360°, vertical -90° to +30°, monitoring radius 40-65 m. Explosion-proof versions (Exde II BT4 Gb) are available for petrochemical plants and tank farms. For airports, exhibition centres, large warehouses, marine firefighting and anywhere the ceiling is too high for a hose.',
     features: [
       'Fully autonomous: auto fire-source detection, positioning and jetting',
       'Combines infrared and ultraviolet sensing for maximum flame accuracy',
@@ -350,7 +353,8 @@ export const products: Product[] = [
       'Sensor Enclosure': 'Anti-UV High Strength Engineered ABS IP66',
       'Nozzle Head': 'Stainless Steel 316'
     },
-    image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp',
+    image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms-overlay.png',
+    infographic: '/assets/products/auto-tracking-jet-suppression-cannon-zdms-infographic.svg',
     seoTitle: 'ZDMS Automatic Tracking Fire Water Cannon | IR/UV Detection',
     seoDescription: 'Smart auto-tracking fire monitor ZDMS. Multi-band IR/UV flame detection, rapid autonomous suppression. Best choice for large spatial indoor protection.'
   },
@@ -512,9 +516,9 @@ export const products: Product[] = [
   {
     id: '18',
     slug: 'manual-fire-water-cannon-ps',
-    name: 'Manual Fire Water Cannon (PS Series)',
+    name: 'Manual Fire Water Monitor (PS Series) — Aim Once, Lock It, Walk Away',
     category: 'Extinguishing Water Cannons',
-    description: 'Heavy duty manual fire water monitor designed to deliver massive volumes of water or foam over long ranges. Highly suitable for petrochemical yards, oil storage tank farms, warehouses, harbors, and fire trucks.',
+    description: "The fire doesn't wait for you to hold that hose. A person standing on a line against the recoil, hour after hour, inside the heat of a tank fire, is the risk the monitor removes.\n\nThe PS monitor throws 20 to 200 L/s 50 to 110 meters. The hand lever aims it, one pull changes straight jet to fog, and the self-locking gear holds your aim unmanned, so the operator aims once, locks it, and gets out of the zone.\n\n0.8-1.2 MPa, horizontal 360°, vertical -30° to +70°, DN100 to DN200 inlet. T6 hard anodized aluminum or bronze for marine and salt-air service. For petrochemical yards, tank farms, airports, warehouses, fire trucks and marine firefighting.",
     features: [
       'Supports both high-concentration straight jet stream and broad fog spray',
       'Fully manual hand-lever operation offers smooth and quick aiming',
@@ -534,7 +538,8 @@ export const products: Product[] = [
       'Locking Knobs': 'Stainless Steel / Brass',
       'Nozzle Tip': 'Precision Hardened Alloy'
     },
-    image: '/assets/products/manual-fire-water-cannon-ps.webp',
+    image: '/assets/products/manual-fire-water-cannon-ps-overlay.png',
+    infographic: '/assets/products/manual-fire-water-cannon-ps-infographic.svg',
     seoTitle: 'PS Series Manual Fire Water Monitor | Long Range',
     seoDescription: 'High volume manual fire water cannon PS. Supports water and foam spray. Heavy-duty construction, suitable for industrial storage and petrochemical yards.'
   },
@@ -1303,9 +1308,9 @@ export const products: Product[] = [
   {
     id: '43',
     slug: 'storz-coupling-2-5inch-aluminum',
-    name: '2.5" Aluminum Storz Coupling (German Standard)',
+    name: 'Aluminum Storz Fire Coupling (2.5" · German Standard) — Locks in One Hand, Stays Dry',
     category: 'Fire Cabinets & Interfaces',
-    description: 'German standard Storz fire hose coupling in aluminum with self-sealing edge. Quick-connect design for reliable hose-to-hose and hose-to-nozzle connection, suitable for clear water and foam mixture firefighting applications.',
+    description: 'A leaking hose joint buys the fire seconds. Threaded joints take two people and a wrench, and they drip at the seal while the line is under pressure.\n\nThe Storz coupling locks in one hand. A quarter turn seats the self-sealing gasket and locks the joint, no tool, no drip. Under 1.6 MPa the seam stays dry, clear water or foam, and the line is ready to throw.\n\nAluminum, brass or chrome, 2.5 inch (65 mm) German standard, barbed for lay-flat hose, factory pre-fitted or loose. For fire departments, marine lines, and any 65 mm line set from hydrant to nozzle.',
     features: [
       'German standard Storz quick-connect design',
       'Self-sealing edge for leak-free connection',
@@ -1327,7 +1332,8 @@ export const products: Product[] = [
       'Gasket': 'Self-Sealing Rubber',
       'Options': 'Brass / Chrome Plated'
     },
-    image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
+    image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
+    infographic: '/assets/products/storz-coupling-2-5inch-aluminum-infographic.svg',
     seoTitle: '2.5" Aluminum Storz Coupling | German Standard',
     seoDescription: 'German standard Storz fire hose coupling 2.5" in aluminum with self-sealing edge for water and foam firefighting. 1.6MPa. Factory price from Wanlian Fluid.',
     faqs: [

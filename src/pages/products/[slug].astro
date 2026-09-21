@@ -177,9 +177,11 @@ const relatedGuides = [...explicitGuides, ...(guideByCategory[product.category] 
           <h1 class="text-4xl font-bold text-gray-900 mt-2">{product.name}</h1>
         </div>
 
-        <p class="text-lg text-gray-600 leading-relaxed">
-          {product.description}
-        </p>
+        <div class="text-lg text-gray-600 leading-relaxed space-y-4">
+          {product.description.split('\n\n').map(paragraph => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
 
         <div class="space-y-4">
           <h2 class="text-xl font-bold border-b pb-2">Key Features</h2>
@@ -283,6 +285,18 @@ const relatedGuides = [...explicitGuides, ...(guideByCategory[product.category] 
         </div>
       </div>
     </div>
+
+    <!-- How-it-works infographic (per-product, only when provided) -->
+    {product.infographic && (
+      <figure class="mt-16">
+        <img
+          src={product.infographic}
+          alt={`${product.name} — how it works`}
+          class="w-full h-auto rounded-2xl border border-gray-100 shadow-sm"
+          loading="lazy"
+        />
+      </figure>
+    )}
 
     <!-- FAQ Section -->
     {faqs.length > 0 && (
