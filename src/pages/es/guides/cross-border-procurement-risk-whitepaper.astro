@@ -1,0 +1,258 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'risk-frame', label: '1. Por Qué Fallan las Compras Transfronterizas: El Marco de Riesgo' },
+	{ id: 'eight-risk-families', label: '2. Las Ocho Familias de Riesgo' },
+	{ id: 'counterparty-risk', label: '3. Riesgo de Contraparte y Autenticidad' },
+	{ id: 'quality-risk', label: '4. Riesgo de Calidad y Especificación' },
+	{ id: 'certification-risk', label: '5. Riesgo de Certificación y Cumplimiento' },
+	{ id: 'payment-risk', label: '6. Riesgo de Pago y Financiero' },
+	{ id: 'logistics-risk', label: '7. Riesgo de Logística, Aduana y Entrega' },
+	{ id: 'dispute-risk', label: '8. Riesgo de Disputa, Garantía y Continuidad' },
+	{ id: 'control-checklist', label: '9. La Lista de Controles por Etapa' },
+	{ id: 'red-flags', label: '10. Señas de Alarma: Pare y Reverifique' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+const faq = [
+	{
+		question: '¿Cuál es la causa más común de compras fallidas de equipo transfronterizo?',
+		answer: 'No es el precio, ni siquiera los contrabandos: la falla más común es una especificación que nunca estuvo lo suficientemente completa como para responsabilizar al proveedor. Cuando la norma, el tamaño, la clase de presión, el material y la prueba de aceptación no quedan fijados por escrito, "el producto no coincide" no tiene una definición medible, y la disputa se vuelve irresoluble. Cerrar la especificación por escrito antes de cotizar es el control de riesgo de mayor palanca de este whitepaper.'
+	},
+	{
+		question: '¿Qué estructura de pago es la más segura para un primer pedido a un fabricante chino?',
+		answer: 'Una estructura T/T por hitos es la forma defendible estándar: un anticipo contra el pedido (la norma de mercado para pedidos de equipo se ubica en torno al 30%) y el saldo contra documentos de embarque o tras superar una inspección previa al envío. Para un primer pedido grande, una carta de crédito a la vista regida por UCP 600 añade garantía de banco a banco. Lo que debe evitar: prepago del 100% a una contraparte no verificada, transferencias a cuentas personales fuera de la entidad del contrato, y aceptar un precio muy por debajo de las cotizaciones de referencia que recogió: el descuento es el riesgo, no la protección.'
+	},
+	{
+		question: '¿Cómo me protejo de certificados UL, FM o CE falsificados?',
+		answer: 'Trate cualquier número de certificado como una afirmación, no como un hecho: resuélvalo en el portal oficial del organismo emisor contra el modelo exacto y la fábrica exacta antes de especificarlo. Un número que no se resuelve es una falsificación sin importar lo limpio que se vea el PDF. Agregue el paso de verificación al contrato como condición de aceptación, exija registros de prueba por unidad que concilién con los números de serie de la lista de embalaje, y ejecute primero un pedido de muestra. Nuestra guía de detección de falsificaciones lista también las señales físicas: series clonadas, placas copiadas, fundiciones de pared delgada.'
+	},
+	{
+		question: '¿Qué Incoterm pone más riesgo sobre el comprador?',
+		answer: 'EXW (Ex Works) pone casi todo sobre el comprador: usted organiza la recolección en la fábrica, la declaración de exportación, el flete principal y el seguro, de modo que cualquier debilidad de su cadena logística local se convierte en su costo. DDP (Delivered Duty Paid) invierte el problema: el proveedor lleva todo, lo que crea opacidad de precio — el comprador no puede auditar qué se está cotizando, y cualquier complicación del lado de exportación recae sobre el proveedor con usted esperando. FOB y CIF son el punto medio habitual, con un punto claro de transferencia de riesgo y un precio auditable; elija según qué tramo del viaje puede controlar mejor.'
+	},
+	{
+		question: '¿Qué cláusulas debe contener el contrato antes de firmar?',
+		answer: 'Como mínimo: la especificación técnica como anexo (norma, tamaño, clase de presión, material, acabado), criterios de aceptación por escrito ligados a registros de prueba por unidad, su derecho a inspeccionar o nombrar un inspector de terceros antes del envío, el calendario de hitos de pago, el Incoterm y el puerto, fuerza mayor, la ley aplicable y el foro de disputa (una cláusula de arbitraje se aplica más fiablemente entre fronteras que los tribunales extranjeros), el periodo de garantía, y el compromiso de repuestos para la vida de servicio del equipo. Una cotización no es un contrato; el contrato firmado con el anexo de especificación es el documento de riesgo.'
+	},
+	{
+		question: '¿Puedo ejecutar todos estos controles sin visitar la fábrica?',
+		answer: 'Sí, de forma gradual — y es la ruta normal para primeros pedidos. Una videollamada de recorrido por la fábrica, el historial de exportación, un pedido de muestra de una unidad por modelo con video de prueba de presión con número de serie, y después una inspección previa al envío por una agencia independiente (SGS, Bureau Veritas o Intertek) cubren la mayor parte de la verificación que aporta una visita física, por una fracción del costo. Reserve la visita presencial para el segundo pedido, o para niveles de valor donde la tarifa de inspección es redondeo. Lo que no se debe saltar, con visita o sin ella: la resolución del certificado en el organismo emisor y el pedido de muestra.'
+	}
+];
+---
+
+<Layout
+	title="Control de Riesgo en Compras Transfronterizas: Whitepaper para Compradores B2B (2026) | Wanlian Fluid"
+	description="Cómo controlar el riesgo de compras transfronterizas de equipo de protección contra incendio e infraestructura de agua: 8 familias de riesgo, controles previos al envío y señales de alarma."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Whitepaper de Riesgo de Compras' }]}
+	locale="es"
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Whitepaper de Riesgo de Compras</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Whitepaper Sectorial · 2026</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Control de Riesgo en Compras Transfronterizas: Cómo Controlarlo Antes de Pagar</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Comprar válvulas, hidrantes y equipos de protección contra incendio a través de una frontera es un ejercicio de gestión de riesgos que, casualmente, produce equipo. Las pérdidas que cuestan dinero a los compradores son raras y dramáticas (un proveedor que desaparece con el prepago, un contenedor de válvulas falsificadas), pero el daño habitual es más silencioso: una especificación que nunca cerró, un certificado que nunca se resolvió, un Incoterm que cotizó la pata equivocada del viaje. Este whitepaper organiza el riesgo de compra transfronteriza en ocho familias, asigna a cada una una secuencia de controles, y termina con una lista de verificación por etapa y una tabla de señales de alarma que puede adjuntar a una orden de compra.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Método:</strong> Somos un fabricante en el lado de suministro de estas transacciones, y lo declaramos abiertamente: la sección de autenticidad de contraparte es la única sección donde nuestro interés podría leerse como auto-venta, así que está escrita para aplicarse simétricamente a cualquier proveedor, incluido nosotros. Los mecanismos citados (Incoterms 2020, UCP 600, T/T por hitos, inspección de terceros, resolución de certificados en el organismo emisor) son los instrumentos estándar que los compradores usan realmente; cuando una cifra es una convención de mercado y no un hecho verificado, se etiqueta como tal.</p>
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="risk-frame" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Por Qué Fallan las Compras Transfronterizas: El Marco de Riesgo</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La compra doméstica tiene tres dimensiones de riesgo: calidad, precio y entrega. La compra transfronteriza agrega al menos cuatro más: <strong>autenticidad de contraparte</strong> (¿la entidad a la que paga es la que envía, y seguirá existiendo en garantía?), <strong>traducción regulatoria</strong> (la norma que su destino aplica debe ser la norma a la que se fabricó el producto), <strong>moneda e instrumentos de pago</strong> (el dinero se mueve antes que la mercancía) y <strong>aplicabilidad</strong> (un contrato que no puede aplicarse es un documento cortés). La distancia es el punto: cada control que omite lo cotiza el apetito de riesgo del proveedor, y la única forma de bajar el precio del riesgo es reducir el riesgo por escrito.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Dos principios gobiernan todo lo siguiente. Primero, <strong>el riesgo se gestiona en el rastro de papel, no en la relación.</strong> Un proveedor que se resiste a la documentación —registros de prueba, resolución de certificados, derechos de inspección, pago por hitos— ya respondió la pregunta de qué pasa cuando algo sale mal. Segundo, <strong>el orden importa más que cualquier control individual.</strong> Verificar la empresa antes que el certificado, el certificado antes que la muestra, la muestra antes que el volumen, y el saldo antes que el envío es una secuencia; ejútela fuera de orden y el paso posterior hereda todo el riesgo que el paso anterior debía retirar.</p>
+			<p class="text-gray-700 leading-relaxed">Para el vocabulario que hace preciso el resto —Incoterms, clase de presión, prueba de carcasa, placa, bill of lading— nuestro <a href="/es/glossary/" class="text-brand-blue font-semibold hover:underline">glosario industrial</a> define cada término, y el <a href="/es/whitepaper/" class="text-brand-blue font-semibold hover:underline">whitepaper de especificación y verificación</a> cubre cómo se ve una especificación escrita defendible.</p>
+
+			<h2 id="eight-risk-families" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Las Ocho Familias de Riesgo</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Cada pérdida de compra transfronteriza que hemos visto se descompone en una de ocho familias. La tabla es el mapa; las secciones 3–8 son las secuencias de control de cada familia. La probabilidad y el impacto se declaran cualitativamente porque dependen del comportamiento del proveedor, que es justo lo que los controles están para.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Familia de riesgo</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Cómo se manifiesta</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Control principal</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">1. Contraparte y autenticidad</td><td class="px-4 py-3 text-gray-700">Mesa de comercio revende fundiciones como propias; la entidad desaparece tras el prepago; el sitio y la entidad legal no coinciden</td><td class="px-4 py-3 text-gray-700">Verificación de entidad + video/visita a fábrica + historial de exportación (§3)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">2. Calidad y especificación</td><td class="px-4 py-3 text-gray-700">Grado de material degradado; la unidad falla la norma que el licitatorio asumía; lote inconsistente</td><td class="px-4 py-3 text-gray-700">Especificación cerrada por escrito + pedido de muestra + registros de prueba por unidad (§4)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">3. Certificación y cumplimiento</td><td class="px-4 py-3 text-gray-700">Certificados falsificados o vencidos; certificado por fábrica aplicado a un requisito por modelo; norma de destino equivocada</td><td class="px-4 py-3 text-gray-700">Resolución en el organismo emisor por modelo + condición de aceptación en contrato (§5)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">4. Precio y comercial</td><td class="px-4 py-3 text-gray-700">Cotización señuelo; costos de herramienta, embalaje o moneda agregados después de firmar; "mejor precio" por debajo de lo físicamente posible</td><td class="px-4 py-3 text-gray-700">Cotizaciones itemizadas comparables + vigencia de precio + cláusula de resultado (§4, §6)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">5. Pago</td><td class="px-4 py-3 text-gray-700">Prepago 100% a contraparte no verificada; saldo exigido antes de inspección; desvío a cuenta personal</td><td class="px-4 py-3 text-gray-700">T/T por hitos o L/C + cuenta coincidente con la entidad + puerta de inspección (§6)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">6. Logística y aduana</td><td class="px-4 py-3 text-gray-700">Incoterm que cotizó la pata equivocada; documentos que fallan en aduana de destino; buque perdido; mercancía peligrosa mal declarada</td><td class="px-4 py-3 text-gray-700">Elección de Incoterm + paquete documental + verificación del contenedor previa al envío (§7)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">7. Entrega y continuidad</td><td class="px-4 py-3 text-gray-700">El calendario se sale del programa; sin repuestos al quinto año; proveedor fuera de negocio al reclamo de garantía</td><td class="px-4 py-3 text-gray-700">Calendario con remediación + cláusula de repuestos + chequeo de longevidad del proveedor (§8)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">8. Disputa y legal</td><td class="px-4 py-3 text-gray-700">Sin ley aplicable; garantía inaplicable; cláusula de arbitraje ausente; registros perdidos</td><td class="px-4 py-3 text-gray-700">Anexo de contrato + cláusula de arbitraje + registros de prueba archivados (§8)</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="counterparty-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Riesgo de Contraparte y Autenticidad</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Esta es la única familia donde no se puede inspeccionar el riesgo después del hecho: el control es enteramente antes de que se mueva dinero. El patrón que captura es la mesa de comercio que se presenta como fabricante: cotiza a precio de fábrica, muestra fotos de fábrica (fotografiadas en una fábrica que visita pero no posee) y envía fundiciones que un fabricante real reetiquetó. En una industria de clúster como la de equipos contra incendio chinos, cientos de compañías trabajan en la misma área metropolitana, así que "fotos de fábrica" prueban geografía, no propiedad.</p>
+		<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+			<li><strong>Verifique la entidad legal, no la marca.</strong> Nombre de la empresa, número de registro, domicilio registrado, alcance comercial y capital registrado — contra la propia licencia comercial del proveedor, no su sitio web. El nombre de marca en un sitio y la entidad legal en una remesa bancaria deben ser la misma entidad.</li>
+			<li><strong>Verifique el alcance del sistema de calidad.</strong> Un certificado ISO 9001 cubre un alcance nombrado en una dirección nombrada. "Válvulas y equipos contra incendio" en la dirección de la fábrica es una señal; "comercio" o una dirección distinta es otra señal.</li>
+			<li><strong>Haga un recorrido en video en vivo por la fábrica.</strong> No un tour pregrabado: una llamada en vivo donde la cámara camina desde la puerta por fundición, mecanizado, ensamble y prueba. Un fabricante con algo que ocultar ofrecerá el tour grabado y el folleto en su lugar.</li>
+			<li><strong>Revisé el historial de exportación.</strong> Años exportando, países de destino, y un pedido de referencia que pueda contactarse de forma independiente. En el clúster de equipos contra incendio, pregunte específicamente: ¿cuáles de estas unidades fabricó <em>usted</em>, y cuáles fabricaron sus socios? Un fabricante responde esta pregunta; una mesa la desvía.</li>
+			<li><strong>Contraste la presencia.</strong> Antigüedad del dominio, el perfil de Alibaba o de la plataforma comercial contra la entidad legal, y si el contacto opera desde un dominio corporativo y no desde una casilla personal.</li>
+		</ol>
+		<p class="text-gray-700 leading-relaxed">El método paso a paso —incluidas las cinco comprobaciones y las preguntas que separan una fábrica de una mesa— está en nuestra <a href="/es/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">guía de verificación de proveedores chinos</a>. La lista de diligencia de 8 puntos en nuestra <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de compras B2B de válvulas</a> está escrita para pegarse en un primer correo.</p>
+
+			<h2 id="quality-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Riesgo de Calidad y Especificación</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El riesgo de calidad normalmente se siembra en la cotización, no en la fábrica. Si su solicitud decía "válvula de compuerta DN100, preferiblemente AWWA, 200 pzas", todos los proveedores pueden responderla — y todos la responden con un producto distinto. Los tres controles de calidad de mayor valor son, por eso, controles de especificación, ejecutados antes de fundirse una sola unidad:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Cierre la especificación por escrito.</strong> Norma rectora (AWWA C502/C515, ISO 5208, EN 1074, NFPA 13, o la referencia del licitatorio), tamaño y clase de presión, grado de material y acabado, tipo de conexión, y la prueba requerida por unidad. Una cotización contra una especificación abierta es una conversación, no un documento de riesgo. La <a href="/es/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">guía de normas</a> mapea los regímenes lado a lado.</li>
+				<li><strong>Pida la muestra antes que el volumen.</strong> Una unidad por modelo: placa, número de serie, certificado de material y un video de prueba de presión de carcasa y fuga de aire con número de serie. Un <a href="/es/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ-150 de válvula de alarma húmeda</a> o un <a href="/es/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">hidrante SS100/65 exterior</a> son lo bastante baratos como muestra que saltar el paso nunca es la elección racional — la muestra es el seguro más barato contra riesgo de especificación y falsificación.</li>
+				<li><strong>Exija registros de prueba por unidad, no por lote.</strong> Un reporte de lote dice "probamos algunos". Un registro por unidad con series que concilién con la lista de embalaje dice "probamos los suyos". Ese es también el documento que su inspector de destino pedirá en la aceptación.</li>
+				<li><strong>Nomee una inspección de terceros para el volumen.</strong> SGS, Bureau Veritas o Intertek presenciando la prueba y revisando registros antes del envío convierte "el proveedor dice" en "una agencia independiente presenció". La tarifa es redondeo frente al costo de un contenedor equivocado.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">En el lado del precio de esta familia: una cotización muy por debajo de las cotizaciones de referencia que recogió no es una ganga, es un riesgo cotizado — el descuento tiene que salir del grado de material, del espesor de pared, de la prueba, o de su pago de saldo futuro. Nuestro <a href="/es/cost-calculator/" class="text-brand-blue font-semibold hover:underline">estimador de costos de compras</a> dimensiona los factores de costo legítimos (volumen, Incoterm, destino) para que una cotización baja se verifique contra la física del pedido y no contra la intuición.</p>
+
+			<h2 id="certification-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Riesgo de Certificación y Cumplimiento</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La certificación es el documento más falsificado de esta industria y el más mal aplicado de manera habitual. Dos fallas distintas: <strong>falsificación</strong> (el certificado es falso, o está clonado de uno real) y <strong>desvío de alcance</strong> (el certificado es real pero cubre un modelo distinto, una fábrica distinta, o un año distinto al que su PO asume). El control para ambas es el mismo instrumento: <strong>resolución en el portal oficial del organismo emisor</strong> — el directorio product-iQ de UL, la base de aprobaciones FM, el RedBook de LPCB, el registro de certificados del organismo emisor para la certificación china de productos contra incendio. Un número de certificado que no se resuelve a su proveedor y su modelo es una falsificación, sin más, sin importar lo limpio que se vea el PDF.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">El segundo control es contractual: hacer de la resolución del certificado una <em>condición de aceptación</em>, no una descripción del producto. "Listado UL" en la columna de descripción de una cotización no pesa nada; "el proveedor garantiza que el modelo Z41X-100 está listado bajo el certificado UL 262 número [X], verificable en product-iQ de UL a fecha del envío, con copia del certificado entregada antes del pago del saldo" sí pesa. Las señales físicas de válvulas falsificadas —series clonadas, placas copiadas, fundiciones de pared delgada, pintura demasiado gruesa sobre un marcado— las cubre nuestra <a href="/es/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">guía de detección de falsificaciones</a>.</p>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Por modelo vs por fábrica: la distinción que importa</p>
+				<p class="text-sm text-gray-700 leading-relaxed">Un certificado de sistema (ISO 9001, una licencia de fábrica) dice que la <em>empresa</em> opera un proceso controlado. Un certificado de producto (listado UL, aprobación FM, marcado CE bajo la directiva aplicable, certificación de producto contra incendio) dice que el <em>modelo</em> fue probado. Su inspector de destino aplica el certificado de producto. Un proveedor que ofrece su certificado de sistema cuando usted pidió un certificado de producto está respondiendo a otra pregunta que la que hizo — y la pregunta que hizo es la que determina si su contenedor se acepta.</p>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Para el mapeo por destino —qué significa UL/FM/AWWA/NOM en un licitatorio latinoamericano, qué significa CE por modelo en la UE, qué significa NFPA 13 para una <a href="/es/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">válvula de compuerta tipo AWWA</a>— vea la <a href="/es/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">guía de listado UL</a>, la <a href="/es/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">guía de certificación para América Latina</a> y la <a href="/es/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">guía de cumplimiento CE y EN 12845</a>.</p>
+
+			<h2 id="payment-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Riesgo de Pago y Financiero</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">En el comercio transfronterizo de equipo el dinero se mueve antes que la mercancía, y la estructura de ese movimiento es el control. Cuatro instrumentos, en orden ascendente de protección al comprador para un primer pedido:</p>
+			<table class="w-full text-sm my-5 border-collapse">
+				<thead>
+					<tr class="bg-gray-50">
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">Instrumento</th>
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">Qué hace</th>
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">Dónde aplica</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-gray-200">
+					<tr><td class="px-4 py-3 font-bold text-gray-900">T/T por hitos</td><td class="px-4 py-3 text-gray-700">Anticipo contra el pedido; saldo contra documentos de embarque o tras superar la inspección previa al envío</td><td class="px-4 py-3 text-gray-700">La forma defendible estándar para proveedores verificados — la norma de mercado del anticipo para pedidos de equipo se ubica en torno al 30%</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">L/C a la vista (UCP 600)</td><td class="px-4 py-3 text-gray-700">El banco paga contra documentos conformes; la garantía banco a banco reemplaza la confianza</td><td class="px-4 py-3 text-gray-700">Primeros pedidos grandes, o cualquier pedido donde solo el anticipo supere su apetito de riesgo</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Custodia de plataforma</td><td class="px-4 py-3 text-gray-700">La plataforma retiene el pago contra entrega/inspección</td><td class="px-4 py-3 text-gray-700">Pedidos chicos y compras de muestra con una contraparte nueva</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Seguro de crédito a la exportación</td><td class="px-4 py-3 text-gray-700">Asegura el crédito contra el incumplimiento del proveedor (China Ex&I / Sinosure del lado de exportación; aseguradoras de crédito locales del suyo)</td><td class="px-4 py-3 text-gray-700">Programas y pedidos repetidos una vez que la contraparte está probada</td></tr>
+				</tbody>
+			</table>
+			<p class="text-gray-700 leading-relaxed mb-4">Tres reglas de pago vale la pena declarar como líneas duras. <strong>Primera:</strong> el prepago del 100% solo es defendible contra una contraparte que ya superó la verificación de §3 y tiene un historial que usted contactó de forma independiente — y aun así, contra un contrato que hace el anticipo reembolsable por falla de inspección. <strong>Segunda:</strong> toda remesa va a la cuenta bancaria de la entidad legal del contrato — una solicitud de pago a otra empresa o a una cuenta personal es una señal de fraude por sí misma, sin más. <strong>Tercera:</strong> la moneda es una variable cotizada; cotice y firme en una sola moneda declarada, y trate "precio en USD, pago en RMB al tipo del día" como una posición de FX abierta que acaba de aceptar. El apalancamiento de FX existe por una razón, y para la mayoría de los pedidos de equipo el control más simple es un contrato de una sola moneda.</p>
+
+			<h2 id="logistics-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Riesgo de Logística, Aduana y Entrega</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El Incoterm es el mapa de riesgo del viaje, y la mayoría de las disputas de esta familia son disputas de Incoterm con otra vestimenta. Bajo Incoterms 2020:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>EXW</strong> — usted toma el control en la puerta de la fábrica: declaración de exportación, flete principal, seguro, todo suyo. Control máximo, carga máxima; correcto cuando tiene su propia cadena de fletes en China.</li>
+				<li><strong>FOB</strong> — el proveedor declara la exportación y carga; el riesgo pasa en cubierta. El término más común para equipo en contenedor; usted controla el buque y el seguro de su lado.</li>
+				<li><strong>CIF</strong> — el proveedor agrega flete y seguro hasta su puerto; el riesgo sigue pasando en cubierta en el origen. Usted paga por un transportista que no eligió — cotícelo en consecuencia.</li>
+				<li><strong>DDP</strong> — el proveedor entrega con derechos pagados a su puerta: control total, opacidad total. Cada elemento de costo está dentro de un número que no puede auditar; úsela solo con un proveedor cuya logística ya vio trabajar.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">El paquete documental es el segundo control, y además duplica su evidencia de calidad: factura comercial, lista de embalaje, bill of lading, certificado de origen, y los <strong>registros de prueba por lote y por unidad conciliados con los números de serie de la lista de embalaje</strong>. Un paquete documental completo y conciliado es en sí mismo una señal de calidad — y es lo que su inspector de destino y su equipo de mantenimiento sostendrán en la aceptación y en el año cinco. Los items presurizados (extintores portátiles) son mercancías peligrosas y requieren empaque y declaración conforme a DG; el equipo a base de agua es carga general — la distinción cambia sus opciones de flete y su seguro, así que declárela correctamente en la consulta, como detalla la <a href="/es/guides/fire-extinguisher-selection-guide/" class="text-brand-blue font-semibold hover:underline">guía de extintores</a>. Por último, ponga una verificación del contenedor previa al envío dentro del alcance de la inspección: números de sello fotografiados, conteo de la lista de embalaje verificado, los registros de prueba en la carpeta documental del contenedor. El costo es trivial; es el último momento en que la mercancía es visible para usted antes de que el riesgo cruce el océano.</p>
+
+			<h2 id="dispute-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. Riesgo de Disputa, Garantía y Continuidad</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El trabajo de un contrato transfronterizo es hacer el peor caso manejable. Las cláusulas que realmente pesan en una compra de equipo:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>La especificación como anexo</strong> — la especificación cerrada de §4 es un anexo al contrato, no un adjunto a un correo. El contrato la incorpora por referencia y ella gobierna la aceptación.</li>
+				<li><strong>Criterios de aceptación con derechos de prueba</strong> — prueba de presión de carcasa y fuga de aire por unidad según la norma nombrada, su derecho a inspeccionar o nombrar a un tercero antes del envío, y la remediación (reemplazo, re-prueba, reembolso) definida para cada modo de falla.</li>
+				<li><strong>Condición de resolución de certificados</strong> — según §5: certificado nombrado, modelo nombrado, resoluble en el organismo emisor, copia entregada antes del pago del saldo.</li>
+				<li><strong>Hitos de pago</strong> — la estructura de §6 escrita en el contrato para que no se pueda renegociar bajo presión de tiempo.</li>
+				<li><strong>Fuerza mayor y calendario</strong> — una fecha de entrega con una remediación definida para el retraso, no un "esfuerzo máximo". Los programas se salen porque los contratos hacen que salirse sea barato.</li>
+				<li><strong>Le ley aplicable y arbitraje</strong> — una cláusula de arbitraje (un asiento neutral, una institución nombrada) se aplica entre fronteras con mucha más fiabilidad bajo el Convenio de Nueva York que una promesa de demandar en los tribunales del otro lado. Para la mayoría de los compradores esta única cláusula es la diferencia entre una pérdida recuperable y una carta cara.</li>
+				<li><strong>Garantía y repuestos</strong> — el periodo de garantía declarado por modelo, y un compromiso de disponibilidad de repuestos dimensionado a la vida de servicio del equipo. Una válvula que no puede reasentarse en el año ocho se convierte en un reemplazo que usted espera que el proveedor siga fabricando.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">El riesgo de continuidad es el silencioso: el proveedor que envía su contenedor y no está al reclamo de garantía. El chequeo es la misma evidencia de §3 — años registrados, capital, historial de exportación, amplitud de la base de clientes— más uno estructural: <strong>nunca diseñe una dependencia de un solo proveedor para un item crítico de seguridad sin una segunda fuente cualificada en archivo.</strong> No le pedimos calificar a un competidor como su cobertura; le pedimos mantener la especificación y los registros de prueba completos para que pueda, si algún día tuviera que hacerlo.</p>
+
+			<h2 id="control-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">9. La Lista de Controles por Etapa</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Los controles de las secciones 3–8, ordenados en secuencia de ejecución. Imprímala, adjúntela a la PO, márquela — el orden es el punto: los controles de cada etapa retiran el riesgo que el dinero de la siguiente etapa cotizaría de otro modo.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Etapa</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Controles</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Puerta para pasar</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Antes de calificar</td><td class="px-4 py-3 text-gray-700">Especificación cerrada por escrito; 3+ cotizaciones comparables; factores de costo dimensionados</td><td class="px-4 py-3 text-gray-700">Anexo de especificación listo; banda de precio de referencia establecida</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Calificación</td><td class="px-4 py-3 text-gray-700">Entidad + alcance ISO + recorrido de fábrica en video en vivo + referencias de exportación (§3)</td><td class="px-4 py-3 text-gray-700">Fábrica confirmada; referencias contactadas de forma independiente</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Contrato</td><td class="px-4 py-3 text-gray-700">Criterios de aceptación, condición de certificado, hitos, Incoterm, cláusula de arbitraje (§6–8)</td><td class="px-4 py-3 text-gray-700">Contrato firmado con anexo de especificación — no una cotización</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Muestra</td><td class="px-4 py-3 text-gray-700">Una unidad por modelo: placa, serie, certificado de material, video de prueba (§4)</td><td class="px-4 py-3 text-gray-700">Muestra aceptada contra el anexo; certificados resueltos en el organismo emisor</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Producción</td><td class="px-4 py-3 text-gray-700">Calendario confirmado; hito 1 pagado; evidencia fotográfica/videográfica periódica</td><td class="px-4 py-3 text-gray-700">Progreso contra calendario, excepciones marcadas por escrito</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Previa al envío</td><td class="px-4 py-3 text-gray-700">Inspección de terceros presencia la prueba + revisión de registros; verificación del contenedor; documentos empaquetados</td><td class="px-4 py-3 text-gray-700">Inspección superada; paquete documental completo y conciliado</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Pago y envío</td><td class="px-4 py-3 text-gray-700">Saldo liberado contra inspección superada / documentos de embarque; B/L verificado</td><td class="px-4 py-3 text-gray-700">Riesgo pasado a cubierta; documentos en mano</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Llegada y después</td><td class="px-4 py-3 text-gray-700">Aceptación en destino contra registros de prueba; registros archivados para mantenimiento; canal de garantía probado</td><td class="px-4 py-3 text-gray-700">Aceptación registrada; registros archivados para la vida del equipo</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Cómo corren los mismos controles en nuestra propia producción</p>
+				<p class="text-sm text-gray-700 leading-relaxed">Somos un fabricante, y la forma honesta de usar este whitepaper es dejar que los controles corran contra nosotros también. Nuestra evidencia de proceso, declarada como lo que hacemos: producción bajo un sistema ISO 9001:2015 (el certificado está disponible para verificar con el organismo emisor); prueba del 100% por unidad de presión de carcasa y fuga de aire con registros por unidad conciliados con la lista de embalaje; un video de prueba con número de serie disponible en una unidad de muestra; certificados por modelo de nuestra <a href="/es/certificates/" class="text-brand-blue font-semibold hover:underline">página de certificados</a> entregados a solicitud; documentación de exportación coordinada con el envío; y un compromiso de respuesta de 12 horas sobre una especificación completa. Cada afirmación de este párrafo es verificable por exactamente el procedimiento que este whitepaper describe — que es el punto de publicarlo.</p>
+			</div>
+
+			<h2 id="red-flags" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">10. Señas de Alarma: Pare y Reverifique</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Diez señales que detienen el proceso y lo envían de vuelta a la lista de verificación. Una sola vale una semana; dos o más valen un proveedor distinto.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">#</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Señal</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Por qué importa</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-black text-gray-400">1</td><td class="px-4 py-3 font-bold text-gray-900">Rechaza un recorrido de fábrica en video en vivo</td><td class="px-4 py-3 text-gray-700">Un fabricante no tiene nada que ocultar en su propia planta; solo una mesa sí</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">2</td><td class="px-4 py-3 font-bold text-gray-900">El número de certificado no se resuelve en el organismo emisor</td><td class="px-4 py-3 text-gray-700">La falsificación está confirmada sin importar cómo se vea el PDF</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">3</td><td class="px-4 py-3 font-bold text-gray-900">Pago solicitado a cuenta personal o a otra entidad</td><td class="px-4 py-3 text-gray-700">La entidad del contrato y el beneficiario deben coincidir; esto es una señal de fraude por sí mismo</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">4</td><td class="px-4 py-3 font-bold text-gray-900">Prepago 100% exigido para un primer pedido grande</td><td class="px-4 py-3 text-gray-700">Cotiza todo el riesgo restante sobre usted sin dejarle ningún control en la estructura</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">5</td><td class="px-4 py-3 font-bold text-gray-900">Cotización muy por debajo de la banda de referencia sin compensación declarada</td><td class="px-4 py-3 text-gray-700">El descuento se financia con material, espesor de pared, prueba — o con su saldo</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">6</td><td class="px-4 py-3 font-bold text-gray-900">Se resiste a un pedido de muestra</td><td class="px-4 py-3 text-gray-700">Una muestra le cuesta poco al proveedor y demuestra lo más; la negativa es una declaración</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">7</td><td class="px-4 py-3 font-bold text-gray-900">Ofrece "reporte de lote" en vez de registros de prueba por unidad</td><td class="px-4 py-3 text-gray-700">Sus unidades no son "parte del lote"; el registro conciliado por serie es el documento de aceptación</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">8</td><td class="px-4 py-3 font-bold text-gray-900">El modelo de la placa no coincide con el PO</td><td class="px-4 py-3 text-gray-700">La sustitución ya ocurrió; la pregunta es cuánto más difiere</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">9</td><td class="px-4 py-3 font-bold text-gray-900">No puede declarar a qué norma está probado cada modelo</td><td class="px-4 py-3 text-gray-700">Un fabricante de equipo de seguridad conoce sus normas; la vaguedad es otro negocio</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">10</td><td class="px-4 py-3 font-bold text-gray-900">Resistencia a derechos de inspección o a inspección de terceros en el contrato</td><td class="px-4 py-3 text-gray-700">Una fábrica que supera sus propias pruebas no teme un testigo independiente</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Ejecute un Chequeo de Riesgo en Vivo Sobre Su Próximo Pedido</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíenos su especificación, el proveedor con el que está trabajando y su destino: en 12 horas la recorremos contra la lista de verificación de este whitepaper — cierre de especificación, resolución de certificados, estructura de pago y el paquete documental que debería viajar con el envío.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Procurement%20Risk%20Check" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20would%20like%20a%20procurement%20risk%20check%20for%20my%20order" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

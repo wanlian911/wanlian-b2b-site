@@ -296,4 +296,24 @@ export const guidesRu: Guide[] = [
     readTime: '8 мин чтения',
     tags: ['industrial-valves', 'backflow-prevention']
   },
+  {
+    title: 'Wanlian Fluid против Zhiyuan Fire: поставщики противопожарной защиты на водной основе и на газе (2026)',
+    description: 'Wanlian Fluid против Zhiyuan Fire в 2026 году: гидранты, лафетные стволы и клапаны против газового пожаротушения FM200/IG541 — какой китайский поставщик противопожарного оборудования подходит для вашего проекта?',
+    href: '/ru/guides/wanlian-fluid-vs-zhiyuan/',
+    tocPreview: ["1. Zhiyuan Fire: Кто они на самом деле","2. Wanlian Fluid: Кто мы на самом деле","3. Сравнение бок о бок"],
+    date: '2026-09',
+    category: 'Закупки B2B',
+    readTime: readTime('9'),
+    tags: ['procurement', 'fire-protection']
+  },
+  {
+    title: 'Управление рисками трансграничных закупок: whitepaper для B2B-покупателей (2026) | Wanlian Fluid',
+    description: 'Как контролировать риски трансграничных закупок противопожарного и водного оборудования: 8 семейств рисков, контрольные точки до отгрузки, платёжные инструменты и тревожные признаки.',
+    href: '/ru/guides/cross-border-procurement-risk-whitepaper/',
+    tocPreview: ["1. Почему трансграничные закупки срываются: рамка рисков","2. Восемь семейств рисков","3. Риск контрагента и подлинность"],
+    date: '2026-09',
+    category: 'Whitepaper',
+    readTime: readTime('12'),
+    tags: ['procurement', 'certification']
+  }
 ];

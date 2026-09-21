@@ -302,4 +302,24 @@ export const guidesFr: GuideFr[] = [
     readTime: '8 min de lecture',
     tags: ['industrial-valves', 'backflow-prevention']
   },
+  {
+    title: 'Wanlian Fluid vs Zhiyuan Fire : Fournisseurs de Protection Incendie à Base Eau vs Base Gaz (2026)',
+    description: 'Wanlian Fluid vs Zhiyuan Fire pour 2026 : hydrants, canons et vannes contre l’extinction gazeuse FM200/IG541 — quel fournisseur chinois d’équipements incendie correspond à votre projet ?',
+    href: '/fr/guides/wanlian-fluid-vs-zhiyuan/',
+    tocPreview: ["1. Zhiyuan Fire : Qui Sont-ils Vraiment","2. Wanlian Fluid : Qui Sommes-Nous Vraiment","3. Comparaison Côte à Côte"],
+    date: '2026-09',
+    category: 'Achats B2B',
+    readTime: '9 min de lecture',
+    tags: ['procurement', 'fire-protection']
+  },
+  {
+    title: 'Maîtrise du Risque d’Achat Transfrontalier : Whitepaper pour Acheteurs B2B (2026) | Wanlian Fluid',
+    description: 'Comment maîtriser le risque d’achat transfrontalier d’équipements incendie et d’infrastructure d’eau : 8 familles de risque, contrôles pré-expédition et signaux d’alerte.',
+    href: '/fr/guides/cross-border-procurement-risk-whitepaper/',
+    tocPreview: ["1. Pourquoi les Achats Transfrontaliers Échouent : le Cadre de Risque","2. Les Huit Familles de Risque","3. Risque de Contrepartie et d’Authenticité"],
+    date: '2026-09',
+    category: 'Whitepaper',
+    readTime: '12 min de lecture',
+    tags: ['procurement', 'certification']
+  }
 ];

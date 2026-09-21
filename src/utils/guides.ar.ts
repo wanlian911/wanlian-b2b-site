@@ -302,4 +302,24 @@ export const guidesAr: GuideAr[] = [
     readTime: '8 دقائق قراءة',
     tags: ['industrial-valves', 'backflow-prevention']
   },
+  {
+    title: 'Wanlian Fluid مقابل Zhiyuan Fire: موردو حماية حريق مائية مقابل غازية (2026)',
+    description: 'Wanlian Fluid مقابل Zhiyuan Fire لعام 2026: خلاطات حريق ومدافع وصمامات مقابل الإطفاء الغازي FM200/IG541 — أي مورد صيني لمعدات الحريق يناسب مشروعك؟',
+    href: '/ar/guides/wanlian-fluid-vs-zhiyuan/',
+    tocPreview: ["1. Zhiyuan Fire: من هي فعليًا","2. Wanlian Fluid: من نحن فعليًا","3. مقارنة جنبًا إلى جنب"],
+    date: '2026-09',
+    category: 'توريد',
+    readTime: '9 دقائق قراءة',
+    tags: ['procurement', 'fire-protection']
+  },
+  {
+    title: 'مراقبة مخاطر التوريد عبر الحدود: whitepaper للمشتريين B2B (2026) | Wanlian Fluid',
+    description: 'كيف تتحكم في مخاطر التوريد عبر الحدود لمعدات الحريق والبنية التحتية المائية: 8 عائلات للمخاطر، مراقبات قبل الشحن، هيكل الدفع، وقائمة أعلام حمراء.',
+    href: '/ar/guides/cross-border-procurement-risk-whitepaper/',
+    tocPreview: ["1. لماذا تفشل عمليات التوريد عبر الحدود: إطار المخاطر","2. العائلات الثمانية للمخاطر","3. مخاطر الطرف الآخر والأصالة"],
+    date: '2026-09',
+    category: 'Whitepaper',
+    readTime: '12 دقائق قراءة',
+    tags: ['procurement', 'certification']
+  }
 ];

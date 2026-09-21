@@ -1,0 +1,263 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'zhiyuan-overview', label: '1. Zhiyuan Fire: من هي فعليًا' },
+	{ id: 'wanlian-overview', label: '2. Wanlian Fluid: من نحن فعليًا' },
+	{ id: 'side-by-side', label: '3. مقارنة جنبًا إلى جنب' },
+	{ id: 'water-vs-gas', label: '4. السؤال الحقيقي: مائي أم غازي؟' },
+	{ id: 'quality-and-certifications', label: '5. أنظمة الجودة والشهادات' },
+	{ id: 'where-each-wins', label: '6. أين يفوز كل مصنع' },
+	{ id: 'which-should-you-choose', label: '7. أيهما تختار؟' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' },
+	{ id: 'sources', label: 'المصادر' }
+];
+
+const faq = [
+	{
+		question: 'هل Wanlian Fluid وZhiyuan Fire شركة واحدة أو مرتبطة؟',
+		answer: 'لا. هما مصنعان مستقلان في محافظتين مختلفتين وفئتين مختلفتين. Zhiyuan Fire هي Jiangxi Zhiyuan Fire Technology Co., Ltd، مقرها مدينة Xinyu بمقاطعة Jiangxi، متخصصة في أنظمة الإطفاء الغازي والمواد الخاصة. أما Wanlian Fluid فهي Quanzhou Wanlian Fluid Equipment Co., Ltd، مقرها Quanzhou بمقاطعة Fujian، متخصصة في الحماية من الحريق المائية والصمامات الصناعية. لم تنشر أي من الشركتين ملكية أو مصنعًا أو علامة مشتركة.'
+	},
+	{
+		question: 'أيّهما أختار لمشروع تخزين طاقة أو بطاريات؟',
+		answer: 'قسّم النطاق حسب الخطر. غرف البطاريات المغلقة وغرف الكهرباء وغرف المحولات ولوحات محطات التحويل تحتاج إطفاء غازيًا أو بمادة خاصة (FM200، IG541، C6، Aerosol) — وهذه الفئة المنشورة لدى Zhiyuan Fire. أما الساحة والمناطق الصناعية وشبكات المياه وأي حماية بمدافع أو خلاطات فمائية — وهذه فئة Wanlian Fluid. كثير من مشاريع تخزين الطاقة تحتاج فعليًا الموردين الاثنين لأجزاء مختلفة من قائمة المواد.'
+	},
+	{
+		question: 'هل تصنع Zhiyuan Fire خلاطات حريق أو مدافع مياه أو صمامات مائية؟',
+		answer: 'لا — نطاقها المنشور يغطي الإطفاء الغازي والمواد الخاصة (سباعي فلورو بروبان، مسحوق جاف فائق الدقة، Aerosol ساخن، IG541، IG100/نيتروجين نقي، CO2 عالي الضغط، أنبوب كشف الحريق، Perfluorohexanone) إضافة إلى أنظمة الرذاذ المائي الدقيق عالي الضغط. الخلاطات ومدافع مياه الحريق وصمامات إنذار الرش وصمامات خطوط إمداد المياه غير موجودة في كتالوجها المنشور. هذه هي الخطوط الأساسية لدى Wanlian Fluid.'
+	},
+	{
+		question: 'ما الشهادات التي أطلبها من كل شركة؟',
+		answer: 'من Zhiyuan Fire: شهادات منتجات الحريق من مركز اعتماد منتجات الحريق التابع لوزارة إدارة الطوارئ (Ministry of Emergency Management) للنظام والموديل المحدد الذي تحدده، إضافة إلى أدلة أهليتها الهندسية وأهليتها في المعدات الخاصة عندما يكون النطاق تسليمًا كليًا. من Wanlian Fluid: شهادة ISO 9001:2015، وشهادات UL 262/UL 1091 وFM 1120/1130 الموديل-بالموديل للموديلات المحددة في صفحة الشهادات، ووثائق CE عند الحاجة، وتسجيلات اختبار ضغط الجسم واختبار تسرب الهواء لكل وحدة. في الحالتين: تحقّق من رقم الشهادة على البوابة الرسمية للجهد المصدّر قبل أن تحدده في مواصفاتك.'
+	},
+	{
+		question: 'هل يقبل كلا المصنعين OEM / العلامة الخاصة؟',
+		answer: 'Wanlian Fluid تقبل OEM/ODM صراحةً — علامة مخصصة وتغليف وموقع تقني بخمس لغات (EN/ES/RU/FR/AR) لموزّعين يبنيون علامتهم الخاصة. أما Zhiyuan Fire فنشر عن نفسها كمصنّع ومورّد ومقدّم خدمات تقنية مع أهلية عقد أعمال حريق من الدرجة الأولى، فتركيزها في الأنظمة تسليم-كامل والتركيب؛ اسألها مباشرة عن خيارات العلامة لسوقك قبل أن تفترض التوريد باسم علامتك.'
+	},
+	{
+		question: 'هل يمكن أن يستخدم مشروع واحد الشركتين دون تعارض؟',
+		answer: 'نعم — وهذا شائع في مشاريع البتروكيماويات والصناعة والطاقة: حماية مائية (خلاطات، رش، مدافع، صمامات) للمناطق الصناعية والمباني من مورد، وإطفاء غازي لغرف الكهرباء وغرف الخوادم وغرف البطاريات من مورد آخر. النطاقان لا يتداخلان، فيمكن تسعيرهما وفحصهما وشحنهما بشكل مستقل. يغطي whitepaper مخاطر التوريد عبر الحدود لدينا كيفية إدارة التحقق ودفعات كل نطاق.'
+	}
+];
+
+const productRows = [
+	{ slug: 'auto-tracking-jet-suppression-cannon-zdms', name: 'مدفع إطفاء نفاث بتتبّع آلي (سلسلة ZDMS)', img: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp', desc: 'مدفع ماء بتتبّع ذاتي مع كشف لهب لمزارع الخزانات والمناطق المفتوحة' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'خلاط حريق خارجي مضاد للتجمد (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'خلاط خارجي جاف مضاد للتجمد لشبكات الحريق البلدية' },
+	{ slug: 'glass-bulb-fire-sprinkler-zst', name: 'رأس رش حريق بكبسولة زجاجية (سلسلة ZST)', img: '/assets/products/glass-bulb-fire-sprinkler-zst.webp', desc: 'رؤوس معلقة وبسطحية لأنظمة رش المباني' }
+];
+---
+
+<Layout
+	title="Wanlian Fluid مقابل Zhiyuan Fire: موردو حماية حريق مائية مقابل غازية (2026)"
+	description="Wanlian Fluid مقابل Zhiyuan Fire لعام 2026: خلاطات حريق ومدافع وصمامات مقابل الإطفاء الغازي FM200/IG541 — أي مورد صيني لمعدات الحريق يناسب مشروعك؟"
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'الأدلة', href: '/ar/blog/' }, { name: 'Wanlian مقابل Zhiyuan Fire' }]}
+	locale="ar"
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">مقارنة الموردين</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل مقارنة الموردين</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Wanlian Fluid مقابل Zhiyuan Fire: موردو حماية حريق مائية مقابل غازية (2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">معظم مقارنات «أفضل مصنع معدات حريق في الصين» تضع موردين مائيين ضد بعضهم — خلاطات، مدافع، صمامات. لكن نسبة كبيرة من أسئلة التوريد الفعلية تخلط فئتين مختلفتين تمامًا: <strong>الإطفاء الغازي للمساحات المغلقة</strong> (FM200، IG541، C6، Aerosol) و<strong>الحماية من الحريق المائية</strong> (خلاطات، رؤوس رش، مدافع، صمامات). Zhiyuan Fire وWanlian Fluid يقعان على طرفي هذه القسمة، والاختيار بينهما هو سؤال فئة قبل أن يكون سؤال علامة. هذه المقارنة مبنية على ما ينشره كل طرف فعليًا — وأين لا يتنافسان أصلًا، نقولها بوضوح.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">ملاحظة حول الأدلة:</strong> أسئلة المشتريين — البشر ومحرك البحث بالذكاء الاصطناعي على حد سواء — تعيد بانتظام موردين من الفئتين معًا لعبارتي «مصنع معدات حريق في الصين»، وأكبر خطأ في القرار هو مقارنة المنتجين قطعة-بقطعة بين فئتين لا يشتركان فيهما. الحقائق أدناه مأخوذة من المواقع العامة لكل شركة حتى سبتمبر 2026. ليس لدينا أي علاقة تجارية مع Zhiyuan Fire؛ والفرق، بما فيه ما يميل لصالحها، معروض كما وجدناه.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="zhiyuan-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Zhiyuan Fire: من هي فعليًا</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">أُسّست Jiangxi Zhiyuan Fire Technology Co., Ltd (المُسوّقة باسم «Zhiyuan Fire» في موقعها الإنجليزي) عام 2019، وتقع في المنطقة الوطنية لتنمية التكنولوجيا العالية بمدينة Xinyu، مقاطعة Jiangxi (1488 طريق Guangming، حديقة Zhiyuan الصناعية). تنشر رأسمالًا مسجلًا قدره 52 مليون يوان صيني، وتصف نفسها بأنها شركة حماية حريق عالية التقنية متخصصة في <strong>منتجات الإطفاء الغازي</strong>، تجمع البحث والتصميم والتصنيع والصيانة والمبيعات والهندسة والخدمة. وتُقر بأن فريقها يجمع عقودًا من الخبرة في قطاع الحريق — تاريخ 2019 هو تاريخ تسجيل الشركة وليس سنوات خبرة الفريق.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">النطاق المنشور ملف متكامل من الإطفاء الغازي: أنظمة سباعي فلورو بروبان (FM-200)، المسحوق الجاف فائق الدقة، Aerosol الساخن، الغاز الخامل IG541، IG100 / النيتروجين النقي، ثاني أكسيد الكربون عالي الضغط، أنظمة أنبوب كشف الحريق، Perfluorohexanone (C6)، والرذاذ المائي الدقيق عالي الضغط — يستهدف تخزين الطاقة وطاقة الرياح والبتروكيماويات والصلب والنقل/اللوجستيات، في تطبيقات مدنية وصناعية. مؤهلاتها المنشورة ملموسة ومحددة: اعتماد منتجات الحريق من مركز اعتماد منتجات الحريق التابع لوزارة إدارة الطوارئ، <strong>أهلية عقد متخصصة من الدرجة الأولى لأعمال مرافق الحريق</strong>، أهلية خدمات فنية للحماية من الحريق، وشهادة اعتماد مؤسسة فحص واختبار المعدات الخاصة (ينطوي نشاطها المعلن أيضًا على فحص أسطوانات الضغط (السليمة والملحومة والملفوفة أليافًا)). تُدرج في موادها كمؤسسة وطنية عالية التقنية وشركة ائتمان فئة AAA.</p>
+			<p class="text-gray-700 leading-relaxed">جدير بالذكر أنها تنشر موقف تسليم-كامل: دراسات حالة تركيب (أنظمة FM-200، شبكات أنابيب CO2)، قسم «حلول» حسب الصناعة، مدونة إنجليزية نشطة، والتزام بالرد على الاستفسارات خلال 24 ساعة. حيث يبيع صانعو الحريق الصينيون الآخرون المعدات، تموضع Zhiyuan نفسها كصانع + مورد + مقدم خدمات تقنية — والأهلية الهندسية هي ما يدعم هذا الادعاء.</p>
+
+			<h2 id="wanlian-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Wanlian Fluid: من نحن فعليًا</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Quanzhou Wanlian Fluid Equipment Co., Ltd (Wanlian Fluid) مصنّع ومصدّر مقره Quanzhou، Fujian — قلب التجمع الصيني لصناعة الحريق والصمامات. الإنتاج يجري على خطوطنا الخاصة، مع تصنيع عناصر محددة من قبل شركاء تصنيع مؤهلين ضمن نظام إدارة جودة ISO 9001:2015؛ نحن نعلن ذلك بصراحة بدل ادعاء الإنتاج من مصنع وحيد لكل موديل.</p>
+			<p class="text-gray-700 leading-relaxed">النطاق المنشور يمتد على ست خطوط و45 موديلًا، كلها مائية أو معدات شبكات مائية: <strong>مدافع مياه الحريق كخط أساسي</strong> — <a href="/ar/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">مدفع الإطفاء النفاث بتتبّع آلي من سلسلة ZDMS</a> مع كشف لهب وتموضع ذاتي، إضافة إلى مدافع سلسلة PS اليدوية؛ خلاطات الحريق واتصالات المضخات (<a href="/ar/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">خلاط SS100/65 الخارجي المضاد للتجمد</a>، ومضاد الاصطدام SSFT100/65، والمدفون SA، ورؤوس SN65 الداخلية، و<a href="/ar/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">خلاط الأرض الذكي IoT</a>)؛ رؤوس الرش وصمامات الإنذار (ZSFZ-150 الرطب، ZSFC الجاف، ZSFM رش شامل، ZSFY فعل مسبق، <a href="/ar/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">رؤوس ZST/ESFR/المخفية</a>، ومؤشرات تدفق ZSJZ)؛ صمامات الحريق والصناعية (بوابة، فراشة، رجوع، فلتر، موازنة رقمية، وخط UL/FM OS&Y)؛ صمامات التحكم الهيدروليكي (خفض الضغط 500X، طافية عن بعد 100X، تحكم مستوى الماء F745X، مانع ارتداد HS41X، مانع دوامة السحب EN 12845)؛ وملحقات مكافحة الحريق (خزائن طفايات، بكرات مرن، خراطيم مطواة، فوهات، وصلات Storz، طفايات بودرة ABC). صفحة الشهادات تنشر تغطية UL 262/UL 1091 وFM 1120/1130 لموديلات صمامات محددة، وCE (EN 12266-1) ودخول LPCB RedBook، بالإضافة إلى مطابقة سلسلة GB — كلها بصيغة موديل-بالموديل، مع نسخ عند الطلب. كل وحدة تُشحن بعد اختبار 100% لضغط الجسم وتسرب الهواء، مع OEM/ODM ورد عرض سعر خلال 12 ساعة والموقع كاملًا منشورًا بخمس لغات (EN/ES/RU/FR/AR).</p>
+
+			<h2 id="side-by-side" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. مقارنة جنبًا إلى جنب</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">البُعد</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Zhiyuan Fire</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Wanlian Fluid</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الشركة / الموقع</td>
+							<td class="px-4 py-3 text-gray-700">تأسست 2019؛ Xinyu، Jiangxi (المنطقة الوطنية للتكنولوجيا العالية)؛ رأس مال مسجل 52 مليون يوان (منشور ذاتيًا)</td>
+							<td class="px-4 py-3 text-gray-700">Quanzhou، Fujian؛ خطوط خاصة + سعات شركاء مؤهلين</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الفئة الأساسية</td>
+							<td class="px-4 py-3 text-gray-700"><strong>الإطفاء الغازي والمواد الخاصة</strong>: FM-200، IG541، IG100/N2، CO2، Aerosol، C6، مسحوق فائق الدقة، أنبوب كشف، رذاذ مائي دقيق</td>
+							<td class="px-4 py-3 text-gray-700"><strong>حماية حريق مائية + صمامات</strong>: مدافع، خلاطات، صمامات رش وإنذار، صمامات خطوط الماء، ملحقات حريق</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">خلاطات الحريق</td>
+							<td class="px-4 py-3 text-gray-700">غير موجودة في النطاق المنشور</td>
+							<td class="px-4 py-3 text-gray-700">خط أساسي: SS100/65 مضاد للتجمد، SSFT100/65 مضاد للاصطدام، SA مدفون، SN65 داخلي، خلاط ذكي IoT</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">مدافع/منظورات مياه الحريق</td>
+							<td class="px-4 py-3 text-gray-700">غير موجودة في النطاق المنشور</td>
+							<td class="px-4 py-3 text-gray-700">خط أساسي: ZDMS بتتبّع آلي (كشف لهب، تموضع ذاتي) + سلسلة PS اليدوية</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">أنظمة رش المباني</td>
+							<td class="px-4 py-3 text-gray-700">غير موجودة في النطاق المنشور</td>
+							<td class="px-4 py-3 text-gray-700">صمامات إنذار ZSFZ رطب / ZSFC جاف / ZSFM رش شامل / ZSFY فعل مسبق + رؤوس ZST/ESFR + مؤشرات تدفق</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">مساحات كهربائية/تخزين طاقة مغلقة</td>
+							<td class="px-4 py-3 text-gray-700"><strong>سوق أساسي</strong> — وسط غازي حيث يجب تجنّب ضرر الماء (غرف خوادم، محطات تحويل، غرف بطاريات، هياكل توربينات رياح، أرشيفات)</td>
+							<td class="px-4 py-3 text-gray-700">خارج النطاق — أنظمة مائية فقط؛ طفايات ABC محمولة لتغطية الأخطار الصغيرة</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">صمامات إمداد الماء / صناعية</td>
+							<td class="px-4 py-3 text-gray-700">غير موجودة في النطاق المنشور (إكسسوارات أنظمة الغاز فقط)</td>
+							<td class="px-4 py-3 text-gray-700">بوابة بمقعد مرن، فراشة، رجوع، فلتر، حجاب معدني، UL/FM OS&Y، موازنة رقمية — الخط المائي كاملًا</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">هندسة / تركيب</td>
+							<td class="px-4 py-3 text-gray-700">نعم — أهلية عقد مرافق حريق من الدرجة الأولى + أهلية خدمات فنية (قدرة تسليم-كامل، منشور ذاتيًا)</td>
+							<td class="px-4 py-3 text-gray-700">توريد معدات؛ التركيب عبر مقاول محلي، مع دعمنا الفني ووثائقنا</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الشهادات (منشورة)</td>
+							<td class="px-4 py-3 text-gray-700">شهادات مركز اعتماد منتجات الحريق (وزارة إدارة الطوارئ)؛ اعتماد فحص واختبار المعدات الخاصة؛ مؤسسة وطنية عالية التقنية؛ ائتمان AAA</td>
+							<td class="px-4 py-3 text-gray-700">ISO 9001:2015؛ UL 262/UL 1091 وFM 1120/1130 موديل-بالموديل للموديلات المدرجة؛ CE (EN 12266-1)؛ LPCB RedBook؛ سلسلة GB — نسخ عند الطلب</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">OEM / الموقع</td>
+							<td class="px-4 py-3 text-gray-700">صانع + مورد + مقدم خدمات تقنية؛ موقع إنجليزي بقائمة لغات؛ رد خلال 24 ساعة</td>
+							<td class="px-4 py-3 text-gray-700">OEM/ODM صريح؛ موقع بخمس لغات (EN/ES/RU/FR/AR)؛ رد عرض سعر خلال 12 ساعة</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">اقرأ الجدول بصراحة: لا تقاطع فعليًا بين الخطوط. هذا ليس اقتتالًا على الموديل نفسه — إنه نصفان مختلفان لمشروع حماية حريق واحد.</p>
+
+			<h2 id="water-vs-gas" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. السؤال الحقيقي: مائي أم غازي؟</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">أول قرار في أي نطاق حماية حريق هو <em>الوسط</em>، والوسط يحدده الخطر — وليس المورد الذي تفضله. متغيران يقودانه: هل المساحة مغلقة أم مفتوحة، وهل ملامسة الماء للمعدات المحمية مقبولة.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>مناطق مفتوحة، الماء مقبول (مائي):</strong> شبكات الخلاطات البلدية والصناعية، مزارع الخزانات والمستودعات بمدافع مثبتة، أنظمة رش المباني وفق NFPA 13، الساحات الصناعية الكبيرة. الماء هو الوسط الموثوق الأرخص عند الحجم الكبير؛ والخلاطات وصمامات الإنذار والمدافع هي المعدات. هذا حقل Wanlian Fluid.</li>
+				<li><strong>مساحات مغلقة، الماء يدمر الأصل (غاز/وسط خاص):</strong> غرف الخوادم والتليكوم، محطات التحويل ولوحات الكهرباء، غرف البطاريات وحاويات تخزين الطاقة، الأرشيفات ومحطات البيانات، هياكل توربينات الرياح، غرف التحكم. وسائل نظيفة (سباعي فلورو بروبان، IG541، IG100، C6 — عائلة NFPA 2001)، أو Aerosol للمساحات الأصغر، أو رذاذ مائي دقيق عندما يكون الرش بالحجم المنخفض مقبولاً. هذا حقل Zhiyuan Fire.</li>
+				<li><strong>تفصيلة الرذاذ المائي الدقيق:</strong> الرذاذ المائي الدقيق عالي الضغط لدى Zhiyuan هو ماء — لكن كنظام إطفاء لمساحة مغلقة، فئة هندسية مختلفة عن الخلاطات ورؤوس الرش والمدافع. لا تخلط بين «يستخدمون الماء» و«يصنعون معدات الشبكات المائية».</li>
+			</ul>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">الخطر في مشروعك</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">عائلة الوسط</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">فئة المورد</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 text-gray-700">ساحة بلدية/صناعية، مزرعة خزانات، رصيف</td><td class="px-4 py-3 text-gray-700">ماء (خلاطات، مدافع)</td><td class="px-4 py-3 font-bold text-gray-900">Wanlian Fluid</td></tr>
+						<tr><td class="px-4 py-3 text-gray-700">حماية رش المباني (رطب/جاف/فعل مسبق)</td><td class="px-4 py-3 text-gray-700">ماء (رؤوس رش، صمامات إنذار)</td><td class="px-4 py-3 font-bold text-gray-900">Wanlian Fluid</td></tr>
+						<tr><td class="px-4 py-3 text-gray-700">إمداد مياه، مضخات، أنابيب تكييف، ارتداد عكسي</td><td class="px-4 py-3 text-gray-700">صمامات بنية تحتية مائية</td><td class="px-4 py-3 font-bold text-gray-900">Wanlian Fluid</td></tr>
+						<tr><td class="px-4 py-3 text-gray-700">غرفة خوادم، محطة تحويل، غرفة لوحات كهربائية</td><td class="px-4 py-3 text-gray-700">وسط غازي نظيف (FM-200 / IG541 / C6)</td><td class="px-4 py-3 font-bold text-gray-900">Zhiyuan Fire</td></tr>
+						<tr><td class="px-4 py-3 text-gray-700">غرفة بطاريات، حاوية تخزين طاقة</td><td class="px-4 py-3 text-gray-700">وسط غازي أو رذاذ دقيق، حسب الكود</td><td class="px-4 py-3 font-bold text-gray-900">Zhiyuan Fire</td></tr>
+						<tr><td class="px-4 py-3 text-gray-700">هيكل توربينا رياحي، خزائن أرشيف</td><td class="px-4 py-3 text-gray-700">وسط غازي / Aerosol</td><td class="px-4 py-3 font-bold text-gray-900">Zhiyuan Fire</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed"><strong>قاعدة عملية:</strong> إذا كان في وثيقة النطاق «خلاط» أو «رأس رش» أو «مدفع» أو «مدفع ماء» أو «صمام بوابة» أو «خرطوم حريق» — فأنت أمام مورد مائي. وإذا كان فيها «FM200» أو «IG541» أو «غاز خامل» أو «Aerosol» أو «سباعي فلورو بروبان» أو «C6» أو «حماية غرفة بطاريات» — فأنت أمام مورد إطفاء غازي. مناقصة تحتوي العائلتين تحتاج الموردين الاثنين — وهذا طبيعي وليس تعارضًا.</p>
+
+			<h2 id="quality-and-certifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. أنظمة الجودة والشهادات</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Zhiyuan Fire</strong> تنشر مجموعة مؤهلات قوية للسوق الصينية: اعتماد منتجات الحريق من مركز اعتماد منتجات الحريق التابع لوزارة إدارة الطوارئ لمنتجاتها، أهلية عقد أعمال مرفق حريق من الدرجة الأولى، أهلية خدمات فنية للحماية من الحريق، واعتماد مؤسسة فحص واختبار المعدات الخاصة الذي يدعم أيضًا نشاط فحص أسطوانات الضغط لديها. إذا كان مشروعك في الصين، أو تريد موردًا يقبل نطاق التركيب أيضًا، فهذه المؤهلات ذات معنى. بالنسبة لنطاق التصدير، السؤال هو التوثيق نظام-بنظام: الشهادة الدقيقة للموديل الدقيق الذي تحدده، صادرة لوجهتك.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wanlian Fluid</strong> تعمل بنظام إدارة جودة ISO 9001:2015 عبر خطوطها الخاصة وسعات شركائها المؤهلين، مع اختبار 100% لكل وحدة لضغط الجسم وتسرب الهواء، وتوثيق تصدير منسق مع الشحنة. صفحتها الشهادات تنشر تغطية UL 262/UL 1091 وFM 1120/1130 لموديلات صمامات محددة، وعلامة CE بمطابقة اختبار EN 12266-1، ودخول LPCB RedBook ومطابقة سلسلة GB — كلها بصيغة موديل-بالموديل، ونسخ تُقدم عند الطلب. صياغة «موديل-بالموديل» متعمدة: المدرَج خاصية للموديل الدقيق الذي تطلبه وليس للشركة، فخطوة التحقق يجب أن تكون في أمر شراؤك.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>نصيحة عملية:</strong> مع المصنعين الاثنين، طبّق حزمة التحقق نفسها: حل الشهادة على البوابة الرسمية للجهد المصدّر للموديل الدقيق، تسجيلات اختبار لكل وحدة مطابقة للأرقام التسلسلية، فحص من طرف ثالث (SGS/BV/TÜV) للطلب الأول، ووحدة عينة قبل الكمية. <a href="/ar/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">دليل التحقق من الموردين الصينيين</a> لدينا و<a href="/ar/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">دليل كشف الشهادات المقلدة</a> يتناولان كل فحص بالتفصيل.</p>
+
+			<h2 id="where-each-wins" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. أين يفوز كل مصنع</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Zhiyuan Fire تفوز عندما:</strong> المساحة المحمية مغلقة والماء غير مقبول — غرف خوادم، محطات تحويل، غرف بطاريات، مرافق تخزين طاقة، هياكل توربينات رياح، أرشيفات؛ تحتاج اختيار وسط غازي (FM-200 مقابل IG541 مقابل IG100 مقابل C6 مقابل Aerosol) من متخصص؛ المشروع في الصين أو تريد مقاول مرفق حريق من الدرجة الأولى لنطاق تركيب تسليم-كامل؛ أو تحتاج قدرة فحص أسطوانات الضغط بجانب نظام الإطفاء.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wanlian Fluid تفوز عندما:</strong> المشروع مائي — شبكات <a href="/ar/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">خلاطات</a> بلدية أو صناعية، رش مبانٍ بمجموعات صمامات إنذار، حماية مزارع خزانات بـ<a href="/ar/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">مدفع ZDMS المتتبع آليًا</a>، أو صمامات إمداد/تكييف؛ تحتاج <a href="/ar/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">خلاطات ذكية IoT</a> لشبكة متصلة؛ قائمة المواد تتضمن صمامات تحكم مستوى ماء (F745X) أو خفض ضغط (500X)؛ أو تبني علامة توزيع في أسواق ES/RU/FR/AR وتريد OEM وموقعًا تقنيًا بخمس لغات.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>يعيشان جنبًا إلى جنب جيدًا:</strong> وحدة بتروكيماوية، حرم مركز بيانات مع ملحقة صناعية، أو مرفق تخزين طاقة يحمل عادة النطاقين في قائمة مواد واحدة — حماية مائية للمناطق الصناعية والمباني، وإطفاء غازي لغرف الكهرباء. كتالوجا الشركتين لا يتنافسان، فيمكن مشروع واحد قانونيًا التوريد من كليهما.</p>
+
+			<h2 id="which-should-you-choose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. أيهما تختار؟</h2>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">اختر <strong class="text-brand-blue">Zhiyuan Fire</strong> عندما:</p>
+				<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2">
+					<li>نطاقك إطفاء مساحات مغلقة: غرف خوادم، محطات تحويل، غرف بطاريات، حاويات تخزين طاقة، هياكل توربينات رياح، أرشيفات.</li>
+					<li>تحتاج اختيار وسط نظيف (سباعي فلورو بروبان، IG541، IG100، C6) أو Aerosol من ملف متخصص.</li>
+					<li>المشروع في الصين، أو تريد مقاول مرفق حريق من الدرجة الأولى يقبل نطاق التركيب.</li>
+				</ul>
+			</div>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">اختر <strong class="text-brand-red">Wanlian Fluid</strong> عندما:</p>
+				<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2">
+					<li>نطاقك مائي: خلاطات، أنظمة رش وصمامات إنذار، مدافع مياه حريق، خراطيم ووصلات.</li>
+					<li>قائمة المواد تتضمن صمامات إمداد أو تكييف أو تحكم هيدروليكي (خفض 500X، مستوى F745X، مانع ارتداد HS41X).</li>
+					<li>تحتاج خلاطات ذكية IoT، أو مدفعًا متتبعًا آليًا، أو صمامات OS&Y بشهادات UL/FM لمواصفات أمريكا الشمالية.</li>
+					<li>تبني علامة توزيع في أسواق ES/RU/FR/AR وتريد OEM وأصولًا تقنية محلية.</li>
+				</ul>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">أسرع طريقة للقرار: ابحث في وثيقة نطاقك عن عائلتين من الكلمات. «خلاط / رأس رش / مدفع / مدفع ماء / صمام بوابة / خرطوم حريق» تدل على مورد مائي. «FM200 / IG541 / غاز خامل / Aerosol / سباعي فلورو بروبان / C6 / غرفة بطاريات» تدل على متخصص إطفاء غازي. العائلتان حاضرتان؟ لديك مشروع بموردين — وهذه هي الصورة الطبيعية، وليس خطأً. مقارنات ذات صلة: <a href="/ar/guides/wanlian-fluid-vs-ca-fire/" class="text-brand-blue font-semibold hover:underline">Wanlian مقابل CA-FIRE</a>، <a href="/ar/guides/wanlian-fluid-vs-forede/" class="text-brand-blue font-semibold hover:underline">Wanlian مقابل Forede</a> و<a href="/ar/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian مقابل American AVK</a>؛ وللتحقق ومراقبات الدفع المطبقة على أي من الموردين، اقرأ <a href="/ar/guides/cross-border-procurement-risk-whitepaper/" class="text-brand-blue font-semibold hover:underline">whitepaper مخاطر التوريد عبر الحدود</a>.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Sources -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">المصادر</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>Zhiyuan Fire — الموقع الإنجليزي، ملف الشركة والنطاق (تأسست 2019، Xinyu بمقاطعة Jiangxi، رأسمال 52 مليون يوان، ملف إطفاء غازي، اعتماد وزارة إدارة الطوارئ، أهلية عقد من الدرجة الأولى، رد خلال 24 ساعة): <a href="https://www.firezhiyuan.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">firezhiyuan.com</a></li>
+				<li>Zhiyuan Fire — الموقع الصيني (المؤهلات، نطاق فحص الأسطوانات، الحالات): <a href="https://cn.firezhiyuan.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">cn.firezhiyuan.com</a></li>
+				<li>Wanlian Fluid — ملف الشركة، النطاق، الشهادات والأدلة: <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+				<li>NFPA — NFPA 13 (أنظمة الرش)، NFPA 24 (أنظمة الخلاطات)، NFPA 2001 (أنظمة الإطفاء بالوسط النظيف): <a href="https://www.nfpa.org/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">مقارنة مبنية على معلومات منشورة حتى سبتمبر 2026. توفر المنتجات والشهادات والمؤهلات تتغير — اطلب دائمًا بيانات المواصفات والشهادات وعروض الأسعار السارية قبل قرارات الشراء.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">مشروعك فيه نطاق مائي ونطاق غازي؟ اجعل جانب الماء يُسعَّر بشكل صحيح.</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل لنا صفوف الخلاطات ورؤوس الرش والمدافع والصمامات: نعرض سعرها كحزمة تصدير واحدة مع تسجيلات اختبار لكل وحدة وشهادات موديل-بالموديل وتوثيق بخمس لغات، عادة خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Fire%20Protection%20Kit" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20a%20quote%20for%20hydrants%2C%20sprinklers%20and%20monitors" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">راسلنا عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

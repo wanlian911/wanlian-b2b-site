@@ -1,0 +1,175 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ localizada (ES): 24 preguntas, 6 secciones — JSON-LD FAQPage generado por Layout
+const faq = [
+	{
+		question: '¿Qué productos fabrica y exporta Wanlian Fluid?',
+		answer: 'Seis líneas de producto y 45 modelos publicados: cañones de agua contra incendio (el cañón ZDMS de supresión a chorro con seguimiento automático y la serie manual PS), hidrantes (SS100/65 exterior anticongelante, SSFT100/65 anticolisión, SA subterráneo, cabezales interiores SN65 y el hidrante inteligente IoT), válvulas de rociadores y de alarma (ZSFZ húmeda, ZSFC seca, ZSFM diluvio, ZSFY preacción) con cabezales ZST/ESFR/ocultos e indicadores de flujo ZSJZ, válvulas de protección contra incendio e industriales (compuerta, mariposa, retención, colador Y, sello de fuelle, equilibrado digital), válvulas de control hidráulico (500X reductora de presión, 100X flotador remoto, F745X control de nivel de agua, HS41X antirreflujo, antivórtice de succión EN 12845) y accesorios contra incendio (gabinetes de extintores, carretes de manguera, manguera layflat, boquillas, acoples Storz y extintores de polvo ABC).'
+	},
+	{
+		question: '¿A qué normas se fabrican y prueban sus productos?',
+		answer: 'La norma es una propiedad del modelo y del destino, no de la marca, así que la declaramos por modelo: AWWA C502/C515 para hidrantes y válvulas de especificación norteamericana, ISO 5208 y EN 1074 para servicio de suministro de agua, EN 12266-1 para ensayo de tipos de válvulas, y las normas nacionales chinas (serie GB 5135, GB 4452, GB 50974) para equipos de protección contra incendio. Los informes de prueba por modelo se entregan a solicitud. Nuestra guía de normas mapea los regímenes AWWA, NFPA, EN e ISO lado a lado para que pueda contrastar su licitatorio con lo que cada modelo está realmente probado.'
+	},
+	{
+		question: '¿Pueden suministrar una lista de materiales completa —hidrantes, válvulas, mangueras, gabinetes— bajo una sola orden de compra?',
+		answer: 'Sí, es una de nuestras fortalezas nucleares. Un paquete consolidado en una sola PO elimina los márgenes de múltiples proveedores, el flete separado y el riesgo de coordinación de que una línea se salga del programa. El paquete documental de exportación —factura comercial, lista de embalaje, certificado de origen y registros de prueba por unidad— viaja con el contenedor único, lo que también simplifica la aduana y la aceptación. Envíenos la BOM completa y el destino y la cotizamos como una sola línea de exportación.'
+	},
+	{
+		question: '¿Proporcionan planos CAD, fichas técnicas e informes de prueba?',
+		answer: 'Sí: copias de certificados, informes de prueba hidrostática, fichas técnicas, planos CAD y manuales de instalación están disponibles para nuestra gama de productos a solicitud. Especifique la certificación, el modelo de producto y su mercado objetivo cuando los solicite, y confirmamos el alcance aplicable y adjuntamos los documentos a la cotización o al envío, según su etapa.'
+	},
+	{
+		question: '¿Sus válvulas cuentan con certificación UL o FM?',
+		answer: 'La certificación UL y FM se otorga por modelo, y la nuestra se declara de la misma manera: nuestra página de certificados publica la cobertura UL 262/UL 1091 para válvulas de compuerta y retención para servicio de protección contra incendio, y la aprobación FM Class 1120/1130 para válvulas de control de servicio contra incendio OS&Y y NRS, junto con las entradas LPCB RedBook y la documentación CE. La cobertura aplica a los modelos específicos listados en cada certificado: contáctenos para confirmar la cobertura de modelos de su especificación y solicitar copias antes de pedir.'
+	},
+	{
+		question: '¿Cómo puedo verificar que sus certificados son genuinos?',
+		answer: 'Resuelva el número de certificado en el portal oficial del organismo emisor — product-iQ de UL para listados UL, la base de aprobaciones FM para aprobaciones FM, el RedBook de LPCB, o el registro del organismo certificador para ISO 9001 — contra nuestra entidad legal y el modelo exacto de su PO. Un número que no se resuelve es una falsificación sin importar lo limpio que se vea el PDF, y este chequeo pertenece a su contrato como condición de aceptación. Nuestra guía de detección de certificados falsificados explica también las señales físicas.'
+	},
+	{
+		question: '¿Pueden suministrar equipo con marcado CE para el mercado europeo?',
+		answer: 'El marcado CE es a nivel de modelo, nunca a nivel de serie, y lo declaramos así: el equipo a presión se prueba y marca bajo las directivas UE aplicables con ensayo de tipo EN 12266-1, y el paquete de succión de bomba contra incendio EN 12845 está cubierto por nuestro antivórtice de succión en acero inoxidable. Para un proyecto europeo confirmamos con usted la directiva, la categoría y la cobertura de modelos aplicables antes del pedido — la guía de cumplimiento CE y EN 12845 desarrolla cada paso.'
+	},
+	{
+		question: '¿Qué ofrecen sobre normas nacionales chinas (GB)?',
+		answer: 'Nuestro equipo de protección contra incendio se fabrica y prueba conforme a las normas nacionales chinas aplicables — la serie GB 5135 para productos contra incendio, GB 4452 y GB 50974 para servicio de suministro de agua y redes de hidrantes — y los informes de prueba por modelo están disponibles a solicitud. Para proyectos fuera de China, el mapeo a las referencias AWWA, EN o NFPA se declara por modelo en la cotización, porque la norma rectora es una propiedad del modelo y del destino, no de la marca.'
+	},
+	{
+		question: '¿Qué ofrecen sobre MOQ y pedidos de muestra?',
+		answer: 'El MOQ estándar es típicamente 20 unidades por modelo para tamaños de stock, con tiempos de producción de 15 a 30 días según cantidad y personalización; los pedidos de muestra están disponibles para pruebas y aprobación previas al envío. Para equipo crítico de seguridad siempre recomendamos una muestra de una unidad por modelo: placa, número de serie, certificado de material y un video de prueba de presión con número de serie contrastados contra su especificación antes del volumen.'
+	},
+	{
+		question: '¿Por qué no hay precios públicos en su sitio web?',
+		answer: 'Cotizamos por consulta, la práctica estándar en suministro industrial B2B: un precio justo depende del modelo exacto, la cantidad, el Incoterm y el destino, y publicar una sola cifra lo cotizaría mal para la mayoría de los compradores. Una especificación completa recibe una cotización itemizada — por modelo, no un número mezclado — normalmente en 12 horas. El estimador de costos de compras le permite dimensionar usted mismo los factores de costo legítimos (volumen, Incoterm, destino) antes de comparar cotizaciones.'
+	},
+	{
+		question: '¿Qué términos de pago manejan?',
+		answer: 'La estructura estándar para pedidos es el pago por hitos — un anticipo contra el pedido y el saldo contra documentos de embarque o tras superar la inspección previa al envío — con carta de crédito disponible para pedidos grandes. Los términos finales se confirman por pedido en el contrato. Seguimos la misma lógica que publicamos en nuestro whitepaper de riesgos de compras: la estructura de pago debe coincidir con la verificación que usted completó, y cada remesa va a la entidad del contrato.'
+	},
+	{
+		question: '¿Cuál es el tiempo de entrega típico desde la consulta hasta el envío?',
+		answer: 'Una especificación completa recibe cotización en 12 horas. Un pedido de muestra suele correr de 1 a 3 semanas. La producción para tamaños de stock es de 15 a 30 días según cantidad y personalización; los artículos OEM o de marca personalizada agregan tiempo de herramienta y de marca. La cotización itemizada declara el calendario para su pedido exacto, y lo trazamos por escrito: un calendario con remediación definida es el punto, no la promesa.'
+	},
+	{
+		question: '¿Pueden cotizar FOB, CIF u otros Incoterms?',
+		answer: 'Sí: trabajamos bajo Incoterms 2020, y cada cotización declara el Incoterm y el puerto nombrado explícitamente, porque el Incoterm es el mapa de riesgo del viaje. FOB mantiene el buque y el seguro de su lado de un punto de transferencia claro; CIF agrega flete cotizado por el transportista; EXW y DDP transfieren más del viaje a una u otra parte y se usan donde la cadena logística de un comprador lo justifica. Díganos el destino y el término que su proyecto requiere y lo cotizamos sobre esa base.'
+	},
+	{
+		question: '¿Fabrican todo en su propia fábrica?',
+		answer: 'La producción corre en nuestras propias líneas en Quanzhou, con artículos seleccionados fabricados por socios de manufactura cualificados bajo nuestro sistema de gestión de calidad ISO 9001; los cuerpos de válvula se mecanizan CNC en casa. Declaramos ese mix abiertamente en cada página en lugar de afirmar fabricación en una sola fábrica para cada referencia, y la documentación del pedido registra el arreglo de manufactura para los items de su PO — que es exactamente lo que nuestra lista de verificación de contraparte dice preguntar a cualquier proveedor, incluido nosotros.'
+	},
+	{
+		question: '¿Cómo se prueban los productos antes del envío?',
+		answer: 'El 100% de las unidades — cada válvula, hidrante, manguera y grupo de válvulas de alarma — se prueba por presión de carcasa y fuga de aire antes del envío, con registros por unidad que concilién con los números de serie de la lista de embalaje. Un video de prueba con número de serie está disponible para una unidad de muestra. Un reporte de lote dice "probamos algunos"; un registro por unidad dice "probamos los suyos" — y el registro por unidad es el documento que su inspector de destino pedirá en la aceptación.'
+	},
+	{
+		question: '¿Puedo nombrar una inspección de terceros antes del envío?',
+		answer: 'Sí, y para un primer pedido lo alentamos. SGS, Bureau Veritas e Intertek (o la agencia que usted nomine) pueden presenciar la prueba por unidad y revisar los registros en la fábrica antes de que la serie de producción se envíe. Los derechos de inspección pertenecen al contrato — "el comprador puede inspeccionar o nombrar a un inspector independiente antes del envío" — para que el paso sea un derecho, no un favor.'
+	},
+	{
+		question: '¿Debo pedir una muestra antes de un pedido en volumen?',
+		answer: 'Para equipo crítico de protección contra incendio, sí. Una muestra de una unidad por modelo le permite verificar la placa, el número de serie, el grado de material y un video de prueba de presión con número de serie contra su especificación antes de comprometerse con el volumen — es el seguro más barato contra riesgo de especificación y falsificación disponible, y es la secuencia que nuestro whitepaper de riesgos recomienda para todo primer pedido con cualquier proveedor.'
+	},
+	{
+		question: '¿Qué documentos de envío recibiré con mi pedido?',
+		answer: 'Como mínimo: factura comercial, lista de embalaje, bill of lading, certificado de origen, y registros de prueba de presión de carcasa y fuga de aire por lote y por unidad conciliados con los números de serie de la lista de embalaje. Los certificados de material y los certificados por norma se agregan cuando su proyecto los requiera. Un paquete documental completo y conciliado es en sí mismo una señal de calidad, y es lo que su equipo de mantenimiento sostendrá en la aceptación y en el año cinco.'
+	},
+	{
+		question: '¿Los extintores contra incendio son mercancías peligrosas para el envío?',
+		answer: 'Los extintores portátiles son presurizados y requieren empaque y declaración conforme a mercancías peligrosas, lo que cambia las opciones de flete y el seguro; el equipo a base de agua —válvulas, hidrantes, mangueras, válvulas de alarma— es carga general. Declare las líneas de extintores en su consulta para que el plan de contenedor y la documentación se configuren correctamente desde la etapa de cotización; la guía de selección de extintores cubre el empaque en detalle.'
+	},
+	{
+		question: '¿Cómo se empaca el equipo para exportación?',
+		answer: 'El empaque de exportación se aplica por clase de item — el palletizado y la carga en contenedor se planifican contra la lista de materiales, y el plan de carga se confirma con la cotización. Los números de sello y el conjunto documental empaquetado se verifican en la revisión del contenedor previa al envío cuando se nombra una inspección de terceros, para que el contenedor que ve en el bill of lading sea el contenedor que se inspeccionó.'
+	},
+	{
+		question: '¿Manejan pedidos de exportación internacionales?',
+		answer: 'Sí: somos un fabricante exportador, y el sitio completo está publicado en inglés, español, ruso, francés y árabe para coincidir con los mercados que servimos. Puerto, Incoterm y el paquete documental se confirman por pedido en la cotización; díganos su país de destino y el tipo de proyecto y estructuramos el envío hacia allí.'
+	},
+	{
+		question: '¿Asoportan programas OEM y de marca privada?',
+		answer: 'Sí: marca personalizada, empaque de exportación y un conjunto de activos técnicos en cinco idiomas (EN/ES/RU/FR/AR) están disponibles para distribuidores que construyen su propia marca, con el arreglo OEM documentado en el pedido. Los extintores portátiles llevan etiquetas personalizadas a su marca, y la guía de selección de extintores cubre el MOQ y el empaque de mercancías peligrosas para kits de lucha contra incendio OEM.'
+	},
+	{
+		question: '¿Qué garantía proporcionan?',
+		answer: 'El periodo de garantía se declara por modelo en el contrato, junto con un compromiso de repuestos dimensionado a la vida de servicio del equipo — una válvula que puede reasentarse y un hidrante cuyos repuestos sigan disponibles es lo que significa "garantía" en el año cinco. Los registros de prueba por unidad de su pedido son la línea base contra la que corre la garantía, por eso los archivamos con cada envío.'
+	},
+	{
+		question: '¿Cómo los contacto después de un pedido?',
+		answer: 'Por el mismo canal que antes: correo a sales@wanlian911.com, teléfono/WhatsApp +86 186 8432 4501, o LinkedIn — con el compromiso de respuesta de 12 horas aplicado al posventa como a las consultas. Guarde los registros de prueba y los certificados de su pedido con el archivo de mantenimiento del equipo, y referencia los números de serie en cualquier solicitud de garantía o de repuestos.'
+	}
+];
+
+const toc = [
+	{ id: 'products-specs', label: 'Productos y Especificaciones' },
+	{ id: 'certification-compliance', label: 'Certificación y Cumplimiento' },
+	{ id: 'pricing-payment-moq', label: 'Precio, Pago y MOQ' },
+	{ id: 'production-qc', label: 'Producción, QC e Inspección' },
+	{ id: 'shipping-documentation', label: 'Envío, Logística y Documentación' },
+	{ id: 'oem-aftersales', label: 'OEM, Garantía y Posventa' }
+];
+
+const sections = [
+	{ id: 'products-specs', title: 'Productos y Especificaciones', items: faq.slice(0, 4) },
+	{ id: 'certification-compliance', title: 'Certificación y Cumplimiento', items: faq.slice(4, 8) },
+	{ id: 'pricing-payment-moq', title: 'Precio, Pago y MOQ', items: faq.slice(8, 13) },
+	{ id: 'production-qc', title: 'Producción, QC e Inspección', items: faq.slice(13, 17) },
+	{ id: 'shipping-documentation', title: 'Envío, Logística y Documentación', items: faq.slice(17, 21) },
+	{ id: 'oem-aftersales', title: 'OEM, Garantía y Posventa', items: faq.slice(21, 24) }
+];
+---
+
+<Layout
+	title="Preguntas Frecuentes: Adquisición de Equipos Contra Incendio y Válvulas desde China | Wanlian Fluid"
+	description="Respuestas B2B antes de pedir: MOQ y plazos, verificación de certificados UL/FM/CE, términos de pago, inspección de terceros, documentos de exportación, OEM y posventa."
+	type="website"
+	faq={faq}
+	breadcrumbs={[{ name: 'FAQ' }]}
+	locale="es"
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<span class="text-gray-600">FAQ</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">FAQ de Compradores · Actualizado 2026</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Preguntas Frecuentes: Adquisición de Equipos Contra Incendio y Válvulas</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Las preguntas que los compradores B2B hacen realmente antes de pedir a un fabricante chino de equipos contra incendio — respondidas como las respondemos en una consulta viva: por modelo, por norma, por destino, con el documento que lo prueba. Cada respuesta de esta página es consistente con el proceso de especificación, cotización y envío descrito en nuestras guías y whitepapers.</p>
+
+			<TableOfContents headings={toc} />
+
+			{sections.map(section => (
+				<>
+					<h2 id={section.id} class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">{section.title}</h2>
+					<div class="space-y-4">
+						{section.items.map(item => (
+							<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+								<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+									<span>{item.question}</span>
+									<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+								</summary>
+								<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+							</details>
+						))}
+					</div>
+				</>
+			))}
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Pregunta No Cubierta? Pregúntele a un Ingeniero.</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíenos su especificación o la pregunta tal como la haría en una consulta — modelos, tamaños, destino, tipo de proyecto — y un ingeniero responde en 12 horas, con la documentación por modelo adjunta cuando aplica.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20have%20a%20question%20about%20your%20fire%20equipment" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

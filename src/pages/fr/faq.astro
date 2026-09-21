@@ -1,0 +1,175 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ du site : sections à haute valeur pour le scraping par les grands modèles (FAQPage JSON-LD généré par le Layout)
+const faq = [
+	{
+		question: 'Quels produits Wanlian Fluid fabrique-t-il et exporte-t-il ?',
+		answer: 'Six gammes de produits et 45 modèles publiés : moniteurs incendie (le canon à jet à suivi automatique ZDMS et la série manuelle PS), hydrants (SS100/65 extérieur antigel, SSFT100/65 antichoc, SA enterré, têtes intérieures SN65 et l’hydrant intelligent IoT de sol), vannes de gicleurs et d’alarme (ZSFZ humide, ZSFC sec, ZSFM à deluge, ZSFY préaction) avec têtes ZST/ESFR/caches et indicateurs de débit d’eau ZSJZ, vannes de protection incendie et industrielles (à obturateur à assise élastomère, papillon, clapet, filtre en Y, joint à manchettes, équilibrage numérique), vannes de régulation hydraulique (500X de réduction de pression, 100X à flotteur télécommandé, F745X de contrôle du niveau d’eau, HS41X anti-retour, anti-vortex d’aspiration EN 12845) et accessoires de lutte incendie (cabinets d’extincteurs, bobines de tuyau, tuyau plat de feux, buses, raccords Storz et extincteurs à poudre ABC).'
+	},
+	{
+		question: 'Quelles normes sont appliquées à la fabrication et aux essais de vos produits ?',
+		answer: 'La norme est une propriété du modèle et de la destination, pas de la marque, nous l’énonçons donc par modèle : AWWA C502/C515 pour les hydrants et vannes de spécification nord-américaine, ISO 5208 et EN 1074 pour le service d’alimentation en eau, EN 12266-1 pour l’essai par type de vanne, et les normes nationales chinoises (série GB 5135, GB 4452, GB 50974) pour les équipements de protection incendie. Les rapports d’essai par modèle sont fournis sur demande. Notre guide des normes met les régimes AWWA, NFPA, EN et ISO côte à côte pour que vous puissiez confronter votre appel d’offres à ce à quoi chaque modèle est réellement testé.'
+	},
+	{
+		question: 'Pouvez-vous fournir une liste de matériaux complète — hydrants, vannes, tuyaux, cabinets — sous un seul bon de commande ?',
+		answer: 'Oui, c’est l’un de nos points forts. Un paquet consolidé en un seul PO supprime les marges de plusieurs fournisseurs, les frets séparés et le risque de coordination d’une ligne qui décale le programme. Le pack documentaire export — facture commerciale, liste de colisage, certificat d’origine et registres d’essai par unité — voyage avec le conteneur unique, ce qui simplifie aussi la douane et l’acceptation. Envoyez la BOM complète et la destination et nous la cotisons comme une ligne export unique.'
+	},
+	{
+		question: 'Fournissez-vous des plans CAD, des fiches techniques et des rapports d’essai ?',
+		answer: 'Oui — copies de certificats, rapports d’essai hydrostatiques, fiches techniques, plans CAD et manuels d’installation sont disponibles sur demande pour notre gamme de produits. Précisez la certification, le modèle de produit et votre marché cible quand vous demandez, et nous confirmons le périmètre applicable et joignons les documents au devis ou à l’expédition, selon votre étape.'
+	},
+	{
+		question: 'Vos vannes sont-elles certifiées UL ou FM ?',
+		answer: 'La certification UL et FM est accordée par modèle, et nous l’énonçons de la même façon : notre page certificats publie la couverture UL 262/UL 1091 pour les vannes à obturateur et clapets de service protection incendie et l’approbation FM Classe 1120/1130 pour les vannes de contrôle incendie OS&Y et NRS, avec les entrées LPCB RedBook et la documentation CE. La couverture s’applique aux modèles spécifiques listés dans chaque certificat — contactez-nous pour confirmer la couverture du modèle de votre spécification et demandez les copies avant de commander.'
+	},
+	{
+		question: 'Comment vérifier que vos certificats sont authentiques ?',
+		answer: 'Résolvez le numéro de certificat sur le portail officiel de l’organisme émetteur — UL product-iQ pour les listages UL, la base d’approbations FM pour les approbations FM, le LPCB RedBook, ou le registre de l’organisme de certification pour l’ISO 9001 — contre notre entité juridique et le modèle exact de votre PO. Un numéro qui ne se résout pas est une falsification quel que soit le nettoyage du PDF, et cette vérification a sa place dans votre contrat comme condition d’acceptation. Notre guide de détection des faux certificats explique aussi les signes physiques.'
+	},
+	{
+		question: 'Pouvez-vous fournir des équipements marqués CE pour le marché européen ?',
+		answer: 'Le marquage CE est au niveau du modèle, jamais au niveau de la série, et nous l’énonçons ainsi : les équipements sous pression sont testés et marqués sous les directives UE applicables avec l’essai par type EN 12266-1, et le pack d’aspiration de pompe incendie EN 12845 est couvert par notre anti-vortex d’aspiration en inox. Pour un projet européen, nous confirmons avec vous la directive applicable, la catégorie et la couverture du modèle avant commande — le guide de conformité CE & EN 12845 passe chaque étape en revue.'
+	},
+	{
+		question: 'Que proposez-vous sur les normes nationales chinoises (GB) ?',
+		answer: 'Nos équipements de protection incendie sont fabriqués et testés conformément aux normes nationales chinoises applicables — la série GB 5135 pour les produits de protection incendie, GB 4452 et GB 50974 pour le service d’alimentation en eau et les hydrants — et les rapports d’essai par modèle sont disponibles sur demande. Pour les projets hors Chine, le mapping vers les références AWWA, EN ou NFPA est énoncé par modèle dans le devis, parce que la norme de référence est une propriété du modèle et de la destination, pas de la marque.'
+	},
+	{
+		question: 'Que proposez-vous sur les MOQ et les commandes d’échantillon ?',
+		answer: 'Le MOQ standard est typiquement 20 unités par modèle pour les tailles en stock, avec des délais de production de 15–30 jours selon la quantité et la personnalisation ; les commandes d’échantillon sont disponibles pour l’essai et l’approbation avant expédition. Pour les équipements critiques sécurité, nous recommandons toujours un échantillon d’une unité par modèle : plaque signalétique, numéro de série, certificat de matériau et une vidéo d’essai de pression à numéro de série vérifiée contre votre spécification avant le volume.'
+	},
+	{
+		question: 'Pourquoi n’y a-t-il pas de prix publics sur votre site web ?',
+		answer: 'Nous cotisons par demande, la pratique standard en approvisionnement industriel B2B : un prix juste dépend du modèle exact, de la quantité, de l’Incoterm et de la destination, et publier un chiffre unique le tariferait mal pour la plupart des acheteurs. Une spécification complète reçoit un devis détaillé — par modèle, pas un chiffre mélangé — typiquement sous 12 heures. L’estimateur de coûts d’achats vous permet de dimensionner vous-même les facteurs de coût légitimes (volume, Incoterm, destination) avant de comparer les devis.'
+	},
+	{
+		question: 'Avec quelles conditions de paiement travaillez-vous ?',
+		answer: 'La structure standard des commandes est le paiement par jalons — un acompte contre commande et le solde contre documents de transport ou après une inspection avant expédition réussie — avec une lettre de crédit disponible pour les commandes plus importantes. Les conditions finales sont confirmées par commande dans le contrat. Nous suivons la même logique que nous publions dans notre whitepaper de risque d’achats : la structure de paiement doit correspondre à la vérification que vous avez effectuée, et chaque virement part vers l’entité du contrat.'
+	},
+	{
+		question: 'Quel est le délai typique de la demande à l’expédition ?',
+		answer: 'Une spécification complète reçoit un devis sous 12 heures. Une commande d’échantillon dure typiquement 1–3 semaines. La production pour les tailles en stock est de 15–30 jours selon la quantité et la personnalisation ; les articles OEM ou à marque propre ajoutent le temps d’outillage et de marquage. Le devis détaillé énonce le calendrier de votre commande exacte, et nous le suivons par écrit — un calendrier avec un remède défini est le point, pas la promesse.'
+	},
+	{
+		question: 'Pouvez-vous cotiser en FOB, CIF ou d’autres Incoterms ?',
+		answer: 'Oui — nous travaillons sous Incoterms 2020, et chaque devis énonce explicitement l’Incoterm et le port nommé, parce que l’Incoterm est la carte de risque du trajet. FOB garde le navire et l’assurance de votre côté d’un point de transfert clair ; CIF ajoute le fret au prix du transporteur ; EXW et DDP déplacent plus du trajet vers une partie ou l’autre et sont utilisés quand la chaîne logistique de l’acheteur le justifie. Dites-nous la destination et le terme que votre projet exige et nous cotisons sur cette base.'
+	},
+	{
+		question: 'Fabriquez-vous tout dans votre propre usine ?',
+		answer: 'La production s’exécute sur nos propres lignes à Quanzhou, certains articles étant fabriqués par des partenaires de fabrication qualifiés sous notre système de management de la qualité ISO 9001 ; les corps de vanne sont usinés par CNC en interne. Nous énonçons ce mix ouvertement sur chaque page plutôt que de revendiquer une production à usinage unique pour chaque SKU, et la documentation de commande consigne l’arrangement de fabrication des articles de votre PO — ce qui est exactement ce que notre checklist de vérification de contrepartie dit de demander à tout fournisseur, y compris nous.'
+	},
+	{
+		question: 'Comment les produits sont-ils testés avant expédition ?',
+		answer: '100% des unités — chaque vanne, hydrant, tuyau et groupe de vannes d’alarme — est testée en pression de coque et en étanchéité à l’air avant expédition, avec des registres par unité qui se réconcilient aux numéros de série de la liste de colisage. Une vidéo d’essai à numéro de série est disponible pour une unité d’échantillon. Un rapport de lot dit « nous avons testé quelques-unes » ; un registre par unité dit « nous avons testé les vôtres » — et le registre par unité est le document que votre inspecteur de destination vous demandera à l’acceptation.'
+	},
+	{
+		question: 'Puis-je nommer une inspection tierce avant expédition ?',
+		answer: 'Oui, et pour une première commande nous l’encourageons. SGS, Bureau Veritas et Intertek (ou votre propre organisme nommé) peuvent assister aux essais par unité et examiner les registres dans l’usine avant que la production ne parte. Les droits d’inspection ont leur place dans le contrat — « l’acheteur peut inspecter ou nommer un inspecteur indépendant avant expédition » — pour que l’étape soit un droit, pas une faveur.'
+	},
+	{
+		question: 'Devrais-je commander un échantillon avant une commande en volume ?',
+		answer: 'Pour des équipements incendie critiques sécurité, oui. Un échantillon d’une unité de chaque modèle vous permet de vérifier la plaque signalétique, le numéro de série, le grade du matériau et une vidéo d’essai de pression à numéro de série contre votre spécification avant de vous engager sur le volume — c’est l’assurance la moins chère contre les contrefaçons et le risque de spécification qui soit disponible, et c’est la séquence que notre whitepaper de risque recommande pour toute première commande avec n’importe quel fournisseur.'
+	},
+	{
+		question: 'Quels documents d’expédition recevrai-je avec ma commande ?',
+		answer: 'Au minimum : facture commerciale, liste de colisage, connaissement, certificat d’origine, et registres d’essai de pression de coque et d’étanchéité à l’air par lot et par unité qui se réconcilient aux numéros de série de la liste de colisage. Les certificats d’essai de matériau (d’aciérie) et les certificats propres aux normes y sont ajoutés là où votre projet les exige. Un pack documentaire complet et réconciliable est en soi un signal qualité, et c’est ce que votre équipe maintenance tiendra à l’acceptation et à la cinquième année.'
+	},
+	{
+		question: 'Les extincteurs sont-ils des marchandises dangereuses pour le transport ?',
+		answer: 'Les extincteurs portatifs sont sous pression et exigent un emballage et une déclaration conformes aux marchandises dangereuses, ce qui change les options de fret et l’assurance ; l’équipement à base d’eau — vannes, hydrants, tuyaux, vannes d’alarme — est de la cargaison générale. Énoncez les lignes d’extincteurs dans votre demande pour que le plan de conteneur et la documentation soient configurés correctement dès l’étape du devis ; le guide de sélection des extincteurs couvre l’emballage en détail.'
+	},
+	{
+		question: 'Comment l’équipement est-il emballé pour l’export ?',
+		answer: 'L’emballage export est appliqué par classe d’article — l’encoffrement, le palettage et le chargement en conteneur sont planifiés contre la liste de matériaux, et le plan de chargement est confirmé avec le devis. Les numéros de plombés et le pack documentaire rangé sont vérifiés au contrôle de conteneur avant expédition quand une inspection tierce est nommée, pour que le conteneur que vous voyez sur le connaissement soit le conteneur qui a été inspecté.'
+	},
+	{
+		question: 'Gérez-vous les commandes export internationales ?',
+		answer: 'Oui — nous sommes un fabricant exportateur, et tout le site est publié en anglais, espagnol, russe, français et arabe pour correspondre aux marchés que nous servons. Le port, l’Incoterm et le pack documentaire sont confirmés par commande dans le devis ; dites-nous votre pays de destination et votre type de projet et nous structurons l’expédition en conséquence.'
+	},
+	{
+		question: 'Soutenez-vous les programmes OEM et marque propre ?',
+		answer: 'Oui — le marquage personnalisé, l’emballage export et un pack d’actifs techniques en cinq langues (EN/ES/RU/FR/AR) sont disponibles pour les distributeurs qui construisent leur propre marque, l’arrangement OEM étant documenté dans la commande. Les extincteurs portatifs portent des étiquettes personnalisées à votre marque, et le guide de sélection des extincteurs couvre le MOQ et l’emballage marchandises dangereuses des kits de lutte incendie OEM.'
+	},
+	{
+		question: 'Quelle garantie proposez-vous ?',
+		answer: 'La durée de garantie est énoncée par modèle dans le contrat, avec un engagement de pièces de rechange dimensionné à la durée de service de l’équipement — une vanne qui peut être resellée et un hydrant dont les pièces restent disponibles, c’est ce que signifie « garantie » à la cinquième année. Les registres d’essai par unité de votre commande sont la baseline contre laquelle la garantie s’exécute, c’est pourquoi nous les rangeons avec chaque expédition.'
+	},
+	{
+		question: 'Comment vous joindre après une commande ?',
+		answer: 'Le même canal qu’avant : e-mail à sales@wanlian911.com, téléphone/WhatsApp au +86 186 8432 4501, ou LinkedIn — avec l’engagement de réponse de 12 heures appliqué au service après-vente comme aux demandes. Gardez les registres d’essai et les certificats de votre commande avec le dossier de maintenance de l’équipement, et référencez les numéros de série dans toute demande de garantie ou de pièces de rechange.'
+	}
+];
+
+const toc = [
+	{ id: 'products-specs', label: 'Produits & Spécifications' },
+	{ id: 'certification-compliance', label: 'Certification & Conformité' },
+	{ id: 'pricing-payment-moq', label: 'Prix, Paiement & MOQ' },
+	{ id: 'production-qc', label: 'Production, Contrôle Qualité & Inspection' },
+	{ id: 'shipping-documentation', label: 'Expédition, Logistique & Documentation' },
+	{ id: 'oem-aftersales', label: 'OEM, Garantie & Après-Vente' }
+];
+
+const sections = [
+	{ id: 'products-specs', title: 'Produits & Spécifications', items: faq.slice(0, 4) },
+	{ id: 'certification-compliance', title: 'Certification & Conformité', items: faq.slice(4, 8) },
+	{ id: 'pricing-payment-moq', title: 'Prix, Paiement & MOQ', items: faq.slice(8, 13) },
+	{ id: 'production-qc', title: 'Production, Contrôle Qualité & Inspection', items: faq.slice(13, 17) },
+	{ id: 'shipping-documentation', title: 'Expédition, Logistique & Documentation', items: faq.slice(17, 21) },
+	{ id: 'oem-aftersales', title: 'OEM, Garantie & Après-Vente', items: faq.slice(21, 24) }
+];
+---
+
+<Layout
+	title="Questions Fréquentes : Acheter des Équipements de Protection Incendie et des Vannes en Chine | Wanlian Fluid"
+	description="Réponses B2B avant de commander : MOQ et délais, vérification des certificats UL/FM/CE, conditions de paiement, inspection tierce, documents d’export, OEM et service après-vente."
+	type="website"
+	faq={faq}
+	breadcrumbs={[{ name: 'FAQ' }]}
+	locale="fr"
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<span class="text-gray-600">FAQ</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">FAQ de l’Acheteur · Mis à jour 2026</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Questions Fréquentes : Acheter des Équipements de Protection Incendie et des Vannes</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Les questions que les acheteurs B2B posent vraiment avant de commander à un fabricant chinois d’équipements incendie — répondues comme nous y répondons sur une demande en direct : par modèle, par norme, par destination, avec le document qui le prouve. Chaque réponse ici est cohérente avec le processus de spécification, de devis et d’expédition décrit dans nos guides et whitepapers.</p>
+
+			<TableOfContents headings={toc} />
+
+			{sections.map(section => (
+				<>
+					<h2 id={section.id} class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">{section.title}</h2>
+					<div class="space-y-4">
+						{section.items.map(item => (
+							<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+								<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+									<span>{item.question}</span>
+									<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+								</summary>
+								<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+							</details>
+						))}
+					</div>
+				</>
+			))}
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Question Non Couverte ? Demandez à un Ingénieur.</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez votre spécification ou la question comme vous la poseriez dans une demande — modèles, tailles, destination, type de projet — et un ingénieur répond sous 12 heures, avec la documentation par modèle jointe là où elle s’applique.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20have%20a%20question%20about%20your%20fire%20equipment" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

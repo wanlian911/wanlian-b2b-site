@@ -330,6 +330,7 @@ const es: UIStrings = {
     resources: [
       { name: 'Guía de Abastecimiento', href: '/sourcing-guide/' },
       { name: 'Documento de Referencia', href: '/whitepaper/' },
+      { name: 'Preguntas Frecuentes', href: '/faq/' },
       { name: 'Glosario', href: '/glossary/' },
       { name: 'Calculadora de Costos', href: '/cost-calculator/' },
     ],
@@ -483,6 +484,7 @@ const ru: UIStrings = {
     resources: [
       { name: 'Руководство по закупкам', href: '/sourcing-guide/' },
       { name: 'Отраслевой документ', href: '/whitepaper/' },
+      { name: 'Часто задаваемые вопросы', href: '/faq/' },
       { name: 'Глоссарий', href: '/glossary/' },
       { name: 'Калькулятор стоимости', href: '/cost-calculator/' },
     ],
@@ -637,6 +639,7 @@ const fr: UIStrings = {
     resources: [
       { name: "Guide d'approvisionnement", href: '/sourcing-guide/' },
       { name: 'Livre blanc sectoriel', href: '/whitepaper/' },
+      { name: 'Questions Fréquentes', href: '/faq/' },
       { name: 'Glossaire', href: '/glossary/' },
       { name: "Estimateur de coûts", href: '/cost-calculator/' },
     ],
@@ -794,6 +797,7 @@ const ar: UIStrings = {
     resources: [
       { name: 'دليل التوريد', href: '/sourcing-guide/' },
       { name: 'الورقة البيضاء القطاعية', href: '/whitepaper/' },
+      { name: 'الأسئلة الشائعة', href: '/faq/' },
       { name: 'المسرد', href: '/glossary/' },
       { name: 'حاسبة التكاليف', href: '/cost-calculator/' },
     ],

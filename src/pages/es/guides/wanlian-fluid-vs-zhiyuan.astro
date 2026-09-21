@@ -1,0 +1,263 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'zhiyuan-overview', label: '1. Zhiyuan Fire: Qué Son Realmente' },
+	{ id: 'wanlian-overview', label: '2. Wanlian Fluid: Qué Somos Realmente' },
+	{ id: 'side-by-side', label: '3. Comparación Detallada' },
+	{ id: 'water-vs-gas', label: '4. La Pregunta Real: ¿A Base de Agua o Gaseosa?' },
+	{ id: 'quality-and-certifications', label: '5. Sistemas de Calidad y Certificaciones' },
+	{ id: 'where-each-wins', label: '6. Dónde Gana Cada Fabricante' },
+	{ id: 'which-should-you-choose', label: '7. ¿Cuál Debería Elegir?' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' },
+	{ id: 'sources', label: 'Fuentes' }
+];
+
+const faq = [
+	{
+		question: '¿Wanlian Fluid y Zhiyuan Fire son empresas relacionadas?',
+		answer: 'No. Son fabricantes independientes en provincias distintas y en categorías distintas. Zhiyuan Fire es Jiangxi Zhiyuan Fire Technology Co., Ltd, con base en la ciudad de Xinyu, Jiangxi, especializada en sistemas de supresión gaseosa y de agentes especiales. Wanlian Fluid es Quanzhou Wanlian Fluid Equipment Co., Ltd, con base en Quanzhou, Fujian, especializada en protección contra incendios a base de agua y válvulas industriales. Ninguna de las dos empresas publica sociedad común, fábrica común o marca común.'
+	},
+	{
+		question: '¿Cuál debería elegir para una instalación de almacenamiento de energía o de baterías?',
+		answer: 'Divida el alcance por tipo de riesgo. Las salas de baterías, salas eléctricas, salas de convertidores y tableros de subestación necesitan supresión gaseosa o de agente especial (FM200, IG541, C6, aerosol): esa es la categoría publicada de Zhiyuan Fire. El patio, las áreas de proceso, las redes de agua y cualquier protección con cañones o hidrantes es a base de agua: esa es la categoría de Wanlian Fluid. Muchos proyectos de almacenamiento de energía necesitan genuinamente a ambos proveedores para partes distintas de su lista de materiales.'
+	},
+	{
+		question: '¿Zhiyuan Fire fabrica hidrantes, cañones de agua o válvulas para redes de agua?',
+		answer: 'No: su gama publicada cubre supresión gaseosa y de agentes especiales (heptafluoropropano, polvo ultrafino, aerosol caliente, IG541, IG100/nitrógeno puro, CO2 de alta presión, tubo detector, perfluorohexanona) más sistemas de microgotas de agua de alta presión. Los hidrantes, los cañones de agua contra incendios, las válvulas de alarma de rociadores y las válvulas de redes de suministro de agua no figuran en su catálogo publicado. Esas son las líneas nucleares de Wanlian Fluid.'
+	},
+	{
+		question: '¿Qué certificaciones debería solicitar a cada empresa?',
+		answer: 'A Zhiyuan Fire: los certificados de productos contra incendio del Centro de Certificación de Productos Contra Incendio del Ministerio de Emergencias para el sistema y el modelo exactos que especifique, más evidencia de sus calificaciones de ingeniería y de equipos especiales si el alcance es llave en mano. A Wanlian Fluid: el certificado ISO 9001:2015, los certificados por modelo UL 262/UL 1091 y FM 1120/1130 para los modelos de válvulas concretos de su página de certificados, la documentación CE cuando sea requerida, y los registros de prueba de presión de carcasa y de fugas de aire por unidad. En ambos casos, verifique cualquier número de certificado en el portal oficial del organismo emisor antes de especificarlo.'
+	},
+	{
+		question: '¿Ambos fabricantes pueden hacer OEM / marca propia?',
+		answer: 'Wanlian Fluid acepta explícitamente OEM/ODM: marca personalizada, embalaje y un sitio técnico en cinco idiomas (EN/ES/RU/FR/AR) para distribuidores que construyen su propia marca. Zhiyuan Fire se publica como fabricante, proveedor y prestador de servicios técnicos, con calificación de contratación de ingeniería contra incendio de grado 1; su fortaleza es el sistema llave en mano e instalación. Pídale directamente las opciones de marca para su mercado antes de asumir suministro con marca privada.'
+	},
+	{
+		question: '¿Puedo usar a ambas empresas en un mismo proyecto grande sin conflicto?',
+		answer: 'Sí: es habitual en proyectos petroquímicos, industriales y de energía: protección a base de agua (hidrantes, rociadores, cañones, válvulas) para las áreas de proceso y edificios de un proveedor, y supresión gaseosa para salas eléctricas, salas de servidores y salas de baterías de otro. Los dos ámbitos no se solapan, por lo que pueden cotizarse, inspeccionarse y enviarse de forma independiente. Nuestro whitepaper de riesgos de compras transfronterizas cubre cómo gestionar los controles de verificación y pago para cada alcance.'
+	}
+];
+
+const productRows = [
+	{ slug: 'auto-tracking-jet-suppression-cannon-zdms', name: 'Cañón de Supresión a Chorro con Seguimiento Automático (Serie ZDMS)', img: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp', desc: 'Cañón de agua con detección de llama y autoposicionamiento para granjas de tanques y áreas abiertas' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hidrante Contra Incendios Exterior Anticongelante (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Hidrante exterior de barril seco anticongelante para redes municipales de incendios' },
+	{ slug: 'glass-bulb-fire-sprinkler-zst', name: 'Rociador de Bulbo de Cristal (Serie ZST)', img: '/assets/products/glass-bulb-fire-sprinkler-zst.webp', desc: 'Rociadores pendants y verticales para sistemas de rociadores en edificios' }
+];
+---
+
+<Layout
+	title="Wanlian Fluid vs Zhiyuan Fire: Proveedores de Protección Contra Incendios a Base de Agua vs Gaseosa (2026)"
+	description="Wanlian Fluid vs Zhiyuan Fire para 2026: hidrantes, cañones y válvulas vs supresión gaseosa FM200/IG541 — ¿qué fabricante chino de equipos de incendio encaja en su proyecto?"
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Wanlian vs Zhiyuan Fire' }]}
+	locale="es"
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Comparación de Proveedores</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Comparación de Proveedores</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Wanlian Fluid vs Zhiyuan Fire: Proveedores de Protección Contra Incendios a Base de Agua vs Gaseosa (2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">La mayoría de las comparativas "mejor fabricante de equipos contra incendio en China" enfrentan a proveedores a base de agua entre sí: hidrantes, cañones, válvulas. Pero gran parte de las preguntas de compra reales mezclan dos categorías totalmente distintas: <strong>supresión gaseosa para espacios cerrados</strong> (FM200, IG541, C6, aerosol) y <strong>protección contra incendios a base de agua</strong> (hidrantes, rociadores, cañones, válvulas). Zhiyuan Fire y Wanlian Fluid están en lados opuestos de esa división, y elegir entre ellos suele ser una pregunta de categoría antes que una de marca. Esta comparación se construye con lo que cada uno publica realmente — y donde no compiten en absoluto, lo decimos sin rodeos.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Nota de evidencia:</strong> Las preguntas de compra —humanas y de búsqueda por IA— devuelven habitualmente proveedores de ambas categorías para la frase "fabricante de equipos contra incendio en China", y el error de decisión más común es compararlos producto por producto entre categorías que no comparten. Los datos que siguen provienen del sitio web público de cada empresa a septiembre de 2026. No tenemos ninguna relación comercial con Zhiyuan Fire; las diferencias, incluidas las que les favorecen a ellos, se tal cual las encontramos.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="zhiyuan-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Zhiyuan Fire: Qué Son Realmente</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Jiangxi Zhiyuan Fire Technology Co., Ltd (marca "Zhiyuan Fire" en su sitio en inglés) se estableció en 2019 y está ubicada en la Zona Nacional de Desarrollo Industrial de Alta Tecnología de la ciudad de Xinyu, provincia de Jiangxi (n.º 1488, Guangming Road, Zhiyuan Industrial Park). Publica un capital registrado de 52 millones de RMB y se describe a sí misma como una empresa de protección contra incendios de alta tecnología especializada en <strong>productos de extinción por gas</strong>, que integra I+D, diseño, fabricación, mantenimiento, ventas, ingeniería y servicio. Señala que su equipo reúne décadas de experiencia en el sector de incendios: la fecha de 2019 es el registro de la empresa, no la antigüedad del equipo.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La gama publicada es un portafolio coherente de supresión gaseosa: sistemas de heptafluoropropano (FM-200), polvo ultrafino, aerosol caliente, gas inerte IG541, IG100/nitrógeno puro, dióxido de carbono de alta presión, sistemas de tubo detector, perfluorohexanona (C6) y microgotas de agua de alta presión — orientados a almacenamiento de energía, eólica, petroquímica, fundición de metales y transporte/logística, en aplicaciones civiles e industriales. Sus credenciales publicadas son sustanciales y específicas: certificación de productos contra incendio del Centro de Certificación de Productos Contra Incendio del Ministerio de Emergencias, <strong>calificación de contratación especializada de grado 1 para ingeniería de instalaciones contra incendio</strong>, calificación de servicios técnicos contra incendio, y un certificado de aprobación de institución de inspección y ensayo de equipos especiales (su actividad declarada incluye también la inspección de cilindros de presión sin costura, soldados y de fibra enrollada). Figuran como empresa nacional de alta tecnología y empresa de crédito AAA en sus propios materiales.</p>
+			<p class="text-gray-700 leading-relaxed">Cabe destacar su postura llave en mano: casos publicados de instalación (sistemas FM-200, redes de CO2), una sección de "soluciones" por industria, un blog en inglés activo y un compromiso de respuesta a consultas en 24 horas. Donde otros fabricantes chinos de equipos contra incendio venden equipo, Zhiyuan se posiciona como fabricante + proveedor + prestador de servicios técnicos: la calificación de ingeniería es lo que respalda esa afirmación.</p>
+
+			<h2 id="wanlian-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Wanlian Fluid: Qué Somos Realmente</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Quanzhou Wanlian Fluid Equipment Co., Ltd (Wanlian Fluid) es un fabricante y exportador con base en Quanzhou, Fujian: el núcleo del clúster chino de protección contra incendios y válvulas. La producción se realiza en nuestras propias líneas, con artículos seleccionados fabricados por socios cualificados bajo un sistema de gestión de calidad ISO 9001:2015; lo declaramos abiertamente en lugar de afirmar fabricación en una sola fábrica para cada referencia.</p>
+			<p class="text-gray-700 leading-relaxed">La gama publicada abarca seis líneas y 45 modelos, todos de equipos a base de agua o de sistemas de agua: <strong>cañones de agua contra incendio como línea nuclear</strong> — el <a href="/es/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">cañón ZDMS de supresión a chorro con seguimiento automático</a> con detección de llama y autoposicionamiento, más la serie manual PS; hidrantes y conexiones de bomba (<a href="/es/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">hidrante exterior anticongelante SS100/65</a>, anticolisión SSFT100/65, subterráneo SA, cabezales interiores SN65, y el <a href="/es/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">hidrante inteligente IoT</a>); rociadores y válvulas de alarma (ZSFZ húmeda, ZSFC seca, ZSFM diluvio, ZSFY preacción, cabezales ZST/ESFR/ocultos, indicadores de flujo ZSJZ); válvulas de protección contra incendio e industriales (compuerta, mariposa, retención, colador, sello de fuelle, equilibrado digital y la línea OS&Y UL/FM); válvulas de control hidráulico (500X reductora de presión, 100X flotador remoto, F745X control de nivel de agua, HS41X antirreflujo, antivórtice EN 12845 de succión); y accesorios contra incendio (gabinetes de extintores, carretes de manguera, manguera layflat, boquillas, acoples Storz, extintores de polvo ABC). Nuestra página de certificados publica la cobertura UL 262/UL 1091 y FM 1120/1130 para modelos de válvulas específicos, la conformidad CE (EN 12266-1) y las entradas LPCB RedBook, más el cumplimiento de la serie GB — todo declarado por modelo, con copias a solicitud. Cada unidad se envía al 100% probada por presión de carcasa y fuga de aire, con OEM/ODM, respuesta de cotización en 12 horas y el sitio completo publicado en cinco idiomas (EN/ES/RU/FR/AR).</p>
+
+			<h2 id="side-by-side" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Comparación Detallada</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Dimensión</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Zhiyuan Fire</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Wanlian Fluid</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Empresa / base</td>
+							<td class="px-4 py-3 text-gray-700">Est. 2019; Xinyu, Jiangxi (Zona de Alta Tecnología); capital registrado 52 M RMB (autodeclarado)</td>
+							<td class="px-4 py-3 text-gray-700">Quanzhou, Fujian; propias líneas + capacidad de socios cualificados</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Categoría nuclear</td>
+							<td class="px-4 py-3 text-gray-700"><strong>Supresión gaseosa y de agentes especiales</strong>: FM-200, IG541, IG100/N2, CO2, aerosol, C6, polvo ultrafino, tubo detector, microgotas de agua</td>
+							<td class="px-4 py-3 text-gray-700"><strong>Protección contra incendios a base de agua + válvulas</strong>: cañones, hidrantes, rociadores y válvulas de alarma, válvulas de redes de agua, accesorios contra incendio</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hidrantes contra incendio</td>
+							<td class="px-4 py-3 text-gray-700">No figura en la gama publicada</td>
+							<td class="px-4 py-3 text-gray-700">Línea nuclear: anticongelante SS100/65, anticolisión SSFT100/65, subterráneo SA, interior SN65, hidrante inteligente IoT</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Cañones de agua contra incendio</td>
+							<td class="px-4 py-3 text-gray-700">No figuran en la gama publicada</td>
+							<td class="px-4 py-3 text-gray-700">Línea nuclear: ZDMS con seguimiento automático (detección de llama, autoposicionamiento) + serie manual PS</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sistemas de rociadores en edificios</td>
+							<td class="px-4 py-3 text-gray-700">No figuran en la gama publicada</td>
+							<td class="px-4 py-3 text-gray-700">Válvulas de alarma ZSFZ húmeda / ZSFC seca / ZSFM diluvio / ZSFY preacción + cabezales ZST/ESFR + indicadores de flujo</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Espacios cerrados eléctricos / almacenamiento de energía</td>
+							<td class="px-4 py-3 text-gray-700"><strong>Mercado nuclear</strong> — agentes gaseosos donde el daño por agua debe evitarse (salas de servidores, subestaciones, salas de baterías, góndolas eólicas, archivos)</td>
+							<td class="px-4 py-3 text-gray-700">Fuera de alcance — solo sistemas a base de agua; extintores portátiles ABC para cubrimiento de pequeños riesgos</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Válvulas de redes de agua / industriales</td>
+							<td class="px-4 py-3 text-gray-700">No figuran en la gama publicada (solo accesorios de sistema para instalaciones gaseosas)</td>
+							<td class="px-4 py-3 text-gray-700">Compuerta de asiento elástico, mariposa, retención, colador, sello de fuelle, OS&amp;Y UL/FM, equilibrado digital — línea completa de agua</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Ingeniería / instalación</td>
+							<td class="px-4 py-3 text-gray-700">Sí — calificación de contratación de instalaciones contra incendio de grado 1 + calificación de servicios técnicos (capacidad llave en mano, autodeclarada)</td>
+							<td class="px-4 py-3 text-gray-700">Suministro de equipo; instalación por contratista local, con soporte técnico y documentación de nuestro lado</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Certificaciones (publicadas)</td>
+							<td class="px-4 py-3 text-gray-700">Certificados del Centro de Certificación de Productos Contra Incendio (Ministerio de Emergencias); aprobación de inspección y ensayo de equipos especiales; empresa nacional de alta tecnología; crédito AAA</td>
+							<td class="px-4 py-3 text-gray-700">ISO 9001:2015; por modelo UL 262/UL 1091 y FM 1120/1130 para modelos de válvulas listados; CE (EN 12266-1); LPCB RedBook; serie GB — copias a solicitud</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">OEM / sitio web</td>
+							<td class="px-4 py-3 text-gray-700">Fabricante + proveedor + servicios técnicos; sitio en inglés con menú de idiomas; respuesta a consultas en 24 h</td>
+							<td class="px-4 py-3 text-gray-700">OEM/ODM explícito; sitio en 5 idiomas (EN/ES/RU/FR/AR); cotización en 12 horas</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Lea la tabla con honestidad: la solapación de líneas de producto es casi inexistente. Esto no es una disputa por la misma referencia: son dos mitades distintas de un proyecto de protección contra incendios.</p>
+
+			<h2 id="water-vs-gas" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. La Pregunta Real: ¿A Base de Agua o Gaseosa?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La primera decisión de cualquier alcance de protección contra incendios es el <em>agente</em>, y el agente lo determina el riesgo — no el proveedor que le guste. Dos variables lo dirigen: si el espacio es cerrado o abierto, y si el contacto con agua es aceptable para el equipo protegido.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Áreas abiertas, el agua no es problema (a base de agua):</strong> redes de hidrantes municipales e industriales, granjas de tanques y depósitos con cañones fijos, sistemas de rociadores en edificios según NFPA 13, patios de proceso grandes. El agua es el agente confiable más barato a gran escala; hidrantes, válvulas de alarma y cañones son el equipo. Ese es el territorio de Wanlian Fluid.</li>
+				<li><strong>Espacios cerrados, el agua destruye el activo (gas / agente especial):</strong> salas de servidores y telecomunicaciones, subestaciones y tableros, salas de baterías y contenedores de almacenamiento de energía, archivos y almacenamiento de datos, góndolas de aerogeneradores, salas de control. Agentes limpios (heptafluoropropano, IG541, IG100, C6 — la familia NFPA 2001), aerosol para recintos menores, o microgotas de agua cuando el volumen bajo de mist es aceptable. Ese es el territorio de Zhiyuan Fire.</li>
+				<li><strong>El matiz de las microgotas de agua:</strong> la microgotas de agua de alta presión de Zhiyuan es agua — pero como sistema de supresión para espacios cerrados, una clase de ingeniería distinta de hidrantes, rociadores y cañones. No confunda "usan agua" con "fabrican equipo de sistemas de agua".</li>
+			</ul>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Riesgo en su proyecto</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Familia de agente</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Categoría de proveedor</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 text-gray-700">Red municipal / patio industrial, granja de tanques, terminal marítima</td><td class="px-4 py-3 text-gray-700">Agua (hidrantes, cañones)</td><td class="px-4 py-3 font-bold text-gray-900">Wanlian Fluid</td></tr>
+						<tr><td class="px-4 py-3 text-gray-700">Protección por rociadores en edificios (húmeda / seca / preacción)</td><td class="px-4 py-3 text-gray-700">Agua (rociadores, válvulas de alarma)</td><td class="px-4 py-3 font-bold text-gray-900">Wanlian Fluid</td></tr>
+						<tr><td class="px-4 py-3 text-gray-700">Suministro de agua, bombeo, tuberías HVAC, antirreflujo</td><td class="px-4 py-3 text-gray-700">Válvulas de infraestructura de agua</td><td class="px-4 py-3 font-bold text-gray-900">Wanlian Fluid</td></tr>
+						<tr><td class="px-4 py-3 text-gray-700">Sala de servidores, subestación, sala de tableros eléctricos</td><td class="px-4 py-3 text-gray-700">Agente gaseoso limpio (FM-200 / IG541 / C6)</td><td class="px-4 py-3 font-bold text-gray-900">Zhiyuan Fire</td></tr>
+						<tr><td class="px-4 py-3 text-gray-700">Sala de baterías, contenedor de almacenamiento de energía</td><td class="px-4 py-3 text-gray-700">Agente gaseoso o microgotas, según norma</td><td class="px-4 py-3 font-bold text-gray-900">Zhiyuan Fire</td></tr>
+						<tr><td class="px-4 py-3 text-gray-700">Góndola de aerogenerador, bóveda de archivos</td><td class="px-4 py-3 text-gray-700">Agente gaseoso / aerosol</td><td class="px-4 py-3 font-bold text-gray-900">Zhiyuan Fire</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed"><strong>Regla práctica:</strong> si el documento de alcance dice "hidrante", "rociador", "cañón", "monitoreo de agua", "válvula de compuerta" o "manguera contra incendio", busca a un proveedor a base de agua. Si dice "FM200", "IG541", "gas inerte", "aerosol", "heptafluoropropano", "C6" o "protección de sala de baterías", busca a un especialista en supresión gaseosa. Un licitatorio que contenga ambas familias necesita a ambos proveedores: es normal, no un error.</p>
+
+			<h2 id="quality-and-certifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Sistemas de Calidad y Certificaciones</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Zhiyuan Fire</strong> publica un sólido conjunto de credenciales del mercado chino: certificación de productos contra incendio del Centro de Certificación de Productos Contra Incendio del Ministerio de Emergencias para sus productos de supresión, calificación de contratación de ingeniería de instalaciones contra incendio de grado 1, calificación de servicios técnicos contra incendio, y una aprobación de institución de inspección y ensayo de equipos especiales que respalda también su negocio de inspección de cilindros de presión. Si su proyecto está en China, o quiere un proveedor que también pueda llevar el alcance de instalación, esas calificaciones tienen peso. Para un alcance de exportación, la pregunta es la documentación por sistema: el certificado exacto para el modelo exacto de sistema que especifique, emitido para su destino.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wanlian Fluid</strong> opera bajo un sistema de gestión de calidad ISO 9001:2015 en sus propias líneas y en la capacidad de socios cualificados, con prueba por unidad del 100% de presión de carcasa y fuga de aire, y documentación de exportación coordinada con el envío. Su página de certificados publica la cobertura UL 262/UL 1091 y FM 1120/1130 para modelos de válvulas específicos, el marcado CE probado según EN 12266-1, las entradas LPCB RedBook y la conformidad con la serie GB — todo declarado por modelo, con copias a solicitud. El encuadre por modelo es deliberado: un listado es una propiedad del modelo exacto que usted pide, no de la empresa; por eso el paso de verificación pertenece a su orden de compra.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Consejo práctico:</strong> para ambas fábricas, ejecute el mismo kit de verificación: resolución del certificado en el portal oficial del organismo emisor para el modelo exacto, registros de prueba por unidad con conciliación de números de serie, inspección de terceros (SGS/BV/TÜV) en un primer pedido, y una unidad de muestra antes del volumen. Nuestra <a href="/es/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">guía de verificación de proveedores chinos</a> y la <a href="/es/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">guía de detección de certificados falsificados</a> desarrollan cada comprobación.</p>
+
+			<h2 id="where-each-wins" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Dónde Gana Cada Fabricante</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Zhiyuan Fire gana cuando:</strong> el espacio protegido es cerrado y el agua no es aceptable — salas de servidores, subestaciones, salas de baterías, instalaciones de almacenamiento de energía, góndolas eólicas, archivos; necesita una selección de agente gaseoso (FM-200 vs IG541 vs IG100 vs C6 vs aerosol) de un portafolio especialista; el proyecto está en China o necesita un proveedor con calificación de contratación de instalaciones contra incendio de grado 1 para un alcance llave en mano; o necesita capacidad de inspección relacionada con cilindros de presión junto con el sistema de supresión.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wanlian Fluid gana cuando:</strong> el proyecto es a base de agua — <a href="/es/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">redes de hidrantes</a> municipales o industriales, rociadores en edificios con grupos de válvulas de alarma, protección de granjas de tanques con el <a href="/es/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">cañón ZDMS de seguimiento automático</a>, o válvulas de suministro de agua/HVAC; necesita <a href="/es/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">hidrantes inteligentes IoT</a> para una red conectada; la lista de materiales incluye válvulas de control de nivel de agua (F745X) o reductoras de presión (500X); o está construyendo una marca de distribución en mercados de habla española, rusa, francesa o árabe y quiere OEM más un sitio técnico en cinco idiomas.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Conviven bien:</strong> una planta petroquímica, un campus de datacenter con anexo de proceso, o una instalación de almacenamiento de energía llevará normalmente ambos ámbitos en una sola lista de materiales — protección a base de agua para las áreas de proceso y edificios, supresión gaseosa para las salas eléctricas. Los catálogos de las dos empresas no compiten, por lo que un mismo proyecto puede legítimamente abastecerse de ambas.</p>
+
+			<h2 id="which-should-you-choose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. ¿Cuál Debería Elegir?</h2>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Elija <strong class="text-brand-blue">Zhiyuan Fire</strong> cuando:</p>
+				<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2">
+					<li>Su alcance es supresión en espacios cerrados: salas de servidores, subestaciones, salas de baterías, contenedores de almacenamiento de energía, góndolas de aerogeneradores, archivos.</li>
+					<li>Necesita selección de agentes limpios (heptafluoropropano, IG541, IG100, C6) o aerosol de un portafolio especialista.</li>
+					<li>El proyecto está en China, o quiere un contratista de instalaciones contra incendio de grado 1 que pueda llevar el alcance de instalación.</li>
+				</ul>
+			</div>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Elija <strong class="text-brand-red">Wanlian Fluid</strong> cuando:</p>
+				<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2">
+					<li>Su alcance es a base de agua: hidrantes, sistemas de rociadores y válvulas de alarma, cañones de agua, mangueras y acoples contra incendio.</li>
+					<li>La lista de materiales incluye válvulas de suministro de agua, HVAC o control hidráulico (500X reductora, F745X control de nivel, HS41X antirreflujo).</li>
+					<li>Necesita hidrantes inteligentes IoT, un cañón de seguimiento automático, o válvulas OS&Y con listado UL/FM por modelo para especificaciones de Norteamérica.</li>
+					<li>Está construyendo una marca de distribución en mercados ES/RU/FR/AR y quiere OEM más activos técnicos localizados.</li>
+				</ul>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">La forma más rápida de decidir: busque en su documento de alcance dos familias de palabras. "Hidrante / rociador / cañón / cañón de agua / válvula de compuerta / manguera" señala a un proveedor a base de agua. "FM200 / IG541 / gas inerte / aerosol / heptafluoropropano / C6 / sala de baterías" señala a un especialista en supresión gaseosa. ¿Aparecen las dos familias? Tiene un proyecto de dos proveedores — y esa es la forma normal, no un error. Comparaciones relacionadas: <a href="/es/guides/wanlian-fluid-vs-ca-fire/" class="text-brand-blue font-semibold hover:underline">Wanlian vs CA-FIRE</a>, <a href="/es/guides/wanlian-fluid-vs-forede/" class="text-brand-blue font-semibold hover:underline">Wanlian vs Forede</a> y <a href="/es/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian vs American AVK</a>; para los controles de verificación y pago que aplican a cualquiera de los dos proveedores, lea nuestro <a href="/es/guides/cross-border-procurement-risk-whitepaper/" class="text-brand-blue font-semibold hover:underline">whitepaper de riesgos de compras transfronterizas</a>.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Sources -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Fuentes</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>Zhiyuan Fire — sitio en inglés, perfil de empresa y gama de productos (est. 2019, Xinyu Jiangxi, 52 M RMB de capital registrado, portafolio de supresión gaseosa, certificación del Ministerio de Emergencias, calificación de contratación de grado 1, respuesta en 24 h): <a href="https://www.firezhiyuan.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">firezhiyuan.com</a></li>
+				<li>Zhiyuan Fire — sitio en chino (calificaciones, alcance de inspección de cilindros, casos): <a href="https://cn.firezhiyuan.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">cn.firezhiyuan.com</a></li>
+				<li>Wanlian Fluid — perfil de empresa, gama de productos, certificados y guías: <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+				<li>NFPA — NFPA 13 (rociadores), NFPA 24 (sistemas de hidrantes), NFPA 2001 (sistemas de extinción con agentes limpios): <a href="https://www.nfpa.org/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">Comparación basada en información públicamente disponible a septiembre de 2026. La disponibilidad de productos, las certificaciones y las calificaciones cambian: solicite siempre fichas técnicas, certificados y cotizaciones vigentes antes de decidir una compra.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Su Proyecto Tiene Tanto Alcance Húmedo Como Gaseoso? Haga Cotizar el Lado de Agua Correctamente.</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíenos sus líneas de hidrantes, rociadores, cañones y válvulas: las cotizamos como un solo paquete de exportación con registros de prueba por unidad, certificados por modelo y documentación en 5 idiomas, normalmente en 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Fire%20Protection%20Kit" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20a%20quote%20for%20hydrants%2C%20sprinklers%20and%20monitors" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

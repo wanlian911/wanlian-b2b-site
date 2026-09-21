@@ -1,0 +1,258 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'risk-frame', label: '1. لماذا تفشل عمليات التوريد عبر الحدود: إطار المخاطر' },
+	{ id: 'eight-risk-families', label: '2. العائلات الثمانية للمخاطر' },
+	{ id: 'counterparty-risk', label: '3. مخاطر الطرف الآخر والأصالة' },
+	{ id: 'quality-risk', label: '4. مخاطر الجودة والمواصفات' },
+	{ id: 'certification-risk', label: '5. مخاطر الشهادات والمطابقة' },
+	{ id: 'payment-risk', label: '6. مخاطر الدفع والمالية' },
+	{ id: 'logistics-risk', label: '7. اللوجستيات والجمارك والتسليم' },
+	{ id: 'dispute-risk', label: '8. النزاعات والضمان والاستمرارية' },
+	{ id: 'control-checklist', label: '9. قائمة المراقبات حسب المرحلة' },
+	{ id: 'red-flags', label: '10. أعلام حمراء: توقف وأعد التحقق' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const faq = [
+	{
+		question: 'ما أكثر أسباب فشل شراء المعدات عبر الحدود شيوعًا؟',
+		answer: 'لست السعر ولا التقليد حتى — الفشل الأكثر شيوعًا هو مواصفة لم تكتمل أبدًا بما يكفي ليُحاسب المورد على أساسها. عندما لا يكون المعيار والحجم وفئة الضغط والمادة واختبار القبول مثبتة كتابةً، فإن «المنتج غير مطابق» لا يملك تعريفًا قابلًا للقياس، ويصبح النزاع لا قابلاً للحل. إكمال المواصفة كتابةً قبل طلب السعر هو مراقب المخاطر الأعلى رافعة في هذا whitepaper كله.'
+	},
+	{
+		question: 'ما هيكل الدفع الأكثر أمانًا للطلب الأول من مصنع صيني؟',
+		answer: 'هيكل التحويلات البنكية (T/T) بالمراحل هو الشكل القابل للدفاع المعيار: دفعة مقدمة مقابل الطلب (المعتاد في السوق للطلبات على المعدات حوالي 30%) والباقي مقابل مستندات الشحن أو بعد اجتياز فحص ما قبل الشحن. للطلب الأول الكبير، يضيف خطاب الضمان المستندي عند الاطلاع المحكوم وفق UCP 600 ضمانًا بين البنوك. ما يجب تجنبه: دفع 100% مقدمًا لطرف آخر غير موثوق، التحويلات لحساب شخصي خارج كيان العقد، وقبول سعر أدنى بكثير من عروض الأقران التي جمعتها — الخصم هو المخاطرة وليس الحماية.'
+	},
+	{
+		question: 'كيف أحمي نفسي من شهادات UL أو FM أو CE مزورة؟',
+		answer: 'اعتبر أي رقم شهادة ادعاءً وليس حقيقة: حله على البوابة الرسمية للجهد المصدّر للموديل الدقيق والمصنع الدقيق قبل أن تحدده. رقم لا يحل هو تزوير بغض النظر عن مظهر PDF. أضف خطوة التحقق كشرط قبول في العقد، واطلب تسجيلات اختبار لكل وحدة تطابق الأرقام التسلسلية في قائمة التعبئة، ونفذ طلب عينة أولاً. دليل كشف التقليد لدينا يوضح المؤشرات المادية — أرقام تسلسلية منسوخة، لوحات بيانات منسوخة، صبغات جدران رقيقة.'
+	},
+	{
+		question: 'أي Incoterm يضع أكبر قدر من المخاطرة على المشتري؟',
+		answer: 'EXW (Ex Works) يضع تقريبًا كل شيء على المشتري: أنت تنظم الاستلام من المصنع، والتخليص الجمركي التصديري، والنقل الرئيسي والتأمين، فتصبح أي ضعف في سلسلتك اللوجستية المحلية تكلفة عليك. DDP (Delivered Duty Paid) يعكس المشكلة: المورد يتحمل كل شيء، مما يخلق عدم شفافية في التسعير — لا يستطيع المشتري تدقيق ما يُسعَّر، وأي تعقيد في جانب التصدير يهبط على المورد وأنت تنتظر. FOB وCIF هما نقطة الوسط الشائعة بنقطة انتقال مخاطر واضحة وتسعير قابل للتدقيق؛ اختر بناءً على أي جزء من الرحلة تتحكم فيه بشكل أفضل.'
+	},
+	{
+		question: 'ما البنود التي يجب أن يحتويها العقد قبل التوقيع؟',
+		answer: 'على الأقل: المواصفة التقنية كمرفق (معيار، حجم، فئة ضغط، مادة، تشطيب)، معايير قبول مكتوبة مرتبطة بتسجيلات اختبار لكل وحدة، حقك في الفحص أو تعيين فاحص مستقل قبل الشحن، جدول دفعات الدفع، Incoterm وميناء، قوة قاهرة، القانون المنطبق ومجلس النزاع (بنود التحكيم نافذة عبر الحدود بأكثر موثوقية من المحاكم الأجنبية)، مدة الضمان، والتزام قطع الغيار لعمر المعدات. عرض السعر ليس عقدًا؛ العقد الموقّع بمرفق المواصفة هو وثيقة المخاطرة.'
+	},
+	{
+		question: 'هل يمكنني تنفيذ كل هذه المراقبات دون زيارة المصنع؟',
+		answer: 'نعم، بشكل متدرج — وهو المسار المعتاد للطلبات الأولى. جولة المصنع عبر الفيديو المباشر، سجل مستندات التصدير، طلب عينة بوحدة لكل موديل مع فيديو اختبار ضغط برقم تسلسلي، ثم فحص ما قبل الشحن من وكالة مستقلة (SGS أو Bureau Veritas أو Intertek) يغطي معظم التحقق الذي توفره الزيارة المباشرة بجزء من التكلفة. احتفظ بالزيارة المباشرة للطلب الثاني، أو لمستويات قيمة تصبح معها رسوم الفحص خطأ تقريب. ما لا يجوز تفويته أبدًا، مع الزيارة أو بدونها: حل الشهادات لدى الجهد المصدّر وطلب العينة.'
+	}
+];
+---
+
+<Layout
+	title="مراقبة مخاطر التوريد عبر الحدود: whitepaper للمشتريين B2B (2026) | Wanlian Fluid"
+	description="كيف تتحكم في مخاطر التوريد عبر الحدود لمعدات الحريق والبنية التحتية المائية: 8 عائلات للمخاطر، مراقبات قبل الشحن، هيكل الدفع، وقائمة أعلام حمراء."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'الأدلة', href: '/ar/blog/' }, { name: 'whitepaper مخاطر التوريد' }]}
+	locale="ar"
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">whitepaper مخاطر التوريد</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">whitepaper قطاعي · 2026</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">مراقبة مخاطر التوريد عبر الحدود: كيف تتحكم بها قبل أن تدفع</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">شراء الصمامات والخلاطات ومعدات الحريق عبر الحدود هو تمرين إدارة مخاطر ينتج، في الطريق، معدات. الفشل الذي يكلف المشتري أموالًا كبيرة نادر ودرامي (مورد يختفي بدفعة مقدمة، حاوية من صمامات مزورة)، لكن الضرر المعتاد أهدأ: مواصفة لم تُغلَق أبدًا، شهادة لم تُحَل أبدًا، Incoterm سعّر الجزء الخطأ من الرحلة. يوزع هذا whitepaper مخاطر التوريد عبر الحدود إلى ثماني عائلات، ويعين لكل منها تسلسل مراقبات، وينتهي بقائمة فحوصات خطوة-بخطوة وجدول أعلام حمراء يمكن إرفاقها بأمر الشراء.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">المنهجية:</strong> نحن مصنع على الجانب المورّد في هذه العمليات، ونقول ذلك بصراحة — قسم أصالة الطرف الآخر هو القسم الوحيد الذي يمكن قراءة مصلحتنا فيه ذاتيًا، لذا كُتب بحيث ينطبق تماثلًا على أي مورد، بمن فيهم نحن. الآليات المذكورة (Incoterms 2020، UCP 600، التحويلات البنكية بالمراحل، فحص من طرف ثالث، حل الشهادات لدى الجهد المصدّر) هي الأدوات القياسية التي يستخدمها المشترون فعليًا؛ حيث يكون الرقم عادة سوقية وليس حقيقة موثقة، يُشار إليه بذلك.</p>
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="risk-frame" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. لماذا تفشل عمليات التوريد عبر الحدود: إطار المخاطر</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">للشراء المحلي ثلاثة أبعاد للمخاطر — الجودة والسعر والتسليم. يضيف التوريد عبر الحدود أربعة على الأقل: <strong>أصالة الطرف الآخر</strong> (هل الكيان الذي تدفع له هو الكيان الذي يشحن، وهل سيظل موجودًا وقت الضمان)، <strong>ترجمة الأنظمة</strong> (المعيار الذي تفرضه وجهتك يجب أن يكون المعيار الذي صُنع به المنتج)، <strong>العملة وأدوات الدفع</strong> (الأموال تتحرك قبل البضائع)، و<strong>الإمكانية القانونية</strong> (عقد لا تستطيع تنفيذه هو وثيقة مهذبة). المسافة هي الجوهر: كل مراقب تهمه تسعّره شهية المخاطر لدى المورد، والطريقة الوحيدة لتخفيض سعر المخاطرة هي تقليل المخاطرة كتابةً.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">مبدأان يحركان كل ما يلي. أولًا: <strong>المخاطر تُدار في المسار الورقي، لا في العلاقة.</strong> المورد الذي يقاوم التوثيق — تسجيلات الاختبار، حل الشهادات، حقوق الفحص، الدفع بالمراحل — أجاب بالفعل على سؤال ماذا يحدث عندما ينكسر شيء. ثانيًا: <strong>التسلسل أهم من أي مراقب منفرد.</strong> التحقق من الشركة قبل الشهادة، والشهادة قبل العينة، والعينة قبل الكمية، والباقي قبل الشحن هو تسلسل؛ إن نفذته بغير ترتيب ورثت المرحلة اللاحقة كل مخاطر التي كان المفترض أن تتخلص منها السابقة.</p>
+			<p class="text-gray-700 leading-relaxed">للمصطلحات التي تجعل الباقي دقيقًا — Incoterms، فئة الضغط، اختبار الجسم، لوحة البيانات، بوليصة الشحن — يعرّف <a href="/ar/glossary/" class="text-brand-blue font-semibold hover:underline">المسرد القطاعي</a> لدينا كل مصطلح، و<a href="/ar/whitepaper/" class="text-brand-blue font-semibold hover:underline">whitepaper المواصفات والتحقق</a> يغطي شكل المواصفة المكتوبة القابلة للدفاع.</p>
+
+			<h2 id="eight-risk-families" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. العائلات الثمانية للمخاطر</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">كل خسارة توريد عبر الحدود رأيناها تتفكك إلى إحدى ثماني عائلات. الجدول هو الخريطة؛ الأقسام 3–8 هي تسلسلات المراقبات لكل عائلة. الاحتمالية والأثر مُبَيَّنان نوعيًا لأنهما يعتمدان على سلوك المورد، وهو بالضبط ما صُممت المراقبات له.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">عائلة المخاطر</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">كيف تظهر</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">المراقب الرئيسي</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">1. الطرف الآخر والأصالة</td><td class="px-4 py-3 text-gray-700">مكتب تجارة يعيد بيع الصبغات كأنها له؛ كيان يختفي بعد الدفعة المقدمة؛ الموقع والكيان القانوني غير متطابقين</td><td class="px-4 py-3 text-gray-700">التحقق من الكيان + فيديو/زيارة مصنع + سجل التصدير (القسم 3)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">2. الجودة والمواصفة</td><td class="px-4 py-3 text-gray-700">تدني درجة المادة؛ وحدة تفشل المعيار الذي افترضته المناقصة؛ دفعة غير متجانسة</td><td class="px-4 py-3 text-gray-700">مواصفة مغلقة كتابةً + طلب عينة + تسجيلات اختبار لكل وحدة (القسم 4)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">3. الشهادات والمطابقة</td><td class="px-4 py-3 text-gray-700">شهادات مزورة أو منتهية؛ شهادة مصنع طُبّقت على اشتراط موديل؛ عدم تطابق معيار الوجهة</td><td class="px-4 py-3 text-gray-700">حل لدى الجهد المصدّر موديل-بالموديل + شرط قبول في العقد (القسم 5)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">4. السعر والتجاري</td><td class="px-4 py-3 text-gray-700">عرض سعر طُعم ثم استبدال؛ تكاليف أدوات/تغليف/عملة تُضاف بعد التوقيع؛ «أفضل سعر» أدنى من الإمكان المادي</td><td class="px-4 py-3 text-gray-700">عروض مفصلة مماثلة-للمماثل + صلاحية السعر + بند التسليم الفعلي (القسمان 4 و6)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">5. الدفع</td><td class="px-4 py-3 text-gray-700">100% مقدمًا لطرف آخر غير موثوق؛ الباقي يُطلب قبل الفحص؛ تحويل لحساب شخصي</td><td class="px-4 py-3 text-gray-700">T/T بالمراحل أو خطاب ضمان + حساب مطابق للكيان + حاجز فحص (القسم 6)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">6. اللوجستيات والجمارك</td><td class="px-4 py-3 text-gray-700">Incoterm سعّر الجزء الخطأ؛ مستندات تفشل في جمارك الوجهة؛ فوات سفينة؛ مواد خطرة (DG) معلن عنها خطأً</td><td class="px-4 py-3 text-gray-700">اختيار Incoterm + حزمة المستندات + فحص حاوية قبل الشحن (القسم 7)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">7. التسليم والاستمرارية</td><td class="px-4 py-3 text-gray-700">الجدول يؤخر البرنامج؛ لا قطع غيار في السنة الخامسة؛ المورد خارج النشاط وقت المطالبة بالضمان</td><td class="px-4 py-3 text-gray-700">جدول مع تعويضات + بند قطع غيار + فحص عمر المورد (القسم 8)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">8. النزاع والقانون</td><td class="px-4 py-3 text-gray-700">لا قانون منطبق؛ ضمان غير قابل للتنفيذ؛ بند تحكيم مفقود؛ سجلات ضائعة</td><td class="px-4 py-3 text-gray-700">مرفق العقد + بند التحكيم + حفظ تسجيلات الاختبار (القسم 8)</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="counterparty-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. مخاطر الطرف الآخر والأصالة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">هذه هي العائلة الوحيدة التي لا يمكنك فيها فحص المخاطرة لاحقًا — المراقب بأكمله قبل حركة المال. النمط الذي يمسكه هو مكتب التجارة الذي يعرض نفسه كمصنع: يعرض أسعار مصنع، ويظهر صور مصنع (صوّرتها في مصنع يزوره ولا يملكه)، ويشحن صبغات أعاد مصنع حقيقي علامتها. في صناعة عنقودية مثل معدات الحريق الصينية، تعمل مئات الشركات من نفس المنطقة الحضرية، لذا «صور المصنع» تثبت الجغرافيا لا الملكية.</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>تحقق من الكيان القانوني، لا من العلامة.</strong> اسم الشركة، رقم التسجيل، العنوان المسجل، النطاق التجاري والرأس المال — مقابل ترخيص العمل الخاص بالمورد نفسه، لا موقعه الإلكتروني. اسم العلامة على الموقع والكيان القانوني على حوالة البنك يجب أن يكونا الكيان نفسه.</li>
+				<li><strong>تحقق من نطاق نظام الجودة.</strong> شهادة ISO 9001 تغطي نطاقًا مسمّىً بعنوان مسمّى. «صمامات ومعدات حريق» بعنوان المصنع إشارة؛ «تجارة» أو عنوان آخر إشارة مختلفة.</li>
+				<li><strong>نفذ جولة مصنع فيديو مباشرة.</strong> ليست جولة مسجلة مسبقًا: مكالمة مباشرة يتجول فيها الهاتف/الكاميرا من البوابة عبر الصبغة والمعالجة والتجميع والاختبار. المصنع الذي عليه شيء يخفي سيقدم الجولة المسجلة والنشرة الإعلانية بدلًا منها.</li>
+				<li><strong>افحص سجل التصدير.</strong> سنوات التصدير، دول الوجهة، وطلب مرجعي تستطيع الاتصال به بشكل مستقل. في عنقود معدات الحريق، اسأل تحديدًا: أي من هذه الوحدات <em>صنعتموها</em> أنتم وأيها صنعها شركاؤكم؟ المصنع يجيب عن هذا السؤال؛ المكتب يحرفه.</li>
+				<li><strong>تقاطع الحضور.</strong> عمر نطاق الموقع الإلكتروني، ملف Alibaba أو منصة التجارة مقابل الكيان القانوني، وهل يعمل الشخص المسؤول من نطاق مؤسسي لا صندوق بريد شخصي.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">المنهجية خطوة-بخطوة — بما فيها الفحوصات الخمس والأسئلة التي تفرّق مصنعًا عن مكتب — في <a href="/ar/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">دليل التحقق من الموردين الصينيين</a> لدينا. قائمة الفحص الدقيق من 8 نقاط في <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة فحص توريد الصمامات B2B</a> لدينا كُتبت لتُلصق في البريد الأول.</p>
+
+			<h2 id="quality-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. مخاطر الجودة والمواصفات</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">مخاطرة الجودة تزرع عادة في لحظة عرض السعر، لا في المصنع. إذا كانت طلبتك تقول «صمام بوابة DN100، AWWA محبذ، 200 قطعة»، يستطيع كل مورد الرد — ويرد كل مورد بمنتج مختلف. لذلك فأعلى ثلاث مراقبات جودة قيمةً هي مراقبات مواصفة، تُنفذ قبل صب أي وحدة:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>أغلق المواصفة كتابةً.</strong> المعيار المنطبق (AWWA C502/C515، ISO 5208، EN 1074، NFPA 13، أو مرجع المناقصة)، الحجم وفئة الضغط، درجة المادة والتشطيب، نوع الربط، والاختبار المطلوب لكل وحدة. عرض سعر مقابل مواصفة مفتوحة هو حديث، ليس وثيقة مخاطر. <a href="/ar/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">دليل المعايير</a> يقارن الأنظمة جنبًا إلى جنب.</li>
+				<li><strong>اطلب العينة قبل الكمية.</strong> وحدة لكل موديل: لوحة بيانات، رقم تسلسلي، شهادة مادة (مِلّ)، وفيديو اختبار ضغط جسم وتسرب هواء برقم تسلسلي. <a href="/ar/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">صمام إنذار رطب ZSFZ-150</a> أو <a href="/ar/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">خلاط SS100/65 خارجي</a> رخيصان كعينة لدرجة أن تخطي الخطوة ليس اختيارًا منطقيًا أبدًا — العينة هي أرخص تأمين ضد التقليد ومخاطر المواصفة المتاح.</li>
+				<li><strong>اطلب تسجيلات اختبار لكل وحدة، لا لكل دفعة.</strong> تقرير الدفعة يقول «اختبرنا بعضًا». سجل لكل وحدة بأرقام تسلسلية تتطابق مع قائمة التعبئة يقول «اختبرنا ما لك». وهذا هو المستند الذي سيطلبه فاحص الوجهة عند القبول.</li>
+				<li><strong>عين فحصًا مستقلًا للكمية.</strong> حضور SGS أو Bureau Veritas أو Intertek الاختبارات ومراجعة السجلات قبل الشحن يحوّل «المورد يقول» إلى «وكالة مستقلة شهدّت». الرسوم خطأ تقريب مقارنة بتكلفة حاوية واحدة خاطئة.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">جانب السعر في هذه العائلة: عرض أدنى بكثير من عروض الأقران التي جمعتها ليس صفقة، بل مخاطر مُسعَّرة — الخصم يجب أن يأتي من درجة المادة، أو سماكة الجدار، أو الاختبارات، أو دفعتك المتبقية في المستقبل. <a href="/ar/cost-calculator/" class="text-brand-blue font-semibold hover:underline">حاسبة تكلفة التوريد</a> لدينا تحسب محركات التكلفة المشروعة (الحجم، Incoterm، الوجهة) حتى يمكن فحص العرض المنخفض مقابل فيزياء الطلب لا شعوره.</p>
+
+			<h2 id="certification-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. مخاطر الشهادات والمطابقة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">الشهادات هي المستند الأكثر تزويرًا في هذا القطاع والأكثر سوء تطبيق. فشلان مختلفان: <strong>التزوير</strong> (الشهادة مزورة أو منسوخة من حقيقية) و<strong>انحراف النطاق</strong> (الشهادة حقيقية لكنها تغطي موديلًا آخر أو مصنعًا آخر أو سنة أخرى مما يفترضه أمر شراؤك). المراقب للثلاثة هو أداة واحدة: <strong>الحل على البوابة الرسمية للجهد المصدّر</strong> — دليل UL product-iQ، قاعدة اعتمادات FM، LPCB RedBook، وسجل اعتماد المنتجات الحريق الصينية لدى الجهد المصدّر. رقم شهادة لا يحل على كيان موردك وموديلك هو تزوير، نقطة، مهما كانت نظافة PDF.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">المراقب الثاني تعاقدي: اجعل حل الشهادة <em>شرط قبول</em>، لا وصفًا للمنتج. «UL listed» في عمود وصف عرض السعر لا وزن له؛ «المورد يضمن أن الموديل Z41X-100 مدرج تحت شهادة UL 262 رقم [X]، قابل للتحقق في UL product-iQ وقت الشحن، مع نسخة من الشهادة تُسلَّم قبل دفع البايي» له وزن. المؤشرات المادية للصمامات المقلدة — أرقام تسلسلية منسوخة، لوحات بيانات منسوخة، صبغات جدران رقيقة، طلاء سميك فوق ختم — مغطاة في <a href="/ar/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">دليل كشف التقليد</a> لدينا.</p>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">موديل-بالموديل مقابل مصنع-بالمصنع: التمييز الذي يهم</p>
+				<p class="text-sm text-gray-700 leading-relaxed">شهادة النظام (ISO 9001، ترخيص مصنع) تقول إن <em>الشركة</em> تشغّل عملية مُتحكَّم فيها. شهادة المنتج (دخول UL، اعتماد FM، علامة CE بالتوجيه المنطبق، شهادة منتج حريق) تقول إن <em>الموديل</em> اختُبر. فاحص الوجهة ينفذ شهادة المنتج. المورد الذي يرسل شهادة نظامه عندما طلبت شهادة منتج يجيب عن سؤال آخر غير الذي سألته — والسؤال الذي سألته هو الذي يحدد ما إذا كانت حاويتك سيقبل أم لا.</p>
+			</div>
+			<p class="text-gray-700 leading-relaxed">للربط حسب الوجهة — ماذا يعني UL/FM/AWWA/NOM في مناقصة لاتينية، وماذا يعني CE موديل-بالموديل في الاتحاد الأوروبي، وماذا تعني NFPA 13 لصمام <a href="/ar/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">بوابة بنمط AWWA</a> — راجع <a href="/ar/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">دليل دخول UL</a> و<a href="/ar/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">دليل شهادات أمريكا اللاتينية</a> و<a href="/ar/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">دليل مطابقة CE وEN 12845</a>.</p>
+
+			<h2 id="payment-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. مخاطر الدفع والمالية</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">في التجارة عبر الحدود للمعدات، الأموال تتحرك قبل البضائع، وهيكل تلك الحركة هو المراقب. أربع أدوات، تصاعديًا بحماية المشتري للطلب الأول:</p>
+			<table class="w-full text-sm my-5 border-collapse">
+				<thead>
+					<tr class="bg-gray-50">
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">الأداة</th>
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">ما تفعله</th>
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">أين تناسب</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-gray-200">
+					<tr><td class="px-4 py-3 font-bold text-gray-900">T/T بالمراحل</td><td class="px-4 py-3 text-gray-700">دفعة مقدمة مقابل الطلب؛ الباقي مقابل مستندات الشحن أو بعد فحص ما قبل الشحن ناجح</td><td class="px-4 py-3 text-gray-700">الشكل القابل للدفاع المعيار للموردين الموثوقين — المعتاد في السوق للدفعة المقدمة على طلبات المعدات حوالي 30%</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">خطاب ضمان عند الاطلاع (UCP 600)</td><td class="px-4 py-3 text-gray-700">البنك يدفع مقابل مستندات مطابقة؛ الضمان بين البنوك يحل محل الثقة</td><td class="px-4 py-3 text-gray-700">الطلبات الأولى الكبيرة، أو أي طلب تتجاوز فيه الدفعة المقدمة وحدتها شهيتك للمخاطر</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">عهدة المنصة</td><td class="px-4 py-3 text-gray-700">المنصة تحتجز الدفع مقابل التسليم/الفحص</td><td class="px-4 py-3 text-gray-700">الطلبات الصغيرة وشراء العينات مع طرف آخر جديد</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">تأمين ائتمان التصدير</td><td class="px-4 py-3 text-gray-700">يؤمّن الدائنية ضد تعثر المورد (China Ex&I / Sinosure في جانب التصدير؛ مأموني ائتمان محليون في جانبك)</td><td class="px-4 py-3 text-gray-700">البرامج والطلبات المتكررة بعد إثبات الطرف الآخر</td></tr>
+				</tbody>
+			</table>
+			<p class="text-gray-700 leading-relaxed mb-4">ثلاثة قواعد دفع تستحق أن تكون خطوطًا صلبة. <strong>أولًا:</strong> دفعة مقدمة 100% لا تكون قابلة للدفاع إلا مقابل طرف آخر اجتاز التحقق في القسم 3 وله سجل اتصلت به بشكل مستقل — وحتى ذلك الحين، مقابل عقد يجعل الدفعة المقدمة قابلة للاسترداد عند فشل الفحص. <strong>ثانيًا:</strong> كل حوالة تذهب إلى حساب الكيان القانوني في العقد — طلب الدفع لشركة أخرى أو حساب شخصي هو إشارة احتيال بذاته، نقطة. <strong>ثالثًا:</strong> العملة متغير مُسعّر؛ عرّف السعر واتفق في عملة واحدة معلنة، واعتبر «سعر بالدولار، دفع باليوان بسعر اليوم» موقف صرف عملات مفتوحًا قبلته للتو. التحوط من الصرف له سبب، لكن لمعظم طلبات المعدات المراقب الأبسط هو عقد بعملة واحدة.</p>
+
+			<h2 id="logistics-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. اللوجستيات والجمارك والتسليم</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Incoterm هو خريطة مخاطر الرحلة، ومعظم النزاعات في هذه العائلة هي نزاعات Incoterm في ثياب أخرى. وفق Incoterms 2020:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>EXW</strong> — أنت تتحمل من بوابة المصنع: التخليص التصديري، النقل الرئيسي، التأمين — كله عليك. أكبر تحكّم، أكبر عبء؛ مناسب إذا كان لديك سلسلة شحن خاصة في الصين.</li>
+				<li><strong>FOB</strong> — المورد يكمل التخليص التصديري والحمولة؛ المخاطر تنتقل عند الصعود على السفينة. أكثر الشروط استخدامًا للمعدات الحاوياتية؛ أنت تتحكم في السفينة والتأمين من جانبك.</li>
+				<li><strong>CIF</strong> — المورد يضيف النقل والتأمين إلى مينائك؛ المخاطر تنتقل على أي حال عند الصعود في المنشأ. تدفع مقابل ناقل لم تختره — سعّره على هذا الأساس.</li>
+				<li><strong>DDP</strong> — المورد يسلّم الرسوم مدفوعة حتى بابك: تحكّم كامل، عدم شفافية كامل. كل عنصر تكلفة داخل رقم لا تستطيع تدقيقه؛ استعمله فقط مع مورد رأيت لوجستياته تعمل فعلًا.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">حزمة المستندات هي المراقب الثاني، وتضاعف كدليل جودة: فاتورة تجارية، قائمة تعبئة، بوليصة شحن، شهادة منشأ، و<strong>تسجيلات اختبار الدفعة والوحدة مطابقة للأرقام التسلسلية في قائمة التعبئة</strong>. حزمة مستندات كاملة ومتطابقة هي في نفسها إشارة جودة — وهي ما سيحتفظ به فاحص الوجهة وفريق صيانتك عند القبول وفي السنة الخامسة. المواد المضغوطة (طفايات الحريق المحمولة) بضائع خطرة تتطلب تغليفًا وإعلانًا مطابقين؛ والمعدات المائية بضاعة عامة — والفرق يغيّر خيارات الشحن والتأمين، فصرّح به بدقة في الاستفسار كما يفصل <a href="/ar/guides/fire-extinguisher-selection-guide/" class="text-brand-blue font-semibold hover:underline">دليل اختيار طفاية الحريق</a>. أخيرًا، أدخل فحص حاوية ما قبل الشحن في نطاق الفحص: صور أرقام الأختام، تحقق عدّ قائمة التعبئة، وضع تسجيلات الاختبار في مجلد مستندات الحاوية. التكلفة بسيطة؛ إنه آخر لحظة ترى فيها البضاعة قبل أن تعبر المخاطر المحيط.</p>
+
+			<h2 id="dispute-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. النزاعات والضمان والاستمرارية</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">وظيفة العقد عبر الحدود أن تجعل أسوأ سيناريو قابلًا للإدارة. البنود التي تحمل وزنًا حقيقيًا في شراء المعدات:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>المواصفة كمرفق</strong> — المواصفة المغلقة من القسم 4 مرفق للعقد، لا مرفق لبريد إلكتروني. العقد يدمجها بالإشارة وهي التي تحكم القبول.</li>
+				<li><strong>معايير قبول مع حقوق اختبار</strong> — اختبار ضغط جسم وتسرب هواء لكل وحدة وفق المعيار المسمّى، وحقك في الفحص أو تعيين طرف ثالث قبل الشحن، والتعويض (استبدال، إعادة اختبار، رد) معرّف لكل نمط فشل.</li>
+				<li><strong>شرط حل الشهادات</strong> — وفق القسم 5: شهادة مسمّاة، موديل مسمّى، قابلة للحل لدى الجهد المصدّر، نسخة تُسلَّم قبل دفع البايي.</li>
+				<li><strong>مراحل الدفع</strong> — هيكل القسم 6 مكتوب في العقد حتى لا يُعاد تفاوضه تحت ضغط الوقت.</li>
+				<li><strong>قوة قاهرة وجدول زمني</strong> — تاريخ تسليم مع تعويض معرّف للتأخير، لا «أفضل جهد» فقط. البرامج تتأخر لأن العقود تجعل التأخير رخيصًا.</li>
+				<li><strong>القانون المنطبق والتحكيم</strong> — بند تحكيم (مقعد محايد، مؤسسة تحكيم مسمّاة) نافذ عبر الحدود وفق اتفاقية نيويورك بموثوقية أعلى بكثير من وعد بالالتزام بمحاكم الطرف الآخر. لمعظم المشترين، هذا البند وحده هو الفرق بين خسارة مستعادة ومكلفة مكلفة.</li>
+				<li><strong>الضمان وقطع الغيار</strong> — مدة الضمان معلنة موديل-بالموديل، والتزام بتوفر قطع غيار بحجم عمر المعدات. صمام لا يمكن إعادة إحكامه في السنة الثامنة يصبح استبدالًا تمنّي أن يكون المورد ما زال يصنعه.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">مخاطر الاستمرارية هي الصامتة: المورد الذي شحن حاويتك وخرج من النشاط وقت الضمان. الفحص هو أدلة القسم 3 نفسها — سنوات التسجيل، رأس المال، سجل التصدير، اتساع قاعدة العملاء — إضافة إلى هيكلية: <strong>لا تصمم أبدًا اعتمادًا على مورد وحيد لبند حرج الأمان دون مصدر مؤهل ثانٍ محفوظ.</strong> لا نطلب منك تأهيل منافس كتحوط؛ نطلب منك إبقاء المواصفة وتسجيلات الاختبار مكتملة بما يكفي لتتمكن من ذلك إذا اضطررت يومًا.</p>
+
+			<h2 id="control-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">9. قائمة المراقبات حسب المرحلة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">المراقبات من الأقسام 3–8 مرتبة حسب ترتيب التنفيذ. اطبعها وأرفقها بأمر الشراء وشطّبها — التسلسل هو الجوهر: مراقبات كل مرحلة تُلغي مخاطرًا كانت ستسعّرها أموال المرحلة التالية لولا ذلك.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">المرحلة</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">المراقبات</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">الحاجز للعبور</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">قبل التأهيل</td><td class="px-4 py-3 text-gray-700">مواصفة مغلقة كتابةً؛ 3+ عروض مماثلة-للمماثل؛ محركات التكلفة محسوبة</td><td class="px-4 py-3 text-gray-700">مرفق المواصفة جاهز؛ نطاق أسعار الأقران محدد</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">التأهيل</td><td class="px-4 py-3 text-gray-700">الكيان + نطاق ISO + جولة مصنع فيديو مباشرة + مراجع تصدير (القسم 3)</td><td class="px-4 py-3 text-gray-700">المصنع مؤكد؛ المراجع اتصل بها بشكل مستقل</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">العقد</td><td class="px-4 py-3 text-gray-700">معايير القبول، شرط الشهادة، المراحل، Incoterm، بند التحكيم (الأقسام 6–8)</td><td class="px-4 py-3 text-gray-700">عقد موقّع بمرفق المواصفة — ليس عرض سعر</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">العينة</td><td class="px-4 py-3 text-gray-700">وحدة لكل موديل: لوحة بيانات، رقم تسلسلي، شهادة مادة، فيديو اختبار (القسم 4)</td><td class="px-4 py-3 text-gray-700">العينة مقبولة مقابل المرفق؛ الشهادات محلولة لدى الجهد المصدّر</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الإنتاج</td><td class="px-4 py-3 text-gray-700">الجدول الزمني مؤكد؛ المرحلة الأولى مدفوعة؛ أدلة فيديو/صور دورية</td><td class="px-4 py-3 text-gray-700">التقدم مقابل الجدول، الاستثناءات مسجلة كتابةً</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">ما قبل الشحن</td><td class="px-4 py-3 text-gray-700">فحص من طرف ثالث يشهد الاختبار + مراجعة السجلات؛ فحص الحاوية؛ ترتيب المستندات</td><td class="px-4 py-3 text-gray-700">الفحص ناجح؛ حزمة المستندات كاملة ومتطابقة</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الدفع والشحن</td><td class="px-4 py-3 text-gray-700">الباقي يُحرر مقابل الفحص الناجح/مستندات الشحن؛ بوليصة الشحن محلولة</td><td class="px-4 py-3 text-gray-700">المخاطر انتقلت على السفينة؛ المستندات في اليد</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الوصول وما بعده</td><td class="px-4 py-3 text-gray-700">القبول في الوجهة مقابل تسجيلات الاختبار؛ السجلات إلى ملف الصيانة؛ قناة الضمان مجرّبة</td><td class="px-4 py-3 text-gray-700">القبول مسجل؛ السجلات محفوظة لعمر المعدات</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">كيف تعمل المراقبات نفسها على إنتاجنا</p>
+				<p class="text-sm text-gray-700 leading-relaxed">نحن مصنع، والاستخدام الصادق لهذا whitepaper هو أن نترك المراقبات تعمل علينا أيضًا. أدلة عملياتنا، معبّرة عما نفعله: إنتاج وفق نظام ISO 9001:2015 (الشهادة متاحة للتحقق لدى الجهد المصدّر)؛ اختبار 100% لكل وحدة لضغط الجسم وتسرب الهواء مع سجلات مطابقة لقائمة التعبئة؛ فيديو اختبار برقم تسلسلي متاح لوحدة العينة؛ شهادات موديل-بالموديل من <a href="/ar/certificates/" class="text-brand-blue font-semibold hover:underline">صفحة الشهادات</a> تُقدَّم عند الطلب؛ توثيق تصدير منسق مع الشحنة؛ والتزام بالرد خلال 12 ساعة على مواصفة كاملة. كل ادعاء في هذا الفقرة قابل للفحص بالإجراء بالضبط الذي يصفه هذا whitepaper — وهذا هو سبب نشره.</p>
+			</div>
+
+			<h2 id="red-flags" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">10. أعلام حمراء: توقف وأعد التحقق</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">عشرة إشارات توقف العملية وترجعك إلى القائمة. أي واحد منها يستحق أسبوعًا؛ اثنان أو أكثر يستحقان موردًا آخر.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">#</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">الإشارة</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">لماذا مهمة</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-black text-gray-400">1</td><td class="px-4 py-3 font-bold text-gray-900">يرفض جولة مصنع فيديو مباشرة</td><td class="px-4 py-3 text-gray-700">المصنع لا يخفي شيئًا في مصنعه؛ المكتب وحده يخفي</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">2</td><td class="px-4 py-3 font-bold text-gray-900">رقم شهادة لا يحل لدى الجهد المصدّر</td><td class="px-4 py-3 text-gray-700">التزوير مؤكد بغض النظر عن مظهر PDF</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">3</td><td class="px-4 py-3 font-bold text-gray-900">يُطلب الدفع لحساب شخصي أو كيان آخر</td><td class="px-4 py-3 text-gray-700">كيان العقد والمتلقي يجب أن يتطابقا؛ هذه إشارة احتيال بذاتها</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">4</td><td class="px-4 py-3 font-bold text-gray-900">يُطلب 100% مقدمًا للطلب الأول الكبير</td><td class="px-4 py-3 text-gray-700">يسعّر كل المخاطر المتبقية عليك دون مراقب متبقٍّ في الهيكل</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">5</td><td class="px-4 py-3 font-bold text-gray-900">عرض أدنى بكثير من نطاق الأقران دون تنازل معلَن</td><td class="px-4 py-3 text-gray-700">الخصم ممول من المادة أو سماكة الجدار أو الاختبارات — أو من دفعتك المتبقية</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">6</td><td class="px-4 py-3 font-bold text-gray-900">يرفض طلب عينة</td><td class="px-4 py-3 text-gray-700">العينة تكلف المورد قليلًا وتثبت أكثر؛ الرفض هو تصريح</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">7</td><td class="px-4 py-3 font-bold text-gray-900">يُعرض «تقرير دفعة» بدل تسجيلات اختبار لكل وحدة</td><td class="px-4 py-3 text-gray-700">وحداتك ليست «بعض الدفعة»؛ السجل المطابق بالأرقام التسلسلية هو مستند القبول</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">8</td><td class="px-4 py-3 font-bold text-gray-900">موديل لوحة البيانات لا يطابق أمر الشراء</td><td class="px-4 py-3 text-gray-700">الاستبدال حدث بالفعل؛ السؤال كم غيره مختلف</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">9</td><td class="px-4 py-3 font-bold text-gray-900">لا يستطيع بيان المعيار الذي اختُبر به كل موديل</td><td class="px-4 py-3 text-gray-700">مصنع معدات أمان يعرف معاييره؛ الغموض عمل مختلف</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">10</td><td class="px-4 py-3 font-bold text-gray-900">يقاوم حقوق الفحص أو الفحص المستقل في العقد</td><td class="px-4 py-3 text-gray-700">المصنع الذي يجتاز اختباراتاته لا يخشى شاهدًا مستقلًا عليها</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">نفّذ فحص مخاطر مباشرًا على طلبك القادم</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل مواصفاتك والمورد الذي تعمل معه وجهة الوصول: خلال 12 ساعة نمرها على قائمة هذا whitepaper — إغلاق المواصفة، حل الشهادات، هيكل الدفع، وحزمة المستندات التي يجب أن تسافر مع الشحنة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Procurement%20Risk%20Check" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20would%20like%20a%20procurement%20risk%20check%20for%20my%20order" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">راسلنا عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
