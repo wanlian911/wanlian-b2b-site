@@ -37,6 +37,10 @@ const locale = localeProp ?? localeFromPath(Astro.url.pathname);
 const langAttr = LOCALE_HREFLANG[locale];
 const dirAttr = LOCALE_DIR[locale];
 
+// WhatsApp 号码（全站唯一来源）：页头号码胶囊 / 页脚号码链接 / 悬浮按钮共用
+const whatsappPhone = '+8618684324501';
+const whatsappDisplayPhone = '+86 186 8432 4501';
+
 const siteBase = Astro.site ?? Astro.url;
 const canonical = canonicalURL ?? new URL(Astro.url.pathname, siteBase).href;
 const absoluteUrl = (value: string) => new URL(value, siteBase).href;
@@ -221,13 +225,13 @@ const breadcrumbJsonLd = breadcrumbs.length ? {
 		)}
 	</head>
 	<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
-		<Header locale={locale} />
+		<Header locale={locale} phone={whatsappPhone} displayPhone={whatsappDisplayPhone} />
 		<div class="flex-grow">
 			<slot />
 		</div>
-		<Footer locale={locale} />
-		<WhatsAppButton phone="+8618684324501" locale={locale} />
-		<FloatingLeadButton phone="+8618684324501" locale={locale} />
+		<Footer locale={locale} phone={whatsappPhone} displayPhone={whatsappDisplayPhone} />
+		<WhatsAppButton phone={whatsappPhone} displayPhone={whatsappDisplayPhone} locale={locale} />
+		<FloatingLeadButton phone={whatsappPhone} locale={locale} />
 	</body>
 </html>
 <style is:global>
