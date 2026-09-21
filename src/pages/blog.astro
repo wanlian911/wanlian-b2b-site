@@ -81,8 +81,21 @@ const solutions = [
           <h2 class="text-lg font-black text-gray-900 group-hover:text-brand-blue transition leading-snug mb-3">
             {article.title}
           </h2>
-          <p class="text-sm text-gray-500 leading-relaxed flex-grow">{article.description}</p>
-          <div class="flex flex-wrap gap-2 mt-4">
+           <p class="text-sm text-gray-500 leading-relaxed flex-grow">{article.description}</p>
+           {article.tocPreview && article.tocPreview.length > 0 && (
+             <div class="mt-4 rounded-lg border border-gray-100 bg-gray-50 px-4 py-3">
+               <p class="mb-2 text-[10px] font-black uppercase tracking-widest text-brand-red">In This Guide</p>
+               <ol class="space-y-1">
+                 {article.tocPreview.map((item, i) => (
+                   <li class="flex items-baseline gap-2 text-xs leading-snug text-gray-500">
+                     <span class="shrink-0 font-black tabular-nums text-gray-300">{String(i + 1).padStart(2, '0')}</span>
+                     <span class="font-medium">{item}</span>
+                   </li>
+                 ))}
+               </ol>
+             </div>
+           )}
+           <div class="flex flex-wrap gap-2 mt-4">
             {article.tags.map(tag => (
               <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">#{tag.replace(/-/g, ' ')}</span>
             ))}
