@@ -4,7 +4,7 @@ import { t } from '../../i18n/ui';
 
 interface Props {
   locale?: Locale;
-  phone?: string; // 国际区号格式纯数字，如 "+8618684324501"；提供后在宽屏显示 WhatsApp 号码胶囊
+  phone?: string; // 国际区号格式纯数字，如 "+8618684324501"；提供后在顶栏显示 WhatsApp 号码
   displayPhone?: string; // 展示的格式化号码，如 "+86 186 8432 4501"
 }
 
@@ -26,124 +26,253 @@ const navItems = dict.nav.map(item => ({
   ...item,
   href: safeHref(item.href, locale)
 }));
+
+const salesEmail = 'sales@wanlian911.com';
+const displayNumber = displayPhone ?? phone;
+const alibabaStoreUrl = 'https://qzwlequipment.en.alibaba.com/';
+
+const isActive = (href: string) => pathname === href || (href !== '/' && pathname.startsWith(href));
 ---
 
-<header class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-20">
-      <!-- Logo -->
-      <div class="flex-shrink-0 flex items-center">
-        <a href={safeHref('/', locale)} class="flex items-center space-x-3">
-          <img 
-            src="/favicon.svg"
-            alt="Wanlian Fluid Logo" 
-            class="h-14 w-auto object-contain"
-          />
-          <div class="hidden sm:block">
-            <div class="flex items-center gap-2">
-              <span class="text-xl font-extrabold text-gray-900 tracking-tight block">WANLIAN FLUID</span>
+<header class="sticky top-0 z-50 bg-white shadow-sm">
+  <!-- 顶部工具栏（md+）：联系方式 + Alibaba 店铺 + 语言切换，为主导航行腾出空间 -->
+  <div class="hidden md:block bg-gray-50 border-b border-gray-200/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-9">
+        <div class="flex items-center gap-5 min-w-0">
+          {waHref && (
+            <a
+              href={waHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={dict.whatsapp.tooltip}
+              aria-label={dict.whatsapp.ariaLabel}
+              class="flex items-center gap-1.5 text-xs font-semibold text-gray-600 hover:text-[#128C4A] transition whitespace-nowrap"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 text-[#25D366] shrink-0">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+              </svg>
+              <span dir="ltr">{displayNumber}</span>
+            </a>
+          )}
+          <a
+            href={`mailto:${salesEmail}`}
+            dir="ltr"
+            class="hidden lg:flex items-center gap-1.5 text-xs font-semibold text-gray-600 hover:text-brand-blue transition whitespace-nowrap"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-brand-blue/60 shrink-0">
+              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+            {salesEmail}
+          </a>
+        </div>
 
+        <div class="flex items-center gap-4">
+          <a
+            href={alibabaStoreUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-semibold text-gray-600 hover:text-brand-blue transition whitespace-nowrap"
+          >
+            {dict.header.alibabaStore}
+          </a>
+          <!-- Language Switcher -->
+          <details class="relative group">
+            <summary
+              class="flex items-center gap-1 px-2.5 py-1 border border-gray-200 bg-white rounded-full text-[11px] font-bold text-gray-700 hover:border-gray-300 transition cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden"
+              aria-label={dict.header.language}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-gray-500">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              <span>{dict.header.languageLabel[locale]}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-2.5 h-2.5 text-gray-400 transition-transform duration-200 group-open:rotate-180">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+              </svg>
+            </summary>
+            <div class="absolute end-0 mt-2 w-40 bg-white rounded-xl border border-gray-200 shadow-xl py-1.5 z-50 group-open:block hidden">
+              {switcherLocales.map(l => {
+                const active = l === locale;
+                return (
+                  <a
+                    href={localeHref[l]}
+                    lang={l}
+                    aria-current={active ? 'true' : undefined}
+                    class={`flex items-center justify-between px-3.5 py-2 text-xs transition ${
+                      active
+                        ? 'font-black text-brand-red bg-red-50/60'
+                        : 'font-semibold text-gray-700 hover:text-brand-blue hover:bg-gray-50'
+                    }`}
+                  >
+                    <span>{dict.header.languageLabel[l]}</span>
+                    {active && (
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                      </svg>
+                    )}
+                  </a>
+                );
+              })}
             </div>
-            <span class="text-xs text-gray-400 block tracking-widest uppercase">{dict.header.tagline}</span>
-          </div>
-        </a>
+          </details>
+        </div>
       </div>
+    </div>
+  </div>
 
-      <!-- Navigation -->
-      <nav class="hidden lg:flex space-x-8">
-        {navItems.map(item => {
-          const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
-          return (
+  <!-- 主导航行：Logo + 导航 + 单一 CTA，空间充裕不再挤压换行 -->
+  <div class="bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 xl:h-[72px]">
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <!-- 双行 tagline 在俄语等长文案下会撑爆 1024-1536px 视口，主行仅保留盾牌 + 品牌名 -->
+          <a href={safeHref('/', locale)} class="flex items-center space-x-2.5 xl:space-x-3">
+            <img
+              src="/favicon.svg"
+              alt="Wanlian Fluid Logo"
+              class="h-11 xl:h-12 w-auto object-contain"
+            />
+            <span class="hidden sm:block text-lg xl:text-xl font-extrabold text-gray-900 tracking-tight leading-none">WANLIAN FLUID</span>
+          </a>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="hidden lg:flex items-center gap-3 xl:gap-7" aria-label="Main navigation">
+          {navItems.map(item => (
             <a
               href={item.href}
-              class={`text-sm font-semibold tracking-wide transition duration-150 py-2 border-b-2 ${
-                isActive
+              class={`whitespace-nowrap text-xs xl:text-sm font-semibold tracking-wide transition duration-150 py-2 border-b-2 ${
+                isActive(item.href)
                   ? 'border-brand-red text-brand-red'
                   : 'border-transparent text-gray-600 hover:text-brand-blue hover:border-brand-blue/40'
               }`}
             >
               {item.name}
             </a>
-          );
-        })}
-      </nav>
+          ))}
+        </nav>
 
-      <!-- Quick Actions -->
-      <div class="flex items-center space-x-3 sm:space-x-4">
-        <!-- Language Switcher -->
-        <details class="relative group">
-          <summary
-            class="flex items-center gap-1.5 px-3.5 py-2 border border-gray-200 rounded-full text-xs font-bold text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden"
-            aria-label={dict.header.language}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-gray-500">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-            <span>{dict.header.languageLabel[locale]}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3 text-gray-400 transition-transform duration-200 group-open:rotate-180">
-              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-            </svg>
-          </summary>
-          <div class="absolute right-0 mt-2 w-44 bg-white rounded-xl border border-gray-200 shadow-xl py-1.5 z-50 group-open:block hidden">
-            {switcherLocales.map(l => {
-              const active = l === locale;
-              return (
-                <a
-                  href={localeHref[l]}
-                  lang={l}
-                  aria-current={active ? 'true' : undefined}
-                  class={`flex items-center justify-between px-4 py-2.5 text-sm transition ${
-                    active
-                      ? 'font-black text-brand-red bg-red-50/60'
-                      : 'font-semibold text-gray-700 hover:text-brand-blue hover:bg-gray-50'
-                  }`}
-                >
-                  <span>{dict.header.languageLabel[l]}</span>
-                  {active && (
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                    </svg>
-                  )}
-                </a>
-              );
-            })}
-          </div>
-        </details>
-
-        <!-- WhatsApp 号码胶囊：点击直接发起会话（仅宽屏桌面，移动端/平板由右下角悬浮按钮承担） -->
-        {waHref && (
+        <!-- Right actions -->
+        <div class="flex items-center gap-2 xl:gap-3 flex-shrink-0">
           <a
-            href={waHref}
+            href={safeHref('/contact/#inquiry', locale)}
+            class="inline-flex items-center justify-center px-4 xl:px-5 py-2 border border-transparent rounded-lg text-xs xl:text-sm font-bold text-white bg-brand-red hover:opacity-90 transition shadow-sm hover:shadow whitespace-nowrap"
+          >
+            {dict.header.inquireNow}
+          </a>
+          <button
+            id="mobileMenuBtn"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobileMenu"
+            aria-label="Menu"
+            class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-600 hover:bg-gray-100 transition"
+          >
+            <svg id="mobileMenuIconOpen" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+            <svg id="mobileMenuIconClose" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 hidden">
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 移动/平板菜单（lg 以下）：原版本缺失，补充汉堡菜单避免小屏用户找不到入口 -->
+    <div id="mobileMenu" class="hidden lg:hidden border-t border-gray-100 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+        <nav class="flex flex-col" aria-label="Mobile navigation">
+          {navItems.map(item => (
+            <a
+              href={item.href}
+              class={`-mx-2 px-2 py-2.5 rounded-lg text-sm font-semibold transition ${
+                isActive(item.href)
+                  ? 'text-brand-red bg-red-50/60'
+                  : 'text-gray-700 hover:text-brand-blue hover:bg-gray-50'
+              }`}
+            >
+              {item.name}
+            </a>
+          ))}
+        </nav>
+        <div class="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-3 text-sm">
+          {waHref && (
+            <a
+              href={waHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-2 font-semibold text-gray-700 hover:text-[#128C4A] transition"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-[#25D366] shrink-0">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+              </svg>
+              <span dir="ltr">{displayNumber}</span>
+            </a>
+          )}
+          <a
+            href={`mailto:${salesEmail}`}
+            dir="ltr"
+            class="flex items-center gap-2 font-semibold text-gray-700 hover:text-brand-blue transition"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-brand-blue/60 shrink-0">
+              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+            {salesEmail}
+          </a>
+          <a
+            href={alibabaStoreUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="hidden xl:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#25D366]/10 border border-[#25D366]/30 text-xs font-bold text-[#128C4A] hover:bg-[#25D366]/20 transition"
-            aria-label={dict.whatsapp.ariaLabel}
-            title={dict.whatsapp.tooltip}
+            class="font-semibold text-gray-700 hover:text-brand-blue transition"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-[#25D366] shrink-0">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg>
-            <span dir="ltr">{displayPhone ?? phone}</span>
+            {dict.header.alibabaStore}
           </a>
-        )}
-
-        <a 
-          href="https://qzwlequipment.en.alibaba.com/" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="hidden sm:inline-flex items-center px-4 py-2 border border-gray-200 rounded-lg text-xs font-bold text-gray-700 hover:bg-gray-50 transition"
-        >
-          {dict.header.alibabaStore}
-        </a>
-        <a
-          href={safeHref('/contact/#inquiry', locale)}
-          class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent rounded-lg text-sm font-bold text-white bg-brand-red hover:opacity-90 transition shadow-sm hover:shadow"
-        >
-          {dict.header.inquireNow}
-        </a>
+        </div>
+        <div class="mt-4 pt-4 border-t border-gray-100 flex flex-wrap gap-2">
+          {switcherLocales.map(l => {
+            const active = l === locale;
+            return (
+              <a
+                href={localeHref[l]}
+                lang={l}
+                aria-current={active ? 'true' : undefined}
+                class={`px-3 py-1.5 rounded-full border text-xs font-bold transition ${
+                  active
+                    ? 'border-brand-red text-brand-red bg-red-50/60'
+                    : 'border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
+                }`}
+              >
+                {dict.header.languageLabel[l]}
+              </a>
+            );
+          })}
+        </div>
       </div>
     </div>
   </div>
+
+  <script>
+    const btn = document.getElementById('mobileMenuBtn');
+    const menu = document.getElementById('mobileMenu');
+    const iconOpen = document.getElementById('mobileMenuIconOpen');
+    const iconClose = document.getElementById('mobileMenuIconClose');
+    if (btn && menu && iconOpen && iconClose) {
+      btn.addEventListener('click', () => {
+        const open = !menu.classList.contains('hidden');
+        menu.classList.toggle('hidden', open);
+        btn.setAttribute('aria-expanded', String(!open));
+        iconOpen.classList.toggle('hidden', !open);
+        iconClose.classList.toggle('hidden', open);
+      });
+    }
+  </script>
 </header>
