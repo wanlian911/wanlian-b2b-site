@@ -1,0 +1,189 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'tupy-overview', label: '1. Tupy: من هم فعليًا' },
+	{ id: 'wanlian-overview', label: '2. Wanlian Fluid: من نحن فعليًا' },
+	{ id: 'product-lines-compared', label: '3. كيف تُقارن خطوط منتجاتهما؟' },
+	{ id: 'valves-deep-dive', label: '4. صمامات الحديد المرن والبرونز: التداخل الحقيقي' },
+	{ id: 'geography-and-service', label: '5. الجغرافيا والمعايير وبصمة الخدمة' },
+	{ id: 'where-each-wins', label: '6. أين يتفوق كل مصنع؟' },
+	{ id: 'which-should-you-choose', label: '7. أيهما تختار؟' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' },
+	{ id: 'sources', label: 'المصادر' }
+];
+
+const faq = [
+	{
+		question: 'هل Wanlian Fluid وTupy شركتان مرتبطتان؟',
+		answer: 'لا. Tupy مجموعة صناعية برازيلية تأسست عام 1938 في Joinville بولاية Santa Catarina، ومصانعها في أنحاء البرازيل، وتركز على أنابيب الحديد المرن والاتصالات والصمامات للمياه والصناعة. وWanlian Fluid هي Quanzhou Wanlian Fluid Equipment Co., Ltd، مصنّع ومصدّر صيني لمعدات الحماية من الحريق والتحكم بالموائع. هما شركتان مستقلتان لا يتداخل نشاطهما إلا في شريحة ضيقة من صمامات المياه.'
+	},
+	{
+		question: 'أين يتنافس Tupy وWanlian Fluid فعليًا؟',
+		answer: 'التداخل المباشر في صمامات خدمة المياه: صمامات TupyValves البرونزية (EN 12420، PN25/30/40) ونطاق صمامات الحديد المرن لدى Tupy مقابل صمامات البوابة والفراشة والرجوع والتحكم الهيدروليكي لدى Wanlian (فئات PN10-PN25 وفئات ANSI). خارج تلك الشريحة تكاد الكتالوجات لا تلتقي — Tupy قوية في أنابيب واتصالات الحديد المرن، بينما Wanlian قوية في معدات الحماية من الحريق المتخصصة: الخلاطات، صمامات الإنذار، مران الحريق والطفايات.'
+	},
+	{
+		question: 'هل يمكن لـTupy توريد خلاطات الحريق وصمامات الإنذار؟',
+		answer: 'النطاق المنشور لدى Tupy يركّز على أنابيب واتصالات الحديد المرن والصمامات البرونزية لخدمة المياه والهواء المضغوط والزيوت. أما بنود الحماية من الحريق المتخصصة — خلاطات البرميل الجاف، خلاطات مقاومة الاصطدام، مجموعات صمامات الإنذار الرطبة، اتصالات سويدي، مران حريق مبطن بالمطاط — فهي الخطوط الأساسية لدى Wanlian. لنطاق حريق كامل، فميزة المورّد الواحد بيد المتخصص في الحريق.'
+	},
+	{
+		question: 'أي الخيارين أفضل لمشروع بلدي في البرازيل أو أمريكا اللاتينية؟',
+		answer: 'إذا كان النطاق أنابيب الحديد المرن وصمامات المياه مع خدمة محلية في البرازيل، فالبصمة الإقليمية لـTupy هي الأنسب. أما إذا كان النطاق جانب الحماية من الحريق في المشروع — الخلاطات، صمامات العزل، المران وقواعد الوصلات — فتُشحن Wanlian Fluid حزمة الحريق الكاملة بطلب شراء واحد مع مطابقة نمط وصلات المخرجات لأسطول الإطفاء لديك، بإعدادات متوافقة مع AWWA أو NOM أو ABNT حسب النموذج.'
+	},
+	{
+		question: 'هل يمكن الجمع بين الشركتين في مشروع واحد؟',
+		answer: 'نعم — كثير من مشاريع البنية التحتية في أمريكا اللاتينية يجمع بين مورّد إقليمي لأنابيب والصمامات ومتخصص تصدير لنطاق الحريق. ومخاطر التنسيق في الواجهات: اتفقوا على معايير الفلنجات وأنماط وصلات المخرجات وتوثيق الاختبار عبر كلا طلبي الشراء قبل إصدارهما — وهذا تحديدًا ما تغطيه تسلسل التحقق في دليل التوريد لدينا.'
+	}
+];
+
+const productRows = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'خلاط حريق سطحي مضاد للتجمد (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'خلاط برميل جاف مضاد للتجمد لشبكات الحريق البلدية' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'صمام بوابة بفلنجة بمقعد مرن (Z41X)', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'صمام عزل DN50-DN700 لشبكات المياه والحريق' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'مران حريق مسطح مبطن بالمطاط (8-65)', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'مران لأسطول البلديات مع أنماط وصلات مطابقة' }
+];
+---
+
+<Layout
+	title="Wanlian Fluid مقابل Tupy: معدات الحريق وصمامات الحديد المرن (2026)"
+	description="مقارنة Wanlian Fluid مقابل Tupy لعام 2026: صمامات الحديد المرن وخلاطات الحريق وصمامات الإنذار والمران — أيهما يناسب مشروع المياه والحريق في أمريكا اللاتينية؟"
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'الأدلة', href: '/ar/blog/' }, { name: 'Wanlian مقابل Tupy' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">مقارنة موردين</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل مقارنة موردين · أمريكا اللاتينية</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Wanlian Fluid مقابل Tupy: معدات الحريق وصمامات الحديد المرن لمشاريع أمريكا اللاتينية (2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Tupy هو الاسم الذي تلجأ إليه معظم شركات المياه البرازيلية عندما يكون النطاق أنابيب الحديد المرن والاتصالات والصمامات البرونزية — مجموعة صناعية إقليمية تأسست عام 1938 ومصانعها في أنحاء البرازيل. أما Wanlian Fluid فهي مصنّع صيني للحماية من الحريق والتحكم بالموائع، لا يتنافس إلا في شريحة الصمامات، ويملك جانب الحريق من النطاق: الخلاطات، صمامات الإنذار، المران، الطفايات. إذا كان مشروعك يجمع بين بنية المياه وبنية الحريق، فالقرار ليس «Tupy أم Wanlian» بقدر ما هو «أي خط نطاق يتكمله كل طرف» — وهذا الدليل يرسم ذلك انطلاقًا مما تنشره كل شركة فعليًا.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">ملاحظة الأدلة:</strong> حقائق الشركات أدناه مأخوذة من المواد المنشورة لكل شركة (التاريخ المؤسسي لـTupy وصفحات منتجات TupyValves؛ وبيانات منتجات Wanlian وممارسات الاختبار وصفحات الشهادات). حيث لا يتداخل النطاقان، يصرّح هذا الدليل بذلك بوضوح — فالإجابة الصادقة لمعظم هذه المقارنة هي «وظائف مختلفة».</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="tupy-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Tupy: من هم فعليًا</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Tupy تأسست عام 1938 على يد مهاجرين ألمان؛ المصنع الأول في Joinville (ولاية Santa Catarina، البرازيل)، مع مصانع إضافية في São Paulo وولايات برازيلية أخرى. على مدى العقود نمت لتصبح مجموعة صناعية متكاملة، وجانب الموائع من نشاطها — نطاق صمامات/اتصالات Tupy — مبني على الحديد المرن: قضبان الحديد المصبوب المستمر والأنابيب والاتصالات، إلى جانب عائلة صمامات برونزية.</p>
+			<p class="text-gray-700 leading-relaxed">النطاق المنشور لـTupyValves هو صمامات برونزية وفق EN 12420 (CW1617N)، مصنوعة حسب ABNT NBR 14788 وEN 13828، بضغوط خدمة PN25 أو PN30 أو PN40، بأطراف مسنّنة حسب ABNT NBR-8133 وISO 228، مع مقاعد كروية فولاذية مطلية بالكروم بطلاء PTFE وتشطيب بطلاء النيكل. التطبيقات المذكورة: المياه والهواء المضغوط والزيوت وخدمة الهيدروليك عبر الصناعة والبناء المدني والصرف الصحي. تنشر Tupy أيضًا أدوات هندسية (TupyCAD مع تدفق عروض أسعار مدمج وكتالوجات إلكترونية) موجّهة لمهندسي التخصيص. الخط الناظم: Tupy مورّد بنية تحتية إقليمي، أقوى ما يكون عندما يكون المشروع برازيليًا، والمعيار ABNT، والحضور المحلي مهمًا.</p>
+
+			<h2 id="wanlian-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Wanlian Fluid: من نحن فعليًا</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Quanzhou Wanlian Fluid Equipment Co., Ltd مصنّع ومصدّر صيني مقره Quanzhou بمقاطعة Fujian — التجمّع الأساسي لصناعة الصمامات في الصين. الإنتاج يجري على خطوطه الخاصة ضمن نظام إدارة جودة ISO 9001، مع تصنيع بنود محددة لدى شركاء تصنيع مؤهلين، ويُصرّح بذلك بوضوح حسب كل طلب. كل وحدة تُختبر بضغط الغلاف وسرّب الهواء قبل الشحن، مع سجلات لكل وحدة.</p>
+			<p class="text-gray-700 leading-relaxed">النطاق المنشور يمتد على ستة خطوط و45 نموذجًا: خلاطات الحريق واتصالات المضخات (<a href="/ar/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">خلاط SS100/65 السطحي المضاد للتجمد</a>، ومقاوم الاصطدام SSFT100، وذكي IoT SS100ZN، وتحت الأرض SA، ورؤوس داخلية SN65، وسويدي SQD100)؛ صمامات الرش والإنذار (ZSFZ رطب، ZSFC جاف، ZSFM رش شامل، ZSFY فعل مسبق، رؤوس، مؤشرات تدفق)؛ صمامات الحماية من الحريق والصناعية (بوابة بمقعد مرن، بوابة متلسكوبية، OS&Y، فراشة، رجوع، حاجب شوائب، موازنة رقمية)؛ صمامات التحكم الهيدروليكي (500X، 100X، F745X، HS41X، ومانع دوامة السحب EN 12845)؛ منظورات الحريق (يدوية PS، ذاتية التتبع ZDMS)؛ وملحقات الإطفاء (مران حريق مبطن بالمطاط، وصلات Storz وHS، بكرات، طفايات وخزائن). يكمل ذلك OEM/ODM، واستجابة عروض أسعار خلال 12 ساعة، والموقع كاملًا بخمس لغات (EN/ES/RU/FR/AR).</p>
+
+			<h2 id="product-lines-compared" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. كيف تُقارن خطوط منتجاتهما؟</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">سطر النطاق</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">Tupy</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">Wanlian Fluid</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">أنابيب واتصالات الحديد المرن</td><td class="px-4 py-3 text-gray-700">نشاط أساسي (قضبان حديد مصبوب مستمر، أنابيب، اتصالات)</td><td class="px-4 py-3 text-gray-700">غير متوفر</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">صمامات برونزية (PN25-40)</td><td class="px-4 py-3 text-gray-700">TupyValves، EN 12420، ABNT NBR 14788 / EN 13828</td><td class="px-4 py-3 text-gray-700">نطاق برونزي صغير (مثل Z15W-16T برونز مصبوب ANSI)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">صمامات بوابة/فراشة/رجوع حديدية</td><td class="px-4 py-3 text-gray-700">نطاق خدمة مياه للتوزيع</td><td class="px-4 py-3 text-gray-700">نطاق كامل يتضمن Z41X بمقعد مرن، Z41X-T متلسكوبية، OS&Y، D71X، HQ44X — DN50-DN700</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">خلاطات الحريق</td><td class="px-4 py-3 text-gray-700">ليست خطًا أساسيًا منشورًا</td><td class="px-4 py-3 text-gray-700">خط أساسي: برميل جاف/رطب، مقاومة اصطدام، ذكية IoT، رؤوس داخلية، سويدي</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">صمامات الرش والإنذار</td><td class="px-4 py-3 text-gray-700">غير مدرجة في النطاق المنشور</td><td class="px-4 py-3 text-gray-700">خط أساسي: مجموعات ZSFZ/ZSFC/ZSFM/ZSFY، رؤوس، مؤشرات تدفق</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">مران حريق، وصلات، طفايات</td><td class="px-4 py-3 text-gray-700">غير مدرج في النطاق المنشور</td><td class="px-4 py-3 text-gray-700">خط أساسي: مران مبطن بالمطاط، وصلات Storz/HS، بكرات، خزائن، طفايات ABC</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">تحكم هيدروليكي (PRV، مستوى، ارتداد)</td><td class="px-4 py-3 text-gray-700">ليست خطًا مميزًا</td><td class="px-4 py-3 text-gray-700">خط أساسي: 500X، 100X، F745X، HS41X، مانع EN 12845</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الجغرافيا النموذجية</td><td class="px-4 py-3 text-gray-700">البرازيل وأمريكا اللاتينية (بصمة إقليمية)</td><td class="px-4 py-3 text-gray-700">تصدير عالمي (آسيا، أمريكا اللاتينية، MEA، أوروبا، الأمريكيتان)</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">اقرأ الجدول فتظهر طبيعة المنافسة: قطاع مشترك واحد (صمامات المياه الحديدية/البرونزية) وكل ما عداه يفصله نطاق العمل.</p>
+
+			<h2 id="valves-deep-dive" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. صمامات الحديد المرن والبرونز: التداخل الحقيقي</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">هذا هو السطر الوحيد الذي يمكن للمشترين فيه فعليًا وضع عرضي السعر جنبًا إلى جنب. صمامات Tupy البرونزية تعمل بـPN25–PN40 وفق EN 12420 بأطراف مسنّنة — بمقاسات خدمة المباني والتوزيع في بيئة المعايير البرازيلية. أما نطاق صمامات Wanlian الحديدية فأوسع مقاسًا (<a href="/ar/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X</a> يصل إلى DN700 عند PN10/PN16 بمقربة مغلفة بالكامل بـEPDM وقابلة لإعادة الإحكام على الخط) ويغطي جانب الحريق والهيدروليك أيضًا: صمامات تحكم OS&Y لرئيسيات الرش، وصمامات رجوع، وتخفيض ضغط، والتحكم بالمستوى.</p>
+			<p class="text-gray-700 leading-relaxed">متغيرات الحسم في القطاع المشترك: <strong>المعيار المطبق في العطاء</strong> (ABNT مقابل AWWA مقابل EN — يحدد لكل نموذج)، <strong>فئة الضغط المطلوبة</strong> (برونز Tupy بـPN25-40 يغطي خدمة مبانٍ بضغط أعلى؛ ونطاق Wanlian الحديدية PN10-PN16 قياسي مع فئات أعلى حسب النموذج)، و<strong>اقتصاديات التسليم</strong> (مصنع إقليمي بمخزون محلي مقابل عرض سعر تصدير — يشمل الشحن وIncoterm). لمقارنة مماثلة بنظيرتها، أرسل إلى الطرفين النموذج والمعيار والكمية وIncoterm نفسها، وقارن عروض أسعار مفصلة البنود فقط.</p>
+
+			<h2 id="geography-and-service" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. الجغرافيا والمعايير وبصمة الخدمة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">ميزة Tupy ملموسة: مصانع في البرازيل، وقاعدة توريد مبنية حول السوق الإقليمي، وسلسلة أدوات هندسية وعروض أسعار موجّهة لممارسة التخصيص المحلية. لشركة مياه في São Paulo أو Joinville، Tupy على بعد دقائق لا شهور في قطع الغيار والدعم. أما بصمة Wanlian Fluid فمحركها التصدير: إنتاج من Quanzhou، عروض أسعار خلال 12 ساعة، سجلات اختبار لكل وحدة مع كل شحنة، علامات تجارية OEM/ODM، ووثائق بخمس لغات. البصمتان تجيبان عن سؤالين مختلفين — «من في الجوار» مقابل «من يمكنه شحن النطاق الكامل» — ولا عيب في أيتهما.</p>
+			<p class="text-gray-700 leading-relaxed">في المعايير: تنشر Tupy امتثال ABNT NBR 14788 / EN 13828 لنطاقها البرونزي؛ وتصنع Wanlian حسب GB وAWWA وISO 5208 وEN والأنظمة الإقليمية كما يُحدد لكل نموذج — <a href="/ar/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">دليل المعايير</a> هو المرجع لكيفية التحقق من كل ادعاء مقابل تقرير اختبار قبل تحرك الأموال، و<a href="/ar/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">دليل اعتمادات أمريكا اللاتينية</a> يرسم مشهد NOM/ABNT/UL لمعدات الحريق تحديدًا.</p>
+
+			<h2 id="where-each-wins" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. أين يتفوق كل مصنع؟</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-5">
+				<div class="bg-gray-50 border border-gray-100 rounded-xl p-6">
+					<p class="font-black text-gray-900 text-sm mb-3 uppercase tracking-wider">يتفوق Tupy عندما…</p>
+					<ul class="list-disc ps-5 text-sm text-gray-700 space-y-2">
+						<li>النطاق أنابيب واتصالات الحديد المرن وصمامات خدمة مياه لشركة مياه برازيلية</li>
+						<li>صمامات برونزية بمعيار ABNT عند PN25-40 مع مخزون إقليمي وخدمة محلية</li>
+						<li>القرب والاستجابة داخل البرازيل والشروط التجارية المحلية أهم من سعر الوحدة</li>
+						<li>يحتاج المشروع أدوات TupyCAD/الكتالوج في سير التخصيص</li>
+					</ul>
+				</div>
+				<div class="bg-gray-50 border border-gray-100 rounded-xl p-6">
+					<p class="font-black text-gray-900 text-sm mb-3 uppercase tracking-wider">يتفوق Wanlian Fluid عندما…</p>
+					<ul class="list-disc ps-5 text-sm text-gray-700 space-y-2">
+						<li>يشمل النطاق جانب الحريق: خلاطات، صمامات إنذار، مران، وصلات، طفايات</li>
+						<li>يجب أن يغطي طلب شراء واحد صمامات + خلاطات + مران بأنماط مخرجات متطابقة</li>
+						<li>وجهة الشحن خارج البرازيل، أو العطاء مبني على AWWA/EN/GB</li>
+						<li>علامة OEM/ODM، أو خلاطات ذكية IoT، أو صمامات تحكم هيدروليكي في قائمة BOM</li>
+					</ul>
+				</div>
+			</div>
+
+			<h2 id="which-should-you-choose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. أيهما تختار؟</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">باختصار: <strong>Tupy لقطاع البنية التحتية للمياه في البرازيل؛ وWanlian Fluid لقطاع الحريق ولأنحاء التصدير التي تتقاطع معه.</strong> شركة مياه تعيد بناء شبكة توزيع في جنوب البرازيل تخدمها أفضل خدمة شركة الحديد المرن الإقليمية. والمقاول المنفّذ لنطاق حماية حريق — أو حزمة مياه وحريق بلدية مجمعة لأي دولة في أمريكا اللاتينية — تخدمه أفضل خدمة المتخصص في الحريق القادر على شحن الخلاطات والصمامات والمران بمجموعة سجلات اختبار واحدة منسقة. وعندما يحتاج مشروع واحد إلى الطرفين، فالخطوة الاحترافية ليست إجبار مورّد واحد على نطاق لا ينشره — بل تعريف الواجهة (الفلنجات، أنماط الوصلات، المعايير، توثيق الاختبار) كتابيًا قبل إصدار أي طلب شراء.</p>
+			<p class="text-gray-700 leading-relaxed">مهما اخترت، تحقق قبل الالتزام: نطاق ISO 9001، شهادات كل نموذج، سجلات اختبار الدفعة، وحدة عينة، وفحص من طرف ثالث. التسلسل الكامل في <a href="/ar/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">دليل التحقق من المورّد</a>.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">المصادر</h2>
+			<ul class="list-disc ps-6 text-sm text-gray-600 space-y-2 mb-4">
+				<li>التاريخ المؤسسي لـTupy وصفحات المنتجات — tupy.com.br (التأسيس 1938، Joinville/SC؛ TupyValves: EN 12420، ABNT NBR 14788 / EN 13828، PN25/30/40، التطبيقات)</li>
+				<li>بيانات منتجات Wanlian Fluid وصفحة التعريف وصفحة الشهادات — wanlian911.com (النطاق، ممارسة الاختبار، صياغة الاعتماد لكل نموذج)</li>
+				<li>مراجع المعايير: AWWA C502/C515، EN 14384، EN 1074/12266-1، ABNT NBR 14788، ISO 5208 حسب ما ينطبق على وجهة الشحن</li>
+			</ul>
+			<p class="text-xs text-gray-500 mb-4">تعكس حقائق الشركات المواد المنشورة لكل شركة حتى سبتمبر 2026. نطاقات كلا المصنّعين تتغير — تأكد من الكتالوج الحالي قبل التخصيص النهائي. هذه المقارنة لأغراض تخطيط التوريد وليست ترشيحًا لأي من الشركتين.</p>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">اطلب تسعير جانب الحريق من نطاقك اليوم</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل بنود الخلاطات والصمامات والمران في قوائمك مع معيار وجهة الشحن — ونُعيد إليك عرض سعر مفصل البنود مع توثيق كل نموذج خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Tupy%20Comparison%20%26%20LatAm%20Project" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%C5%D9%B1%D9%87%D9%84%D9%88%D9%85%2C%20%D9%82%D9%8A%D9%85%20%D8%A8%D9%85%D9%82%D8%A7%D8%B1%D9%86%D8%A9%20%D9%85%D9%88%D8%B1%D8%AF%D9%8A%D9%86%20%D9%84%D9%85%D8%B4%D8%B1%D9%88%D8%B9%20%D9%85%D9%8A%D8%A7%D9%87%2F%D8%AD%D8%B1%D9%8A%D9%82%20%D9%81%D9%8A%20%D8%A3%D9%85%D8%B1%D9%8A%D9%83%D8%A7%20%D8%A7%D9%84%D9%84%D8%A7%D8%AA%D9%8A%D9%86%D9%8A%D8%A9%20(%D8%A7%D9%86%D8%B8%D8%B1%20%D8%AF%D9%84%D9%8A%D9%84%D9%83%D9%85%20%D8%A7%D9%84%D9%85%D9%82%D8%A7%D8%B1%D9%86%20%D9%85%D8%B9%20Tupy)" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">تحدث عبر WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

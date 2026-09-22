@@ -1,0 +1,203 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'forede-overview', label: '1. Forede: من هم فعليًا' },
+	{ id: 'wanlian-overview', label: '2. Wanlian Fluid: من نحن فعليًا' },
+	{ id: 'product-lines-compared', label: '3. كيف تُقارَن خطوط منتجاتهما؟' },
+	{ id: 'monitors-deep-dive', label: '4. منظورات الحريق: المواجهة المباشرة' },
+	{ id: 'quality-and-certifications', label: '5. أنظمة الجودة والشهادات' },
+	{ id: 'where-each-wins', label: '6. أين يتفوق كل مصنع؟' },
+	{ id: 'which-should-you-choose', label: '7. أيهما تختار؟' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' },
+	{ id: 'sources', label: 'المصادر' }
+];
+
+const faq = [
+	{
+		question: 'هل Wanlian Fluid وForede شركتان مرتبطتان؟',
+		answer: 'لا. هما مصنّعان مستقلان في تجمع معدات الحريق الحضري ذاته في Quanzhou. Forede هي Quanzhou Forede Firefighting Equipment Co., Ltd، تأسست 2003، ولديها قواعد إنتاج في مدينة Nan\'an بمقاطعة Fujian وSanduo Industry Park بمقاطعة Jiangsu. وWanlian Fluid هي Quanzhou Wanlian Fluid Equipment Co., Ltd، ومقرها Quanzhou. نفس المنطقة، ونفس سلسلة التوريد، ومصانع مختلفة — تحقق من هوية الشركة التي تصنّع طلبك وتُشحنه فعليًا.'
+	},
+	{
+		question: 'أي المصنّعين يملك كتالوجًا أعمق لمنظورات الحريق ومدافع المياه؟',
+		answer: 'Forede تنشر كتالوجًا أعمق بكثير للمنهظورات — فئة منظورات الحريق وحدها تمتد على 92 صفحة، تغطي المنظورات الثابتة اليدوية، والثابتة عن بُعد، والمحمولة، والذاتية، المثبتة على الخلاط، المركبة على المقطورة، والمرتفعة، إلى جانب خط منفصل لمدافع المياه لشاحنات الإطفاء (يدوية، كهربائية، هوائية، هيدروليكية) ومفاصل خطوط اليد/القابلة للاختيار. وWanlian Fluid تركّز خطّها على مدفع كبت النافور الذاتي التتبع من سلسلة ZDMS (كشف اللهب، تحديد الموقع الذاتي) وسلسلة PS اليدوية. عمق الكتالوج يميل لـForede؛ بينما أتمتة تتبّع اللهب كمنتج أساسي تميل لـWanlian.'
+	},
+	{
+		question: 'هل توفّر Forede منتجات مسجلة لدى FM أو UL؟',
+		answer: 'Forede تنشر فئة مخصصة «معدات UL / FM» — صمامات فحص إنذار FM، وكاشفات تدفق مياه UL FM، ورؤوس رشاشات مسجلة لدى FM. وكأي مورد يدّعي السجلات، اطلب شهادة التسجيل الحالية للنموذج الدقيق قبل مواصفته. وWanlian Fluid لا تحتفظ بسجلات FM أو UL ولا تدّعيها؛ أما للنماذج المصممة وفق تلك المواصفات، فتُؤكَّد المستندات لكل نموذج عند التسعير.'
+	},
+	{
+		question: 'من هو الخيار الأفضل لأنظمة الرغوة؟',
+		answer: 'لرغوة من الطرف إلى الطرف — خزانات المثانة، صانعات الرغوة، المحفّظات (inductors)، أنابيب التفرع، ومركّز الرغوة AFFF — فإن Forede هي الخيار المنشور الأكثر اكتمالًا، بما في ذلك المركّز نفسه. أما Wanlian Fluid فتغطي جانب خلاطات الحريق من تطبيقات الرغوة عبر خزانة خلاط الحريق الرغوي PSG30 وأنظمة الإنذار مسبقة الفعل للسيول (ZSFY)، مع ترتيب معدات تخليط الرغوة حسب المشروع. إذا كان توريد مركّز الرغوة ضمن النطاق، فإن Forede هي المصدر المباشر؛ أما إذا كان نطاقك خلاطات ومنظورات وصمامات إنذار مع الرغوة كالبند الثانوي، فيكفي أي منهما.'
+	},
+	{
+		question: 'هل يمكن للمصنّعين كلاهما تنفيذ OEM / علامة خاصة؟',
+		answer: 'نعم — كلاهما يقبل OEM/ODM صراحةً. الفرق هو ما تحصل عليه حول المنتج: Wanlian Fluid تشحن مع موقع تقني بخمس لغات (EN/ES/RU/FR/AR) وأصول علامة محلية، وهو ما يهم إذا كنت تبني علامة توزيع في أسواق تتحدث الإسبانية أو الروسية أو الفرنسية أو العربية. أما الموقع المنشور لـForede فهو بالإنجليزية فقط.'
+	},
+	{
+		question: 'كيف أتحقق من الجودة قبل إصدار طلب جملة مع أي من المصنعين؟',
+		answer: 'اطلب من الطرفين: شهادة ISO 9001 ونطاقها، تقارير اختبار لكل نموذج مطابقة لمعيار وجهة الشحن، شهادات تسجيل FM/UL حيثما زُعمت، سجلات اختبار الضغط والتسريب لكل وحدة، خيارات فحص من طرف ثالث (SGS/BV/TÜV)، ومراجع إقليمية. ثم نفّذ طلبًا تجريبيًا قبل التزام حجم كبير. المنهج خطوة بخطوة في دليل التحقق من المورّد الصيني لدينا.'
+	}
+];
+
+const productRows = [
+	{ slug: 'auto-tracking-jet-suppression-cannon-zdms', name: 'مدفع كبت نافوري ذاتي التتبع (سلسلة ZDMS)', img: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp', desc: 'مدفع مائي ذاتي التتبع بكشف اللهب لمزارع الخزانات والمناطق المكشوفة' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'خلاط حريق سطحي مضاد للتجمد (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'خلاط برميل جاف سطحي مضاد للتجمد لشبكات الحريق البلدية' },
+	{ slug: 'abc-dry-powder-fire-extinguisher-5kg', name: 'طفاية حريق بودرة جافة ABC (5 كجم)', img: '/assets/products/abc-dry-powder-fire-extinguisher-5kg.jpg', desc: 'طفايات محمولة بملصق مخصص وعلامة OEM' }
+];
+---
+
+<Layout
+	title="Wanlian Fluid ضد Forede: اختيار مصنّع منظورات ومعدات الحريق الصيني (2026)"
+	description="مقارنة Wanlian Fluid وForede لعام 2026: منظورات الحريق، مدافع المياه، أنظمة الرغوة، خلاطات الحريق، صمامات الإنذار والتحكم الهيدروليكي — أي مصنّع معدات حريق صيني يناسب مشروعك؟"
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'الأدلة', href: '/ar/blog/' }, { name: 'Wanlian مقابل Forede' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">مقارنة موردين</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل مقارنة موردين · منظورات الحريق</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Wanlian Fluid ضد Forede: اختيار مصنّع منظورات ومعدات الحريق الصيني (2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">إذا كان مشروعك مركزي شاحنات الإطفاء — مدافع مركبة على الشاحنة، اتصالات سويدي، أنابيب رأسية، مفاصل خطوط اليد — أو يحتاج معدات رغوة من الطرف إلى الطرف بما في ذلك مركّز AFFF، فإن كتالوج Forede هو الأعمق. أما إذا كان المركز <strong>مدفع مائي ذاتي التتبع للهب</strong> لمزارع الخزانات والمحطات، أو تحتاج خلاطات حريق ذكية IoT، وصمامات تحكم مستوى مياه هيدروليكية، وخزائن طفايات، وطفايات بودرة ABC بموجب أمر شراء واحد، فإن Wanlian Fluid هي الشريك الأكثر مباشرة. كلاهما مصنّع حقيقي في تجمع Quanzhou الحضري ذاته؛ وهذه المقارنة مبنية على ما ينشره كل طرف فعليًا، مع الإشارة الصريحة إلى الفروق.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">ملاحظة الأدلة:</strong> في مراقبة بحث الذكاء الاصطناعي الخاصة بنا في سبتمبر 2026 لثلاثين سؤال توريد حقيقيًا (ChatGPT، الولايات المتحدة)، كانت Forede أكثر موقع مصنع صيني اقتباسًا في العينة — اقتُبت forede.com ثلاث مرات، وظهرت العلامة في 2 من 30 إجابة (6.7%)، بينما اقتُبت Wanlian Fluid مرة واحدة. لقد بنَت Forede حضورًا أكبر لدى الأطراف الثالثة ومقابل الذكاء الاصطناعي منا بوضوح. وهذا بالضبط سبب كتابة هذه المقارنة لمساعدتك على القرار وفق ملاءمة المنتج والتحقق، لا وفق حجم العلامة.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="forede-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Forede: من هم فعليًا</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تأسست Quanzhou Forede Firefighting Equipment Co., Ltd (forede®) عام 2003، وتصف نفسها كصانع وموزّع رائد لمعدات مكافحة الحريق في مدينة Nan\'an بمقاطعة Fujian، مع قاعدة إنتاج ثانية في Sanduo Industry Park بمقاطعة Jiangsu أُنشئت عام 2013. خطّها الزمني يقول إنها بدأت كمصنع صغير يصنع الرشاشات فقط، ثم توسعت إلى منظورات الحريق والمدافع (من 2008)، وأنظمة الرغوة (من 2012)، ونطاقًا متعدد الفئات كاملًا بحلول 2019 حين حصلت على شهادة ISO 9001:2015. لعام 2024 تقرر اتجاهًا بحثيًا وتنمويًا نحو تحكم ذكي في مكافحة الحريق مبني على الذكاء الاصطناعي، إلى جانب المشاركة في صياغة المعايير الدولية، وتقول إنها أنشأت قواعد إنتاج محلية في بعض الدول.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">النطاق المنشور واسع: أنظمة رشاشات الحريق (رش قياسي، تخزين، تغطية موسعة، جاف، مخفي)، مفاصل الحريق ومنظورات الحريق (ثمانية فئات منظورات إلى جانب خط منفصل لمدافع المياه لشاحنات الإطفاء بنسخ يدوية وكهربائية وهوائية وهيدروليكية)، معدات الرغوة ومركّز الرغوة (خزانات المثانة، صانعات الرغوة، المحفّظات، أنابيب التفرع، AFFF)، أنظمة خلاطات الحريق (خلاطات، بكرات مران، منافذ التزود، خزائن حريق، وصلات)، صمامات الحماية من الحريق (فحص إنذار، سيول، بوابة، فحص، فراشة، خفض ضغط، تفريغ ضغط، أنبوب جاف)، فئة مخصصة <strong>للمعدات UL/FM</strong> (صمامات فحص إنذار FM، كاشفات تدفق مياه UL FM، رؤوس رشاشات مسجلة لدى FM)، ملحقات شاحنات الإطفاء (قواسم، اتصالات سويدي، محاجب سحب، أنابيب رأسية)، وكبت الحريق FM 200. فئتها للمنظورات وحدها تمتد على 92 صفحة منتجات — أعمق كتالوج منظورات بين المصنعين المقارنين في هذا الدليل. تقبل OEM/ODM وتقرر أن منتجاتها تُباع في أنحاء العالم.</p>
+
+			<h2 id="wanlian-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Wanlian Fluid: من نحن فعليًا</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Quanzhou Wanlian Fluid Equipment Co., Ltd (Wanlian Fluid) مصنّع ومصدّر مقره في Quanzhou بمقاطعة Fujian — نفس التجمع الحضري لـForede. الإنتاج يجري على خطوطه الخاصة، مع تصنيع بنود محددة لدى شركاء تصنيع مؤهلين وفق نظام إدارة جودة ISO 9001؛ ونقرّر هذا النموذج بصراحة بدلًا من ادعاء إنتاج بمصنع واحد لكل وحدة منتج.</p>
+			<p class="text-gray-700 leading-relaxed">النطاق المنشور يمتد على ستة خطوط و45 نموذجًا: <strong>منظورات الحريق كخط أساسي</strong> — <a href="/ar/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">مدفع كبت النافور الذاتي التتبع من سلسلة ZDMS</a> بكشف اللهب وتحديد الموقع الذاتي، إلى جانب مدافع PS اليدوية؛ خلاطات الحريق واتصالات المضخات (<a href="/ar/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">خلاط SS100/65 السطحي المضاد للتجمد</a>، ومقاوم الاصطدام SSFT100/65، وتحت الأرض SA، ورؤوس داخلية SN65، و<a href="/ar/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">خلاط الحريق الذكي IoT SS100/65-1.6ZN</a>)؛ الرشاشات وصمامات الإنذار (ZSFZ-150 مبلل، ZSFC جاف، ZSFM سيول، ZSFY فعل مسبق، رؤوس ZST/ESFR/مخفية، مؤشرات تدفق ZSJZ)؛ صمامات الحماية من الحريق والصناعية (بوابة، فراشة، فحص، حاجب شوائب، موازنة رقمية)؛ صمامات التحكم الهيدروليكي (خفض ضغط 500X، عوامة عن بعد 100X، تحكم مستوى مياه F745X، مانع ارتداد HS41X، ومنع دوامة السحب EN 12845)؛ وملحقات مكافحة الحريق (صناديق طفايات، بكرات، مران حريق مسطح، مفاصل، وصلات Storz، <a href="/ar/products/abc-dry-powder-fire-extinguisher-5kg/" class="text-brand-blue font-semibold hover:underline">طفايات بودرة ABC</a>). كل منتج يُشحن مختبَرًا 100٪ بضغط الغلاف وسرّب الهواء، مع OEM/ODM واستجابة عروض أسعار خلال 12 ساعة، والموقع كاملًا منشور بخمس لغات (EN/ES/RU/FR/AR).</p>
+
+			<h2 id="product-lines-compared" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. كيف تُقارَن خطوط منتجاتهما؟</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">البُعد</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">Forede</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">Wanlian Fluid</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الشركة / القاعدة</td><td class="px-4 py-3 text-gray-700">تأسست 2003؛ مدينة Nan\'an بمقاطعة Fujian + Sanduo Industry Park بمقاطعة Jiangsu؛ قواعد محلية في بعض الدول (منشور ذاتيًا)</td><td class="px-4 py-3 text-gray-700">Quanzhou بمقاطعة Fujian؛ خطوط خاصة + طاقة شريك مؤهل</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">النطاق المنشور</td><td class="px-4 py-3 text-gray-700">9+ فئات: رشاشات، مفاصل ومنظورات، معدات رغوة + مركّز، خلاطات، صمامات، معدات UL/FM، مدافع مياه، ملحقات شاحنات، FM 200</td><td class="px-4 py-3 text-gray-700">6 خطوط، 45 نموذجًا: منظورات (أساسية)، خلاطات، رشاشات وصمامات إنذار، صمامات، تحكم هيدروليكي، ملحقات حريق</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">منظورات الحريق / مدافع المياه</td><td class="px-4 py-3 text-gray-700">8 فئات منظورات + مدافع شاحنات (يدوية/كهربائية/هوائية/هيدروليكية)؛ كتالوج 92 صفحة</td><td class="px-4 py-3 text-gray-700">خط أساسي: ZDMS ذاتي التتبع (كشف اللهب، تحديد الموقع الذاتي) + سلسلة PS اليدوية</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">المفاصل (خط يد / قابلة للاختيار)</td><td class="px-4 py-3 text-gray-700">نعم — خط مخصص: قابلة للاختيار، ذاتية، خاصة، ضغط عالٍ</td><td class="px-4 py-3 text-gray-700">مفصل مكافحة حريق مسدسي قابل للتعديل (نموذج واحد)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">أنظمة الرغوة</td><td class="px-4 py-3 text-gray-700">نطاق كامل يشمل مركّز الرغوة AFFF، خزانات المثانة، المحفّظات</td><td class="px-4 py-3 text-gray-700">خزانة خلاط رغوة PSG30؛ تخليط حسب المشروع؛ لا خط مركّز</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">رؤوس الرشاشات</td><td class="px-4 py-3 text-gray-700">نعم، تشمل رؤوسًا مسجلة لدى FM في فئة UL/FM مخصصة</td><td class="px-4 py-3 text-gray-700">رؤوس ZST/ESFR/مخفية وفق مواصفات GB/EN؛ لا سجل FM</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">صمامات الإنذار / السيول</td><td class="px-4 py-3 text-gray-700">نعم، تشمل صمامات فحص إنذار FM (فئة UL/FM)</td><td class="px-4 py-3 text-gray-700">نعم — ZSFZ-150 مبلل، ZSFC جاف، ZSFM سيول، ZSFY فعل مسبق</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">خلاطات الحريق</td><td class="px-4 py-3 text-gray-700">نعم — خلاطات، بكرات مران، منافذ تزود، خزائن حريق، وصلات</td><td class="px-4 py-3 text-gray-700">مضاد تجمد SS100/65، مقاوم اصطدام SSFT100/65، تحت أرضي SA، داخلي SN65، <strong>خلاط ذكي IoT</strong></td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">تحكم هيدروليكي بمستوى المياه (F745X) / عوامة عن بعد (100X)</td><td class="px-4 py-3 text-gray-700">صمامات خفض وتفريغ الضغط منشورة؛ هذان الخيطان المخصّصان غير مدرجان في النطاق المنشور</td><td class="px-4 py-3 text-gray-700">نعم — F745X تحكم مستوى مياه، 100X عوامة عن بعد، 500X خفض ضغط، HS41X مانع ارتداد، EN 12845 منع دوامة</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">ملحقات شاحنات الإطفاء (اتصالات سويدي، أنابيب رأسية، محاجب سحب)</td><td class="px-4 py-3 text-gray-700">نعم — فئة مخصصة</td><td class="px-4 py-3 text-gray-700">موكّد مضخة حريق SQD100-1.6 (سويدي)؛ لا خطوط أنابيب رأسية/محاجب سحب</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">خزائن الطفايات والطفايات المحمولة</td><td class="px-4 py-3 text-gray-700">خزائن حريق منشورة؛ طفايات محمولة غير مدرجة في النطاق المنشور</td><td class="px-4 py-3 text-gray-700">نعم — صناديق طفايات من الفولاذ/المعدن + طفايات بودرة ABC</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الشهادات (منشور)</td><td class="px-4 py-3 text-gray-700">ISO 9001:2015 (2019)؛ منتجات FM/UL في فئة مخصصة</td><td class="px-4 py-3 text-gray-700">ISO 9001؛ لا سجلات FM/UL (مُفصَح)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">OEM / الموقع</td><td class="px-4 py-3 text-gray-700">OEM/ODM نعم؛ موقع بالإنجليزية فقط</td><td class="px-4 py-3 text-gray-700">OEM/ODM نعم؛ موقع بخمس لغات (EN/ES/RU/FR/AR)</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="monitors-deep-dive" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. منظورات الحريق: المواجهة المباشرة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">هنا يلتقي الطرفان مباشرة — وهنا تكون الفروق في <em>شكل الكتالوج</em>، لا في معركة حول نفس الوحدة. نطاق منظورات Forede مبني على الاتساع: منظورات ثابتة يدوية وثابتة عن بُعد (بما في ذلك نموذج تحكم لاسلكي بـ1200–2400 لتر/دقيقة، ووحدات فولاذ مقاوم للصدأ 3000/4800 لتر/دقيقة)، منظورات محمولة للاستخدام البري، منظورات مثبتة على الخلاط بوصلات GOST وBS 336، وحدات مركبة على المقطورة، منظورات مرتفعة يدوية، مفاصل منظورات، وأرجحة تعمل بالماء — وفوق ذلك خط منفصل لمدافع المياه لشاحنات الإطفاء (يدوية، كهربائية، هوائية، هيدروليكية) بمفاصل دوارة. إذا كان عطاؤك يدرج المنظورات حسب معدل التدفق أو نمط التثبيت أو التكامل مع الشاحنة، فإن كتالوج Forede المكون من 92 صفحة هو الذي ستجد من السهل مطابقته بندًا ببند.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">خط منظورات Wanlian Fluid أضيق لكنه أعمق في اتجاه محدد: <a href="/ar/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">مدفع كبت النافور الذاتي التتبع من سلسلة ZDMS</a>، حيث كشف اللهب وتحديد الموقع الذاتي هما الوظيفة الأساسية للمنتج — الآلة تجد الحريق وتتتبعه دون مشغّل عند عصا التحكم — إلى جانب سلسلة PS اليدوية للحماية الثابتة التقليدية. إذا كان مشروعك مزرعة خزانات أو رصيف بحري أو منطقة تخزين كيماويات أو محطة وقود يكون فيها الكبت التلقائي دون إنسان هو المواصفة، فإن ذلك هو بالضبط فئة المنتج التي تضعها في القائمة المختصرة، وهو ما نحثّك على اختباره جنبًا إلى جنب مع خيارات المنظورات الذاتية لدى Forede.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>خلاصة عادلة:</strong> اتساع كتالوج المنظورات — Forede؛ مدافع ذاتية التتبع للهب كخط أساسي — Wanlian Fluid. لمشروع مختلط، من المشروع أن تأخذ مدافع الشاحنات من مصدر ومدفع التتبّع الذاتي من الآخر.</p>
+
+			<h2 id="quality-and-certifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. أنظمة الجودة والشهادات</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Forede</strong> تحتفظ بشهادة ISO 9001:2015 (حُصل عليها 2019 وفق خطّها الزمني المنشور) وتدير قاعدتي إنتاج صينيتين إلى جانب قواعد محلية مقرّرة في بعض الدول. فئتها المخصصة <em>UL / FM Equipment</em> هي إشارة المؤهل التي ينبغي أخذها بجدية: صمامات فحص إنذار FM، وكاشفات تدفق مياه UL FM، ورؤوس رشاشات مسجلة لدى FM — كلها منشورة هناك. «مسجل» في عنوان فئة ليس نفسه سجلًا موثّقًا على النموذج الدقيق الذي تطلبه — اطلب شهادة التسجيل الحالية FM/UL حسب رقم النموذج وتحقق منها لدى حامل الشهادة قبل المواصفة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wanlian Fluid</strong> تعمل وفق نظام إدارة جودة ISO 9001 عبر خطوطها الخاصة وطاقة الشركاء المؤهلين، مع اختبار 100٪ لكل وحدة بضغط الغلاف وسرّب الهواء، ومستندات تصدير منسقة مع الشحنة. لا نحتفظ بسجلات FM أو UL ولا ندّعيها — وهو الفارق الصريح مقابل فئة UL/FM لدى Forede، والسبب في تمرير أي بنود مسجلة لدى FM عبر مصدر مسجّل.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>نصيحة عملية:</strong> للمصنعين كلاهما، نفّذ نفس حزمة التحقق: نطاق ISO 9001، سجلات اختبار لكل نموذج مطابقة لمعيار وجهة الشحن، شهادات التسجيل حيثما زُعمت، فحص من طرف ثالث (SGS/BV/TÜV) على طلب أول، ووحدة عينة قبل الحجم. يمرّ <a href="/ar/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">دليل التحقق من المورّد الصيني</a> لدينا و<a href="/ar/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">دليل كشف الشهادات المزوّرة</a> على كل فحص.</p>
+
+			<h2 id="where-each-wins" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. أين يتفوق كل مصنع؟</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>تتفوق Forede عندما:</strong> المشروع مركزي شاحنات الإطفاء (مدافع مركبة يدوية/كهربائية/هوائية/هيدروليكية، اتصالات سويدي، أنابيب رأسية، محاجب سحب، قواسم)؛ تحتاج مفاصل خطوط يد وقابلة للاختيار بعمق؛ النطاق رغوة من الطرف إلى الطرف بما في ذلك مركّز AFFF؛ تريد صمامات فحص إنذار أو كاشفات تدفق مياه مسجلة لدى FM/UL كبنود منشورة (بانتظار التحقق لكل نموذج)؛ أو تطابق عطاءً بندًا ببند مقابل كتالوج منظورات ضخم.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>تتفوق Wanlian Fluid عندما:</strong> المركز هو <a href="/ar/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">مدفع ZDMS الذاتي التتبع</a> (كشف اللهب، تحديد الموقع الذاتي) لحماية صناعية دون إنسان؛ تحتاج <a href="/ar/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">خلاطات حريق ذكية IoT</a> لشبكة بلدية مترابطة — خط لا تنشره Forede؛ تحتاج صمامات تحكم مستوى مياه هيدروليكية (F745X) أو عوامة عن بعد (100X)؛ حزمتك تشمل صناديق طفايات و<a href="/ar/products/abc-dry-powder-fire-extinguisher-5kg/" class="text-brand-blue font-semibold hover:underline">طفايات ABC المحمولة</a>؛ أو تبني علامة توزيع في أسواق تتحدث الإسبانية أو الروسية أو الفرنسية أو العربية وتريد أصول علامة محلية وموقعًا تقنيًا بخمس لغات.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>ويعيشان جنبًا إلى جنب جيدًا:</strong> مناطق التداخل بين الشركتين (صمامات الفحص الإنذاري، صمامات البوابة، الخلاطات، بكرات المران، المنظورات اليدوية) هي بالضبط حيث تكون عروض أسعار تنافسية من الطرفين ذات قيمة، بينما خطوطهما غير المتداخلة (ملحقات الشاحنات + مركّز الرغوة من جهة، ومدافع التتبّع الذاتي + خلاطات IoT + حزم الطفايات من جهة أخرى) يمكن أن تتقاسم مشروعًا واحدًا في قائمة مواد واحدة.</p>
+
+			<h2 id="which-should-you-choose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. أيهما تختار؟</h2>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">اختر <strong class="text-brand-blue">Forede</strong> عندما:</p>
+				<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2">
+					<li>نطاقك مركزي شاحنات الإطفاء: مدافع مياه مركبة، اتصالات سويدي، أنابيب رأسية، محاجب سحب، قواسم.</li>
+					<li>تحتاج أنظمة رغوة من الطرف إلى الطرف، بما في ذلك مركّز الرغوة AFFF من نفس المورد.</li>
+					<li>مواصفاتك تتطلب صمامات فحص إنذار أو كاشفات تدفق مياه مسجلة لدى FM/UL كبنود منشورة — ثم تحقق من التسجيل لكل نموذج.</li>
+					<li>تريد مطابقة عطاء كبير بندًا ببند مقابل أعمق كتالوج منظورات (92 صفحة منتجات).</li>
+				</ul>
+			</div>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">اختر <strong class="text-brand-red">Wanlian Fluid</strong> عندما:</p>
+				<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2">
+					<li>المشروع يركز على مدافع مياه ذاتية التتبع للهب (ZDMS) لمزارع الخزانات والأرصفة البحرية ومحطات الكيماويات — كبت دون إنسان.</li>
+					<li>تحتاج خلاطات حريق ذكية IoT لشبكة بلدية مترابطة، خط لا تنشره Forede.</li>
+					<li>قائمة موادك تشمل صمامات تحكم مستوى مياه هيدروليكية أو عوامة عن بعد، وصناديق طفايات وطفايات ABC — حزمة كاملة بموجب أمر شراء واحد.</li>
+					<li>تبني علامة توزيع في أسواق ES/RU/FR/AR وتريد أصول علامة محلية إلى جانب موقع تقني بخمس لغات.</li>
+				</ul>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">الأسرع في القرار: اكتب (1) هل يظهر «شاحنة إطفاء» أو «مركّز رغوة» في نطاقك، (2) هل يظهر «تتبّع ذاتي» أو «كشف لهب» في أي مكان، و(3) هل يحتاج مشتروك النهائيون مستندات بالإسبانية أو الروسية أو الفرنسية أو العربية. النقطة (1) تميل لـForede؛ والنقطتان (2) و(3) تميلان لـWanlian Fluid. مقارنات ذات صلة: <a href="/ar/guides/wanlian-fluid-vs-ca-fire/" class="text-brand-blue font-semibold hover:underline">Wanlian مقابل CA-FIRE</a> و<a href="/ar/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian مقابل American AVK</a>؛ والإطار العام في <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة توريد الصمامات B2B</a> لدينا.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Sources -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">المصادر</h2>
+			<ul class="list-disc ps-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>Forede — About Us (التأسيس 2003، قواعد Nan\'an + Jiangsu، ISO 9001:2015، اتجاه الذكاء الاصطناعي 2024، OEM/ODM): <a href="https://www.forede.com/about-us/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">forede.com</a></li>
+				<li>Forede — فئة Fire Monitor (8 أنواع منظورات، كتالوج 92 صفحة، مدافع مياه، مفاصل، معدات UL/FM): <a href="https://www.forede.com/fire-monitor/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">forede.com</a></li>
+				<li>Wanlian Fluid — ملف الشركة ونطاق المنتجات والأدلة: <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+				<li>FM Approvals — برنامج التسجيل (للتحقق من ادعاءات FM لكل نموذج): <a href="https://www.fmadvisoryservices.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">fm.com</a></li>
+				<li>مراقبة بحث الذكاء الاصطناعي الداخلية لدى Wanlian Fluid، 30 استفسار توريد (ChatGPT، الولايات المتحدة)، سبتمبر 2026</li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">المقارنة مبنية على معلومات متاحة عمومًا حتى سبتمبر 2026. توفر المنتجات والشهادات والتسعير تتغير — اطلب دائمًا أوراق المواصفة والشهادات وعروض السعر الحالية قبل قرارات التوريد.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">تحتاج مدفعًا ذاتي التتبع، خلاطات IoT أو حزمة حريق كاملة — بتسعير خلال 12 ساعة؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل إلينا قائمة المواد وجهة الشحن — نسعّر الحزمة الكاملة كسطر تصدير واحد، مع علامة OEM وسجلات اختبار لكل وحدة ومستندات بخمس لغات.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Fire%20Monitor%20%2B%20Hydrant%20Kit" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%B9%D8%B1%D8%B6%20%D8%B3%D8%B9%D8%B1%20%D9%84%D9%85%D9%86%D8%B8%D9%88%D8%B1%20%D8%AD%D8%B1%D9%8A%D9%82%20%D8%B0%D8%A7%D8%AA%D9%8A%20%D8%A7%D9%84%D8%AA%D8%AA%D8%A8%D8%B9%20%2B%20%D8%AD%D8%B2%D9%85%D8%A9%20%D8%AE%D9%84%D8%A7%D8%B7%D8%A7%D8%AA" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">تحدث عبر WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

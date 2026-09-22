@@ -1,0 +1,192 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'mueller-overview', label: '1. Mueller: что это на самом деле' },
+	{ id: 'wanlian-overview', label: '2. Wanlian Fluid: что это на самом деле' },
+	{ id: 'product-lines-compared', label: '3. Как сравниваются продуктовые линейки?' },
+	{ id: 'hydrants-deep-dive', label: '4. Пожарные гидранты: прямое сравнение' },
+	{ id: 'quality-and-standards', label: '5. Системы качества и стандарты' },
+	{ id: 'where-each-wins', label: '6. Где выигрывает каждый производитель' },
+	{ id: 'which-should-you-choose', label: '7. Кого выбрать?' },
+	{ id: 'faq', label: 'Часто задаваемые вопросы' },
+	{ id: 'sources', label: 'Источники' }
+];
+
+const faq = [
+	{
+		question: 'Wanlian Fluid и Mueller — связанные компании?',
+		answer: 'Нет. Mueller Water Products (NYSE: MWA) — публичный североамериканский производитель с головным офисом в Атланте (Джорджия), история которого ведёт к 1857 году. Wanlian Fluid — Quanzhou Wanlian Fluid Equipment Co., Ltd, независимый китайский производитель и экспортер в Цюаньчжоу, провинция Фуцзянь. Корпоративных, имущественных или лицензионных связей между ними нет.'
+	},
+	{
+		question: 'Поставляет ли Wanlian Fluid на рынок США?',
+		answer: 'Wanlian Fluid экспортирует пожарные гидранты и клапаны по спецификациям AWWA в Америку и другие регионы; модели противопожарных задвижек и обратных клапанов имеют листинг UL 262 / UL 1091, а пожарные регулирующие клапаны OS&Y/NRS — одобрение FM Class 1120/1130, выдаваемое по моделям. Для любого тендера по US-Spec письменно подтвердите на этапе ценообразования точную модель листинга, номер сертификата и область его действия, и верифицируйте номер в выдающем органе.'
+	},
+	{
+		question: 'Что лучше для муниципального тендера США?',
+		answer: 'Если тендер требует закупку «изготовлено в США», присутствие североамериканского бренда или водосчётчики с поиском утечек в том же объёме, Mueller — устоявшийся выбор: её история и портфель брендов созданы для этого рынка. Если объём — пакет гидрантов и клапанов по AWWA, оценённый по экспортной экономике, с пожарными рукавами, сигнальными клапанами или огнетушителями в том же BOQ, китайский производитель с документацией UL/FM по моделям, такой как Wanlian Fluid, — рентабельный путь — с применением последовательности верификации до присуждения заказа.'
+	},
+	{
+		question: 'Как они сравниваются именно по пожарным гидрантам?',
+		answer: 'Обе производят сухотрубные и мокротрубные гидранты из чугуна (Mueller добавляет латунь через James Jones). Муниципальная доля Mueller в США глубока, и её гидранты несут за собой более 160 лет муниципального применения в Северной Америке. Гидранты Wanlian (SS100 с защитой от замерзания, SSFT100 с защитой от удара, SS100ZN IoT, SA подземный, SN65 внутренний) изготавливаются по образцам GB 4452 / AWWA C502 с вариантами выходов KWS, BS336, Storz и NIST и записями испытаний 2,4 МПа по каждой единице. Решающие факторы — стандарт тендера, вариант выходов, требование к сертификации и цена, а не универсальный победитель.'
+	},
+	{
+		question: 'Могу ли я независимо проверить сертификаты любого из поставщиков?',
+		answer: 'Да, и вам стоит это сделать. Сертификация и статус листинга Mueller проверяются через выдающие органы (UL, FM, реестр ISO 9001) и публичную отчётность компании. Для Wanlian Fluid запросите сертификат ISO 9001 с выдающим органом, сертификаты UL/FM для точных моделей вашего BOQ, отчёты испытаний партии и образцовую единицу с видео испытаний, привязанным к серийному номеру, — пошаговый метод изложен в нашем руководстве по верификации.'
+	}
+];
+
+const productRows = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Наружный пожарный гидрант с защитой от замерзания (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Сухотрубный гидрант образца AWWA, 1,6 МПа, испытан на 2,4 МПа' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Задвижка OS&Y с эластичным седлом (газовая, UL/FM по моделям)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: 'Регулирующий клапан с выдвижным шпинделем 2"–10" для пожарных магистралей' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Мокрый сигнальный обратный клапан ZSFZ-150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Спринклерная сигнальная группа: гонг + камера замедления + контакт' }
+];
+---
+
+<Layout
+	title="Wanlian Fluid vs Mueller: гидранты и клапаны US-Spec (2026)"
+	description="Сравнение Wanlian Fluid и Mueller для 2026: гидранты, задвижки, стандарты, сертификация, стоимость и сроки — кто подходит для US-Spec или экспортного проекта."
+	type="article"
+	locale="ru"
+	faq={faq}
+	breadcrumbs={[{ name: 'Руководства', href: '/ru/blog/' }, { name: 'Wanlian vs Mueller' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Хлебные крошки -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ru/" class="hover:text-blue-600">Главная</a>
+			<span>/</span>
+			<a href="/ru/blog/" class="hover:text-blue-600">Руководства</a>
+			<span>/</span>
+			<span class="text-gray-600">Сравнение поставщиков</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Руководство по сравнению поставщиков · US-Spec и экспорт</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Wanlian Fluid vs Mueller: закупка гидрантов и клапанов для проектов US-Spec (2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Mueller — имя, которое встречается в большинстве муниципальных водных тендеров Северной Америки: публичный североамериканский производитель с линией истории от 1857 года, портфелем известных брендов (Mueller Co., U.S. Pipe Valve &amp; Hydrant, James Jones, Henry Pratt, Milliken, Mueller Systems) и глубокими муниципальными связями. Wanlian Fluid — экспортная сторона тех же классов продукции: гидранты образца AWWA и пожарные клапаны с документацией UL/FM по моделям, с ценами и упаковкой под международные проекты. Если вы специфицируете пакет гидрантов или клапанов по американскому стандарту для проекта в Америке или экспорт под US-Spec, это сравнение — карта: где каталоги пересекаются, где — нет, и что должно определить ваш выбор.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Примечание о фактах:</strong> сведения о Mueller взяты из её опубликованной истории компании, страниц брендов и публичной отчётности (в изложении на Wikipedia); сведения о Wanlian — из наших собственных данных о продукции и страницы сертификатов. Утверждения о сертификации сформулированы по моделям — так фактически выдаются сертификаты, — и обе стороны следует верифицировать в выдающем органе до присуждения заказа.</p>
+			</div>
+
+			<!-- Полоса продукции -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/ru/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="mueller-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Mueller: что это на самом деле</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Mueller Water Products, Inc. (NYSE: MWA) — головной офис в Атланте (Джорджия); компания указывает корни в 1857 году, когда в Дикатере (Иллинойс) был основан предшественник Mueller Co. Это один из крупнейших североамериканских производителей и дистрибьюторов пожарных гидрантов, задвижек и другой продукции водной инфраструктуры. Бизнес строится через брендовые подразделения, а не как единый монолит: <strong>Mueller Co.</strong> (ядро — клапаны и гидранты), <strong>U.S. Pipe Valve &amp; Hydrant</strong> (гидранты и задвижки с заводов США, сертифицированных по ISO 9001), <strong>James Jones</strong> (латунные гидранты мокрого типа, линейка с 1890-х), <strong>Henry Pratt</strong> (клапаны, приводы и системы управления; в 1926 году — происхождение дискового затвора с эластичным седлом), <strong>Milliken Valve</strong>, <strong>Mueller Systems</strong> (водосчётчики, основана в 1859 году) и <strong>Echologics</strong> (акустический поиск утечек и оценка состояния трубопроводов). В 2017 году компания приобрела Singer Valve (автоматические регулирующие клапаны), а противопожарная линия Grinnell (1892 — General Fire Extinguisher Co., 1919 — Grinnell) перешла к Anvil International и вышла из компании в 2017 году — наглядное напоминание, что история брендов в этой отрасли меняется вместе с M&amp;A.</p>
+			<p class="text-gray-700 leading-relaxed">Mueller также публикует характерные утверждения о процессах и устойчивом развитии: литьё по выплавляемым моделям (lost-foam) для клапанов и гидрантов (снижение отходов литья и выбросов), латунь с низким содержанием свинца во всей водоканальной линейке и членство в USGBC и программе EPA Energy Star. Практический вывод: Mueller — полноценный североамериканский дом водной инфраструктуры — гидранты, клапаны, счётчики, поиск утечек, заслонки и инструмент — с институциональным весом, которого ждут муниципальные закупки Северной Америки.</p>
+
+			<h2 id="wanlian-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Wanlian Fluid: что это на самом деле</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Quanzhou Wanlian Fluid Equipment Co., Ltd — производитель и экспортер в Цюаньчжоу, провинция Фуцзянь — ядро кластера арматурной промышленности Китая. Производство идёт на собственных линиях в системе менеджмента качества ISO 9001; отдельные позиции изготавливают квалифицированные производственные партнёры — это открыто указано в каждом заказе; корпуса клапанов обрабатываются на собственных ЧПУ-станках, и каждая единица проходит испытание корпуса давлением и на герметичность воздухом перед отгрузкой, с записями по каждой единице.</p>
+			<p class="text-gray-700 leading-relaxed">Опубликованная линейка охватывает 6 направлений и 45 моделей: пожарные гидранты и насосные подключения (<a href="/ru/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">наружный гидрант SS100/65 с защитой от замерзания</a>, SSFT100 с защитой от удара, IoT-гидрант SS100ZN, подземный SA, внутренние головки SN65, сиамезе SQD100); спринклерные и сигнальные клапаны (ZSFZ мокрого типа, ZSFC сухого, ZSFM дренчерные, ZSFY систем предварительного действия, оросители, сигнализаторы потока); противопожарные и промышленные клапаны (<a href="/ru/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">задвижка UL/FM OS&Y</a>, Z41X с эластичным седлом, телескопическая Z41X-T, дисковые затворы, обратные клапаны, фильтры, цифровые балансировочные); гидравлические регулирующие клапаны (500X, 100X, F745X, HS41X, устройство против завихрений всасывания EN 12845); пожарные мониторы (ручные PS, автоматический следящий ZDMS); и противопожарное оборудование (пожарные рукава с резиновой подкладкой, муфты Storz/HS, рукавные барабаны, пожарные шкафы, огнетушители ABC). Противопожарные задвижки и обратные клапаны имеют листинг UL 262 / UL 1091, а пожарные регулирующие клапаны — одобрение FM Class 1120/1130, выдаваемое по моделям; OEM/ODM и ответ на запрос цены за 12 часов — стандарт. Там, где портфель Mueller доходит до счётчиков и поиска утечек, портфель Wanlian доходит до полного противопожарного объёма — рукава, сигнальные группы, огнетушители, — чего не публикует ни один дом водной инфраструктуры.</p>
+
+			<h2 id="product-lines-compared" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Как сравниваются продуктовые линейки?</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Линия спецификации</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Mueller</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Wanlian Fluid</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Пожарные гидранты</td><td class="px-4 py-3 text-gray-700">Чугунные сухотрубные/мокротрубные (USPVH), латунные мокротрубные (James Jones)</td><td class="px-4 py-3 text-gray-700">SS100 с защитой от замерзания, SSFT100 с защитой от удара, SS100ZN IoT, SA подземный, SN65 внутренний; выходы KWS/BS336/Storz/NIST</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Задвижки</td><td class="px-4 py-3 text-gray-700">Чугунные задвижки (USPVH), OS&Y для пожарной службы, линейки Henry Pratt</td><td class="px-4 py-3 text-gray-700">Z41X DN50-DN700, телескопическая Z41X-T, UL/FM OS&Y с газовой муфтой, с мембранным уплотнением, латунная Z15W</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Дисковые затворы / обратные клапаны</td><td class="px-4 py-3 text-gray-700">Линия дисковых затворов с эластичным седлом (Henry Pratt 1926), Milliken — обратные/пробковые/дисковые</td><td class="px-4 py-3 text-gray-700">D71X межфланцевый (wafer), D381X-16Q газовый с червячным редуктором, дисковый сигнальный затвор, HQ44X/HQ41X — обратные</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Спринклерные и сигнальные клапаны</td><td class="px-4 py-3 text-gray-700">Не является основным опубликованным направлением (линия Grinnell вышла в 2017)</td><td class="px-4 py-3 text-gray-700">Основное направление: группы ZSFZ/ZSFC/ZSFM/ZSFY, оросители, сигнализаторы потока</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Гидравлическое регулирование (редукционные, уровня, поплавковые)</td><td class="px-4 py-3 text-gray-700">Автоматические регулирующие клапаны через приобретение Singer Valve (2017)</td><td class="px-4 py-3 text-gray-700">Основное направление: 500X, 100X, F745X, HS41X, устройство EN 12845</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Водосчётчики и поиск утечек</td><td class="px-4 py-3 text-gray-700">Да (счётчики Mueller Systems с 1859; поиск утечек Echologics)</td><td class="px-4 py-3 text-gray-700">Нет — только объём гидравлического оборудования</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Пожарные рукава, муфты, огнетушители</td><td class="px-4 py-3 text-gray-700">Не публикуется</td><td class="px-4 py-3 text-gray-700">Основные направления: рукава с резиновой подкладкой, муфты Storz/HS, барабаны, шкафы, огнетушители ABC</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Типичная география</td><td class="px-4 py-3 text-gray-700">Северная Америка (муниципалитеты и дистрибуция США/Канады)</td><td class="px-4 py-3 text-gray-700">Экспорт по всему миру (Америка, ЛатАмерика, MEA, Европа, Азия)</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="hydrants-deep-dive" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Пожарные гидранты: прямое сравнение</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ячейка гидрантов — место, где два каталога по-настоящему встречаются. Позиция Mueller институциональна: заводы США с ISO 9001 (USPVH), латунная мокротрубная линейка James Jones и за брендом — более 160 лет муниципального применения в Северной Америке. Процесс литья — опубликованное отличие: Mueller заявляет, что она — единственный производитель клапанов и гидрантов, использующий литьё по выплавляемым моделям, с соответствующим снижением материалов и выбросов. Для американского водоканала эта история сама по себе — актив закупки: знакомство, знакомство с запчастями и дистрибуционная сеть внутри страны.</p>
+			<p class="text-gray-700 leading-relaxed">Ячейка гидрантов Wanlian построена для экспортной стороны рынка и развивающейся инфраструктуры: сухотрубный гидрант SS100/65 с защитой от замерзания (рабочее 1,6 МПа, испытательное 2,4 МПа, выходы 2×DN65 + DN100) соответствует образцам AWWA C502, а модели SSFT100 с защитой от удара и IoT SS100ZN закрывают требования уличной безопасности и «умного города», которые большинство классических американских каталогов не публикуют вовсе. Варианты выходов (KWS65, BS336, Storz, NIST) настраиваются под парк страны назначения. Честное сравнение: <strong>для муниципального тендера США с требованиями «изготовлено в США» или глубокой локальности Mueller — устоявшийся ответ; для экспортного пакета образца AWWA — особенно когда в BOQ есть защита от удара, IoT или смешанные стандарты выходов — прямой путь с завода конкурирует по стоимости, конфигурации и возможностью объединить рукава, клапаны и сигнальное оборудование в одном контейнере.</strong></p>
+
+			<h2 id="quality-and-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Системы качества и стандарты</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Обе стороны работают на сертифицированных системах качества, и обе — в одной стандартизованной среде для общей ячейки: AWWA C502/C515 для гидрантов и клапанов, UL 262 / UL 1091 для противопожарных задвижек и обратных клапанов, FM Class 1120/1130 для пожарных регулирующих клапанов, ISO 5208 / EN 1074 / EN 12266-1 — европейские и международные ориентиры. Разница — в практике верификации, и она должна определять план вашего аудита:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Mueller:</strong> заводы с ISO 9001, публичная отчётность компании, сертификаты, проверяемые в выдающих органах, и длинный аудиторский след внутри Северной Америки. Применяется обычная due diligence местного водоканала.</li>
+				<li><strong>Wanlian Fluid:</strong> сертификация системы ISO 9001:2015 с номером и выдающим органом, предоставляемыми для верификации; 100% записи испытаний корпуса давлением и на герметичность воздухом по каждой единице, согласованные с серийными номерами; сертификаты UL/FM подтверждаются по моделям с копиями на этапе заказа; третья инспекция на заводе перед отгрузкой (в формате SGS/BV/Intertek) и образцовая единица с видео испытаний, привязанным к серийному номеру, перед крупным объёмом.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Общий знаменатель — тот, что в нашем <a href="/ru/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">руководстве по стандартам</a>: стандарт — свойство продукции и страны назначения, а не бренда. Какой бы поставщик ни был назван в тендере, приёмо-сдаточный пакет должен содержать номер сертификата, область моделей и соответствующие записи испытаний — для любого завода на любом континенте.</p>
+
+			<h2 id="where-each-wins" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Где выигрывает каждый производитель</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-5">
+				<div class="bg-gray-50 border border-gray-100 rounded-xl p-6">
+					<p class="font-black text-gray-900 text-sm mb-3 uppercase tracking-wider">Mueller выигрывает, когда…</p>
+					<ul class="list-disc pl-5 text-sm text-gray-700 space-y-2">
+						<li>Тендер требует «изготовлено в США» или закупки в Северной Америке</li>
+						<li>Объём расширяется до водосчётчиков, поиска утечек или распределительных заслонок</li>
+						<li>Институциональное знание бренда — фактор оценки в муниципальном тендере США/Канады</li>
+						<li>В спецификации латунные гидранты мокрого типа или регулирующее оборудование Henry Pratt</li>
+					</ul>
+				</div>
+				<div class="bg-gray-50 border border-gray-100 rounded-xl p-6">
+					<p class="font-black text-gray-900 text-sm mb-3 uppercase tracking-wider">Wanlian Fluid выигрывает, когда…</p>
+					<ul class="list-disc pl-5 text-sm text-gray-700 space-y-2">
+						<li>Проект — экспорт или объём развивающихся рынков с ценой под качество образца AWWA</li>
+						<li>BOQ смешивает гидранты, клапаны, рукава, сигнальные клапаны и огнетушители в одном заказе (PO)</li>
+						<li>Требуются гидранты с защитой от удара или IoT-гидранты</li>
+						<li>Важно брендирование OEM/ODM, смешанные варианты выходов или цикл ценообразования в 12 часов</li>
+					</ul>
+				</div>
+			</div>
+
+			<h2 id="which-should-you-choose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Кого выбрать?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Короткая версия: <strong>Mueller — для североамериканской институциональной ячейки; Wanlian Fluid — для экспортной и смешанной по объёму ячейки.</strong> Американский или канадский водоканал, повторно тендерующий программу гидрантов и клапанов, найдёт самый безопасный институциональный вариант в бренде, созданном для этого рынка: линия 1857 года, местные заводы и охват «счётчики + поиск утечек» — реальные активы закупки. Проект в Америке, ЛатАмерике, на Ближнем Востоке или в Африке, которому нужен пакет гидрантов и клапанов образца AWWA с пожарными рукавами, сигнальными группами и огнетушителями в одной поставке, по заводской экономике и с документацией UL/FM по моделям, верифицированной в выдающем органе, — вот где экспортный производитель зарабатывает место в тендере. Оба пути требуют одинаковой дисциплины при приёмке: номера сертификатов, которые разрешаются, записи испытаний, согласованные с серийными номерами, и образец перед крупным заказом, — последовательность из нашего <a href="/ru/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">руководства по верификации</a> применима к любому заводу, а <a href="/ru/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">сравнение с AVK</a> закрывает другой конец североамериканской шкалы бенчмарков.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Часто задаваемые вопросы</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Источники</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 space-y-2 mb-4">
+				<li>Mueller Water Products — история компании и страницы брендов (muellerwaterproducts.com): происхождение 1857 года, Mueller Co./USPVH/James Jones/Henry Pratt/Milliken/Mueller Systems/Echologics, литьё по выплавляемым моделям, USGBC/Energy Star</li>
+				<li>Wikipedia — «Mueller Water Products» (доступ сентябрь 2026): корпоративная структура, таблица брендов, продажа Anvil International в 2017 и приобретение Singer Valve, заводы ISO 9001</li>
+				<li>Wanlian Fluid — данные о продукции, страница «О компании» и страница сертификатов (wanlian911.com): линейка, формулировки UL 262/UL 1091 и FM Class 1120/1130 по моделям, практика испытаний</li>
+				<li>Справочные стандарты: AWWA C502/C515, UL 262/UL 1091, FM Class 1120/1130, ISO 5208, EN 1074/12266-1 — в применимом виде для каждой страны назначения</li>
+			</ul>
+			<p class="text-xs text-gray-500 mb-4">Сведения о компаниях отражают опубликованные материалы и публичную отчётность каждой компании по состоянию на сентябрь 2026. Линейки и сертификации меняются, — перед финальной спецификацией подтвердите актуальный каталог и сертификаты. Это сравнение — для планирования закупок и не является рекламой какой-либо из компаний.</p>
+
+			<!-- Двойной CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Получите пакет US-Spec с документацией в коммерческом предложении</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Отправьте строки спецификации на гидранты и клапаны с требуемым стандартом (AWWA C502, UL, FM) — вернём детализированное предложение плюс план сертификатов по моделям в течение 12 часов.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ru/contact/?product=%D0%A1%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%20Mueller%20%D0%B8%20US-Spec%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Запросить цену</a>
+						<a href="https://wa.me/8618684324501?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A1%D1%80%D0%B0%D0%B2%D0%BD%D0%B8%D0%B2%D0%B0%D1%8E%20%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D1%89%D0%B8%D0%BA%D0%BE%D0%B2%20%D0%B4%D0%BB%D1%8F%20%D0%BE%D0%B1%D1%8C%D1%8E%D0%BC%D0%B0%20%D0%B3%D0%B8%D0%B4%D1%80%D0%B0%D0%BD%D1%82%D0%BE%D0%B2%2F%D0%BA%D0%BB%D0%B0%D0%BF%D0%B0%D0%BD%D0%BE%D0%B2%20%D0%BF%D0%BE%20US-Spec%20(%D1%81%D0%BC.%20%D0%B2%D0%B0%D1%88%D0%B5%20%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE%20vs%20Mueller)" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Написать в WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

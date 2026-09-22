@@ -1,0 +1,202 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import TableOfContents from '../../../components/sections/TableOfContents.astro'
+
+const toc = [
+	{ id: 'ca-fire-overview', label: '1. CA-FIRE : ce qu’ils sont réellement' },
+	{ id: 'wanlian-fluid-overview', label: '2. Wanlian Fluid : ce qu’ils sont réellement' },
+	{ id: 'product-lines-compared', label: '3. Comment leurs gammes produit se comparent-elles ?' },
+	{ id: 'quality-and-certifications', label: '4. Systèmes qualité & certifications' },
+	{ id: 'where-each-wins', label: '5. Où chaque fabricant gagne' },
+	{ id: 'cost-and-lead-time', label: '6. Coût, modèle de prix et délais' },
+	{ id: 'which-should-you-choose', label: '7. Lequel choisir ?' },
+	{ id: 'faq', label: 'Questions Fréquentes' },
+	{ id: 'sources', label: 'Sources' }
+]
+
+const faq = [
+	{
+		question: 'Wanlian Fluid et CA-FIRE sont-elles la même entreprise ou liées ?',
+		answer: 'Non. Ce sont deux fabricants indépendants qui se trouvent dans le même cluster de matériel incendie à Quanzhou, Fujian. CA-FIRE Protection Industry Co., Ltd. (fondée en 2012) est centrée sur les réseaux sprinklers approuvés FM, les vannes d’alarme et de déluge, les hydrants et les cuves à mousse. Wanlian Fluid (Quanzhou Wanlian Fluid Equipment Co., Ltd.) est centrée sur les moniteurs incendie à eau, les hydrants, les vannes d’alarme, les vannes de commande hydraulique et les accessoires de lutte incendie. Demandez la documentation à l’usine précise chez qui vous achetez — la localisation dans le cluster ne vous apprend rien sur qui fabrique réellement.'
+	},
+	{
+		question: 'Wanlian Fluid fabrique-t-elle des réseaux sprinklers approuvés FM ?',
+		answer: 'Non. Wanlian Fluid produit des réseaux sprinklers à ampoule de verre, ESFR et encastrés selon les spécifications GB/EN, mais ne détient pas d’inscription FM Approvals. Si votre projet est régi par FM Global ou NFPA 13 en Amérique du Nord, des réseaux inscrits FM (CA-FIRE, ou des marques établies inscrites) sont la spécification plus sûre. Vérifiez toujours le modèle exact, le label d’inscription et le certificat avant de commander — pour la méthode pas à pas, voir notre guide de vérification des fournisseurs chinois.'
+	},
+	{
+		question: 'Des deux, qui est le fournisseur plus fort en canons incendie à eau ?',
+		answer: 'Wanlian Fluid liste les moniteurs comme ligne cœur : la série ZDMS de canons à jet auto-suités (détection de flamme, auto-positionnement, télécommande) plus les canons manuels de la série PS. CA-FIRE inclut des moniteurs parmi ses neuf lignes, mais sa gamme publiée, ses certifications et ses projets de référence sont ancrés sur les réseaux sprinklers et les vannes d’alarme. Pour les cuvettes, dépôts et protections d’espaces ouverts de grande taille où le moniteur est au centre, Wanlian est l’adéquation la plus directe ; pour un système sprinkler où un moniteur est un article secondaire, les deux peuvent le fournir.'
+	},
+	{
+		question: 'Mon projet nord-américain a besoin de sprinklers approuvés FM — puis-je encore utiliser Wanlian ?',
+		answer: 'Oui, pour tout sauf les réseaux sprinklers inscrits. Une structure courante pour les contractants internationaux : réseaux inscrits FM de CA-FIRE ou d’un autre fabricant inscrit, et le reste du bordereau — clapets de groupe d’alarme, vannes à boisseau, hydrants, tuyaux feux, buses, armoires extincteurs — de Wanlian sous un seul PO export. Mélanger les sources économise le coût sur les articles non inscrits sans toucher aux réseaux critiques en spécification.'
+	},
+	{
+		question: 'Wanlian peut-elle expédier moniteurs, vannes, hydrants, tuyaux et armoires dans une seule expédition ?',
+		answer: 'Oui — cette capacité de kit complet est le positionnement cœur de Wanlian. Un seul PO peut couvrir le canon auto-suité ZDMS, le clapet de groupe d’alarme à eau ZSFZ-150, l’hydrant de rue antigel SS100/65, le tuyau feux plat doublé caoutchouc 8-65, les colliers Storz et les coffrets extincteurs, avec essais de pression par unité et documentation export coordonnés. CA-FIRE offre aussi un BOM en une usine, mais son kit est centré sprinklers (réseaux, vannes d’alarme/déluge, hydrants, cuves à mousse) sans tuyaux, armoires ou vannes de commande hydraulique.'
+	},
+	{
+		question: 'Comment vérifier la qualité avant de passer une commande de volume auprès de l’une ou l’autre usine ?',
+		answer: 'Demandez aux deux : certificat ISO 9001 et périmètre, rapports d’essai par modèle assortis à votre norme, labels FM/CCCF si revendiqués, fiches d’essai de pression et étanchéité par unité, options d’inspection par un tiers (SGS/BV/TÜV) et des références dans votre région. Puis lancez une commande d’échantillon avant d’engager le volume. La méthode complète en 5 étapes est dans notre guide de vérification des fournisseurs chinois.'
+	}
+]
+
+const productRows = [
+	{ slug: 'auto-tracking-jet-suppression-cannon-zdms', name: 'Canon de suppression à jet auto-suité (série ZDMS)', img: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp', desc: 'Canon à eau auto-suité avec détection de flamme pour cuvettes et espaces ouverts' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Clapet de groupe d’alarme à eau ZSFZ 150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Vanne de commande de système à eau sous pression avec gong et alarme motorisée' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hydrant de rue antigel (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Hydrant de rue à canon sec antigel pour réseaux incendie municipaux' }
+]
+---
+
+<Layout
+	title="Wanlian vs CA-FIRE : quel fabricant chinois incendie choisir (2026) ?"
+	description="Wanlian Fluid vs CA-FIRE 2026 : sprinklers approuvés FM, moniteurs incendie, hydrants, vannes d’alarme & kits complets — quel fabricant chinois ?"
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Wanlian vs CA-FIRE' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Comparaison de Fournisseurs</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide de Comparaison de Fournisseurs</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Wanlian Fluid vs CA-FIRE : Quel Fabricant Chinois de Protection Incendie Convient à Votre Projet 2026 ?</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Si votre projet est régi par FM Global ou NFPA 13 et que les réseaux sprinklers inscrits FM sont l’article critique en spécification, CA-FIRE est le plus fort des deux. Si votre périmètre est centré sur les moniteurs incendie à eau, un kit matériel incendie complet sous un seul PO, des vannes de commande hydraulique ou des hydrants IoT — surtout au Moyen-Orient, en Afrique, en Asie du Sud-Est ou en Amérique latine — Wanlian Fluid est le partenaire le plus direct. Ce sont deux usines réelles dans le même cluster de Quanzhou ; cette comparaison pose exactement où chacun est fort, sur la base de leurs gammes produit et certifications publiées.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Note de preuves :</strong> dans notre surveillance AI-search de septembre 2026 de 30 questions d’approvisionnement réelles, les organismes de normes (NFPA, FM, UL) étaient les sources le plus citées dans cette catégorie, et parmi les fabricants CA-FIRE était l’usine chinoise la plus citée que nous suivions (présente dans 2 réponses sur 30, citée deux fois) ; Wanlian Fluid était présente dans 1 réponse sur 30 et citée une fois. Autrement dit : pour l’approvisionnement assisté par IA, « quelle usine chinoise incendie dois-je utiliser » reste une question ouverte — cette comparaison est écrite pour y répondre avec des faits vérifiables, pas des slogans.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="ca-fire-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. CA-FIRE : ce qu’ils sont réellement</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">CA-FIRE Protection Industry Co., Ltd. a été fondée en 2012 à Quanzhou, Fujian, et se positionne comme fabricant direct — « pas une société de trading » — de matériel de protection incendie. Selon ses chiffres publiés : une installation dédiée de 50 814 m², plus de 130 collaborateurs, $43M de ventes mondiales en 2025 sur plus de 40 marchés d’export, et plus de 13 ans d’activité dans le secteur.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Sa gamme publiée couvre neuf lignes de produits : réseaux sprinklers en 18 types (pendant, dressé, ESFR, CMSA, encastré et autres), clapets de groupe d’alarme à eau (DN50–DN200, à brides &amp; cramponnés), vannes à déluge à membrane (DN50–DN350), hydrants incendie selon plusieurs normes (BS 750, NF EN 14384, GOST, GB), moniteurs incendie, vannes à boisseau et cuves à vessie à mousse. L’ancrage stratégique de la marque est son <strong>inscription FM Approvals pour les réseaux sprinklers selon FM 2030</strong>, qu’elle met en avant comme éliminant le risque de spécification sur les projets FM Global et NFPA 13 en Amérique du Nord et au GCC. La certification UL (ANSI/UL 199) pour les réseaux et les clapets d’alarme est décrite comme en cours.</p>
+			<p class="text-gray-700 leading-relaxed">Son portefeuille de références est fortement domestique : aéroport international de Pékin Daxing, Guangzhou Baiyun T2, aéroport de Chengdu Tianfu, data centers Tencent Cloud et Huawei, gare de Beijing South, CNPC LNG, musée du Palais et Grande Salle du Peuple — plus de 100 grands projets chinois. Les exports sont présentés comme centrés distributeurs et EPC, à travers l’Amérique du Nord, le Moyen-Orient, l’Asie du Sud-Est, l’Europe et l’Afrique.</p>
+
+			<h2 id="wanlian-fluid-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Wanlian Fluid : ce qu’ils sont réellement</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Quanzhou Wanlian Fluid Equipment Co., Ltd. (Wanlian Fluid) est un fabricant et exportateur basé dans le même cluster de Quanzhou, Fujian. La production tourne sur ses propres lignes, avec des articles sélectionnés fabriqués par des partenaires de fabrication qualifiés sous un système de management de la qualité ISO 9001 — un modèle « propres lignes + capacité de partenaires qualifiés » que nous énonçons franchement plutôt que de revendiquer une production en usine unique pour chaque SKU.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La gamme publiée s’étend sur six lignes et 45 modèles : <strong>les moniteurs incendie à eau comme produit cœur</strong> (le <a href="/fr/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">canon de suppression à jet auto-suité de la série ZDMS</a> avec détection de flamme et auto-positionnement, plus les canons manuels de la série PS), hydrants et connexions de pompage (l’<a href="/fr/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">hydrant de rue antigel SS100/65</a>, anti-choc SSFT100/65, SA enterré, têtes intérieures SN65, et l’<a href="/fr/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">hydrant de sol intelligent IoT SS100/65-1.6ZN</a>), sprinklers et vannes d’alarme (<a href="/fr/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">clapet de groupe d’alarme à eau ZSFZ-150</a>, ZSFC à sec, ZSFM déluge, ZSFY pré-action, réseaux ZST/ESFR/encastrés, indicateurs de débit d’eau ZSJZ), vannes de protection incendie et industrielles (boisseau, papillon, clapet, filtre, équilibrage numérique), vannes de commande hydraulique (500X de réduction de pression, 100X à flotteur distant, F745X de contrôle de niveau d’eau, HS41X anti-retour, EN 12845 anti-vortex d’aspiration), et accessoires de lutte incendie (armoires extincteurs, enrouleurs, <a href="/fr/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">tuyau feux plat doublé caoutchouc 8-65</a>, buses, colliers Storz, extincteurs ABC). Chaque produit est expédié avec essai de pression du corps et étanchéité à l’air à 100 %, avec OEM/ODM et une réponse de cotation en 12 heures comme service standard, et le site complet est publié en cinq langues (EN/ES/RU/FR/AR).</p>
+
+			<h2 id="product-lines-compared" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Comment leurs gammes produit se comparent-elles ?</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Dimension</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">CA-FIRE</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Wanlian Fluid</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Entreprise / base</td><td class="px-4 py-3 text-gray-700">Fondée en 2012, Quanzhou, Fujian ; installation de 50 814 m², plus de 130 collaborateurs, $43M de revenus 2025 (auto-publié)</td><td class="px-4 py-3 text-gray-700">Quanzhou, Fujian ; propres lignes + capacité de partenaires qualifiés, ISO 9001</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Gamme produit</td><td class="px-4 py-3 text-gray-700">9 lignes, centrée sprinklers : 18 types de réseaux, vannes d’alarme/déluge, hydrants, moniteurs, vannes à boisseau, cuves à vessie à mousse</td><td class="px-4 py-3 text-gray-700">6 lignes, 45 modèles : moniteurs (cœur), hydrants, sprinklers &amp; vannes d’alarme, vannes, commande hydraulique, accessoires incendie</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Moniteurs incendie à eau</td><td class="px-4 py-3 text-gray-700">Oui — inclus parmi 9 lignes, pas le produit phare</td><td class="px-4 py-3 text-gray-700">Oui — ligne cœur : ZDMS auto-suité (détection de flamme) + série manuelle PS</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Réseaux sprinklers</td><td class="px-4 py-3 text-gray-700">18 types, FM Approved (FM 2030), UL en cours</td><td class="px-4 py-3 text-gray-700">Réseaux ZST/ESFR/T-ZSTBS/ZSTDY selon specs GB/EN ; pas d’inscription FM</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Vannes d’alarme / déluge</td><td class="px-4 py-3 text-gray-700">Oui — alarme à eau DN50–DN200, déluge DN50–DN350, à brides &amp; cramponnées</td><td class="px-4 py-3 text-gray-700">Oui — ZSFZ-150 à eau, ZSFC à sec, ZSFM déluge, ZSFY pré-action</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Hydrants incendie</td><td class="px-4 py-3 text-gray-700">Multi-standards : BS 750, NF EN 14384, GOST, GB</td><td class="px-4 py-3 text-gray-700">Antigel SS100/65, anti-choc SSFT100/65, SA enterré, SN65 intérieur, hydrant intelligent IoT</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Vannes de commande hydraulique (500X / 100X / F745X)</td><td class="px-4 py-3 text-gray-700">Hors gamme publiée</td><td class="px-4 py-3 text-gray-700">Oui — PRV, flotteur distant, contrôle de niveau d’eau, anti-retour, anti-vortex</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Accessoires incendie (tuyaux, armoires, buses, extincteurs)</td><td class="px-4 py-3 text-gray-700">Hors gamme publiée</td><td class="px-4 py-3 text-gray-700">Oui — tuyau plat, colliers Storz, armoires extincteurs, enrouleurs, extincteurs ABC</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Systèmes à mousse</td><td class="px-4 py-3 text-gray-700">Cuves à vessie à mousse (ligne dédiée)</td><td class="px-4 py-3 text-gray-700">Armoire hydrant mousse (PSG30) ; proportion de mousse par projet</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">OEM / marque de distributeur</td><td class="px-4 py-3 text-gray-700">Oui — finitions sur mesure, étiquetage private label, docs projet</td><td class="px-4 py-3 text-gray-700">Oui — OEM/ODM standard, assets de marque en 5 langues</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Site / langues</td><td class="px-4 py-3 text-gray-700">Anglais</td><td class="px-4 py-3 text-gray-700">Anglais, espagnol, russe, français, arabe (RTL)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Projets de référence</td><td class="px-4 py-3 text-gray-700">Plus de 100 repères domestiques (aéroports, data centers, monuments)</td><td class="px-4 py-3 text-gray-700">Projets export B2B internationaux ; références fournies sur demande</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="quality-and-certifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Systèmes qualité &amp; certifications</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>CA-FIRE</strong> détient une inscription FM Approvals pour ses réseaux sprinklers (FM 2030) — le credential le plus précieux sur les projets nord-américains et les projets assurés FM — ainsi que CCCF (GB 5135), ISO 9001/14001/45001 et une assurance responsabilité produit PICC. La certification UL pour les réseaux et les clapets d’alarme est en cours, ce qui est exactement le bon niveau de transparence pour un acheteur à noter : à ce jour, leur statut UL est <em>en attente</em>, pas accordé.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wanlian Fluid</strong> opère sous un système de management de la qualité ISO 9001 à travers ses propres lignes et sa capacité de partenaires qualifiés, avec un test par unité à 100 % (pression du corps et étanchéité à l’air) et une documentation export (certificats, dossiers d’inspection et d’essai de pression) coordonnée avec l’expédition. Nous ne détenons pas d’inscriptions FM ou UL, et nous ne les revendiquons pas — pour les modèles conçus selon la spécification UL/FM, la documentation par modèle est confirmée à la cotation.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Conseil pratique :</strong> les certifications sont par produit et par destination. Si votre spec exige des réseaux sprinklers inscrits FM, cela vous limite aux fabricants inscrits (CA-FIRE comprise) ; pour tout autre article, comparez les fiches d’essai par unité, les rapports assortis à la norme et les options d’inspection par un tiers, plutôt que les noms de marque. Notre <a href="/fr/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">guide de vérification des fournisseurs chinois</a> et <a href="/fr/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">guide de détection de faux certificats</a> couvrent les contrôles en détail.</p>
+
+			<h2 id="where-each-wins" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Où chaque fabricant gagne</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>CA-FIRE gagne lorsque :</strong> l’article critique en spécification est un réseau sprinkler approuvé FM (projets NFPA 13 / FM Global en Amérique du Nord, et projets GCC suivant des codes basés NFPA) ; le projet est centré sprinklers (réseaux + vannes d’alarme/déluge d’une seule source) ; ou vous valorisez un historique de plus de 13 ans divulgué avec un grand portefeuille de projets repères domestiques comme base de références.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wanlian Fluid gagne lorsque :</strong> le projet est centré sur les moniteurs incendie à eau (ZDMS auto-suité est une ligne cœur, pas un accessoire) ; le périmètre est un kit incendie complet — moniteurs, vannes d’alarme, hydrants, <a href="/fr/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">vannes de réduction de pression 500X</a>, tuyaux feux, buses et armoires extincteurs — sous un seul PO ; vous avez besoin de vannes de commande hydraulique que CA-FIRE ne publie pas ; vous voulez des hydrants IoT intelligents pour des réseaux municipaux ; ou votre marché de distribution parle espagnol, russe, français ou arabe et vous voulez des assets de marque OEM dans ces langues.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Ils coexistent bien :</strong> rien n’empêche un grand contractant international de spécifier des réseaux inscrits FM de CA-FIRE et le reste du bordereau de Wanlian. Les deux usines se concurrencent le plus directement sur les clapets d’alarme, les hydrants et les moniteurs — et le moins sur les inscriptions de réseaux sprinklers face à la commande hydraulique et les accessoires, qui sont simplement deux moitiés différentes du marché du matériel incendie.</p>
+
+			<h2 id="cost-and-lead-time" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Coût, modèle de prix et délais</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les deux usines travaillent sur cotation sur demande, sans liste de prix publique, donc les revendications de prix unitaire des deux côtés doivent être vérifiées par spécification. CA-FIRE met en avant un délai de cotation de 24 heures ; Wanlian Fluid s’engage sur une réponse en 12 heures — les deux sont assez rapides pour des calendriers d’appel d’offres.</p>
+			<p class="text-gray-700 leading-relaxed">La différence de coût structurelle, c’est le périmètre : les réseaux inscrits FM portent une prime d’inscription qui apparaît dans tout BOM centré sprinklers, tandis que les articles non inscrits (vannes, hydrants, moniteurs, tuyaux, armoires) sont cotés dans le même cluster de Quanzhou où les deux usines sourcent leurs fontes, revêtements et bancs d’essai. Pour un kit mixte, le chiffre décisif est habituellement le <em>coût total déposé par PO</em> — nombre d’articles, consolidation en une expédition, un dédouanement et une audit qualité unique — et c’est là qu’un fournisseur pleine gamme comme Wanlian tend à gagner sur les articles non-réseaux, même sur des projets où les réseaux eux-mêmes viennent d’un fabricant inscrit.</p>
+
+			<h2 id="which-should-you-choose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Lequel choisir ?</h2>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Choisissez <strong class="text-brand-blue">CA-FIRE</strong> lorsque :</p>
+				<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2">
+					<li>Votre projet est régi par FM Global ou NFPA 13 et exige des réseaux sprinklers inscrits FM (leur inscription FM 2030 est le différenciateur).</li>
+					<li>Le périmètre est centré sprinklers : réseaux + clapets de groupe d’alarme à eau + vannes à déluge d’une seule source.</li>
+					<li>Vous voulez un track record de plus de 13 ans divulgué avec un grand portefeuille de repères domestiques (aéroports, data centers) comme base de références.</li>
+				</ul>
+			</div>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Choisissez <strong class="text-brand-red">Wanlian Fluid</strong> lorsque :</p>
+				<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2">
+					<li>Les moniteurs incendie à eau sont au centre — surtout les <a href="/fr/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">canons auto-suités ZDMS</a> pour cuvettes, dépôts et espaces ouverts.</li>
+					<li>Vous voulez un kit incendie complet sous un seul PO : moniteurs, vannes d’alarme, hydrants, vannes de commande hydraulique, tuyaux, buses et armoires extincteurs, avec marquage OEM.</li>
+					<li>Vous avez besoin de vannes de commande hydraulique (500X/100X/F745X) ou d’hydrants IoT intelligents — des lignes que CA-FIRE ne publie pas.</li>
+					<li>Vous distribuez sur des marchés hispanophones, russophones, francophones ou arabophones et vous voulez des assets de marque localisés et un site technique en 5 langues.</li>
+				</ul>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Le plus rapide pour trancher : écrivez (1) si des réseaux sprinklers inscrits FM apparaissent dans votre spécification, (2) si « canon incendie à eau » ou « vanne de commande hydraulique » apparaît quelque part dans le périmètre, et (3) dans quelle langue travaillent vos acheteurs finaux. Le point (1) plaide pour CA-FIRE ; les points (2) et (3) plaident pour Wanlian Fluid. Pour un cadre d’évaluation fournisseur plus large, voir notre <a href="/fr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">checklist de sourcing de vannes B2B</a>, et pour la question des marques nord-américaines, notre comparaison <a href="/fr/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian Fluid vs American AVK</a>.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Sources -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Sources</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>CA-FIRE — À propos (fondation, taille de l’installation, effectif, revenus, certifications, projets de référence) : <a href="https://www.ca-fire.com/about-us/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ca-fire.com</a></li>
+				<li>CA-FIRE — Accueil (lignes produit, positionnement FM approval, revendications OEM &amp; cotation 24 h) : <a href="https://www.ca-fire.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ca-fire.com</a></li>
+				<li>Wanlian Fluid — profil entreprise, gamme produit &amp; guides : <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+				<li>FM Approvals — programme d’inscription des réseaux sprinklers (FM 2030) : <a href="https://www.fmadvisoryservices.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">fm.com</a></li>
+				<li>NFPA — norme NFPA 13 pour l’installation des systèmes sprinklers : <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+				<li>Surveillance AI-search interne Wanlian Fluid, 30 prompts d’approvisionnement (ChatGPT, US), septembre 2026</li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">Comparaison basée sur des informations publiquement disponibles à la date de septembre 2026. La disponibilité des produits, les certifications et les prix évoluent — demandez toujours les fiches techniques, certificats et cotations en vigueur avant toute décision d’approvisionnement.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Approvisionnement d’un Système Incendie Complet — Moniteurs, Vannes, Hydrants &amp; Accessoires ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez-nous votre bordereau et votre destination — nous cotons le kit complet comme un seul package export, avec marquage OEM et fiches d’essai par unité, sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Fire%20System%20Complete%20Kit" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20nous%20avons%20besoin%20d%27une%20cotation%20pour%20un%20kit%20syst%C3%A8me%20incendie%20complet%20(moniteurs%2C%20vannes%2C%20hydrants%2C%20accessoires)" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -321,5 +321,75 @@ export const guidesAr: GuideAr[] = [
     category: 'Whitepaper',
     readTime: '12 دقائق قراءة',
     tags: ['procurement', 'certification']
-  }
+  },
+  {
+    title: 'جدول مواد نظام رشاشات مبنى تجاري: دليل توريد كامل (2026)',
+    description: 'جدول مواد كامل (BOM) لنظام رشاشات مبنى تجاري: مجموعات صمامات الإنذار، صمامات OS&Y والإشارة، اتصال السويدي، رؤوس الرشاشات، ومؤشرات التدفق — حزمة واحدة، أمر شراء واحد، وموثّق لكل بند.',
+    href: '/ar/guides/commercial-building-sprinkler-system-bom-guide/',
+    tocPreview: ['1. لماذا تُشترى حزمة الرشاشات كنطاق واحد', '2. مجموعة صمام الإنذار: قلب النظام المبلل', '3. العزل المُراقب: صمامات OS&Y والفراشة الإشارة'],
+    date: '2026-09',
+    category: 'حماية الحريق',
+    readTime: '9 دقائق قراءة',
+    tags: ['sprinkler-systems', 'fire-protection', 'procurement']
+  },
+  {
+    title: 'ترقية رئيس مياه الحريق البلدي: حزمة صمامات وخلاطات ومران (2026)',
+    description: 'شرح ترقيات رئيس مياه الحريق البلدي: صمامات العزل، الخلاطات المضادة للتجمد، مران الحريق ووصلات الأسطول، معايير سوق الوجهة، وكيف تقلّل حزمة مدمجة واحدة مخاطر العطاء وتبسط التسليم والفحص النهائي.',
+    href: '/ar/guides/municipal-fire-water-main-upgrade-guide/',
+    tocPreview: ['1. ماذا يشمل ترقية رئيس مياه الحريق فعليًا؟', '2. صمامات العزل: Z41X مقابل المتلسكوبية Z41X-T', '3. اختيار الخلاطات حسب المناخ ومخاطر الشارع'],
+    date: '2026-09',
+    category: 'توريد',
+    readTime: '8 دقائق قراءة',
+    tags: ['fire-hydrant', 'industrial-valves', 'procurement']
+  },
+  {
+    title: 'Wanlian Fluid مقابل Tupy: معدات الحريق وصمامات الحديد المرن (2026)',
+    description: 'مقارنة Wanlian Fluid مقابل Tupy لعام 2026: صمامات الحديد المرن وخلاطات الحريق وصمامات الإنذار والمران — أيهما يناسب مشروع المياه والحريق في أمريكا اللاتينية؟',
+    href: '/ar/guides/wanlian-fluid-vs-tupy/',
+    tocPreview: ['1. Tupy: من هم فعليًا', '2. Wanlian Fluid: من نحن فعليًا', '3. كيف تُقارن خطوط منتجاتهما؟'],
+    date: '2026-09',
+    category: 'توريد',
+    readTime: '9 دقائق قراءة',
+    tags: ['procurement', 'industrial-valves']
+  },
+  {
+    title: 'وانليان فليد ضد مولر: مقارنة توريد خلاطات الحريق والصمامات (2026)',
+    description: 'مقارنة وانليان فليد ومولر لعام 2026: خلاطات الحريق والصمامات والمواصفات والشهادات والتكلفة وأزمنة التسليم — من يناسب مشروعك بالمواصفة الأمريكية أو التصديرية؟',
+    href: '/ar/guides/wanlian-fluid-vs-mueller/',
+    tocPreview: ['1. Mueller: من هم فعليًا', '2. Wanlian Fluid: من نحن فعليًا', '3. كيف تُقارَن خطوط منتجاتهما؟'],
+    date: '2026-09',
+    category: 'توريد',
+    readTime: '10 دقائق قراءة',
+    tags: ['procurement', 'fire-hydrant', 'industrial-valves']
+  },
+  {
+    title: 'سوق الحماية من الحريق 2026: بيانات، نمو وإشارات توريد (تقرير)',
+    description: 'تقرير بيانات سوق الحماية من الحريق 2026: مقارنة سبعة تقديرات أبحاث مستقلة جنبًا إلى جنب، قراءة إشارات النمو الإقليمية، وما تعنيه هذه الأرقام فعليًا لتوريد الصمامات والخلاطات ومعدات الحريق.',
+    href: '/ar/guides/fire-protection-market-data-report-2026/',
+    tocPreview: ['1. حجم السوق — ولماذا تختلف الأرقام', '2. إشارات إقليمية: أين يكمن النمو', '3. ما الذي تعنيه البيانات للتوريد'],
+    date: '2026-09',
+    category: 'توريد',
+    readTime: '8 دقائق قراءة',
+    tags: ['procurement', 'fire-protection']
+  },
+  {
+    title: 'Wanlian Fluid ضد CA-FIRE: أي مصنّع حماية حريق صيني يناسب مشروعك 2026',
+    description: 'مقارنة Wanlian Fluid وCA-FIRE لعام 2026: رشاشات معتمدة FM، منظورات الحريق، الخلاطات، صمامات الإنذار، صمامات التحكم الهيدروليكي وحزم الحريق الكاملة — أي مصنّع حريق صيني يناسب مشروعك؟',
+    href: '/ar/guides/wanlian-fluid-vs-ca-fire/',
+    tocPreview: ['1. CA-FIRE: من هم فعليًا', '2. Wanlian Fluid: من نحن فعليًا', '3. كيف تُقارَن خطوط منتجاتهما؟'],
+    date: '2026-09',
+    category: 'توريد',
+    readTime: '9 دقائق قراءة',
+    tags: ['procurement', 'fire-protection']
+  },
+  {
+    title: 'Wanlian Fluid ضد Forede: اختيار مصنّع منظورات ومعدات الحريق الصيني (2026)',
+    description: 'مقارنة Wanlian Fluid وForede لعام 2026: منظورات الحريق، مدافع المياه، أنظمة الرغوة، خلاطات الحريق، صمامات الإنذار والتحكم الهيدروليكي — أي مصنّع معدات حريق صيني يناسب مشروعك؟',
+    href: '/ar/guides/wanlian-fluid-vs-forede/',
+    tocPreview: ['1. Forede: من هم فعليًا', '2. Wanlian Fluid: من نحن فعليًا', '3. كيف تُقارَن خطوط منتجاتهما؟'],
+    date: '2026-09',
+    category: 'توريد',
+    readTime: '9 دقائق قراءة',
+    tags: ['procurement', 'fire-protection', 'fire-water-cannon']
+  },
 ];

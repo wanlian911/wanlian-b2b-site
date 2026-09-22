@@ -32,6 +32,28 @@ export const productsFrPart2: Record<string, Product> = {
     seoTitle: 'Canon d\u2019Eau ZDMS à Suivi Automatique | Détection IR/UV',
     seoDescription:
       "Canon anti-incendie intelligent ZDMS à suivi automatique. Détection de flamme IR/UV multi-bandes, extinction autonome rapide. Meilleur choix pour la protection intérieure de grands espaces.",
+    faqs: [
+      {
+        question: 'Quelle zone un canon ZDMS peut-il surveiller et en combien de temps détecte-t-il l\u2019incendie ?',
+        answer:
+          "De la détection de l\u2019allumage jusqu\u2019au jet orienté, la séquence s\u2019achève en moins de 30 secondes : les capteurs infrarouge et ultraviolet multi-bandes localisent la flamme, la tourelle la suit et la buse projette l\u2019eau automatiquement, sur un rayon de surveillance de 40 à 65 m.",
+      },
+      {
+        question: 'Quels capteurs utilise le canon à suivi automatique ZDMS ?',
+        answer:
+          "Il combine la détection infrarouge multi-bandes et la détection ultraviolette de la flamme, ce qui réduit les fausses alarmes dues à la soudure, à l\u2019éclairage ou au rayonnement solaire par rapport aux capteurs à bande unique. Le boîtier de capteur est en ABS résistant aux UV, classé IP66.",
+      },
+      {
+        question: 'Quel débit et quelle pression de fonctionnement offre le ZDMS ?',
+        answer:
+          "Rotation horizontale complète de 360° et plage verticale de -90° à +30°, avec des débits nominaux de 5/10/20/30 L/s (sur mesure jusqu\u2019à 150 L/s) à 0,6–0,8 MPa.",
+      },
+      {
+        question: 'Un canon ZDMS anti-explosion est-il disponible pour les sites pétrochimiques ?',
+        answer:
+          "Oui — une version anti-explosion Ex de II BT4 Gb est disponible pour les parcs de réservoirs, les usines et autres zones à risque, avec les mêmes performances de détection et de suivi.",
+      },
+    ],
   },
   'deluge-alarm-valve-zsfm': {
     id: '13',
@@ -116,6 +138,28 @@ export const productsFrPart2: Record<string, Product> = {
     seoTitle: 'Système de Vanne à Alarme ZSFY à Pré-action | Double Protection',
     seoDescription:
       'Groupe de vanne à gicleurs ZSFY à pré-action haute sécurité. Conception de double déclenchement fiable. Empêche les dégâts des eaux dans musées, archives et data centers.',
+    faqs: [
+      {
+        question: 'Pourquoi choisir un système à pré-action pour data centers, archives ou musées ?',
+        answer:
+          "La tuyauterie reste remplie d\u2019air (0,03 à 0,05 MPa) en conditions normales, si bien qu\u2019une rupture accidentelle ne peut noyer les biens protégés. L\u2019eau n\u2019est libérée que lorsque le déclenchement à double signal confirme l\u2019incendie.",
+      },
+      {
+        question: 'Comment le déclenchement à double signal du ZSFY empêche-t-il un écoulement accidentel ?',
+        answer:
+          "La vanne exige deux signaux indépendants — un signal d\u2019alarme incendie et une variation de pression — avant que la chambre à membrane ne se libère et n\u2019inonde le système. Un seul dysfonctionnement ne peut déclencher l\u2019ouverture.",
+      },
+      {
+        question: 'Quelles tailles et quelles options de déclenchement sont disponibles pour le ZSFY ?',
+        answer:
+          "De DN80 à DN250 à 1,6 MPa, avec déclenchement pneumatique, électrique ou manuel, et dispositifs intégrés de maintien de pression et de réapprovisionnement en air dans le groupe de vannes.",
+      },
+      {
+        question: 'Quels matériaux rendent le ZSFY résistant à la corrosion ?',
+        answer:
+          "Corps et bonnet en fonte ductile QT450, battant en bronze ou en fonte à graphite sphéroïdal habillé EPDM, chambre à membrane en caoutchouc NBR renforcé, ainsi que des accessoires en laiton et en acier inoxydable sur l\u2019ensemble de la garniture.",
+      },
+    ],
   },
   'suction-vortex-preventer-en12845': {
     id: '15',
@@ -260,6 +304,28 @@ export const productsFrPart2: Record<string, Product> = {
     seoTitle: 'Moniteur d\u2019Eau Manuel Série PS | Grande Portée',
     seoDescription:
       'Canon d\u2019eau anti-incendie manuel PS à grand débit. Supporte la projection d\u2019eau et de mousse. Construction robuste, adapté aux stockages industriels et sites pétrochimiques.',
+    faqs: [
+      {
+        question: 'Quelle portée du jet le moniteur d\u2019eau manuel PS atteint-il ?',
+        answer:
+          "De 50 à 110 m de portée du jet selon le débit sélectionné (20–200 L/s) et la pression d\u2019entrée (0,8–1,2 MPa), avec un jet droit à forte concentration et un pulvérisage en brouillard large disponibles.",
+      },
+      {
+        question: 'Le moniteur PS peut-il appliquer de la mousse en plus de l\u2019eau ?',
+        answer:
+          "Oui — il est conçu pour l\u2019application de l\u2019eau comme de la mousse, raison pour laquelle il est utilisé dans les parcs de réservoirs, les ports et les zones pétrochimiques pour la protection des feux de classe B.",
+      },
+      {
+        question: 'Comment viser et maintenir en position le moniteur PS ?',
+        answer:
+          "Un levier manuel offre un réglage de visée fluide et rapide, et un mécanisme d\u2019engrenage auto-bloquant maintient la position choisie, si bien que le canon peut projeter sans surveillance une fois réglé.",
+      },
+      {
+        question: 'Quelles brides d\u2019entrée sont disponibles pour la série PS ?',
+        answer:
+          "Brides d\u2019entrée DN100, DN150 et DN200, avec une rotation horizontale de 360° et une plage verticale de -30° à +70°, en alliage d\u2019aluminium T6 anodisé durci ou en bronze pour la résistance aux conditions marines.",
+      },
+    ],
   },
   'water-flow-indicator-zsjz': {
     id: '19',
@@ -321,6 +387,28 @@ export const productsFrPart2: Record<string, Product> = {
     seoTitle: 'Vanne à Boisseau Z41X-T Télescopique | Prix Usine',
     seoDescription:
       'Vanne à boisseau à siège élastomère télescopique intégrée. Clapet entièrement encapsulé EPDM, fonte ductile QT450. Idéale pour les canalisations nécessitant une compensation de dilatation.',
+    faqs: [
+      {
+        question: 'Quelle est la fonction du manchon télescopique intégré ?',
+        answer:
+          "Il assure une compensation de dilatation de ±25 mm en absorbant les mouvements thermiques et les tassements de la canalisation, sans mettre le corps de vanne en contrainte — et il permet de remplacer la vanne sans découper la conduite.",
+      },
+      {
+        question: 'En quoi le Z41X-T diffère-t-il d\u2019une vanne à boisseau à siège élastomère classique ?',
+        answer:
+          "Il combine étanchéité parfaite (sans bulle) et compensation de dilatation de la canalisation dans un seul élément : vous installez une seule vanne au lieu d\u2019une vanne associée à un joint de dilatation séparé.",
+      },
+      {
+        question: 'Quelles tailles et quelles pressions sont disponibles pour la vanne à boisseau télescopique ?',
+        answer:
+          "De DN50 à DN600 à 1,0 ou 1,6 MPa, en fonte ductile QT450 avec un obturateur entièrement encapsulé EPDM, pour les lignes d\u2019approvisionnement en eau, d\u2019incendie et HVAC.",
+      },
+      {
+        question: 'Quels fluides conviennent au Z41X-T ?',
+        answer:
+          "Eau, eaux usées et eau d\u2019incendie. Le revêtement époxy non toxique à l\u2019intérieur comme à l\u2019extérieur le maintient apte au service de l\u2019eau potable comme aux lignes d\u2019assainissement.",
+      },
+    ],
   },
   'adjustable-pressure-reducing-valve-500x': {
     id: '21',
@@ -353,6 +441,28 @@ export const productsFrPart2: Record<string, Product> = {
     seoTitle: 'Réducteur de Pression Hydraulique 500X | Alimentation en Eau',
     seoDescription:
       'Réducteur de pression hydraulique autopiloté 500X industriel. Construction en fonte ductile haute durabilité. Conceptions OEM et sur mesure disponibles.',
+    faqs: [
+      {
+        question: 'Le réducteur de pression 500X a-t-il besoin d\u2019électricité ?',
+        answer:
+          "Non. Il est entièrement auto-régulé : un système pilote hydraulique perçoit la pression en aval et module la vanne principale, de sorte qu\u2019il fonctionne partout où existe une pression de réseau — sans alimentation externe ni système de commande.",
+      },
+      {
+        question: 'Quelle plage de pression en aval le 500X peut-il maintenir ?',
+        answer:
+          "La pression aval réglée est ajustable de 0,1 MPa à 1,6 MPa via l\u2019ensemble pilote, en maintenant une valeur stable malgré les variations de débit ou de pression d\u2019entrée, sur les classes d\u2019entrée PN10, PN16 et PN25.",
+      },
+      {
+        question: 'Quelles tailles sont disponibles pour le 500X ?',
+        answer:
+          "De DN20 à DN600 (3/4 pouce à 24 pouces) en fonte ductile QT450-10, avec membrane EPDM renforcée de nylon, tige interne en acier inoxydable 304 et pilote en laiton forgé massif — conçu selon ANSI, JIS ou GB selon vos besoins.",
+      },
+      {
+        question: 'Comment le 500X empêche-t-il le coup de bélier ?',
+        answer:
+          "La vanne principale se ferme lentement et en douceur grâce à la membrane pilotée, évitant les surpressions brutales qu\u2019une fermeture rapide peut créer dans les longues canalisations d\u2019eau.",
+      },
+    ],
   },
   'fire-hydrant-hose-coupling-adapter-hs': {
     id: '22',

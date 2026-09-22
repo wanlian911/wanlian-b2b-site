@@ -41,7 +41,25 @@ export const productsEsPart1: Record<string, Product> = {
     },
     image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp',
     seoTitle: 'Válvula de Compuerta Z41X de Asiento Elástico | Hierro Dúctil',
-    seoDescription: 'Válvula de compuerta Z41X de hierro dúctil con asiento elástico: sellado hermético para sistemas industriales. Precio de fábrica de Quanzhou Wanlian Fluid.'
+    seoDescription: 'Válvula de compuerta Z41X de hierro dúctil con asiento elástico: sellado hermético para sistemas industriales. Precio de fábrica de Quanzhou Wanlian Fluid.',
+    faqs: [
+      {
+        question: '¿Qué tamaños están disponibles para la válvula de compuerta Z41X de asiento elástico?',
+        answer: 'DN50 a DN700 (2 a 28 pulgadas) a PN10 o PN16, desde líneas ramales hasta grandes líneas principales de transmisión en servicio de suministro de agua, alcantarillado, industrial y HVAC.'
+      },
+      {
+        question: '¿Cómo logra el Z41X un sellado hermético?',
+        answer: 'La cuña está totalmente encapsulada en caucho EPDM de alta calidad, de modo que el sellado no depende del contacto metal contra metal como en una válvula de compuerta tradicional. El diseño de fondo plano también evita la acumulación de sedimentos en el asiento.'
+      },
+      {
+        question: '¿Puede reemplazarse el sello del Z41X sin drenar la línea?',
+        answer: 'Sí, el sellado elástico puede reemplazarse en línea y bajo presión, evitando paradas costosas durante el mantenimiento.'
+      },
+      {
+        question: '¿Qué medios y temperaturas puede manejar el Z41X?',
+        answer: 'Agua, líquidos no corrosivos y aire, de 0°C a 80°C, con recubrimiento de resina epoxi no tóxica en el interior y el exterior para resistencia a la corrosión en redes de agua potable e industriales.'
+      }
+    ]
   },
   'indoor-fire-hydrant-head-sn65': {
     id: '2',
@@ -71,7 +89,25 @@ export const productsEsPart1: Record<string, Product> = {
     },
     image: '/assets/products/indoor-fire-hydrant-head-sn65.jpg',
     seoTitle: 'Hidrante Interior SN65 para Incendios | Precio de Fábrica',
-    seoDescription: 'Hidrante interior SN65 de hierro dúctil para tuberías contra incendios: 1.6 MPa, conexión ranurada o con brida. Venta directa de fábrica desde Wanlian Fluid.'
+    seoDescription: 'Hidrante interior SN65 de hierro dúctil para tuberías contra incendios: 1.6 MPa, conexión ranurada o con brida. Venta directa de fábrica desde Wanlian Fluid.',
+    faqs: [
+      {
+        question: '¿Qué tipos de conexión están disponibles para la cabeza de hidrante interior SN65?',
+        answer: 'El SN65 está disponible con conexiones ranuradas o con brida e interfaz de acople de aluminio anodizado o latón, de modo que puede adaptarse a su estándar de acople de mangueras (Storz, HS/BS5912, NIST) en el momento del pedido.'
+      },
+      {
+        question: '¿Qué presión soporta la válvula de hidrante SN65?',
+        answer: 'Está clasificada para una presión de trabajo de 1.6 MPa (232 PSI) y se prueba en presión y antifugas hasta 2.4 MPa, lo que cubre los sistemas de columna seca contra incendios interiores estándar.'
+      },
+      {
+        question: '¿Dónde se instala habitualmente el SN65?',
+        answer: 'Es la válvula de montaje en pared para gabinetes contra incendios interiores y estaciones de manguera en edificios comerciales e industriales; DN65 (2.5 pulgadas), compatible con las dimensiones estándar de mangueras contra incendios.'
+      },
+      {
+        question: '¿Puede suministrarse el SN65 como parte de un kit completo de estación contra incendios interior?',
+        answer: 'Sí, se combina con nuestro conjunto de carrete de manguera JPS0.8-19, manguera plana contra incendios y boquilla de rociado para formar una estación completa contra incendios interior en una sola orden de compra.'
+      }
+    ]
   },
   'wet-alarm-check-valve-zsfz-150': {
     id: '3',
@@ -101,7 +137,25 @@ export const productsEsPart1: Record<string, Product> = {
     },
     image: '/assets/products/wet-alarm-check-valve-zsfz-150.webp',
     seoTitle: 'Válvula de Alarma Tipo Húmedo ZSFZ-150 | Rociadores',
-    seoDescription: 'Válvula de alarma tipo húmedo ZSFZ-150 para sistemas de rociadores: hierro dúctil y respuesta rápida de alarma. Venta directa de fábrica desde China.'
+    seoDescription: 'Válvula de alarma tipo húmedo ZSFZ-150 para sistemas de rociadores: hierro dúctil y respuesta rápida de alarma. Venta directa de fábrica desde China.',
+    faqs: [
+      {
+        question: '¿Cómo activa la alarma la válvula de alarma tipo húmedo ZSFZ?',
+        answer: 'Cuando el flujo de los rociadores abre la clapeta, el gong de alarma de motor de agua se activa de forma continua, la cámara de retardo filtra los picos transitorios para prevenir falsas alarmas y el presostato cierra un contacto eléctrico hacia el panel de control de alarma contra incendios.'
+      },
+      {
+        question: '¿Necesita el ZSFZ energía eléctrica para operar?',
+        answer: 'No. La válvula en sí es totalmente hidráulica. Solo el contacto del presostato proporciona la señal de alarma al panel de alarma contra incendios del edificio.'
+      },
+      {
+        question: '¿Qué tamaños están disponibles para el ZSFZ?',
+        answer: 'DN100, DN150 y DN200 a presión nominal de 1.6 MPa, fabricados según GB 5135.2 con cuerpos de hierro fundido o hierro dúctil y sellos de clapeta y asiento de EPDM/NBR.'
+      },
+      {
+        question: '¿Puede mantenerse el ZSFZ sin drenar el sistema?',
+        answer: 'Sí, está diseñado para mantenimiento en línea y pruebas periódicas, algo crítico para sistemas contra incendios que deben permanecer protegidos las 24 horas.'
+      }
+    ]
   },
   'signal-grooved-wafer-butterfly-valve-dn80': {
     id: '4',
@@ -250,7 +304,25 @@ export const productsEsPart1: Record<string, Product> = {
     },
     image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp',
     seoTitle: 'Hidrante Exterior Anticolisión SSFT100 | Regulador de Presión',
-    seoDescription: 'Hidrante anticolisión con regulador de presión SSFT100, doble cierre de seguridad para protección municipal e industrial. Precio de fábrica de Wanlian.'
+    seoDescription: 'Hidrante anticolisión con regulador de presión SSFT100, doble cierre de seguridad para protección municipal e industrial. Precio de fábrica de Wanlian.',
+    faqs: [
+      {
+        question: '¿Cómo corta el SSFT100 el agua después de una colisión con un vehículo?',
+        answer: 'Los pasadores de cizallamiento especializados están calibrados para romperse bajo impacto. Una vez cizallados, la válvula interna se cierra automáticamente y sella el hidrante, deteniendo la salida a chorro del agua para que las reparaciones puedan realizarse con la tubería aún presurizada.'
+      },
+      {
+        question: '¿Qué función cumple el dispositivo regulador de presión incorporado?',
+        answer: 'Proporciona una descarga de agua progresiva y uniforme al abrir las salidas, reduciendo los picos de flujo y el golpe de ariete mientras los camiones de bomberos toman agua del hidrante.'
+      },
+      {
+        question: '¿Qué estándares de salidas utiliza el SSFT100?',
+        answer: 'Dos salidas DN65 con interfaz KWS65 más una salida DN100 (configuración DN100/65, tamaños de cuerpo DN100 y DN150 a 1.6 MPa). Pueden especificarse otros estándares de acople de salidas para su mercado.'
+      },
+      {
+        question: '¿Cuánto mantenimiento requiere un hidrante anticolisión después de un impacto?',
+        answer: 'Muy poco: simplemente se reemplazan los pasadores de cizallamiento y se reinicia el hidrante. La válvula inferior y la tubería permanecen en servicio, lo que mantiene al mínimo el costo de reparación y el tiempo de interrupción.'
+      }
+    ]
   },
   'iot-smart-ground-fire-hydrant-ss100zn': {
     id: '10',
@@ -278,7 +350,25 @@ export const productsEsPart1: Record<string, Product> = {
     },
     image: '/assets/products/overground-fire-hydrant-ss100.webp',
     seoTitle: 'Hidrante IoT SS100ZN | Monitoreo en Tiempo Real',
-    seoDescription: 'Hidrante inteligente IoT con monitoreo en tiempo real de presión, inclinación y detección de robo de agua para redes municipales inteligentes.'
+    seoDescription: 'Hidrante inteligente IoT con monitoreo en tiempo real de presión, inclinación y detección de robo de agua para redes municipales inteligentes.',
+    faqs: [
+      {
+        question: '¿Qué datos monitoriza en tiempo real el hidrante inteligente IoT?',
+        answer: 'Presión y caudal del agua en la tubería, estado de apertura/cierre de la válvula, inclinación y vibración (detección de colisiones) y alarmas por robo de agua, transmitidos de forma inalámbrica a través de redes celulares (NB-IoT, LTE-M o GPRS).'
+      },
+      {
+        question: '¿Cómo se alimenta el hidrante inteligente SS100ZN?',
+        answer: 'Mediante una batería de litio incorporada con una vida útil de diseño de cinco años, con asistencia solar opcional para instalaciones remotas o de difícil acceso. No requiere cableado externo.'
+      },
+      {
+        question: '¿Cuál es el estándar del cuerpo del hidrante inteligente?',
+        answer: 'El cuerpo del hidrante se fabrica según GB 4452-2011 en hierro dúctil QT450, con el módulo IoT en una cápsula de ABS resistente a impactos clasificada IP68 y una sonda de agua de acero inoxidable 316.'
+      },
+      {
+        question: '¿Puede el hidrante inteligente integrarse con una plataforma de monitoreo municipal?',
+        answer: 'Sí, transmite datos celulares estándar que pueden reenviarse a su plataforma SCADA o de ciudad inteligente. Coordinamos el formato de datos y la lógica de alarmas durante la especificación del proyecto.'
+      }
+    ]
   },
   'glass-bulb-fire-sprinkler-zst': {
     id: '11',
@@ -307,7 +397,25 @@ export const productsEsPart1: Record<string, Product> = {
     },
     image: '/assets/products/glass-bulb-fire-sprinkler-zst.webp',
     seoTitle: 'Rociador de Bulbo de Vidrio ZST | Automático',
-    seoDescription: 'Rociadores automáticos de bulbo de vidrio serie ZST: alta sensibilidad y marco de latón resistente a la corrosión. Precio de fábrica desde Wanlian (China).'
+    seoDescription: 'Rociadores automáticos de bulbo de vidrio serie ZST: alta sensibilidad y marco de latón resistente a la corrosión. Precio de fábrica desde Wanlian (China).',
+    faqs: [
+      {
+        question: '¿Cómo elijo entre rociadores K=80 y K=115?',
+        answer: 'K=80 (K=80±4) es la opción estándar para la mayoría de las salas de riesgo ligero y ordinario. K=115 (K=115±9) entrega un caudal mayor donde la densidad de diseño es más alta. Su cálculo hidráulico de rociadores establece el factor K y el caudal requeridos a la presión de trabajo.'
+      },
+      {
+        question: '¿Qué clasificaciones de temperatura están disponibles para los rociadores ZST?',
+        answer: 'Clasificaciones de bulbo de vidrio de 57°C, 68°C, 79°C, 93°C y 141°C con codificación estándar de color del bulbo, para que el rociador se abra dentro de la banda de temperatura que su clase de riesgo requiere.'
+      },
+      {
+        question: '¿Cuál es la diferencia entre bulbos de respuesta rápida y de respuesta estándar?',
+        answer: 'Los rociadores de respuesta rápida utilizan un bulbo de 3 mm y reaccionan más rápido, preferidos donde la actuación veloz es importante. Los de respuesta estándar utilizan un bulbo de 5 mm y son la opción general por defecto.'
+      },
+      {
+        question: '¿Qué orientaciones están disponibles en la familia ZST?',
+        answer: 'Modelos ZST colgantes, verticales y de pared lateral, más las variantes de pared lateral horizontal (T-ZSTBS) y empotrada oculta (ZSTDY) para instalaciones de techos acabados, con cuerpos de latón forjado de precisión y bulbos de vidrio importados en DN15/DN20.'
+      }
+    ]
   },
   'auto-tracking-jet-suppression-cannon-zdms': {
     id: '12',
@@ -336,7 +444,25 @@ export const productsEsPart1: Record<string, Product> = {
     },
     image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp',
     seoTitle: 'Cañón de Agua ZDMS de Seguimiento Automático | IR/UV',
-    seoDescription: 'Cañón monitor ZDMS con seguimiento automático: detección IR/UV multibanda y supresión autónoma en segundos para grandes espacios interiores.'
+    seoDescription: 'Cañón monitor ZDMS con seguimiento automático: detección IR/UV multibanda y supresión autónoma en segundos para grandes espacios interiores.',
+    faqs: [
+      {
+        question: '¿Con qué rapidez detecta y extingue un incendio el cañón ZDMS?',
+        answer: 'Desde la detección de la ignición hasta el chorro dirigido, la secuencia se completa en menos de 30 segundos: sensores de infrarrojo multibanda y ultravioleta localizan la llama, la torreta la sigue y la boquilla descarga automáticamente.'
+      },
+      {
+        question: '¿Qué sensores utiliza el cañón de seguimiento automático?',
+        answer: 'Combina detección de llama por infrarrojo multibanda con ultravioleta, lo que reduce las falsas alarmas por soldadura, iluminación y radiación solar en comparación con sensores de banda única. La carcasa del sensor es de ABS resistente a UV, clasificada IP66.'
+      },
+      {
+        question: '¿Qué área puede monitorear un cañón ZDMS?',
+        answer: 'Un radio de monitoreo de 40 a 65 m con rotación horizontal completa de 360° y rango vertical de -90° a +30°, con caudales nominales de 5/10/20/30 L/s (personalizables hasta 150 L/s) a 0.6 a 0.8 MPa.'
+      },
+      {
+        question: '¿Existe un ZDMS a prueba de explosión para instalaciones petroquímicas?',
+        answer: 'Sí, está disponible una versión a prueba de explosión Ex de II BT4 Gb para parques de tanques, plantas y otras zonas peligrosas, con el mismo rendimiento de detección y seguimiento.'
+      }
+    ]
   },
   'deluge-alarm-valve-zsfm': {
     id: '13',
@@ -412,7 +538,25 @@ export const productsEsPart1: Record<string, Product> = {
     },
     image: '/assets/products/pre-action-alarm-system-zsfy.jpg',
     seoTitle: 'Sistema de Válvula de Preacción ZSFY | Doble Protección',
-    seoDescription: 'Grupo de válvula de preacción ZSFY de alta seguridad con doble disparo a prueba de fallos, previene daños por agua en museos, archivos y centros de datos.'
+    seoDescription: 'Grupo de válvula de preacción ZSFY de alta seguridad con doble disparo a prueba de fallos, previene daños por agua en museos, archivos y centros de datos.',
+    faqs: [
+      {
+        question: '¿Por qué utilizar preacción en centros de datos, archivos o museos?',
+        answer: 'La tubería permanece llena de aire (0.03 a 0.05 MPa) en condiciones normales, de modo que una rotura accidental no puede verter agua sobre los bienes protegidos. El agua solo se libera cuando el disparo de doble señal confirma un incendio.'
+      },
+      {
+        question: '¿Cómo evita el disparo de doble señal del ZSFY la descarga accidental?',
+        answer: 'La válvula requiere dos señales independientes, una señal de alarma contra incendios y un cambio de presión, antes de que la cámara del diafragma se libere e inunde el sistema. Un solo fallo no puede disparar la descarga.'
+      },
+      {
+        question: '¿Qué tamaños y opciones de disparo están disponibles para el ZSFY?',
+        answer: 'DN80 a DN250 a 1.6 MPa, con opciones de disparo neumático, eléctrico o manual, y dispositivos integrados de mantenimiento de presión y alimentación de aire en el grupo.'
+      },
+      {
+        question: '¿Qué materiales hacen al ZSFY resistente a la corrosión?',
+        answer: 'Cuerpo y tapa de hierro dúctil QT450, clapeta de bronce o hierro nodular recubierta de EPDM, cámara de diafragma de NBR reforzado y accesorios de latón y acero inoxidable en todo el conjunto.'
+      }
+    ]
   },
   'suction-vortex-preventer-en12845': {
     id: '15',

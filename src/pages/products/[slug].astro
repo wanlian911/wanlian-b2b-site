@@ -84,6 +84,18 @@ const categoryInfo: Record<string, { applications: string[]; testing: string }> 
 // 产品级 FAQ 优先，其次按分类生成通用采购 FAQ
 const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
 const info = categoryInfo[product.category];
+
+// 产品视频教程(可选):数据源配置 product.video 后自动渲染并输出 VideoObject JSON-LD
+const videoData = product.video
+  ? {
+      name: `${product.name} — Video Overview`,
+      description: product.video.description ?? `Video overview of the ${product.name}: construction, key dimensions and installation points.`,
+      thumbnail: product.video.poster ?? product.image,
+      src: product.video.src,
+      duration: product.video.duration ?? 'PT2M0S',
+      uploadDate: product.video.uploadDate ?? '2026-09-21'
+    }
+  : undefined;
 // 批次 C：Related 模块按产品族闭环（10 族，同族 3–4 条），与 product_families.json 的 related_links 逐页对齐；
 // 未归族产品回退到分类互链，避免空模块。
 const bySlug = new Map(products.map(p => [p.slug, p]));
@@ -143,6 +155,7 @@ const relatedGuides = [...explicitGuides, ...(guideByCategory[product.category] 
   productData={product}
   type="product"
   faq={faqs}
+  video={videoData}
   breadcrumbs={[{ name: 'Products', href: '/products/' }, { name: product.category, href: `/products/#category=${encodeURIComponent(product.category)}` }, { name: product.name }]}
 >
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mb-20">
@@ -169,6 +182,16 @@ const relatedGuides = [...explicitGuides, ...(guideByCategory[product.category] 
           <span class="text-7xl font-black tracking-[0.3em] text-brand-blue/[0.06] -rotate-[24deg] whitespace-nowrap">WANLIAN FLUID</span>
         </span>
       </div>
+
+      <!-- Product Video (renders only when product.video is configured) -->
+      {product.video && (
+        <div class="mt-4 rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-gray-900">
+          <video class="w-full h-auto" controls playsinline preload="metadata" poster={product.video.poster}>
+            <source src={product.video.src} type="video/mp4" />
+            Your browser does not support embedded video.
+          </video>
+        </div>
+      )}
 
       <!-- Product Details -->
       <div class="space-y-6">

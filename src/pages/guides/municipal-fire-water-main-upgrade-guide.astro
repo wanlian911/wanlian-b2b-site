@@ -1,0 +1,175 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'scope', label: '1. What a Fire Water Main Upgrade Actually Includes' },
+	{ id: 'isolation-valves', label: '2. Isolation Valves: Z41X vs Telescopic Z41X-T' },
+	{ id: 'hydrants-by-climate', label: '3. Hydrant Selection by Climate and Street Risk' },
+	{ id: 'hose-couplings', label: '4. Fire Hose and Couplings for the Municipal Fleet' },
+	{ id: 'standards-table', label: '5. Standards by Destination Market' },
+	{ id: 'one-po', label: '6. The One-PO Package: Why Consolidating Cuts Risk' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const faq = [
+	{
+		question: 'Can hydrants, valves and fire hose be ordered as a single municipal package?',
+		answer: 'Yes — a single purchase order can combine overground or underground hydrants, resilient seat isolation valves, rubber-lined fire hose and Storz or BS336 couplings, with OEM branding, export packing and one reconciled test-record set. Municipal tenders that require per-item documentation get it per line on the same packing list.'
+	},
+	{
+		question: 'Which hydrant type should a cold-climate city specify?',
+		answer: 'A dry-barrel antifreeze hydrant: the barrel above the frost line drains automatically after each use, so the body does not freeze. The SS100/65 overground hydrant (1.6 MPa, tested to 2.4 MPa) is our standard cold-climate overground unit, with anti-collision and IoT variants available where street traffic or network monitoring is in scope.'
+	},
+	{
+		question: 'Why use a telescopic gate valve on an upgrade project instead of a standard gate valve?',
+		answer: 'The Z41X-T combines bubble-tight shutoff with ±25 mm expansion compensation in one unit. On a main that is being re-laid or tied into existing pipe, that tolerance absorbs misalignment and settlement, and the valve can later be replaced without cutting the line — both are recurring costs on municipal networks.'
+	},
+	{
+		question: 'What hose coupling standard does the fire fleet use in my market?',
+		answer: 'It depends on the fire engines: Storz (German standard) is the most common export pattern, BS336/BS5912 covers UK and Commonwealth fleets, and NIST covers several Middle East specifications. The hose, the couplings and the hydrant outlet caps all have to match the same pattern — specify it once for the whole package.'
+	},
+	{
+		question: 'How are upgrade projects typically scheduled from order to delivery?',
+		answer: 'For standard models: specification and itemized quote within days, a sample unit for verification, then production of 15–30 days depending on quantity and customization, with per-unit shell pressure and air-leakage testing before export packing. Third-party inspection at the factory can be arranged before shipment.'
+	}
+];
+
+const productRows = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Overground Antifreeze Hydrant SS100/65', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Dry-barrel drainage, 1.6 MPa, 2x65 + 1x100 outlets' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Resilient Seat Gate Valve Z41X', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50-DN700, PN10/PN16, on-line reseating' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Rubber Lined Layflat Fire Hose', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Model 8-65 for municipal and industrial duty' }
+];
+---
+
+<Layout
+	title="Municipal Fire Water Main Upgrade: Valve, Hydrant & Hose Package (2026)"
+	description="Municipal fire main upgrades explained: isolation valves, antifreeze hydrants, fire hose and couplings, destination standards and how one consolidated package de-risks the tender."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Fire Main Upgrade' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Fire Main Upgrade</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Procurement Guide · Municipal Infrastructure</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Municipal Fire Water Main Upgrade: Valves, Hydrants & Hose as One Package</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">A fire main upgrade is rarely about one product. It is a bundle — isolation valves at every tie-in, hydrants on the new segments, hose and couplings for the fleet, and a pump connection that the fire service can actually use. This guide walks the four scope lines, the climate-driven choices inside each, and why municipal buyers increasingly put the whole bundle on one purchase order.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Scope note:</strong> Quantities and hydrant density follow your municipal code and the utility's design standard; the component selections below are the engineering choices that a fire-main BOQ actually forces. The tender's clause always governs.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="scope" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. What a Fire Water Main Upgrade Actually Includes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Read the tender's BOQ and the fire scope collapses into four recurring lines: <strong>isolation valves</strong> at mains, hydrants and pump tie-ins; <strong>hydrants</strong> on the replaced or extended segments; <strong>fire hose and couplings</strong> that keep the fleet compatible with the new outlet standards; and the <strong>pump/department connection</strong> where the fire service hooks up. Each line has a standards dimension (which regime the destination applies) and a logistics dimension (what ships together in a container).</p>
+			<p class="text-gray-700 leading-relaxed">The failure pattern this guide is written against: valves from one supplier, hydrants from another, hose from a third — and the outlet caps not matching the fleet couplings, or the valve flange faces not matching the hydrant inlet. The same scope, on one PO from one manufacturer, cannot have those seams.</p>
+
+			<h2 id="isolation-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Isolation Valves: Z41X vs Telescopic Z41X-T</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Every upgrade needs isolation points so a section can be worked on without draining the network. The two workhorses in our range are the standard <a href="/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X resilient seat gate valve</a> (DN50–DN700, PN10/PN16, fully EPDM-encapsulated wedge, re-seatable on-line) and the <a href="/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">Z41X-T telescopic version</a> (DN50–DN600 with ±25 mm expansion compensation built in).</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Decision</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Z41X</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Z41X-T telescopic</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Size range</td><td class="px-4 py-3 text-gray-700">DN50–DN700</td><td class="px-4 py-3 text-gray-700">DN50–DN600</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Expansion compensation</td><td class="px-4 py-3 text-gray-700">None (fit an expansion joint if needed)</td><td class="px-4 py-3 text-gray-700">±25 mm built in</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Replacement without pipe cutting</td><td class="px-4 py-3 text-gray-700">No</td><td class="px-4 py-3 text-gray-700">Yes</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Best for</td><td class="px-4 py-3 text-gray-700">New mains, large diameters, fixed installations</td><td class="px-4 py-3 text-gray-700">Tie-ins into existing pipe, settlement-prone ground, future maintenance</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Rule of thumb from the field: new straight mains take the standard Z41X; tie-ins, crossings and anything the maintenance crew will one day want to swap out take the telescopic. Both carry the same fully encapsulated wedge, so the sealing behaviour the utility depends on does not change.</p>
+
+			<h2 id="hydrants-by-climate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Hydrant Selection by Climate and Street Risk</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Climate decides the barrel, and street risk decides the extras:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Cold climates:</strong> the <a href="/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">SS100/65 overground antifreeze hydrant</a> — automatic post-closing drainage empties the barrel above the frost line, 1.6 MPa working / 2.4 MPa tested, with 2×DN65 plus DN100 outlets.</li>
+				<li><strong>Traffic-heavy streets:</strong> the <a href="/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">SSFT100 anti-collision hydrant</a> — calibrated shear bolts break on impact, the internal valve shuts off automatically, and the repair is a bolt replacement with the line still pressurized.</li>
+				<li><strong>Smart-city programs:</strong> the <a href="/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">SS100ZN IoT hydrant</a> — pressure, flow, tilt/collision and illegal-use alarms over NB-IoT/LTE-M, five-year battery with solar assist, on a GB 4452 body.</li>
+				<li><strong>Underground mains:</strong> the <a href="/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">SA underground hydrant</a> for buried installations with KWS65 outlets.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Outlet coupling patterns (KWS65, BS336, Storz, NIST) are a per-market specification — the same hydrant body ships with the caps your fire fleet actually keys. That one line in the BOQ is where most cross-border hydrant orders go wrong, and where a package supplier is supposed to catch it for you. Our <a href="/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">antifreeze & anti-collision guide</a> covers the hydraulic behaviour of each variant in depth.</p>
+
+			<h2 id="hose-couplings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Fire Hose and Couplings for the Municipal Fleet</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The fleet hose line has to match the new hydrant outlets or the upgrade is incomplete on the day it is handed over. The <a href="/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">rubber-lined layflat hose (model 8-65)</a> is the municipal standard in our range — 8-inch, DN65-rated, built for repeated pressure duty — with the <a href="/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">2.5-inch aluminum Storz coupling</a> as the default export end fitting; DN50/DN65 coupling adapters in the <a href="/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS series</a> cover the transition where old and new patterns coexist on the network. Sizes, linings and edge sealing are walked through in the <a href="/guides/fire-hose-buying-guide/" class="text-brand-blue font-semibold hover:underline">layflat fire hose buying guide</a>.</p>
+
+			<h2 id="standards-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Standards by Destination Market</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The same hydrant and valve are specified under different regimes depending on where the project lands. Name the regime per line item in the BOQ:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Region</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical references</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Buyer note</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">US & much of the Americas</td><td class="px-4 py-3 text-gray-700">AWWA C502 (hydrants), AWWA C515, ISO 5208 / EN 1074 (valves)</td><td class="px-4 py-3 text-gray-700">Confirm the standard and test report per model</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Latin America</td><td class="px-4 py-3 text-gray-700">AWWA (US-spec tenders), Mexico NOM, Brazil ABNT</td><td class="px-4 py-3 text-gray-700">The tender's clause governs; verify per model</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Europe</td><td class="px-4 py-3 text-gray-700">EN 14384 (hydrants), EN 1074, EN 12266-1 (valve testing), CE</td><td class="px-4 py-3 text-gray-700">CE and testing are per model and per directive</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Middle East & Africa</td><td class="px-4 py-3 text-gray-700">Often AWWA or BS 750; NIST outlets common</td><td class="px-4 py-3 text-gray-700">Confirm the outlet coupling pattern in the BOQ</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Full side-by-side of the standards families is in the <a href="/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">hydrant, hose & valve standards guide</a> — including how to read a standard against a test report before you pay.</p>
+
+			<h2 id="one-po" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. The One-PO Package: Why Consolidating Cuts Risk</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A municipal package order from one manufacturer buys you three things a multi-supplier BOQ cannot: <strong>compatible interfaces by construction</strong> (outlet caps, valve flanges and hose couplings all specified in one drawing review), <strong>one test-record set</strong> that reconciles to a single packing list for the acceptance file, and <strong>one logistics plan</strong> — hydrants and hose share container space well, and a single Incoterm keeps the risk split clean from factory gate to site. The step-by-step sequence — specification, supplier verification, sampling, QC, documentation, logistics — is the <a href="/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">sourcing guide</a>; the per-model verification discipline is in the <a href="/whitepaper/" class="text-brand-blue font-semibold hover:underline">industry whitepaper</a>.</p>
+			<p class="text-gray-700 leading-relaxed">For regional context on how these scopes are tendered, the <a href="/guides/municipal-water-fire-infrastructure-latinamerica/" class="text-brand-blue font-semibold hover:underline">Latin America municipal infrastructure guide</a> covers the regional standards regimes and one-PO practice in detail.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Put Your Fire Main BOQ to Work</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the line items, the destination standard and the hydrant density — we return an itemized quote with per-model test approach and a consolidated logistics plan within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Municipal%20Fire%20Main%20Package" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20we%20have%20a%20municipal%20fire%20main%20upgrade%20( valves%20%2B%20hydrants%20%2B%20hose )%20and%20need%20an%20itemized%20quote" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -315,5 +315,75 @@ export const guidesEs: Guide[] = [
     category: 'Whitepaper',
     readTime: readTime('12'),
     tags: ['procurement', 'certification']
-  }
+  },
+  {
+    title: 'BOM de Sistema de Rociadores para Edificio Comercial: Guía 2026',
+    description: 'BOM completo de sistema de rociadores en edificio comercial: grupos de válvulas de alarma, OS&Y, siamese, rociadores e indicadores — un paquete, una sola PO.',
+    href: '/es/guides/commercial-building-sprinkler-system-bom-guide/',
+    tocPreview: ['1. Por Qué el Paquete de Rociadores Se Adquiere como un Solo Alcance', '2. El Grupo de Válvula de Alarma: El Corazón del Sistema Húmedo', '3. Aislamiento Monitorizado: Válvulas OS&Y y Mariposa de Señal'],
+    date: '2026-09',
+    category: 'Protección Contra Incendios',
+    readTime: readTime('9'),
+    tags: ['sprinkler-systems', 'fire-protection', 'procurement']
+  },
+  {
+    title: 'Mejora de Tubería de Incendios Municipal: Paquete 2026',
+    description: 'Mejoras de redes de incendio municipal: válvulas de aislamiento, hidrantes anticongelantes, mangueras y acoples, normas por destino y paquete de una sola PO.',
+    href: '/es/guides/municipal-fire-water-main-upgrade-guide/',
+    tocPreview: ['1. Qué Incluye Realmente una Mejora de Tubería de Incendio', '2. Válvulas de Aislamiento: Z41X frente a Telescópica Z41X-T', '3. Selección de Hidrantes por Clima y Riesgo Vial'],
+    date: '2026-09',
+    category: 'Compras B2B',
+    readTime: readTime('8'),
+    tags: ['fire-hydrant', 'industrial-valves', 'procurement']
+  },
+  {
+    title: 'Wanlian Fluid vs Tupy: Válvulas e Incendios para LatAm (2026)',
+    description: 'Wanlian Fluid vs Tupy (2026): válvulas de hierro dúctil y latón, hidrantes, mangueras y válvulas de alarma — qué marca encaja en su proyecto de agua e incendio.',
+    href: '/es/guides/wanlian-fluid-vs-tupy/',
+    tocPreview: ['1. Tupy: Quiénes Son Realmente', '2. Wanlian Fluid: Quiénes Somos', '3. ¿Cómo Se Compara Su Gama de Productos?'],
+    date: '2026-09',
+    category: 'Compras B2B',
+    readTime: readTime('9'),
+    tags: ['procurement', 'industrial-valves']
+  },
+  {
+    title: 'Wanlian Fluid vs Mueller: Hidrantes y Válvulas AWWA (2026)',
+    description: 'Wanlian Fluid vs Mueller (2026): hidrantes AWWA C502, válvulas de compuerta, certificación UL/FM, costo y plazos — qué proveedor encaja en su proyecto.',
+    href: '/es/guides/wanlian-fluid-vs-mueller/',
+    tocPreview: ['1. Mueller: Quiénes Son Realmente', '2. Wanlian Fluid: Quiénes Somos', '3. ¿Cómo Se Compara Su Gama de Productos?'],
+    date: '2026-09',
+    category: 'Compras B2B',
+    readTime: readTime('10'),
+    tags: ['procurement', 'fire-hydrant', 'industrial-valves']
+  },
+  {
+    title: 'Mercado de Protección Contra Incendios 2026: Datos y Crecimiento',
+    description: 'Mercado de protección contra incendios 2026: estimaciones independientes comparadas, señales de crecimiento y su impacto en la compra de válvulas e hidrantes.',
+    href: '/es/guides/fire-protection-market-data-report-2026/',
+    tocPreview: ['1. ¿Qué Tan Grande Es el Mercado — y Por Qué Difieren las Cifras?', '2. Señales Regionales: Dónde Está el Crecimiento', '3. Qué Significan los Datos para la Compra'],
+    date: '2026-09',
+    category: 'Compras B2B',
+    readTime: readTime('8'),
+    tags: ['procurement', 'fire-protection']
+  },
+  {
+    title: 'Wanlian Fluid vs CA-FIRE: ¿Qué Marca de Incendios Elige? (2026)',
+    description: 'Comparativa Wanlian Fluid vs CA-FIRE (2026): rociadores FM, monitores, hidrantes, válvulas de alarma y kits de incendio — qué fabricante encaja en su proyecto.',
+    href: '/es/guides/wanlian-fluid-vs-ca-fire/',
+    tocPreview: ['1. CA-FIRE: Quiénes Son Realmente', '2. Wanlian Fluid: Quiénes Son Realmente', '3. ¿Cómo Se Compara Su Gama de Productos?'],
+    date: '2026-09',
+    category: 'Compras B2B',
+    readTime: readTime('9'),
+    tags: ['procurement', 'fire-protection']
+  },
+  {
+    title: 'Wanlian Fluid vs Forede: Cañones de Agua Contra Incendios (2026)',
+    description: 'Wanlian Fluid vs Forede (2026): cañones de agua, sistemas de espuma, hidrantes y válvulas de un fabricante chino — qué proveedor encaja en su proyecto.',
+    href: '/es/guides/wanlian-fluid-vs-forede/',
+    tocPreview: ['1. Forede: Quiénes Son Realmente', '2. Wanlian Fluid: Quiénes Somos', '3. ¿Cómo Se Compara Su Gama de Productos?'],
+    date: '2026-09',
+    category: 'Compras B2B',
+    readTime: readTime('9'),
+    tags: ['procurement', 'fire-protection', 'fire-water-cannon']
+  },
 ];

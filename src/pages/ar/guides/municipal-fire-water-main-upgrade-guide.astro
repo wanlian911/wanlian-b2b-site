@@ -1,0 +1,176 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'scope', label: '1. ماذا يشمل ترقية رئيس مياه الحريق فعليًا؟' },
+	{ id: 'isolation-valves', label: '2. صمامات العزل: Z41X مقابل المتلسكوبية Z41X-T' },
+	{ id: 'hydrants-by-climate', label: '3. اختيار الخلاطات حسب المناخ ومخاطر الشارع' },
+	{ id: 'hose-couplings', label: '4. مران الحريق والوصلات لأسطول البلدية' },
+	{ id: 'standards-table', label: '5. المعايير حسب سوق الوجهة' },
+	{ id: 'one-po', label: '6. حزمة أمر الشراء الواحد: لماذا يقلل الدمج المخاطر؟' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const faq = [
+	{
+		question: 'هل يمكن طلب الخلاطات والصمامات ومران الحريق كحزمة بلدية واحدة؟',
+		answer: 'نعم — يمكن لأمر شراء واحد أن يجمع خلاطات سطحية أو تحت أرضية، وصمامات عزل بمقعد مرن، ومران حريق مبطن بالمطاط، ووصلات Storz أو BS336، مع علامة OEM وتعبئة تصديرية ومجموعة سجلات اختبار منسقة واحدة. العطاءات البلدية التي تتطلب مستندات لكل بند تحصل عليها بندًا بندًا على نفس قائمة التعبئة.'
+	},
+	{
+		question: 'ما نوع الخلاط الذي يجب أن تخصصه مدينة ذات مناخ بارد؟',
+		answer: 'خلاط برميل جاف مضاد للتجمد: البرميل فوق خط الصقيع يفرغ تلقائيًا بعد كل استخدام، فلا يتجمد الغلاف. خلاط SS100/65 السطحي (1.6 MPa، مختبَر حتى 2.4 MPa) هو وحدتنا السطحية القياسية لمناخ البارد، مع متغيرات مقاومة اصطدام وIoT متاحة حيث يكون حركة المرور أو مراقبة الشبكة ضمن النطاق.'
+	},
+	{
+		question: 'لماذا يُستخدم صمام بوابة متلسكوبي في مشروع ترقية بدلًا من صمام بوابة قياسي؟',
+		answer: 'يجمع Z41X-T بين إغلاق محكم دون فقاعة وتعويض تمدد ±25 مم في وحدة واحدة. على رئيس يُعاد مدّه أو يُربط بأنبوب قائم، تلك التسامح تمتص سوء المحاذاة والاستقرار، ويمكن لاحقًا استبدال الصمام دون قطع الخط — وكلاهما تكاليف متكررة على الشبكات البلدية.'
+	},
+	{
+		question: 'ما معيار وصلات المران الذي يستخدمه أسطول الحريق في سوقك؟',
+		answer: 'يعتمد على سيارات الإطفاء: Storz (المعيار الألماني) هو نمط التصدير الأكثر شيوعًا، وBS336/BS5912 يغطي أساطيل بريطانيا ودول الكومنولث، وNIST يغطي عدة مواصفات في الشرق الأوسط. المران والوصلات وأغطية مخرجات الخلاط جميعها يجب أن تطابق نفس النمط — اضبطه مرة واحدة للحزمة كلها.'
+	},
+	{
+		question: 'كيف تُجدول مشاريع الترقية عادة من الطلب حتى التسليم؟',
+		answer: 'للنماذج القياسية: المواصفة وعرض أسعار مفصّل البنود خلال أيام، ثم وحدة عينة للتحقق، ثم إنتاج يستغرق 15–30 يومًا اعتمادًا على الكمية والتخصيص، مع اختبار ضغط الغلاف وسرّب الهواء لكل وحدة قبل التعبئة التصديرية. يمكن ترتيب فحص من طرف ثالث في المصنع قبل الشحن.'
+	}
+];
+
+const productRows = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'خلاط حريق سطحي مضاد للتجمد SS100/65', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'تصريف برميل جاف، 1.6 MPa، مخرجات 2x65 + 1x100' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'صمام بوابة بمقعد مرن Z41X', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50-DN700، PN10/PN16، إعادة إحكام على الخط' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'مران حريق مسطح مبطن بالمطاط', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'النموذج 8-65 للاستخدام البلدي والصناعي' }
+];
+---
+
+<Layout
+	title="ترقية رئيس مياه الحريق البلدي: حزمة صمامات وخلاطات ومران (2026)"
+	description="شرح ترقيات رئيس مياه الحريق البلدي: صمامات العزل، الخلاطات المضادة للتجمد، مران الحريق ووصلات الأسطول، معايير سوق الوجهة، وكيف تقلّل حزمة مدمجة واحدة مخاطر العطاء وتبسط التسليم والفحص النهائي."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'الأدلة', href: '/ar/blog/' }, { name: 'ترقية رئيس الحريق' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">ترقية رئيس الحريق</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل توريد · بنية تحتية بلدية</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">ترقية رئيس مياه الحريق البلدي: صمامات وخلاطات ومران كحزمة واحدة</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">ترقية رئيس الحريق نادرًا ما تتعلق بمنتج واحد. إنها حزمة — صمامات عزل عند كل نقطة ربط، وخلاطات على المقاطع الجديدة، ومران ووصلات للأسطول، واتصال مضخة يمكن لخدمة الإطفاء استخدامه فعليًا. يمرّ هذا الدليل على خطوط النطاق الأربعة، والاختيارات المدفوعة بالمناخ داخل كل منها، ولماذا يضع المشترون البلديون عمومًا الحزمة كلها على أمر شراء واحد.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">ملاحظة النطاق:</strong> الكميات وكثافة الخلاطات تتبع لائحة مدينتك البلدية ومعيار تصميم شركة الخدمات؛ واختيارات المكونات أدناه هي القرارات الهندسية التي يفرضها فعليًا جدول كميات رئيس الحريق. شرط العطاء هو الغالب دائمًا.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="scope" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. ماذا يشمل ترقية رئيس مياه الحريق فعليًا؟</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">اقرأ جدول كميات العطاء فينكمش نطاق الحريق على أربعة خطوط متكررة: <strong>صمامات عزل</strong> على الرئيسات والخلاطات ونقاط ربط المضخات؛ <strong>خلاطات</strong> على المقاطع المُستبدلة أو الممدودة؛ <strong>مران حريق ووصلات</strong> تحفظ توافق الأسطول مع معايير المخرجات الجديدة؛ و<strong>اتصال المضخة/القسم</strong> حيث يوصِّل فريق الإطفاء. لكل خط بُعد معايير (أي نظام يطبقه سوق الوجهة) وبُعد لوجستي (ما يُشحن معًا في حاوية).</p>
+			<p class="text-gray-700 leading-relaxed">نمط الفشل الذي كُتب ضده هذا الدليل: صمامات من مورد، وخلاطات من آخر، ومران من ثالث — وأغطية المخرجات لا تطابق وصلات الأسطول، أو وجوه فلنجات الصمام لا تطابق مدخل الخلاط. نفس النطاق، على أمر شراء واحد من مصنع واحد، لا يمكن أن تكون فيه تلك الفواصل.</p>
+
+			<h2 id="isolation-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. صمامات العزل: Z41X مقابل المتلسكوبية Z41X-T</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">كل ترقية تحتاج نقاط عزل بحيث يمكن العمل على مقطع دون تصريف الشبكة. عاملان أساسيان في نطاقنا هما <a href="/ar/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">صمام البوابة القياسي بمقعد مرن Z41X</a> (DN50–DN700، PN10/PN16، وتد مغلف بالكامل بـEPDM، قابل لإعادة الإحكام على الخط) و<a href="/ar/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">نسخته المتلسكوبية Z41X-T</a> (DN50–DN600 مع تعويض تمدد ±25 مم مدمج).</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">القرار</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">Z41X</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">Z41X-T المتلسكوبي</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">نطاق المقاس</td><td class="px-4 py-3 text-gray-700">DN50–DN700</td><td class="px-4 py-3 text-gray-700">DN50–DN600</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">تعويض التمدد</td><td class="px-4 py-3 text-gray-700">لا شيء (ركّب وصلة تمدد عند الحاجة)</td><td class="px-4 py-3 text-gray-700">±25 مم مدمج</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الاستبدال دون قطع الأنبوب</td><td class="px-4 py-3 text-gray-700">لا</td><td class="px-4 py-3 text-gray-700">نعم</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الأنسب لـ</td><td class="px-4 py-3 text-gray-700">رئيسات جديدة، أقطار كبيرة، تركيبات ثابتة</td><td class="px-4 py-3 text-gray-700">ربط بأنابيب قائمة، تربة عرضة للاستقرار، صيانة مستقبلية</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">قاعدة إبهام من الميدان: الرئيسات الجديدة المستقيمة تأخذ Z41X القياسية؛ أما الربطات والتقاطعات وأي شيء سترغب فرقة الصيانة يومًا في استبداله فتأخذ المتلسكوبي. كلاهما يحمل نفس الوتد المغلف بالكامل، فلا يتغير سلوك الإحكام الذي تعتمد عليه شركة الخدمات.</p>
+
+			<h2 id="hydrants-by-climate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. اختيار الخلاطات حسب المناخ ومخاطر الشارع</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">المناخ يحدد البرميل، ومخاطر الشارع تحدد الإضافات:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>المناخ البارد:</strong> <a href="/ar/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">خلاط SS100/65 السطحي المضاد للتجمد</a> — تصريف تلقائي بعد الإغلاق يفرغ البرميل فوق خط الصقيع، 1.6 MPa شغل / 2.4 MPa اختبار، بمخرجات 2×DN65 إلى جانب DN100.</li>
+				<li><strong>الشوارع كثيفة المرور:</strong> <a href="/ar/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">خلاط SSFT100 المقاوم للاصطدام</a> — براغي قص مُعايرة تنكسر عند الاصطدام، وإغلاق تلقائي للصمام الداخلي، والإصلاح هو استبدال برغي مع بقاء الخط تحت الضغط.</li>
+				<li><strong>برامج المدينة الذكية:</strong> <a href="/ar/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">خلاط SS100ZN الذكي IoT</a> — إنذارات ضغط وتدفق وميل/اصطدام واستخدام غير مشروع عبر NB-IoT/LTE-M، وبطارية بخمس سنوات بمساعدة شمسية، على غلاف GB 4452.</li>
+				<li><strong>رئيسات تحت الأرض:</strong> <a href="/ar/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">خلاط SA تحت الأرض</a> للتركيبات الدفينة بمخرجات KWS65.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">أنماط وصلات المخرجات (KWS65، BS336، Storz، NIST) مواصفة حسب السوق — نفس غلاف الخلاط يُشحن مع الأغطية التي يُمسكها أسطول الإطفاء لديك فعليًا. تلك السطر الواحد في جدول الكميات هو حيث تخطئ معظم طلبات الخلاطات العابرة للحدود، وحيث يجب على مورد الحزمة أن يلتقطها عنك. يغطي <a href="/ar/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">دليل المضاد للتجمد والمقاوم للاصطدام</a> لدينا السلوك الهيدروليكي لكل متغير بالتفصيل.</p>
+
+			<h2 id="hose-couplings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. مران الحريق والوصلات لأسطول البلدية</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">خط مران الأسطول يجب أن يطابق مخرجات الخلاطات الجديدة وإلا كانت الترقية ناقصة يوم التسليم. <a href="/ar/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">مران مسطح مبطن بالمطاط (النموذج 8-65)</a> هو المعيار البلدي في نطاقنا — 8 بوصات، بمواصفات DN65، مبني لمهام ضغط متكررة — مع <a href="/ar/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">وصلة Storz الألومنيومية 2.5 بوصة</a> بوصفها الطرف التصديري الافتراضي؛ ومحوّلات وصلات DN50/DN65 في <a href="/ar/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">سلسلة HS</a> تغطي المرحلة الانتقالية حيث تتعايش أنماط قديمة وجديدة على الشبكة. المقاسات والبطانة وإحكام الحواف مشروحة في <a href="/ar/guides/fire-hose-buying-guide/" class="text-brand-blue font-semibold hover:underline">دليل شراء مران الحريق المسطح</a>.</p>
+
+			<h2 id="standards-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. المعايير حسب سوق الوجهة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">نفس الخلاط والصمام يُوسَّفا تحت أنظمة مختلفة اعتمادًا على أين ينتهي المشروع. اذكر النظام لكل بند في جدول الكميات:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">المنطقة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">المراجع النموذجية</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">ملاحظة المشتري</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الولايات المتحدة ومعظم الأمريكيتان</td><td class="px-4 py-3 text-gray-700">AWWA C502 (خلاطات)، AWWA C515، ISO 5208 / EN 1074 (صمامات)</td><td class="px-4 py-3 text-gray-700">أكّد المعيار وتقرير الاختبار لكل نموذج</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">أمريكا اللاتينية</td><td class="px-4 py-3 text-gray-700">AWWA (عطاءات بمواصفة أمريكية)، Mexico NOM، Brazil ABNT</td><td class="px-4 py-3 text-gray-700">شرط العطاء هو الغالب؛ تحقق لكل نموذج</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">أوروبا</td><td class="px-4 py-3 text-gray-700">EN 14384 (خلاطات)، EN 1074، EN 12266-1 (اختبار الصمامات)، CE</td><td class="px-4 py-3 text-gray-700">CE والاختبار لكل نموذج ولكل توجيه</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الشرق الأوسط وأفريقيا</td><td class="px-4 py-3 text-gray-700">غالبًا AWWA أو BS 750؛ مخرجات NIST شائعة</td><td class="px-4 py-3 text-gray-700">أكّد نمط وصلة المخرجات في جدول الكميات</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">مقارنة جانبية كاملة لعائلات المعايير في <a href="/ar/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">دليل معايير الخلاطات والمران والصمامات</a> — بما في ذلك كيفية قراءة معيار مقابل تقرير اختبار قبل أن تدفع.</p>
+
+			<h2 id="one-po" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. حزمة أمر الشراء الواحد: لماذا يقلل الدمج المخاطر؟</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">طلب حزمة بلدية من مصنع واحد يشتري لك ثلاثة أشياء لا يحصّلها جدول كميات متعدد الموردين: <strong>واجهات متوافقة بالبنية</strong> (أغطية المخرجات وفلنجات الصمامات ووصلات المران كلها في مراجعة رسم واحدة)، <strong>مجموعة سجلات اختبار واحدة</strong> تُنسَّق مع قائمة تعبئة واحدة لملف القبول، و<strong>خطة لوجستية واحدة</strong> — الخلاطات والمران يتقاسمان مساحة الحاوية جيدًا، ونمط تسليم واحد (Incoterm) يحافظ على انقسام المخاطر واضحًا من باب المصنع حتى الموقع. التسلسل خطوة بخطوة — المواصفة، التحقق من المورّد، أخذ عينة، ضبط الجودة، المستندات، اللوجستيات — هو <a href="/ar/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">دليل التوريد</a>؛ وانضباط التحقق لكل نموذج في <a href="/ar/whitepaper/" class="text-brand-blue font-semibold hover:underline">الورقة البيضاء للقطاع</a>.</p>
+			<p class="text-gray-700 leading-relaxed">للسياق الإقليمي حول كيفية عطاء هذه النطاقات، يغطي <a href="/ar/guides/municipal-water-fire-infrastructure-latinamerica/" class="text-brand-blue font-semibold hover:underline">دليل البنية التحتية البلدية في أمريكا اللاتينية</a> أنظمة المعايير الإقليمية وممارسة أمر الشراء الواحد بالتفصيل.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">اجعل جدول كميات رئيس الحريق لديك يعمل</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل البنود ومعيار الوجهة وكثافة الخلاطات — نعيد إليك عرض أسعار مفصّل البنود مع منهج اختبار لكل نموذج وخطة لوجستيات مدمجة خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Municipal%20Fire%20Main%20Package" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D9%84%D8%AF%D9%8A%D9%86%D8%A7%20%D8%AA%D8%B1%D9%82%D9%8A%D8%A9%20%D8%B1%D8%A3%D9%8A%D8%B3%20%D9%85%D9%8A%D8%A7%D9%87%20%D8%AD%D8%B1%D9%8A%D9%82%20%D8%A8%D9%84%D8%AF%D9%8A%20%28%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%20%2B%20%D8%AE%D9%84%D8%A7%D8%B7%D8%A7%D8%AA%20%2B%20%D9%85%D8%B1%D8%A7%D9%86%29%20%D9%88%D9%86%D8%AD%D8%A7%D8%AC%20%D8%B9%D8%B1%D8%B6%20%D8%A3%D8%B3%D8%B9%D8%A7%D8%B1%20%D9%85%D9%81%D8%B5%D9%91%D9%84%20%D8%A7%D9%84%D8%A8%D9%86%D9%88%D8%AF" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">تحدث عبر WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

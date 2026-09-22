@@ -1,0 +1,250 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'ca-fire-overview', label: '1. CA-FIRE: Quiénes Son Realmente' },
+	{ id: 'wanlian-fluid-overview', label: '2. Wanlian Fluid: Quiénes Son Realmente' },
+	{ id: 'product-lines-compared', label: '3. ¿Cómo Se Compara Su Gama de Productos?' },
+	{ id: 'quality-and-certifications', label: '4. Sistemas de Calidad y Certificaciones' },
+	{ id: 'where-each-wins', label: '5. Dónde Gana Cada Fabricante' },
+	{ id: 'cost-and-lead-time', label: '6. Costo, Modelo de Precios y Plazo de Entrega' },
+	{ id: 'which-should-you-choose', label: '7. ¿Cuál Debería Elegir?' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' },
+	{ id: 'sources', label: 'Fuentes' }
+];
+
+const faq = [
+	{
+		question: '¿Wanlian Fluid y CA-FIRE son la misma empresa o están relacionadas?',
+		answer: 'No. Son dos fabricantes independientes que por casualidad se encuentran en el mismo clúster de equipo contra incendios de Quanzhou, Fujian. CA-FIRE Protection Industry Co., Ltd. (fundada en 2012) se enfoca en rociadores con aprobación FM, válvulas de alarma y diluvio, hidrantes y tanques de espuma. Wanlian Fluid (Quanzhou Wanlian Fluid Equipment Co., Ltd.) se enfoca en monitores de agua contra incendios, hidrantes, válvulas de alarma, válvulas de control hidráulico y accesorios contra incendios. Solicite documentación a la fábrica específica de la que compra — la ubicación en el clúster por sí sola no dice nada sobre quién está fabricando realmente.'
+	},
+	{
+		question: '¿Wanlian Fluid fabrica rociadores con aprobación FM?',
+		answer: 'No. Wanlian Fluid produce rociadores de ampolla de vidrio, ESFR y ocultos según especificaciones GB/EN, pero no cuenta con un listado de FM Approvals. Si su proyecto está regido por FM Global o NFPA 13 en Norteamérica, los rociadores listados FM (CA-FIRE, o marcas listadas consolidadas) son la especificación más segura. Verifique siempre el modelo exacto, la etiqueta de listado y el certificado antes de ordenar — para un método paso a paso vea nuestra guía de verificación de proveedores chinos.'
+	},
+	{
+		question: '¿Cuál de los dos es el proveedor más fuerte de cañones de agua contra incendios?',
+		answer: 'Wanlian Fluid lista los monitores contra incendios como línea central: la serie ZDMS de cañones de supresión a chorro con auto-seguimiento (detección de llama, auto-posicionamiento, control remoto) más cañones manuales de la serie PS. CA-FIRE incluye monitores entre nueve líneas de producto, pero su gama publicada, certificaciones y proyectos de referencia están anclados en rociadores y válvulas de alarma. Para granjas de tanques, depósitos y protección de grandes áreas abiertas donde el monitor es la pieza central, Wanlian es el ajuste más directo; para un sistema de rociadores donde el monitor es un artículo secundario, cualquiera de los dos puede suministrarlo.'
+	},
+	{
+		question: 'Mi proyecto norteamericano necesita rociadores con aprobación FM — ¿puedo seguir usando Wanlian?',
+		answer: 'Sí, para todo excepto los rociadores listados. Una estructura común para contratistas internacionales es: rociadores listados FM de CA-FIRE u otro fabricante listado, y el resto de la lista de materiales — válvulas de alarma de retención, válvulas de compuerta, hidrantes, manguera contra incendios, boquillas, armarios de extintores — de Wanlian bajo una sola PO de exportación. Mezclar fuentes ahorra costo en los artículos no listados sin tocar los rociadores críticos para la especificación.'
+	},
+	{
+		question: '¿Puede Wanlian suministrar monitores, válvulas, hidrantes, mangueras y armarios en un solo envío?',
+		answer: 'Sí — esa capacidad de kit completo es el posicionamiento central de Wanlian. Una sola PO puede cubrir el cañón de auto-seguimiento ZDMS, la válvula de alarma húmeda de retención ZSFZ-150, el hidrante exterior anticongelante SS100/65, la manguera layflat 8-65 con revestimiento de caucho, los acoples Storz y las cajas de extintores, con pruebas de presión por unidad y documentación de exportación coordinada. CA-FIRE también ofrece un BOM de una sola fábrica, pero su kit está centrado en rociadores (cabezales, válvulas de alarma/diluvio, hidrantes, tanques de espuma) sin mangueras, armarios ni válvulas de control hidráulico.'
+	},
+	{
+		question: '¿Cómo verifico la calidad antes de colocar un pedido de volumen con cualquiera de las dos fábricas?',
+		answer: 'Pídale a ambas: certificado ISO 9001 y su alcance, informes de prueba por modelo acordes a su norma, etiquetas FM/CCCF donde se afirmen, registros de prueba de presión y fugas por unidad, opciones de inspección de terceros (SGS/BV/TÜV) y referencias en su región. Luego ejecute un pedido de muestra antes de comprometer el volumen. El método completo de 5 pasos está en nuestra guía de verificación de proveedores chinos.'
+	}
+];
+
+const productRows = [
+	{ slug: 'auto-tracking-jet-suppression-cannon-zdms', name: 'Cañón de Supresión a Chorro con Auto-Seguimiento (Serie ZDMS)', img: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp', desc: 'Cañón de agua auto-seguimiento con detección de llama para granjas de tanques y áreas abiertas' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Válvula de Alarma Húmeda de Retención ZSFZ 150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Válvula de control para sistema de tubería húmeda con campana y alarma motriz' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hidrante Contra Incendios Exterior Anticongelante (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Hidrante exterior de barril seco anticongelante para redes de incendio municipal' }
+];
+---
+
+<Layout
+	title="Wanlian Fluid vs CA-FIRE: ¿Qué Marca de Incendios Elige? (2026)"
+	description="Comparativa Wanlian Fluid vs CA-FIRE (2026): rociadores FM, monitores, hidrantes, válvulas de alarma y kits de incendio — qué fabricante encaja en su proyecto."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Wanlian vs CA-FIRE' }]}
+	locale="es"
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Comparación de Proveedores</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Comparación de Proveedores</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Wanlian Fluid vs CA-FIRE: ¿Qué Fabricante Chino de Protección Contra Incendios Encaja en su Proyecto 2026?</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Si su proyecto está regido por FM Global o NFPA 13 y los rociadores listados FM son el artículo crítico de la especificación, CA-FIRE es la más fuerte de las dos. Si su alcance se centra en monitores de agua contra incendios, un kit completo de equipo contra incendios bajo una sola PO, válvulas de control hidráulico o hidrantes IoT — especialmente en Medio Oriente, África, Sudeste Asiático o América Latina — Wanlian Fluid es el socio más directo. Ambas son fábricas reales en el mismo clúster de Quanzhou; esta comparativa expone exactamente dónde es fuerte cada una, basada en sus gamas de producto y certificaciones publicadas.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Nota de evidencia:</strong> En nuestro monitoreo de búsquedas con IA de septiembre de 2026 sobre 30 preguntas reales de abastecimiento, los organismos de normas (NFPA, FM, UL) fueron las fuentes más citadas en esta categoría, y entre fabricantes CA-FIRE fue la fábrica china más citada que seguimos (apareció en 2 de 30 respuestas, citada dos veces); Wanlian Fluid apareció en 1 de 30 y fue citada una vez. En otras palabras: para el abastecimiento asistido por IA, "qué fábrica china de incendios debo usar" sigue siendo una pregunta abierta — esta comparativa se escribe para responderla con hechos verificables, no con eslóganes.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="ca-fire-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. CA-FIRE: Quiénes Son Realmente</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">CA-FIRE Protection Industry Co., Ltd. fue fundada en 2012 en Quanzhou, Fujian y se posiciona como fabricante directo — "no una trading company" — de equipo de protección contra incendios. Según sus cifras publicadas: una instalación de 50,814 m² de uso específico, más de 130 empleados, 43 millones de dólares en ventas globales en 2025 en más de 40 mercados de exportación, y más de 13 años en la industria.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Su gama publicada cubre nueve líneas de producto: rociadores en 18 tipos (pendientes, verticales, ESFR, CMSA, ocultos, entre otros), válvulas de alarma húmedas de retención (DN50–DN200, con brida y estriadas), válvulas de diluvio de diafragma (DN50–DN350), hidrantes contra incendios según múltiples normas (BS 750, NF EN 14384, GOST, GB), monitores contra incendios, válvulas de compuerta y tanques de espuma con vejiga. El ancla estratégica de la marca es su <strong>listado FM Approvals para rociadores según FM 2030</strong>, que comercializa como la eliminación del riesgo de especificación en proyectos FM Global y NFPA 13 en Norteamérica y el GCC. La certificación UL (ANSI/UL 199) para rociadores y válvulas de alarma de retención se describe como en curso.</p>
+			<p class="text-gray-700 leading-relaxed">Su portafolio de referencias es fuertemente nacional: Aeropuerto Internacional de Beijing Daxing, Guangzhou Baiyun T2, Aeropuerto Chengdu Tianfu, centros de datos de Tencent Cloud y Huawei, Estación Ferroviaria de Beijing Sur, CNPC LNG, el Museo del Palacio y el Gran Salón del Pueblo — más de 100 proyectos chinos destacados. Las exportaciones se presentan centradas en distribuidores y EPC en Norteamérica, Medio Oriente, Sudeste Asiático, Europa y África.</p>
+
+			<h2 id="wanlian-fluid-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Wanlian Fluid: Quiénes Son Realmente</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Quanzhou Wanlian Fluid Equipment Co., Ltd. (Wanlian Fluid) es un fabricante y exportador con base en el mismo clúster de Quanzhou, Fujian. La producción se desarrolla en sus propias líneas, con artículos seleccionados fabricados por socios de fabricación cualificados bajo un sistema de gestión de calidad ISO 9001 — un modelo de "propias líneas + capacidad de socios cualificados" que declaramos abiertamente en lugar de afirmar producción de una sola fábrica para cada SKU.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La gama publicada abarca seis líneas y 45 modelos: <strong>monitores de agua contra incendios como producto central</strong> (el <a href="/es/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">cañón de supresión a chorro con auto-seguimiento de la serie ZDMS</a> con detección de llama y auto-posicionamiento, más cañones manuales de la serie PS), hidrantes contra incendios y conexiones de bombeo (el <a href="/es/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">hidrante exterior anticongelante SS100/65</a>, anticolisión SSFT100/65, subterráneo SA, cabezales interiores SN65, y el <a href="/es/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">hidrante inteligente IoT de superficie SS100/65-1.6ZN</a>), rociadores y válvulas de alarma (<a href="/es/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">válvula de alarma húmeda de retención ZSFZ-150</a>, ZSFC seco, ZSFM diluvio, ZSFY preacción, cabezales ZST/ESFR/ocultos, indicadores de flujo de agua ZSJZ), válvulas de protección contra incendios e industriales (compuerta, mariposa, de retención, filtros, equilibrado digital), válvulas de control hidráulico (500X de reducción de presión, 100X flotador a distancia, F745X de control de nivel de agua, HS41X prevencionador de reflujo, prevencionador de vórtice de succión EN 12845), y accesorios contra incendios (cajas de extintores, carretes de manguera, <a href="/es/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">manguera contra incendios 8-65 con revestimiento de caucho</a>, boquillas, acoples Storz, extintores ABC). Cada producto se envía probado al 100% a presión del cuerpo y fuga de aire, con OEM/ODM y respuesta de cotización en 12 horas como servicio estándar, y el sitio completo está publicado en cinco idiomas (EN/ES/RU/FR/AR).</p>
+
+			<h2 id="product-lines-compared" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. ¿Cómo Se Compara Su Gama de Productos?</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Dimensión</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">CA-FIRE</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Wanlian Fluid</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Empresa / base</td>
+							<td class="px-4 py-3 text-gray-700">Fundada en 2012, Quanzhou, Fujian; instalación de 50,814 m², más de 130 empleados, 43 M$ de ingresos en 2025 (autopublicado)</td>
+							<td class="px-4 py-3 text-gray-700">Quanzhou, Fujian; propias líneas + capacidad de socios cualificados, ISO 9001</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Gama de productos</td>
+							<td class="px-4 py-3 text-gray-700">9 líneas, centrada en rociadores: 18 tipos de cabezal, válvulas de alarma/diluvio, hidrantes, monitores, válvulas de compuerta, tanques de espuma con vejiga</td>
+							<td class="px-4 py-3 text-gray-700">6 líneas, 45 modelos: monitores (centrales), hidrantes, rociadores y válvulas de alarma, válvulas, control hidráulico, accesorios de incendio</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Monitores de agua contra incendios</td>
+							<td class="px-4 py-3 text-gray-700">Sí — incluidos entre las 9 líneas, no es el producto insignia</td>
+							<td class="px-4 py-3 text-gray-700">Sí — línea central: ZDMS con auto-seguimiento (detección de llama) + serie PS manual</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Rociadores</td>
+							<td class="px-4 py-3 text-gray-700">18 tipos, FM Approved (FM 2030), UL en curso</td>
+							<td class="px-4 py-3 text-gray-700">Cabezales ZST/ESFR/T-ZSTBS/ZSTDY según especificaciones GB/EN; sin listado FM</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Válvulas de alarma / diluvio</td>
+							<td class="px-4 py-3 text-gray-700">Sí — retención de alarma DN50–DN200, diluvio DN50–DN350, con brida y estriadas</td>
+							<td class="px-4 py-3 text-gray-700">Sí — ZSFZ-150 húmedo, ZSFC seco, ZSFM diluvio, ZSFY preacción</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hidrantes contra incendios</td>
+							<td class="px-4 py-3 text-gray-700">Multinorma: BS 750, NF EN 14384, GOST, GB</td>
+							<td class="px-4 py-3 text-gray-700">Anticongelante SS100/65, anticolisión SSFT100/65, SA subterráneo, SN65 interior, hidrante inteligente IoT</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Válvulas de control hidráulico (500X / 100X / F745X)</td>
+							<td class="px-4 py-3 text-gray-700">No está en la gama publicada</td>
+							<td class="px-4 py-3 text-gray-700">Sí — PRV, flotador a distancia, control de nivel de agua, prevencionador de reflujo, prevencionador de vórtice</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Accesorios de incendio (manguera, armarios, boquillas, extintores)</td>
+							<td class="px-4 py-3 text-gray-700">No está en la gama publicada</td>
+							<td class="px-4 py-3 text-gray-700">Sí — manguera layflat, acoples Storz, cajas de extintores, carretes de manguera, extintores ABC</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sistemas de espuma</td>
+							<td class="px-4 py-3 text-gray-700">Tanques de espuma con vejiga (línea dedicada)</td>
+							<td class="px-4 py-3 text-gray-700">Armario de hidrante de espuma (PSG30); proporción de espuma según proyecto</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">OEM / marca propia</td>
+							<td class="px-4 py-3 text-gray-700">Sí — acabados personalizados, marca privada, documentación de proyecto</td>
+							<td class="px-4 py-3 text-gray-700">Sí — OEM/ODM estándar, activos de marca en 5 idiomas</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sitio web / idiomas</td>
+							<td class="px-4 py-3 text-gray-700">Inglés</td>
+							<td class="px-4 py-3 text-gray-700">Inglés, español, ruso, francés, árabe (RTL)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Proyectos de referencia</td>
+							<td class="px-4 py-3 text-gray-700">Más de 100 hitos nacionales (aeropuertos, centros de datos, monumentos)</td>
+							<td class="px-4 py-3 text-gray-700">Proyectos de exportación B2B internacionales; referencias proporcionadas bajo consulta</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="quality-and-certifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Sistemas de Calidad y Certificaciones</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>CA-FIRE</strong> posee un listado de FM Approvals para sus rociadores (FM 2030) — el credential más valioso en proyectos norteamericanos y asegurados por FM — junto con CCCF (GB 5135), ISO 9001/14001/45001 y seguro de responsabilidad de producto de PICC. La certificación UL para rociadores y válvulas de alarma de retención está en curso, que es exactamente la revelación correcta que un comprador debe anotar: a fecha de esta escritura, su estado UL es <em>pendiente</em>, no concedido.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wanlian Fluid</strong> opera bajo un sistema de gestión de calidad ISO 9001 en sus propias líneas y capacidad de socios cualificados, con pruebas de presión del cuerpo y fuga de aire por unidad al 100% y documentación de exportación (certificados, registros de inspección y prueba de presión) coordinada con el envío. No poseemos listados FM ni UL, y no los afirmamos — para modelos diseñados según especificación UL/FM, la documentación por modelo se confirma en la cotización.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Consejo práctico:</strong> las certificaciones son por producto y por destino. Si su especificación exige rociadores listados FM, eso lo limita a fabricantes listados (incluida CA-FIRE); para cada otra línea de artículo, compare registros de prueba por unidad, informes acordes a la norma y opciones de inspección de terceros, no nombres de marca. Nuestra <a href="/es/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">guía de verificación de proveedores chinos</a> y nuestra <a href="/es/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">guía de detección de certificados falsos</a> cubren las verificaciones en detalle.</p>
+
+			<h2 id="where-each-wins" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Dónde Gana Cada Fabricante</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>CA-FIRE gana cuando:</strong> el artículo crítico de la especificación es un rociador con aprobación FM (proyectos NFPA 13 / FM Global en Norteamérica, y proyectos del GCC que siguen códigos basados en NFPA); el proyecto está centrado en rociadores (cabezales + válvulas de alarma/diluvio de una sola fuente); o usted valora un historial revelado de más de 13 años con un gran portafolio nacional de proyectos hito como base de referencia.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wanlian Fluid gana cuando:</strong> el proyecto se centra en monitores de agua contra incendios (ZDMS con auto-seguimiento es una línea central, no un accesorio); el alcance es un kit de incendio completo — monitores, válvulas de alarma, hidrantes, <a href="/es/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">válvulas de reducción de presión 500X</a>, manguera contra incendios, boquillas y cajas de extintores — bajo una sola PO; necesita válvulas de control hidráulico que CA-FIRE no publica; quiere hidrantes inteligentes IoT para redes municipales; o su mercado de distribución habla español, ruso, francés o árabe y quiere activos de marca OEM en esos idiomas.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Conviven bien:</strong> nada impide a un gran contratista internacional especificar rociadores listados FM de CA-FIRE y el resto de la lista de materiales de Wanlian. Las dos fábricas compiten más directamente en válvulas de alarma de retención, hidrantes y monitores — y menos en listados de rociadores frente a control hidráulico y accesorios, que son simplemente dos mitades distintas del mercado de equipo contra incendios.</p>
+
+			<h2 id="cost-and-lead-time" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Costo, Modelo de Precios y Plazo de Entrega</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ambas fábricas cotizan bajo consulta sin listas de precios públicas, así que las afirmaciones de precio unitario de cualquiera de los dos lados deben verificarse por especificación. CA-FIRE comercializa un giro de cotización de 24 horas; Wanlian Fluid se compromete a respuestas de 12 horas — ambos lo suficientemente rápidos para cronogramas de licitación.</p>
+			<p class="text-gray-700 leading-relaxed">La diferencia de costo estructural es el alcance: los rociadores listados FM llevan una prima de listado que aparece en cualquier BOM centrado en rociadores, mientras que los artículos no listados (válvulas, hidrantes, monitores, mangueras, armarios) se precian en el mismo clúster de Quanzhou donde ambas fábricas abastecen fundiciones, recubrimientos y bancos de prueba. Para un kit mixto, el número decisivo suele ser el <em>costo total aterrizado por PO</em> — cantidad de artículos, consolidación en un solo envío, un solo despacho de aduana y una sola auditoría de calidad — y es ahí donde un proveedor de gama completa como Wanlian tiende a ganar en las líneas de artículos de no-cabezal, incluso en proyectos donde los propios cabezales provienen de un fabricante listado.</p>
+
+			<h2 id="which-should-you-choose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. ¿Cuál Debería Elegir?</h2>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Elija <strong class="text-brand-blue">CA-FIRE</strong> cuando:</p>
+				<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2">
+					<li>Su proyecto está regido por FM Global o NFPA 13 y exige rociadores listados FM (su listado FM 2030 es el diferenciador).</li>
+					<li>El alcance está centrado en rociadores: cabezales + válvulas de alarma húmedas de retención + válvulas de diluvio de una sola fuente.</li>
+					<li>Quiere un historial revelado de más de 13 años con un gran portafolio nacional de hitos (aeropuertos, centros de datos) como base de referencia.</li>
+				</ul>
+			</div>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Elija <strong class="text-brand-red">Wanlian Fluid</strong> cuando:</p>
+				<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2">
+					<li>Los monitores de agua contra incendios son la pieza central — especialmente los <a href="/es/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">cañones de auto-seguimiento ZDMS</a> para granjas de tanques, depósitos y áreas abiertas.</li>
+					<li>Quiere un kit de incendio completo bajo una sola PO: monitores, válvulas de alarma, hidrantes, válvulas de control hidráulico, mangueras, boquillas y armarios de extintores, con marca OEM.</li>
+					<li>Necesita válvulas de control hidráulico (500X/100X/F745X) o hidrantes inteligentes IoT — líneas que CA-FIRE no publica.</li>
+					<li>Distribuye en mercados de habla española, rusa, francesa o árabe y quiere activos de marca localizados y un sitio técnico de 5 idiomas.</li>
+				</ul>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">La forma más rápida de decidir: anote (1) si los rociadores listados FM aparecen en su especificación, (2) si "cañón de agua contra incendios" o "válvula de control hidráulico" aparece en cualquier parte del alcance, y (3) en qué idioma trabajan sus compradores finales. El punto (1) favorece a CA-FIRE; los puntos (2) y (3) favorecen a Wanlian Fluid. Para un marco de evaluación de proveedores más amplio, vea nuestra <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">checklist de abastecimiento de válvulas B2B</a>, y para la pregunta de marcas norteamericanas, nuestra comparativa <a href="/es/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian Fluid vs American AVK</a>.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Sources -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Fuentes</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>CA-FIRE — About (fundación, tamaño de instalación, personal, ingresos, certificaciones, proyectos de referencia): <a href="https://www.ca-fire.com/about-us/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ca-fire.com</a></li>
+				<li>CA-FIRE — Home (líneas de producto, posicionamiento de aprobación FM, afirmaciones de OEM y cotización de 24 h): <a href="https://www.ca-fire.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ca-fire.com</a></li>
+				<li>Wanlian Fluid — perfil de empresa, gama de productos y guías: <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+				<li>FM Approvals — programa de listado de rociadores (FM 2030): <a href="https://www.fmadvisoryservices.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">fm.com</a></li>
+				<li>NFPA — norma NFPA 13 para la instalación de sistemas de rociadores: <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+				<li>Monitoreo interno de búsquedas con IA de Wanlian Fluid, 30 prompts de abastecimiento (ChatGPT, EE. UU.), septiembre de 2026</li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">Comparativa basada en información pública disponible a septiembre de 2026. La disponibilidad de productos, certificaciones y precios cambian — solicite siempre hojas de especificación, certificados y cotizaciones actualizados antes de las decisiones de abastecimiento.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Abasteciendo un Sistema de Incendios Completo — Monitores, Válvulas, Hidrantes y Accesorios?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíenos su lista de materiales y el destino — cotizamos el kit completo como un solo paquete de exportación, con marca OEM y registros de prueba por unidad, en 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Kit%20Completo%20de%20Sistema%20de%20Incendios" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20una%20cotizaci%C3%B3n%20para%20un%20kit%20completo%20de%20sistema%20de%20incendios%20%28monitores%2C%20v%C3%A1lvulas%2C%20hidrantes%2C%20accesorios%29" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

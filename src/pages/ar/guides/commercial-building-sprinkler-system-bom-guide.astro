@@ -1,0 +1,184 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'one-package', label: '1. لماذا تُشترى حزمة الرشاشات كنطاق واحد' },
+	{ id: 'alarm-valve-group', label: '2. مجموعة صمام الإنذار: قلب النظام المبلل' },
+	{ id: 'monitored-isolation', label: '3. العزل المُراقب: صمامات OS&Y والفراشة الإشارة' },
+	{ id: 'siamese', label: '4. اتصال جهاز الإطفاء (سويدي)' },
+	{ id: 'sprinkler-heads', label: '5. رؤوس الرشاشات: معامل K ودرجة الحرارة والاتجاه' },
+	{ id: 'flow-indicators', label: '6. مؤشرات التدفق ومراقبة المناطق' },
+	{ id: 'bom-table', label: '7. جدول تخطيط BOM' },
+	{ id: 'standards', label: '8. المعايير والشهادات الواجب مواصفتها' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const faq = [
+	{
+		question: 'هل يمكن لمصنع واحد توريد حزمة نظام رشاشات مبللة كاملة؟',
+		answer: 'نعم. يمكن لأمر شراء واحد أن يغطي مجموعة صمام الإنذار المبلل ZSFZ، وصمامات التحكم OS&Y والفراشة الإشارة، واتصال سويدي، ورؤوس رشاشات زجاجية، ومؤشرات تدفق المياه، مع سجلات اختبار لكل وحدة ومجموعة مستندات تصدير واحدة. دمج نطاق الحريق تحت مصنع واحد مسؤول يزيل مخاطر التنسيق بين خمسة موردين منفصلين.'
+	},
+	{
+		question: 'ماذا تشمل مجموعة صمام الإنذار المبلل ZSFZ؟',
+		answer: 'تشمل مجموعة ZSFZ غلاف صمام الفحص الإنذاري (DN100/DN150/DN200 عند 1.6 MPa)، وجرس إنذار المحرك المائي، وغرفة التباطؤ، ومفتاح الضغط، بغلاف من الحديد المصبوب أو حديد الدكتايل ومانعات EPDM/NBR. يرن الجرس عند تدفق الرشاشات بينما يُشعِر مفتاح الضغط لوحة إنذار الحريق في المبنى.'
+	},
+	{
+		question: 'هل تحتاج رؤوس الرشاشات إلى تسجيل UL لمشروعك؟',
+		answer: 'إذا كانت مواصفاتك أو جهتك المحلية تتطلب رؤوسًا مسجلة لدى UL، فاضبط ذلك صراحةً واطلب شهادة التسجيل للنموذج الدقيق قبل الطلب. رؤوس Wanlian من ZST تُصنع وفق عائلة GB 5135؛ أما للمشاريع التي تتطلب رشاشات مسجلة لدى UL أو FM، فأكّد تغطية النموذج كتابيًا عند مرحلة التسعير.'
+	},
+	{
+		question: 'كم عدد رؤوس الرشاشات التي أحتاجها لكل حجرة حريق؟',
+		answer: 'ذلك يأتي من التصميم الهيدروليكي للرشاشات، لا من المورد: عدد الرؤوس يتبع لمساحة الطابق وكثافة التصميم ومعامل K عند ضغط التشغيل المطلوب. أرسل إلينا مخططك أو افتراضات التصميم ويعيد مهندسونا عدد الرؤوس مع المقاسات المطابقة لصمام الإنذار والسويدي.'
+	},
+	{
+		question: 'ما المستندات التي يجب أن تشملها شحنة حزمة الرشاشات؟',
+		answer: 'فاتورة تجارية، وقائمة تعبئة، وشهادة منشأ، وسجلات اختبار ضغط الغلاف وسرّب الهواء لكل وحدة منسقة مع الأرقام التسلسلية، وأي شهادات خاصة بمعيار يطلبها عطاؤك. تُوفَّر الرؤوس مع درجة الحرارة ومعامل K مكتوبين على الإطار.'
+	}
+];
+
+const productRows = [
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'صمام فحص إنذار مبلل ZSFZ 150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'جرس + غرفة تباطؤ + مفتاح ضغط، DN100-DN200' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'صمام بوابة OS&Y (بموجات)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: 'عزل رئيسي بساق صاعدة 2"-10" لرئيسات الحريق' },
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'اتصال سويدي SQD100', img: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', desc: 'مدخلان DN65 لتغذية مزدوجة من سيارات الإطفاء' }
+];
+---
+
+<Layout
+	title="جدول مواد نظام رشاشات مبنى تجاري: دليل توريد كامل (2026)"
+	description="جدول مواد كامل (BOM) لنظام رشاشات مبنى تجاري: مجموعات صمامات الإنذار، صمامات OS&Y والإشارة، اتصال السويدي، رؤوس الرشاشات، ومؤشرات التدفق — حزمة واحدة، أمر شراء واحد، وموثّق لكل بند."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'الأدلة', href: '/ar/blog/' }, { name: 'جدول مواد نظام الرشاشات' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">جدول مواد نظام الرشاشات</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل توريد · مبانٍ تجارية</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">تُنشئ نظام رشاشات تجاريًا؟ إليك جدول المواد الكامل</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">معظم مشاكل توريد الرشاشات لا تتعلق بمكوّن واحد بعينه — بل بالفواصل: صمام إنذار من مصنع، ورؤوس من آخر، وسويدي من ثالث، لكل منها سجلات اختبارها، ووقت تسليمها، وصمتها عندما لا يناسب شيء. يمرّ هذا الدليل على نطاق رشاشات مبلل كامل لمبنى تجاري قطعة قطعة، مع المكونات التي ستوَصّفها فعليًا، وكيف تتكامل، والجدول التخطيطي الذي تأخذه مباشرة إلى استفسارك عن الأسعار (RFQ).</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">ملاحظة النطاق:</strong> هذا مرجع تخطيطي لنظام رشاشات تجاري قياسي بأنابيب مبللة. تصميمك الهيدروليكي وقواعد جهة الحريق المحلية تحكمان جدول المواد النهائي — أرسل إلينا مخططك ونعيد إليك كميات مفصّلة البنود والمقاسات المطابقة للمكونات.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="one-package" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. لماذا تُشترى حزمة الرشاشات كنطاق واحد</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">نظام رشاشات بأنابيب مبللة هو قطار من المكونات: مجموعة صمام الإنذار تبدأ التدفق وترفع الإنذار، صمامات التحكم تعزل المقاطع، السويدي يستقبل تغذية سيارات الإطفاء، الرؤوس توصل الماء، ومؤشرات التدفق تخبر لوحة التحكم أي منطقة تنزف. كل واجهة بين موردين هي موضع يمكن فيه للأبعاد والمعايير وسجلات الاختبار أن تختلف بصمت — والاختلاف يظهر عادة في الموقع، بعد تركيب الحديد.</p>
+			<p class="text-gray-700 leading-relaxed">دمج نطاق الحريق بأكمله في أمر شراء واحد يمنحك مصنعًا واحدًا مسؤولًا، ومجموعة واحدة من سجلات اختبار لكل وحدة تُنسَّق مع قائمة تعبئة واحدة، وحاوية شحن وجمرك واحدة. هذا هو سبب معاملة <a href="/ar/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">دليل التوريد</a> لدينا للحزمة الكاملة كوحدة توريد افتراضية، وسبب مرور هذا الجدول على كل مكوّن رئيسي في نظام مبلل تجاري في مرّية واحدة.</p>
+
+			<h2 id="alarm-valve-group" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. مجموعة صمام الإنذار: قلب النظام المبلل</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/ar/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">صمام الفحص الإنذاري المبلل ZSFZ</a> هو المكوّن الذي به يعيش النظام أو يموت. يمسك النظام مشحونًا تحت ضغط الأنبوب، يفتح تلقائيًا عند بدء تدفق الرشاشات، يشغّل جرس إنذار المحرك المائي، ويغلق جهة مفتاح الضغط التي تُشعِر لوحة إنذار الحريق في المبنى. تقع غرفة التباطؤ بين التدفق والإنذار لتصفية الدفعات العابرة — وبدونها قد يرفع تشغيل مضخة إنذارًا كاذبًا.</p>
+			<p class="text-gray-700 leading-relaxed">وَصِّف المجموعة لا الصمام الصافي: مقاس الغلاف (DN100 / DN150 / DN200 عند 1.6 MPa)، الجرس، غرفة التباطؤ ومفتاح الضغط، إلى جانب اتجاه التركيب الذي تسمح به غرفة الرافع. لمناطق الخطر العالي في نفس المبنى — الأرفف، المطابخ، تخزين الطلاء — يمتد <a href="/ar/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">صمام السيول ZSFM</a> و<a href="/ar/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">نظام الفعل المسبق ZSFY</a> المفهوم ذاته إلى نزف فوري ونزف بإشارتين.</p>
+
+			<h2 id="monitored-isolation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. العزل المُراقب: صمامات OS&Y والفراشة الإشارة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">كل رئيس وكل منطقة تحتاج صمام عزل يمكن لغرفة التحكم التحقق من وضعه. الإجابة القياسية لرئيسات الحريق هي <a href="/ar/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">صمام البوابة OS&Y بساق صاعدة</a> — الصعود الكامل يعني مفتوحًا، والخفض يعني مغلقًا، دون فتح الصمام للتدقيق. للتحكم بالمقاطع في رئيسات الرشاشات، يضيف <a href="/ar/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">صمام الفراشة الإشارة بموجات</a> مرسل وضع يجعل الصمام المغلق يُبلَّغ عنه كإشارة عطل بدلًا من الفشل الصامت عند بدء حريق.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">الزوج الذي تشتريه:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الصمام</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الدور في النظام</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الموضع النموذجي</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">صمام بوابة OS&Y</td><td class="px-4 py-3 text-gray-700">إغلاق رئيسي، وضع مرئي بالساق</td><td class="px-4 py-3 text-gray-700">غرفة الرافع، تغذية النظام</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">فراشة إشارة (بموجات)</td><td class="px-4 py-3 text-gray-700">تحكم مقطع/منطقة بوضع مُرسَل</td><td class="px-4 py-3 text-gray-700">الرئيسات الفرعية، لكل منطقة</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">صمام فحص (HQ44X)</td><td class="px-4 py-3 text-gray-700">حماية من الارتداد على خط المضخة أو خطوط الربط المتقاطع</td><td class="px-4 py-3 text-gray-700">خرج المضخة، خط السويدي</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">حيث يعود الخط إلى اتصال بلدي أو مضخة، يحمي صمام فحص دون ارتطام مثل <a href="/ar/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">الفحص الكروي HQ44X</a> من الارتداد دون صدمة الارتطام التي يمكن لصمام فحص بصفحة أن يولدها في رئيس طويل.</p>
+
+			<h2 id="siamese" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. اتصال جهاز الإطفاء (سويدي)</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">السويدي هو الوسيلة التي يضيف بها فريق الإطفاء تدفقًا خاصًا به. يوفر <a href="/ar/products/sqd100-1-6-fire-pump-adapter/" class="text-brand-blue font-semibold hover:underline">SQD100-1.6</a> مدخلين DN65 — SQS65 أو KWS65، مطابقين لمعيار الوصلات لدى جهاز إطفائك المحلي — يغذيان منفذًا بفلنجة واحدًا DN100، مع صمام تحكم مدمج بعجلة يد وكابلات أمان مضفورة على الأغطية. المدخلان المزدوجان يسمحان لشاحنتين بالتغذية معًا، وهو ما يهم في المواقع التجارية الكبيرة حيث لا تغطي سعة مضخات المبنى وحدها ذروة الطلب.</p>
+			<p class="text-gray-700 leading-relaxed">تفصيلان في المواصفة يُغفلان غالبًا: معيار وصلات المداخل يجب أن يطابق أدوات جهاز إطفائك (لا قيمة افتراضية عامة)، وموقع السويدي يجب أن يفي بقواعد الوصول في لائحتك المحلية — أكّد كلاهما كتابيًا قبل تصنيع الأغطية والمحوّلات.</p>
+
+			<h2 id="sprinkler-heads" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. رؤوس الرشاشات: معامل K ودرجة الحرارة والاتجاه</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">الرؤوس هي بند الأعلى عددًا في جدول المواد، وأسهلها خطأ في المواصفة. ثلاثة معايير تقوم بالعمل: <strong>معامل K</strong> (K=80 هو اختيار الكثافة القياسي، وK=115 لتدفق أعلى)، <strong>تقييم درجة الحرارة</strong> (57 / 68 / 79 / 93 / 141°م مع الترميز اللوني القياسي للمصابيح الزجاجية)، و<strong>الاتجاه</strong> (متدلي للسقوف، قائمة للأنابيب المكشوفة، ومتغيرات جدار جانبي ومخفي للتشطيبات الداخلية).</p>
+			<p class="text-gray-700 leading-relaxed">تغطي <a href="/ar/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">سلسلة ZST بمصابيح زجاجية</a> المتدلي والقائمة والجدار الجانبي في DN15/DN20 بمصابيح استجابة سريعة أو قياسية؛ وتتعامل متغيرات <a href="/ar/products/horizontal-sidewall-fire-sprinkler-t-zstbs/" class="text-brand-blue font-semibold hover:underline">T-ZSTBS الجدار الجانبي الأفقي</a> و<a href="/ar/products/zstdy-concealed-fire-sprinkler/" class="text-brand-blue font-semibold hover:underline">ZSTDY المخفي</a> مع الحالات المعمارية. لتطبيقات التخزين، <a href="/ar/products/esfr-sprinkler-head/" class="text-brand-blue font-semibold hover:underline">رأس ESFR</a> هو النوع المعين. تصميمك الهيدروليكي يضبط معامل K والعدد لكل منطقة — والمصنع يثبّتهما على الإطار وشهادة الاختبار.</p>
+
+			<h2 id="flow-indicators" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. مؤشرات التدفق ومراقبة المناطق</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">عندما ينزف رأس واحد في مبنى من أربعين طابقًا، تحتاج غرفة التحكم معرفة أي طابق. يحوّل <a href="/ar/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">مؤشر تدفق المياه من النوع الزنجيري (ذو الشراع) ZSJZ</a> التدفق في فرع معين إلى جهة كهربائية إلى لوحة إنذار الحريق، منطقة بمنطقة. وَصِّف واحدًا لكل فرع مُراقب، بجهة تطابق لوحتك، ووسِّم المناطق بشكل متسق مع رسوماتك الفعلية — إنذار تدفق لا يستطيع أحد تحديد موقعه هو تحقيق في حريق، لا استجابة لحريق.</p>
+
+			<h2 id="bom-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. جدول تخطيط BOM</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">استخدم هذا كهيكل استفسار أسعارك (RFQ). الكميات قيم عارضة تُستبدل بتصميمك الهيدروليكي — الفكرة أن كل بند نطاق يُسمَّى ويرتبط بنموذج حقيقي قبل طلب عرض السعر، حتى تكون الأسعار المفصّلة التي تستلمها قابلة للمقارنة سطرًا بسطر.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">بند النطاق</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">النموذج المرجعي</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">يُقيَّس بـ</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">مجموعة صمام إنذار مبلل (جرس + تباطؤ + مفتاح)</td><td class="px-4 py-3 text-gray-700">ZSFZ-150 (DN100/DN150/DN200)</td><td class="px-4 py-3 text-gray-700">تدفق التصميم</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">إغلاق رئيسي (OS&Y، بموجات)</td><td class="px-4 py-3 text-gray-700">2"–10" OS&Y</td><td class="px-4 py-3 text-gray-700">مقاس الرئيس</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">تحكم منطقة (فراشة إشارة)</td><td class="px-4 py-3 text-gray-700">DN80–DN150 إشارة بموجات</td><td class="px-4 py-3 text-gray-700">الرئيسات الفرعية</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">صمام فحص (مضخة / ارتداد)</td><td class="px-4 py-3 text-gray-700">HQ44X-16</td><td class="px-4 py-3 text-gray-700">مقاس خط المضخة</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">اتصال جهاز الإطفاء</td><td class="px-4 py-3 text-gray-700">SQD100-1.6 (SQS65/KWS65)</td><td class="px-4 py-3 text-gray-700">معيار جهاز الإطفاء المحلي</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">رؤوس رشاشات (متدلي/قائمة/جدار جانبي)</td><td class="px-4 py-3 text-gray-700">ZST / T-ZSTBS / ZSTDY، K80 أو K115</td><td class="px-4 py-3 text-gray-700">التصميم الهيدروليكي</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">مؤشرات تدفق المياه</td><td class="px-4 py-3 text-gray-700">ZSJZ لكل فرع مُراقب</td><td class="px-4 py-3 text-gray-700">مخطط المناطق</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">محطات حريق داخلية (بكرات + خزائن)</td><td class="px-4 py-3 text-gray-700">JPS0.8-19 + SN65</td><td class="px-4 py-3 text-gray-700">مخطط الطوارئ</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">بندان نهائيان في النطاق للتحقق: محطات الحريق الداخلية (<a href="/ar/products/fire-hose-reel-jpso8-19/" class="text-brand-blue font-semibold hover:underline">بكرة مران JPS0.8-19</a> مع صمام <a href="/ar/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">SN65</a>، تُقيَّس حسب مخطط الطوارئ لديك)، ومران الحريق المسطح و<a href="/ar/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">وصلات Storz</a> التي تغذي السويدي. كله — من مجموعة الإنذار إلى آخر رأس — يُشحن بموجب أمر شراء واحد ومجموعة سجلات اختبار واحدة.</p>
+
+			<h2 id="standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. المعايير والشهادات الواجب مواصفتها</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">نظام المعايير يعتمد على الوجهة: <strong>NFPA 13</strong> يحكم تصميم النظام في المشاريع بمواصفة أمريكية، مع تسجيل UL/FM لمكونات معينة حيث تطلب الجهة ذلك؛ عائلة <strong>GB 5135</strong> هي مرجع التصنيع لصمامات الإنذار والرؤوس في بيئة الإنتاج الصينية؛ وأنظمة <strong>EN</strong> تنطبق على الوجهات الأوروبية. القاعدة العملية هي تلك في <a href="/ar/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">دليل المعايير</a> لدينا: المعيار صفة من صفات المنتج وجهة الشحن، لا صفة العلامة — لذا يسمّي استفسار الأسعار المعيار لكل بند، ويجيب المورد لكل نموذج بالشهادة المطابقة.</p>
+			<p class="text-gray-700 leading-relaxed">لمشروع تجاري يجب أن يجتاز الفحص، مجموعة المستندات التي تحفظ الملف نظيفًا هي: سجلات اختبار الضغط والتسريب لكل وحدة، علامات درجة الحرارة/معامل K على الرؤوس، شهادات الصمامات المطابقة للمعيار الموصوف، وحزمة مستندات التصدير. تمرّ <a href="/ar/whitepaper/" class="text-brand-blue font-semibold hover:underline">ورقتنا البيضاء للقطاع</a> على تسلسل التحقق الكامل من المواصفة المكتوبة إلى المنتج الموثَّق.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">أرسل مخططك — احصل على تسعير جدول مواد مفصّل البنود</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">ارفع رسوماتك أو اذكر مناطقك، ونعيد إليك كميات مفصّلة البنود، والمقاسات المطابقة للمكونات، ومنهج الاختبار لكل نموذج خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Commercial%20Sprinkler%20System%20BOM" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%A8%D9%86%D9%8A%20%D9%86%D8%B8%D8%A7%D9%85%20%D8%B1%D8%B4%D8%A7%D8%B4%D8%A7%D8%AA%20%D8%AA%D8%AC%D8%A7%D8%B1%D9%8A%D9%8B%D8%A7%20%D9%88%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%AA%D8%B3%D8%B9%D9%8A%D9%8B%D8%A7%20%D9%83%D8%A7%D9%85%D9%84%D9%8B%D8%A7%20%D9%84%D8%AC%D8%AF%D9%88%D9%84%20%D8%A7%D9%84%D9%85%D9%88%D8%A7%D8%AF" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">تحدث عبر WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

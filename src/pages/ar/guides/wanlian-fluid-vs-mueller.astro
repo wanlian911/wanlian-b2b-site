@@ -1,0 +1,194 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'mueller-overview', label: '1. Mueller: من هم فعليًا' },
+	{ id: 'wanlian-overview', label: '2. Wanlian Fluid: من نحن فعليًا' },
+	{ id: 'product-lines-compared', label: '3. كيف تُقارَن خطوط منتجاتهما؟' },
+	{ id: 'hydrants-deep-dive', label: '4. خلاطات الحريق: المواجهة المباشرة' },
+	{ id: 'quality-and-standards', label: '5. أنظمة الجودة والمواصفات' },
+	{ id: 'where-each-wins', label: '6. أين يتفوق كل مصنع؟' },
+	{ id: 'which-should-you-choose', label: '7. أيهما تختار؟' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' },
+	{ id: 'sources', label: 'المصادر' }
+];
+
+const faq = [
+	{
+		question: 'هل Wanlian Fluid وMueller مرتبطتان؟',
+		answer: 'لا. Mueller Water Products, Inc. (NYSE: MWA) مقرها أتلانتا بولاية جورجيا، وتعود جذورها إلى عام 1857؛ بينما Quanzhou Wanlian Fluid Equipment Co., Ltd مصنع ومصدّر صيني مستقل. لا توجد علاقة تنظيمية أو ملكية أو ترخيص بينهما.'
+	},
+	{
+		question: 'هل يمكن لـWanlian Fluid توريد للسوق الأمريكية؟',
+		answer: 'نعم — نصدّر خلاطات وصمامات بمواصفة AWWA إلى الأمريكيتين. نماذج صمامات البوابة والفحص للحريق تحمل UL 262 / UL 1091، وصمامات التحكم لخدمة الحريق (OS&Y/NRS) تحمل FM Class 1120/1130 — والتصنيف يُمنح لكل نموذج على حدة. عند عرض السعر، اطلب تأكيد النموذج المصنّف بدقة ورقم الشهادة ونطاقها كتابيًا، ثم تحقق لدى جهة الإصدار.'
+	},
+	{
+		question: 'لمناقصة بلدية أمريكية، أيهما الأنسب؟',
+		answer: 'Mueller إذا اشترطت المناقصة الصنع الأمريكي أو العلامة المحلية، أو امتد النطاق إلى عدادات المياه وكشف التسريبات. أما الصانع الصيني بتصنيفات UL/FM لكل نموذج (كما Wanlian) فهو الطريق الأكثر كفاءة من حيث التكلفة إذا كان المطلوب حزمة بمواصفة AWWA بسعر تصديري مع خراطيم حريق وصمامات إنذار وطفايات ضمن قائمة الكميات — مع التحقق من الشهادات قبل منح العقد.'
+	},
+	{
+		question: 'وبخصوص الخلاطات تحديدًا؟',
+		answer: 'كلاهما يصنع خلاطات حديدية برميل جاف/رطب (مع خلاطات برونزية لدى Mueller عبر James Jones)، ولدى Mueller أكثر من 160 عامًا من الاستخدام البلدي في أمريكا الشمالية. أما Wanlian فتقدم SS100 وSSFT100 وSS100ZN وSA وSN65 وفق أنماط GB 4452 / AWWA C502، مع مخرجات KWS/BS336/Storz/NIST وسجلات اختبار 2.4 MPa لكل وحدة. عوامل الحسم: المعيار، نمط المخرجات، الشهادة، والسعر — لا يوجد فائز شامل.'
+	},
+	{
+		question: 'هل يمكن التحقق المستقل من كلا الطرفين؟',
+		answer: 'نعم — Mueller عبر جهات إصدار الشهادات (UL، FM، سجل ISO 9001) ووثائقها العامة؛ وWanlian عبر شهادة ISO 9001 ببيان جهة إصدارها، وشهادات UL/FM لنماذج قائمة الكميات تحديدًا، وتقارير اختبار الدفعات، ووحدة عينة مع فيديو اختبار يحمل الرقم التسلسلي — والطريقة كاملة موصوفة في دليل التحقق من المورد لدينا.'
+	}
+];
+
+const productRows = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'خلاط حريق سطحي مضاد للتجمد (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'خلاط برميل جاف بنمط AWWA، 1.6 MPa، اختبار 2.4 MPa' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'صمام بوابة OS&Y بمقعد مرن (مفصلي، UL/FM حسب النموذج)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: 'صمام تحكم بساق صاعدة 2"-10" لرئيسيات الحريق' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'صمام فحص إنذار مبلل ZSFZ-150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'مجموعة إنذار رشاشات: جرس + مخمد تدفق + مبدّل' }
+];
+---
+
+<Layout
+	title="وانليان فليد ضد مولر: مقارنة توريد خلاطات الحريق والصمامات (2026)"
+	description="مقارنة وانليان فليد ومولر لعام 2026: خلاطات الحريق والصمامات والمواصفات والشهادات والتكلفة وأزمنة التسليم — من يناسب مشروعك بالمواصفة الأمريكية أو التصديرية؟"
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'الأدلة', href: '/ar/blog/' }, { name: 'Wanlian مقابل Mueller' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">مقارنة موردين</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل مقارنة موردين · المواصفة الأمريكية والتصدير</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">وانليان فليد ضد مولر: توريد خلاطات الحريق والصمامات لمشاريع المواصفة الأمريكية (2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Mueller هو الاسم الذي يتصدّر معظم عطاءات مياه البلديات في أمريكا الشمالية — شركة عامة بجذور تمتد إلى عام 1857، وعلامات راسخة (Mueller Co. وU.S. Pipe Valve & Hydrant وJames Jones وHenry Pratt وMilliken وMueller Systems)، وعلاقات عميقة مع البلديات. أما على الجانب التصديري من فئات المنتجات نفسها فيقف Wanlian Fluid: خلاطات بنمط AWWA وصمامات حريق، مع مستندات UL/FM لكل نموذج، بأسعار وتعبئة مصمّمة للسوق الدولية. إن كان مشروعك يمس هذين الجانبين، فالقرار ليس «Mueller أم Wanlian» بقدر ما هو «أي خلية نطاق يتكامل فيها كل طرف» — وهذا الدليل يرسم ذلك انطلاقًا مما تنشره كل شركة فعليًا.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">ملاحظة الأدلة:</strong> حقائق Mueller مأخوذة من تاريخ الشركة المنشور وصفحات علاماتها ووثائقها العامة (كما يلخّصها Wikipedia)؛ وحقائق Wanlian من بيانات منتجاتها وصفحة شهاداتها؛ وتصريحات الاعتماد تُذكر لكل نموذج على حدة؛ ويُتحقق من الطرفين لدى جهة إصدار الشهادة قبل منح العقد.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="mueller-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Mueller: من هم فعليًا</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Mueller Water Products, Inc. (NYSE: MWA) مقرها أتلانتا بولاية جورجيا، وتتبع جذورها إلى عام 1857 (عبر السلف الذي أسّس Mueller Co. في Decatur بإلينوي). وهي من أكبر شركات التصنيع والتوزيع في أمريكا الشمالية لخلاطات الحريق وصمامات البوابة والبنية التحتية للمياه. تشمل أقسام علاماتها: Mueller Co. (النواة الصناعية للصمامات والخلاطات)، وU.S. Pipe Valve & Hydrant (مصانع أمريكية معتمدة ISO 9001)، وJames Jones (خلاطات برونزية برميل رطب، سلالة تمتد إلى عقد 1890)، وHenry Pratt (صمامات ومشغّلات وتحكم؛ أصل صمام الفراشة بمقعد مطاطي يعود إلى 1926)، وMilliken Valve، وMueller Systems (عدادات مياه، تأسست 1859)، وEchologics (كشف تسريبات صوتي وتقييم حالة الأنابيب). استحوذت على Singer Valve (صمامات تحكم أوتوماتيكية) عام 2017، بينما انتقلت سلالة Grinnell في الحماية من الحريق (General Fire Extinguisher Co. عام 1892، Grinnell عام 1919) إلى Anvil International وغادرت الشركة عام 2017.</p>
+			<p class="text-gray-700 leading-relaxed">من حيث الممارسة الإنتاجية: صبّ بفوم المفقود (Lost-foam casting) لتقليل مخلفات الانبعاثات، ونحاس منخفض الرصاص في خط مرافق المياه، وعضوية USGBC إلى جانب اعتمادات EPA Energy Star. باختصار: دار أمريكية متكاملة لخدمات البنية التحتية للمياه.</p>
+
+			<h2 id="wanlian-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Wanlian Fluid: من نحن فعليًا</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Quanzhou Wanlian Fluid Equipment Co., Ltd مصنع ومصدّر صيني مقره Quanzhou بمقاطعة Fujian. الإنتاج يجري على خطوطه الخاصة ضمن نظام إدارة جودة ISO 9001، مع تصنيع بنود محددة لدى شركاء تصنيع مؤهلين، ويصرّح بذلك بوضوح حسب كل طلب. أجسام الصمامات تُصنَّع على آلات CNC داخلية، وكل وحدة تُختبر بضغط الغلاف وسرّب الهواء مع سجل لكل وحدة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">النطاق المنشور يمتد على ستة خطوط و45 نموذجًا: خلاطات الحريق واتصالات المضخات (<a href="/ar/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">خلاط SS100/65 السطحي المضاد للتجمد</a>، ومقاوم الاصطدام SSFT100، وذكي IoT SS100ZN، وتحت الأرض SA، ورؤوس داخلية SN65، وسويدي SQD100)؛ صمامات الرش والإنذار (ZSFZ رطب، ZSFC جاف، ZSFM رش شامل، ZSFY فعل مسبق، رؤوس، مؤشرات تدفق)؛ صمامات الحماية من الحريق والصناعية (<a href="/ar/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">صمام بوابة OS&Y مفصلي بتصنيف UL/FM</a>، بوابة بمقعد مرن Z41X، بوابة متلسكوبية Z41X-T، فراشة، رجوع، حاجب شوائب، موازنة رقمية)؛ صمامات التحكم الهيدروليكي (500X، 100X، F745X، HS41X، ومانع دوامة السحب EN 12845)؛ مرابط الحريق (يدوية PS، ذاتية التتبع ZDMS)؛ وملحقات الإطفاء (خراطيم حريق مبطن بالمطاط، وصلات Storz وHS، بكرات، خزائن، طفايات ABC).</p>
+			<p class="text-gray-700 leading-relaxed">صمامات البوابة والفحص للحريق تحمل تصنيف UL 262 / UL 1091، وصمامات التحكم لخدمة الحريق تحمل اعتماد FM Class 1120/1130 — والتصنيف يُمنح لكل نموذج على حدة. يكمل ذلك إنتاج OEM/ODM وعروض أسعار خلال 12 ساعة، ويصل النطاق إلى حزمة الحريق الكاملة (خراطيم، مجموعات إنذار، طفايات) التي لا تنشرها دور البنية التحتية للمياه.</p>
+
+			<h2 id="product-lines-compared" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. كيف تُقارَن خطوط منتجاتهما؟</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">سطر النطاق</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">Mueller</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">Wanlian Fluid</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">خلاطات الحريق</td><td class="px-4 py-3 text-gray-700">برميل جاف/رطب حديدية (USPVH)، برونزية برميل رطب (James Jones)</td><td class="px-4 py-3 text-gray-700">SS100 مضاد للتجمد، SSFT100 مقاوم للاصطدام، SS100ZN ذكي IoT، SA تحت الأرض، SN65 داخلية؛ مخرجات KWS/BS336/Storz/NIST</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">صمامات البوابة</td><td class="px-4 py-3 text-gray-700">بوابة حديدية (USPVH)، خدمة حريق OS&Y، Henry Pratt</td><td class="px-4 py-3 text-gray-700">Z41X بمقعد مرن DN50-DN700، Z41X-T متلسكوبية، OS&Y مفصلي بتصنيف UL/FM، ختم بيلوز، نحاسي Z15W</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">فراشة / فحص</td><td class="px-4 py-3 text-gray-700">سلالة فراشة بمقعد مطاطي (Henry Pratt، 1926)، فحص/سدادة/فراشة (Milliken)</td><td class="px-4 py-3 text-gray-700">D71X وافر، D381X-16Q مفصلي بتروس حلزونية، فراشة بإشارة، HQ44X/HQ41X رجوع</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">صمامات الرش والإنذار</td><td class="px-4 py-3 text-gray-700">ليست خطًا أساسيًا منشورًا — سلالة Grinnell خرجت عام 2017</td><td class="px-4 py-3 text-gray-700">خط أساسي: مجموعات ZSFZ/ZSFC/ZSFM/ZSFY، رؤوس، مؤشرات تدفق</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">تحكم هيدروليكي</td><td class="px-4 py-3 text-gray-700">صمامات تحكم أوتوماتيكية عبر Singer Valve (2017)</td><td class="px-4 py-3 text-gray-700">خط أساسي: 500X، 100X، F745X، HS41X، مانع EN 12845</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">عدادات المياه وكشف التسريبات</td><td class="px-4 py-3 text-gray-700">نعم — Mueller Systems منذ 1859؛ Echologics</td><td class="px-4 py-3 text-gray-700">لا — نطاق معدات السوائل فقط</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">خراطيم الحريق، وصلات، طفايات</td><td class="px-4 py-3 text-gray-700">غير منشور</td><td class="px-4 py-3 text-gray-700">خط أساسي: خراطيم مبطن بالمطاط، Storz/HS، بكرات، خزائن، طفايات ABC</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الجغرافيا النموذجية</td><td class="px-4 py-3 text-gray-700">أمريكا الشمالية (الولايات المتحدة وكندا): بلديات وتوزيع</td><td class="px-4 py-3 text-gray-700">تصدير عالمي: الأمريكيتان، أمريكا اللاتينية، MEA، أوروبا، آسيا</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="hydrants-deep-dive" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. خلاطات الحريق: المواجهة المباشرة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Mueller من الجهة المؤسسية: مصانع أمريكية معتمدة ISO 9001 (USPVH)، خلاطات برونزية (James Jones)، أكثر من 160 عامًا من تركيبات البلديات في أمريكا الشمالية، والصبّ بفوم المفقود كميزة تميّز منشورة، إلى جانب الإلمام بالقطع الغيار وشبكات التوزيع داخل البلاد.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Wanlian من الجهة التصديرية: خلاط SS100/65 برميل جاف مضاد للتجمد (ضغط تشغيل 1.6 MPa، اختبار 2.4 MPa، مخرجان 2×DN65 + مخرج DN100) يطابق أنماط AWWA C502؛ وSSFT100 المقاوم للاصطدام وSS100ZN الذكي IoT يعالجان سلامة الشوارع والمدن الذكية؛ والمخرجات (KWS65/BS336/Storz/NIST) تُضبط حسب أسطول الوجهة.</p>
+			<p class="text-gray-700 leading-relaxed">باختصار: <strong>لمناقصة بلدية أمريكية تشترط الصنع الأمريكي أو المحلية العميقة: Mueller؛ ولحزمة تصديرية بنمط AWWA (خاصة مقاومة الاصطدام أو الذكية أو بالمخرجات المختلطة): المصنع المباشر</strong> الذي ينافس على التكلفة والتكوين وتجميع الخراطيم والصمامات ومعدات الإنذار في الحاوية نفسها.</p>
+
+			<h2 id="quality-and-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. أنظمة الجودة والمواصفات</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">كلا الطرفين يعمل بنظام جودة معتمد، وبيئة المواصفات نفسها للخلية المشتركة: AWWA C502/C515، UL 262/UL 1091، FM Class 1120/1130، ISO 5208 / EN 1074 / EN 12266-1 — والفرق في ممارسة التحقق:</p>
+			<ul class="list-disc ps-6 text-sm text-gray-700 space-y-2 mb-4">
+				<li>Mueller: مصانع معتمدة ISO 9001، ووثائق عامة، وشهادات قابلة للتحقق لدى جهة الإصدار، وسجل تدقيق طويل في أمريكا الشمالية — وهو ما يعادل العناية الواجبة المحلية المعتادة.</li>
+				<li>Wanlian Fluid: شهادة ISO 9001:2015 برقمها وجهة إصدارها للتحقق، وسجلات اختبار لكل وحدة (ضغط الغلاف وسرّب الهواء) بنسبة 100% متسقة مع الأرقام التسلسلية، وشهادات UL/FM مؤكدة لكل نموذج مع نسخ عند الطلب، وفحص من طرف ثالث (نمط SGS/BV/Intertek) في المصنع قبل الشحن، ووحدة عينة مع فيديو اختبار يحمل الرقم التسلسلي قبل الكميات.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">المعيار ليس ملكًا للعلامة التجارية بل للمنتج ولوجهة الشحن؛ وملف القبول = رقم الشهادة + نطاق النموذج + سجلات اختبار مطابقة — وهذا بالضبط ما يوضحه <a href="/ar/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">دليل مواصفات خلاطات الحريق والصمامات</a>.</p>
+
+			<h2 id="where-each-wins" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. أين يتفوق كل مصنع؟</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-5">
+				<div class="bg-white border border-gray-200 rounded-xl p-6">
+					<p class="font-black text-gray-900 text-sm mb-3 uppercase tracking-wider">يتفوق Mueller عندما…</p>
+					<ul class="list-disc ps-5 text-sm text-gray-700 space-y-2">
+						<li>تشترط المناقصة الصنع الأمريكي أو التوريد من أمريكا الشمالية</li>
+						<li>يمتد النطاق إلى عدادات المياه أو كشف التسريبات أو بوابات التوزيع</li>
+						<li>الإلمام المؤسسي بالعلامة عامل تمييز في عطاءات البلديات الأمريكية/الكندية</li>
+						<li>محددة خلاطات برونزية برميل رطب أو معدات تحكم Henry Pratt</li>
+					</ul>
+				</div>
+				<div class="bg-gray-50 border border-gray-100 rounded-xl p-6">
+					<p class="font-black text-gray-900 text-sm mb-3 uppercase tracking-wider">يتفوق Wanlian Fluid عندما…</p>
+					<ul class="list-disc ps-5 text-sm text-gray-700 space-y-2">
+						<li>النطاق تصديري أو سوق ناشئة بسعر جودة بنمط AWWA</li>
+						<li>تجمع قائمة الكميات (BOQ) خلاطات وصمامات وخراطيم وصمامات إنذار وطفايات في طلب شراء واحد</li>
+						<li>مطلوبة خلاطات مقاومة للاصطدام أو خلاطات ذكية IoT</li>
+						<li>العلامة OEM/ODM، أو أنماط مخرجات مختلطة، أو دورة عروض أسعار خلال 12 ساعة تهم</li>
+					</ul>
+				</div>
+			</div>
+
+			<h2 id="which-should-you-choose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. أيهما تختار؟</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">باختصار: <strong>Mueller لخلية أمريكا الشمالية المؤسسية؛ وWanlian Fluid لخلية التصدير والنطاق المختلط.</strong> شركة خدمات عامة أمريكية أو كندية تعيد طرح برنامجها للخلاطات والصمامات ستجد الأنسب المؤسسي في العلامة المبنية لذلك السوق — سلالة 1857 والمصانع المحلية ونطاق العدادات وكشف التسريبات أصول حقيقية في التوريد. والمشروع في الأمريكيتين أو أمريكا اللاتينية أو الشرق الأوسط أو أفريقيا الذي يحتاج حزمة خلاطات وصمامات بنمط AWWA مع خراطيم حريق ومجموعات إنذار وطفايات موحّدة، باقتصاديات المصنع، مع مستندات UL/FM لكل نموذج موثقة لدى جهة الإصدار — هناك تكسب علامة التصدير مكانها في العطاء. كلا المسارين يفرضان نفس الانضباط عند الاستلام: أرقام شهادات قابلة للحل، وسجلات اختبار متسقة مع الأرقام التسلسلية، وعينة قبل أمر الشراء بالكمية — والتتابع في <a href="/ar/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">دليل التحقق</a> لدينا ينطبق على أي مصنع، ومقارنة <a href="/ar/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">AVK</a> تغطي الطرف الآخر من مجموعة معايير أمريكا الشمالية.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">المصادر</h2>
+			<ul class="list-disc ps-6 text-sm text-gray-600 space-y-2 mb-4">
+				<li>Mueller Water Products — تاريخ الشركة وصفحات العلامات (muellerwaterproducts.com): أصل 1857، Mueller Co./USPVH/James Jones/Henry Pratt/Milliken/Mueller Systems/Echologics، الصب بفوم المفقود، USGBC/Energy Star</li>
+				<li>Wikipedia — "Mueller Water Products" (استُرجع سبتمبر 2026): البنية المؤسسية، جدول العلامات، بيع Anvil International واستحواذ Singer Valve عام 2017، مصانع ISO 9001</li>
+				<li>Wanlian Fluid — بيانات المنتجات وصفحة التعريف وصفحة الشهادات (wanlian911.com): النطاق، صياغة UL 262/UL 1091 وFM Class 1120/1130 لكل نموذج، ممارسة الاختبار</li>
+				<li>مراجع المعايير: AWWA C502/C515، UL 262/UL 1091، FM Class 1120/1130، ISO 5208، EN 1074/12266-1 حسب ما ينطبق على وجهة الشحن</li>
+			</ul>
+			<p class="text-xs text-gray-500 mb-4">تعكس حقائق الشركات المواد المنشورة ووثائق كل شركة العامة حتى سبتمبر 2026. النطاقات والتصنيفات تتغير — تأكد من الكتالوج الحالي والشهادات قبل التخصيص النهائي. هذه المقارنة لأغراض تخطيط التوريد وليست ترشيحًا لأي من الشركتين.</p>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">احصل على تسعير حزمة المواصفة الأمريكية مع المستندات</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل بنود الخلاطات والصمامات في قوائمك مع المعيار المطلوب (AWWA C502، UL، FM) — ونُعيد إليك عرض السعر مفصل البنود مع خطة الشهادات لكل نموذج خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Mueller%20Comparison%20%26%20US-Spec%20Project" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D9%82%D8%A7%D8%B1%D9%86%20%D9%85%D9%88%D8%B1%D8%AF%D9%8A%D9%86%20%D9%84%D9%86%D8%B7%D8%A7%D9%82%20%D8%A3%D8%B9%D9%85%D8%AF%D8%A9%20%D8%AD%D8%B1%D9%8A%D9%82%20%2F%20%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%20%D8%A8%D9%85%D9%88%D8%A7%D8%B5%D9%81%D8%A9%20%D8%A3%D9%85%D8%B1%D9%8A%D9%83%D9%8A%D8%A9%20(%D8%B1%D8%A7%D8%AC%D8%B9%20%D8%AF%D9%84%D9%8A%D9%84%20%D9%85%D9%82%D8%A7%D8%B1%D9%86%D8%A9%20%D9%85%D9%88%D9%84%D8%B1)" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">تحدث عبر WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

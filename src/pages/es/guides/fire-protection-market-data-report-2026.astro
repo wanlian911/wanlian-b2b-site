@@ -1,0 +1,170 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'market-size', label: '1. ¿Qué Tan Grande Es el Mercado — y Por Qué Difieren las Cifras' },
+	{ id: 'regional-signals', label: '2. Señales Regionales: Dónde Está el Crecimiento' },
+	{ id: 'sourcing-signals', label: '3. Qué Significan los Datos para la Compra' },
+	{ id: 'reading-claims', label: '4. Leer las Afirmaciones de Proveedores Frente a los Datos del Mercado' },
+	{ id: 'method', label: '5. Método y Notas de Fuente' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+const faq = [
+	{
+		question: '¿Por qué distintas firmas de investigación citan tamaños de mercado diferentes para la protección contra incendios?',
+		answer: 'Porque las definiciones de alcance difieren: "sistemas de protección contra incendios" (diseño + equipo + servicios) es mayor que "equipo de seguridad contra incendios" (solo hardware), y cada firma traza el límite de otra manera. Un patrón consistente en todas las estimaciones principales: el mercado hoy está en el rango de $60–100B y crece a un CAGR de aproximadamente 5–7% hasta 2033–2036. Use el rango, no un solo número.'
+	},
+	{
+		question: '¿Qué región crece más rápido en protección contra incendios?',
+		answer: 'Varias firmas (Spherical Insights, Ken Research) identifican Asia-Pacífico como la región de mayor crecimiento, impulsada por la actividad de construcción y los programas de reposición. Norteamérica conserva una base instalada grande ($28B+ solo para sistemas, según Market Data Forecast, 2025), con crecimiento que proviene del reemplazo de infraestructura envejecida más que de nuevas construcciones.'
+	},
+	{
+		question: '¿Cuál es la implicación práctica de un CAGR de 5–7% para un comprador B2B?',
+		answer: 'Demanda constante de válvulas, hidrantes y componentes contra incendios sin burbuja del lado de la oferta: los plazos de entrega conservan su peso, la capacidad de certificación (ensayos UL/FM/EN) es el cuello de botella real, y los proveedores que documentan el cumplimiento por modelo siguen ganando licitaciones. El crecimiento es lo bastante amplio para que ninguna clase de componente domine — por eso los paquetes consolidados de alcance contra incendios siguen siendo eficientes.'
+	},
+	{
+		question: '¿De dónde proceden estos datos de mercado y son independientes de Wanlian Fluid?',
+		answer: 'Todas las cifras son estimaciones de terceros de publicaciones de investigación disponibles públicamente (Grand View Research, Precedence Research, Fact.MR, IMARC, Spherical Insights, Ken Research, Market Data Forecast), consultadas en septiembre de 2026 y citadas en la tabla de fuentes. Ningún número proviene de Wanlian Fluid, y ninguno debería citarse como pronóstico para una sola empresa — son referencias de planificación a nivel de industria.'
+	},
+	{
+		question: '¿Los datos respaldan a los hidrantes IoT/inteligentes como un segmento real?',
+		answer: 'Los resúmenes de investigación citan de forma consistente las iniciativas de ciudad inteligente e infraestructura conectada entre los impulsores de crecimiento de la protección contra incendios en Asia-Pacífico y Medio Oriente. No publicamos aquí una estimación de ingresos separada para hidrantes inteligentes — trate las afirmaciones de proveedores sobre el tamaño del segmento en ese nicho con verificación extra, y mantenga el piloto pequeño: unas pocas unidades IoT (como el SS100ZN) en una calle de prueba antes del despliegue en red.'
+	}
+];
+---
+
+<Layout
+	title="Mercado de Protección Contra Incendios 2026: Datos y Crecimiento"
+	description="Mercado de protección contra incendios 2026: estimaciones independientes comparadas, señales de crecimiento y su impacto en la compra de válvulas e hidrantes."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Datos de Mercado 2026' }]}
+	locale="es"
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Datos de Mercado</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Informe de Datos de la Industria · 2026</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Mercado de Protección Contra Incendios 2026: Los Números y Qué Significan para la Compra</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Cada proveedor de la industria del equipo contra incendios afirma que el mercado está en "auge". Los datos son más interesantes que la afirmación: siete firmas de investigación independientes producen siete tamaños de mercado distintos para 2025–2026, y la dispersión entre ellos es en sí misma una señal útil sobre cómo se mide la industria. Este informe pone las estimaciones lado a lado con sus fuentes, extrae las señales de crecimiento regional y — la parte en la que la mayoría de los informes se detiene — convierte los números en decisiones concretas de compra: qué especificar, qué verificar y dónde están los cuellos de botella reales en 2026.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Nota de independencia:</strong> Todas las cifras de este informe son estimaciones de terceros de publicaciones de investigación disponibles públicamente, consultadas en septiembre de 2026 y citadas línea por línea en la Sección 5. Ninguna cifra proviene de Wanlian Fluid. Las estimaciones son a nivel de industria y difieren por definición de alcance — úselas para planificar, no como pronósticos.</p>
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="market-size" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. ¿Qué Tan Grande Es el Mercado — y Por Qué Difieren las Cifras?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La primera tabla es la que la mayoría de los competidores no publicaría, porque muestra el desacuerdo:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Firma de investigación</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Definición de alcance</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tamaño (año base)</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Proyección</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">CAGR</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Grand View Research</td><td class="px-4 py-3 text-gray-700">Sistemas de protección contra incendios</td><td class="px-4 py-3 text-gray-700">$94.9B (2025)</td><td class="px-4 py-3 text-gray-700">$156.2B para 2033</td><td class="px-4 py-3 text-gray-700">6.4%</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Precedence Research</td><td class="px-4 py-3 text-gray-700">Sistemas de protección contra incendios</td><td class="px-4 py-3 text-gray-700">$101.46B (2026)</td><td class="px-4 py-3 text-gray-700">$182.2B para 2035</td><td class="px-4 py-3 text-gray-700">6.73%</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Fact.MR</td><td class="px-4 py-3 text-gray-700">Sistemas de protección contra incendios</td><td class="px-4 py-3 text-gray-700">$87.1B (2026)</td><td class="px-4 py-3 text-gray-700">$150.2B para 2036</td><td class="px-4 py-3 text-gray-700">5.6%</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Grand View Research</td><td class="px-4 py-3 text-gray-700">Equipo de seguridad contra incendios</td><td class="px-4 py-3 text-gray-700">$60.5B (2025)</td><td class="px-4 py-3 text-gray-700">$96.8B para 2033</td><td class="px-4 py-3 text-gray-700">6.0%</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">IMARC Group</td><td class="px-4 py-3 text-gray-700">Equipo de seguridad contra incendios</td><td class="px-4 py-3 text-gray-700">$60.9B (2025)</td><td class="px-4 py-3 text-gray-700">$94.6B para 2034</td><td class="px-4 py-3 text-gray-700">4.87%</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Fact.MR</td><td class="px-4 py-3 text-gray-700">Equipo de seguridad contra incendios</td><td class="px-4 py-3 text-gray-700">$65.5B (2026)</td><td class="px-4 py-3 text-gray-700">$148.0B para 2036</td><td class="px-4 py-3 text-gray-700">8.5%</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Spherical Insights</td><td class="px-4 py-3 text-gray-700">Sistemas de protección contra incendios</td><td class="px-4 py-3 text-gray-700">— (base 2026)</td><td class="px-4 py-3 text-gray-700">Proyección 2035</td><td class="px-4 py-3 text-gray-700">6.82%</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Ken Research</td><td class="px-4 py-3 text-gray-700">Sistemas de protección contra incendios (volumen)</td><td class="px-4 py-3 text-gray-700">— (base de volumen)</td><td class="px-4 py-3 text-gray-700">Proyección 2030</td><td class="px-4 py-3 text-gray-700">4.7% → 5.2%</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Tres lecturas honestas de la dispersión. <strong>Primera</strong>, el alcance es la variable dominante: las estimaciones de "sistemas" (diseño, equipo, instalación, servicios) van de $87–101B para 2025–26, mientras que las de "equipo" (solo hardware) van de $60–66B — el mismo mercado visto a través de distintas lentes. <strong>Segunda</strong>, el consenso de crecimiento es estrecho: cada firma cae entre aproximadamente 5% y 7% de CAGR (con un punto atípico en 8.5%), que es una expansión de mercado sostenida a dos cifras en dólares absolutos, no un ciclo de hype. <strong>Tercera</strong>, ninguna firma de este conjunto modela un exceso de oferta — a un crecimiento de ~6%, las restricciones vinculantes son la capacidad de certificación, la instalación calificada y los plazos de componentes, no la demanda.</p>
+
+			<h2 id="regional-signals" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Señales Regionales: Dónde Está el Crecimiento</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Región</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Señal en los datos</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Lectura para la compra</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Norteamérica</td><td class="px-4 py-3 text-gray-700">La base instalada más grande — $28.33B en sistemas en 2025 (Market Data Forecast)</td><td class="px-4 py-3 text-gray-700">El crecimiento es de reemplazo: redes principales envejecidas, ciclos de renovación de hidrantes y válvulas, mejoras impulsadas por NFPA</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Asia-Pacífico</td><td class="px-4 py-3 text-gray-700">Región de mayor crecimiento (Spherical Insights, Ken Research)</td><td class="px-4 py-3 text-gray-700">Nueva construcción + reposición; infraestructura de incendio de ciudad inteligente (hidrantes IoT, válvulas de alarma en red) entra en los BOQ</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Europa</td><td class="px-4 py-3 text-gray-700">Impulsada por regímenes (normas EN, CE por modelo)</td><td class="px-4 py-3 text-gray-700">La documentación de cumplimiento es la puerta: verificación por modelo de EN 14384/1074/12266-1</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Medio Oriente y África</td><td class="px-4 py-3 text-gray-700">Programas de infraestructura municipal y petroquímica; mezcla NIST/BS750/AWWA</td><td class="px-4 py-3 text-gray-700">La consistencia del patrón de salidas y de la norma en toda la flota es el detalle que lo define</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">El hilo conductor para un comprador global: <strong>la misma familia de componentes (hidrantes, válvulas de compuerta, válvulas de alarma, manguera) está en demanda en todas las regiones — lo que cambia es el régimen de normas, no el producto.</strong> Esa es exactamente la condición bajo la cual un fabricante que documenta el cumplimiento por modelo a través de AWWA, EN, GB y regímenes regionales gana una ventaja estructural, y bajo la cual un comprador que estandariza especificaciones entre regiones gana una ventaja de precio estructural.</p>
+
+			<h2 id="sourcing-signals" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Qué Significan los Datos para la Compra</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Cuatro decisiones caen directamente de los números:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Planifique los ciclos de reemplazo contra el CAGR de 5–7%, no contra los ciclos de precio.</strong> A un crecimiento sostenido, los precios de hidrantes y válvulas siguen al material crudo y al costo de certificación, no a la escasez. Un programa municipal de varios años sale más barato especificado temprano con certificados por modelo fijados, que relanzando la licitación cada año contra la misma curva de crecimiento.</li>
+				<li><strong>La capacidad de certificación es el cuello de botella alrededor del cual hay que diseñar.</strong> Los cupos de ensayo UL/FM/EN son la restricción real de la industria en un mercado con crecimiento de ~6%. El comprador que especifica la norma requerida temprano — y verifica el modelo listado exacto antes de la PO — evita el modo de falla del descubrimiento tardío de certificados. Nuestra <a href="/es/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">guía de certificación LatAm</a> y la <a href="/es/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">guía de listado UL</a> son las listas de verificación.</li>
+				<li><strong>Consolide el alcance contra incendios en una sola PO.</strong> Cuando cada región compra las mismas familias de componentes, el costo de coordinación de BOQ multi-proveedor (fletes separados, registros de prueba separados, incompatibilidades de interfaz) es costo puro sin beneficio compensatorio. La <a href="/es/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">guía de abastecimiento</a> recorre el flujo de paquete de seis etapas.</li>
+				<li><strong>Pruebe la infraestructura de incendio inteligente a escala pequeña.</strong> La señal IoT/ciudad inteligente es real en los datos de crecimiento pero inmadura en las estimaciones — ninguna firma publica un número defensible de ingresos de hidrantes inteligentes. La jugada disciplinada: un piloto pequeño a nivel de calle (p. ej. un puñado de <a href="/es/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">hidrantes IoT SS100ZN</a> con alarmas de presión, inclinación y robo) con KPIs definidos antes del despliegue en red.</li>
+			</ul>
+
+			<h2 id="reading-claims" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Leer las Afirmaciones de Proveedores Frente a los Datos del Mercado</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Los datos de mercado también funcionan como herramienta de verificación de las afirmaciones de los proveedores. En una industria de $60–100B que crece ~6% al año, tres tipos de afirmaciones merecen escrutinio extra:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>"Exportamos a X países" / "Y proyectos entregados"</strong> — en un mercado tan grande, la huella de un fabricante pequeño suele ser regional, no global. Exija los países de destino y los documentos de exportación coincidentes (facturas comerciales, certificados de origen) por referencia. La secuencia de verificación está en el <a href="/es/whitepaper/" class="text-brand-blue font-semibold hover:underline">whitepaper de la industria</a>.</li>
+				<li><strong>Cifras de mercado sin fuente en el propio marketing de un proveedor</strong> — una estimación respetable nombra su alcance y su método. Si la afirmación de "líder de mercado" de un proveedor no tiene fuente, es un eslogan, no datos; la tabla de fuentes de este informe muestra cómo se ven los datos con fuente.</li>
+				<li><strong>Amplitud de certificación afirmada a nivel de empresa</strong> — UL, FM, CE y AWWA se conceden por modelo, por alcance. Una afirmación a nivel de empresa ("somos certificados UL") no es un certificado; una afirmación a nivel de modelo con un número resuelto, sí.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">La disciplina es la misma que para las cifras de mercado en sí: nombre el alcance, nombre la norma, resuelve el número. Esa es la diferencia entre datos de compra y ruido de compra — y se aplica idénticamente a un incumbente norteamericano y a un especialista de exportación, que es exactamente la comparación que corren nuestra <a href="/es/guides/wanlian-fluid-vs-mueller/" class="text-brand-blue font-semibold hover:underline">comparativa Mueller</a> y la <a href="/es/guides/wanlian-fluid-vs-tupy/" class="text-brand-blue font-semibold hover:underline">comparativa Tupy</a> con redacción por modelo.</p>
+
+			<h2 id="method" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Método y Notas de Fuente</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Las cifras se reunieron en septiembre de 2026 de las páginas de resumen disponibles públicamente de las firmas de investigación nombradas (no se reprodujeron informes con muro de pago). Cada fila de la Sección 1 cita la firma, su etiqueta de alcance y los años base/proyección tal como están publicados en su resumen. Cuando una firma publicó un CAGR sin una cifra limpia de año base (Spherical Insights, Ken Research), la fila lo dice en lugar de inventar números. Las estimaciones chocan por diseño de las definiciones de alcance de la industria; este informe presenta el rango y los impulsores de la dispersión en lugar de promediarlos en una falsa precisión.</p>
+			<ul class="list-disc pl-6 text-sm text-gray-600 space-y-2 mb-4">
+				<li>Grand View Research — resúmenes del mercado de sistemas de protección contra incendios y equipo de seguridad contra incendios (grandviewresearch.com)</li>
+				<li>Precedence Research — resumen del mercado de sistemas de protección contra incendios (precedenceresearch.com)</li>
+				<li>Fact.MR — resúmenes del mercado de sistemas de protección contra incendios y equipo de seguridad contra incendios (factmr.com)</li>
+				<li>IMARC Group — resumen del mercado de equipo de seguridad contra incendios (imarcgroup.com)</li>
+				<li>Spherical Insights — resumen del mercado de sistemas de protección contra incendios (sphericalinsights.com)</li>
+				<li>Ken Research — resumen del mercado global de sistemas de protección contra incendios (kenresearch.com)</li>
+				<li>Market Data Forecast — resumen del mercado de sistemas de protección contra incendios de Norteamérica (marketdataforecast.com)</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Especifique Contra los Datos, No Contra el Eslogan</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíenos sus líneas de alcance contra incendios con las normas de destino — le devolvemos la cotización desglosada, el plan de certificados por modelo y el enfoque de registros de prueba en 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Informe%20de%20Mercado%20%26%20RFQ%20de%20Alcance%20de%20Incendio" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20le%C3%AD%20su%20informe%20de%20mercado%20de%20protecci%C3%B3n%20contra%20incendios%202026%20y%20tengo%20un%20alcance%20de%20incendio%20que%20especificar" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

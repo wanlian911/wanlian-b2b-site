@@ -44,6 +44,28 @@ export const productsFrPart1: Record<string, Product> = {
     seoTitle: 'Vanne à Boisseau Z41X Siège Élastomère | Fonte Ductile UL',
     seoDescription:
       'Vanne à boisseau Z41X en fonte ductile à siège élastomère : faible perte de charge, étanchéité parfaite pour systèmes fluides industriels. Prix usine de Quanzhou Wanlian Fluid.',
+    faqs: [
+      {
+        question: 'Quelles tailles sont disponibles pour la vanne à boisseau à siège élastomère Z41X ?',
+        answer:
+          "De DN50 à DN700 (2 pouces à 28 pouces) en PN10 ou PN16, couvrant les canalisations secondaires jusqu\u2019aux grandes lignes de transport, pour l\u2019approvisionnement en eau, l\u2019assainissement, les services industriels et HVAC.",
+      },
+      {
+        question: 'Comment le Z41X obtient-il une étanchéité parfaite ?',
+        answer:
+          "L\u2019obturateur est entièrement encapsulé dans un caoutchouc EPDM de haute qualité, de sorte que l\u2019étanchéité ne dépend pas d\u2019un contact métal contre métal comme sur une vanne à boisseau traditionnelle. La conception à fond plat empêche en outre l\u2019accumulation de sédiments au niveau du siège.",
+      },
+      {
+        question: 'Le joint du Z41X peut-il être remplacé sans vidanger la canalisation ?',
+        answer:
+          "Oui — l\u2019étanchéité élastomère peut être remplacée en ligne sous pression, évitant des arrêts coûteux lors de la maintenance.",
+      },
+      {
+        question: 'Quels fluides et quelles températures le Z41X peut-il traiter ?',
+        answer:
+          "Eau, liquides non corrosifs et air de 0°C à 80°C, avec un revêtement en résine époxy non toxique à l\u2019intérieur comme à l\u2019extérieur pour la résistance à la corrosion dans les réseaux d\u2019eau potable et industriels.",
+      },
+    ],
   },
   'indoor-fire-hydrant-head-sn65': {
     id: '2',
@@ -76,6 +98,28 @@ export const productsFrPart1: Record<string, Product> = {
     seoTitle: 'Tête d\u2019Incendie Intérieure SN65 | Fournisseur Prix Usine',
     seoDescription:
       "Tête d'hydrant intérieur SN65 en fonte ductile pour réseaux anti-incendie : 1.6 MPa, raccordement à gorge ou à bride. Direct usine Wanlian, Chine.",
+    faqs: [
+      {
+        question: 'Quels types de raccordement sont disponibles pour la tête d\u2019hydrant intérieur SN65 ?',
+        answer:
+          "Le SN65 est disponible avec raccordement à gorge ou à bride et une interface de raccord en aluminium anodisé ou en laiton, afin de correspondre à votre norme de raccord de flexible (Storz, HS/BS5912, NIST) à la commande.",
+      },
+      {
+        question: 'Quelle pression la vanne d\u2019hydrant SN65 supporte-t-elle ?',
+        answer:
+          "Elle est classée pour une pression de service de 1,6 MPa (232 PSI) et est essayée en pression et étanchéité jusqu\u2019à 2,4 MPa, ce qui couvre les systèmes de colonnes d\u2019eau intérieures incendie standards.",
+      },
+      {
+        question: 'Où le SN65 est-il généralement installé ?',
+        answer:
+          "C\u2019est la vanne de pose murale destinée aux armoires d\u2019incendie intérieures et aux postes de flexible des bâtiments commerciaux et industriels — DN65 (2,5 pouces), adapté aux tailles standard des flexibles de lutte incendie.",
+      },
+      {
+        question: 'Le SN65 peut-il être fourni dans le cadre d\u2019un kit complet de poste intérieur d\u2019incendie ?',
+        answer:
+          "Oui — il s\u2019accompagne de notre ensemble d\u2019enrouleur de flexible JPS0.8-19, du flexible anti-incendie plat et de la buse à pulvérisation pour former un poste intérieur de lutte incendie complet sur un seul bon de commande.",
+      },
+    ],
   },
   'wet-alarm-check-valve-zsfz-150': {
     id: '3',
@@ -108,6 +152,28 @@ export const productsFrPart1: Record<string, Product> = {
     seoTitle: 'Clapet Anti-Retour ZSFZ-150 à Alarme à Mouillé | Gicleurs',
     seoDescription:
       "Clapet anti-retour à alarme à mouillé ZSFZ-150 pour réseaux de gicleurs anti-incendie automatiques : fonte ductile durable, réponse d'alarme rapide. Direct usine de Chine.",
+    faqs: [
+      {
+        question: 'Comment la vanne d\u2019alarme à mouillé ZSFZ déclenche-t-elle l\u2019alarme ?',
+        answer:
+          "Lorsque le débit des gicleurs ouvre le battant, la cloche d\u2019alarme à moteur hydraulique est entraînée en continu, la chambre de retard filtre les surpressions transitoires pour éviter les fausses alarmes et l\u2019interrupteur de pression ferme un contact électrique vers le panneau de contrôle d\u2019alarme incendie.",
+      },
+      {
+        question: 'Le ZSFZ a-t-il besoin d\u2019électricité pour fonctionner ?',
+        answer:
+          "Non. La vanne elle-même est entièrement hydraulique ; seul le contact de l\u2019interrupteur de pression fournit le signal d\u2019alarme au panneau d\u2019alarme incendie du bâtiment.",
+      },
+      {
+        question: 'Quelles tailles sont disponibles pour le ZSFZ ?',
+        answer:
+          "DN100, DN150 et DN200 à 1,6 MPa de pression nominale, fabriqués selon GB 5135.2 avec des corps en fonte grise ou en fonte ductile et des joints de battant et de siège en EPDM/NBR.",
+      },
+      {
+        question: 'Le ZSFZ peut-il être maintenu sans vidanger le système ?',
+        answer:
+          "Oui — il est conçu pour la maintenance en ligne et les essais périodiques, ce qui est essentiel pour les systèmes incendie qui doivent rester protégés en permanence.",
+      },
+    ],
   },
   'signal-grooved-wafer-butterfly-valve-dn80': {
     id: '4',
@@ -267,6 +333,28 @@ export const productsFrPart1: Record<string, Product> = {
     seoTitle: 'Hydrant Extérieur Anti-Collision SSFT100 | Régulateur',
     seoDescription:
       "Hydrant anti-collision à régulation de pression SSFT100 avec double arrêt de sécurité pour la protection incendie municipale et industrielle. Prix usine Wanlian.",
+    faqs: [
+      {
+        question: 'Comment l\u2019hydrant SSFT100 coupe-t-il l\u2019eau après une collision avec un véhicule ?',
+        answer:
+          "Les boulons de cisaillement spécialisés sont calibrés pour céder sous l\u2019impact. Une fois coupés, la vanne interne se ferme automatiquement et obture l\u2019hydrant, stoppant la fuite d\u2019eau pour que les réparations puissent être effectuées alors que la canalisation reste sous pression.",
+      },
+      {
+        question: 'À quoi sert le dispositif de régulation de pression intégré ?',
+        answer:
+          "Il assure un débit d\u2019eau progressif et régulier à l\u2019ouverture des sorties, réduisant les chocs de débit et le coup de bélier pendant que les véhicules d\u2019incendie se remplissent depuis l\u2019hydrant.",
+      },
+      {
+        question: 'Quelles normes de sortie utilise le SSFT100 ?',
+        answer:
+          "Deux sorties DN65 avec interfaces KWS65 plus une sortie DN100 (configuration DN100/65, corps de tailles DN100 et DN150 à 1,6 MPa) ; d\u2019autres normes de raccord de sortie peuvent être spécifiées pour votre marché.",
+      },
+      {
+        question: 'Combien d\u2019entretien un hydrant anti-collision nécessite-t-il après un impact ?',
+        answer:
+          "Très peu — les boulons de cisaillement sont simplement remplacés et l\u2019hydrant est remis en service. La vanne inférieure et la canalisation restent opérationnelles, ce qui minimise le coût de la réparation et la durée de coupure.",
+      },
+    ],
   },
   'iot-smart-ground-fire-hydrant-ss100zn': {
     id: '10',
@@ -297,6 +385,28 @@ export const productsFrPart1: Record<string, Product> = {
     seoTitle: 'Hydrant Intelligent IoT SS100ZN | Surveillance Temps Réel',
     seoDescription:
       "Système de surveillance d'hydrant intelligent IoT. Pression d'eau, inclinaison et vol d'eau détectés en temps réel. Idéal pour l'intégration des réseaux incendie municipaux intelligents.",
+    faqs: [
+      {
+        question: 'Quelles données l\u2019hydrant intelligent IoT surveille-t-il en temps réel ?',
+        answer:
+          "Pression et débit d\u2019eau de la canalisation, état ouvert/fermé de la vanne, inclinaison et vibrations (détection de collision) et alarmes de prélèvement d\u2019eau illégal — transmis sans fil par réseau cellulaire (NB-IoT, LTE-M ou GPRS).",
+      },
+      {
+        question: 'Comment l\u2019hydrant intelligent SS100ZN est-il alimenté ?',
+        answer:
+          "Par une batterie lithium intégrée à durée de vie de conception de cinq ans, avec une assistance solaire optionnelle pour les installations isolées ou difficiles d\u2019accès. Aucun câble externe n\u2019est requis.",
+      },
+      {
+        question: 'Quelle est la norme du corps de l\u2019hydrant intelligent ?',
+        answer:
+          "Le corps de l\u2019hydrant est fabriqué selon GB 4452-2011 en fonte ductile QT450, avec le module IoT dans une capsule ABS anti-chocs classée IP68 et une sonde d\u2019eau en acier inoxydable 316.",
+      },
+      {
+        question: 'L\u2019hydrant intelligent peut-il s\u2019intégrer à une plateforme de surveillance municipale ?',
+        answer:
+          "Oui — il transmet des données cellulaires standard qui peuvent être acheminées vers votre plateforme SCADA ou ville intelligente ; nous coordonnons le format des données et la logique d\u2019alarme lors de la spécification du projet.",
+      },
+    ],
   },
   'glass-bulb-fire-sprinkler-zst': {
     id: '11',
@@ -328,5 +438,27 @@ export const productsFrPart1: Record<string, Product> = {
     seoTitle: 'Gicleur à Ampoule Vitrée ZST | Automatique',
     seoDescription:
       'Gicleurs anti-incendie automatiques à ampoule vitrée série ZST. Haute sensibilité, châssis en laiton anticorrosion. Prix usine Wanlian, Chine.',
+    faqs: [
+      {
+        question: 'Comment choisir entre les gicleurs K=80 et K=115 ?',
+        answer:
+          "K=80 (K=80±4) est le choix standard pour la plupart des salles à danger léger ou ordinaire ; K=115 (K=115±9) fournit un débit plus élevé lorsque la densité de calcul est plus forte. Votre calcul hydraulique du réseau de gicleurs fixe le coefficient K et le débit requis à la pression de service.",
+      },
+      {
+        question: 'Quelles classes de température sont disponibles pour les gicleurs ZST ?',
+        answer:
+          "Ampoules vitrées de 57°C, 68°C, 79°C, 93°C et 141°C avec le code couleur standard des ampoules, afin que le gicleur s\u2019ouvre dans la plage de température exigée par votre classe de danger.",
+      },
+      {
+        question: 'Quelle est la différence entre ampoules à réponse rapide et à réponse standard ?',
+        answer:
+          "Les gicleurs à réponse rapide utilisent une ampoule de 3 mm et réagissent plus vite — à privilégier là où la rapidité d\u2019action compte ; les gicleurs à réponse standard utilisent une ampoule de 5 mm et constituent le choix polyvalent par défaut.",
+      },
+      {
+        question: 'Quelles orientations sont disponibles dans la gamme ZST ?',
+        answer:
+          "Modèles ZST pendants, dressés (en position verticale) et muraux, ainsi que les variantes murale horizontale (T-ZSTBS) et dissimulée encastrée (ZSTDY) pour les installations sous plafond fini — corps en laiton forgé de précision avec ampoules vitrées importées, en DN15/DN20.",
+      },
+    ],
   },
 };

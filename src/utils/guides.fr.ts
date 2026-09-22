@@ -321,5 +321,75 @@ export const guidesFr: GuideFr[] = [
     category: 'Whitepaper',
     readTime: '12 min de lecture',
     tags: ['procurement', 'certification']
-  }
+  },
+  {
+    title: 'BOM sprinkler bâtiment commercial : guide d’approvisionnement (2026)',
+    description: 'BOM sprinkler bâtiment commercial : groupes de vannes d’alarme, OS&Y, siamese, réseaux, indicateurs de débit d’eau — un package, un PO, vérifié.',
+    href: '/fr/guides/commercial-building-sprinkler-system-bom-guide/',
+    tocPreview: ['1. Pourquoi le package sprinkler est acheté en un seul périmètre', '2. Le groupe de vanne d’alarme : cœur du système à eau sous pression', '3. Sectionnement surveillé : vannes OS&Y et papillons de signalisation'],
+    date: '2026-09',
+    category: 'Protection Incendie',
+    readTime: '9 min de lecture',
+    tags: ['sprinkler-systems', 'fire-protection', 'procurement']
+  },
+  {
+    title: 'Réseau incendie municipal : vannes, hydrants & tuyaux (2026)',
+    description: 'Canalisations incendie municipales : vannes de sectionnement, hydrants antigel, tuyaux feux et colliers, normes de destination, package unique.',
+    href: '/fr/guides/municipal-fire-water-main-upgrade-guide/',
+    tocPreview: ['1. Ce qu’inclut réellement une modernisation de canalisation incendie', '2. Vannes de sectionnement : Z41X vs télescopique Z41X-T', '3. Choix des hydrants selon le climat et les risques de rue'],
+    date: '2026-09',
+    category: 'Achats B2B',
+    readTime: '8 min de lecture',
+    tags: ['fire-hydrant', 'industrial-valves', 'procurement']
+  },
+  {
+    title: 'Wanlian Fluid vs Tupy : vannes fonte ductile & incendie LatAm (2026)',
+    description: 'Wanlian Fluid vs Tupy 2026 : hydrants, vannes incendie, tuyaux feux et vannes fonte ductile comparés pour la LatAm — où chaque fabricant gagne vraiment.',
+    href: '/fr/guides/wanlian-fluid-vs-tupy/',
+    tocPreview: ['1. Tupy : ce qu’ils sont réellement', '2. Wanlian Fluid : ce que nous sommes réellement', '3. Comment leurs gammes produit se comparent-elles ?'],
+    date: '2026-09',
+    category: 'Achats B2B',
+    readTime: '9 min de lecture',
+    tags: ['procurement', 'industrial-valves']
+  },
+  {
+    title: 'Wanlian Fluid vs Mueller : hydrants & vannes US-spec (2026)',
+    description: 'Wanlian Fluid vs Mueller 2026 : hydrants, vannes à boisseau, normes, certification, coûts et délais — quel fournisseur pour votre projet US-spec ou export ?',
+    href: '/fr/guides/wanlian-fluid-vs-mueller/',
+    tocPreview: ['1. Mueller : ce qu’ils sont réellement', '2. Wanlian Fluid : ce que nous sommes réellement', '3. Comment leurs gammes produit se comparent-elles ?'],
+    date: '2026-09',
+    category: 'Achats B2B',
+    readTime: '10 min de lecture',
+    tags: ['procurement', 'fire-hydrant', 'industrial-valves']
+  },
+  {
+    title: 'Protection incendie 2026 : données, croissance & signaux (rapport)',
+    description: 'Marché protection incendie 2026 : sept estimations de recherche comparées, signaux de croissance régionaux et décisions d’approvisionnement concrètes.',
+    href: '/fr/guides/fire-protection-market-data-report-2026/',
+    tocPreview: ['1. Quelle est la taille du marché — et pourquoi les chiffres divergent', '2. Signaux régionaux : où est la croissance', '3. Ce que les données veulent dire pour l’approvisionnement'],
+    date: '2026-09',
+    category: 'Achats B2B',
+    readTime: '8 min de lecture',
+    tags: ['procurement', 'fire-protection']
+  },
+  {
+    title: 'Wanlian vs CA-FIRE : quel fabricant chinois incendie choisir (2026) ?',
+    description: 'Wanlian Fluid vs CA-FIRE 2026 : sprinklers approuvés FM, moniteurs incendie, hydrants, vannes d’alarme & kits complets — quel fabricant chinois ?',
+    href: '/fr/guides/wanlian-fluid-vs-ca-fire/',
+    tocPreview: ['1. CA-FIRE : ce qu’ils sont réellement', '2. Wanlian Fluid : ce qu’ils sont réellement', '3. Comment leurs gammes produit se comparent-elles ?'],
+    date: '2026-09',
+    category: 'Achats B2B',
+    readTime: '9 min de lecture',
+    tags: ['procurement', 'fire-protection']
+  },
+  {
+    title: 'Wanlian vs Forede : moniteurs & équipement incendie chinois (2026)',
+    description: 'Wanlian Fluid vs Forede 2026 : moniteurs incendie, canons à eau, systèmes à mousse, hydrants & vannes — quel fabricant chinois pour votre projet ?',
+    href: '/fr/guides/wanlian-fluid-vs-forede/',
+    tocPreview: ['1. Forede : ce qu’ils sont réellement', '2. Wanlian Fluid : ce que nous sommes réellement', '3. Comment leurs gammes produit se comparent-elles ?'],
+    date: '2026-09',
+    category: 'Achats B2B',
+    readTime: '9 min de lecture',
+    tags: ['procurement', 'fire-protection', 'fire-water-cannon']
+  },
 ];

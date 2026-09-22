@@ -1,0 +1,176 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import TableOfContents from '../../../components/sections/TableOfContents.astro'
+
+const toc = [
+	{ id: 'scope', label: '1. Ce qu’inclut réellement une modernisation de canalisation incendie' },
+	{ id: 'isolation-valves', label: '2. Vannes de sectionnement : Z41X vs télescopique Z41X-T' },
+	{ id: 'hydrants-by-climate', label: '3. Choix des hydrants selon le climat et les risques de rue' },
+	{ id: 'hose-couplings', label: '4. Tuyaux feux et colliers pour la flotte municipale' },
+	{ id: 'standards-table', label: '5. Normes par marché de destination' },
+	{ id: 'one-po', label: '6. Le package à PO unique : pourquoi consolider réduit le risque' },
+	{ id: 'faq', label: 'Questions Fréquentes' }
+]
+
+const faq = [
+	{
+		question: 'Hydrants, vannes et tuyaux feux peuvent-ils être commandés en un seul package municipal ?',
+		answer: 'Oui — un seul bon de commande peut combiner des hydrants de rue ou enterrés, des vannes de sectionnement à résilient, des tuyaux feux doublés caoutchouc et des colliers Storz ou BS336, avec marquage OEM, emballage export et un seul jeu de fiches d’essai rapproché. Les appels d’offres municipaux qui exigent une documentation par article l’obtiennent par ligne sur la même liste de colisage.'
+	},
+	{
+		question: 'Quel type d’hydrant une ville au climat froid doit-elle spécifier ?',
+		answer: 'Un hydrant antigel à canon sec : le canon au-dessus de la ligne de gel se vide automatiquement après chaque usage, donc le corps ne gèle pas. L’hydrant de rue SS100/65 (1,6 MPa, essai 2,4 MPa) est notre unité de rue standard pour climat froid, avec variantes anti-choc et IoT disponibles lorsque le trafic de rue ou la surveillance du réseau est dans le périmètre.'
+	},
+	{
+		question: 'Pourquoi utiliser une vanne à boisseau télescopique sur un projet de modernisation plutôt qu’une vanne à boisseau standard ?',
+		answer: 'La Z41X-T combine une coupe étanche sans bulle et une compensation de dilatation de ±25 mm dans une seule unité. Sur une canalisation qui est refaite ou rattachée à un tuyau existant, cette tolérance absorbe le désalignement et le tassement, et la vanne peut ensuite être remplacée sans couper la ligne — les deux sont des coûts récurrents sur les réseaux municipaux.'
+	},
+	{
+		question: 'Quelle norme de collier de tuyau feux la flotte incendie utilise-t-elle sur mon marché ?',
+		answer: 'Cela dépend des pompiers : Storz (norme allemande) est le modèle d’export le plus courant, BS336/BS5912 couvre les flottes UK et Commonwealth, et NIST couvre plusieurs spécifications du Moyen-Orient. Le tuyau, les colliers et les bouchons de sortie d’hydrants doivent tous correspondre au même modèle — spécifiez-le une fois pour tout le package.'
+	},
+	{
+		question: 'Comment les projets de modernisation sont-ils généralement planifiés, de la commande à la livraison ?',
+		answer: 'Pour les modèles standards : spécification et cotation détaillée en quelques jours, une unité d’échantillon pour vérification, puis production de 15 à 30 jours selon la quantité et la personnalisation, avec essais de pression du corps et d’étanchéité à l’air par unité avant l’emballage export. Une inspection par un tiers en usine peut être organisée avant expédition.'
+	}
+]
+
+const productRows = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hydrant de rue antigel SS100/65', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Évacuation à canon sec, 1,6 MPa, sorties 2x65 + 1x100' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Vanne à boisseau résiliente Z41X', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50-DN700, PN10/PN16, ré-étanchéité en ligne' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Tuyau feux plat doublé caoutchouc', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Modèle 8-65 pour usage municipal et industriel' }
+]
+---
+
+<Layout
+	title="Réseau incendie municipal : vannes, hydrants & tuyaux (2026)"
+	description="Canalisations incendie municipales : vannes de sectionnement, hydrants antigel, tuyaux feux et colliers, normes de destination, package unique."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Modernisation Canalisation Incendie' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Modernisation Canalisation Incendie</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide d’Approvisionnement · Infrastructure Municipale</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Modernisation de la Canalisation Incendie Municipale : Vannes, Hydrants &amp; Tuyaux Feux en un seul Package</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Une modernisation de canalisation incendie porte rarement sur un seul produit. C’est un package — des vannes de sectionnement à chaque jonction, des hydrants sur les nouveaux tronçons, des tuyaux feux et colliers pour la flotte, et une connexion de pompage que les services d’incendie peuvent réellement utiliser. Ce guide passe en revue les quatre lignes du périmètre, les choix dictés par le climat dans chacune, et pourquoi les acheteurs municipaux placent de plus en plus tout le package sur un seul bon de commande.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Note de périmètre :</strong> les quantités et la densité d’hydrants suivent votre code municipal et la norme de conception du service public ; les sélections de composants ci-dessous sont les choix d’ingénierie qu’un BOQ de canalisation incendie impose réellement. La clause de l’appel d’offres fait toujours foi.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="scope" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Ce qu’inclut réellement une modernisation de canalisation incendie</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Lisez le BOQ de l’appel d’offres et le périmètre incendie se réduit à quatre lignes récurrentes : <strong>des vannes de sectionnement</strong> aux canalisations, hydrants et jonctions de pompage ; des <strong>hydrants</strong> sur les tronçons remplacés ou prolongés ; des <strong>tuyaux feux et colliers</strong> qui maintiennent la flotte compatible avec les nouvelles normes de sortie ; et la <strong>connexion de pompage / de département</strong> où les services d’incendie se branchent. Chaque ligne a une dimension normes (quel régime la destination applique) et une dimension logistique (ce qui voyage ensemble dans un conteneur).</p>
+			<p class="text-gray-700 leading-relaxed">Le schéma d’échec contre lequel ce guide est écrit : des vannes d’un fournisseur, des hydrants d’un autre, des tuyaux d’un troisième — et les bouchons de sortie qui ne correspondent pas aux colliers de la flotte, ou les faces de brides des vannes qui ne correspondent pas aux entrées des hydrants. Le même périmètre, sur un seul PO d’un seul fabricant, ne peut pas avoir ces coutures.</p>
+
+			<h2 id="isolation-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Vannes de sectionnement : Z41X vs télescopique Z41X-T</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Chaque modernisation a besoin de points de sectionnement pour pouvoir travailler sur un tronçon sans vidanger le réseau. Les deux chevau de service de notre gamme sont la <a href="/fr/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">vanne à boisseau résiliente Z41X</a> standard (DN50–DN700, PN10/PN16, obturateur intégralement encapsulé EPDM, ré-étanchéifiable en ligne) et la <a href="/fr/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">version télescopique Z41X-T</a> (DN50–DN600 avec compensation de dilatation ±25 mm intégrée).</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Décision</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Z41X</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Z41X-T télescopique</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Plage de diamètres</td><td class="px-4 py-3 text-gray-700">DN50–DN700</td><td class="px-4 py-3 text-gray-700">DN50–DN600</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Compensation de dilatation</td><td class="px-4 py-3 text-gray-700">Aucune (poser un joint de dilatation si besoin)</td><td class="px-4 py-3 text-gray-700">±25 mm intégré</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Remplacement sans découpe de tuyau</td><td class="px-4 py-3 text-gray-700">Non</td><td class="px-4 py-3 text-gray-700">Oui</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Idéal pour</td><td class="px-4 py-3 text-gray-700">Nouvelles canalisations, grands diamètres, installations fixes</td><td class="px-4 py-3 text-gray-700">Jonctions sur tuyau existant, sols sensibles au tassement, maintenance future</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Règle pratique du terrain : les nouvelles canalisations droites prennent la Z41X standard ; les jonctions, traversées et tout ce que l’équipe de maintenance voudra un jour remplacer prennent la télescopique. Les deux portent le même obturateur intégralement encapsulé, donc le comportement d’étanchéité sur lequel le service public compte ne change pas.</p>
+
+			<h2 id="hydrants-by-climate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Choix des hydrants selon le climat et les risques de rue</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Le climat décide du canon, et le risque de rue décide des options :</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Climats froids :</strong> <a href="/fr/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">l’hydrant de rue antigel SS100/65</a> — l’évacuation automatique après fermeture vide le canon au-dessus de la ligne de gel, service 1,6 MPa / essai 2,4 MPa, avec sorties 2×DN65 plus DN100.</li>
+				<li><strong>Rues à fort trafic :</strong> <a href="/fr/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">l’hydrant anti-choc SSFT100</a> — les boulons à cisaillement calibrés cèdent à l’impact, la vanne interne se ferme automatiquement, et la réparation est un simple remplacement de boulons avec la ligne encore sous pression.</li>
+				<li><strong>Programmes ville intelligente :</strong> <a href="/fr/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">l’hydrant IoT SS100ZN</a> — alarmes de pression, débit, inclinaison/choc et usage illégal sur NB-IoT/LTE-M, batterie cinq ans avec assistance solaire, sur corps GB 4452.</li>
+				<li><strong>Canalisations enterrées :</strong> <a href="/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">l’hydrant enterré SA</a> pour installations enfouies avec sorties KWS65.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Les colliers de sortie (KWS65, BS336, Storz, NIST) sont une spécification par marché — le même corps d’hydrant est expédié avec les bouchons que votre flotte incendie utilise réellement. C’est cette ligne du BOQ où la plupart des commandes d’hydrants transfrontalières se trompent, et là où un fournisseur de package est censé vous attraper l’erreur. Notre <a href="/fr/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">guide antigel &amp; anti-choc</a> couvre en profondeur le comportement hydraulique de chaque variante.</p>
+
+			<h2 id="hose-couplings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Tuyaux feux et colliers pour la flotte municipale</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La ligne tuyaux feux de la flotte doit correspondre aux nouvelles sorties d’hydrants, sinon la modernisation est incomplète le jour de la remise. Le <a href="/fr/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">tuyau feux plat doublé caoutchouc (modèle 8-65)</a> est la référence municipale de notre gamme — 8 pouces, calibre DN65, conçu pour un service pressurisé répété — avec le <a href="/fr/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">collier Storz en aluminium 2,5 pouces</a> comme raccord d’export par défaut ; les adaptateurs de colliers DN50/DN65 de la <a href="/fr/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">série HS</a> couvrent la transition là où les anciennes et les nouvelles normes coexistent sur le réseau. Les tailles, doublures et étanchéité de bords sont détaillées dans le <a href="/fr/guides/fire-hose-buying-guide/" class="text-brand-blue font-semibold hover:underline">guide d’achat du tuyau feux plat</a>.</p>
+
+			<h2 id="standards-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Normes par marché de destination</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Le même hydrant et la même vanne sont spécifiés sous différents régimes selon l’endroit où le projet se réalise. Nommez le régime par ligne au BOQ :</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Région</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Références typiques</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Note acheteur</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">US &amp; grande partie des Amériques</td><td class="px-4 py-3 text-gray-700">AWWA C502 (hydrants), AWWA C515, ISO 5208 / EN 1074 (valves)</td><td class="px-4 py-3 text-gray-700">Confirmer la norme et le rapport d’essai par modèle</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Amérique latine</td><td class="px-4 py-3 text-gray-700">AWWA (appels d’offres spéc US), NOM du Mexique, ABNT du Brésil</td><td class="px-4 py-3 text-gray-700">La clause de l’appel d’offres fait foi ; vérifier par modèle</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Europe</td><td class="px-4 py-3 text-gray-700">EN 14384 (hydrants), EN 1074, EN 12266-1 (essais des vannes), CE</td><td class="px-4 py-3 text-gray-700">CE et essais sont par modèle et par directive</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Moyen-Orient &amp; Afrique</td><td class="px-4 py-3 text-gray-700">Souvent AWWA ou BS 750 ; sorties NIST fréquentes</td><td class="px-4 py-3 text-gray-700">Confirmer le collier de sortie dans le BOQ</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">La comparaison côte à côte des familles de normes est dans le <a href="/fr/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">guide des normes hydrants, tuyaux feux &amp; vannes</a> — y compris comment lire une norme face à un rapport d’essai avant de payer.</p>
+
+			<h2 id="one-po" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Le package à PO unique : pourquoi consolider réduit le risque</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Une commande de package municipal auprès d’un seul fabricant vous achète trois choses qu’un BOQ multi-fournisseurs ne peut pas : <strong>des interfaces compatibles par construction</strong> (bouchons de sortie, brides de vannes et colliers de tuyaux feux tous spécifiés dans une même revue de plans), <strong>un seul jeu de fiches d’essai</strong> qui se rapproche d’une liste de colisage unique pour le dossier d’acceptation, et <strong>un seul plan logistique</strong> — hydrants et tuyaux feux partagent bien l’espace d’un conteneur, et un Incoterm unique garde le partage des risques propre de la porte de l’usine au chantier. La séquence étape par étape — spécification, vérification du fournisseur, échantillonnage, QC, documentation, logistique — c’est le <a href="/fr/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">guide source</a> ; la discipline de vérification par modèle est dans le <a href="/fr/whitepaper/" class="text-brand-blue font-semibold hover:underline">whitepaper sectoriel</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Pour le contexte régional sur la façon dont ces périmètres sont appelés d’offres, le <a href="/fr/guides/municipal-water-fire-infrastructure-latinamerica/" class="text-brand-blue font-semibold hover:underline">guide infrastructure municipale Amérique latine</a> couvre en détail les régimes de normes régionaux et la pratique du PO unique.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Mettez le BOQ de Votre Canalisation Incendie au Travail</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez les lignes, la norme de destination et la densité d’hydrants — nous revenons avec une cotation détaillée, l’approche d’essais par modèle et un plan logistique consolidé sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Municipal%20Fire%20Main%20Package" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20nous%20avons%20une%20modernisation%20de%20canalisation%20incendie%20municipale%20(vannes%20%2B%20hydrants%20%2B%20tuyaux%20feux)%20et%20demandons%20une%20cotation%20par%20poste" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

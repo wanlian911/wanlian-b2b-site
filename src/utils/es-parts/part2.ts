@@ -105,7 +105,25 @@ export const productsEsPart2: Record<string, Product> = {
     },
     image: '/assets/products/manual-fire-water-cannon-ps.webp',
     seoTitle: 'Cañón Monitor de Agua Manual Serie PS | Largo Alcance',
-    seoDescription: 'Cañón de agua extintor manual de alto caudal para agua y espuma, de construcción pesada para plantas petroquímicas y almacenes. Precio de fábrica Wanlian Fluid.'
+    seoDescription: 'Cañón de agua extintor manual de alto caudal para agua y espuma, de construcción pesada para plantas petroquímicas y almacenes. Precio de fábrica Wanlian Fluid.',
+    faqs: [
+      {
+        question: '¿Qué alcance de chorro entrega el cañón monitor manual PS?',
+        answer: 'Una distancia de chorro de 50 a 110 m según el caudal seleccionado (20 a 200 L/s) y la presión de entrada (0.8 a 1.2 MPa), con chorro recto de alta concentración y patrón de rocío tipo niebla amplia disponibles.'
+      },
+      {
+        question: '¿Puede el monitor PS aplicar espuma además de agua?',
+        answer: 'Sí, está diseñado tanto para la aplicación de agua como de espuma, por lo que se utiliza en parques de tanques, puertos y patios petroquímicos para la protección contra incendios clase B.'
+      },
+      {
+        question: '¿Cómo se orienta el monitor PS y se mantiene en posición?',
+        answer: 'Una palanca manual de mano ofrece una orientación suave y rápida, y un mecanismo de engranajes autoblocante mantiene la posición seleccionada, de modo que el cañón puede rociar sin operador una vez ajustado.'
+      },
+      {
+        question: '¿Qué tamaños de brida de entrada están disponibles para la serie PS?',
+        answer: 'Bridas de entrada DN100, DN150 y DN200, con rotación horizontal de 360° y rango vertical de -30° a +70°, en aleación de aluminio T6 anodizada dura o bronce para resistencia a la intemperie marina.'
+      }
+    ]
   },
   'water-flow-indicator-zsjz': {
     id: '19',
@@ -162,7 +180,25 @@ export const productsEsPart2: Record<string, Product> = {
     },
     image: '/assets/products/telescopic-resilient-seat-gate-valve-z41x-t.webp',
     seoTitle: 'Válvula de Compuerta Telescópica Z41X-T | Precio de Fábrica',
-    seoDescription: 'Válvula de compuerta telescópica Z41X-T de asiento elástico, cuña EPDM y cuerpo QT450 para tuberías con compensación de expansión. Precio de fábrica Wanlian.'
+    seoDescription: 'Válvula de compuerta telescópica Z41X-T de asiento elástico, cuña EPDM y cuerpo QT450 para tuberías con compensación de expansión. Precio de fábrica Wanlian.',
+    faqs: [
+      {
+        question: '¿Qué hace la manga telescópica incorporada?',
+        answer: 'Proporciona una compensación de expansión de ±25 mm, absorbiendo el movimiento térmico y el asentamiento de la tubería para que el cuerpo de la válvula no quede sometido a esfuerzos, y permite reemplazar la válvula sin cortar la tubería.'
+      },
+      {
+        question: '¿En qué se diferencia el Z41X-T de una válvula de compuerta de asiento elástico estándar?',
+        answer: 'Combina el sellado hermético y la compensación de expansión de la tubería en una sola unidad, de modo que instala una válvula en lugar de una válvula más una junta de expansión separada.'
+      },
+      {
+        question: '¿Qué tamaños y presiones están disponibles para la válvula de compuerta telescópica?',
+        answer: 'DN50 a DN600 a 1.0 o 1.6 MPa, en hierro dúctil QT450 con cuña totalmente encapsulada en EPDM, para líneas de suministro de agua, contra incendios y HVAC.'
+      },
+      {
+        question: '¿Qué medios son adecuados para el Z41X-T?',
+        answer: 'Agua, aguas residuales y agua contra incendios. El recubrimiento epoxi no tóxico en el interior y el exterior lo mantiene apto tanto para servicio de agua potable como para líneas de drenaje.'
+      }
+    ]
   },
   'adjustable-pressure-reducing-valve-500x': {
     id: '21',
@@ -192,7 +228,25 @@ export const productsEsPart2: Record<string, Product> = {
     },
     image: '/assets/products/pressure-reducing-valve-500x-dn50.webp',
     seoTitle: 'Válvula Reductora de Presión 500X | Suministro de Agua',
-    seoDescription: 'Válvula reductora de presión hidráulica autooperada 500X en hierro dúctil, con opciones OEM y diseño personalizado. Precio de fábrica Wanlian Fluid China.'
+    seoDescription: 'Válvula reductora de presión hidráulica autooperada 500X en hierro dúctil, con opciones OEM y diseño personalizado. Precio de fábrica Wanlian Fluid China.',
+    faqs: [
+      {
+        question: '¿Necesita electricidad la válvula reductora de presión 500X?',
+        answer: 'No. Es totalmente autooperada: un sistema de piloto hidráulico detecta la presión aguas abajo y modula la válvula principal, de modo que funciona en cualquier lugar donde exista presión en la tubería, sin alimentación externa ni sistema de control.'
+      },
+      {
+        question: '¿Qué rango de presión aguas abajo puede mantener el 500X?',
+        answer: 'La presión aguas abajo preestablecida es ajustable de 0.1 MPa a 1.6 MPa mediante el conjunto del piloto, manteniendo un valor estable a pesar de los cambios de caudal o de la variación de la presión de entrada, con clasificaciones de entrada PN10, PN16 y PN25.'
+      },
+      {
+        question: '¿Qué tamaños están disponibles para el 500X?',
+        answer: 'DN20 a DN600 (3/4 a 24 pulgadas) en hierro dúctil QT450-10 con diafragma de EPDM reforzado con nailon, vástago interno de acero inoxidable 304 y piloto de latón forjado macizo, diseñado según ANSI, JIS o GB, según se requiera.'
+      },
+      {
+        question: '¿Cómo previene el 500X el golpe de ariete?',
+        answer: 'La válvula principal cierra lentamente y de forma uniforme a través del diafragma controlado por el piloto, evitando los picos de presión repentinos que las válvulas de cierre rápido pueden generar en líneas principales de agua de largo recorrido.'
+      }
+    ]
   },
   'fire-hydrant-hose-coupling-adapter-hs': {
     id: '22',
@@ -281,7 +335,25 @@ export const productsEsPart2: Record<string, Product> = {
     },
     image: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp',
     seoTitle: 'Hidrante Exterior SS100 Anticongelante | Listado UL',
-    seoDescription: 'Hidrante exterior de alta presión SS100 con drenaje antihielo y cuerpo de hierro dúctil para suministro de agua municipal. Precio de fábrica Wanlian China.'
+    seoDescription: 'Hidrante exterior de alta presión SS100 con drenaje antihielo y cuerpo de hierro dúctil para suministro de agua municipal. Precio de fábrica Wanlian China.',
+    faqs: [
+      {
+        question: '¿Cómo evita el hidrante SS100 la congelación en climas fríos?',
+        answer: 'El SS100 utiliza un mecanismo de drenaje automático posterior al cierre: una vez cerrado el vástago de operación, el cilindro situado por encima de la línea de congelación se drena por gravedad, de modo que el cuerpo no retiene agua que podría congelarse y romper la columna. Es la opción estándar para hidrantes exteriores municipales y de patio en regiones frías.'
+      },
+      {
+        question: '¿Qué salidas ofrece el SS100/65?',
+        answer: 'Dos salidas DN65 (2.5 pulgadas) con tapones ciegos resistentes al clima y una salida DN100 (4 pulgadas). Los estándares de acople de las salidas (KWS, BS336, Storz, etc.) se especifican según el mercado de destino en el momento del pedido.'
+      },
+      {
+        question: '¿Cuál es la clase de presión del hidrante SS100?',
+        answer: 'Presión de trabajo de 1.6 MPa con presión de prueba de 2.4 MPa, en una columna de servicio pesado de hierro dúctil (QT450) que resiste el impacto físico en exteriores.'
+      },
+      {
+        question: '¿Qué materiales se utilizan en las partes internas del SS100?',
+        answer: 'La cabeza de la válvula inferior está totalmente encapsulada en caucho EPDM para un sellado hermético, el dispositivo de drenaje es de acero inoxidable 304 o latón, y el vástago de operación es de acero inoxidable o acero al carbono medio.'
+      }
+    ]
   },
   'fire-hose-reel-jpso8-19': {
     id: '25',
@@ -339,7 +411,25 @@ export const productsEsPart2: Record<string, Product> = {
     },
     image: '/assets/products/spherical-ball-check-valve-hq44x.webp',
     seoTitle: 'Válvula de Retención de Bola HQ44X | Hierro Nodular',
-    seoDescription: 'Válvula de retención de bola esférica HQ44X-16 con bola rodante recubierta de EPDM, antiobstrucción y baja pérdida de presión. Precio de fábrica Wanlian.'
+    seoDescription: 'Válvula de retención de bola esférica HQ44X-16 con bola rodante recubierta de EPDM, antiobstrucción y baja pérdida de presión. Precio de fábrica Wanlian.',
+    faqs: [
+      {
+        question: '¿Por qué elegir una válvula de retención de bola esférica en lugar de una de clapeta?',
+        answer: 'El HQ44X tiene un canal antiobstrucción de flujo completo y una esfera rodante recubierta de EPDM que se asienta en silencio sin golpeteo, lo que da una menor pérdida de carga y menos golpe de ariete que los diseños de clapeta u oscilante en descargas de bombas de alto caudal y líneas principales de agua.'
+      },
+      {
+        question: '¿Se obstruirá el HQ44X con agua sucia o aguas residuales?',
+        answer: 'Está diseñado para servicio antiobstrucción: la bola rodante sigue el camino del flujo y el canal abierto no atrapa residuos, por lo que es apto tanto para descarga de bombas, drenaje y servicio de agua cruda como para agua limpia.'
+      },
+      {
+        question: '¿Qué tamaños y presiones están disponibles para el HQ44X?',
+        answer: 'DN50 a DN400 (2 a 16 pulgadas) a PN16, en fundición nodular QT450-10 con sellado de bola y asiento de EPDM/NBR, probada según GB/T 13927.'
+      },
+      {
+        question: '¿Cómo cierra en silencio el HQ44X?',
+        answer: 'El bajo caudal de arranque y la geometría de esfera rodante permiten que la bola se asiente gradualmente sobre el asiento a medida que el flujo desciende, produciendo un cierre silencioso sin golpeteo en lugar del impacto de una clapeta que golpea el asiento.'
+      }
+    ]
   },
   'flange-manual-bellows-gate-valve': {
     id: '27',

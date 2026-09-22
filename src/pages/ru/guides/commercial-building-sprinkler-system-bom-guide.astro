@@ -1,0 +1,184 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'one-package', label: '1. Почему спринклерный пакет закупается одним объёмом' },
+	{ id: 'alarm-valve-group', label: '2. Сигнальная группа клапанов: сердце системы с мокрой трубой' },
+	{ id: 'monitored-isolation', label: '3. Отсечка с контролем: клапаны OS&Y и дисковые сигнальные затворы' },
+	{ id: 'siamese', label: '4. Подключение пожарной службы (сиамезе)' },
+	{ id: 'sprinkler-heads', label: '5. Спринклерные оросители: K-фактор, температура и ориентация' },
+	{ id: 'flow-indicators', label: '6. Сигнализаторы потока и зонный мониторинг' },
+	{ id: 'bom-table', label: '7. Таблица планирования BOM' },
+	{ id: 'standards', label: '8. Стандарты и сертификация для спецификации' },
+	{ id: 'faq', label: 'Часто задаваемые вопросы' }
+];
+
+const faq = [
+	{
+		question: 'Может ли один производитель поставить полный пакет системы спринклеров с мокрой трубой?',
+		answer: 'Да. Один заказ (PO) может покрыть сигнальную группу ZSFZ для систем с мокрой трубой, регулирующие клапаны OS&Y и дисковые сигнальные затворы, сиамезе, спринклерные оросители со стеклянной колбой и сигнализаторы потока воды — с записями испытаний по каждой единице и одним экспортным пакетом документов. Консолидация противопожарного объёма у одного ответственного производителя устраняет риски координации, связанные с пятью отдельными поставщиками.'
+	},
+	{
+		question: 'Что входит в сигнальную группу ZSFZ для систем с мокрой трубой?',
+		answer: 'Группа ZSFZ включает корпус сигнального обратного клапана (DN100/DN150/DN200 при 1,6 МПа), водомоторный сигнальный гонг, камеру замедления и контактор давления, с корпусами из чугуна или высокопрочного чугуна и уплотнениями EPDM/NBR. Гонг звучит при потоке оросителя, а контактор давления подаёт сигнал на панель пожарной сигнализации здания.'
+	},
+	{
+		question: 'Нужен ли UL-листинг спринклерных оросителей для моего проекта?',
+		answer: 'Если ваша спецификация или местные органы власти требуют оросители с UL-листингом, укажите это явно и запросите сертификат листинга на точную модель до заказа. Оросители Wanlian ZST изготавливаются по семейству GB 5135; для проектов, требующих спринклеров с UL- или FM-листингом, подтвердите покрытие модели письменно на этапе коммерческого предложения.'
+	},
+	{
+		question: 'Сколько спринклерных оросителей мне нужно на пожарное отделение?',
+		answer: 'Это следует из гидравлического расчёта спринклеров, а не от поставщика: количество оросителей определяется площадью этажа, проектной плотностью и K-фактором при требуемом рабочем давлении. Пришлите нам план или проектные допущения — наши инженеры вернут количество оросителей и соответствующие диаметры сигнального клапана и сиамезе.'
+	},
+	{
+		question: 'Какие документы должна включать отгрузка спринклерного пакета?',
+		answer: 'Коммерческий инвойс, упаковочную ведомость, сертификат происхождения, записи испытаний корпуса давлением и герметичности воздухом по каждой единице, согласованные с серийными номерами, а также любые сертификаты по стандарту, требуемые вашим тендером. Оросители поставляются с температурным классом и K-фактором, нанесёнными на рамку.'
+	}
+];
+
+const productRows = [
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Мокрый сигнальный обратный клапан ZSFZ-150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Гонг + камера замедления + контактор давления, DN100-DN200' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Задвижка OS&Y с эластичным седлом (газовая)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: 'Главная отсечка 2"–10" с выдвижным шпинделем для пожарных магистралей' },
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'Сиамезе SQD100', img: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', desc: 'Двойной вход DN65 для двукратной подачи от пожарных машин' }
+];
+---
+
+<Layout
+	title="BOM спринклерной системы здания: полный гид по закупке (2026)"
+	description="BOM спринклерной системы здания: сигнальные группы, OS&Y и сигнальные дисковые затворы, сиамезе, оросители, сигнализаторы потока — один пакет по одному PO."
+	type="article"
+	locale="ru"
+	faq={faq}
+	breadcrumbs={[{ name: 'Руководства', href: '/ru/blog/' }, { name: 'BOM спринклерной системы' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Хлебные крошки -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ru/" class="hover:text-blue-600">Главная</a>
+			<span>/</span>
+			<a href="/ru/blog/" class="hover:text-blue-600">Руководства</a>
+			<span>/</span>
+			<span class="text-gray-600">BOM спринклерной системы</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Руководство по закупкам · Коммерческие здания</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Строите спринклерную систему в коммерческом здании? Вот полный BOM</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Большинство проблем закупки спринклеров касается не какого-то отдельного компонента — они касаются швов: сигнальный клапан с одного завода, оросители с другого, сиамезе с третьего, у каждого свои записи испытаний, свои сроки поставки и собственное молчание, когда что-то не совпадает. Это руководство проходит полный объём спринклеров с мокрой трубой для коммерческого здания по частям, с компонентами, которые вы фактически специфицируете, с тем, как они стыкуются, и с таблицей планирования, которую можно сразу перенести в ваш RFQ.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Примечание об объёме:</strong> это планировочное справочное руководство для стандартной спринклерной системы с мокрой трубой в коммерческом здании. Ваш гидравлический расчёт и правила местных пожарных органов власти управляют итоговым BOM — пришлите нам план, и мы вернём построчные количества и соответствующие диаметры компонентов.</p>
+			</div>
+
+			<!-- Полоса продукции -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/ru/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="one-package" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Почему спринклерный пакет закупается одним объёмом</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Спринклерная система с мокрой трубой — это цепочка компонентов: сигнальная группа запускает поток и поднимает тревогу, регулирующие клапаны отсечают секции, сиамезе принимает подачу от пожарной машины, оросители подают воду, а сигнализаторы потока сообщают панели управления, какая зона разряжается. Каждый интерфейс между двумя поставщиками — место, где размеры, стандарты и записи испытаний могут молча расходиться — и это расхождение обычно всплывает на площадке, когда стальной прокат уже смонтирован.</p>
+			<p class="text-gray-700 leading-relaxed">Консолидация всего противопожарного объёма в один заказ даёт вам одного ответственного производителя, один набор записей испытаний по каждой единице, согласованных с единственной упаковочной ведомостью, и один пакет фрахта и таможни. Именно поэтому наше <a href="/ru/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">руководство по закупкам</a> рассматривает полный комплект как единицу закупки по умолчанию, и поэтому этот BOM проходит все основные компоненты спринклерной системы с мокрой трубой в коммерческом здании за один проход.</p>
+
+			<h2 id="alarm-valve-group" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Сигнальная группа клапанов: сердце системы с мокрой трубой</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/ru/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">Сигнальный обратный клапан ZSFZ для систем с мокрой трубой</a> — это компонент, от которого система живёт или умирает. Он удерживает систему под давлением трубопровода, автоматически открывается при начале потока в спринклерах, приводит в действие водомоторный сигнальный гонг и замыкает контакт контактора давления, уведомляя панель пожарной сигнализации здания. Камера замедления установлена между потоком и тревогой, чтобы фильтровать кратковременные гидроудары — без неё запуск насоса может задать ложную тревогу.</p>
+			<p class="text-gray-700 leading-relaxed">Специфицируйте группу, а не голый клапан: размер корпуса (DN100 / DN150 / DN200 при 1,6 МПа), гонг, камеру замедления и контактор давления, а также ориентацию монтажа, которую допускает ваша стояковая комната. Для зон повышенного риска в том же здании — стеллажи, кухни, склад лакокрасочных материалов — <a href="/ru/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">дренчерный клапан ZSFM</a> и <a href="/ru/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">система предварительного действия ZSFY</a> расширяют ту же концепцию до мгновенного и двухсигнального разряда.</p>
+
+			<h2 id="monitored-isolation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Отсечка с контролем: клапаны OS&Y и дисковые сигнальные затворы</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Каждая магистраль и каждая зона нуждаются в отсечном клапане, положение которого диспетчерская может проверить. Стандартный ответ для пожарных магистралей — <a href="/ru/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">задвижка OS&Y с выдвижным шпинделем</a> — полностью поднятый шпиндель означает открыто, опущенный — закрыто, не нужно открывать клапан, чтобы проверить. Для секционного управления на спринклерных магистралях газовый <a href="/ru/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">дисковый сигнальный затвор</a> добавляет передатчик положения, чтобы клапан, оставленный закрытым, подавал бы сигнал неисправности, а не молча не сработал, когда начался пожар.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Пара, которую нужно закупать:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Клапан</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Роль в системе</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Типичная позиция</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Задвижка OS&Y</td><td class="px-4 py-3 text-gray-700">Главная отсечка, положение видно по шпинделю</td><td class="px-4 py-3 text-gray-700">Стояковая комната, подача системы</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Дисковый сигнальный (газовый)</td><td class="px-4 py-3 text-gray-700">Секционный/зонный контроль с передачей положения</td><td class="px-4 py-3 text-gray-700">Разветвительные магистрали, по зонам</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Обратный клапан (HQ44X)</td><td class="px-4 py-3 text-gray-700">Защита от обратного потока на линиях насосов или перекрёстных соединений</td><td class="px-4 py-3 text-gray-700">Нагнетатель насоса, линия сиамезе</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Там, где линия возвращается к муниципальному подключению или насосу, нехлопающий обратный клапан, такой как <a href="/ru/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">сферический обратный клапан HQ44X</a>, защищает от обратного потока без ударной нагрузки, которую клапанный обратный клапан может нанести длинной магистрали.</p>
+
+			<h2 id="siamese" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Подключение пожарной службы (сиамезе)</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Сиамезе — это то, как пожарная служба добавляет свой собственный поток. <a href="/ru/products/sqd100-1-6-fire-pump-adapter/" class="text-brand-blue font-semibold hover:underline">SQD100-1.6</a> обеспечивает двойные входы DN65 — SQS65 или KWS65, согласованные со стандартом муфт вашей местной пожарной службы, — с подачей на один фланцевый выход DN100, с интегрированным регулирующим клапаном с рукояткой и плетёными страховочными тросами на крышках. Двойные входы позволяют двум пожарным машинам подавать одновременно, что важно на крупных коммерческих объектах, где мощности насосов здания в одиночку не хватает для пикового спроса.</p>
+			<p class="text-gray-700 leading-relaxed">Две детали спецификации, которые часто упускают: стандарт входных муфт должен совпадать с машинами вашей пожарной службы (а не с универсальным значением по умолчанию), а расположение сиамезе должно соответствовать правилам доступности вашего местного кодекса — получите оба подтверждения письменно до изготовления крышек и адаптеров.</p>
+
+			<h2 id="sprinkler-heads" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Спринклерные оросители: K-фактор, температура и ориентация</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Оросители — позиция с самым большим количеством в BOM, и за ними проще всего ошибиться в спецификации. Три параметра делают работу: <strong>K-фактор</strong> (K=80 — стандартный выбор по плотности, K=115 для более высокого расхода), <strong>температурный класс</strong> (57 / 68 / 79 / 93 / 141°C со стандартной цветовой кодировкой колб) и <strong>ориентация</strong> (подвесные для потолков, вертикальные для открытых трубопроводов, боковые и скрытые варианты для отделанных интерьеров).</p>
+			<p class="text-gray-700 leading-relaxed"><a href="/ru/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">Серия ZST со стеклянной колбой</a> покрывает подвесные, вертикальные и боковые в DN15/DN20 с быстросреагирующими или стандартными колбами; варианты <a href="/ru/products/horizontal-sidewall-fire-sprinkler-t-zstbs/" class="text-brand-blue font-semibold hover:underline">T-ZSTBS горизонтальный боковой</a> и <a href="/ru/products/zstdy-concealed-fire-sprinkler/" class="text-brand-blue font-semibold hover:underline">ZSTDY скрытый</a> закрывают архитектурные случаи. Для складских применений <a href="/ru/products/esfr-sprinkler-head/" class="text-brand-blue font-semibold hover:underline">ороситель ESFR</a> является назначенным типом. Ваш гидравлический расчёт задаёт K-фактор и количество на зону — завод фиксирует их на рамке и в сертификате испытаний.</p>
+
+			<h2 id="flow-indicators" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Сигнализаторы потока и зонный мониторинг</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Когда в здании на сорок этажей разряжается один ороситель, диспетчерской нужно знать, какой это этаж. <a href="/ru/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">Сигнализатор потока воды ZSJZ лопастного типа</a> превращает поток в конкретной ветви в электрический контакт на панель пожарной сигнализации, зона за зоной. Специфицируйте по одному на каждую контролируемую ветвь, с рейтингом контакта, совпадающим с вашей панелью, и маркируйте зоны последовательно с вашими финальными чертежами — сигнал потока, который никто не может локализовать, — это расследование пожара, а не его тушение.</p>
+
+			<h2 id="bom-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Таблица планирования BOM</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Используйте её как скелет вашего RFQ. Количество — плейсхолдеры, которые заменяются вашим гидравлическим расчётом, — суть в том, что каждая позиция объёма названа и сопоставлена с реальной моделью до запроса коммерческого предложения, чтобы полученная построчная цена была сопоставима строка к строке.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Позиция объёма</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Референсная модель</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Определяется по</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Группа сигнальных клапанов с мокрой трубой (гонг + камера замедления + контактор)</td><td class="px-4 py-3 text-gray-700">ZSFZ-150 (DN100/DN150/DN200)</td><td class="px-4 py-3 text-gray-700">Проектный поток</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Главная отсечка (OS&Y, газовая)</td><td class="px-4 py-3 text-gray-700">2"–10" OS&Y</td><td class="px-4 py-3 text-gray-700">Диаметр магистрали</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Зонный контроль (дисковый сигнальный)</td><td class="px-4 py-3 text-gray-700">DN80–DN150 сигнальный газовый</td><td class="px-4 py-3 text-gray-700">Разветвительные магистрали</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Обратный клапан (насос / обратный поток)</td><td class="px-4 py-3 text-gray-700">HQ44X-16</td><td class="px-4 py-3 text-gray-700">Диаметр линии насоса</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Подключение пожарной службы</td><td class="px-4 py-3 text-gray-700">SQD100-1.6 (SQS65/KWS65)</td><td class="px-4 py-3 text-gray-700">Местный стандарт пожарной службы</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Спринклерные оросители (подвесные/вертикальные/боковые)</td><td class="px-4 py-3 text-gray-700">ZST / T-ZSTBS / ZSTDY, K80 или K115</td><td class="px-4 py-3 text-gray-700">Гидравлический расчёт</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Сигнализаторы потока воды</td><td class="px-4 py-3 text-gray-700">ZSJZ на каждую контролируемую ветвь</td><td class="px-4 py-3 text-gray-700">План зон</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Внутренние пожарные посты (рукавные барабаны + шкафы)</td><td class="px-4 py-3 text-gray-700">JPS0.8-19 + SN65</td><td class="px-4 py-3 text-gray-700">План эвакуационных путей</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Два финальных пункта объёма для проверки: внутренние пожарные посты (<a href="/ru/products/fire-hose-reel-jpso8-19/" class="text-brand-blue font-semibold hover:underline">рукавный барабан JPS0.8-19</a> с клапаном <a href="/ru/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">SN65</a>, размер по вашему плану эвакуационных путей) и плоский пожарный рукав с <a href="/ru/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">муфтами Storz</a>, питающие сиамезе. Всё это — от сигнальной группы до последнего оросителя — отгружается по одному PO с одним набором записей испытаний.</p>
+
+			<h2 id="standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. Стандарты и сертификация для спецификации</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Стандартный режим зависит от страны назначения: <strong>NFPA 13</strong> управляет проектированием системы в проектах по US-spec, с UL/FM листингом конкретных компонентов, когда орган власти его требует; семейство <strong>GB 5135</strong> — производственный ориентир для сигнальных клапанов и оросителей в китайской производственной среде; режимы <strong>EN</strong> применяются для европейских стран назначения. Практическое правило — то, что в нашем <a href="/ru/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">руководстве по стандартам</a>: стандарт — свойство продукта и страны назначения, а не бренда, — поэтому в RFQ стандарт называется по каждой позиции объёма, а поставщик отвечает по каждой модели с соответствующим сертификатом.</p>
+			<p class="text-gray-700 leading-relaxed">Для коммерческого проекта, который должен пройти приёмку, набор документов, который держит дело чистым: записи испытаний давлением и герметичностью по каждой единице, маркировка оросителей по температуре/K-фактору, сертификаты клапанов, соответствующие специфицированному стандарту, и экспортный пакет документов. Наш <a href="/ru/whitepaper/" class="text-brand-blue font-semibold hover:underline">отраслевой whitepaper</a> проходит полную последовательность верификации от письменной спецификации до верифицированного продукта.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Часто задаваемые вопросы</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Двойной CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Пришлите свой план — получите построчную ценовую оценку BOM</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Загрузите чертежи или перечислите зоны, и мы вернём построчные количества, соответствующие диаметры компонентов и подход к испытаниям по моделям в течение 12 часов.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ru/contact/?product=BOM%20%D1%81%D0%BF%D1%80%D0%B8%D0%BD%D0%BA%D0%BB%D0%B5%D1%80%D0%BD%D0%BE%D0%B9%20%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D1%8B" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Запросить цену</a>
+						<a href="https://wa.me/8618684324501?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A1%D1%82%D1%80%D0%BE%D1%8E%20%D1%81%D0%BF%D1%80%D0%B8%D0%BD%D0%BA%D0%BB%D0%B5%D1%80%D0%BD%D1%83%D1%8E%20%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D1%83%20%D0%B2%20%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D1%80%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%BC%20%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B8%20%D0%B8%20%D0%BD%D1%83%D0%B6%D0%B5%D0%BD%20%D0%BF%D0%BE%D0%BB%D0%BD%D1%8B%D0%B9%20%D0%BF%D1%80%D0%B0%D0%B9%D1%81%20BOM" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Написать в WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

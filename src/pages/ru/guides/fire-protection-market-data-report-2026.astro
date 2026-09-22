@@ -1,0 +1,170 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'market-size', label: '1. Насколько велик рынок — и почему цифры различаются' },
+	{ id: 'regional-signals', label: '2. Региональные сигналы: где идёт рост' },
+	{ id: 'sourcing-signals', label: '3. Что данные значат для закупок' },
+	{ id: 'reading-claims', label: '4. Сверка заявлений поставщиков с рыночными данными' },
+	{ id: 'method', label: '5. Метод и заметки об источниках' },
+	{ id: 'faq', label: 'Часто задаваемые вопросы' }
+];
+
+const faq = [
+	{
+		question: 'Почему разные исследовательские фирмы называют разные размеры рынка противопожарной отрасли?',
+		answer: 'Потому что различаются определения объёма: «пожарные системы» (проектирование + оборудование + услуги) больше, чем «пожарное оборудование» (только аппаратура), и каждая фирма проводит границу по-своему. Согласованный паттерн во всех крупных оценках: рынок сегодня в диапазоне $60–100B и растёт примерно на 5–7% CAGR до 2033–2036. Используйте диапазон, а не единственное число.'
+	},
+	{
+		question: 'Какой регион растёт быстрее всего в противопожарной отрасли?',
+		answer: 'Несколько фирм (Spherical Insights, Ken Research) выделяют Азиатско-Тихоокеанский регион как быстрорастущий — движителями являются строительная активность и программы модернизации. Северная Америка сохраняет крупнейшую установленную базу (только системы — $28B+ по Market Data Forecast, 2025), а рост приходит из замены устаревшей инфраструктуры, а не из нового строительства.'
+	},
+	{
+		question: 'Каково практическое значение CAGR 5–7% для B2B-покупателя?',
+		answer: 'Стабильный спрос на клапаны, гидранты и пожарные компоненты без пузыря на стороне предложения: сроки поставки остаются существенными, сертификационная ёмкость (испытания UL/FM/EN) — настоящий ограничитель, а поставщики, способные задокументировать соответствие по моделям, продолжают выигрывать тендеры. Рост широк, ни один класс компонентов не доминирует, — именно поэтому консолидированные противопожарные пакеты остаются эффективным выбором.'
+	},
+	{
+		question: 'Откуда берутся эти рыночные данные, и независимы ли они от Wanlian Fluid?',
+		answer: 'Все цифры — сторонние оценки из общедоступных исследовательских публикаций (Grand View Research, Precedence Research, Fact.MR, IMARC, Spherical Insights, Ken Research, Market Data Forecast), полученные в сентябре 2026 и процитированные в таблице источников. Ни одна цифра не от Wanlian Fluid, и ни одну не следует цитировать как прогноз для отдельной компании — это отраслевые планировочные ориентиры.'
+	},
+	{
+		question: 'Подтверждают ли данные IoT / умные гидранты как реальный сегмент?',
+		answer: 'Исследовательские сводки последовательно называют инициативы «умного города» и подключённой инфраструктуры среди драйверов роста противопожарной отрасли в АТР и на Ближнем Востоке. Мы не публикуем здесь отдельную оценку выручки умных гидрантов — относитесь к заявкам вендоров о размере сегмента в этой нише с повышенной верификацией и держите пилот маленьким: несколько IoT-единиц (таких как SS100ZN) на тестовой улице перед развёртыванием по сети.'
+	}
+];
+---
+
+<Layout
+	title="Рынок пожарной безопасности 2026: данные, рост, сигналы закупок"
+	description="Данные рынка пожарной безопасности 2026: семь независимых оценок, региональные сигналы роста и что значат цифры для закупок пожарного оборудования."
+	type="article"
+	locale="ru"
+	faq={faq}
+	breadcrumbs={[{ name: 'Руководства', href: '/ru/blog/' }, { name: 'Данные рынка 2026' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Хлебные крошки -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ru/" class="hover:text-blue-600">Главная</a>
+			<span>/</span>
+			<a href="/ru/blog/" class="hover:text-blue-600">Руководства</a>
+			<span>/</span>
+			<span class="text-gray-600">Отчёт по данным рынка</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Отчёт по данным отрасли · 2026</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Рынок противопожарной отрасли 2026: цифры и что они значат для закупок</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Каждый вендор в отрасли пожарного оборудования утверждает, что рынок «переживает бум». Данные интереснее утверждения: семь независимых исследовательских фирм дают семь разных размеров рынка на 2025–2026, и разброс между ними — сам по себе полезный сигнал о том, как измеряется отрасль. Этот отчёт раскладывает оценки рядом с источниками, извлекает региональные сигналы роста и — то, на чём большинство отчётов останавливаются, — переводит цифры в конкретные закупочные решения: что специфицировать, что верифицировать и где настоящие узкие места в 2026.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Заметка о независимости:</strong> все цифры в этом отчёте — сторонние оценки из общедоступных исследовательских публикаций, полученные в сентябре 2026 и процитированные построчно в разделе 5. Ни одна цифра не от Wanlian Fluid. Оценки — на уровне отрасли и различаются определением объёма — используйте их для планирования, а не как прогнозы.</p>
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="market-size" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Насколько велик рынок — и почему цифры различаются</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Первая таблица — та, которую большинство конкурентов не опубликовало бы, потому что она показывает разногласие:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Исследовательская фирма</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Определение объёма</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Размер (базовый год)</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Прогноз</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">CAGR</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Grand View Research</td><td class="px-4 py-3 text-gray-700">Пожарные системы</td><td class="px-4 py-3 text-gray-700">$94.9B (2025)</td><td class="px-4 py-3 text-gray-700">$156.2B к 2033</td><td class="px-4 py-3 text-gray-700">6.4%</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Precedence Research</td><td class="px-4 py-3 text-gray-700">Пожарные системы</td><td class="px-4 py-3 text-gray-700">$101.46B (2026)</td><td class="px-4 py-3 text-gray-700">$182.2B к 2035</td><td class="px-4 py-3 text-gray-700">6.73%</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Fact.MR</td><td class="px-4 py-3 text-gray-700">Пожарные системы</td><td class="px-4 py-3 text-gray-700">$87.1B (2026)</td><td class="px-4 py-3 text-gray-700">$150.2B к 2036</td><td class="px-4 py-3 text-gray-700">5.6%</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Grand View Research</td><td class="px-4 py-3 text-gray-700">Пожарное оборудование</td><td class="px-4 py-3 text-gray-700">$60.5B (2025)</td><td class="px-4 py-3 text-gray-700">$96.8B к 2033</td><td class="px-4 py-3 text-gray-700">6.0%</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">IMARC Group</td><td class="px-4 py-3 text-gray-700">Пожарное оборудование</td><td class="px-4 py-3 text-gray-700">$60.9B (2025)</td><td class="px-4 py-3 text-gray-700">$94.6B к 2034</td><td class="px-4 py-3 text-gray-700">4.87%</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Fact.MR</td><td class="px-4 py-3 text-gray-700">Пожарное оборудование</td><td class="px-4 py-3 text-gray-700">$65.5B (2026)</td><td class="px-4 py-3 text-gray-700">$148.0B к 2036</td><td class="px-4 py-3 text-gray-700">8.5%</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Spherical Insights</td><td class="px-4 py-3 text-gray-700">Пожарные системы</td><td class="px-4 py-3 text-gray-700">— (база 2026)</td><td class="px-4 py-3 text-gray-700">прогноз на 2035</td><td class="px-4 py-3 text-gray-700">6.82%</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Ken Research</td><td class="px-4 py-3 text-gray-700">Пожарные системы (в натуре)</td><td class="px-4 py-3 text-gray-700">— (натуральный объём)</td><td class="px-4 py-3 text-gray-700">прогноз на 2030</td><td class="px-4 py-3 text-gray-700">4.7% → 5.2%</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Три честных прочтения разброса. <strong>Первое</strong>, объём — доминирующая переменная: оценки «систем» (проектирование, оборудование, монтаж, услуги) дают $87–101B на 2025–26, тогда как оценки «оборудования» (только аппаратура) дают $60–66B — тот же рынок, увиденный через разные линзы. <strong>Второе</strong>, консенсус по росту тесный: все фирмы попадают примерно в 5%–7% CAGR (с одним выбросом на 8.5%), что есть устойчивое расширение рынка в абсолютных долларах, а не хайп-цикл. <strong>Третье</strong>, ни одна фирма в этой выборке не моделирует перепроизводство — при росте ~6% связывающие ограничения — сертификационная ёмкость, квалифицированный монтаж и сроки поставки компонентов, а не спрос.</p>
+
+			<h2 id="regional-signals" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Региональные сигналы: где идёт рост</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Регион</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Сигнал в данных</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Закупочная интерпретация</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Северная Америка</td><td class="px-4 py-3 text-gray-700">Крупнейшая установленная база — $28.33B систем в 2025 (Market Data Forecast)</td><td class="px-4 py-3 text-gray-700">Рост — из замены: стареющие магистрали, циклы замены гидрантов и клапанов, модернизации по NFPA</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Азиатско-Тихоокеанский регион</td><td class="px-4 py-3 text-gray-700">Быстрорастущий регион (Spherical Insights, Ken Research)</td><td class="px-4 py-3 text-gray-700">Новое строительство + модернизация; противопожарная инфраструктура «умного города» (IoT-гидранты, сетевые сигнальные клапаны) входит в BOQ</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Европа</td><td class="px-4 py-3 text-gray-700">Движение через режим (стандарты EN, CE по моделям)</td><td class="px-4 py-3 text-gray-700">Документация о соответствии — проходной билет: верификация по моделям EN 14384/1074/12266-1</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Ближний Восток и Африка</td><td class="px-4 py-3 text-gray-700">Муниципальные и нефтехимические инфраструктурные программы; смешение NIST/BS750/AWWA</td><td class="px-4 py-3 text-gray-700">Согласованность варианта муфт выходов и стандарта по всему парку — решающая деталь</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Сквозная линия для глобального покупателя: <strong>одна и та же семейственность компонентов (гидранты, задвижки, сигнальные клапаны, рукава) востребована во всех регионах — меняется стандартизованный режим, а не продукт.</strong> Именно это — условие, при котором производитель, документирующий соответствие по моделям по AWWA, EN, GB и региональным режимам, получает структурное преимущество, а покупатель, стандартизирующий спецификации между регионами, — структурное ценовое преимущество.</p>
+
+			<h2 id="sourcing-signals" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Что данные значат для закупок</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Четыре решения следуют прямо из цифр:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Планируйте циклы замены под CAGR 5–7%, а не под циклы цен.</strong> При устойчивом росте цены гидрантов и клапанов следуют за стоимостью сырья и сертификации, а не за дефицитом. Многолетняя муниципальная программа дешевле, когда она специфицирована заранее с зафиксированными сертификатами по моделям, чем когда её ежегодно повторно тендеруют в ту же кривую роста.</li>
+				<li><strong>Сертификационная ёмкость — ограничитель, под который проектировать.</strong> Окна испытаний UL/FM/EN — реальное ограничение отрасли на рынке с ростом ~6%. Покупатель, который рано специфицирует требуемый стандарт — и верифицирует точную листинговую модель до PO, — избегает режима провала «позднего обнаружения сертификата». Наши <a href="/ru/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">руководство по сертификации в ЛатАмерике</a> и <a href="/ru/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">руководство по UL-листингу</a> — это чек-листы.</li>
+				<li><strong>Консолидируйте противопожарный объём в один PO.</strong> Когда каждый регион покупает одни и те же семейства компонентов, координационные издержки BOQ с несколькими поставщиками (раздельный фрахт, раздельные записи испытаний, несовпадение интерфейсов) — чистый оверхед без компенсирующей выгоды. <a href="/ru/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">Руководство по закупкам</a> проходит шестиступенчатый пакетный поток.</li>
+				<li><strong>Пилотируйте «умную» противопожарную инфраструктуру маленько.</strong> IoT/«умный город» сигнал — реальный в данных о росте, но незрелый в оценках: ни одна фирма не публикует защитимую цифру выручки умных гидрантов. Дисциплинированная игра: маленький уличный пилот (например, несколько <a href="/ru/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">IoT-гидрантов SS100ZN</a> с тревогами давления, наклона и кражи) с определёнными KPI перед развёртыванием по сети.</li>
+			</ul>
+
+			<h2 id="reading-claims" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Сверка заявлений поставщиков с рыночными данными</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Рыночные данные работают и как инструмент верификации заявлений поставщиков. В отрасли $60–100B, растущей ~6% в год, трём типам заявлений положена дополнительная проверка:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>«Мы экспортировали в X стран» / «Y проектов сдано»</strong> — на рынке такого размера след небольшого производителя обычно региональный, а не глобальный. Запросите страны назначения и соответствующие экспортные документы (коммерческие инвойсы, сертификаты происхождения) по каждому референсу. Последовательность верификации — в <a href="/ru/whitepaper/" class="text-brand-blue font-semibold hover:underline">отраслевом whitepaper</a>.</li>
+				<li><strong>Рыночные цифры без источников в собственном маркетинге поставщика</strong> — надёжная оценка называет свой объём и метод. Если утверждение вендора о «лидере рынка» без источника, это лозунг, а не данные; таблица источников этого отчёта показывает, как выглядят данные с источником.</li>
+				<li><strong>Ширина сертификации, заявленная на уровне компании</strong> — UL, FM, CE и AWWA выдаются по моделям, по объёму. Утверждение на уровне компании («мы сертифицированы UL») — не сертификат; утверждение на уровне модели с разрешаемым номером — уже да.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Дисциплина та же, что и для рыночных цифр самих: назовите объём, назовите стандарт, разрешите номер. В этом — разница между закупочными данными и закупочным шумом — и она одинаково применяется к североамериканскому устоявшемуся игроку и к экспортному специалисту: ровно такое сравнение проводят наши <a href="/ru/guides/wanlian-fluid-vs-mueller/" class="text-brand-blue font-semibold hover:underline">сравнение с Mueller</a> и <a href="/ru/guides/wanlian-fluid-vs-tupy/" class="text-brand-blue font-semibold hover:underline">сравнение с Tupy</a> — с формулировками по моделям.</p>
+
+			<h2 id="method" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Метод и заметки об источниках</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Цифры собраны в сентябре 2026 с общедоступных сводных страниц названных исследовательских фирм (отчёты за paywall не воспроизводились). Каждая строка раздела 1 цитирует фирму, её метку объёма и базовый/прогнозный годы, как опубликовано в её сводке. Где фирма публиковала CAGR без чистого значения базового года (Spherical Insights, Ken Research), строка говорит об этом, вместо того чтобы изобретать числа. Оценки конфликтуют по самим определениям объёма отрасли; этот отчёт представляет диапазон и драйверы разброса, а не усредняет их в ложную точность.</p>
+			<ul class="list-disc pl-6 text-sm text-gray-600 space-y-2 mb-4">
+				<li>Grand View Research — сводки по рынкам пожарных систем и пожарного оборудования (grandviewresearch.com)</li>
+				<li>Precedence Research — сводка по рынку пожарных систем (precedenceresearch.com)</li>
+				<li>Fact.MR — сводки по рынкам пожарных систем и пожарного оборудования (factmr.com)</li>
+				<li>IMARC Group — сводка по рынку пожарного оборудования (imarcgroup.com)</li>
+				<li>Spherical Insights — сводка по рынку пожарных систем (sphericalinsights.com)</li>
+				<li>Ken Research — сводка по мировому рынку пожарных систем (kenresearch.com)</li>
+				<li>Market Data Forecast — сводка по рынку пожарных систем Северной Америки (marketdataforecast.com)</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Часто задаваемые вопросы</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Двойной CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Специфицируйте по данным, а не по лозунгу</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Пришлите строки вашего противопожарного объёма со стандартами страны назначения — вернём детализированное предложение, план сертификатов по моделям и подход к записям испытаний в течение 12 часов.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ru/contact/?product=%D0%9E%D1%82%D1%87%D1%8E%D1%82%20%D0%BE%20%D1%80%D1%8B%D0%BD%D0%BA%D0%B5%20%D0%B8%20RFQ%20%D0%BF%D0%BE%20%D0%BF%D0%BE%D0%B6%D0%B0%D1%80%D0%BD%D0%BE%D0%BC%D1%83%20%D0%BE%D0%B1%D1%8C%D1%8E%D0%BC%D1%83" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Запросить цену</a>
+						<a href="https://wa.me/8618684324501?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9F%D1%80%D0%BE%D1%87%D0%B8%D1%82%D0%B0%D0%BB%20%D0%B2%D0%B0%D1%88%20%D0%BE%D1%82%D1%87%D1%8E%D1%82%20%D0%BE%20%D1%80%D1%8B%D0%BD%D0%BA%D0%B5%20%D0%BF%D0%BE%D0%B6%D0%B0%D1%80%D0%BD%D0%BE%D0%B9%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D0%B8%202026%20%D0%B8%20%D0%B5%D1%81%D1%82%D1%8C%20%D0%BF%D0%BE%D0%B6%D0%B0%D1%80%D0%BD%D1%8B%D0%B9%20%D0%BE%D0%B1%D1%8C%D1%91%D0%BC%20%D0%B4%D0%BB%D1%8F%20%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Написать в WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

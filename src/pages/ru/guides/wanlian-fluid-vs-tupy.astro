@@ -1,0 +1,189 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'tupy-overview', label: '1. Tupy: что это на самом деле' },
+	{ id: 'wanlian-overview', label: '2. Wanlian Fluid: что это на самом деле' },
+	{ id: 'product-lines-compared', label: '3. Как сравниваются продуктовые линейки?' },
+	{ id: 'valves-deep-dive', label: '4. Арматура из ВЧШГ и латуни: реальное пересечение' },
+	{ id: 'geography-and-service', label: '5. География, стандарты и сервис' },
+	{ id: 'where-each-wins', label: '6. Где выигрывает каждый производитель' },
+	{ id: 'which-should-you-choose', label: '7. Кого выбрать?' },
+	{ id: 'faq', label: 'Часто задаваемые вопросы' },
+	{ id: 'sources', label: 'Источники' }
+];
+
+const faq = [
+	{
+		question: 'Wanlian Fluid и Tupy — связанные компании?',
+		answer: 'Нет. Tupy — бразильская промышленная группа, основанная в 1938 году в Жуйльи (Санта-Катарина), с заводами по всей Бразилии и фокусом на трубы, фасонные детали и клапаны из высокопрочного чугуна для водоснабжения и промышленности. Wanlian Fluid — Quanzhou Wanlian Fluid Equipment Co., Ltd, китайский производитель и экспортер противопожарного оборудования и гидравлической арматуры. Это независимые компании, которые пересекаются только в узком сегменте водопроводных клапанов.'
+	},
+	{
+		question: 'Где Tupy и Wanlian Fluid реально конкурируют?',
+		answer: 'Прямое пересечение — водопроводные клапаны: латунные TupyValves Tupy (EN 12420, PN25/30/40) и линейка клапанов из ВЧШГ против задвижек, дисковых затворов, обратных клапанов и гидравлических регулирующих клапанов Wanlian (PN10-PN25 и классы ANSI). Вне этого сегмента каталоги почти не встречаются — Tupy сильна в трубах и фасонных деталях из ВЧШГ, а Wanlian — в специализированном противопожарном оборудовании: гидрантах, сигнальных клапанах, пожарных рукавах и огнетушителях.'
+	},
+	{
+		question: 'Может ли Tupy поставить пожарные гидранты и сигнальные клапаны?',
+		answer: 'Опубликованная линейка Tupy сосредоточена на трубах и фасонных деталях из ВЧШГ и латунных клапанах для воды, воздуха и масел. Специализированные противопожарные позиции — сухотрубные гидранты, гидранты с защитой от удара, группы сигнальных клапанов мокрого типа, сиамезе, пожарные рукава с резиновой подкладкой — это основное направление Wanlian. Для полного противопожарного объёма преимущество единого поставщика у специалиста по пожарным системам.'
+	},
+	{
+		question: 'Какой выбор лучше для муниципального проекта в Бразилии или ЛатАмерике?',
+		answer: 'Если в спецификации трубы из ВЧШГ и водопроводные клапаны с локальным сервисом в Бразилии — региональное присутствие Tupy является естественным выбором. Если в спецификации пожарная часть проекта — гидранты, отсечные клапаны, рукава и муфты парка пожарной техники, — Wanlian Fluid отгружает полный противопожарный пакет по одному заказу (PO) с типом муфт на выходе, согласованным с вашим пожарным парком, в конфигурациях по AWWA, NOM или ABNT для каждой модели.'
+	},
+	{
+		question: 'Можно ли объединить обе компании в одном проекте?',
+		answer: 'Да — многие инфраструктурные проекты ЛатАмерики сочетают регионального поставщика труб и клапанов с экспортным специалистом по противопожарному объёму. Риск координации — интерфейсы: до оформления обоих заказов зафиксируйте стандарты фланцев, типы муфт на выходе и испытательную документацию, — ровно то, что покрывает последовательность проверки в нашем руководстве по закупке.'
+	}
+];
+
+const productRows = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Наружный пожарный гидрант с защитой от замерзания (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Сухотрубный гидрант с защитой от замерзания для муниципальных пожарных сетей' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Фланцевая задвижка с эластичным седлом (Z41X)', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'Отсечной клапан DN50–DN700 для водопроводных и пожарных магистралей' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Плоский пожарный рукав с резиновой подкладкой (8-65)', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Рукав муниципального парка с согласованными типами муфт' }
+];
+---
+
+<Layout
+	title="Wanlian Fluid vs Tupy: пожарное оборудование и ВЧШГ-арматура (2026)"
+	description="Сравнение Wanlian Fluid и Tupy для 2026: арматура из ВЧШГ, гидранты, сигнальные клапаны и рукава — кто подходит для водного и пожарного проекта в ЛатАмерике."
+	type="article"
+	locale="ru"
+	faq={faq}
+	breadcrumbs={[{ name: 'Руководства', href: '/ru/blog/' }, { name: 'Wanlian vs Tupy' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Хлебные крошки -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ru/" class="hover:text-blue-600">Главная</a>
+			<span>/</span>
+			<a href="/ru/blog/" class="hover:text-blue-600">Руководства</a>
+			<span>/</span>
+			<span class="text-gray-600">Сравнение поставщиков</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Руководство по сравнению поставщиков · ЛатАмерика</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Wanlian Fluid vs Tupy: пожарное оборудование и арматура из высокопрочного чугуна для латиноамериканских проектов (2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Tupy — имя, которое чаще всего называют бразильские водоканалы, когда в спецификации трубы из высокопрочного чугуна, фасонные детали и латунные клапаны: региональная промышленная группа, основанная в 1938 году, с заводами по всей Бразилии. Wanlian Fluid — китайский производитель противопожарного оборудования и гидравлической арматуры, который конкурирует только в сегменте клапанов и закрывает пожарную часть спецификации: гидранты, сигнальные клапаны, рукава, огнетушители. Если ваш проект объединяет водную и пожарную инфраструктуру, вопрос не «Tupy или Wanlian», а «какую линию спецификации закрывает каждый» — это руководство разбирает вопрос на основе того, что реально публикуют обе компании.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Примечание о фактах:</strong> сведения о компаниях ниже взяты из опубликованных материалов каждой компании (корпоративная история Tupy и страницы продукции TupyValves; данные о продукции Wanlian, практика испытаний и страница сертификатов). Там, где линейки не пересекаются, руководство говорит об этом прямо — честный ответ на большинство вопросов этого сравнения: «разные задачи».</p>
+			</div>
+
+			<!-- Полоса продукции -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/ru/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="tupy-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Tupy: что это на самом деле</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Tupy основана в 1938 году немецкими иммигрантами; первый завод — в Жуйльи (Санта-Катарина, Бразилия), остальные — в Сан-Паулу и других штатах Бразилии. За несколько десятилетий компания выросла в диверсифицированную промышленную группу, а направление работы с жидкостями — линейка Tupy Valves / фасонных деталей — построено на высокопрочном чугуне: пруток непрерывного литья, трубы и фасонные детали, а также семейство латунных клапанов.</p>
+			<p class="text-gray-700 leading-relaxed">Опубликованная линейка TupyValves — латунные клапаны по EN 12420 (CW1617N), изготовленные по ABNT NBR 14788 и EN 13828 с рабочими давлениями PN25, PN30 или PN40, резьбовыми присоединениями по ABNT NBR-8133 и ISO 228, хромированными стальными шаровыми седлами с PTFE-покрытием и никелированным покрытием. Заявленные области применения: вода, сжатый воздух, масла и гидравлика в промышленности, гражданском строительстве и коммунальном хозяйстве. Tupy также публикует инженерные инструменты (TupyCAD со встроенным потоком оформления коммерческого предложения и электронные каталоги) для проектировщиков. Общий вывод: Tupy — региональный инфраструктурный поставщик, сильнее всего там, где проект бразильский, стандарт — ABNT, а местное присутствие имеет значение.</p>
+
+			<h2 id="wanlian-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Wanlian Fluid: что это на самом деле</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Quanzhou Wanlian Fluid Equipment Co., Ltd — китайский производитель и экспортер в Цюаньчжоу, провинция Фуцзянь — ядро кластера арматурной промышленности Китая. Производство идёт на собственных линиях в системе менеджмента качества ISO 9001; отдельные позиции изготавливают квалифицированные производственные партнёры — это открыто указано в каждом заказе. Каждая единица проходит испытание корпуса давлением и на герметичность воздухом перед отгрузкой, с записями по каждой единице.</p>
+			<p class="text-gray-700 leading-relaxed">Опубликованная линейка охватывает 6 направлений и 45 моделей: пожарные гидранты и насосные подключения (<a href="/ru/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">наружный гидрант SS100/65 с защитой от замерзания</a>, SSFT100 с защитой от удара, IoT-гидрант SS100ZN, подземный SA, внутренние головки SN65, сиамезе SQD100); спринклерные и сигнальные клапаны (ZSFZ мокрого типа, ZSFC сухого, ZSFM дренчерные, ZSFY систем предварительного действия, оросители, сигнализаторы потока); противопожарные и промышленные клапаны (задвижки с эластичным седлом, телескопические задвижки, OS&Y, дисковые затворы, обратные клапаны, фильтры, цифровые балансировочные); гидравлические регулирующие клапаны (500X, 100X, F745X, HS41X, устройство против завихрений всасывания EN 12845); пожарные мониторы (ручные PS, автоматический следящий ZDMS); и противопожарное оборудование (пожарные рукава с резиновой подкладкой, муфты Storz и HS, рукавные барабаны, огнетушители и пожарные шкафы). Плюс OEM/ODM, ответ на запрос цены за 12 часов и весь сайт на пяти языках (EN/ES/RU/FR/AR).</p>
+
+			<h2 id="product-lines-compared" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Как сравниваются продуктовые линейки?</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Линия спецификации</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tupy</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Wanlian Fluid</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Трубы и фасонные детали из ВЧШГ</td><td class="px-4 py-3 text-gray-700">Ядро бизнеса (пруток непрерывного литья, трубы, фасонные детали)</td><td class="px-4 py-3 text-gray-700">Не предлагается</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Латунные клапаны (PN25-40)</td><td class="px-4 py-3 text-gray-700">TupyValves, EN 12420, ABNT NBR 14788 / EN 13828</td><td class="px-4 py-3 text-gray-700">Небольшая латунная линейка (например, Z15W-16T кованая латунь ANSI)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Чугунные задвижки / дисковые затворы / обратные клапаны</td><td class="px-4 py-3 text-gray-700">Линия водоснабжения для распределительных сетей</td><td class="px-4 py-3 text-gray-700">Полная линейка, включая Z41X с эластичным седлом, телескопическую Z41X-T, OS&Y, D71X, HQ44X — DN50-DN700</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Пожарные гидранты</td><td class="px-4 py-3 text-gray-700">Не является основным опубликованным направлением</td><td class="px-4 py-3 text-gray-700">Основное направление: сухотрубные/мокротрубные, с защитой от удара, IoT, внутренние головки, сиамезе</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Спринклерные и сигнальные клапаны</td><td class="px-4 py-3 text-gray-700">Отсутствует в опубликованной линейке</td><td class="px-4 py-3 text-gray-700">Основное направление: группы ZSFZ/ZSFC/ZSFM/ZSFY, оросители, сигнализаторы потока</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Пожарные рукава, муфты, огнетушители</td><td class="px-4 py-3 text-gray-700">Отсутствует в опубликованной линейке</td><td class="px-4 py-3 text-gray-700">Основное направление: рукава с резиновой подкладкой, муфты Storz/HS, барабаны, шкафы, огнетушители ABC</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Гидравлическое регулирование (редукционные, уровня, от обратного потока)</td><td class="px-4 py-3 text-gray-700">Не выделено как отдельное направление</td><td class="px-4 py-3 text-gray-700">Основное направление: 500X, 100X, F745X, HS41X, устройство EN 12845</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Типичная география</td><td class="px-4 py-3 text-gray-700">Бразилия и ЛатАмерика (региональное присутствие)</td><td class="px-4 py-3 text-gray-700">Экспорт по всему миру (Азия, ЛатАмерика, MEA, Европа, Америка)</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Если прочитать таблицу, форма конкуренции становится очевидной: одна общая ячейка (водопроводные клапаны из чугуна и латуни) и всё остальное разделено по спецификации.</p>
+
+			<h2 id="valves-deep-dive" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Арматура из ВЧШГ и латуни: реальное пересечение</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Это единственная линия, где покупатель может по-настоящему положить обе коммерческие предложения рядом. Латунные клапаны Tupy — PN25–PN40 по EN 12420 с резьбовыми присоединениями — рассчитаны на применение в зданиях и распределительных сетях в стандартной среде Бразилии. Чугунная линейка Wanlian шире по диаметрам (<a href="/ru/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X</a> достигает DN700 при PN10/PN16 с полностью EPDM-обёрнутым затвором, который можно регулировать на линии) и покрывает также пожарное и гидравлическое направления: регулирующие клапаны OS&Y для спринклерных магистралей, обратные клапаны, редукцию давления и контроль уровня.</p>
+			<p class="text-gray-700 leading-relaxed">Решающие переменные для общей ячейки: <strong>действующий стандарт в тендере</strong> (ABNT против AWWA против EN — указывайте для каждой модели), <strong>нужный класс давления</strong> (латунь Tupy PN25-40 закрывает высотное рабочее давление в зданиях; чугунная линейка Wanlian — стандарт PN10-PN16, более высокие классы доступны по моделям) и <strong>условия доставки</strong> (региональный завод с локальным складом против экспортного предложения — включая фрахт и инкотермс). Для сопоставимого сравления отправьте обеим один и тот же перечень моделей, стандарт, количество и инкотермс и сравнивайте только детализированные коммерческие предложения.</p>
+
+			<h2 id="geography-and-service" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. География, стандарты и сервис</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Преимущество Tupy — физическое: заводы в Бразилии, база поставок, построенная вокруг регионального рынка, и инженерный и ценовой инструментарий, ориентированный на местную практику проектирования. Для водоканала в Сан-Паулу или Жуйльи Tupy находится в минутах, а не в месяцах — по запчастям и поддержке. Присутствие Wanlian Fluid строится вокруг экспорта: производство в Цюаньчжоу, коммерческие предложения за 12 часов, записи испытаний по каждой единице в каждой отгрузке, брендирование OEM/ODM и документация на пяти языках. Два присутствия отвечают на разные вопросы — «кто по соседству» против «кто может отгрузить весь объём» — и ни одно из них не является недостатком.</p>
+			<p class="text-gray-700 leading-relaxed">Что до стандартов: Tupy публикует соответствие ABNT NBR 14788 / EN 13828 для своей латунной линейки; Wanlian производит по GB, AWWA, ISO 5208, EN и региональным системам, как указано для каждой модели — <a href="/ru/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">руководство по стандартам</a> — это справочник о том, как проверить каждое утверждение по протоколу испытаний до движения средств, а <a href="/ru/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">руководство по сертификации в ЛатАмерике</a> описывает сферу NOM/ABNT/UL именно для противопожарного оборудования.</p>
+
+			<h2 id="where-each-wins" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Где выигрывает каждый производитель</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-5">
+				<div class="bg-gray-50 border border-gray-100 rounded-xl p-6">
+					<p class="font-black text-gray-900 text-sm mb-3 uppercase tracking-wider">Tupy выигрывает, когда…</p>
+					<ul class="list-disc pl-5 text-sm text-gray-700 space-y-2">
+						<li>В спецификации трубы из ВЧШГ, фасонные детали и водопроводные клапаны для бразильского водоканала</li>
+						<li>Латунные клапаны PN25-40 по ABNT с региональным складом и локальным сервисом</li>
+						<li>Близость, скорость реагирования внутри Бразилии и локальные коммерческие условия важнее цены за единицу</li>
+						<li>Проекту нужен TupyCAD/каталогный инструментарий в рабочем процессе проектирования</li>
+					</ul>
+				</div>
+				<div class="bg-gray-50 border border-gray-100 rounded-xl p-6">
+					<p class="font-black text-gray-900 text-sm mb-3 uppercase tracking-wider">Wanlian Fluid выигрывает, когда…</p>
+					<ul class="list-disc pl-5 text-sm text-gray-700 space-y-2">
+						<li>В спецификации есть пожарная часть: гидранты, сигнальные клапаны, рукава, муфты, огнетушители</li>
+						<li>Один заказ (PO) должен закрыть клапаны + гидранты + рукава с согласованными типами муфт на выходе</li>
+						<li>Назначение вне Бразилии, или тендер построен по AWWA/EN/GB</li>
+						<li>В BOQ есть брендирование OEM/ODM, IoT-гидранты или гидравлические регулирующие клапаны</li>
+					</ul>
+				</div>
+			</div>
+
+			<h2 id="which-should-you-choose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Кого выбрать?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Короткая версия: <strong>Tupy — для ячейки бразильской водной инфраструктуры; Wanlian Fluid — для пожарной ячейки и экспортных спецификаций, которые пересекают её.</strong> Водоканал, восстанавливающий распределительную сеть в южной части Бразилии, лучше обслужит региональный производитель ВЧШГ. Подрядчик, выполняющий противопожарную спецификацию — или объединённый муниципальный пакет «вода + пожар» для любой страны ЛатАмерики, — лучше обслужит специалист по пожарным системам, который может отгрузить гидранты, клапаны и рукава с одним согласованным набором записей испытаний. И когда в одном проекте нужны обе стороны, профессиональное действие — не заставлять одного поставщика закрыть спецификацию, которую он не публикует, а зафиксировать интерфейс (фланцы, типы муфт, стандарты, испытательную документацию) письменно до оформления обоих заказов.</p>
+			<p class="text-gray-700 leading-relaxed">Каким бы ни был ваш выбор, проверьте перед подтверждением: область ISO 9001, сертификаты по моделям, записи испытаний партии, образец единицы и независимую инспекцию. Полный порядок — в <a href="/ru/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">руководстве по проверке поставщика</a>.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Часто задаваемые вопросы</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Источники</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 space-y-2 mb-4">
+				<li>Корпоративная история и страницы продукции Tupy — tupy.com.br (основание в 1938, Жуйльи/SC; TupyValves: EN 12420, ABNT NBR 14788 / EN 13828, PN25/30/40, области применения)</li>
+				<li>Данные о продукции Wanlian Fluid, страница «О компании» и страница сертификатов — wanlian911.com (линейка, практика испытаний, формулировки сертификации по моделям)</li>
+				<li>Справочные стандарты: AWWA C502/C515, EN 14384, EN 1074/12266-1, ABNT NBR 14788, ISO 5208 — в применимом виде для каждой страны назначения</li>
+			</ul>
+			<p class="text-xs text-gray-500 mb-4">Сведения о компаниях отражают опубликованные материалы каждой компании по состоянию на сентябрь 2026. Линейки обоих производителей меняются — перед финальной спецификацией подтвердите актуальный каталог. Это сравнение — для планирования закупок и не является рекламой какой-либо из компаний.</p>
+
+			<!-- Двойной CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Получите коммерческое предложение на пожарную часть вашей спецификации сегодня</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Отправьте строки спецификации на гидранты, клапаны и рукава со стандартом страны назначения — вернём детализированное предложение с документацией по моделям в течение 12 часов.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ru/contact/?product=%D0%A1%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%20Tupy%20%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%9B%D0%B0%D1%82%D0%90%D0%BC%D0%B5%D1%80%D0%B8%D0%BA%D0%B0" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Запросить цену</a>
+						<a href="https://wa.me/8618684324501?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A1%D1%80%D0%B0%D0%B2%D0%BD%D0%B8%D0%B2%D0%B0%D1%8E%20%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D1%89%D0%B8%D0%BA%D0%BE%D0%B2%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D0%BE%D0%B4%D0%BD%D0%BE%D0%B3%D0%BE%2F%D0%BF%D0%BE%D0%B6%D0%B0%D1%80%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0%20%D0%B2%20%D0%9B%D0%B0%D1%82%D0%90%D0%BC%D0%B5%D1%80%D0%B8%D0%BA%D0%B5%20(%D1%81%D0%BC.%20%D0%B2%D0%B0%D1%88%D0%B5%20%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE%20vs%20Tupy)" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Написать в WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

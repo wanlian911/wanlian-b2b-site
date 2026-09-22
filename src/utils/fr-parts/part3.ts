@@ -65,6 +65,28 @@ export const productsFrPart3: Record<string, Product> = {
     seoTitle: 'Hydrant Extérieur SS100 à Colonne | Antigel UL',
     seoDescription:
       'Hydrant extérieur à colonne haute pression SS100 avec drainage antigel. Corps en fonte ductile robuste. Approuvé pour l\u2019alimentation en eau municipale et la sécurité forestière.',
+    faqs: [
+      {
+        question: 'Comment l\u2019hydrant SS100 évite-t-il le gel dans les climats froids ?',
+        answer:
+          "Le SS100 utilise un mécanisme de drainage automatique après fermeture : une fois la tige de man\u0153uvre fermée, le fût situé au-dessus du niveau de gel se vide par gravité, de sorte que le corps ne retient pas d\u2019eau susceptible de geler et de rompre la colonne. C\u2019est le choix standard pour les hydrants municipaux et de cour extérieurs en régions froides.",
+      },
+      {
+        question: 'Quelles sorties l\u2019hydrant SS100/65 propose-t-il ?',
+        answer:
+          "Deux sorties DN65 (2,5 pouces) avec bouchons d\u2019obturation protégés des intempéries, plus une sortie DN100 (4 pouces). Les normes de raccord de sortie (KWS, BS336, Storz, etc.) sont spécifiées selon le marché de destination à la commande.",
+      },
+      {
+        question: 'Quelle est la classe de pression de l\u2019hydrant SS100 ?',
+        answer:
+          "Pression de service 1,6 MPa avec une pression d\u2019essai de 2,4 MPa, dans une colonne renforcée en fonte ductile (QT450) résistante aux chocs physiques en extérieur.",
+      },
+      {
+        question: 'Quels matériaux sont utilisés pour les organes internes du SS100 ?',
+        answer:
+          "La tête de vanne inférieure est entièrement encapsulée en caoutchouc EPDM pour une obturation à étanchéité parfaite, le dispositif de drainage est en acier inoxydable 304 ou en laiton, et la tige de man\u0153uvre est en acier inoxydable ou en acier carbone moyen.",
+      },
+    ],
   },
   'fire-hose-reel-jpso8-19': {
     id: '25',
@@ -127,6 +149,28 @@ export const productsFrPart3: Record<string, Product> = {
     seoTitle: 'Clapet Anti-Retour à Bille HQ44X | Fonte Nodulaire',
     seoDescription:
       'Clapet anti-retour à bille HQ44X-16 au prix usine. Bille roulante en caoutchouc EPDM anti-obstruction. Faible perte de charge, idéal pour les canalisations de pompes à eaux usées.',
+    faqs: [
+      {
+        question: 'Pourquoi choisir un clapet anti-retour à bille plutôt qu\u2019un clapet anti-retour à battant ?',
+        answer:
+          "Le HQ44X présente un passage plein débit anti-obstruction et une bille revêtue EPDM qui se pose en roulant sans claquer, pour une perte de charge et un coup de bélier moindres que les conceptions à battant, dans les refoulements de pompes à fort débit et les canalisations d\u2019eau.",
+      },
+      {
+        question: 'Le HQ44X peut-il s\u2019obstruer avec de l\u2019eau sale ou des eaux usées ?',
+        answer:
+          "Il est conçu pour un service anti-obstruction : la bille en roulement suit le trajet du flux et le passage ouvert ne retient pas les débris, c\u2019est pourquoi il convient au refoulement de pompes, à l\u2019assainissement et à l\u2019eau brute autant qu\u2019à l\u2019eau claire.",
+      },
+      {
+        question: 'Quelles tailles et quelles pressions sont disponibles pour le HQ44X ?',
+        answer:
+          "De DN50 à DN400 (2 pouces à 16 pouces) en PN16, en fonte nodulaire QT450-10 avec étanchéité bille et siège en EPDM/NBR, essayée selon GB/T 13927.",
+      },
+      {
+        question: 'Comment le HQ44X se ferme-t-il silencieusement ?',
+        answer:
+          "Le faible débit de mise en route et la géométrie de la bille en roulement laissent la bille se poser progressivement sur le siège à mesure que le débit diminue, produisant une fermeture silencieuse sans choc au lieu du choc d\u2019un battant frappant le siège.",
+      },
+    ],
   },
   'flange-manual-bellows-gate-valve': {
     id: '27',
@@ -411,5 +455,27 @@ export const productsFrPart3: Record<string, Product> = {
     seoTitle: 'Adaptateur de Pompe Incendie SQD100-1.6 Raccord Siamese',
     seoDescription:
       'Raccord siamese de pompiers SQD100-1.6 : double entrée DN65, sortie à bride DN100, corps revêtu de poudre pour une alimentation fiable de la pompe incendie. Direct usine.',
+    faqs: [
+      {
+        question: 'Quelle est la différence entre les bouchons d\u2019entrée SQS65 et KWS65 du siamese ?',
+        answer:
+          "Ils suivent différentes normes internationales de raccord pour les véhicules d\u2019incendie. SQS65 correspond au type international des services d\u2019incendie et KWS65 au type allemand — précisez la norme utilisée par votre service d\u2019incendie afin que les entrées soient directement compatibles avec ses engins.",
+      },
+      {
+        question: 'Deux véhicules d\u2019incendie peuvent-ils alimenter le SQD100 simultanément ?',
+        answer:
+          "Oui. Les doubles entrées DN65 permettent la connexion simultanée de deux véhicules d\u2019incendie, dont les débits sont combinés dans la sortie unique à bride DN100 pour une alimentation de pompe à forte capacité.",
+      },
+      {
+        question: 'Le SQD100 inclut-il une vanne de régulation de débit ?',
+        answer:
+          "Oui — une vanne de régulation intégrée avec volant est incorporée au corps en fonte ductile à revêtement poudre pour le réglage du débit, et les bouchons sont équipés de câbles de sécurité en acier tressé pour éviter toute perte en service.",
+      },
+      {
+        question: 'Quelles sont la classe de pression et la taille du SQD100-1.6 ?',
+        answer:
+          "Classe 1,6 MPa dans un corps compact de 120 mm — adapté aux connexions de pompe de protection incendie en aéroport, en zone industrielle et en réseau municipal lorsque l\u2019espace est limité.",
+      },
+    ],
   },
 };

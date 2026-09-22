@@ -209,6 +209,28 @@ export const productsFrPart4: Record<string, Product> = {
     seoTitle: 'Vanne à Boisseau OS&Y à Siège Élastomère UL/FM | Extrémités à Gorge',
     seoDescription:
       "Vanne à boisseau OS&Y à siège élastomère certifiée UL/FM avec extrémités à gorge pour les systèmes de protection incendie. Fonte nodulaire, tige montante. Prix usine Wanlian Fluid.",
+    faqs: [
+      {
+        question: 'Cette vanne à boisseau OS&Y est-elle réellement listée UL et FM ?',
+        answer:
+          "Le modèle est listé pour le service de protection incendie. Nous confirmons le modèle listé exact, le numéro de certificat et la couverture pour chaque commande, et les certificats accompagnent la documentation — vérifiez toujours le numéro auprès de l\u2019organisme émetteur avant acceptation.",
+      },
+      {
+        question: 'Pourquoi spécifier des extrémités à gorge pour les canalisations incendie ?',
+        answer:
+          "Les extrémités à gorge utilisent des couplages mécaniques au lieu de la soudure ou de la boulonnerie : installation plus rapide, alignement sur site de la ligne et remplacement de la vanne nettement plus rapide — le choix standard pour les lignes de gicleurs et de colonnes d\u2019eau.",
+      },
+      {
+        question: 'Que signale la tige montante d\u2019une vanne OS&Y ?',
+        answer:
+          "La tige montante OS&Y (tige extérieure et joues) indique la position de la vanne en un coup d\u0153il — entièrement levée, c\u2019est ouvert ; abaissée, c\u2019est fermé — ce qui compte pour l\u2019isolement surveillé des lignes principales dans les systèmes incendie.",
+      },
+      {
+        question: 'Quelle plage de tailles est disponible pour la vanne OS&Y UL/FM ?',
+        answer:
+          "De 2 pouces à 10 pouces (DN50 à DN250) en fonte nodulaire avec un siège élastomère EPDM assurant une fermeture sans écoulement goutte-à-goutte, avec personnalisation OEM/ODM disponible.",
+      },
+    ],
   },
   'metal-fire-extinguisher-box-red': {
     id: '39',

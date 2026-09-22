@@ -104,7 +104,13 @@ export const productsEsPart3: Record<string, Product> = {
     },
     image: '/assets/products/sqd100-1-6-fire-pump-adapter.webp',
     seoTitle: 'Adaptador de Bomba Contra Incendios SQD100-1.6 | Siamesa',
-    seoDescription: 'Conexión siamesa SQD100-1.6 con doble entrada DN65, salida con brida DN100 y cuerpo de hierro dúctil con recubrimiento en polvo. Precio de fábrica.'
+    seoDescription: 'Conexión siamesa SQD100-1.6 con doble entrada DN65, salida con brida DN100 y cuerpo de hierro dúctil con recubrimiento en polvo. Precio de fábrica.',
+    faqs: [
+      { question: '¿Cuál es la diferencia entre las tapas de entrada SQS65 y KWS65 de la conexión siamesa?', answer: 'Siguen distintos estándares internacionales de acople para camiones de bomberos. SQS65 corresponde al patrón de bomberos internacional y KWS65 al patrón alemán. Especifique el estándar utilizado por su cuerpo de bomberos para que las entradas sean directamente compatibles con sus equipos.' },
+      { question: '¿Pueden dos camiones de bomberos alimentar el SQD100 al mismo tiempo?', answer: 'Sí. Las dobles entradas DN65 permiten la conexión simultánea de dos camiones de bomberos, combinando su caudal en la única salida con brida DN100 para un suministro de bomba de alta capacidad.' },
+      { question: '¿Incluye el SQD100 una válvula de control de flujo?', answer: 'Sí, una válvula de control integrada con volante está incorporada en el cuerpo de hierro dúctil con recubrimiento en polvo para regular el flujo, con cables de seguridad de acero trenzado en las tapas para evitar su pérdida durante la operación.' },
+      { question: '¿Cuál es la clase de presión y el tamaño del SQD100-1.6?', answer: 'Clasificado a 1.6 MPa en un cuerpo compacto de 120 mm, apto para conexiones de bombas de protección contra incendios en aeropuertos, patios industriales y redes municipales donde el espacio es limitado.' }
+    ]
   },
   'sp45f-flange-digital-balancing-valve': {
     id: '33',
@@ -300,7 +306,13 @@ export const productsEsPart3: Record<string, Product> = {
     },
     image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
     seoTitle: 'Válvula de Compuerta OS&Y de Asiento Elástico UL/FM | Ranurada',
-    seoDescription: 'Válvula de compuerta OS&Y de asiento elástico certificada UL/FM para protección contra incendios, extremos ranurados y fundición nodular. Precio de fábrica.'
+    seoDescription: 'Válvula de compuerta OS&Y de asiento elástico certificada UL/FM para protección contra incendios, extremos ranurados y fundición nodular. Precio de fábrica.',
+    faqs: [
+      { question: '¿Está realmente esta válvula de compuerta OS&Y certificada UL y FM?', answer: 'El modelo está listado para servicio de protección contra incendios. Confirmamos el modelo listado exacto, el número de certificado y la cobertura en cada pedido, y los certificados viajan con la documentación. Verifique siempre el número en el organismo emisor antes de la aceptación.' },
+      { question: '¿Por qué especificar extremos ranurados para líneas contra incendios?', answer: 'Los extremos ranurados utilizan acoples mecánicos en lugar de soldadura o pernos: instalación más rápida, alineación en campo de la línea de tubería y reemplazo de la válvula mucho más ágil. La opción estándar para líneas principales de rociadores y de columna seca.' },
+      { question: '¿Qué indica el vástago ascendente de una válvula OS&Y?', answer: 'El vástago ascendente OS&Y (husillo exterior y yugo) muestra la posición de la válvula de un vistazo: completamente elevado significa abierto y bajado significa cerrado, lo cual es importante para el aislamiento supervisado de la línea principal en sistemas contra incendios.' },
+      { question: '¿Qué rango de tamaños está disponible para la válvula OS&Y UL/FM?', answer: 'De 2 a 10 pulgadas (DN50 a DN250) en fundición nodular con asiento elástico de EPDM para un cierre sin goteo, con personalización OEM/ODM disponible.' }
+    ]
   },
   'metal-fire-extinguisher-box-red': {
     id: '39',

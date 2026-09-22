@@ -1,0 +1,176 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'scope', label: '1. Что реально входит в модернизацию пожарной водопроводной магистрали' },
+	{ id: 'isolation-valves', label: '2. Отсечные клапаны: Z41X против телескопической Z41X-T' },
+	{ id: 'hydrants-by-climate', label: '3. Подбор гидрантов по климату и риску на улице' },
+	{ id: 'hose-couplings', label: '4. Пожарные рукава и муфты для муниципального парка' },
+	{ id: 'standards-table', label: '5. Стандарты по рынку назначения' },
+	{ id: 'one-po', label: '6. Пакет по одному PO: почему консолидация снижает риски' },
+	{ id: 'faq', label: 'Часто задаваемые вопросы' }
+];
+
+const faq = [
+	{
+		question: 'Можно ли заказать гидранты, клапаны и пожарные рукава одним муниципальным пакетом?',
+		answer: 'Да — один заказ (PO) может объединять наземные или подземные гидранты, отсечные клапаны с эластичным седлом, пожарные рукава с резиновой подкладкой и муфты Storz или BS336, с OEM-брендированием, экспортной упаковкой и одним согласованным набором записей испытаний. Муниципальные тендеры, требующие документов по каждой позиции, получают их построчно в одной упаковочной ведомости.'
+	},
+	{
+		question: 'Какой тип гидранта должна специфицировать город холодного климата?',
+		answer: 'Сухотрубный гидрант с защитой от замерзания: колонна над уровнем промерзания автоматически сливается после каждого использования, поэтому корпус не замерзает. Наружный гидрант SS100/65 (1,6 МПа, испытан на 2,4 МПа) — наш стандартный наружный агрегат для холодного климата, с вариантами защиты от удара и IoT, если в объёме есть уличный трафик или мониторинг сети.'
+	},
+	{
+		question: 'Зачем использовать телескопическую задвижку в проекте модернизации, а не стандартную задвижку?',
+		answer: 'Z41X-T сочетает герметичное отсечение «на пузырь» и компенсацию расширения ±25 мм в одной единице. На магистрали, которая перекладывается или подключается к существующему трубопроводу, этот допуск поглощает смещения и усадки грунта, а клапан можно заменить позже без резки линии — оба пункта — повторяющиеся расходы в муниципальных сетях.'
+	},
+	{
+		question: 'Какой стандарт муфт рукавов использует пожарный парк на моём рынке?',
+		answer: 'Зависит от пожарных автоцистерн: Storz (немецкий стандарт) — самый распространённый экспортный вариант, BS336/BS5912 покрывает парки Великобритании и Содружества, а NIST — несколько спецификаций Ближнего Востока. Рукава, муфты и заглушки выходов гидрантов должны совпадать по одному варианту — специфицируйте его один раз для всего пакета.'
+	},
+	{
+		question: 'Как обычно расписывается график проектов модернизации от заказа до поставки?',
+		answer: 'Для стандартных моделей: спецификация и детализированное коммерческое предложение в течение нескольких дней, образцовая единица для верификации, затем производство 15–30 дней в зависимости от количества и кастомизации, с испытанием корпуса давлением и на герметичность воздухом по каждой единице перед экспортной упаковкой. Независимая инспекция на заводе может быть организована перед отгрузкой.'
+	}
+];
+
+const productRows = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Наружный гидрант с защитой от замерзания SS100/65', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Слив сухотрубной колонны, 1,6 МПа, выходы 2×65 + 1×100' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Задвижка с эластичным седлом Z41X', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50-DN700, PN10/PN16, регулирование затвора на линии' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Плоский пожарный рукав с резиновой подкладкой', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Модель 8-65 для муниципальных и промышленных режимов' }
+];
+---
+
+<Layout
+	title="Модернизация пожарной магистрали: клапаны, гидранты, рукава (2026)"
+	description="Модернизация пожарных магистралей: отсечные клапаны, гидранты с защитой от замерзания, рукава и муфты, стандарты назначения и пакет по одному PO."
+	type="article"
+	locale="ru"
+	faq={faq}
+	breadcrumbs={[{ name: 'Руководства', href: '/ru/blog/' }, { name: 'Модернизация пожарной магистрали' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Хлебные крошки -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ru/" class="hover:text-blue-600">Главная</a>
+			<span>/</span>
+			<a href="/ru/blog/" class="hover:text-blue-600">Руководства</a>
+			<span>/</span>
+			<span class="text-gray-600">Модернизация пожарной магистрали</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Руководство по закупкам · Муниципальная инфраструктура</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Модернизация муниципальной пожарной водопроводной магистрали: клапаны, гидранты и рукава одним пакетом</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Модернизация пожарной магистрали редко касается одного продукта. Это пучок — отсечные клапаны на каждом подключении, гидранты на новых сегментах, рукава и муфты для парка, и насосное подключение, которое пожарная служба реально может использовать. Это руководство проходит по четырём линиям объёма, климатически обусловленным выборам внутри каждой и тому, почему муниципальные покупатели всё чаще кладут весь пучок в один заказ.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Примечание об объёме:</strong> количества и плотность гидрантов следуют из вашего муниципального кодекса и проектного стандарта водоканала; выбор компонентов ниже — инженерные решения, которые фактически диктует BOQ пожарной магистрали. Всегда действует пункт тендера.</p>
+			</div>
+
+			<!-- Полоса продукции -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/ru/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="scope" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Что реально входит в модернизацию пожарной водопроводной магистрали</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Прочитайте BOQ тендера, и пожарный объём сжимается в четыре повторяющиеся линии: <strong>отсечные клапаны</strong> на магистралях, гидрантах и насосных подключениях; <strong>гидранты</strong> на заменяемых или продлённых сегментах; <strong>пожарные рукава и муфты</strong>, которые сохраняют совместимость парка с новыми стандартами выходов; и <strong>насосное подключение</strong>, где подключается пожарная служба. У каждой линии есть стандартная сторона (какой режим применяет страна назначения) и логистическая сторона (что отправляется вместе в контейнере).</p>
+			<p class="text-gray-700 leading-relaxed">Паттерн отказа, против которого написано это руководство: клапаны от одного поставщика, гидранты от другого, рукава от третьего — и заглушки выходов не совпадают с муфтами парка, либо фланцевые лица клапанов не совпадают с вводами гидрантов. Тот же объём по одному PO от одного производителя не может иметь таких швов.</p>
+
+			<h2 id="isolation-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Отсечные клапаны: Z41X против телескопической Z41X-T</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Каждой модернизации нужны точки отсечения, чтобы можно было работать на секции без слива сети. Две рабочие лошадки в нашей линейке — стандартная <a href="/ru/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">задвижка Z41X с эластичным седлом</a> (DN50–DN700, PN10/PN16, полностью EPDM-обёрнутый затвор, регулируется на линии) и <a href="/ru/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">телескопическая версия Z41X-T</a> (DN50–DN600 с встроенной компенсацией расширения ±25 мм).</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Решение</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Z41X</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Z41X-T телескопическая</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Диапазон диаметров</td><td class="px-4 py-3 text-gray-700">DN50–DN700</td><td class="px-4 py-3 text-gray-700">DN50–DN600</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Компенсация расширения</td><td class="px-4 py-3 text-gray-700">Нет (установите компенсатор при необходимости)</td><td class="px-4 py-3 text-gray-700">±25 мм встроенно</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Замена без резки трубопровода</td><td class="px-4 py-3 text-gray-700">Нет</td><td class="px-4 py-3 text-gray-700">Да</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Лучше для</td><td class="px-4 py-3 text-gray-700">Новые магистрали, большие диаметры, неподвижные установки</td><td class="px-4 py-3 text-gray-700">Подключения к существующему трубопроводу, склонные к усадке грунты, будущее обслуживание</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Правило из практики на месте: новые прямые магистрали получают стандартную Z41X; подключения, пересечения и всё, что эксплуатационная бригада в какой-то день захочет заменить, — телескопическую. У обеих один и тот же полностью обёрнутый затвор, поэтому поведение уплотнения, на которое полагается водоканал, не меняется.</p>
+
+			<h2 id="hydrants-by-climate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Подбор гидрантов по климату и риску на улице</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Климат определяет колонну, а риск на улице — надстройки:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Холодные климаты:</strong> <a href="/ru/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">наружный гидрант SS100/65 с защитой от замерзания</a> — автоматический слив после закрытия опорожняет колонну над уровнем промерзания, 1,6 МПа рабочее / 2,4 МПа испытательное, с выходами 2×DN65 плюс DN100.</li>
+				<li><strong>Улицы с плотным трафиком:</strong> <a href="/ru/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">гидрант SSFT100 с защитой от удара</a> — калибровочные сдвижные болты разрушаются при ударе, внутренний клапан автоматически перекрывает, а ремонт — замена болта при ещё находящейся под давлением линии.</li>
+				<li><strong>Программы «умный город»:</strong> <a href="/ru/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">IoT-гидрант SS100ZN</a> — сигнализация давления, потока, наклона/удара и несанкционированного использования по NB-IoT/LTE-M, пятилетняя батарея с солнечной поддержкой, на корпусе по GB 4452.</li>
+				<li><strong>Подземные магистрали:</strong> <a href="/ru/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">подземный гидрант SA</a> для заглублённых установок с выходами KWS65.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Варианты муфт выходов (KWS65, BS336, Storz, NIST) — спецификация по рынку: один и тот же корпус гидранта отгружается с заглушками, которые реально совпадают с муфтами вашего пожарного парка. Именно эта строка в BOQ чаще всего ломает трансграничные заказы гидрантов, и именно здесь поставщик пакета обязан поймать ошибку за вас. Наше <a href="/ru/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">руководство по гидрантам с защитой от замерзания и удара</a> подробно покрывает гидравлическое поведение каждого варианта.</p>
+
+			<h2 id="hose-couplings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Пожарные рукава и муфты для муниципального парка</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Линейка рукавов парка должна совпадать с новыми выходами гидрантов, иначе модернизация остаётся незавершённой в день передачи. <a href="/ru/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">плоский рукав с резиновой подкладкой (модель 8-65)</a> — муниципальный стандарт в нашей линейке — 8-дюймовый, рассчитанный на DN65, построенный для повторяющихся режимов под давлением — с <a href="/ru/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">алюминиевой муфтой Storz 2,5 дюйма</a> как стандартным экспортным присоединением; адаптеры муфт DN50/DN65 из <a href="/ru/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">серии HS</a> закрывают переход, где старые и новые варианты муфт сосуществуют в сети. Диаметры, подкладки и кромочное уплотнение разобраны в <a href="/ru/guides/fire-hose-buying-guide/" class="text-brand-blue font-semibold hover:underline">руководстве по закупке плоских пожарных рукавов</a>.</p>
+
+			<h2 id="standards-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Стандарты по рынку назначения</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Одни и те же гидранты и клапаны специфицируются в разных режимах в зависимости от того, где приземляется проект. Назовите режим по каждой строке BOQ:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Регион</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Типичные ориентиры</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Примечание покупателю</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">США и часть Америки</td><td class="px-4 py-3 text-gray-700">AWWA C502 (гидранты), AWWA C515, ISO 5208 / EN 1074 (клапаны)</td><td class="px-4 py-3 text-gray-700">Подтвердите стандарт и отчёт испытаний по каждой модели</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Латинская Америка</td><td class="px-4 py-3 text-gray-700">AWWA (тендеры по US-spec), Mexico NOM, Brazil ABNT</td><td class="px-4 py-3 text-gray-700">Действует пункт тендера; верифицируйте по модели</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Европа</td><td class="px-4 py-3 text-gray-700">EN 14384 (гидранты), EN 1074, EN 12266-1 (испытания клапанов), CE</td><td class="px-4 py-3 text-gray-700">CE и испытания — по модели и по директиве</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Ближний Восток и Африка</td><td class="px-4 py-3 text-gray-700">Часто AWWA или BS 750; выходы NIST распространены</td><td class="px-4 py-3 text-gray-700">Подтвердите вариант муфт выходов в BOQ</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Полное попарное сравнение семейств стандартов — в <a href="/ru/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">руководстве по стандартам гидрантов, рукавов и клапанов</a> — включая то, как сопоставлять стандарт с отчётом испытаний до оплаты.</p>
+
+			<h2 id="one-po" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Пакет по одному PO: почему консолидация снижает риски</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Муниципальный пакетный заказ у одного производителя покупает вам три вещи, которых не даёт BOQ с несколькими поставщиками: <strong>совместимые интерфейсы по конструкции</strong> (заглушки выходов, фланцы клапанов и муфты рукавов специфицируются в одной проверке чертежей), <strong>один набор записей испытаний</strong>, который согласуется с единственной упаковочной ведомостью для приёмо-сдаточного дела, и <strong>один логистический план</strong> — гидранты и рукава хорошо делят контейнерное пространство, а единый инкотермс держит разделение рисков чистым от ворот завода до площадки. Пошаговая последовательность — спецификация, верификация поставщика, образцы, QC, документация, логистика — это <a href="/ru/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">руководство по закупкам</a>; дисциплина верификации по моделям — в <a href="/ru/whitepaper/" class="text-brand-blue font-semibold hover:underline">отраслевом whitepaper</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Для регионального контекста о том, как эти объёмы тендеруются, <a href="/ru/guides/municipal-water-fire-infrastructure-latinamerica/" class="text-brand-blue font-semibold hover:underline">руководство по муниципальной инфраструктуре Латинской Америки</a> подробно покрывает региональные режимы стандартов и практику одного PO.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Часто задаваемые вопросы</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Двойной CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Поставьте BOQ вашей пожарной магистрали на работу</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Отправьте строки ведомости, стандарт страны назначения и плотность гидрантов — вернём детализированное предложение с подходом к испытаниям по моделям и консолидированным логистическим планом в течение 12 часов.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ru/contact/?product=%D0%9C%D1%83%D0%BD%D0%B8%D1%86%D0%B8%D0%BF%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%20%D0%BF%D0%BE%D0%B6%D0%B0%D1%80%D0%BD%D0%BE%D0%B9%20%D0%BC%D0%B0%D0%B3%D0%B8%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Запросить цену</a>
+						<a href="https://wa.me/8618684324501?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A3%20%D0%BD%D0%B0%D1%81%20%D0%BC%D1%83%D0%BD%D0%B8%D1%86%D0%B8%D0%BF%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%BE%D0%B4%D0%B5%D1%80%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%BF%D0%BE%D0%B6%D0%B0%D1%80%D0%BD%D0%BE%D0%B9%20%D0%BC%D0%B0%D0%B3%D0%B8%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%20(%D0%BA%D0%BB%D0%B0%D0%BF%D0%B0%D0%BD%D1%8B%20%2B%20%D0%B3%D0%B8%D0%B4%D1%80%D0%B0%D0%BD%D1%82%D1%8B%20%2B%20%D1%80%D1%83%D0%BA%D0%B0%D0%B2%D0%B0),%20%D0%BD%D1%83%D0%B6%D0%B5%D0%BD%20%D0%B4%D0%B5%D1%82%D0%B0%D0%BB%D0%B8%D0%B7%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%BF%D1%80%D0%B0%D0%B9%D1%81" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Написать в WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

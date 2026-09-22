@@ -16,6 +16,14 @@ export interface Product {
   seoTitle: string;
   seoDescription: string;
   faqs?: { question: string; answer: string }[];
+  // 产品视频教程(可选):文件放入 public/videos/ 后配置即自动渲染 + 输出 VideoObject JSON-LD
+  video?: {
+    src: string; // 如 /videos/<slug>.mp4
+    poster?: string; // 如 /videos/<slug>-poster.webp,缺省用产品图
+    duration?: string; // ISO 8601,如 PT2M10S
+    uploadDate?: string; // YYYY-MM-DD
+    description?: string;
+  };
 }
 
 export const products: Product[] = [
@@ -58,7 +66,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp',
     seoTitle: 'Z41X Resilient Seat Gate Valve | UL Listed Ductile Iron',
-    seoDescription: 'Ductile iron resilient seat gate valve Z41X: low pressure drop, bubble-tight seal for industrial fluid systems. Factory price from Quanzhou Wanlian Fluid.'
+    seoDescription: 'Ductile iron resilient seat gate valve Z41X: low pressure drop, bubble-tight seal for industrial fluid systems. Factory price from Quanzhou Wanlian Fluid.',
+    faqs: [
+      { question: 'What sizes are available for the Z41X resilient seat gate valve?', answer: 'DN50 to DN700 (2 inch to 28 inch) at PN10 or PN16, covering branch lines up to large transmission mains in water supply, sewage, industrial and HVAC service.' },
+      { question: 'How does the Z41X achieve a bubble-tight seal?', answer: 'The wedge is fully encapsulated in high-grade EPDM rubber, so sealing does not depend on metal-to-metal contact like a traditional gate valve. The flat-bottom design also prevents sediment buildup at the seat.' },
+      { question: 'Can the Z41X seal be replaced without draining the line?', answer: 'Yes — the resilient sealing can be replaced on-line under pressure, avoiding costly shutdowns during maintenance.' },
+      { question: 'What media and temperatures can the Z41X handle?', answer: 'Water, non-corrosive liquids and air from 0°C to 80°C, with a non-toxic epoxy resin coating inside and out for corrosion resistance in potable and industrial networks.' }
+    ]
   },
   {
     id: '2',
@@ -88,7 +102,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/indoor-fire-hydrant-head-sn65.jpg',
     seoTitle: 'SN65 Indoor Fire Hydrant Valve | Factory Price Supplier',
-    seoDescription: 'Ductile iron SN65 indoor fire hydrant head for fire protection pipelines: 1.6 MPa rating, grooved or flanged connections. Factory direct from Wanlian.'
+    seoDescription: 'Ductile iron SN65 indoor fire hydrant head for fire protection pipelines: 1.6 MPa rating, grooved or flanged connections. Factory direct from Wanlian.',
+    faqs: [
+      { question: 'What connection types are available for the SN65 indoor hydrant head?', answer: 'The SN65 is available with grooved or flanged connections and an anodized aluminum or brass coupling interface, so it can be matched to your hose coupling standard (Storz, HS/BS5912, NIST) at order time.' },
+      { question: 'What pressure does the SN65 hydrant valve support?', answer: 'It is rated for 1.6 MPa (232 PSI) working pressure and is pressure and anti-leakage tested up to 2.4 MPa, which covers standard indoor fire standpipe systems.' },
+      { question: 'Where is the SN65 typically installed?', answer: 'It is the wall-mounted valve for indoor fire cabinets and hose stations in commercial and industrial buildings — DN65 (2.5 inch) matching standard firefighting hose sizes.' },
+      { question: 'Can the SN65 be supplied as part of a complete indoor fire station kit?', answer: 'Yes — it pairs with our JPS0.8-19 hose reel set, layflat fire hose and spray nozzle to form a complete indoor firefighting station on a single purchase order.' }
+    ]
   },
   {
     id: '3',
@@ -118,7 +138,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/wet-alarm-check-valve-zsfz-150.webp',
     seoTitle: 'ZSFZ-150 Wet Alarm Check Valve | Sprinkler System',
-    seoDescription: 'ZSFZ-150 wet alarm check valve for automatic fire sprinkler systems: durable ductile iron, fast alarm response, high reliability. Factory direct from China.'
+    seoDescription: 'ZSFZ-150 wet alarm check valve for automatic fire sprinkler systems: durable ductile iron, fast alarm response, high reliability. Factory direct from China.',
+    faqs: [
+      { question: 'How does the ZSFZ wet alarm valve sound the alarm?', answer: 'When sprinkler flow opens the clapper, the water motor alarm gong is driven continuously, the retard chamber filters out transient surges to prevent false alarms, and the pressure switch closes an electrical contact to the fire alarm control panel.' },
+      { question: 'Does the ZSFZ need electrical power to operate?', answer: 'No. The valve itself is fully hydraulic; only the pressure switch contact provides the alarm signal to the building fire alarm panel.' },
+      { question: 'What sizes are available for the ZSFZ?', answer: 'DN100, DN150 and DN200 at 1.6 MPa nominal pressure, manufactured to GB 5135.2 with cast iron or ductile iron bodies and EPDM/NBR clapper and seat seals.' },
+      { question: 'Can the ZSFZ be maintained without draining the system?', answer: 'Yes — it is designed for on-line maintenance and periodic testing, which is critical for fire systems that must remain protected around the clock.' }
+    ]
   },
   {
     id: '4',
@@ -269,7 +295,13 @@ export const products: Product[] = [
     image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100-overlay.png',
     infographic: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100-infographic.svg',
     seoTitle: 'SSFT100 Anti-Collision Outdoor Fire Hydrant | Pressure Regulating',
-    seoDescription: 'SSFT100 anti-collision, pressure-regulating fire hydrant with double safety shut-off for municipal and industrial fire protection. Factory price from Wanlian.'
+    seoDescription: 'SSFT100 anti-collision, pressure-regulating fire hydrant with double safety shut-off for municipal and industrial fire protection. Factory price from Wanlian.',
+    faqs: [
+      { question: 'How does the SSFT100 shut off water after a vehicle collision?', answer: 'The specialized shear bolts are calibrated to break under impact. Once sheared, the internal valve closes automatically and seals the hydrant, stopping the water gush so repairs can be made with the pipeline still pressurized.' },
+      { question: 'What does the built-in pressure-regulating device do?', answer: 'It provides progressive, smooth water discharge when the outlets are opened, reducing flow surges and water hammer while fire engines fill from the hydrant.' },
+      { question: 'What outlet standards does the SSFT100 use?', answer: 'Two DN65 outlets with KWS65 interfaces plus one DN100 outlet (DN100/65 configuration, DN100 and DN150 body sizes at 1.6 MPa); other outlet coupling standards can be specified for your market.' },
+      { question: 'How much maintenance does an anti-collision hydrant need after an impact?', answer: 'Very little — the shear bolts are simply replaced and the hydrant is restarted. The lower valve and the pipeline stay in service, keeping the repair cost and outage time minimal.' }
+    ]
   },
   {
     id: '10',
@@ -297,7 +329,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/overground-fire-hydrant-ss100.webp',
     seoTitle: 'SS100ZN Smart IoT Fire Hydrant | Real-Time Monitoring',
-    seoDescription: 'IoT smart fire hydrant monitoring system. Real-time water pressure, tilt and water theft detection. Perfect for smart municipal fire system integration.'
+    seoDescription: 'IoT smart fire hydrant monitoring system. Real-time water pressure, tilt and water theft detection. Perfect for smart municipal fire system integration.',
+    faqs: [
+      { question: 'What data does the IoT smart hydrant monitor in real time?', answer: 'Pipeline water pressure and flow, valve open/close status, tilt and vibration (collision detection) and illegal water-use alarms — transmitted wirelessly over cellular networks (NB-IoT, LTE-M or GPRS).' },
+      { question: 'How is the SS100ZN smart hydrant powered?', answer: 'By a built-in lithium battery with a five-year design life, with optional solar power assist for remote or hard-to-access installations. No external wiring is required.' },
+      { question: 'What is the body standard of the smart hydrant?', answer: 'The hydrant body is manufactured to GB 4452-2011 in ductile iron QT450, with the IoT module in an impact-resistant ABS capsule rated IP68 and a stainless steel 316 water probe.' },
+      { question: 'Can the smart hydrant integrate with a municipal monitoring platform?', answer: 'Yes — it transmits standard cellular data that can be forwarded to your SCADA or smart-city platform; we coordinate the data format and alarm logic during project specification.' }
+    ]
   },
   {
     id: '11',
@@ -326,7 +364,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/glass-bulb-fire-sprinkler-zst.webp',
     seoTitle: 'ZST Glass Bulb Fire Sprinkler Head | Automatic',
-    seoDescription: 'Glass bulb automatic fire sprinklers ZST series. High sensitivity, corrosion resistant brass frame. Factory price from Wanlian China.'
+    seoDescription: 'Glass bulb automatic fire sprinklers ZST series. High sensitivity, corrosion resistant brass frame. Factory price from Wanlian China.',
+    faqs: [
+      { question: 'How do I choose between K=80 and K=115 sprinkler heads?', answer: 'K=80 (K=80±4) is the standard choice for most light and ordinary hazard rooms; K=115 (K=115±9) delivers higher flow where the design density is higher. Your sprinkler hydraulic calculation sets the required K-factor and flow at operating pressure.' },
+      { question: 'What temperature ratings are available for ZST sprinklers?', answer: '57°C, 68°C, 79°C, 93°C and 141°C glass bulb ratings with standard bulb colour coding, so the head opens within the temperature band your hazard class requires.' },
+      { question: 'What is the difference between quick response and standard response bulbs?', answer: 'Quick response heads use a 3 mm bulb and react faster — preferred where fast action matters; standard response heads use a 5 mm bulb and are the general-purpose default.' },
+      { question: 'Which orientations are available in the ZST family?', answer: 'Pendent, upright and sidewall ZST models, plus the horizontal sidewall (T-ZSTBS) and recessed concealed (ZSTDY) variants for finished-ceiling installations — precision forged brass bodies with imported glass bulbs in DN15/DN20.' }
+    ]
   },
   {
     id: '12',
@@ -356,7 +400,13 @@ export const products: Product[] = [
     image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms-overlay.png',
     infographic: '/assets/products/auto-tracking-jet-suppression-cannon-zdms-infographic.svg',
     seoTitle: 'ZDMS Automatic Tracking Fire Water Cannon | IR/UV Detection',
-    seoDescription: 'Smart auto-tracking fire monitor ZDMS. Multi-band IR/UV flame detection, rapid autonomous suppression. Best choice for large spatial indoor protection.'
+    seoDescription: 'Smart auto-tracking fire monitor ZDMS. Multi-band IR/UV flame detection, rapid autonomous suppression. Best choice for large spatial indoor protection.',
+    faqs: [
+      { question: 'How quickly does the ZDMS cannon detect and extinguish a fire?', answer: 'From ignition detection to directed jet, the sequence completes within 30 seconds: multi-band infrared and ultraviolet sensors locate the flame, the turret tracks it, and the nozzle discharges automatically.' },
+      { question: 'What sensors does the auto-tracking cannon use?', answer: 'It combines multi-band infrared with ultraviolet flame detection, which reduces false alarms from welding, lighting and solar radiation compared with single-band sensors. The sensor enclosure is UV-resistant ABS rated IP66.' },
+      { question: 'What area can one ZDMS cannon monitor?', answer: 'A monitoring radius of 40 to 65 m with full 360° horizontal rotation and -90° to +30° vertical range, rated flows of 5/10/20/30 L/s (customizable up to 150 L/s) at 0.6–0.8 MPa.' },
+      { question: 'Is an explosion-proof ZDMS available for petrochemical sites?', answer: 'Yes — an Ex de II BT4 Gb explosion-proof version is available for tank farms, plants and other hazardous zones, with the same detection and tracking performance.' }
+    ]
   },
   {
     id: '13',
@@ -420,7 +470,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/pre-action-alarm-system-zsfy.jpg',
     seoTitle: 'ZSFY Pre-Action Alarm Valve System | Dual Protection',
-    seoDescription: 'High safety Pre-action sprinkler valve group ZSFY. Dual-trigger failsafe design. Prevents water damage in museums, archives and data centers.'
+    seoDescription: 'High safety Pre-action sprinkler valve group ZSFY. Dual-trigger failsafe design. Prevents water damage in museums, archives and data centers.',
+    faqs: [
+      { question: 'Why use pre-action for data centers, archives or museums?', answer: 'The piping stays air-filled (0.03–0.05 MPa) under normal conditions, so an accidental pipe break cannot dump water on the protected assets. Water is released only when the dual-signal trigger confirms a fire.' },
+      { question: 'How does the ZSFY dual-signal trigger prevent accidental discharge?', answer: 'The valve requires two independent signals — a fire alarm signal and a pressure change — before the diaphragm chamber releases and floods the system. A single malfunction cannot trigger discharge.' },
+      { question: 'What sizes and trigger options are available for the ZSFY?', answer: 'DN80 to DN250 at 1.6 MPa, with pneumatic, electric or manual trigger options, and integrated pressure-maintaining and air-feeding devices in the group.' },
+      { question: 'What materials make the ZSFY corrosion resistant?', answer: 'Ductile iron QT450 body and bonnet, EPDM-covered bronze or spheroidal iron clapper, reinforced NBR diaphragm chamber, and brass and stainless steel accessories throughout the trim.' }
+    ]
   },
   {
     id: '15',
@@ -541,7 +597,13 @@ export const products: Product[] = [
     image: '/assets/products/manual-fire-water-cannon-ps-overlay.png',
     infographic: '/assets/products/manual-fire-water-cannon-ps-infographic.svg',
     seoTitle: 'PS Series Manual Fire Water Monitor | Long Range',
-    seoDescription: 'High volume manual fire water cannon PS. Supports water and foam spray. Heavy-duty construction, suitable for industrial storage and petrochemical yards.'
+    seoDescription: 'High volume manual fire water cannon PS. Supports water and foam spray. Heavy-duty construction, suitable for industrial storage and petrochemical yards.',
+    faqs: [
+      { question: 'What jet range does the PS manual monitor deliver?', answer: '50 to 110 m of jet distance depending on the selected flow (20–200 L/s) and inlet pressure (0.8–1.2 MPa), with both a high-concentration straight jet and a broad fog spray pattern available.' },
+      { question: 'Can the PS monitor apply foam as well as water?', answer: 'Yes — it is designed for both water and foam application, which is why it is used on tank farms, harbours and petrochemical yards for Class B fire protection.' },
+      { question: 'How is the PS monitor aimed and held in position?', answer: 'A manual hand lever gives smooth, quick aiming, and a self-locking gear mechanism holds the selected position so the cannon can spray unmanned once set.' },
+      { question: 'What inlet flange sizes are available for the PS series?', answer: 'DN100, DN150 and DN200 inlet flanges, with 360° horizontal rotation and -30° to +70° vertical range, in hard-anodized T6 aluminum alloy or bronze for marine weather resistance.' }
+    ]
   },
   {
     id: '19',
@@ -598,7 +660,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/telescopic-resilient-seat-gate-valve-z41x-t.webp',
     seoTitle: 'Z41X-T Telescopic Resilient Seat Gate Valve | Factory Price',
-    seoDescription: 'Integrated Telescopic Resilient Seated Gate Valve. Fully EPDM encapsulated wedge, ductile iron QT450. Ideal for pipelines requiring expansion compensation.'
+    seoDescription: 'Integrated Telescopic Resilient Seated Gate Valve. Fully EPDM encapsulated wedge, ductile iron QT450. Ideal for pipelines requiring expansion compensation.',
+    faqs: [
+      { question: 'What does the built-in telescopic sleeve do?', answer: 'It provides ±25 mm expansion compensation, absorbing pipe thermal movement and settlement so the valve body is not stressed — and it allows the valve to be replaced without cutting the pipe.' },
+      { question: 'How is the Z41X-T different from a standard resilient seat gate valve?', answer: 'It combines bubble-tight shutoff and pipeline expansion compensation in one unit, so you install one valve instead of a valve plus a separate expansion joint.' },
+      { question: 'What sizes and pressures are available for the telescopic gate valve?', answer: 'DN50 to DN600 at 1.0 or 1.6 MPa, in ductile iron QT450 with a fully EPDM-encapsulated wedge, for water supply, firefighting and HVAC lines.' },
+      { question: 'Which media are suitable for the Z41X-T?', answer: 'Water, sewage and firefighting water. The non-toxic epoxy coating inside and out keeps it suitable for potable service as well as drainage lines.' }
+    ]
   },
   {
     id: '21',
@@ -628,7 +696,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/pressure-reducing-valve-500x-dn50.webp',
     seoTitle: '500X Hydraulic Pressure Reducing Valve | Water Supply',
-    seoDescription: 'Industrial hydraulic self-operated pressure reducing valve 500X. High durability ductile iron construction. OEM and custom designs available.'
+    seoDescription: 'Industrial hydraulic self-operated pressure reducing valve 500X. High durability ductile iron construction. OEM and custom designs available.',
+    faqs: [
+      { question: 'Does the 500X pressure reducing valve need electricity?', answer: 'No. It is fully self-operated: a hydraulic pilot system senses downstream pressure and modulates the main valve, so it works anywhere pipe pressure exists — no external power or control system required.' },
+      { question: 'What downstream pressure range can the 500X maintain?', answer: 'The set downstream pressure is adjustable from 0.1 MPa to 1.6 MPa via the pilot assembly, holding a steady value despite flow changes or inlet pressure variation across PN10, PN16 and PN25 inlet ratings.' },
+      { question: 'What sizes are available for the 500X?', answer: 'DN20 to DN600 (3/4 inch to 24 inch) in ductile iron QT450-10 with a nylon-reinforced EPDM diaphragm, stainless steel 304 internal stem and solid forged brass pilot — designed to ANSI, JIS or GB as required.' },
+      { question: 'How does the 500X prevent water hammer?', answer: 'The main valve closes slowly and smoothly through the pilot-controlled diaphragm, avoiding the sudden pressure surges that fast-closing valves can create in long water mains.' }
+    ]
   },
   {
     id: '22',
@@ -717,7 +791,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp',
     seoTitle: 'SS100 Overground Fire Hydrant | Antifreeze UL Listed',
-    seoDescription: 'High-pressure overground fire hydrant SS100 with frost-drainage. Heavy duty ductile iron body. Approved for municipal water supply and forest safety.'
+    seoDescription: 'High-pressure overground fire hydrant SS100 with frost-drainage. Heavy duty ductile iron body. Approved for municipal water supply and forest safety.',
+    faqs: [
+      { question: 'How does the SS100 hydrant prevent freezing in cold climates?', answer: 'The SS100 uses an automatic post-closing drainage mechanism: after the operating stem is closed, the barrel above the frost line drains by gravity, so the body does not trap water that could freeze and rupture the column. It is the standard choice for outdoor municipal and yard hydrants in cold regions.' },
+      { question: 'What outlets does the SS100/65 provide?', answer: 'Two DN65 (2.5 inch) outlets with weather-proof blank caps plus one DN100 (4 inch) outlet. Outlet coupling standards (KWS, BS336, Storz, etc.) are specified per destination market at order time.' },
+      { question: 'What is the pressure rating of the SS100 hydrant?', answer: 'Working pressure 1.6 MPa with a testing pressure of 2.4 MPa, in a heavy-duty ductile iron (QT450) column that resists outdoor physical impact.' },
+      { question: 'What materials are used in the SS100 internals?', answer: 'The lower valve head is EPDM rubber fully encapsulated for bubble-tight shut-off, the drainage device is stainless steel 304 or brass, and the operating stem is stainless or medium carbon steel.' }
+    ]
   },
   {
     id: '25',
@@ -775,7 +855,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/spherical-ball-check-valve-hq44x.webp',
     seoTitle: 'HQ44X Ball Check Valve | Nodular Cast Iron',
-    seoDescription: 'Factory price Spherical Check Valve HQ44X-16. Non-clogging EPDM rubber rolling ball design. Low pressure loss, ideal for water sewage pump pipelines.'
+    seoDescription: 'Factory price Spherical Check Valve HQ44X-16. Non-clogging EPDM rubber rolling ball design. Low pressure loss, ideal for water sewage pump pipelines.',
+    faqs: [
+      { question: 'Why choose a spherical ball check valve over a swing check?', answer: 'The HQ44X has a full-flow non-blocking channel and a rolling EPDM-covered sphere that seats quietly without slamming, giving lower head loss and less water hammer than flap or swing designs in high-flow pump discharge and water mains.' },
+      { question: 'Will the HQ44X clog with dirty water or sewage?', answer: 'It is designed for anti-blocking service: the rolling ball follows the flow path and the open channel does not trap debris, which is why it suits pump discharge, drainage and raw-water service as well as clean water.' },
+      { question: 'What sizes and pressures are available for the HQ44X?', answer: 'DN50 to DN400 (2 inch to 16 inch) at PN16, in nodular cast iron QT450-10 with EPDM/NBR ball and seat sealing, tested to GB/T 13927.' },
+      { question: 'How does the HQ44X close quietly?', answer: 'The low start-up flow and the rolling-sphere geometry let the ball settle onto the seat gradually as flow drops, producing a silent non-slam closure instead of the impact shock of a clapper hitting the seat.' }
+    ]
   },
   {
     id: '27',
@@ -980,7 +1066,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/sqd100-1-6-fire-pump-adapter.webp',
     seoTitle: 'SQD100-1.6 Fire Pump Adapter Siamese Connection',
-    seoDescription: 'SQD100-1.6 fire department siamese connection: twin DN65 inlets, DN100 flanged outlet, powder-coated body for reliable fire pump supply. Factory direct.'
+    seoDescription: 'SQD100-1.6 fire department siamese connection: twin DN65 inlets, DN100 flanged outlet, powder-coated body for reliable fire pump supply. Factory direct.',
+    faqs: [
+      { question: 'What is the difference between SQS65 and KWS65 inlet caps on the siamese?', answer: 'They follow different international coupling standards for fire engines. SQS65 matches the international fire-service pattern and KWS65 the German pattern — specify the standard used by your fire department so the inlets are directly compatible with its appliances.' },
+      { question: 'Can two fire engines supply the SQD100 at the same time?', answer: 'Yes. The twin DN65 inlets allow simultaneous connection of two fire engines, combining their flow into the single DN100 flanged outlet for high-capacity pump supply.' },
+      { question: 'Does the SQD100 include a flow control valve?', answer: 'Yes — an integrated control valve with handwheel is built into the powder-coated ductile iron body for flow regulation, with braided steel safety cables on the caps to prevent loss during operation.' },
+      { question: 'What is the pressure rating and size of the SQD100-1.6?', answer: 'Rated 1.6 MPa in a compact 120 mm body — suitable for airport, industrial yard and municipal fire protection pump connections where space is limited.' }
+    ]
   },
   {
     id: '33',
@@ -1176,7 +1268,13 @@ export const products: Product[] = [
     },
     image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
     seoTitle: 'UL/FM Resilient Seated OS&Y Gate Valve | Grooved Ends',
-    seoDescription: 'UL/FM listed resilient seated OS&Y gate valve with grooved ends for fire protection systems. Nodular cast iron, rising stem. Factory price from Wanlian Fluid.'
+    seoDescription: 'UL/FM listed resilient seated OS&Y gate valve with grooved ends for fire protection systems. Nodular cast iron, rising stem. Factory price from Wanlian Fluid.',
+    faqs: [
+      { question: 'Is this OS&Y gate valve really UL and FM listed?', answer: 'The model is listed for fire protection service. We confirm the exact listed model, certificate number and coverage per order, and the certificates travel with the documentation — always verify the number at the issuing body before acceptance.' },
+      { question: 'Why specify grooved ends for fire mains?', answer: 'Grooved ends use mechanical couplings instead of welding or bolting: faster installation, field alignment of the pipe run, and much quicker valve replacement — the standard choice for sprinkler and standpipe mains.' },
+      { question: 'What does the rising stem of an OS&Y valve indicate?', answer: 'The OS&Y (outside screw and yoke) rising stem shows valve position at a glance — fully raised means open, lowered means closed — which matters for monitored main isolation in fire systems.' },
+      { question: 'What size range is available for the UL/FM OS&Y valve?', answer: '2 inch to 10 inch (DN50 to DN250) in nodular cast iron with an EPDM resilient seat for drip-tight closure, with OEM/ODM customization available.' }
+    ]
   },
   {
     id: '39',

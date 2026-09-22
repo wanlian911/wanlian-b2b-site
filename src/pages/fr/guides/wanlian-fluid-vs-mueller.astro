@@ -1,0 +1,192 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import TableOfContents from '../../../components/sections/TableOfContents.astro'
+
+const toc = [
+	{ id: 'mueller-overview', label: '1. Mueller : ce qu’ils sont réellement' },
+	{ id: 'wanlian-overview', label: '2. Wanlian Fluid : ce que nous sommes réellement' },
+	{ id: 'product-lines-compared', label: '3. Comment leurs gammes produit se comparent-elles ?' },
+	{ id: 'hydrants-deep-dive', label: '4. Hydrants incendie : le face-à-face' },
+	{ id: 'quality-and-standards', label: '5. Systèmes qualité et normes' },
+	{ id: 'where-each-wins', label: '6. Où chacun gagne' },
+	{ id: 'which-should-you-choose', label: '7. Lequel devriez-vous choisir ?' },
+	{ id: 'faq', label: 'Questions Fréquentes' },
+	{ id: 'sources', label: 'Sources' }
+]
+
+const faq = [
+	{
+		question: 'Wanlian Fluid et Mueller sont-elles des entreprises liées ?',
+		answer: 'Non. Mueller Water Products (NYSE: MWA) est un fabricant nord-américain coté, dont le siège est à Atlanta, Géorgie, et dont l’histoire remonte à 1857. Wanlian Fluid est Quanzhou Wanlian Fluid Equipment Co., Ltd, un fabricant/exportateur chinois indépendant à Quanzhou, Fujian. Il n’existe aucune relation corporate, de propriété ou de licence entre les deux.'
+	},
+	{
+		question: 'Wanlian Fluid livre-t-elle le marché US ?',
+		answer: 'Wanlian Fluid exporte des hydrants et vannes spéc AWWA vers les Amériques et ailleurs, et les modèles de vannes à boisseau et clapets de protection incendie sont inscrits UL 262 / UL 1091, tandis que les vannes de commande incendie OS&Y/NRS sont approuvées FM Class 1120/1130 — délivré modèle par modèle. Pour tout appel d’offres spéc US, confirmez par écrit à la cotation le modèle exact inscrit, le numéro de certificat et son périmètre, et vérifiez le numéro auprès de l’organisme émetteur.'
+	},
+	{
+		question: 'Quel est le meilleur choix pour un appel d’offres municipal US ?',
+		answer: 'Si l’appel d’offres exige un approvisionnement « Made in USA », une présence de marque nord-américaine, ou des compteurs d’eau et la détection de fuites dans le même périmètre, Mueller est le choix établi — son histoire et son portefeuille de marques sont construits pour ce marché. Si le périmètre est un package hydrants et vannes spéc AWWA coté à l’économie export, avec tuyaux feux, vannes d’alarme ou extincteurs dans le même BOQ, un fabricant chinois avec documentation UL/FM par modèle comme Wanlian Fluid est la voie la plus rentable — en appliquant la séquence de vérification avant l’attribution.'
+	},
+	{
+		question: 'Comment les deux se comparent-elles sur les hydrants incendie, spécifiquement ?',
+		answer: 'Les deux fabriquent des hydrants à canon sec et canon sous pression en fonte (Mueller ajoute le bronze via James Jones). La part municipale US de Mueller est profonde et ses hydrants portent le poids de plus de 160 ans d’usage municipal nord-américain. Les hydrants de Wanlian (SS100 antigel, SSFT100 anti-choc, SS100ZN IoT, SA enterré, SN65 intérieur) sont fabriqués selon les modèles GB 4452 / AWWA C502, avec options de sorties KWS, BS336, Storz et NIST et fiches d’essai 2,4 MPa par unité. Les facteurs qui tranchent, ce sont la norme de l’appel d’offres, le collier de sortie, l’exigence de certification et le prix — pas un gagnant universel.'
+	},
+	{
+		question: 'Puis-je vérifier indépendamment les certificats de l’un ou l’autre fournisseur ?',
+		answer: 'Oui, et vous devriez. Les certifications et le statut d’inscription de Mueller sont vérifiables auprès des organismes émetteurs (UL, FM, registre ISO 9001) et de ses dépôts publics. Pour Wanlian Fluid, demandez le certificat ISO 9001 avec l’organisme émetteur, les certificats UL/FM pour les modèles exacts de votre BOQ, les rapports d’essai par lot et une unité d’échantillon avec vidéo d’essai numérotée — la méthode étape par étape est dans notre guide de vérification.'
+	}
+]
+
+const productRows = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hydrant de rue antigel (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Hydrant à canon sec au modèle AWWA, 1,6 MPa, essai 2,4 MPa' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Vanne à boisseau OS&Y (cramponnée, UL/FM selon modèle)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: 'Vanne de commande à tige apparente 2"-10" pour canalisations incendie' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Clapet de groupe d’alarme ZSFZ-150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Groupe d’alarme sprinkler : gong + retard + détecteur' }
+]
+---
+
+<Layout
+	title="Wanlian Fluid vs Mueller : hydrants & vannes US-spec (2026)"
+	description="Wanlian Fluid vs Mueller 2026 : hydrants, vannes à boisseau, normes, certification, coûts et délais — quel fournisseur pour votre projet US-spec ou export ?"
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Wanlian vs Mueller' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Comparaison de Fournisseurs</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide de Comparaison de Fournisseurs · US-Spec & Export</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Wanlian Fluid vs Mueller : Approvisionnement Hydrants &amp; Vannes pour Projets US-Spec (2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Mueller est le nom qui apparaît dans la plupart des appels d’offres municipaux en eau d’Amérique du Nord : un fabricant nord-américain coté, avec une lignée remontant à 1857, un portefeuille de marques bien connues (Mueller Co., U.S. Pipe Valve & Hydrant, James Jones, Henry Pratt, Milliken, Mueller Systems) et des relations municipales solides. Wanlian Fluid est le côté export des mêmes classes de produits — hydrants au modèle AWWA et vannes incendie avec documentation UL/FM par modèle, cotés et conditionnés pour les projets internationaux. Si vous spécifiez un package d’hydrants ou de vannes norme US pour un projet dans les Amériques ou un export US-spec, cette comparaison est la carte : là où les catalogues se rencontrent, là où non, et ce qui doit trancher votre choix.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Note de preuves :</strong> les faits sur Mueller proviennent de son historique corporate publié, de ses pages marques et de ses dépôts publics (tels que résumés sur Wikipédia) ; les faits sur Wanlian proviennent de nos propres données produit et de la page certificats. Les revendications de certification sont énoncées modèle par modèle, comme les certificats sont réellement délivrés — et les deux côtés doivent être vérifiés auprès de l’organisme émetteur avant l’attribution.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="mueller-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Mueller : ce qu’ils sont réellement</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Mueller Water Products, Inc. (NYSE: MWA) a son siège à Atlanta, Géorgie, et décrit ses racines comme remontant à 1857, époque où le prédécesseur de Mueller Co. fut fondé à Decatur, Illinois. C’est l’un des plus grands fabricants et distributeurs nord-américains d’hydrants, de vannes à boisseau et d’autres produits d’infrastructure de l’eau. L’activité est organisée par divisions de marques plutôt qu’en un seul bloc : <strong>Mueller Co.</strong> (le cœur vannes et hydrants), <strong>U.S. Pipe Valve & Hydrant</strong> (hydrants et vannes à boisseau issus d’usines US certifiées ISO 9001), <strong>James Jones</strong> (hydrants à canon sous pression en bronze, une ligne datant des années 1890), <strong>Henry Pratt</strong> (vannes, actionneurs et systèmes de contrôle ; origine en 1926 de la vanne papillon à résine), <strong>Milliken Valve</strong>, <strong>Mueller Systems</strong> (compteurs d’eau, fondé en 1859) et <strong>Echologics</strong> (détection acoustique de fuites et évaluation de l’état des canalisations). Elle a acquis Singer Valve (vannes de commande automatiques) en 2017, et la lignée de protection incendie Grinnell (1892 General Fire Extinguisher Co., 1919 Grinnell) a été transférée à Anvil International et a quitté l’entreprise en 2017 — un rappel utile que l’histoire des marques dans ce secteur bouge avec les M&amp;A.</p>
+			<p class="text-gray-700 leading-relaxed">Mueller publie aussi des revendications distinctives de procédé et de durabilité : moulage à mouille perdue (lost-foam) pour les vannes et hydrants (réduction des chutes de moulage et des émissions), laiton à faible teneur en plomb sur toute la ligne waterworks, et adhésions à USGBC et au programme EPA Energy Star. La lecture pratique : Mueller est une maison nord-américaine d’infrastructure hydraulique pleine gamme — hydrants, vannes, compteurs, détection de fuites, vannes de distribution et outils — avec le poids institutionnel que l’approvisionnement municipal nord-américain attend.</p>
+
+			<h2 id="wanlian-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Wanlian Fluid : ce que nous sommes réellement</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Quanzhou Wanlian Fluid Equipment Co., Ltd est un fabricant et exportateur à Quanzhou, Fujian — le cœur du cluster industriel des vannes en Chine. La production est menée sur ses propres lignes sous un système de management de la qualité ISO 9001, avec des articles sélectionnés fabriqués par des partenaires de fabrication qualifiés, énoncé franchement, commande par commande ; les corps de vanne sont usinés en interne sur CN, et chaque unité est testée en pression dans le corps et en étanchéité à l’air avant expédition, avec fiches par unité.</p>
+			<p class="text-gray-700 leading-relaxed">La gamme publiée couvre six lignes et 45 modèles : hydrants incendie et connexions de pompage (<a href="/fr/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">hydrant de rue lié SS100/65 antigel</a>, anti-choc SSFT100, intelligent IoT SS100ZN, enterré SA, têtes intérieures SN65, siamese SQD100) ; vannes sprinklers et d’alarme (ZSFZ à eau sous pression, ZSFC à sec, ZSFM déluge, ZSFY pré-action, têtes, indicateurs de débit) ; vannes de protection incendie et industrielles (<a href="/fr/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">boisseau OS&Y UL/FM</a>, résiliente Z41X, télescopique Z41X-T, papillon, clapet, filtre, équilibrage numérique) ; vannes de commande hydraulique (500X, 100X, F745X, HS41X, anti-vortex d’aspiration EN 12845) ; monitors incendie (manuel PS, auto-tracking ZDMS) ; et accessoires de lutte incendie (tuyaux feux doublés caoutchouc, colliers Storz/HS, enrouleurs, armoires, extincteurs ABC). Les vannes à boisseau et clapets de protection incendie sont inscrites UL 262 / UL 1091 et les vannes de commande incendie sont approuvées FM Class 1120/1130, délivré modèle par modèle ; l’OEM/ODM et une réponse de cotation en 12 heures sont standards. Là où le portefeuille de Mueller s’étend aux compteurs et à la détection de fuites, le portefeuille de Wanlian s’étend au périmètre incendie complet — tuyaux feux, groupes d’alarme, extincteurs — qu’une maison d’infrastructure hydraulique ne publie pas.</p>
+
+			<h2 id="product-lines-compared" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Comment leurs gammes produit se comparent-elles ?</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Ligne de périmètre</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Mueller</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Wanlian Fluid</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Hydrants incendie</td><td class="px-4 py-3 text-gray-700">Hydrants en fonte à canon sec/sous pression (USPVH), canon sous pression en bronze (James Jones)</td><td class="px-4 py-3 text-gray-700">SS100 antigel, SSFT100 anti-choc, SS100ZN IoT, SA enterré, SN65 intérieur ; sorties KWS/BS336/Storz/NIST</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Vannes à boisseau</td><td class="px-4 py-3 text-gray-700">Vannes à boisseau en fonte (USPVH), service incendie OS&Y, lignes Henry Pratt</td><td class="px-4 py-3 text-gray-700">Z41X DN50-DN700, télescopique Z41X-T, OS&Y UL/FM cramponnée, joint à soufflet, laiton Z15W</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Papillon / clapet</td><td class="px-4 py-3 text-gray-700">Lignée papillon à résine (Henry Pratt 1926), clapet/tampon/papillon Milliken</td><td class="px-4 py-3 text-gray-700">D71X à emboîter, D381X-16Q cramponnée à vis sans fin, papillon de signalisation, clapet HQ44X/HQ41X</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Vannes sprinklers &amp; d’alarme</td><td class="px-4 py-3 text-gray-700">Ligne cœur non publiée (lignée Grinnell cédée en 2017)</td><td class="px-4 py-3 text-gray-700">Ligne cœur : groupes ZSFZ/ZSFC/ZSFM/ZSFY, têtes, indicateurs de débit</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Commande hydraulique (PRV, niveau, flotteur)</td><td class="px-4 py-3 text-gray-700">Vannes de commande automatiques via l’acquisition Singer Valve (2017)</td><td class="px-4 py-3 text-gray-700">Ligne cœur : 500X, 100X, F745X, HS41X, anti-vortex EN 12845</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Comptage d’eau &amp; détection de fuites</td><td class="px-4 py-3 text-gray-700">Oui (compteurs Mueller Systems depuis 1859 ; détection de fuites Echologics)</td><td class="px-4 py-3 text-gray-700">Non — périmètre matériel fluides uniquement</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Tuyaux feux, colliers, extincteurs</td><td class="px-4 py-3 text-gray-700">Non publié</td><td class="px-4 py-3 text-gray-700">Lignes cœur : tuyaux doublés caoutchouc, colliers Storz/HS, enrouleurs, armoires, extincteurs ABC</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Géographie type</td><td class="px-4 py-3 text-gray-700">Amérique du Nord (municipal &amp; distribution US/Canada)</td><td class="px-4 py-3 text-gray-700">Export monde (Amériques, LatAm, MEA, Europe, Asie)</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="hydrants-deep-dive" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Hydrants incendie : le face-à-face</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La case hydrants est là où les deux catalogues se rencontrent réellement. La position de Mueller est institutionnelle : usines US certifiées ISO 9001 (USPVH), une ligne de canons sous pression en bronze de James Jones, et plus de 160 ans d’installation municipale nord-américaine derrière la marque. Le procédé de moulage est un différenciateur publié — Mueller affirme être le seul fabricant de vannes et d’hydrants utilisant le moulage à mouille perdue, avec la réduction associée de matière et d’émissions. Pour un service public US, cette histoire est en elle-même un actif d’approvisionnement : familiarité, familiarité avec les pièces de rechange, et une empreinte de distribution dans le pays.</p>
+			<p class="text-gray-700 leading-relaxed">La case hydrants de Wanlian est construite pour le côté export et infrastructures en développement du marché : l’hydrant à canon sec antigel SS100/65 (service 1,6 MPa, essai 2,4 MPa, sorties 2×DN65 + DN100) suit les modèles AWWA C502, tandis que les modèles anti-choc SSFT100 et IoT SS100ZN répondent à des exigences de sécurité routière et de ville intelligente que la plupart des catalogues US historiques ne publient tout simplement pas. Les colliers de sortie (KWS65, BS336, Storz, NIST) sont configurés selon la flotte de destination. La comparaison honnête : <strong>pour un appel d’offres municipal US avec exigence de fabrication US ou d’enracinement local profond, Mueller est la réponse établie ; pour un package export au modèle AWWA — surtout si anti-choc, IoT ou normes de sorties mélangées figurent au BOQ — la voie usine directe concurrence sur le coût, la configuration et la capacité de regrouper tuyaux feux, vannes et matériel d’alarme dans le même conteneur.</strong></p>
+
+			<h2 id="quality-and-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Systèmes qualité et normes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les deux côtés opèrent des systèmes qualité certifiés, et les deux opèrent dans le même environnement de normes pour la case partagée : AWWA C502/C515 pour les hydrants et les vannes, UL 262 / UL 1091 pour les vannes à boisseau et clapets de protection incendie, FM Class 1120/1130 pour les vannes de commande incendie, ISO 5208 / EN 1074 / EN 12266-1 pour les références européennes et internationales. La différence, c’est la pratique de vérification, et elle doit guider votre plan d’audit :</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Mueller :</strong> usines certifiées ISO 9001, dépôts publics de société, certifications vérifiables auprès de l’organisme émetteur, et une longue trajectoire d’audit en Amérique du Nord. La due diligence normale d’un service public local s’applique.</li>
+				<li><strong>Wanlian Fluid :</strong> certification système ISO 9001:2015 avec numéro et organisme émetteur fournis pour vérification ; fiches d’essai 100 % par unité (pression du corps et étanchéité à l’air) rapprochées des numéros de série ; certificats UL/FM confirmés modèle par modèle avec copies à la commande ; inspection par un tiers (type SGS/BV/Intertek) en usine avant expédition, et unité d’échantillon avec vidéo d’essai numérotée avant la série.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Le dénominateur commun est celui de notre <a href="/fr/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">guide des normes</a> : la norme est une propriété du produit et de la destination, pas de la marque. Quel que soit le fournisseur nommé par l’appel d’offres, le dossier d’acceptation doit contenir le numéro de certificat, le périmètre du modèle et les fiches d’essai correspondantes — pour n’importe quelle usine, sur n’importe quel continent.</p>
+
+			<h2 id="where-each-wins" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Où chacun gagne</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-5">
+				<div class="bg-gray-50 border border-gray-100 rounded-xl p-6">
+					<p class="font-black text-gray-900 text-sm mb-3 uppercase tracking-wider">Mueller gagne lorsque…</p>
+					<ul class="list-disc pl-5 text-sm text-gray-700 space-y-2">
+						<li>L’appel d’offres exige une fabrication US ou un approvisionnement nord-américain</li>
+						<li>Le périmètre s’étend aux compteurs d’eau, détection de fuites ou vannes de distribution</li>
+						<li>La familiarité institutionnelle de la marque est un critère de notation dans un appel d’offres municipal US/Canada</li>
+						<li>Des hydrants à canon sous pression en bronze ou du matériel de commande Henry Pratt sont spécifiés</li>
+					</ul>
+				</div>
+				<div class="bg-gray-50 border border-gray-100 rounded-xl p-6">
+					<p class="font-black text-gray-900 text-sm mb-3 uppercase tracking-wider">Wanlian Fluid gagne lorsque…</p>
+					<ul class="list-disc pl-5 text-sm text-gray-700 space-y-2">
+						<li>Le projet est un périmètre export ou marché en développement, coté à la qualité du modèle AWWA</li>
+						<li>Le BOQ mêle hydrants, vannes, tuyaux feux, vannes d’alarme et extincteurs sur un seul PO</li>
+						<li>Des hydrants anti-choc ou IoT intelligents sont exigés</li>
+						<li>Le marquage OEM/ODM, les colliers de sortie mélangés ou les cycles de cotation de 12 heures comptent</li>
+					</ul>
+				</div>
+			</div>
+
+			<h2 id="which-should-you-choose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Lequel devriez-vous choisir ?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La version courte : <strong>Mueller pour la case institutionnelle nord-américaine ; Wanlian Fluid pour la case export et périmètre mixte.</strong> Un service public US ou canadien qui remet en appel d’offres son programme hydrants et vannes trouvera l’adéquation institutionnelle la plus sûre dans la marque construite pour ce marché — la lignée de 1857, les usines locales et l’amplitude compteurs + détection de fuites sont des actifs d’approvisionnement réels. Un projet dans les Amériques, LatAm, Moyen-Orient ou Afrique qui a besoin d’un package hydrants et vannes au modèle AWWA avec tuyaux feux, groupes d’alarme et extincteurs regroupés, à l’économie usine et avec documentation UL/FM par modèle vérifiée auprès de l’organisme émetteur, c’est là que le fabricant export gagne sa place dans l’offre. Les deux voies exigent la même discipline à l’acceptation : des numéros de certificats qui résolvent, des fiches d’essai qui se rapprochent des numéros de série, et un échantillon avant la commande en série — la séquence de notre <a href="/fr/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">guide de vérification</a> s’applique à n’importe quelle usine, et la <a href="/fr/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">comparaison AVK</a> couvre l’autre bout du set de références nord-américain.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sources</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 space-y-2 mb-4">
+				<li>Mueller Water Products — pages historique corporate et marques (muellerwaterproducts.com) : origine 1857, Mueller Co./USPVH/James Jones/Henry Pratt/Milliken/Mueller Systems/Echologics, moulage à mouille perdue, USGBC/Energy Star</li>
+				<li>Wikipédia — « Mueller Water Products » (consulté en septembre 2026) : structure corporate, tableau des marques, cession à Anvil International et acquisition Singer Valve de 2017, usines ISO 9001</li>
+				<li>Wanlian Fluid — données produit, page à propos et page certificats (wanlian911.com) : gamme, formulation UL 262/UL 1091 et FM Class 1120/1130 par modèle, pratique d’essais</li>
+				<li>Références de normes : AWWA C502/C515, UL 262/UL 1091, FM Class 1120/1130, ISO 5208, EN 1074/12266-1 selon la destination applicable</li>
+			</ul>
+			<p class="text-xs text-gray-500 mb-4">Les faits sur les entreprises reflètent les publications et dépôts publics de chacune à la date de septembre 2026. Les gammes et certifications évoluent — confirmez le catalogue et les certificats en vigueur avant spécification finale. Cette comparaison est destinée à la planification d’approvisionnement et ne constitue pas un plaidoyer en faveur de l’une ou l’autre entreprise.</p>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Faites Cotter un Package US-Spec avec Documentation</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez-nous vos lignes hydrants et vannes avec la norme requise (AWWA C502, UL, FM) — nous revenons avec la cotation détaillée et le plan de certificats par modèle sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Mueller%20Comparison%20%26%20US-Spec%20Project" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20je%20compare%20des%20fournisseurs%20pour%20un%20projet%20hydrants%20%2F%20vannes%20US-spec%20(voir%20votre%20guide%20vs-Mueller)" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

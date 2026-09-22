@@ -83,6 +83,18 @@ const categoryInfo: Record<string, { applications: string[]; testing: string }> 
 // 产品级 FAQ 优先，其次按分类生成通用采购 FAQ
 const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
 const info = categoryInfo[product.category];
+
+// فيديو المنتج (اختياري): يُعرض مع VideoObject JSON-LD عند تهيئة بيانات الفيديو
+const videoData = product.video
+  ? {
+      name: `${product.name} — Video Overview`,
+      description: product.video.description ?? `فيديو عن ${product.name}: البنية والأبعاد الرئيسية ونقاط التركيب.`,
+      thumbnail: product.video.poster ?? product.image,
+      src: product.video.src,
+      duration: product.video.duration ?? 'PT2M0S',
+      uploadDate: product.video.uploadDate ?? '2026-09-21'
+    }
+  : undefined;
 const relatedProducts = productsAr.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 6);
 
 // 相关指南(GEO 内容)按产品 slug 映射 — 阿语指南下一波，暂指向 EN
@@ -137,6 +149,7 @@ const relatedGuides = [...explicitGuides, ...(guideByCategory[product.category] 
   type="product"
   locale="ar"
   faq={faqs}
+  video={videoData}
   breadcrumbs={[{ name: 'المنتجات', href: '/ar/products/' }, { name: product.category, href: `/ar/products/#category=${encodeURIComponent(product.category)}` }, { name: product.name }]}
 >
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mb-20">
@@ -163,6 +176,16 @@ const relatedGuides = [...explicitGuides, ...(guideByCategory[product.category] 
           <span class="text-7xl font-black tracking-[0.3em] text-brand-blue/[0.06] -rotate-[24deg] whitespace-nowrap">WANLIAN FLUID</span>
         </span>
       </div>
+
+      <!-- فيديو المنتج (يُعرض فقط عند تهيئة بيانات product.video) -->
+      {product.video && (
+        <div class="mt-4 rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-gray-900">
+          <video class="w-full h-auto" controls playsinline preload="metadata" poster={product.video.poster}>
+            <source src={product.video.src} type="video/mp4" />
+            المتصفح لا يدعم عرض الفيديو.
+          </video>
+        </div>
+      )}
 
       <!-- Product Details -->
       <div class="space-y-6">

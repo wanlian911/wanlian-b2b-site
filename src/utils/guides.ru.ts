@@ -315,5 +315,75 @@ export const guidesRu: Guide[] = [
     category: 'Whitepaper',
     readTime: readTime('12'),
     tags: ['procurement', 'certification']
-  }
+  },
+  {
+    title: 'BOM спринклерной системы здания: полный гид по закупке (2026)',
+    description: 'BOM спринклерной системы здания: сигнальные группы, OS&Y и сигнальные дисковые затворы, сиамезе, оросители, сигнализаторы потока — один пакет по одному PO.',
+    href: '/ru/guides/commercial-building-sprinkler-system-bom-guide/',
+    tocPreview: ['1. Почему спринклерный пакет закупается одним объёмом', '2. Сигнальная группа клапанов: сердце системы с мокрой трубой', '3. Отсечка с контролем: клапаны OS&Y и дисковые сигнальные затворы'],
+    date: '2026-09',
+    category: 'Противопожарная защита',
+    readTime: readTime('9'),
+    tags: ['sprinkler-systems', 'fire-protection', 'procurement']
+  },
+  {
+    title: 'Модернизация пожарной магистрали: клапаны, гидранты, рукава (2026)',
+    description: 'Модернизация пожарных магистралей: отсечные клапаны, гидранты с защитой от замерзания, рукава и муфты, стандарты назначения и пакет по одному PO.',
+    href: '/ru/guides/municipal-fire-water-main-upgrade-guide/',
+    tocPreview: ['1. Что реально входит в модернизацию пожарной водопроводной магистрали', '2. Отсечные клапаны: Z41X против телескопической Z41X-T', '3. Подбор гидрантов по климату и риску на улице'],
+    date: '2026-09',
+    category: 'Закупки B2B',
+    readTime: readTime('8'),
+    tags: ['fire-hydrant', 'industrial-valves', 'procurement']
+  },
+  {
+    title: 'Wanlian Fluid vs Tupy: пожарное оборудование и ВЧШГ-арматура (2026)',
+    description: 'Сравнение Wanlian Fluid и Tupy для 2026: арматура из ВЧШГ, гидранты, сигнальные клапаны и рукава — кто подходит для водного и пожарного проекта в ЛатАмерике.',
+    href: '/ru/guides/wanlian-fluid-vs-tupy/',
+    tocPreview: ['1. Tupy: что это на самом деле', '2. Wanlian Fluid: что это на самом деле', '3. Как сравниваются продуктовые линейки?'],
+    date: '2026-09',
+    category: 'Закупки B2B',
+    readTime: readTime('9'),
+    tags: ['procurement', 'industrial-valves']
+  },
+  {
+    title: 'Wanlian Fluid vs Mueller: гидранты и клапаны US-Spec (2026)',
+    description: 'Сравнение Wanlian Fluid и Mueller для 2026: гидранты, задвижки, стандарты, сертификация, стоимость и сроки — кто подходит для US-Spec или экспортного проекта.',
+    href: '/ru/guides/wanlian-fluid-vs-mueller/',
+    tocPreview: ['1. Mueller: что это на самом деле', '2. Wanlian Fluid: что это на самом деле', '3. Как сравниваются продуктовые линейки?'],
+    date: '2026-09',
+    category: 'Закупки B2B',
+    readTime: readTime('10'),
+    tags: ['procurement', 'fire-hydrant', 'industrial-valves']
+  },
+  {
+    title: 'Рынок пожарной безопасности 2026: данные, рост, сигналы закупок',
+    description: 'Данные рынка пожарной безопасности 2026: семь независимых оценок, региональные сигналы роста и что значат цифры для закупок пожарного оборудования.',
+    href: '/ru/guides/fire-protection-market-data-report-2026/',
+    tocPreview: ['1. Насколько велик рынок — и почему цифры различаются', '2. Региональные сигналы: где идёт рост', '3. Что данные значат для закупок'],
+    date: '2026-09',
+    category: 'Закупки B2B',
+    readTime: readTime('8'),
+    tags: ['procurement', 'fire-protection']
+  },
+  {
+    title: 'Wanlian Fluid vs CA-FIRE: кого выбрать для проекта 2026?',
+    description: 'Сравнение Wanlian Fluid и CA-FIRE для 2026: сертифицированные FM спринклеры, пожарные мониторы, гидранты, сигнальные клапаны и полный комплект — кто подходит.',
+    href: '/ru/guides/wanlian-fluid-vs-ca-fire/',
+    tocPreview: ['1. CA-FIRE: что это на самом деле', '2. Wanlian Fluid: что это на самом деле', '3. Как сравниваются продуктовые линейки?'],
+    date: '2026-09',
+    category: 'Закупки B2B',
+    readTime: readTime('9'),
+    tags: ['procurement', 'fire-protection']
+  },
+  {
+    title: 'Wanlian Fluid vs Forede: выбор китайского производителя (2026)',
+    description: 'Сравнение Wanlian Fluid и Forede для 2026: пожарные мониторы, водомёты, пенные системы, гидранты и клапаны — кто подходит для вашего проекта.',
+    href: '/ru/guides/wanlian-fluid-vs-forede/',
+    tocPreview: ['1. Forede: что это на самом деле', '2. Wanlian Fluid: что это на самом деле', '3. Как сравниваются продуктовые линейки?'],
+    date: '2026-09',
+    category: 'Закупки B2B',
+    readTime: readTime('9'),
+    tags: ['procurement', 'fire-protection', 'fire-water-cannon']
+  },
 ];

@@ -1,0 +1,184 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import TableOfContents from '../../../components/sections/TableOfContents.astro'
+
+const toc = [
+	{ id: 'one-package', label: '1. Pourquoi le package sprinkler est acheté en un seul périmètre' },
+	{ id: 'alarm-valve-group', label: '2. Le groupe de vanne d’alarme : cœur du système à eau sous pression' },
+	{ id: 'monitored-isolation', label: '3. Sectionnement surveillé : vannes OS&Y et papillons de signalisation' },
+	{ id: 'siamese', label: '4. Connexion de départimentale (siamese)' },
+	{ id: 'sprinkler-heads', label: '5. Renseaux sprinkler : coefficient K, température et orientation' },
+	{ id: 'flow-indicators', label: '6. Indicateurs de débit et surveillance des zones' },
+	{ id: 'bom-table', label: '7. Le tableau de planification du BOM' },
+	{ id: 'standards', label: '8. Normes et certifications à spécifier' },
+	{ id: 'faq', label: 'Questions Fréquentes' }
+]
+
+const faq = [
+	{
+		question: 'Un seul fabricant peut-il fournir un package complet de système sprinkler à eau sous pression ?',
+		answer: 'Oui. Un seul bon de commande peut couvrir le groupe de vanne d’alarme à eau ZSFZ, les vannes de commande OS&Y et papillons de signalisation, la connexion siamese, les réseaux sprinkler à ampoule de verre et les indicateurs de débit, avec fiches d’essai par unité et un seul jeu de documents export. Consolider le périmètre incendie sous un fabricant responsable unique supprime le risque de coordination de cinq fournisseurs séparés.'
+	},
+	{
+		question: 'Que contient un groupe de vanne d’alarme à eau ZSFZ ?',
+		answer: 'Le groupe ZSFZ comprend le corps du clapet d’alarme (DN100/DN150/DN200 à 1,6 MPa), le gong d’alarme sur moteur hydraulique, la chambre de retard et le pressostat, avec corps en fonte grise ou fonte ductile et joints EPDM/NBR. Le gong sonne au débit sprinkler tandis que le pressostat signale le tableau d’alarme incendie du bâtiment.'
+	},
+	{
+		question: 'Les réseaux sprinkler ont-ils besoin d’une inscription UL pour mon projet ?',
+		answer: 'Si votre spécification ou l’autorité locale exige des réseaux inscrits UL, spécifiez-le explicitement et demandez le certificat d’inscription pour le modèle exact avant de commander. Les réseaux ZST de Wanlian sont fabriqués selon la famille GB 5135 ; pour les projets exigeant des sprinklers inscrits UL ou FM, confirmez par écrit la couverture du modèle au stade de la cotation.'
+	},
+	{
+		question: 'Combien de réseaux sprinkler me faut-il par compartiment incendie ?',
+		answer: 'Cela vient du dimensionnement hydraulique sprinkler, pas du fournisseur : le nombre de réseaux suit la surface au sol, la densité de conception et le coefficient K à la pression de fonctionnement requise. Envoyez-nous votre plan ou vos hypothèses de conception et nos ingénieurs reviennent avec le nombre de réseaux et le dimensionnement assorti de la vanne d’alarme et du siamese.'
+	},
+	{
+		question: 'Quels documents l’expédition du package sprinkler doit-elle inclure ?',
+		answer: 'Facture commerciale, liste de colisage, certificat d’origine, fiches d’essai par unité (pression du corps et étanchéité à l’air) rapprochées des numéros de série, et tous les certificats spécifiques à la norme exigés par votre appel d’offres. Les réseaux sont fournis avec la cote de température et le coefficient K marqués sur le cadre.'
+	}
+]
+
+const productRows = [
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Clapet de groupe d’alarme ZSFZ 150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Gong + chambre de retard + pressostat, DN100-DN200' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Vanne à boisseau OS&Y (cramponnée)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: 'Sectionnement principal à tige apparente 2"-10" pour canalisations incendie' },
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'Connexion siamese SQD100', img: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', desc: 'Double entrée DN65 pour alimentation par deux pompiers' }
+]
+---
+
+<Layout
+	title="BOM sprinkler bâtiment commercial : guide d’approvisionnement (2026)"
+	description="BOM sprinkler bâtiment commercial : groupes de vannes d’alarme, OS&Y, siamese, réseaux, indicateurs de débit d’eau — un package, un PO, vérifié."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'BOM Système Sprinkler' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">BOM Système Sprinkler</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide d’Approvisionnement · Bâtiments Commerciaux</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Vous Construisez un Système Sprinkler Commercial ? Voici le BOM Complet</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">La plupart des problèmes d’approvisionnement sprinkler ne concernent aucun composant isolé — ils concernent les coutures : une vanne d’alarme d’une usine, des réseaux d’une autre, un siamese d’une troisième, chacun avec ses propres fiches d’essai, ses propres délais et son propre silence quand quelque chose ne colle pas. Ce guide passe en revue pièce par pièce un périmètre sprinkler commercial à eau sous pression complet, avec les composants que vous allez réellement spécifier, la façon dont ils s’assemblent, et le tableau de planification à emporter tel quel dans votre RFQ.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Note de périmètre :</strong> c’est une référence de planification pour un système commercial à eau sous pression standard. Votre dimensionnement hydraulique et les règles de l’autorité incendie locale font foi pour le BOM final — envoyez-nous votre plan et nous revenons avec les quantités itemisées et les tailles de composants assorties.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="one-package" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Pourquoi le package sprinkler est acheté en un seul périmètre</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un système sprinkler à eau sous pression est une chaîne de composants : le groupe de vanne d’alarme déclenche le débit et lève l’alarme, les vannes de commande sectionnent les tronçons, le siamese reçoit l’alimentation des pompiers, les réseaux distribuent l’eau, et les indicateurs de débit disent au tableau de contrôle quelle zone décharge. Chaque interface entre deux fournisseurs est un endroit où dimensions, normes et fiches d’essai peuvent diverger silencieusement — et la divergence remonte habituellement sur chantier, après la pose de l’acier.</p>
+			<p class="text-gray-700 leading-relaxed">Consolider tout le périmètre incendie dans un seul bon de commande, c’est un fabricant responsable unique, un seul jeu de fiches d’essai par unité rapproché d’une liste de colisage unique, et un seul package fret et douane. C’est la raison pour laquelle notre <a href="/fr/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">guide source</a> traite le kit complet comme l’unité d’approvisionnement par défaut, et pourquoi ce BOM passe en une seule lecture chaque composant majeur d’un système à eau sous pression commercial.</p>
+
+			<h2 id="alarm-valve-group" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Le groupe de vanne d’alarme : cœur du système à eau sous pression</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Le <a href="/fr/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">clapet de groupe d’alarme à eau sous pression ZSFZ</a> est le composant sur lequel le système tient ou tombe. Il maintient le système chargé sous pression de canalisation, s’ouvre automatiquement au démarrage du débit sprinkler, entraîne le gong d’alarme sur moteur hydraulique, et ferme le contact du pressostat qui notifie le tableau d’alarme incendie du bâtiment. La chambre de retard est placée entre le débit et l’alarme pour filtrer les à-coups transitoires — sans elle, un démarrage de pompe peut sonner une fausse alarme.</p>
+			<p class="text-gray-700 leading-relaxed">Spécifiez le groupe, pas la vanne nue : taille du corps (DN100 / DN150 / DN200 à 1,6 MPa), gong, chambre de retard et pressostat, plus l’orientation de montage que votre local de montants permet. Pour les zones à risque élevé du même bâtiment — rayonnage, cuisines, stockage de peinture — la <a href="/fr/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">vanne déluge ZSFM</a> et le <a href="/fr/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">système pré-action ZSFY</a> étendent le même concept au débit instantané et à la décharge à double signal.</p>
+
+			<h2 id="monitored-isolation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Sectionnement surveillé : vannes OS&Y et papillons de signalisation</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Chaque canalisation principale et chaque zone a besoin d’une vanne de sectionnement dont la position la salle de contrôle peut vérifier. La réponse standard pour les canalisations incendie, c’est la vanne à boisseau <a href="/fr/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">OS&Y</a> à tige apparente — entièrement levée signifie ouvert, abaissée signifie fermé, sans ouvrir la vanne pour vérifier. Pour le contrôle de tronçon dans les canalisations sprinkler, le <a href="/fr/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">papillon de signalisation cramponné</a> ajoute un émetteur de position, si bien qu’une vanne laissée fermée se signale comme une anomalie au lieu d’échouer silencieusement au début d’un incendie.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La paire à acheter :</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Vanne</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Rôle dans le système</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Position type</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Vanne à boisseau OS&Y</td><td class="px-4 py-3 text-gray-700">Coupe principale, position visible par la tige</td><td class="px-4 py-3 text-gray-700">Local de montants, alimentation du système</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Papillon de signalisation (cramponné)</td><td class="px-4 py-3 text-gray-700">Contrôle tronçon/zone avec position transmise</td><td class="px-4 py-3 text-gray-700">Canalisations secondaires, par zone</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Clapet (HQ44X)</td><td class="px-4 py-3 text-gray-700">Protection anti-retour sur ligne de pompe ou ligne de connexion croisée</td><td class="px-4 py-3 text-gray-700">Refoulement pompe, ligne siamese</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Là où la ligne retourne vers une connexion municipale ou une pompe, un clapet anti-coup de bélier comme le <a href="/fr/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">clapet à bille sphérique HQ44X</a> protège du reflux sans le choc de battement qu’un clapet à battant peut délivrer à une longue canalisation.</p>
+
+			<h2 id="siamese" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Connexion de départimentale (siamese)</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Le siamese, c’est par là que les services d’incendie ajoutent leur propre débit. Le <a href="/fr/products/sqd100-1-6-fire-pump-adapter/" class="text-brand-blue font-semibold hover:underline">SQD100-1.6</a> fournit un double DN65 — SQS65 ou KWS65, assorti à la norme de collier de votre service d’incendie local — alimentant une unique sortie à bride DN100, avec vanne de commande à volant intégrée et câbles de sécurité tressés sur les bouchons. Le double d’entrées permet à deux camions de pomper en même temps, ce qui compte sur les grands sites commerciaux où la seule capacité des pompes du bâtiment ne couvre pas la demande de pointe.</p>
+			<p class="text-gray-700 leading-relaxed">Deux détails de spécification souvent manqués : la norme de collier d’entrée doit correspondre aux engins de votre service d’incendie (pas un défaut générique), et l’emplacement du siamese doit satisfaire aux règles d’accessibilité de votre code local — faites confirmer les deux par écrit avant que les bouchons et adaptateurs ne soient fabriqués.</p>
+
+			<h2 id="sprinkler-heads" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Renseaux sprinkler : coefficient K, température et orientation</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les réseaux sont la ligne la plus nombreuse du BOM, et la plus facile à mal spécifier. Trois paramètres font le travail : <strong>le coefficient K</strong> (K=80 est le choix standard de densité, K=115 pour un débit plus élevé), <strong>la cote de température</strong> (57 / 68 / 79 / 93 / 141°C avec codage couleur standard des ampoules), et <strong>l’orientation</strong> (pendant pour plafonds, dressé pour canalisations apparentes, variantes murales et encastrées pour les intérieurs finis).</p>
+			<p class="text-gray-700 leading-relaxed">La <a href="/fr/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">série à ampoule de verre ZST</a> couvre pendant, dressé et mural en DN15/DN20, avec ampoules à réponse rapide ou standard ; les variantes <a href="/fr/products/horizontal-sidewall-fire-sprinkler-t-zstbs/" class="text-brand-blue font-semibold hover:underline">T-ZSTBS murale horizontale</a> et <a href="/fr/products/zstdy-concealed-fire-sprinkler/" class="text-brand-blue font-semibold hover:underline">ZSTDY encastrée</a> gèrent les cas architecturaux. Pour les applications de stockage, le <a href="/products/esfr-sprinkler-head/" class="text-brand-blue font-semibold hover:underline">réseau ESFR</a> est le type désigné. Votre dimensionnement hydraulique fixe le coefficient K et le nombre par zone — l’usine les marque sur le cadre et sur le certificat d’essai.</p>
+
+			<h2 id="flow-indicators" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Indicateurs de débit et surveillance des zones</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Quand un réseau décharge dans un bâtiment de quarante étages, la salle de contrôle doit savoir quel étage. L’<a href="/fr/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">indicateur de débit à aube ZSJZ</a> transforme le débit d’une branche précise en contact électrique vers le tableau d’alarme incendie, zone par zone. Spécifiez-en un par branche surveillée, avec la cote du contact assortie à votre tableau, et étiquetez les zones de façon cohérente avec vos plans as-built — une alarme de débit que personne ne peut localiser, c’est une enquête incendie, pas une réponse incendie.</p>
+
+			<h2 id="bom-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Le tableau de planification du BOM</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Utilisez-le comme squelette de votre RFQ. Les quantités sont des valeurs à remplacer par votre dimensionnement hydraulique — l’objectif est que chaque article du périmètre soit nommé et mappé sur un modèle réel avant de demander une cotation, si bien que le prix itemisé que vous recevez est comparable ligne par ligne.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Article du périmètre</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Modèle de référence</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Dimensionné par</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Groupe de vanne d’alarme à eau (gong + retard + pressostat)</td><td class="px-4 py-3 text-gray-700">ZSFZ-150 (DN100/DN150/DN200)</td><td class="px-4 py-3 text-gray-700">Débit de conception</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Coupe principale (OS&Y, cramponné)</td><td class="px-4 py-3 text-gray-700">2"–10" OS&Y</td><td class="px-4 py-3 text-gray-700">Taille de la canalisation principale</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Contrôle de zone (papillon de signalisation)</td><td class="px-4 py-3 text-gray-700">DN80–DN150 signal cramponné</td><td class="px-4 py-3 text-gray-700">Canalisations secondaires</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Clapet (pompe / anti-retour)</td><td class="px-4 py-3 text-gray-700">HQ44X-16</td><td class="px-4 py-3 text-gray-700">Taille de la ligne de pompe</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Connexion de départimentale</td><td class="px-4 py-3 text-gray-700">SQD100-1.6 (SQS65/KWS65)</td><td class="px-4 py-3 text-gray-700">Norme du service d’incendie local</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Réseaux sprinkler (pendant/dressé/mural)</td><td class="px-4 py-3 text-gray-700">ZST / T-ZSTBS / ZSTDY, K80 ou K115</td><td class="px-4 py-3 text-gray-700">Dimensionnement hydraulique</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Indicateurs de débit d’eau</td><td class="px-4 py-3 text-gray-700">ZSJZ par branche surveillée</td><td class="px-4 py-3 text-gray-700">Plan des zones</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Postes incendie intérieurs (rouleaux à tuyau + armoires)</td><td class="px-4 py-3 text-gray-700">JPS0.8-19 + SN65</td><td class="px-4 py-3 text-gray-700">Plan des issues</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Deux articles de périmètre finaux à vérifier : les postes incendie intérieurs (<a href="/fr/products/fire-hose-reel-jpso8-19/" class="text-brand-blue font-semibold hover:underline">rouleau à tuyau JPS0.8-19</a> avec vanne <a href="/fr/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">SN65</a>, dimensionnés par votre plan des issues), et le tuyau feux plat et les <a href="/fr/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">colliers Storz</a> qui alimentent le siamese. Tout — du groupe d’alarme au dernier réseau — est expédié sur un seul PO avec un seul jeu de fiches d’essai.</p>
+
+			<h2 id="standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. Normes et certifications à spécifier</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Le régime de normes dépend de la destination : <strong>la NFPA 13</strong> régit la conception des systèmes dans les projets spéc US, avec l’inscription UL/FM de composants spécifiques lorsque l’autorité l’exige ; la famille <strong>GB 5135</strong> est la référence de fabrication pour les vannes d’alarme et les réseaux dans l’environnement de production chinois ; les régimes <strong>EN</strong> s’appliquent aux destinations européennes. La règle pratique est celle de notre <a href="/fr/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">guide des normes</a> : la norme est une propriété du produit et de la destination, pas de la marque — si bien que la RFQ nomme la norme par article, et le fournisseur répond par modèle avec le certificat assorti.</p>
+			<p class="text-gray-700 leading-relaxed">Pour un projet commercial qui doit passer l’inspection, le jeu de documents qui garde le dossier propre, c’est : fiches d’essai de pression et d’étanchéité par unité, marquages température/coefficient K des réseaux, certificats des vannes assortis à la norme spécifiée, et le pack de documents export. Notre <a href="/fr/whitepaper/" class="text-brand-blue font-semibold hover:underline">whitepaper sectoriel</a> passe la séquence de vérification complète, de la spécification écrite au produit vérifié.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions Fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Envoyez Votre Plan — Obtenez une Cotation BOM Itemisée</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Téléversez vos plans ou listez vos zones, et nous revenons avec les quantités itemisées, les tailles de composants assorties et l’approche d’essais par modèle sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Commercial%20Sprinkler%20System%20BOM" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un Devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20nous%20avons%20un%20projet%20sprinkler%20commercial%20et%20demandons%20une%20cotation%20BOM%20par%20poste" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -341,5 +341,55 @@ export const guides: Guide[] = [
     category: 'Whitepaper',
     readTime: '12 min read',
     tags: ['procurement', 'certification']
-  }
+  },
+  {
+    title: 'Commercial Building Sprinkler System BOM: Complete Procurement Guide (2026)',
+    description: 'Complete BOM for a commercial building sprinkler system: alarm valve groups, OS&Y & signal valves, siamese, sprinkler heads, flow indicators — one package, one PO, verified.',
+    href: '/guides/commercial-building-sprinkler-system-bom-guide/',
+    tocPreview: ['1. Why the Sprinkler Package Is Procured as One Scope', '2. The Alarm Valve Group: Heart of the Wet System', '3. Monitored Isolation: OS&Y and Signal Butterfly Valves'],
+    date: '2026-09',
+    category: 'Fire Protection',
+    readTime: '9 min read',
+    tags: ['sprinkler-systems', 'fire-protection', 'procurement']
+  },
+  {
+    title: 'Municipal Fire Water Main Upgrade: Valve, Hydrant & Hose Package (2026)',
+    description: 'Municipal fire main upgrades explained: isolation valves, antifreeze hydrants, fire hose and couplings, destination standards and how one consolidated package de-risks the tender.',
+    href: '/guides/municipal-fire-water-main-upgrade-guide/',
+    tocPreview: ['1. What a Fire Water Main Upgrade Actually Includes', '2. Isolation Valves: Z41X vs Telescopic Z41X-T', '3. Hydrant Selection by Climate and Street Risk'],
+    date: '2026-09',
+    category: 'Procurement',
+    readTime: '8 min read',
+    tags: ['fire-hydrant', 'industrial-valves', 'procurement']
+  },
+  {
+    title: 'Wanlian Fluid vs Tupy: Fire Equipment & Ductile Iron Valves for LatAm Projects (2026)',
+    description: 'Wanlian Fluid vs Tupy compared for 2026: ductile iron valves, fire hydrants, alarm valves and hose — which supplier fits your Latin American water & fire project?',
+    href: '/guides/wanlian-fluid-vs-tupy/',
+    tocPreview: ['1. Tupy: What They Actually Are', '2. Wanlian Fluid: What We Actually Are', '3. How Do Their Product Lines Compare?'],
+    date: '2026-09',
+    category: 'Procurement',
+    readTime: '9 min read',
+    tags: ['procurement', 'industrial-valves']
+  },
+  {
+    title: 'Wanlian Fluid vs Mueller: Fire Hydrant & Valve Sourcing for US-Spec Projects (2026)',
+    description: 'Wanlian Fluid vs Mueller compared for 2026: fire hydrants, gate valves, standards, certification, cost and lead time — which supplier fits your US-spec or export project?',
+    href: '/guides/wanlian-fluid-vs-mueller/',
+    tocPreview: ['1. Mueller: What They Actually Are', '2. Wanlian Fluid: What We Actually Are', '3. How Do Their Product Lines Compare?'],
+    date: '2026-09',
+    category: 'Procurement',
+    readTime: '10 min read',
+    tags: ['procurement', 'fire-hydrant', 'industrial-valves']
+  },
+  {
+    title: 'Fire Protection Market 2026: Data, Growth & Sourcing Signals (Report)',
+    description: 'Fire protection market data 2026: seven independent research estimates compared, regional growth signals, and what the numbers mean for valve, hydrant & fire equipment procurement.',
+    href: '/guides/fire-protection-market-data-report-2026/',
+    tocPreview: ['1. How Big Is the Market — and Why the Numbers Differ', '2. Regional Signals: Where the Growth Is', '3. What the Data Means for Procurement'],
+    date: '2026-09',
+    category: 'Procurement',
+    readTime: '8 min read',
+    tags: ['procurement', 'fire-protection']
+  },
 ];

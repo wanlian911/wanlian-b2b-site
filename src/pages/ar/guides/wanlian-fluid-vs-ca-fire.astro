@@ -1,0 +1,202 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'ca-fire-overview', label: '1. CA-FIRE: من هم فعليًا' },
+	{ id: 'wanlian-fluid-overview', label: '2. Wanlian Fluid: من نحن فعليًا' },
+	{ id: 'product-lines-compared', label: '3. كيف تُقارَن خطوط منتجاتهما؟' },
+	{ id: 'quality-and-certifications', label: '4. أنظمة الجودة والشهادات' },
+	{ id: 'where-each-wins', label: '5. أين يتفوق كل مصنع؟' },
+	{ id: 'cost-and-lead-time', label: '6. التكلفة ونموذج التسعير وأزمنة التسليم' },
+	{ id: 'which-should-you-choose', label: '7. أيهما تختار؟' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' },
+	{ id: 'sources', label: 'المصادر' }
+];
+
+const faq = [
+	{
+		question: 'هل Wanlian Fluid وCA-FIRE شركة واحدة أو مرتبطتان؟',
+		answer: 'لا. هما مصنّعان مستقلان يقعان في تجمع معدات الحريق ذاته في Quanzhou بمقاطعة Fujian. شركة CA-FIRE Protection Industry Co., Ltd. (تأسست 2012) تركز على رؤوس الرشاشات الحاصلة على اعتماد FM، وصمامات الإنذار والسيول، وخلاطات الحريق، وخزانات الرغوة. أما Wanlian Fluid (Quanzhou Wanlian Fluid Equipment Co., Ltd) فتركز على منظورات الحريق، وخلاطات الحريق، وصمامات الإنذار، وصمامات التحكم الهيدروليكي، وملحقات مكافحة الحريق. اطلب المستندات من المصنع المحدد الذي تشتري منه — موقع التجمع وحده لا يخبرك بشيء عن هوية المصنع الفعلي.'
+	},
+	{
+		question: 'هل يصنع Wanlian Fluid رؤوس رشاشات حاصلة على اعتماد FM؟',
+		answer: 'لا. Wanlian Fluid تنتج رؤوس رشاشات زجاجية (glass-bulb) وESFR ومخفية وفق مواصفات GB/EN، لكنها لا تحتفظ بسجل اعتماد FM Approvals. إذا كان مشروعك يحكمه FM Global أو NFPA 13 في أمريكا الشمالية، فإن رؤوس الرشاشات المسجلة لدى FM (CA-FIRE أو علامات مسجلة راسخة) هي المواصفة الأكثر أمانًا. تحقق دائمًا من النموذج الدقيق والملصق المسجل والشهادة قبل الطلب — ومنهج خطوة بخطوة في دليل التحقق من المورّد الصيني لدينا.'
+	},
+	{
+		question: 'أيهما المورد الأقوى لمدافع المياه الحارقة؟',
+		answer: 'Wanlian Fluid تدرج منظورات الحريق كخط أساسي: سلسلة ZDMS لمدافع كبت النافور ذاتية التتبع (كشف اللهب، تحديد الموقع الذاتي، تحكم عن بعد) إلى جانب مدافع PS اليدوية. أما CA-FIRE فتشمل المنظورات ضمن تسعة خطوط منتجات، لكن نطاقها المنشور وشهاداتها ومشاريعها المرجعية مرتكزة على رؤوس الرشاشات وصمامات الإنذار. لمزارع الخزانات والمحطات والمناطق المكشوفة الكبيرة حيث المنظور هو المركز، فإن Wanlian هي الأنسب مباشرة؛ أما لنظام رشاشات يكون فيه المنظور بندًا ثانويًا، فيمكن لأي منهما توريده.'
+	},
+	{
+		question: 'مشروعي في أمريكا الشمالية يحتاج رشاشات معتمدة من FM — هل يمكنني استخدام Wanlian؟',
+		answer: 'نعم، لكل شيء عدا رؤوس الرشاشات المسجلة. بنية شائعة للمقاولين الدوليين هي: رؤوس مسجلة لدى FM من CA-FIRE أو صانع مسجّل آخر، وبقية قائمة المواد — صمامات الفحص الإنذاري، صمامات البوابة، الخلاطات، مران الحريق، المفاصل، خزائن الطفايات — من Wanlian بموجب أمر شراء تصديري واحد. خلط المصادر يوفر التكلفة على البنود غير المسجلة دون المساس برؤوس الرشاشات الحرجة للمواصفة.'
+	},
+	{
+		question: 'هل يمكن لـWanlian توريد المنظورات والصمامات والخلاطات والمران والخزائن في شحنة واحدة؟',
+		answer: 'نعم — هذا القدر من تجهيز الحزمة الكاملة هو التموضع الأساسي لـWanlian. يمكن لأمر شراء واحد أن يغطي مدفع ZDMS الذاتي التتبع، وصمام الفحص الإنذاري المبلل ZSFZ-150، وخلاط SS100/65 السطحي المضاد للتجمد، ومران 8-65 مسطح مبطن بالمطاط، ووصلات Storz، وصناديق طفايات الحريق، مع اختبار ضغط لكل وحدة ومستندات تصدير منسقة. وCA-FIRE تقدم أيضًى قائمة مواد بمصنع واحد، لكن حزمتها مركزية الرشاشات (رؤوس، صمامات إنذار/سيول، خلاطات، خزانات رغوة) دون مران أو خزائن أو صمامات تحكم هيدروليكي.'
+	},
+	{
+		question: 'كيف أتحقق من الجودة قبل إصدار طلب جملة مع أي من المصنعين؟',
+		answer: 'اطلب من الطرفين: شهادة ISO 9001 ونطاقها، تقارير اختبار لكل نموذج مطابقة لمعيارك، ملصقات FM/CCCF حيثما زُعمت، سجلات اختبار الضغط والتسريب لكل وحدة، خيارات فحص من طرف ثالث (SGS/BV/TÜV)، ومراجع في منطقتك. ثم نفّذ طلبًا تجريبيًا قبل التزام حجم كبير. منهج الخطوات الخمس الكامل في دليل التحقق من المورّد الصيني لدينا.'
+	}
+];
+
+const productRows = [
+	{ slug: 'auto-tracking-jet-suppression-cannon-zdms', name: 'مدفع كبت نافوري ذاتي التتبع (سلسلة ZDMS)', img: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp', desc: 'مدفع مائي ذاتي التتبع بكشف اللهب لمزارع الخزانات والمناطق المكشوفة' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'صمام فحص إنذار مبلل ZSFZ 150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'صمام تحكم بنظام الأنابيب المبللة مع جرس إنذار ومحرك' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'خلاط حريق سطحي مضاد للتجمد (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'خلاط برميل جاف سطحي مضاد للتجمد لشبكات الحريق البلدية' }
+];
+---
+
+<Layout
+	title="Wanlian Fluid ضد CA-FIRE: أي مصنّع حماية حريق صيني يناسب مشروعك 2026"
+	description="مقارنة Wanlian Fluid وCA-FIRE لعام 2026: رشاشات معتمدة FM، منظورات الحريق، الخلاطات، صمامات الإنذار، صمامات التحكم الهيدروليكي وحزم الحريق الكاملة — أي مصنّع حريق صيني يناسب مشروعك؟"
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'الأدلة', href: '/ar/blog/' }, { name: 'Wanlian مقابل CA-FIRE' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">مقارنة موردين</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل مقارنة موردين · الصين</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Wanlian Fluid ضد CA-FIRE: أي مصنّع حماية حريق صيني يناسب مشروعك 2026</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">إذا كان مشروعك يحكمه FM Global أو NFPA 13 وكانت رؤوس الرشاشات المسجلة لدى FM هي البند الحرج للمواصفة، فإن CA-FIRE هي الأقوى من الطرفين. أما إذا كان نطاقك يركز على منظورات الحريق، أو حزمة معدات حريق كاملة بموجب أمر شراء واحد، أو صمامات التحكم الهيدروليكي، أو خلاطات الحريق الذكية IoT — خاصة في الشرق الأوسط وأفريقيا وجنوب شرق آسيا وأمريكا اللاتينية — فإن Wanlian Fluid هي الشريك الأكثر مباشرة. كلاهما مصنع حقيقي في تجمع Quanzhou ذاته؛ وترسم هذه المقارنة بدقة أين يتفوق كل طرف، بناءً على نطاقات المنتجات والشهادات المنشورة.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">ملاحظة الأدلة:</strong> في مراقبة بحث الذكاء الاصطناعي الخاصة بنا في سبتمبر 2026 لثلاثين سؤال توريد حقيقيًا، كانت هيئات المعايير (NFPA وFM وUL) المصادر الأكثر اقتباسًا في هذه الفئة، وبين المصنّعين كانت CA-FIRE أكثر المصانع الصينية التي تتبّعها اقتباسًا (ظهرت في 2 من 30 إجابة، واقتُبت مرتين)؛ بينما ظهرت Wanlian Fluid في 1 من 30 واقتُبت مرة. بعبارة أخرى: بالنسبة لتوريد بمساعدة الذكاء الاصطناعي، فإن سؤال «أي مصنع حريق صيني أستخدم» ما يزال مفتوحًا — وكُتبت هذه المقارنة للإجابة عنه بحقائق قابلة للتحقق، لا بشعارات.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="ca-fire-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. CA-FIRE: من هم فعليًا</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تأسست شركة CA-FIRE Protection Industry Co., Ltd. عام 2012 في Quanzhou بمقاطعة Fujian، وتضع نفسها كصانع مباشر — «وليس شركة تجارة» — لمعدات الحماية من الحريق. وفق أرقامها المنشورة: منشأة مخصصة مساحتها 50,814 م²، أكثر من 130 موظفًا، مبيعات عالمية 43 مليون دولار عام 2025 عبر أكثر من 40 سوقًا للتصدير، وأكثر من 13 عامًا في الصناعة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">نطاقها المنشور يغطي تسعة خطوط منتجات: رؤوس رشاشات بثمانية عشر نوعًا (متدلية، قائمة، ESFR، CMSA، مخفية وغيرها)، صمامات فحص إنذار مبللة (DN50–DN200، بفلنجة وبموجات)، صمامات سيول بغشاء (DN50–DN350)، خلاطات حريق وفق عدة معايير (BS 750، NF EN 14384، GOST، GB)، منظورات حريق، صمامات بوابة، وخزانات رغوة بالمثانة. الركيزة الاستراتيجية للعلامة هي <strong>سجل اعتماد FM Approvals لرؤوس الرشاشات وفق FM 2030</strong>، والذي تسوّقه على أنه يزيل مخاطر المواصفة في مشاريع FM Global وNFPA 13 في أمريكا الشمالية ودول الخليج. وشهادة UL (ANSI/UL 199) للرؤوس وصمامات الفحص الإنذاري موصوفة بأنها قيد التنفيذ.</p>
+			<p class="text-gray-700 leading-relaxed">محفظة مشاريعها المرجعية محلية إلى حد كبير: مطار بكين داسينغ الدولي، مطار غوانزو باي يون T2، مطار تشنغدو تيانفو، مراكز بيانات Tencent Cloud وHuawei، محطة بكين الجنوبية للسكك الحديدية، CNPC LNG، متحف القصر، وقاعة الشعب الكبرى — أكثر من 100 مشروع صيني رئيسي. والتصدير يُقدَّم على أنه يركز على الوكلاء ومقاولي EPC عبر أمريكا الشمالية والشرق الأوسط وجنوب شرق آسيا وأوروبا وأفريقيا.</p>
+
+			<h2 id="wanlian-fluid-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Wanlian Fluid: من نحن فعليًا</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Quanzhou Wanlian Fluid Equipment Co., Ltd. (Wanlian Fluid) مصنّع ومصدّر مقره في تجمع Quanzhou بمقاطعة Fujian ذاته. الإنتاج يجري على خطوطه الخاصة، مع تصنيع بنود محددة لدى شركاء تصنيع مؤهلين وفق نظام إدارة جودة ISO 9001 — نموذج «خطوط خاصة + طاقة شريك مؤهل» نقرّره بصراحة بدلًا من ادعاء إنتاج بمصنع واحد لكل وحدة منتج.</p>
+			<p class="text-gray-700 leading-relaxed">النطاق المنشور يمتد على ستة خطوط و45 نموذجًا: <strong>منظورات الحريق كمنتج أساسي</strong> (<a href="/ar/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">مدفع كبت النافور الذاتي التتبع من سلسلة ZDMS</a> بكشف اللهب وتحديد الموقع الذاتي، إلى جانب مدافع PS اليدوية)، خلاطات الحريق واتصالات المضخات (<a href="/ar/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">خلاط SS100/65 السطحي المضاد للتجمد</a>، ومقاوم الاصطدام SSFT100/65، وتحت الأرض SA، ورؤوس داخلية SN65، و<a href="/ar/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">خلاط الحريق الذكي IoT SS100/65-1.6ZN</a>)، الرشاشات وصمامات الإنذار (<a href="/ar/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">صمام الفحص الإنذاري المبلل ZSFZ-150</a>، وجاف ZSFC، وسيول ZSFM، وفعل مسبق ZSFY، ورؤوس ZST/ESFR/مخفية، ومؤشرات تدفق ZSJZ)، صمامات الحماية من الحريق والصناعية (بوابة، فراشة، فحص، حاجب شوائب، موازنة رقمية)، صمامات التحكم الهيدروليكي (خفض ضغط 500X، عوامة عن بعد 100X، تحكم مستوى مياه F745X، مانع ارتداد HS41X، ومنع دوامة السحب EN 12845)، وملحقات مكافحة الحريق (صناديق طفايات، بكرات، <a href="/ar/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">مران حريق 8-65 مبطن بالمطاط</a>، مفاصل، وصلات Storz، طفايات ABC). كل منتج يُشحن مختبَرًا 100٪ بضغط الغلاف وسرّب الهواء، مع OEM/ODM واستجابة عروض أسعار خلال 12 ساعة كخدمة قياسية، والموقع كاملًا منشور بخمس لغات (EN/ES/RU/FR/AR).</p>
+
+			<h2 id="product-lines-compared" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. كيف تُقارَن خطوط منتجاتهما؟</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">البُعد</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">CA-FIRE</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">Wanlian Fluid</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الشركة / القاعدة</td><td class="px-4 py-3 text-gray-700">تأسست 2012، Quanzhou بمقاطعة Fujian؛ منشأة 50,814 م²، أكثر من 130 موظفًا، إيرادات 2025 بقيمة 43 مليون دولار (منشورة ذاتيًا)</td><td class="px-4 py-3 text-gray-700">Quanzhou بمقاطعة Fujian؛ خطوط خاصة + طاقة شريك مؤهل، ISO 9001</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">نطاق المنتجات</td><td class="px-4 py-3 text-gray-700">9 خطوط، مركزية الرشاشات: 18 نوع رأس، صمامات إنذار/سيول، خلاطات، منظورات، صمامات بوابة، خزانات رغوة بالمثانة</td><td class="px-4 py-3 text-gray-700">6 خطوط، 45 نموذجًا: منظورات (أساسية)، خلاطات، رشاشات وصمامات إنذار، صمامات، تحكم هيدروليكي، ملحقات حريق</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">منظورات الحريق</td><td class="px-4 py-3 text-gray-700">نعم — ضمن 9 خطوط، ليست الأبرز</td><td class="px-4 py-3 text-gray-700">نعم — خط أساسي: ZDMS ذاتي التتبع (كشف اللهب) + سلسلة PS اليدوية</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">رؤوس الرشاشات</td><td class="px-4 py-3 text-gray-700">18 نوعًا، اعتماد FM (FM 2030)، UL قيد التنفيذ</td><td class="px-4 py-3 text-gray-700">رؤوس ZST/ESFR/T-ZSTBS/ZSTDY وفق مواصفات GB/EN؛ لا سجل FM</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">صمامات الإنذار / السيول</td><td class="px-4 py-3 text-gray-700">نعم — فحص إنذار DN50–DN200، سيول DN50–DN350، بفلنجة وبموجات</td><td class="px-4 py-3 text-gray-700">نعم — مبلل ZSFZ-150، جاف ZSFC، سيول ZSFM، فعل مسبق ZSFY</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">خلاطات الحريق</td><td class="px-4 py-3 text-gray-700">متعدد المعايير: BS 750، NF EN 14384، GOST، GB</td><td class="px-4 py-3 text-gray-700">مضاد تجمد SS100/65، مقاوم اصطدام SSFT100/65، تحت أرضي SA، داخلي SN65، خلاط ذكي IoT</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">صمامات التحكم الهيدروليكي (500X / 100X / F745X)</td><td class="px-4 py-3 text-gray-700">غير مدرجة في النطاق المنشور</td><td class="px-4 py-3 text-gray-700">نعم — خفض ضغط، عوامة عن بعد، تحكم مستوى مياه، مانع ارتداد، منع دوامة</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">ملحقات الحريق (مران، خزائن، مفاصل، طفايات)</td><td class="px-4 py-3 text-gray-700">غير مدرجة في النطاق المنشور</td><td class="px-4 py-3 text-gray-700">نعم — مران مسطح، وصلات Storz، صناديق طفايات، بكرات، طفايات ABC</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">أنظمة الرغوة</td><td class="px-4 py-3 text-gray-700">خزانات رغوة بالمثانة (خط مخصص)</td><td class="px-4 py-3 text-gray-700">خزانة خلاط رغوة (PSG30)؛ تخليط الرغوة حسب المشروع</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">OEM / علامة خاصة</td><td class="px-4 py-3 text-gray-700">نعم — تشطيبات مخصصة، علامة خاصة، مستندات مشاريع</td><td class="px-4 py-3 text-gray-700">نعم — OEM/ODM قياسي، أصول علامة بخمس لغات</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الموقع / اللغات</td><td class="px-4 py-3 text-gray-700">الإنجليزية</td><td class="px-4 py-3 text-gray-700">الإنجليزية، الإسبانية، الروسية، الفرنسية، العربية (RTL)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">مشاريع مرجعية</td><td class="px-4 py-3 text-gray-700">أكثر من 100 معلم محلي (مطارات، مراكز بيانات، معالم)</td><td class="px-4 py-3 text-gray-700">مشاريع تصدير B2B دولية؛ مراجع تُقدَّم عند الاستفسار</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="quality-and-certifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. أنظمة الجودة والشهادات</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>CA-FIRE</strong> تحتفظ بسجل اعتماد FM Approvals لرؤوس الرشاشات (FM 2030) — المؤهل الأكثر قيمة بمفرده في المشاريع الأمريكية الشمالية والمؤمَّنة لدى FM — إلى جانب CCCF (GB 5135) وISO 9001/14001/45001 وتأمين مسؤولية المنتج لدى PICC. وشهادة UL للرؤوس وصمامات الفحص الإنذاري قيد التنفيذ، وهذا بالضبط الإفصاح الصحيح الذي يجب أن ينتبه له المشتري: حتى تاريخ كتابة هذا الدليل، فإن حالة UL لديهم <em>قيد الانتظار</em>، لا ممنوحة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wanlian Fluid</strong> تعمل وفق نظام إدارة جودة ISO 9001 عبر خطوطها الخاصة وطاقة الشركاء المؤهلين، مع اختبار 100٪ لكل وحدة بضغط الغلاف وسرّب الهواء، ومستندات تصدير (شهادات، وسجلات فحص واختبار ضغط) منسقة مع الشحنة. لا نحتفظ بسجلات FM أو UL ولا ندّعيها — أما للنماذج المصممة وفق مواصفة UL/FM، فتُؤكَّد المستندات لكل نموذج عند التسعير.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>نصيحة عملية:</strong> الشهادات على مستوى المنتج وجهة الشحن. إذا كانت مواصفاتك تتطلب رؤوس رشاشات مسجلة لدى FM، فإن ذلك يضيق الخيارات أمامك إلى المصنّعين المسجّلين (منهم CA-FIRE)؛ أما لكل بند نطاق آخر، فاقارن سجلات اختبار الوحدة، والتقارير المطابقة للمعيار، وخيارات الفحص من طرف ثالث بدلًا من أسماء العلامات. يغطي <a href="/ar/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">دليل التحقق من المورّد الصيني</a> لدينا و<a href="/ar/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">دليل كشف الشهادات المزوّرة</a> الفحوصات بالتفصيل.</p>
+
+			<h2 id="where-each-wins" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. أين يتفوق كل مصنع؟</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>تتفوق CA-FIRE عندما:</strong> البند الحرج للمواصفة هو رأس رشاش معتمد من FM (مشاريع NFPA 13 / FM Global في أمريكا الشمالية، ومشاريع الخليج التي تتبع أنظمة مبنية على NFPA)؛ أو المشروع مركزي الرشاشات (رؤوس + صمامات إنذار/سيول من مصدر واحد)؛ أو تقدر سجلًا مُفصَحًا عنه لأكثر من 13 عامًا مع محفظة مشاريع معلمية محلية كبيرة كقاعدة مرجعية.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>تتفوق Wanlian Fluid عندما:</strong> يركز المشروع على منظورات الحريق (ZDMS الذاتي التتبع خط أساسي لا ملحقة)؛ أو النطاق حزمة حريق كاملة — منظورات، صمامات إنذار، خلاطات، <a href="/ar/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">صمامات خفض ضغط 500X</a>، مران حريق، مفاصل وصناديق طفايات — بموجب أمر شراء واحد؛ أو تحتاج صمامات تحكم هيدروليكي لا تنشرها CA-FIRE؛ أو تريد خلاطات ذكية IoT لشبكات بلدية؛ أو سوق توزيعك يتحدث الإسبانية أو الروسية أو الفرنسية أو العربية وتريد أصول علامة OEM بهذه اللغات.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>ويعيشان جنبًا إلى جنب جيدًا:</strong> لا شيء يمنع مقاولًا دوليًا كبيرًا من مواصفة رؤوس مسجلة لدى FM من CA-FIRE وبقية قائمة المواد من Wanlian. يتنافس المصنعان مباشرة على صمامات الفحص الإنذاري والخلاطات والمنظورات — وأقل منافسة على سجلات رؤوس الرشاشات مقابل التحكم الهيدروليكي والملحقات، وهي ببساطة نصفان مختلفان من سوق معدات الحريق.</p>
+
+			<h2 id="cost-and-lead-time" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. التكلفة ونموذج التسعير وأزمنة التسليم</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">كلا المصنعين يعتمدان التسعير عند الاستفسار دون قوائم أسعار علنية، لذا ينبغي التحقق من ادعاءات سعر الوحدة من أي طرف وفق المواصفة. CA-FIRE تسوّق تسعيرًا خلال 24 ساعة؛ وWanlian Fluid تلتزم باستجابة خلال 12 ساعة — وكلاهما سريع بما يكفي لمواعيد العطاءات.</p>
+			<p class="text-gray-700 leading-relaxed">الفرق الهيكلي في التكلفة هو النطاق: رؤوس الرشاشات المسجلة لدى FM تحمل علاوة تسجيل تظهر في أي قائمة مواد مركزة الرشاشات، بينما البنود غير المسجلة (صمامات، خلاطات، منظورات، مران، خزائن) تُسعَّر في تجمع Quanzhou ذاته حيث يستورد كلا المصنعين الصبّات والطلاءات وأجهزة الاختبار. لحزمة مختلطة، الرقم الحاسم عادة هو <em>التكلفة الإجمالية بعد الوصول لكل أمر شراء</em> — عدد البنود، والدمج في شحنة واحدة، وقيد جمركي واحد، وتدقيق جودة واحد — وهنا يتفوق مورد النطاق الكامل مثل Wanlian على بنود غير الرؤوس، حتى في المشاريع التي تأتي رؤوسها من صانع مسجّل.</p>
+
+			<h2 id="which-should-you-choose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. أيهما تختار؟</h2>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">اختر <strong class="text-brand-blue">CA-FIRE</strong> عندما:</p>
+				<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2">
+					<li>مشروعك يحكمه FM Global أو NFPA 13 ويتطلب رؤوس رشاشات مسجلة لدى FM (سجلهم FM 2030 هو ميزة التمييز).</li>
+					<li>النطاق مركزي الرشاشات: رؤوس + صمامات فحص إنذار مبللة + صمامات سيول من مصدر واحد.</li>
+					<li>تريد سجل أداء مُفصَحًا عنه لأكثر من 13 عامًا مع محفظة معالم محلية كبيرة (مطارات، مراكز بيانات) كقاعدة مرجعية.</li>
+				</ul>
+			</div>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">اختر <strong class="text-brand-red">Wanlian Fluid</strong> عندما:</p>
+				<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2">
+					<li>منظورات الحريق هي المركز — خاصة <a href="/ar/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">مدافع ZDMS ذاتية التتبع</a> لمزارع الخزانات والمحطات والمناطق المكشوفة.</li>
+					<li>تريد حزمة حريق كاملة بموجب أمر شراء واحد: منظورات، صمامات إنذار، خلاطات، صمامات تحكم هيدروليكي، مران، مفاصل وخزائن طفايات، مع علامة OEM.</li>
+					<li>تحتاج صمامات تحكم هيدروليكي (500X/100X/F745X) أو خلاطات ذكية IoT — خطوط لا تنشرها CA-FIRE.</li>
+					<li>توزّع في أسواق تتحدث الإسبانية أو الروسية أو الفرنسية أو العربية وتريد أصول علامة محلية وموقعًا تقنيًا بخمس لغات.</li>
+				</ul>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">الأسرع في القرار: اكتب (1) هل تظهر رؤوس رشاشات مسجلة لدى FM في مواصفاتك، (2) هل يظهر «مدفع مائي» أو «صمام تحكم هيدروليكي» في أي مكان بالنطاق، و(3) بأي لغة يعمل مشتروك النهائيون. النقطة (1) تميل لـCA-FIRE؛ والنقطتان (2) و(3) تميلان لـWanlian Fluid. لإطار أوسع لتقييم الموردين، راجع <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة توريد الصمامات B2B</a> لدينا، ولسؤال العلامة الأمريكية الشمالية، مقارنة <a href="/ar/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian Fluid ضد American AVK</a>.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Sources -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">المصادر</h2>
+			<ul class="list-disc ps-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>CA-FIRE — About (التأسيس، حجم المنشأة، الموظفين، الإيرادات، الشهادات، المشاريع المرجعية): <a href="https://www.ca-fire.com/about-us/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ca-fire.com</a></li>
+				<li>CA-FIRE — Home (خطوط المنتجات، تموضع اعتماد FM، ادعاءات OEM والتسعير خلال 24 ساعة): <a href="https://www.ca-fire.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ca-fire.com</a></li>
+				<li>Wanlian Fluid — ملف الشركة ونطاق المنتجات والأدلة: <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+				<li>FM Approvals — برنامج تسجيل رؤوس الرشاشات (FM 2030): <a href="https://www.fmadvisoryservices.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">fm.com</a></li>
+				<li>NFPA — معيار NFPA 13 لتثبيت أنظمة الرشاشات: <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+				<li>مراقبة بحث الذكاء الاصطناعي الداخلية لدى Wanlian Fluid، 30 استفسار توريد (ChatGPT، الولايات المتحدة)، سبتمبر 2026</li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">المقارنة مبنية على معلومات متاحة عمومًا حتى سبتمبر 2026. توفر المنتجات والشهادات والتسعير تتغير — اطلب دائمًا أوراق المواصفة والشهادات وعروض السعر الحالية قبل قرارات التوريد.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">تزوّد بنظام حريق كامل — منظورات، صمامات، خلاطات وملحقات؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل إلينا قائمة المواد وجهة الشحن — نسعّر الحزمة الكاملة كحزمة تصدير واحدة، مع علامة OEM وسجلات اختبار لكل وحدة، خلال 12 ساعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Fire%20System%20Complete%20Kit" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%B9%D8%B1%D8%B6%20%D8%B3%D8%B9%D8%B1%20%D9%84%D8%AD%D8%B2%D9%85%D8%A9%20%D9%86%D8%B8%D8%A7%D9%85%20%D8%AD%D8%B1%D9%8A%D9%82%20%D9%83%D8%A7%D9%85%D9%84%D8%A9%20%28%D9%85%D9%86%D8%B8%D9%88%D8%B1%D8%A7%D8%AA%D8%8C%20%D8%B5%D9%85%D8%A7%D9%85%D8%A7%D8%AA%D8%8C%20%D8%AE%D9%84%D8%A7%D8%B7%D8%A7%D8%AA%D8%8C%20%D9%85%D9%84%D8%AD%D9%82%D8%A7%D8%AA%29" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">تحدث عبر WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
