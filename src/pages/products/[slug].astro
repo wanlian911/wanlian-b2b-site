@@ -85,6 +85,13 @@ const categoryInfo: Record<string, { applications: string[]; testing: string }> 
 const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
 const info = categoryInfo[product.category];
 
+// 首屏决策区：按优先级自动提取至多 4 项关键规格（数据驱动，只渲染产品实际具备的字段）
+const SPEC_PRIORITY = ['Nominal Diameter', 'Nominal Pressure', 'Connection', 'Standard', 'Working Temperature', 'Body Material'];
+const keySpecs = SPEC_PRIORITY
+  .map((k) => [k, product.specs?.[k]] as [string, string | undefined])
+  .filter(([, v]) => Boolean(v))
+  .slice(0, 4) as [string, string][];
+
 // 产品视频教程(可选):数据源配置 product.video 后自动渲染并输出 VideoObject JSON-LD
 const videoData = product.video
   ? {
@@ -206,6 +213,36 @@ const relatedGuides = [...explicitGuides, ...(guideByCategory[product.category] 
           ))}
         </div>
 
+        <!-- Specs at a glance: 买家第一决策信息 + 双 CTA 前置到首屏 -->
+        {keySpecs.length > 0 && (
+          <div class="bg-white border border-gray-200 rounded-xl p-5">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">Specs at a Glance</h2>
+            <dl class="grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-4">
+              {keySpecs.map(([key, value]) => (
+                <div>
+                  <dt class="text-[11px] font-medium text-gray-500">{key}</dt>
+                  <dd class="text-sm font-bold text-gray-900 mt-0.5">{value}</dd>
+                </div>
+              ))}
+            </dl>
+            <p class="text-xs text-gray-500 mt-3">Full datasheet, test reports and drawings available with your inquiry.</p>
+            <div class="mt-4 flex flex-col sm:flex-row gap-3">
+              <a
+                href={`/contact/?product=${encodeURIComponent(product.name)}`}
+                class="flex-1 text-center py-3 bg-brand-red text-white font-bold rounded-lg hover:bg-red-700 transition"
+              >
+                Inquire Now
+              </a>
+              <a
+                href="/contact/?product=Request%20Catalog%20PDF"
+                class="flex-1 text-center py-3 bg-white text-brand-blue font-bold border-2 border-brand-blue rounded-lg hover:bg-blue-50 transition"
+              >
+                Request Documentation
+              </a>
+            </div>
+          </div>
+        )}
+
         <div class="space-y-4">
           <h2 class="text-xl font-bold border-b pb-2">Key Features</h2>
           <ul class="grid grid-cols-1 gap-2">
@@ -295,7 +332,7 @@ const relatedGuides = [...explicitGuides, ...(guideByCategory[product.category] 
         <div class="flex flex-col sm:flex-row gap-4 pt-6">
           <a 
             href={`/contact/?product=${encodeURIComponent(product.name)}`} 
-            class="flex-1 text-center py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-600/20"
+            class="flex-1 text-center py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-600/20"
           >
             Inquire Now
           </a>

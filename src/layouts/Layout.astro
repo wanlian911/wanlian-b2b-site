@@ -138,7 +138,9 @@ const videoJsonLd = video ? {
 } : null;
 
 // BreadcrumbList 结构化数据 (JSON-LD)
-const breadcrumbJsonLd = breadcrumbs.length ? {
+// 末级面包屑可无链接（当前页，Google 容忍）；中间级无链接会触发 "item missing" 错误，过滤掉
+const crumbItems = breadcrumbs.filter((item, i) => Boolean(item.href) || i === breadcrumbs.length - 1);
+const breadcrumbJsonLd = crumbItems.length ? {
 	"@context": "https://schema.org",
 	"@type": "BreadcrumbList",
 	"itemListElement": [
@@ -148,7 +150,7 @@ const breadcrumbJsonLd = breadcrumbs.length ? {
 			"name": "Home",
 			"item": "https://wanlian911.com/"
 		},
-		...breadcrumbs.map((item, index) => ({
+		...crumbItems.map((item, index) => ({
 			"@type": "ListItem",
 			"position": index + 2,
 			"name": item.name,
@@ -170,6 +172,8 @@ const breadcrumbJsonLd = breadcrumbs.length ? {
 		<title>{title}</title>
 		<meta name="title" content={title} />
 		<meta name="description" content={description} />
+		<!-- 参数化变体（/contact/?product= 等）由 canonical 归并处理：
+		     静态构建下同一文件服务所有查询串，Astro.url.search 构建期恒为空，故不做 noindex -->
 		{noindex ? (
 			<meta name="robots" content="noindex, nofollow" />
 		) : (
