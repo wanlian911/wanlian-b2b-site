@@ -13,7 +13,7 @@ export const productsFrPart1: Record<string, Product> = {
       'Clapet élastomère entièrement encapsulé en caoutchouc EPDM de haute qualité',
       "Le fond plat empêche l'accumulation de saletés et de sédiments",
       "Revêtement époxy non toxique à l'intérieur et à l'extérieur pour résister à la corrosion et à la rouille",
-      'Entretien facile, le remplacement du siège peut être effectué en ligne sous pression',
+      'Entretien facile : procédure de remplacement du siège et conditions applicables disponibles dans la documentation technique, fournie sur demande',
     ],
     specs: {
       'Diamètre nominal': 'DN50 - DN700 (2" to 28")',
@@ -58,7 +58,7 @@ export const productsFrPart1: Record<string, Product> = {
       {
         question: 'Le joint du Z41X peut-il être remplacé sans vidanger la canalisation ?',
         answer:
-          "Oui — l\u2019étanchéité élastomère peut être remplacée en ligne sous pression, évitant des arrêts coûteux lors de la maintenance.",
+          "La procédure de remplacement du siège, ses conditions applicables et ses limites de sécurité sont documentées pour ce type de vanne ; la documentation technique est fournie sur demande.",
       },
       {
         question: 'Quels fluides et quelles températures le Z41X peut-il traiter ?',

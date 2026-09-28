@@ -12,7 +12,7 @@ export const productsEsPart1: Record<string, Product> = {
       'Cuña elástica totalmente encapsulada en caucho EPDM de alta calidad',
       'Diseño de fondo plano que evita la acumulación de suciedad y sedimentos',
       'Recubrimiento de resina epoxi no tóxico interior y exterior para resistencia a la corrosión y oxidación',
-      'Fácil mantenimiento: el reemplazo del sellado puede realizarse en línea bajo presión'
+      'Fácil mantenimiento: procedimiento de reemplazo del sellado y condiciones aplicables disponibles en documentación técnica bajo solicitud'
     ],
     specs: {
       'Diámetro Nominal': 'DN50 - DN700 (2" a 28")',
@@ -53,7 +53,7 @@ export const productsEsPart1: Record<string, Product> = {
       },
       {
         question: '¿Puede reemplazarse el sello del Z41X sin drenar la línea?',
-        answer: 'Sí, el sellado elástico puede reemplazarse en línea y bajo presión, evitando paradas costosas durante el mantenimiento.'
+        answer: 'El procedimiento de reemplazo del sellado, sus condiciones aplicables y límites de seguridad están documentados para este tipo de válvula; podemos proporcionar la documentación técnica bajo solicitud.'
       },
       {
         question: '¿Qué medios y temperaturas puede manejar el Z41X?',

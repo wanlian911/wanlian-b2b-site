@@ -37,7 +37,7 @@ export const products: Product[] = [
       'Resilient wedge fully encapsulated with high-grade EPDM rubber',
       'Flat bottom design prevents dirt and sediment accumulation',
       'Non-toxic epoxy resin coating inside and out for corrosion and rust resistance',
-      'Easy maintenance, sealing replacement can be done on-line under pressure'
+      'Easy maintenance — sealing replacement procedure and applicable conditions available in technical documentation on request'
     ],
     specs: {
       'Nominal Diameter': 'DN50 - DN700 (2" to 28")',
@@ -70,7 +70,7 @@ export const products: Product[] = [
     faqs: [
       { question: 'What sizes are available for the Z41X resilient seat gate valve?', answer: 'DN50 to DN700 (2 inch to 28 inch) at PN10 or PN16, covering branch lines up to large transmission mains in water supply, sewage, industrial and HVAC service.' },
       { question: 'How does the Z41X achieve a bubble-tight seal?', answer: 'The wedge is fully encapsulated in high-grade EPDM rubber, so sealing does not depend on metal-to-metal contact like a traditional gate valve. The flat-bottom design also prevents sediment buildup at the seat.' },
-      { question: 'Can the Z41X seal be replaced without draining the line?', answer: 'Yes — the resilient sealing can be replaced on-line under pressure, avoiding costly shutdowns during maintenance.' },
+      { question: 'Can the Z41X seal be replaced without draining the line?', answer: 'The sealing replacement procedure, applicable conditions and safety limits are documented for this valve type; we can provide the technical documentation on request.' },
       { question: 'What media and temperatures can the Z41X handle?', answer: 'Water, non-corrosive liquids and air from 0°C to 80°C, with a non-toxic epoxy resin coating inside and out for corrosion resistance in potable and industrial networks.' }
     ]
   },
