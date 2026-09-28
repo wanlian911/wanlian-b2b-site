@@ -223,8 +223,17 @@ const breadcrumbJsonLd = breadcrumbs.length ? {
 		{breadcrumbJsonLd && (
 			<script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 		)}
+
+		<!-- Google tag (gtag.js) — GA4 属性 wanlian911.com (556191491)，数据流 G-TQPERQY9VN -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-TQPERQY9VN"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-TQPERQY9VN');
+		</script>
 	</head>
-	<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
+	<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen" data-ga-product={productData?.id}>
 		<Header locale={locale} phone={whatsappPhone} displayPhone={whatsappDisplayPhone} />
 		<div class="flex-grow">
 			<slot />
@@ -232,6 +241,36 @@ const breadcrumbJsonLd = breadcrumbs.length ? {
 		<Footer locale={locale} phone={whatsappPhone} displayPhone={whatsappDisplayPhone} />
 		<WhatsAppButton phone={whatsappPhone} displayPhone={whatsappDisplayPhone} locale={locale} />
 		<FloatingLeadButton phone={whatsappPhone} locale={locale} />
+
+		<script>
+			// GA4 交互埋点：仅记录获客交互（产品查看 / WhatsApp 点击 / 表单开始），
+			// 不携带任何 PII（无姓名、邮箱、电话、表单内容）；提交成功事件在各自表单组件内触发
+			declare global { interface Window { gtag?: (...args: unknown[]) => void } }
+			const ga = (event: string, params?: Record<string, string>) => {
+				window.gtag?.('event', event, params ?? {});
+			};
+
+			// 产品详情页浏览（body 属性由 Layout 按 productData 输出）
+			if (document.body.dataset.gaProduct) {
+				ga('product_view', { product_id: document.body.dataset.gaProduct });
+			}
+
+			// WhatsApp 入口点击（悬浮按钮 / 页头号码 / 页脚 / 提交成功卡，统一命中 wa.me 链接）
+			document.addEventListener('click', (e) => {
+				const link = (e.target as Element | null)?.closest?.('a[href*="wa.me/"]');
+				if (link) ga('whatsapp_click', { link_url: link.getAttribute('href') ?? '' });
+			}, { passive: true });
+
+			// 表单开始：页面内任一表单字段首次获得焦点（每页一次，覆盖联系页与悬浮留资表单）
+			let formStarted = false;
+			document.addEventListener('focusin', (e) => {
+				if (formStarted) return;
+				if ((e.target as Element | null)?.closest?.('input, select, textarea')) {
+					formStarted = true;
+					ga('rfq_form_start');
+				}
+			}, { passive: true });
+		</script>
 	</body>
 </html>
 <style is:global>

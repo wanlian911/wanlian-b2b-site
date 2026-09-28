@@ -253,6 +253,11 @@ const waFollowupHref = `https://wa.me/8618684324501?text=${encodeURIComponent(di
       const result = await response.json();
 
       if (response.ok) {
+        // 仅服务端返回成功才计为询盘提交；has_product 为目录商品名布尔值，不含 PII
+        (window as any).gtag?.('event', 'rfq_submitted', {
+          form_source: 'inquiry_form',
+          has_product: formData.get('product') ? 'yes' : 'no'
+        });
         form.classList.add('hidden');
         successEl!.classList.remove('hidden');
         form.reset();

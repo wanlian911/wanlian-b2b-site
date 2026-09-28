@@ -133,6 +133,7 @@ const waFollowupHref = `https://wa.me/${waDigits}?text=${encodeURIComponent(dict
   };
 
   const openModal = () => {
+    (window as any).gtag?.('event', 'lead_form_open', { form_source: 'floating_lead_button' });
     floatOverlay!.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
     floatBtn!.setAttribute('aria-expanded', 'true');
@@ -211,6 +212,10 @@ const waFollowupHref = `https://wa.me/${waDigits}?text=${encodeURIComponent(dict
       const result = await response.json();
 
       if (response.ok) {
+        // 仅服务端返回成功才计为留资提交；来源取自表单隐藏字段 leadSource，不含 PII
+        (window as any).gtag?.('event', 'rfq_submitted', {
+          form_source: String(formData.get('leadSource') ?? 'floating_lead_button')
+        });
         floatForm.classList.add('hidden');
         floatSuccess!.classList.remove('hidden');
       } else {
