@@ -17,6 +17,20 @@ export interface UIStrings {
     language: string;
     tagline: string;
     languageLabel: Record<Locale, string>;
+    // 导航「Products」下拉菜单
+    allProducts: string;
+    categoriesTitle: string;
+    solutionsTitle: string;
+    // 页头产品搜索
+    search: {
+      ariaLabel: string;
+      placeholder: string;
+      loading: string;
+      noResults: string; // 含占位符 {q}
+      viewAll: string;
+      inquiry: string;
+      error: string; // 索引拉取失败时的降级提示
+    };
   };
   footer: {
     companyName: string;
@@ -137,6 +151,18 @@ const en: UIStrings = {
     language: 'Language',
     tagline: 'Manufacturer & Exporter of Fluid Equipment',
     languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français', ar: 'العربية' },
+    allProducts: 'All Products',
+    categoriesTitle: 'Categories',
+    solutionsTitle: 'Solutions',
+    search: {
+      ariaLabel: 'Search products',
+      placeholder: 'Search product, model or size…',
+      loading: 'Searching…',
+      noResults: 'No products match "{q}". Try a model code (e.g. Z41X, SN65), a size (e.g. DN50) or a material — or send us an inquiry.',
+      viewAll: 'View all products',
+      inquiry: "Can't find what you need? Send an inquiry",
+      error: 'Search is temporarily unavailable. Browse the full catalog or send us an inquiry instead.'
+    }
   },
   footer: {
     companyName: 'WANLIAN FLUID',
@@ -291,6 +317,18 @@ const es: UIStrings = {
     language: 'Idioma',
     tagline: 'Fabricante y Exportador de Equipos de Fluidos',
     languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français', ar: 'العربية' },
+    allProducts: 'Todos los productos',
+    categoriesTitle: 'Categorías',
+    solutionsTitle: 'Soluciones',
+    search: {
+      ariaLabel: 'Buscar productos',
+      placeholder: 'Buscar producto, modelo o tamaño…',
+      loading: 'Buscando…',
+      noResults: 'No hay productos que coincidan con "{q}". Pruebe con un código de modelo (p. ej. Z41X, SN65), un tamaño (p. ej. DN50) o un material — o envíenos una consulta.',
+      viewAll: 'Ver todos los productos',
+      inquiry: '¿No encuentra lo que necesita? Envíe una consulta',
+      error: 'La búsqueda no está disponible temporalmente. Consulte el catálogo completo o envíenos una consulta.'
+    }
   },
   footer: {
     companyName: 'WANLIAN FLUID',
@@ -445,6 +483,18 @@ const ru: UIStrings = {
     language: 'Язык',
     tagline: 'Производитель и экспортёр оборудования для жидкостных систем',
     languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français', ar: 'العربية' },
+    allProducts: 'Весь каталог',
+    categoriesTitle: 'Категории',
+    solutionsTitle: 'Решения',
+    search: {
+      ariaLabel: 'Поиск по продукции',
+      placeholder: 'Поиск продукции, модели или размера…',
+      loading: 'Поиск…',
+      noResults: 'По запросу "{q}" ничего не найдено. Попробуйте модель (напр. Z41X, SN65), размер (напр. DN50) или материал — или отправьте запрос.',
+      viewAll: 'Смотреть весь каталог',
+      inquiry: 'Не нашли нужное? Отправьте запрос',
+      error: 'Поиск временно недоступен. Посмотрите весь каталог или отправьте запрос.'
+    }
   },
   footer: {
     companyName: 'WANLIAN FLUID',
@@ -600,6 +650,18 @@ const fr: UIStrings = {
     language: 'Langue',
     tagline: 'Fabricant et Exportateur d\'Équipements Fluides',
     languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français', ar: 'العربية' },
+    allProducts: 'Tous les produits',
+    categoriesTitle: 'Catégories',
+    solutionsTitle: 'Solutions',
+    search: {
+      ariaLabel: 'Rechercher des produits',
+      placeholder: 'Rechercher un produit, un modèle ou une taille…',
+      loading: 'Recherche…',
+      noResults: 'Aucun produit ne correspond à « {q} ». Essayez un code de modèle (ex. Z41X, SN65), une taille (ex. DN50) ou un matériau — ou envoyez-nous une demande.',
+      viewAll: 'Voir tous les produits',
+      inquiry: 'Vous ne trouvez pas ? Envoyez une demande',
+      error: 'La recherche est temporairement indisponible. Parcourez le catalogue complet ou envoyez-nous une demande.'
+    }
   },
   footer: {
     companyName: 'WANLIAN FLUID',
@@ -758,6 +820,18 @@ const ar: UIStrings = {
     language: 'اللغة',
     tagline: 'صانع ومصدّر معدات السوائل',
     languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français', ar: 'العربية' },
+    allProducts: 'جميع المنتجات',
+    categoriesTitle: 'الفئات',
+    solutionsTitle: 'الحلول',
+    search: {
+      ariaLabel: 'البحث في المنتجات',
+      placeholder: 'ابحث عن منتج أو موديل أو مقاس…',
+      loading: 'جارٍ البحث…',
+      noResults: 'لا توجد منتجات مطابقة لـ "{q}". جرّب رمز الموديل (مثل Z41X أو SN65) أو المقاس (مثل DN50) أو المادة — أو أرسل استفسارًا.',
+      viewAll: 'عرض جميع المنتجات',
+      inquiry: 'لم تجد ما تحتاجه؟ أرسل استفسارك',
+      error: 'البحث غير متاح مؤقتًا. تصفح الكتالوج الكامل أو أرسل استفسارك.'
+    }
   },
   footer: {
     companyName: 'WANLIAN FLUID',
