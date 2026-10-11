@@ -1,0 +1,198 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const whatsappText = encodeURIComponent('Hallo, ich benötige Sprinklerköpfe (K-Faktor/Temperatur/Ansprechverhalten)');
+
+const faq = [
+	{
+		question: 'Was bedeutet der K-Faktor eines Sprinklerkopfs?',
+		answer: 'Der K-Faktor verknüpft den Durchfluss eines Sprinklerkopfs mit dem Druck am Kopf durch die Formel Q = K × √P (Durchfluss in L/min, Druck in bar). Ein Kopf mit K=80 liefert bei 1 bar etwa 80 L/min; ein Kopf mit K=115 liefert bei gleichem Druck etwa 115 L/min. Höhere K-Faktoren werden eingesetzt, wenn mehr Wasser schneller den Brand erreichen muss – etwa bei erhöhter Gefährdung oder hohen Decken. K=80 bleibt der gängige Standard für Bereiche mit geringer und normaler Gefährdung.'
+	},
+	{
+		question: 'Was bedeuten die Temperaturklassen und die Farben der Glasampullen?',
+		answer: 'Die Glasampulle enthält eine Flüssigkeit, die sich bei der Nennauslösetemperatur ausdehnt und die Ampulle zerstört; dadurch wird der Sprinkler geöffnet. Die Standardklassen und Farbcodes sind 57 °C (orange), 68 °C (rot), 79 °C (gelb), 93 °C (grün) und 141 °C (blau). Ein Sprinklerkopf mit roter 68-°C-Ampulle ist die Standardausführung für die meisten Büros und Lager. Höhere Klassen werden in der Nähe von Wärmequellen wie Kesseln, Heizgeräten und Küchen eingesetzt, damit der Kopf nicht versehentlich auslöst.'
+	},
+	{
+		question: 'Was ist der Unterschied zwischen schnell ansprechenden und Standard-Sprinklerköpfen?',
+		answer: 'Die Ansprechgeschwindigkeit wird durch die thermische Masse des Sensorelements bestimmt: Ein schnell ansprechender Kopf verwendet eine 3-mm-Glasampulle, ein Standardkopf eine 5-mm-Ampulle. Schnell ansprechende Köpfe aktivieren sich früher und werden bei geringer und normaler Gefährdung bevorzugt, weil eine frühere Auslösung Menschen und Sachwerte schützt. Standardköpfe sind in Industrie- und Lagerbereichen üblich, in denen eine etwas langsamere, kontrolliertere Auslösung zulässig ist. Unsere ZST-Serie ist mit beiden Ansprecharten erhältlich.'
+	},
+	{
+		question: 'Welche Sprinklerköpfe im Wanlian-Sortiment sind UL-gelistet?',
+		answer: 'Der verdeckte Sprinkler ZSTDY ist mit einer roten 68-°C-Glasampulle und galvanisch verchromter Oberfläche UL-gelistet. Die Glasampullen-Serie ZST und das horizontale Seitenwandmodell T-ZSTBS werden nach den Anforderungen der GB-5135-Serie und den Werksnormen gefertigt. Für Projekte in Nordamerika bestätigen Sie bitte die in Ihrer Spezifikation geforderte Listung; wir ordnen das zertifizierte Modell zu oder organisieren eine Projektbewertung. Eine Listung der gesamten Serie wird nicht behauptet, wenn nur bestimmte Modelle gelistet sind.'
+	},
+	{
+		question: 'Dürfen Sprinklerköpfe mit unterschiedlichen Temperaturklassen in einem Bereich gemischt werden?',
+		answer: 'Nein – dies ist ein häufiger Inspektionsbefund. Alle Köpfe, die denselben Gefahrenbereich schützen, sollten dieselbe Temperaturklasse aufweisen: Ein niedriger eingestufter Kopf in der Nähe einer Wärmequelle löst zu früh aus, während ein höher eingestufter Kopf in einem normalen Bereich zu spät anspricht. Verwenden Sie höhere Temperaturklassen ausschließlich an Orten mit tatsächlichen Wärmequellen und kennzeichnen Sie die Temperaturzone in den Werkstattzeichnungen.'
+	},
+	{
+		question: 'Wann sollte ich einen verdeckten statt eines hängenden Sprinklerkopfs wählen?',
+		answer: 'Wählen Sie verdeckte Köpfe (zurückgesetzt mit Abdeckplatte), wenn die Deckenoptik wichtig ist – etwa in Büros, Hotels und Ladenausbauten –, weil nur die Abdeckplatte sichtbar bleibt. Hängende Köpfe ragen unter die Decke und bieten ein ungehindertes Sprühbild. Deshalb sind sie weiterhin Standard in Lagern, Industriehallen und Bereichen, in denen die Decke selbst die Gefahrenfläche bildet. Beide Bauarten sind erhältlich; der verdeckte ZSTDY ist die UL-gelistete Option.'
+	}
+];
+
+const toc = [
+	{ id: 'system-type-first', label: '1. Zuerst die Anlagenart, dann den Sprinklerkopf festlegen' },
+	{ id: 'k-factor-flow', label: '2. K-Faktor und Durchfluss: Wasserversorgung abstimmen' },
+	{ id: 'temperature-ratings', label: '3. Temperaturklassen und Farbcode der Glasampullen' },
+	{ id: 'response-orientation', label: '4. Ansprechgeschwindigkeit und Einbaulage' },
+	{ id: 'us-standards-context', label: '5. UL-Listung und NFPA-13-Kontext für US-Projekte' },
+	{ id: 'spec-checklist', label: '6. Spezifikations-Checkliste für Sprinklerköpfe' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const referencePages = [
+	{ slug: 'glass-bulb-fire-sprinkler-zst', name: 'Sprinklerkopf mit Glasampulle (ZST)', img: '/assets/products/glass-bulb-fire-sprinkler-zst.webp', desc: 'K=80/K=115, 57–141 °C, hängend/stehend/Seitenwand' },
+	{ slug: 'horizontal-sidewall-fire-sprinkler-t-zstbs', name: 'Horizontaler Seitenwand-Sprinklerkopf (T-ZSTBS)', img: '/assets/products/horizontal-sidewall-fire-sprinkler-t-zstbs.png', desc: 'Rote 68-°C-Ampulle, Chromoberfläche, Randbereichsabdeckung' },
+	{ slug: 'zstdy-concealed-fire-sprinkler', name: 'Verdeckter Sprinklerkopf (ZSTDY)', img: '/assets/products/zstdy-concealed-fire-sprinkler.webp', desc: 'UL-gelistet, zurückgesetzte Abdeckplatte, 68 °C, Chrom' }
+];
+---
+
+<Layout
+	title="Sprinklerkopf-Auswahl: K-Faktor, Temperatur und Reaktion"
+	description="B2B-Leitfaden zur Auswahl von Sprinklerköpfen: K-Faktor, Durchfluss, Temperatur, Einbaulage, UL-Listung und NFPA 13. Technische Beratung anfordern."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Sprinklerkopf-Auswahl' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Sprinklerkopf-Auswahl</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Brandschutz-Leitfaden</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Leitfaden zur Sprinklerkopf-Auswahl: K-Faktor, Temperatur und Reaktion</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Der Sprinklerkopf ist das einzige Anlagenteil, das bestimmt, wann Wasser freigesetzt wird und wie viel davon den Brand erreicht. Vier Parameter sind entscheidend: K-Faktor, Temperaturklasse, Ansprechgeschwindigkeit und Einbaulage. Dieser Leitfaden erläutert jeden Parameter und die korrekte Spezifikation für Gewerbe-, Lager- und US-Projekte – einschließlich der genauen Bedeutung einer UL-Listung.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{referencePages.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="system-type-first" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Zuerst die Anlagenart, dann den Sprinklerkopf festlegen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Sprinklerköpfe werden als Teil einer Anlagenentscheidung spezifiziert, nicht isoliert. In einer <strong>Nassanlage</strong> bleibt die Rohrleitung gefüllt und jeder Kopf ist eine sofort auslösbare Austrittsstelle. In einer <strong>Trockenanlage</strong> enthält die Rohrleitung Druckluft; die Köpfe müssen zunächst Luft abgeben, bevor Wasser eintrifft. Bei <strong>Sprühflut- und vorgesteuerten Anlagen</strong> können je nach Zonenkonzept offene Düsen oder geschlossene Köpfe eingesetzt werden. Die Ventilseite dieser Entscheidung wird in unserem <a href="/de/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Nass-, Trocken- und vorgesteuerten Anlagen</a> sowie im <a href="/de/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Sprinkleranlagenventilen</a> behandelt.</p>
+			<p class="text-gray-700 leading-relaxed">Nach Festlegung der Anlagenart wird der Kopf anhand von K-Faktor, Temperatur, Ansprechverhalten und Einbaulage ausgewählt – den vier folgenden Parametern. Einen Kopf vor der Anlagenart zu spezifizieren, ist der häufigste Beschaffungsfehler in unseren Anfragen.</p>
+
+			<h2 id="k-factor-flow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. K-Faktor und Durchfluss: Wasserversorgung abstimmen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Der K-Faktor definiert, wie viel Wasser ein Kopf bei einem bestimmten Druck abgibt: <strong>Q = K × √P</strong> (Durchfluss in L/min, Druck in bar). Er verbindet die hydraulische Berechnung der Anlage mit dem tatsächlichen Sprinklerkopf.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>K=80 (Nennwert 80 ±4)</strong> – der langjährige Standard für Bereiche mit geringer und normaler Gefährdung; die Standardwahl für Büros, Einzelhandel und die meisten Gewerbeflächen.</li>
+				<li><strong>K=115 (Nennwert 115 ±9)</strong> – höherer Durchfluss für Lagerbereiche, hohe Decken und Flächen, in denen die Auslegungsdichte mehr Wasser pro Kopf erfordert.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Beide Koeffizienten sind in unserer <a href="/de/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">ZST-Sprinklerkopfserie mit Glasampulle</a> erhältlich. Sie deckt K=80 und K=115 sowie Temperaturklassen von 57 °C bis 141 °C in hängender, stehender und Seitenwandausführung ab. Der Hydraulikplaner berechnet die erforderliche Auslegungsdichte pro Quadratmeter für die Gefahrenklasse. Anschließend wird der K-Faktor so gewählt, dass jeder Kopf seinen Anteil bei einem realistischen Druck liefert.</p>
+			<p class="text-gray-700 leading-relaxed">Wenn ein Datenblatt nur die Gewindegröße, nicht aber den K-Faktor nennt, ist es unvollständig: Der K-Faktor ist die wichtigste Kennzahl.</p>
+
+			<h2 id="temperature-ratings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Temperaturklassen und Farbcode der Glasampullen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Glasampulle enthält eine wärmeempfindliche Flüssigkeit. Bei ihrer Nennauslösetemperatur zerbricht die Ampulle und der Kopf gibt Wasser frei. Die Klassen folgen einem Standardfarbcode, damit Inspektoren einen Kopf vom Boden aus erkennen können:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Temperaturklasse</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Farbe der Ampulle</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typische Verwendung</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">In der ZST-Serie</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">57 °C (135 °F)</td>
+							<td class="px-4 py-3 text-gray-700">Orange</td>
+							<td class="px-4 py-3 text-gray-700">Wohnbereiche / Bereiche mit geringer Wärme</td>
+							<td class="px-4 py-3 text-gray-700">Verfügbar</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">68 °C (155 °F)</td>
+							<td class="px-4 py-3 text-gray-700">Rot</td>
+							<td class="px-4 py-3 text-gray-700">Büros, Lager – Standardklasse</td>
+							<td class="px-4 py-3 text-gray-700">Verfügbar (auch T-ZSTBS, ZSTDY)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">79 °C (175 °F)</td>
+							<td class="px-4 py-3 text-gray-700">Gelb</td>
+							<td class="px-4 py-3 text-gray-700">In der Nähe von Heizgeräten, Oberlichtern, warmen Dächern</td>
+							<td class="px-4 py-3 text-gray-700">Verfügbar</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">93 °C (200 °F)</td>
+							<td class="px-4 py-3 text-gray-700">Grün</td>
+							<td class="px-4 py-3 text-gray-700">Kesselräume, Brennöfen, Bereiche mit hoher Wärme</td>
+							<td class="px-4 py-3 text-gray-700">Verfügbar</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">141 °C (286 °F)</td>
+							<td class="px-4 py-3 text-gray-700">Blau</td>
+							<td class="px-4 py-3 text-gray-700">Spezielle industrielle Wärmequellen</td>
+							<td class="px-4 py-3 text-gray-700">Verfügbar</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Faustregel: Verwenden Sie Köpfe mit roter 68-°C-Ampulle für allgemeine Bereiche und erhöhen Sie die Klasse nur dort, wo eine tatsächliche Wärmequelle eine vorzeitige Auslösung zu einem realen Risiko macht. Höhere Klassen reagieren im Brandfall später. Eine Überdimensionierung „zur Sicherheit“ ist daher keineswegs sicher.</p>
+
+			<h2 id="response-orientation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Ansprechgeschwindigkeit und Einbaulage</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Ansprechgeschwindigkeit wird durch die thermische Masse der Ampulle bestimmt: Ein <strong>schnell ansprechender</strong> Kopf verwendet eine 3-mm-Ampulle und aktiviert sich früher; ein <strong>Standardkopf</strong> verwendet eine 5-mm-Ampulle. Schnell ansprechende Köpfe werden bevorzugt, wenn sich Personen im Bereich aufhalten und eine frühere Auslösung wichtig ist. Standardköpfe eignen sich für Lager- und Industriebereiche, deren Auslösung auf die Brandentwicklung abgestimmt ist. Die ZST-Serie ist mit beiden Ausführungen erhältlich.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Einbaulage richtet sich nach der Gefahrenfläche und der Decke:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Hängend</strong> – ragt unter der Abzweigleitung nach unten; Standard bei sichtbaren Decken und die von den meisten ZST-Modellen abgedeckte Ausführung.</li>
+				<li><strong>Stehend</strong> – sitzt oberhalb der Abzweigleitung; häufig in Lagern mit offenen Stahlträgern, wo der Sprühteller das Wasser an Hindernissen der Tragkonstruktion vorbei verteilen muss.</li>
+				<li><strong>Seitenwand</strong> – wird nahe der Decke an der Wand montiert, wenn Abzweigleitungen durch die Decke unpraktisch sind. Der <a href="/de/products/horizontal-sidewall-fire-sprinkler-t-zstbs/" class="text-brand-blue font-semibold hover:underline">horizontale Seitenwandkopf T-ZSTBS</a> (rote 68-°C-Ampulle, Chromoberfläche) ist das Modell für die Randbereichsabdeckung.</li>
+				<li><strong>Verdeckt</strong> – sitzt hinter einer Abdeckplatte, die beim Auslösen des Kopfes abfällt; gewählt für architektonisch sensible Decken. Der <a href="/de/products/zstdy-concealed-fire-sprinkler/" class="text-brand-blue font-semibold hover:underline">verdeckte Sprinkler ZSTDY</a> besitzt eine rote 68-°C-Ampulle und eine galvanisch verchromte Oberfläche und ist die UL-gelistete Option des Sortiments.</li>
+			</ul>
+
+			<h2 id="us-standards-context" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. UL-Listung und NFPA-13-Kontext für US-Projekte</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Nordamerikanische Projekte werden durch NFPA 13 bestimmt. Die Gefahrenklassen (gering, normal und erhöht) legen Auslegungsdichte und Abstände und damit auch die Spezifikation des Sprinklerkopfs fest. Zusätzlich zu den hydraulischen Parametern verlangen US-Spezifikationen fast immer <strong>gelistete</strong> Köpfe – UL oder eine gleichwertige Listung, die das konkrete Modell abdeckt.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Entscheidend ist, welche Modelle unseres Sortiments gelistet sind: Der <strong>verdeckte Sprinkler ZSTDY ist UL-gelistet</strong> (rote 68-°C-Ampulle, Edelstahlkonstruktion, DN15–DN20) und damit die direkte Option für verdeckte Anwendungen nach US-Spezifikation. Die Glasampullen-Serie ZST und das Seitenwandmodell T-ZSTBS werden nach der GB-5135-Serie und Werksnormen gefertigt. Für sie ist die für Ihr Projekt geforderte Listung zu bestätigen; wir ordnen das zertifizierte Modell zu oder organisieren eine Projektbewertung, statt eine UL-Listung der gesamten Serie zu behaupten.</p>
+			<p class="text-gray-700 leading-relaxed">Diese Unterscheidung ist bei der US-Beschaffung wichtig: Ein nicht zertifizierter Ersatz in einer Leitung, für die eine Listung vorgeschrieben ist, kann die Planprüfung nicht bestehen und die Abnahme der Anlage gefährden. Lassen Sie die geforderte Listung modellweise im Angebot nennen. Unsere Seite zu <a href="/de/certificates/" class="text-brand-blue font-semibold hover:underline">Zertifikaten und Konformität</a> erläutert den Umgang mit Listungsnachweisen.</p>
+
+			<h2 id="spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Spezifikations-Checkliste für Sprinklerköpfe</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>K-Faktor</strong> – K=80 für geringe/normaler Gefährdung, K=115 für höhere Dichte; geben Sie die angestrebte Auslegungsdichte mit der Bestellung an.</li>
+				<li><strong>Temperaturklasse</strong> – 68 °C als Standard; höhere Klassen nur an tatsächlichen Wärmequellen; mischen Sie niemals Klassen innerhalb eines Gefahrenbereichs.</li>
+				<li><strong>Ansprechverhalten</strong> – schnell ansprechend (3-mm-Ampulle) oder Standard (5-mm-Ampulle), entsprechend Nutzung und Anlagenkonzept.</li>
+				<li><strong>Einbaulage und Oberfläche</strong> – hängend, stehend, Seitenwand oder verdeckt; Chrom, poliert oder kundenspezifisch passend zur Deckenart.</li>
+				<li><strong>Listung je Modell</strong> – nennen Sie die geforderte Listung (z. B. UL) im Angebot und bestätigen Sie deren Gültigkeit für genaues Modell und Größe.</li>
+				<li><strong>Chargendokumentation</strong> – Druck- und Empfindlichkeitsprüfungen der Produktionscharge; unsere <a href="/de/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B-Beschaffungs-Checkliste</a> beschreibt die Werksprüfung, die auch für Sprinklerlieferanten gilt.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Sprinklerköpfe für Ihr Projekt spezifizieren?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie Gefahrenklasse, K-Faktor, Temperaturklasse und Listungsanforderung. Unsere Ingenieure bestätigen innerhalb von 12 Stunden das passende Modell.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Fire%20Sprinkler%20Heads" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${whatsappText}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

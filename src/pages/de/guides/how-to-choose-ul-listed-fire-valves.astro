@@ -1,0 +1,223 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const toc = [
+	{ id: 'what-ul-listing-means', label: '1. Was die UL-Listung für Brandschutzventile bedeutet' },
+	{ id: 'fire-valve-types', label: '2. Brandschutzventiltypen für die konkrete Spezifikation' },
+	{ id: 'key-specifications', label: '3. Wichtige Vergleichsspezifikationen' },
+	{ id: 'ul-vs-fm', label: '4. UL oder FM: Welche Zertifizierung fordert die Ausschreibung?' },
+	{ id: 'common-mistakes', label: '5. Häufige Fehler bei der Beschaffung von Brandschutzventilen' },
+	{ id: 'procurement-checklist', label: '6. Beschaffungscheckliste vor der Bestellung' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const faq = [
+	{
+		question: 'Ist eine UL-Zertifizierung für Brandschutzventile verpflichtend?',
+		answer: 'In Nordamerika und bei vielen internationalen Projekten ja – Brandschutzventile müssen für die Einhaltung der NFPA und lokaler Bauvorschriften UL- oder ULC-gelistet (oder FM-zugelassen) sein. In anderen Märkten können CE, LPCB oder lokale Normen gelten. Bestätigen Sie stets, welche Zertifizierung der Zielmarkt verlangt.'
+	},
+	{
+		question: 'Was ist der Unterschied zwischen UL-gelistet und FM-zugelassen?',
+		answer: 'Beides sind Zertifizierungen von unabhängigen Dritten für Brandschutzprodukte. Bei der UL-Listung werden Ventile nach UL/ULC-Normen hinsichtlich Konstruktion und Leistung geprüft; die FM-Zulassung umfasst zusätzlich Werksinspektionen und Anforderungen zur Schadenverhütung. Viele Projekte akzeptieren beide Varianten, manche Spezifikationen nennen jedoch ausdrücklich eine davon – prüfen Sie die Ausschreibungsunterlagen.'
+	},
+	{
+		question: 'Welche Brandschutzventiltypen sind üblicherweise UL-gelistet?',
+		answer: 'Absperrschieber (OS&Y und NRS), Absperrklappen, Rückschlagventile, Sprühflutventile, vorgesteuerte Trockensysteme und Alarmrückschlagventile gehören zu den gängigen UL-gelisteten Typen für Sprinkler- und Steigleitungssysteme, typischerweise in Größen von etwa 1½ Zoll bis 12 Zoll.'
+	},
+	{
+		question: 'Wie prüfe ich, ob das UL-Zertifikat eines Lieferanten echt ist?',
+		answer: 'Fordern Sie Zertifikats- und Aktennummer an und suchen Sie diese anschließend in der offiziellen UL-Product-iQ-Datenbank oder im Online-Verzeichnis der Zertifizierungsstelle. Eine Katalogkopie ist kein Nachweis – die Listung muss aktiv sein und genau das Modell sowie die Größe abdecken, die Sie kaufen möchten.'
+	},
+	{
+		question: 'Kann Wanlian UL-gelistete Ventile für mein Projekt liefern?',
+		answer: 'Ja. Wanlian Fluid fertigt Absperrschieber, Absperrklappen, Rückschlagventile, Sprühflutventile und vorgesteuerte Trockensysteme mit UL/ULC- und FM-Zertifizierung, sofern anwendbar. Sehen Sie unsere Seite zu UL-Brandschutzventilen oder die Zertifikatsseite auf; unsere Ingenieure bestätigen das passende Zertifizierungspaket für Ihren Zielmarkt.'
+	}
+];
+
+const referencePages = [
+	{
+		slug: 'resilient-seat-flanged-gate-valve-z41x',
+		name: 'Weichdichtender Flansch-Absperrschieber (Z41X)',
+		img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp',
+		desc: 'EPDM-ummantelte Keilplatte, DN50–DN700'
+	},
+	{
+		slug: 'signal-grooved-wafer-butterfly-valve-dn80',
+		name: 'Signal-Absperrklappe in Zwischenflanschbauform, genutet',
+		img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
+		desc: 'DN80 PN16 mit Statusüberwachung'
+	},
+	{
+		slug: 'deluge-alarm-valve-zsfm',
+		name: 'Sprühflut-Alarmventilstation (ZSFM)',
+		img: '/assets/products/deluge-alarm-valve-zsfm.webp',
+		desc: 'Membrangesteuert, DN50–DN300'
+	},
+	{
+		slug: 'pre-action-alarm-system-zsfy',
+		name: 'Vorgesteuertes Trockensystem (ZSFY)',
+		img: '/assets/products/pre-action-alarm-system-zsfy.jpg',
+		desc: 'Ausfallsichere Ausführung mit Doppelansteuerung'
+	},
+	{
+		slug: 'ul-fm-resilient-seat-osy-gate-valve',
+		name: 'UL-FM-Weichdichtender OS&Y-Absperrschieber',
+		img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
+		desc: 'UL/FM-gelisteter OS&Y-Absperrschieber mit steigender Spindel, genutete Enden 2–10 Zoll'
+	}
+];
+---
+
+<Layout
+	title="UL-gelistete Brandschutzventile auswählen | Leitfaden 2026"
+	description="Erfahren Sie, wie Sie UL-gelistete Brandschutzventile auswählen: Ventiltypen, UL vs. FM, Spezifikationen, Zertifikatsprüfung und Beschaffungscheckliste."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Leitfaden für UL-Brandschutzventile' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Leitfaden für UL-Brandschutzventile</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden zur Auswahl von Brandschutzventilen</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">UL-gelistete Brandschutzventile auswählen (Leitfaden 2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Ein Brandschutzventil entscheidet darüber, ob Ihre Sprinkleranlage im Brandfall funktioniert – und ob Ihr Gebäude die Abnahme bereits zuvor besteht. Die UL-Listung ist das wichtigste Akzeptanzkriterium, nach dem die meisten nordamerikanischen und viele internationale Projekte Brandschutzventile bewerten. Dieser Leitfaden erläutert die Bedeutung der UL-Listung, die gelisteten Ventiltypen, die Prüfung eines echten Zertifikats und die Punkte, die vor einer Bestellung zu kontrollieren sind.</p>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="what-ul-listing-means" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Was die UL-Listung für Brandschutzventile bedeutet</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die UL-Listung (Underwriters Laboratories) ist eine Zertifizierung durch eine unabhängige Stelle. Sie bestätigt, dass ein Ventil nach UL/ULC-Normen geprüft wurde, die Druckstufe, Durchflussverhalten, Werkstoffe und Beständigkeit im Brandschutzbetrieb abdecken. Sie ist kein Marketingzeichen, sondern die dokumentierte Grundlage dafür, dass die zuständigen Behörden (AHJs) ein Ventil in einer Sprinkler- oder Steigleitungsanlage akzeptieren.</p>
+			<p class="text-gray-700 leading-relaxed">Wenn ein Datenblatt „UL-gelistet“ angibt, prüfen Sie drei Punkte: Das Zertifikat ist <strong>aktiv</strong> (nicht abgelaufen), es gilt für das <strong>exakte Modell und die exakte Größe</strong>, die Sie kaufen, und die <strong>Zertifikatsnummer</strong> lässt sich in der offiziellen UL-Datenbank aufrufen. Ein auf ein Datenblatt gedrucktes Logo allein ist kein Nachweis.</p>
+
+			<h2 id="fire-valve-types" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Brandschutzventiltypen für die konkrete Spezifikation</h2>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Absperrschieber – Standard zur Anlagenabsperrung</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Absperrschieber trennen Bereiche einer Sprinkleranlage für Wartungsarbeiten ab. Der <a href="/de/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">weichdichtende Absperrschieber Z41X</a> mit vollständig EPDM-ummantelter Keilplatte ist die bewährte Standardwahl: absolut dichtes Absperren, geringer Druckverlust bei vollständig geöffnetem Ventil und Größen von DN50 bis DN700 für Abzweigleitungen ebenso wie Hauptleitungen. OS&Y-Ausführungen (outside screw and yoke) zeigen den Öffnungs- bzw. Schließzustand auf einen Blick – ein Vorteil für AHJs bei Abschnittsventilen.</p>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Absperrklappen – kompakte Regelung mit Überwachung</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Bei beengten Platzverhältnissen benötigen Absperrklappen nur einen Bruchteil der Baulänge eines Absperrschiebers. Die <a href="/de/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">genutete Signal-Absperrklappe in Zwischenflanschbauform</a> verfügt über einen integrierten Mikroschalter, sodass die Brandmeldezentrale den Öffnungs- bzw. Schließzustand des Ventils erkennt – eine Anforderung für überwachte Abschnittsventile moderner Anlagen.</p>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Sprühflut- und vorgesteuerte Ventile – die Steuerung der Anlage</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">In Sprühflutanlagen mit offenen Sprinklern oder Sprühdüsen hält die <a href="/de/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">Sprühflut-Alarmventilstation ZSFM</a> das Anlagenwasser durch Membrandruck zurück und öffnet bei elektrischer, pneumatischer oder manueller Auslösung sofort. Wo Wasserschäden vermieden werden müssen – etwa in Archiven, Rechenzentren oder Museen – verlangt das <a href="/de/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">vorgesteuerte Trockensystem ZSFY</a> zwei unabhängige Signale, bevor Wasser in die Rohrleitungen gelangt.</p>
+
+			<h2 id="key-specifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Wichtige Vergleichsspezifikationen</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Spezifikation</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Warum sie wichtig ist</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Größenbereich</td>
+							<td class="px-4 py-3 text-gray-700">Auf die Rohrleitungsplanung abstimmen – typische Brandschutzventile reichen von DN40–DN300 (1½–12 Zoll)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Druckstufe</td>
+							<td class="px-4 py-3 text-gray-700">PN16 (1,6 MPa) deckt die meisten Netze ab; PN25 für Hochhäuser oder Hochdruckbereiche</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Endanschlüsse</td>
+							<td class="px-4 py-3 text-gray-700">Geflanscht für Hauptleitungen, genutet für schnelle Montage, mit Gewinde für kleine Abzweigleitungen</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Gehäusewerkstoff</td>
+							<td class="px-4 py-3 text-gray-700">Sphäroguss QT450 als Standard; WCB/CF8/CF8M bei höherem Korrosionsschutzbedarf</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Zertifizierung</td>
+							<td class="px-4 py-3 text-gray-700">UL/ULC, FM, CE, LPCB – auf die Vorschriften des Zielmarkts abstimmen</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="ul-vs-fm" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. UL oder FM: Welche Zertifizierung fordert die Ausschreibung?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Beide Zertifizierungssysteme werden für Brandschutzausrüstung akzeptiert, Ausschreibungen nennen jedoch häufig eines davon. Die UL-Listung ist im US-amerikanischen Gewerbebau verbreitet; die FM-Zulassung wird häufig für durch FM Global versicherte Anlagen und industrielle Risikostandorte gefordert. Manche Projekte akzeptieren beide Varianten. Wenn Ihre Spezifikation „UL-gelistet oder FM-zugelassen“ verlangt, kann ein Lieferant mit beiden Zertifizierungen auf jeder Grundlage anbieten – bestätigen Sie vor dem Angebot die Abdeckung des konkreten Modells und der konkreten Größe.</p>
+
+			<h2 id="common-mistakes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Häufige Fehler bei der Beschaffung von Brandschutzventilen</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>„UL-konform“ statt UL-gelistet kaufen</strong> – „konform“ ist keine Zertifizierung. Nur ein gelistetes Produkt mit aktiver Zertifikatsnummer ist maßgeblich.</li>
+				<li><strong>Die Ventilstatusüberwachung ignorieren</strong> – Abschnittsventile, die geschlossen werden können, ohne dass die Brandmeldezentrale dies erkennt, führen bei der Abnahme häufig zu Beanstandungen; verwenden Sie Signal- oder OS&Y-Ventile in überwachten Abschnitten.</li>
+				<li><strong>Eine unpassende Druckklasse wählen</strong> – ein PN10-Ventil in einem PN16-Netz besteht die hydrostatische Prüfung nicht.</li>
+				<li><strong>Den falschen Ventiltyp spezifizieren</strong> – ein Absperrschieber kann die Aufgabe eines Sprühflutventils nicht übernehmen und umgekehrt. Stimmen Sie das Ventil auf die Anlagenfunktion ab.</li>
+				<li><strong>Die Verfügbarkeit von Ersatzteilen nicht prüfen</strong> – Dichtungen, Spindeln und Reparatursätze sollten mit der Bestellung bestätigt werden.</li>
+			</ul>
+
+			<h2 id="procurement-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Beschaffungscheckliste vor der Bestellung</h2>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Bestätigen Sie die im Zielmarkt erforderliche Zertifizierung (UL/ULC, FM, CE, LPCB).</li>
+				<li>Fordern Sie die Zertifikatsnummer an und prüfen Sie sie in der offiziellen UL-/FM-Datenbank.</li>
+				<li>Stimmen Sie DN, PN und Endanschlüsse auf die Rohrleitungsplanung ab.</li>
+				<li>Spezifizieren Sie für überwachte Anlagen Signalventile oder OS&Y-Ausführungen.</li>
+				<li>Fordern Sie den hydrostatischen Prüfbericht der Charge an, nicht nur ein allgemeines Zertifikat.</li>
+				<li>Bestätigen Sie MOQ, Lieferzeit und Ersatzteilverfügbarkeit in einem einzigen kommerziellen Angebot.</li>
+			</ol>
+
+			<!-- Verknüpfung zur Übersichtsseite -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Unsere Auswahl an UL-gelisteten Brandschutzventilen</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Sehen Sie die vollständige Serie – Absperrschieber, Absperrklappen, Rückschlagventile, Sprühflutventile und vorgesteuerte Ventile mit veröffentlichten Zertifizierungen – auf unserer <a href="/de/certificates/" class="text-brand-blue font-semibold hover:underline">Zertifikatsseite</a> und der <a href="/de/ul-fire-valves/" class="text-brand-blue font-semibold hover:underline">Seite für UL-Brandschutzventile</a>.</p>
+			</div>
+
+			<!-- In diesem Leitfaden behandelte Produkte -->
+			<div class="mt-10">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight mb-4">In diesem Leitfaden behandelte Produkte</h2>
+				<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+					{referencePages.map(p => (
+						<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+							<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+							<div class="p-3">
+								<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+								<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
+
+			<!-- Verwandter Leitfaden -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Verwandter Leitfaden: Lieferanten überprüfen</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Benötigen Sie die 8-Punkte-Prüfliste für die Überprüfung eines Ventilherstellers vor der Bestellung? Lesen Sie die <a href="/de/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B-Checkliste zur Ventilbeschaffung</a>.</p>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Die UL-Listung ist nur ein Teil der Compliance-Prüfung – lesen Sie <a href="/de/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Normen für Hydranten, Feuerwehrschläuche und Brandschutzventile erklärt</a> und prüfen Sie anschließend jedes Werk mit <a href="/de/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">So überprüfen Sie einen chinesischen Lieferanten für Ventile und Brandschutzausrüstung</a>.</p>
+			</div>
+
+			<!-- Häufig gestellte Fragen -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Handlungsaufforderung -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Benötigen Sie UL-gelistete Brandschutzventile für Ihr Projekt?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie uns Ventiltyp, DN/PN und gewünschte Zertifizierung – unsere Ingenieure antworten innerhalb von 12 Stunden mit einem vollständigen Datenblatt und Angebot.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=UL%20Brandschutzventile" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Guten Tag, ich benötige UL-gelistete Brandschutzventile')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Auf WhatsApp schreiben</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

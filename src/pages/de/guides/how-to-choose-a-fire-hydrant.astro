@@ -1,0 +1,219 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const toc = [
+	{ id: 'understand-your-requirement', label: '1. Anforderungen an den Hydranten zuerst verstehen' },
+	{ id: 'hydrant-types-explained', label: '2. Typen von Feuerhydranten erklärt' },
+	{ id: 'key-specifications', label: '3. Wichtige Spezifikationen im Vergleich' },
+	{ id: 'certification-compliance', label: '4. Zertifizierung und Konformität' },
+	{ id: 'common-mistakes', label: '5. Häufige Fehler bei der Hydrantenauswahl' },
+	{ id: 'factory-checklist', label: '6. Werkscheckliste vor der Bestellung' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const faq = [
+	{
+		question: 'Was ist der Unterschied zwischen Innen- und Außenhydranten?',
+		answer: 'Innenhydranten (wie der SN65-Hydrantenkopf) werden an interne Steigleitungen und Schlauchsysteme in Gebäuden angeschlossen und führen Löschwasser zu den vorgesehenen Etagenstationen. Außenhydranten (wie der Überflurhydrant SS100) werden an kommunalen oder industriellen Wasserleitungen installiert und versorgen Feuerwehrfahrzeuge sowie externe Löscharbeiten. Sie dienen unterschiedlichen Entnahmestellen und sind nicht austauschbar.'
+	},
+	{
+		question: 'Welche Druckstufe sollte ein kommunaler Feuerhydrant haben?',
+		answer: 'Standardmäßige kommunale Hydranten sind für PN16 (1,6 MPa) ausgelegt; damit werden die meisten städtischen und industriellen Wasserversorgungsnetze abgedeckt. Hochhausgebiete oder Industrieanlagen mit hohem Bedarf können PN25-Hydranten mit nachgewiesener Durchflussleistung erfordern. Prüfen Sie vor der Auswahl der Druckstufe immer den statischen und den Restdruck Ihres Versorgungsnetzes.'
+	},
+	{
+		question: 'Sind Wanlian-Hydranten mit UL- oder FM-Zertifizierung erhältlich?',
+		answer: 'Ja. Wanlian Fluid bietet je nach Modell und Zielmarkt Hydranten und Armaturen mit UL-, FM-, CE-, ISO-9001- und LPCB-Zertifizierung an. Senden Sie unserem Vertrieb Ihre Projektspezifikation und Zielregion, damit wir das passende Zertifizierungspaket zuordnen können.'
+	},
+	{
+		question: 'Welcher Anschlusstyp ist bei exportierten Feuerhydranten üblich?',
+		answer: 'Zu den gängigen Abgangsanschlüssen gehören die BS336-Schnellkupplung (Vereinigtes Königreich/Commonwealth), das NIST-Gewinde (Nahost), KWS (Deutschland) und flexible Flanschvarianten. Wanlian kann SS100/65- und SSFT100/65-Hydranten mit dem für Ihren Markt spezifizierten Anschlusstyp liefern; passende Armaturen können in derselben Sendung mitgeliefert werden.'
+	},
+	{
+		question: 'Wie hoch sind MOQ und Lieferzeit bei Großhandelsbestellungen von Hydranten?',
+		answer: 'Die Standard-Mindestbestellmenge beträgt bei Lagergrößen in der Regel 20 Stück je Modell. Die Produktionsvorlaufzeit liegt je nach Menge und kundenspezifischer Ausführung bei 15–30 Tagen. Musterbestellungen für Prüfungen und Freigabe vor dem Versand sind möglich. Ihr Vertriebsingenieur nennt Ihnen die genaue Lieferzeit für Ihr Bestellvolumen.'
+	}
+];
+
+const referencePages = [
+	{
+		slug: 'indoor-fire-hydrant-head-sn65',
+		name: 'Innenhydrantenkopf SN65',
+		img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg',
+		desc: 'PN16-Innenhydrant aus duktilem Gusseisen für Steigleitungssysteme'
+	},
+	{
+		slug: 'overground-fire-hydrant-ss100',
+		name: 'Überflurhydrant mit Frostschutz (SS100/65)',
+		img: '/assets/products/overground-fire-hydrant-ss100.webp',
+		desc: 'Frostgeschützter Außenhydrant für kommunale Netze in kalten Klimazonen'
+	},
+	{
+		slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100',
+		name: 'Kollisionssicherer druckregelnder Hydrant (SSFT100/65)',
+		img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp',
+		desc: 'Sollbruchkörper mit Druckregelung für Verkehrsbereiche'
+	},
+	{
+		slug: 'iot-smart-ground-fire-hydrant-ss100zn',
+		name: 'Intelligenter IoT-Unterflurhydrant (SS100/65-1.6ZN)',
+		img: '/assets/products/overground-fire-hydrant-ss100.webp',
+		desc: 'Echtzeitüberwachung von Druck, Neigung und Wasserentnahme in intelligenten Kommunalnetzen'
+	}
+];
+---
+
+<Layout
+	title="Feuerhydranten auswählen: Leitfaden für B2B-Projekte"
+	description="B2B-Leitfaden zur Auswahl von Feuerhydranten: Bauarten, DN/PN, Anschlüsse, Zertifizierungen und Werkscheckliste für kommunale und industrielle Projekte."
+	type="article"
+	locale="de"
+	faq={faq}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Hydrantenauswahl</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden für Brandschutzausrüstung</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Feuerhydranten für kommunale und industrielle Projekte auswählen (Leitfaden 2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Ein Feuerhydrant ist eine fest installierte Komponente, die 10–20 Jahre in Ihrem Netz verbleibt – und erst am Tag seines Einsatzes seine Leistungsfähigkeit beweisen muss. Die Wahl des falschen Typs, der falschen Druckstufe oder des falschen Anschlussstandards bedeutet, ein vergrabenes Bauteil unter Notfallbedingungen auszutauschen; schlimmer noch: Der Hydrant kann ausfallen, wenn die Feuerwehr eintrifft. Dieser Leitfaden erläutert die sechs Entscheidungen, die jedes Einkaufsteam treffen muss, anhand realer Produktkonfigurationen, die heute verfügbar sind.</p>
+
+			<!-- Produktstreifen -->
+			<div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+				{referencePages.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="understand-your-requirement" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Anforderungen an den Hydranten zuerst verstehen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bevor Sie Modelle vergleichen, beantworten Sie gemeinsam mit der zuständigen Brandschutzbehörde oder Ihrem Ingenieurberater vier Fragen:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Wo wird der Hydrant installiert?</strong> Innenliegende Steigleitung, kommunale Außenleitung oder Industriegelände – jede Anwendung erfordert einen anderen Typ.</li>
+				<li><strong>Wie hoch sind Auslegungsdurchfluss und Druck?</strong> Der Löschwasserbedarf beginnt typischerweise bei 15–30 L/s je Hydrant; prüfen Sie den Restdruck, den Ihr Netz aufrechterhalten kann.</li>
+				<li><strong>Welche Norm gilt für Ihr Projekt?</strong> NFPA 24/291, BS 750, GB 4452 oder regionale kommunale Vorschriften legen Abgangsgröße, Abstände und Prüfregeln fest.</li>
+				<li><strong>Wie ist das Klima?</strong> Frostperioden erfordern frostgeschützte oder trocken stehende Bauarten.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Mit diesen vier Antworten vermeiden Sie die meisten der folgenden Fehler, noch bevor Sie einen Katalog öffnen.</p>
+
+			<h2 id="hydrant-types-explained" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Typen von Feuerhydranten erklärt</h2>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Innenhydranten (Steigleitungssysteme)</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Innenhydrantenköpfe werden an vertikale Steigleitungen angeschlossen und versorgen die Schlauchanschlüsse auf jeder Etage. Der <a href="/de/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">Innenhydrantenkopf SN65</a> ist die Standardschnittstelle: ein Gehäuse aus duktilem Gusseisen für PN16, mit genutetem oder geflanschtem Eingang und einem 65&nbsp;mm großen Abgang für den Schlauchanschluss. In Hochhäusern und Industriegebäuden wird er typischerweise mit Feuerlösch-Schlauchhaspeln und Pumpensystemen kombiniert.</p>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Überflurhydranten für kommunale und industrielle Außenbereiche</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Außenhydranten beziehen Wasser aus dem Versorgungsnetz und speisen Feuerwehrfahrzeuge. Zwei Bauarten sind besonders verbreitet: der <a href="/de/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">Überflurhydrant SS100/65</a> für kommunale und industrielle Standardflächen sowie die kollisionssichere Variante. Befindet sich der Hydrant in einer Fahrspur oder in einem Lagergang mit Fahrzeugverkehr, bietet der <a href="/de/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">kollisionssichere druckregelnde Hydrant SSFT100</a> zwei Sicherheitsmechanismen: einen Sollbruchkörper, der bei einem Aufprall sauber trennt und die unterirdische Leitung intakt hält, sowie eine Druckregelung, die nachgeschaltete Schläuche vor Überdruck schützt.</p>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Intelligente Hydranten für digitalisierte Netze</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Für kommunale Betreiber, die ihr Wassernetz modernisieren, integriert der <a href="/de/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">intelligente IoT-Hydrant SS100ZN</a> Sensoren zur Echtzeiterfassung von Druck, Neigung und Wasserentnahme und übermittelt die Daten an die SCADA-Plattform. Mechanisch handelt es sich um denselben Hydranten mit einer Überwachungsebene – sinnvoll, wenn Ihre Ausschreibung eine Fernüberwachung des Status verlangt.</p>
+
+			<h2 id="key-specifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Wichtige Spezifikationen im Vergleich</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Spezifikation</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Was ist zu prüfen?</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typisch für Exporthydranten</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Nennweite (DN)</td>
+							<td class="px-4 py-3 text-gray-700">Durchmesser von Eingang und Abgang müssen zu Leitung und Schlauch passen</td>
+							<td class="px-4 py-3 text-gray-700">DN100/65 (SS100) oder DN65 (SN65)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Druckstufe (PN)</td>
+							<td class="px-4 py-3 text-gray-700">Muss über dem maximalen statischen Netzdruck liegen</td>
+							<td class="px-4 py-3 text-gray-700">Standardmäßig PN16 (1,6 MPa); PN25 für Hochdruckzonen</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Gehäusewerkstoff</td>
+							<td class="px-4 py-3 text-gray-700">Duktile Gusseisenwerkstoffe widerstehen Stößen; Beschichtung auf Korrosionsschutz prüfen</td>
+							<td class="px-4 py-3 text-gray-700">Duktile Gusseisenqualität QT450 mit Epoxid- oder Pulverbeschichtung</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Anschlusstyp</td>
+							<td class="px-4 py-3 text-gray-700">Muss zu den Kupplungen der örtlichen Feuerwehr passen</td>
+							<td class="px-4 py-3 text-gray-700">BS336, NIST, KWS, genutet oder geflanscht</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sonderfunktionen</td>
+							<td class="px-4 py-3 text-gray-700">Frostschutz, Sollbruchfunktion, Druckregelung, IoT</td>
+							<td class="px-4 py-3 text-gray-700">Gemäß Projektanforderung</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="certification-compliance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Zertifizierung und Konformität</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Hydranten sind sicherheitsrelevante Ausrüstung – in den meisten Märkten ist eine Zertifizierung nicht optional. Fordern Sie vom Lieferanten die für Ihr Zielland passende Zertifizierung an: <strong>UL / FM</strong> für Nordamerika, <strong>CE</strong> für Europa, <strong>LPCB</strong> für Projekte im Vereinigten Königreich/Commonwealth und <strong>ISO 9001</strong> als Grundlage des Qualitätsmanagements. Prüfen Sie die tatsächlichen Zertifikate und nicht nur Logos in einer Broschüre. Das Zertifizierungspaket von Wanlian ist auf der <a href="/de/certificates/" class="text-brand-blue font-semibold hover:underline">Zertifikatsseite</a> veröffentlicht; unsere Ingenieure bestätigen vor der Angebotserstellung, welche Norm für Ihre Ausschreibung gilt.</p>
+
+			<h2 id="common-mistakes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Häufige Fehler bei der Hydrantenauswahl</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Unpassender Anschlussstandard</strong> – ein Hydrant, an den die Kupplungen der örtlichen Feuerwehr nicht passen, ist schlimmer als kein Hydrant. Bestätigen Sie den Kupplungsstandard vor der Bestellung.</li>
+				<li><strong>Restdruck ignorieren</strong> – der statische Druck sagt nichts darüber aus, welche Leistung der Hydrant bei gleichzeitig geöffneten drei Abgängen erbringt.</li>
+				<li><strong>Hydranten ohne Frostschutz in Frostklimazonen installieren</strong> – durch Eis verursachte Schäden am Mantel sind eine häufige Ausfallursache in kalten Regionen.</li>
+				<li><strong>Standardhydranten in Aufprallbereichen wählen</strong> – Lkw-Kollisionen können unterirdische Spindeln verbiegen; Sollbruchkonstruktionen schützen das Netz.</li>
+				<li><strong>Ersatzteile nicht besprechen</strong> – klären Sie die Verfügbarkeit von Reparatursätzen (Dichtungen, Spindeln, Kupplungen) zusammen mit der Bestellung und nicht erst nach der Inbetriebnahme.</li>
+			</ul>
+
+			<h2 id="factory-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Werkscheckliste vor der Bestellung</h2>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Fordern Sie für Ihren Markt relevante Zertifikatskopien (UL/FM/CE/ISO) an – prüfen Sie diese, statt sie nur zu sammeln.</li>
+				<li>Verlangen Sie den hydrostatischen Prüfbericht der konkreten Charge und kein allgemeines Prüfzeugnis.</li>
+				<li>Bestätigen Sie den Kupplungsstandard mit Ihrer Brandschutzbehörde, <em>bevor</em> Sie die Bestellung unterzeichnen.</li>
+				<li>Fordern Sie bei intelligenten Hydranten die Spezifikation der Datenschnittstelle (Modbus/SCADA) und ein Mustergerät für Integrationstests an.</li>
+				<li>Klären Sie MOQ, Lieferzeit, seefeste Verpackung und Ersatzteilverfügbarkeit in einem einzigen kommerziellen Angebot.</li>
+				<li>Behalten Sie ein Muster vor dem Versand für eigene Prüfungen und archivieren Sie die Prüfaufnahmen.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Ein zuverlässiger Lieferant sollte alle sechs Punkte innerhalb eines Arbeitstags schriftlich beantworten. Ist ein Angebot bei Zertifikaten oder Prüfberichten unklar, ist dies als Warnsignal zu werten.</p>
+
+			<!-- Verwandter Leitfaden -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Verwandter Leitfaden: Wanlian Fluid vs American AVK</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Entscheiden Sie zwischen einer etablierten US-Marke und einem Hersteller aus China? Lesen Sie unseren direkten Vergleich: <a href="/de/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian Fluid vs American AVK: Welcher Feuerhydranten- und Armaturenlieferant passt zu Ihrem Projekt 2026?</a></p>
+			</div>
+
+			<!-- Abschnitt mit häufig gestellten Fragen -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Benötigen Sie einen projektspezifisch ausgelegten Hydranten?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie uns DN/PN, Anschlussstandard und gewünschte Zertifizierung – unsere Ingenieure antworten innerhalb von 12 Stunden mit einem vollständigen technischen Datenblatt und Angebot.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Auswahl%20von%20Feuerhydranten" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Hallo, ich benötige Hilfe bei der Auswahl eines Feuerhydranten')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

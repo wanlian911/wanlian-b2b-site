@@ -1,0 +1,200 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Wie funktioniert das Kugel-Rückschlagventil HQ41X mit Gleitkugel?',
+		answer: 'Das HQ41X verwendet eine gummierte Stahlkugel als Schließelement. Bei Vorwärtsströmung rollt die Kugel auf den innenliegenden Führungen nach oben und der volle Durchgang öffnet sich. Sobald die Strömung stoppt oder umkehrt, rollt die Kugel auf den Sitz zurück und schließt blasenfrei. Da die Kugel rollt, statt auf einem Scharnier aufzuschlagen, schließt das Ventil geräuscharm, ohne Wasserschlag und mit geringerem Druckverlust als ein Rückschlagventil mit Klappe gleicher Nennweite.'
+	},
+	{
+		question: 'Was ist der Unterschied zwischen den Kugel-Rückschlagventilen HQ41X und HQ44X?',
+		answer: 'Das Kugel-Rückschlagventil HQ41X mit Gleitkugel deckt DN50–DN350 bei 1,0/1,6 MPa ab. Seine Kugel mit Kohlenstoffstahlkern ist vollständig mit NBR beschichtet und rollt auf integrierten sphäroidischen Führungen; es ist eine Standardlösung für Abwasser und Entwässerung. Das Kugel-Rückschlagventil HQ44X deckt DN50–DN400 bei PN16 ab und besitzt ein Gehäuse aus Sphäroguss (QT450-10) sowie eine EPDM-vulkanisierte Gusseisenkugel. Der volle, blockierfreie Durchgang, der geringe Anlaufdurchfluss und das geräuscharme, schlagfreie Schließen eignen sich für Rohrleitungen mit hohem Durchfluss.'
+	},
+	{
+		question: 'Warum ein Kugel-Rückschlagventil statt eines Klappen-Rückschlagventils wählen?',
+		answer: 'Kugel-Rückschlagventile verfügen über einen vollen Durchgang und eine rollende, gummierte Kugel. Im Vergleich zu einer Rückschlagklappe ist das HQ41X für etwa 50 % weniger Druckverlust ausgelegt; die gummierte Kugel verhindert Verstopfungen und schließt geräuscharm ohne Wasserschlag. Kugel-Rückschlagventile können außerdem horizontal oder vertikal eingebaut werden, was bei Rückschlagklappen häufig nicht möglich ist.'
+	},
+	{
+		question: 'Kann ein Rückschlagventil Wasserschlag verhindern?',
+		answer: 'Ein schlagfreies Rückschlagventil beseitigt eine Ursache des Wasserschlags: Die Klappe eines Rückschlagventils mit Scharnier kann bei einer plötzlichen Strömungsumkehr auf den Sitz schlagen und eine Druckwelle in der Leitung auslösen. Kugel-Rückschlagventile wie HQ41X und HQ44X schließen geräuscharm, statt aufzuschlagen. In Pumpennetzen sollten sie mit langsam schließenden hydraulischen Regelventilen und einem Saugschirm gegen Wirbelbildung nach EN 12845 am Pumpensaugstutzen kombiniert werden, um Druckstöße beim Anfahren und Abschalten zu begrenzen.'
+	},
+	{
+		question: 'Wo sollten Rückschlagventile eingebaut werden?',
+		answer: 'Typische Einbauorte sind Pumpendruckleitungen, um einen Rückfluss und das Rückwärtsdrehen der Pumpe zu verhindern, Abwasser- und kommunale Entwässerungsleitungen, Steigleitungen von Tauchpumpen bei erforderlicher vertikaler Montage sowie Sprinklernetze. Dort dient ein Nassalarmventil wie das ZSFZ-150 zugleich als Auslöser des Strömungsalarms. An Kreuzungen mit Trinkwasserleitungen bietet der Rückflussverhinderer HS41X mit Schutz gegen Verunreinigung die für den Rückflussschutz erforderliche doppelte Rückschlagbarriere.'
+	},
+	{
+		question: 'Welche Prüfnorm und Dokumentation sollte ich beim Kauf von Rückschlagventilen verlangen?',
+		answer: 'Bestätigen Sie die für die Charge angewendete Norm für Gehäuse- und Sitzprüfung; das HQ44X wird nach GB/T13927 geprüft. Fordern Sie die Druckprüfberichte für Gehäuse und Sitz der konkreten Charge sowie Werkstoffzeugnisse für Gehäuse und Kugelkern an. Geben Sie in Ihrer Anfrage DN, Druckstufe, Betriebstemperatur und Einbaulage an, damit das Angebot der tatsächlichen Anwendung entspricht.'
+	}
+];
+
+const toc = [
+	{ id: 'what-is-a-check-valve', label: '1. Was ist ein Rückschlagventil?' },
+	{ id: 'check-valve-types-overview', label: '2. Rückschlagventiltypen im Überblick' },
+	{ id: 'sliding-ball-vs-swing-check', label: '3. Gleitkugel oder Rückschlagklappe' },
+	{ id: 'water-hammer-prevention', label: '4. Wasserschlag und schlagfreies Schließen' },
+	{ id: 'where-check-valves-installed', label: '5. Einbauorte von Rückschlagventilen' },
+	{ id: 'check-valve-specification-checklist', label: '6. B2B-Spezifikationscheckliste' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const products = [
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'Kugel-Rückschlagventil HQ44X-16', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50–DN400 PN16, Sphäroguss, schlagfreies Schließen' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Nassalarm-Rückschlagventil ZSFZ 150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Sprinkler-Nassalarmventil DN100/150/200' },
+	{ slug: 'anti-pollution-backflow-preventer-hs41x', name: 'Rückflussverhinderer HS41X-16', img: '/assets/products/anti-pollution-backflow-preventer-hs41x.webp', desc: 'Doppelte Rückschlagventile mit Ablauf für Trinkwasser' }
+];
+
+const referencePages = [
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'Kugel-Rückschlagventil HQ44X' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Nassalarmventil ZSFZ 150' },
+	{ slug: 'anti-pollution-backflow-preventer-hs41x', name: 'Rückflussverhinderer HS41X' }
+];
+---
+
+<Layout
+	title="Rückschlagventile: Typen &amp; Auswahl | Wanlian Fluid"
+	description="Rückschlagventile im Vergleich: Klappe, Gleitkugel HQ41X und Kugel HQ44X – Druckverlust, Wasserschlag, Einbaulage und B2B-Auswahl für Ihre Anfrage."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Leitfaden zu Rückschlagventilen' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Leitfaden zu Rückschlagventilen</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden für Industrieventile</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Rückschlagventiltypen &amp; Auswahlleitfaden: Gleitkugel oder Rückschlagklappe</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kurz gesagt: Ein Rückschlagventil lässt Wasser nur in eine Richtung strömen und schließt bei Strömungsumkehr automatisch – ohne Bediener und ohne Energiequelle. Bei Abwasser, Entwässerung oder Pumpennetzen schließen Kugel-Rückschlagventile wie die Gleitkugelbauart HQ41X und die Kugelbauart HQ44X geräuscharm ohne Aufschlagen und vermeiden so den Wasserschlag, den Rückschlagklappen verursachen können. Dieser Leitfaden vergleicht die gängigen Bauarten und zeigt, was Sie spezifizieren sollten.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-a-check-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Was ist ein Rückschlagventil?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein Rückschlagventil ist ein automatisches Einwegventil. Das strömende Medium selbst öffnet das Schließelement; sobald die Strömung stoppt oder sich umzukehren versucht, kehrt das Element auf seinen Sitz zurück und das Ventil schließt. Es gibt kein Handrad, keinen Antrieb und keinen elektrischen Anschluss. Rückschlagventile schützen Pumpen, Zähler und Netze vor Rückströmung, halten Leitungen nach dem Abschalten gefüllt und verhindern, dass Verunreinigungen in eine saubere Versorgung zurückströmen.</p>
+			<p class="text-gray-700 leading-relaxed">Die beiden entscheidenden Kriterien eines guten Rückschlagventils sind der <strong>Druckverlust</strong> (wie viel Pumpenenergie bei geöffnetem Ventil verloren geht) und das <strong>Schließverhalten</strong> (ob es schlagartig schließt und Wasserschlag in der Leitung erzeugt oder geräuscharm schließt). Beide Faktoren werden durch den Schließmechanismus bestimmt – deshalb ist die Wahl der Bauart wichtig.</p>
+
+			<h2 id="check-valve-types-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Rückschlagventiltypen im Überblick</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Rückschlagklappen</strong> verwenden eine angescharnierte Klappe, die durch die Vorwärtsströmung aufschwenkt und bei Strömungsstopp auf den Sitz zurückfällt. Sie sind einfach und kostengünstig, doch die Klappe hat einen langen Bewegungsweg. Bei plötzlicher Strömungsumkehr kann sie auf den Sitz schlagen; in verschmutzten Medien können Scharnier oder Klappe blockieren.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Hub-Rückschlagventile</strong> verwenden einen federbelasteten Kolben oder eine Kugel, die sich vom Sitz abhebt. Sie schließen schneller und eignen sich für saubere Medien mit höherem Druck, doch der eingeschränkte Strömungsweg verursacht mehr Druckverlust und sie verstopfen im Abwasserbetrieb leicht.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wafer-Rückschlagventile mit Doppelklappe</strong> sind kompakt und werden zwischen Flansche eingesetzt; zwei federbelastete Platten übernehmen die Absperrung. Sie sind leicht und kostengünstig für Brandschutz- und HLK-Leitungen, doch die Platten erhöhen den Druckverlust und die Federn können im Dauerbetrieb ermüden.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Kugel-Rückschlagventile</strong> ersetzen Scharnier oder Feder durch eine rollende, gummierte Kugel. Bei Vorwärtsströmung hebt sich die Kugel aus dem Durchgang und rollt bei Strömungsstopp auf den Sitz zurück – ein kurzer, geführter Weg, der geräuscharmes Schließen und hohe Verstopfungsbeständigkeit ermöglicht. Das <a href="/de/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">Kugel-Rückschlagventil HQ44X</a> (DN50–DN400, Sphäroguss, schlagfreies Schließen) ist die Kugelbauart im Sortiment von Wanlian Fluid.</p>
+
+			<h2 id="sliding-ball-vs-swing-check" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Gleitkugel oder Rückschlagklappe</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Vergleich</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Rückschlagklappe</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">HQ41X Gleitkugel</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">HQ44X Kugel</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Schließelement</td>
+							<td class="px-4 py-3 text-gray-700">Angescharnierte Klappe</td>
+							<td class="px-4 py-3 text-gray-700">Gummierte Kugel auf innenliegenden Führungen</td>
+							<td class="px-4 py-3 text-gray-700">Gummierte rollende Kugel</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Druckverlust</td>
+							<td class="px-4 py-3 text-gray-700">Referenzwert</td>
+							<td class="px-4 py-3 text-gray-700">Voller Durchgang, etwa 50 % weniger als bei der Klappe</td>
+							<td class="px-4 py-3 text-gray-700">Voller, blockierfreier Durchgang</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Schließverhalten</td>
+							<td class="px-4 py-3 text-gray-700">Klappe kann bei schneller Umkehr aufschlagen</td>
+							<td class="px-4 py-3 text-gray-700">Geräuscharmes Schließen, kein Wasserschlag</td>
+							<td class="px-4 py-3 text-gray-700">Schlagfreies Schließen, geringer Anlaufdurchfluss</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Verstopfungsbeständigkeit</td>
+							<td class="px-4 py-3 text-gray-700">Scharnier kann in verschmutzten Medien blockieren</td>
+							<td class="px-4 py-3 text-gray-700">Kugel verhindert Verstopfungen</td>
+							<td class="px-4 py-3 text-gray-700">Blockierfreier voller Durchgang</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Einbau</td>
+							<td class="px-4 py-3 text-gray-700">Üblicherweise horizontal</td>
+							<td class="px-4 py-3 text-gray-700">Horizontal oder vertikal</td>
+							<td class="px-4 py-3 text-gray-700">Horizontal oder vertikal</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typische Anwendung</td>
+							<td class="px-4 py-3 text-gray-700">Leitungen für sauberes Wasser</td>
+							<td class="px-4 py-3 text-gray-700">Abwasser, Entwässerung, Tauchpumpen</td>
+							<td class="px-4 py-3 text-gray-700">Wasser mit hohem Durchfluss, Pumpennetze</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Beide Kugelbauarten verwenden einen gummierten Metallkern: Die Kugel des HQ41X besteht aus Kohlenstoffstahl und ist vollständig mit NBR beschichtet; die Kugel des HQ44X besitzt einen Gusseisenkern mit vollständiger EPDM-Vulkanisierung. Sitz- und Dichtungsgummis bestehen aus EPDM oder NBR. Der Temperaturbereich der Standardbaureihe reicht von 0 °C bis 80 °C.</p>
+
+			<h2 id="water-hammer-prevention" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Wasserschlag und schlagfreies Schließen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Wasserschlag entsteht, wenn eine bewegte Wassersäule abrupt angehalten wird – etwa durch das Abschalten einer Pumpe, das schnelle Schließen eines Ventils oder das schlagartige Schließen eines Rückschlagventils. Die kinetische Energie des Wassers wird in eine Druckspitze umgewandelt, die Rohre bersten lassen, Pumpen beschädigen und Messgeräte dejustieren kann. In langen Druckleitungen kann die Spitze ein Mehrfaches des Betriebsdrucks erreichen.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Eine Rückschlagklappe ist eine klassische Ursache für Schläge: Wenn die Pumpe stoppt, bricht die Vorwärtsströmung zusammen und die schwere Klappe fällt durch die verzögernde Wassersäule zurück auf den Sitz. Die Kugel-Rückschlagventile verzichten vollständig auf das Scharnier. Die rollende Kugel folgt der Strömung gleichmäßig nach unten und setzt sich ohne Aufprall. Deshalb werden HQ41X und HQ44X als Rückschlagventile mit geräuscharmem Schließen ohne Wasserschlag beschrieben.</p>
+			<p class="text-gray-700 leading-relaxed">Für eine vollständige Druckstoßkontrolle in Pumpennetzen sollten Sie das Rückschlagventil zusammen mit langsam schließenden hydraulischen Regelventilen und einem Saugschirm gegen Wirbelbildung nach EN 12845 am Pumpensaugstutzen einsetzen. So bleiben die transienten Vorgänge beim Anfahren und Abschalten innerhalb sicherer Grenzen.</p>
+
+			<h2 id="where-check-valves-installed" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Einbauorte von Rückschlagventilen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Pumpendruckleitungen.</strong> Jede Pumpe benötigt ein Rückschlagventil auf der Druckseite. So kann das Wasser beim Abschalten nicht zurückströmen und das Laufrad rückwärts drehen – eine häufige Ursache für vorzeitige Pumpenschäden. Kugel-Rückschlagventile mit geringem Druckverlust sparen im Dauerbetrieb zusätzlich Energie.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Abwasser- und Entwässerungsleitungen.</strong> Rohabwasser enthält Feststoffe, in denen eine angescharnierte Klappe oder ein Federmechanismus blockieren kann. Das HQ41X wurde genau für diese Anwendung entwickelt: Die gummierte rollende Kugel verhindert Verstopfungen und eignet sich für Abwasser, kommunale Entwässerung und Netze mit Tauchpumpen.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Sprinkleranlagen.</strong> Rückschlagventile erfüllen in Sprinklernetzen eine besondere Aufgabe: Das <a href="/de/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">Nassalarmventil ZSFZ</a> hält das Anlagenwasser zurück. Öffnet sich ein Sprinkler und strömt Wasser, hebt es die Klappe an und betätigt die hydraulische Alarmglocke sowie den Druckschalter – das Rückschlagventil dient zugleich als Auslöser des Strömungsalarms. Einen vollständigen Überblick bietet unser <a href="/de/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Regelventiltypen für Sprinkleranlagen</a>.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Kreuzungen mit Trinkwasserleitungen.</strong> Wenn Wasser aus einem Tank, einer Bewässerungs- oder Prozessanlage theoretisch in eine Trinkwasserleitung zurückströmen kann, reicht ein einzelnes Rückschlagventil nicht aus. Der <a href="/de/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">Rückflussverhinderer HS41X</a> verwendet zwei in Reihe geschaltete Rückschlagventile mit einem automatischen Zwischenablauf – die erforderliche Konfiguration für einen wirksamen Schutz an Kreuzverbindungen, ausführlich erläutert im <a href="/de/guides/backflow-prevention-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zum Rückflussschutz</a>.</p>
+
+			<h2 id="check-valve-specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. B2B-Spezifikationscheckliste</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Medium bestimmen</strong> – sauberes Wasser, feststoffhaltiges Abwasser oder Löschwasser? Feststoffe und Fasern sprechen für ein Kugel-Rückschlagventil; saubere Hochdruckleitungen können für ein Hub- oder Klappenventil geeignet sein.</li>
+				<li><strong>Nennweite und Druck festlegen</strong> – HQ41X deckt DN50–DN350 bei 1,0/1,6 MPa ab; HQ44X deckt DN50–DN400 bei PN16 ab. Geben Sie DN und Flanschnorm (GB, ANSI, DIN) in der Anfrage an.</li>
+				<li><strong>Einbaulage prüfen</strong> – bestätigen Sie, ob die Leitung horizontal oder vertikal verläuft. HQ41X und HQ44X akzeptieren beide Einbaulagen, was bei Rückschlagklappen häufig nicht möglich ist.</li>
+				<li><strong>Kugel- und Gehäusewerkstoffe auf das Wasser abstimmen</strong> – Kugel aus NBR-beschichtetem Kohlenstoffstahl (HQ41X) oder EPDM-vulkanisierte Gusseisenkugel (HQ44X), mit Gehäusen aus Grauguss (HT200), Sphäroguss (QT450) oder Gusseisen mit Kugelgraphit (QT450-10); Betriebstemperatur 0 °C bis 80 °C.</li>
+				<li><strong>Schließverhalten anfordern</strong> – bei Pumpenabschaltungen oder schnell schließenden Ventilen ein schlagfreies, geräuscharm schließendes Design spezifizieren, um Wasserschlag zu vermeiden.</li>
+				<li><strong>Prüfnachweise verlangen</strong> – Druckprüfberichte für Gehäuse und Sitz der tatsächlichen Charge (HQ44X nach GB/T13927 geprüft), Werkstoffzeugnisse auf Anfrage und vor der Herstellerbeauftragung unsere <a href="/de/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B-Checkliste zur Armaturenbeschaffung</a> verwenden.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Benötigen Sie Rückschlagventile für Wasser, Abwasser oder Löschwasserleitungen?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Teilen Sie uns DN, Druckstufe, Medium und Einbaulage mit – unsere Ingenieure bestätigen das passende Kugel-Rückschlagventil und erstellen innerhalb von 12 Stunden ein Angebot.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Check%20Valve%20HQ41X" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Hallo, ich benötige Rückschlagventile für Wasser- oder Abwasserleitungen.')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

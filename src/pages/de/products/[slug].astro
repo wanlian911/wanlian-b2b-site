@@ -1,0 +1,360 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { productsDe, productsDeBySlug } from '../../../utils/products.de';
+import { PRODUCT_FAMILY_RELATED } from '../../../utils/product-families';
+
+export async function getStaticPaths() {
+  return Object.values(productsDeBySlug).map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+
+// Allgemeine Einkaufs-FAQs nach Kategorie
+const faqByCategory: Record<string, { question: string; answer: string }[]> = {
+  'Ventile und Bauteile': [
+    { question: 'Welche Normen und Anschlussarten sind für Wanlian-Ventile verfügbar?', answer: 'Wanlian-Ventile werden gefertigt sob Bestellung gemäß as Normen GB, ANSI, DIN e JIS. Anschlüsse flangeadas, ranuradas, tipo wafer e roscadas estão verfügbar je nach Modell. Informe a unsere Ingenieure o DN/PN e o tipo de Anschluss na Anfrage, e confirmaremos a configuração adequada.' },
+    { question: 'Welche Werkstoffe werden verwendet no corpo e na vedação da Ventil?', answer: 'Die Gehäuse são tipicamente de ferro fundido dúctil (QT450), ferro fundido cinzento ou aço fundido/forjado, je nach Modell. Os elementos de vedação usam borracha EPDM ou NBR, e as hastes são de aço inox (2Cr13/304). As opções de Werkstoff podem ser personalizadas para meios e faixas de temperatura específicos.' },
+    { question: 'Wie hoch sind MOQ und Lieferzeit?', answer: 'Das Standard-MOQ é tipicamente de 20 unidades por modelo para Größen em estoque, com prazos de Produktion de 15 a 30 dias gemäß a quantidade e a personalização. Pedidos de amostra estão verfügbar para testes antes do envio.' },
+    { question: 'Wie werden die Ventile vor dem Versand geprüft?', answer: 'Cada Ventil passa por 100% de teste de Druck do corpo e do assento, gemäß a norma aplicável (p. ex., GB/T13927, EN 12266-1). Prüfberichte e inspeção de terceiros podem ser organizados mediante solicitação.' }
+  ],
+  'Hydranten und Pumpenanschlüsse': [
+    { question: 'Welche Normen de Anschluss de saída estão verfügbar para Hydranten de exportação?', answer: 'As Anschlüsse de saída comuns incluem BS336 (Reino Unido/Commonwealth), NIST (Oriente Médio), KWS (Alemanha) e opções de flange flexível. Podemos fornecer Hydranten com o tipo de Anschluss especificado para o seu mercado.' },
+    { question: 'Welche Druckstufe de Druck um Hydrant kommunal deve ter?', answer: 'Hidrantes kommunale padrão são classificados em PN16 (1.6 MPa), cobrindo a maioria das Netze de abastecimento de Wasser urbanas e industrielle. Zonas industrielle de grande altura ou alta demanda podem exigir Hydranten PN25.' },
+    { question: 'Os Hydranten Wanlian estão verfügbar com certificação UL ou FM?', answer: 'Sim, je nach Modell e o Zielmarkt. Entre em contato com nossa equipe kommerziell com a especificação do seu projeto e a região de destino para que possamos selecionar o pacote de certificação adequado.' },
+    { question: 'Os Hydranten de exterior têm Schutz anticongelante?', answer: 'Modells como o Hydrant de coluna SS100 possuem mecanismo de dreno anticongelante automatisch para climas frios. As variantes anti-colisão (SSFT100) e intelligents IoT (SS100ZN) também estão verfügbar.' }
+  ],
+  'Sprinkler und Alarmventile': [
+    { question: 'Was ist der Unterschied zwischen a Ventil de alarme do tipo molhada e a Ventil de dilúvio?', answer: 'A Ventil de alarme do tipo molhada (ZSFZ) mantém as tubulações de Sprinkler cheias de Wasser e aciona o alarme no fluxo de Wasser. A Ventil de dilúvio (ZSFM) permanece fechada sob Druck de ar ou Wasser e inunda o System apenas quando um sinal de detecção de Brand- und Feuerschutz a abre — usada em áreas de alto risco que exigem descarga imediata de grande volume de Wasser.' },
+    { question: 'A quais Normen os Komponenten do System de Sprinkler se conformam?', answer: 'Os Komponenten são gefertigt e testados gemäß a série GB 5135 e, sob Bestellung, outras Normen innencionais. Confirme a norma aplicável ao seu projeto com unsere Ingenieure.' },
+    { question: 'Welche é a Druck de trabalho das Ventile de alarme?', answer: 'Der Standardbetriebsdruck é de 1.6 MPa, com Druck de teste de 3.2 MPa. As faixas de dimensões cobrem geralmente DN50 a DN300, je nach Modell.' },
+    { question: 'Os conjuntos de Ventile de alarme podem ser integrados a Systeme de detecção de Brand- und Feuerschutz existentes?', answer: 'Ja. Válvulas de dilúvio e de pré-ação suportam acionamentos remotos mecânicos, pneumáticos ou elétricos (eletroVentil DC24V) e podem ser integrados à maioria dos painéis de Regelung de alarme de Brand- und Feuerschutz.' }
+  ],
+  'Hydraulische Sicherheit': [
+    { question: 'As Ventile de Regelung hidráulico necessitam de alimentação elétrica?', answer: 'Die meisten hydraulischen Regelventile (p. ex., Ventil de Pegel F745X, redutora 500X) é totalmente autopilotada pela Druck da tubulação e não requer alimentação außen. Modells com Regelung por solenoide, como o GKZF-1, usam AC220V ou DC24V.' },
+    { question: 'Welche é a faixa de ajuste de Druck da Ventil 500X?', answer: 'A Ventil redutora de Druck 500X ajusta a Druck a jusante de 0.1 MPa a 1.6 MPa e funciona com pressões de entrada até a Druckstufe nominal (PN10/PN16/PN25).' },
+    { question: 'Welche Werkstoffe werden verwendet em Anwendungen de Wasser Trinkwasser?', answer: 'Para Netze de Wasser de consumo, modelos como o dispositivo anti-retorno HS41X usam corpos de ferro fundido dúctil com vedação EPDM e Komponenten innens de aço inox, gemäßs aos requisitos sanitários GB/T17219.' },
+    { question: "Como o martelo d'Wasser é evitado nas Ventile hidráulicas?", answer: 'As Ventile de Regelung pilotado fecham de forma suave e lenta, evitando sobrepressões bruscas. As Ventile de agulha permitem ajustar a velocidade de fechamento gemäß as condições específicas da tubulação.' }
+  ],
+  'Löschmonitore und Löschkanonen': [
+    { question: 'Welche vazões e alcances de jato estão verfügbar para os canhões monitora contra Brand- und Feuerschutz?', answer: 'Os canhões manuais (série PS) cobrem 20 a 200 L/s, com alcance do jato de 50 a 110 metros. Os canhões de rastreamento automatisch (série ZDMS) oferecem 5 a 30 L/s (sob medida até 150 L/s), com raio de monitoramento de 40 a 65 m.' },
+    { question: 'Como o canhão de rastreamento automatisch detecta Brand- und Feuerschutzs?', answer: 'Der Löschmonitor ZDMS combina sensores infravermelhos e ultravioleta para detectar e acompanhar chamas, e então mira e dispara Wasser automaticamente. Suporta acionamento remoto manuell via PC/aplicativo móvel ou um armário central.' },
+    { question: 'Há versões à prova de explosão verfügbar?', answer: 'Sim, opções à prova de explosão (p. ex., Exde II BT4 Gb) estão verfügbar para ambientes petroquímicos e de risco.' },
+    { question: 'Welche é a Druck de trabalho dos canhões?', answer: 'Os canhões manuais operam a 0.8–1.2 MPa e os canhões de rastreamento automatisch a 0.6–0.8 MPa. Confirme a dimensão da flange de entrada (DN100/DN150/DN200) para o seu System.' }
+  ],
+  'Feuerlöscherschränke und Schnittstellen': [
+    { question: 'O que está incluído em um conjunto de carrete de mangueira contra Brand- und Feuerschutz?', answer: 'O conjunto da série JPS inclui um carrete de montagem pivotante em aço carbono, mangueira plana flexível de PVC (20/25/30 m) e um bocal de pulverização em latão/liga que suporta os modos de jato direto e neblina.' },
+    { question: 'Há armários de espuma verfügbar para Brand- und Feuerschutzs químicos?', answer: 'Ja. O armário de espuma PSG30 reúne tanque de concentrado de espuma, dosificador, carrete de mangueira e bocal de espuma em uma única unidade de paNetz — eficaz contra Brand- und Feuerschutzs de combustíveis, químicos e solventes (Druckstufe B).' },
+    { question: 'A quais Normen de Anschluss os adaptadores de acoplamento de mangueira se conformam?', answer: 'Os adaptadores da série HS estão verfügbar em DN50/DN65, com roscas innens compatíveis com acoplamentos innencionais contra Brand- und Feuerschutz, gefertigt segundo GB12514 ou as Normen de Werk.' },
+    { question: 'Welche Werkstoffe werden verwendet nos armários e carretéis?', answer: 'Os armários e carretéis usam aço carbono laminado a frio com revestimento em pó vermelho anticorrosivo. Os bocais e dosificadores são de latão ou liga de alumínio anodizado.' }
+  ]
+};
+
+// Anwendungen e Normen de teste por categoria
+const categoryInfo: Record<string, { applications: string[]; testing: string }> = {
+  'Ventile und Bauteile': {
+    applications: ['Abastecimento e distribuição de Wasser', 'Redes de esgoto e Wassers residuárias', 'Tubulações de processo industriell', 'Sistemas de HVAC'],
+    testing: '100-%-Druckprüfung von Gehäuse und Sitz a 100% gemäß GB/T13927 ou EN 12266-1; revestimento em resina epóxi testado para resistência à corrosão.'
+  },
+  'Hydranten und Pumpenanschlüsse': {
+    applications: ['Redes de Schutz contra Brand- und Feuerschutz kommunal', 'Áreas industrielle e pátios de Lager', 'Sistemas de coluna innens', 'Instalações de exterior em clima frio'],
+    testing: 'Teste de Druck hidrostática (2.4 MPa típico) e teste de Durchfluss gemäß GB 4452 ou as Normen de exportação aplicáveis.'
+  },
+  'Sprinkler und Alarmventile': {
+    applications: ['Sistemas automatischs de Sprinkler', 'Prédios kommerzielle e residenciais', 'Armazéns industrielle', 'Sistemas de dilúvio e de pré-ação de alto risco'],
+    testing: 'Testes de Druck e estanqueidade gemäß a série GB 5135; sensibilidade de alarme verificada com interruptores de Durchfluss e campainhas de alarme.'
+  },
+  'Hydraulische Sicherheit': {
+    applications: ['Controle de Pegel de reservatórios', 'Gestão de Druck em Netze de Wasser', 'Proteção contra reflujo de Wasser Trinkwasser', 'Proteção da sucção de bombas'],
+    testing: 'Testes de funcionamento e Druck gemäß as Normen aplicáveis; conjuntos de diafragma e vedações testados para Lebensdauer.'
+  },
+  'Löschmonitore und Löschkanonen': {
+    applications: ['Usinas petroquímicas e fazendas de tanques', 'Aeroportos e centros de exposição', 'Armazéns de grande porte', 'Caminhões bombeiro e combate a Brand- und Feuerschutz marítimo'],
+    testing: 'Testes de Durchfluss, alcance do jato e rotação; modelos à prova de explosão verificados gemäß as Normen Ex (opcional).'
+  },
+  'Feuerlöscherschränke und Schnittstellen': {
+    applications: ['Postos de combate a Brand- und Feuerschutz innens', 'Áreas de armazenamento de produtos químicos e combustíveis', 'Sistemas de mangueira contra Brand- und Feuerschutz de Gebäude', 'Instalações marítimas e offshore'],
+    testing: 'Testes de Druck e funcionamento dos carretéis, bocais e dosificadores; razão de expansão da espuma verificada por modelo.'
+  }
+};
+
+// FAQ do produto tem prioridade; caso contrário, FAQ genérico por categoria
+const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
+const info = categoryInfo[product.category];
+
+// Vídeo do produto (opcional): renderizado + JSON-LD VideoObject quando os dados configuram
+const videoData = product.video
+  ? {
+      name: `${product.name} — Visão Geral em Vídeo`,
+      description: product.video.description ?? `Visão geral em vídeo do ${product.name}: construção, dimensões wichtigste e pontos de Installation.`,
+      thumbnail: product.video.poster ?? product.image,
+      src: product.video.src,
+      duration: product.video.duration ?? 'PT2M0S',
+      uploadDate: product.video.uploadDate ?? '2026-09-21'
+    }
+  : undefined;
+// Related em fechamento por família de produtos; produtos sem família usam interlinking por categoria
+const bySlug = new Map(productsDe.map(p => [p.slug, p]));
+const familySlugs = PRODUCT_FAMILY_RELATED[product.slug] ?? [];
+const relatedProducts = familySlugs.length
+  ? familySlugs.map(s => bySlug.get(s)).filter((p): p is typeof productsDe[number] => Boolean(p))
+  : productsDe.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 4);
+const catAnchor = encodeURIComponent(product.category);
+
+// Links para guias de compra por categoria
+const guideByCategory: Record<string, { href: string; title: string; description: string }[]> = {
+  'Ventile und Bauteile': [
+    { href: '/de/guides/gate-valve-vs-butterfly-valve-fire-protection/', title: 'Absperrschieber vs. Absperrklappe para Brandschutz', description: 'Vedação, Durchfluss, perda de carga e custo comparados para escolher a Ventil de isolamento correta para ramais de Brand- und Feuerschutz e Netze de Wasser.' },
+    { href: '/de/guides/check-valve-types-guide/', title: 'Typs de Válvulas de Retenção e Guia de Seleção', description: 'Retenção de esfera deslizante vs. clapeta oscilante — perda de carga, comportamento no fechamento e as Anwendungen ideais de cada tipo.' }
+  ],
+  'Hydranten und Pumpenanschlüsse': [
+    { href: '/de/guides/how-to-choose-a-fire-hydrant/', title: 'So wählen Sie einen Feuerlöschhydranten', description: 'Interno vs. exterior, coluna seca vs. molhada, Normen de saída e Druckstufes de Druck para projetos kommunale e industrielle.' },
+    { href: '/de/guides/fire-hydrant-valve-standards-guide/', title: 'Normen de Hidrantes, Mangueiras e Válvulas Explicadas', description: 'AWWA C502, NFPA 1961, EN 14384, BS 750 — qual norma se aplica ao seu Bestellung e como verificar a conformidade.' }
+  ],
+  'Sprinkler und Alarmventile': [
+    { href: '/de/guides/fire-sprinkler-control-valve-types/', title: 'Arten von Sprinkler-Steuerventilen: OS&Y, Absperrklappe und Rückschlagventil', description: 'O papel de cada Ventil de Regelung em uma Netz de Sprinkler e como as Ventile OS&Y, borboleta e de retenção trabalham juntas.' },
+    { href: '/de/guides/fire-sprinkler-system-wet-dry-preaction/', title: 'Sprinkleranlagen: Nass-, Trocken- oder vorgesteuertes System?', description: 'Compare as configurações de Systeme de Sprinkler molhado, seco e de pré-ação gemäß a Druckstufe de risco do seu prédio.' }
+  ],
+  'Hydraulische Sicherheit': [
+    { href: '/de/guides/pressure-reducing-valve-guide/', title: 'Guia de Válvulas Redutoras de Pressão: PRV Hidráulico 500X', description: "Como as redutoras pilotadas protegem equipamentos a jusante, regulam a Druck e evitam o martelo d'Wasser." },
+    { href: '/de/guides/backflow-prevention-guide/', title: 'Leitfaden zur Rückflussverhinderung', description: 'Quando as Netze de Wasser Trinkwasser precisam de conjuntos de dupla retenção e como o HS41X protege contra o reflujo.' }
+  ],
+  'Löschmonitore und Löschkanonen': [
+    { href: '/de/guides/fire-water-monitor-selection-guide/', title: 'Seleção de Löschmonitore: Manual vs. Rastreamento Automático', description: 'Monitores manuais PS vs. canhões de rastreamento automatisch ZDMS — Durchfluss, alcance, Regelung e opções à prova de explosão.' },
+    { href: '/de/guides/fire-water-cannon-buying-guide/', title: 'Einkaufsleitfaden de Löschmonitore Brandschutz', description: 'Fixo, remoto ou intelligent? Strahlweite, Durchfluss e fatores de Installation para suDruck de Brand- und Feuerschutz em grandes espaços.' }
+  ],
+  'Feuerlöscherschränke und Schnittstellen': [
+    { href: '/de/guides/fire-hose-reel-cabinet-guide/', title: 'Guia de Seleção de Carretéis de Mangueira e Armários Brandschutz', description: 'Carretéis JPS0.8-19, armários de espuma PSG30 e Ventile de Hydrant SN65 — o que um posto de combate a Brand- und Feuerschutz innen komplett precisa.' },
+    { href: '/de/guides/fire-extinguisher-selection-guide/', title: 'Einkaufsleitfaden de Extintores: Pó Químico ABC', description: 'Cobertura das Druckstufes A/B/C/E, classificações ISO 7165 e embalagem de exportação B2B para extintores portáteis.' }
+  ]
+};
+
+const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
+---
+
+<Layout
+  locale="de"
+  title={product.seoTitle}
+  description={product.seoDescription}
+  productData={product}
+  type="product"
+  faq={faqs}
+  video={videoData}
+  breadcrumbs={[{ name: 'Produkte', href: '/de/products/' }, { name: product.category, href: `/de/products/#category=${catAnchor}` }, { name: product.name }]}
+>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mb-20">
+    <!-- Breadcrumbs -->
+    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-8 flex gap-2">
+      <a href="/de/" class="hover:text-blue-600">Startseite</a>
+      <span>/</span>
+      <a href="/de/products/" class="hover:text-blue-600">Produkte</a>
+      <span>/</span>
+      <a href={`/de/products/#category=${catAnchor}`} class="hover:text-blue-600">{product.category}</a>
+      <span>/</span>
+      <span class="text-gray-600">{product.name}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <!-- Product Image -->
+      <div class="relative overflow-hidden bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+        <img
+          src={product.image}
+          alt={product.name}
+          class="w-full h-auto rounded-xl object-contain aspect-square"
+        />
+        <span aria-hidden="true" class="pointer-events-none select-none absolute inset-0 flex items-center justify-center overflow-hidden">
+          <span class="text-7xl font-black tracking-[0.3em] text-brand-blue/[0.06] -rotate-[24deg] whitespace-nowrap">WANLIAN FLUID</span>
+        </span>
+      </div>
+
+      <!-- Vídeo do produto (apenas quando os dados configuram product.video) -->
+      {product.video && (
+        <div class="mt-4 rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-gray-900">
+          <video class="w-full h-auto" controls playsinline preload="metadata" poster={product.video.poster}>
+            <source src={product.video.src} type="video/mp4" />
+            Seu navegador não suporta vídeo incorporado.
+          </video>
+        </div>
+      )}
+
+      <!-- Product Details -->
+      <div class="space-y-6">
+        <div>
+          <span class="text-blue-600 font-semibold uppercase tracking-wider text-sm">{product.category}</span>
+          <h1 class="text-4xl font-bold text-gray-900 mt-2">{product.name}</h1>
+        </div>
+
+        <div class="text-lg text-gray-600 leading-relaxed space-y-4">
+          {product.description.split('\n\n').map(paragraph => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold border-b pb-2">Wichtige Merkmale</h2>
+          <ul class="grid grid-cols-1 gap-2">
+            {product.features.map(feature => (
+              <li class="flex items-start">
+                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-gray-700">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-gray-100 p-6 rounded-xl space-y-4">
+          <h2 class="text-xl font-bold">Technische Spezifikationen</h2>
+          <dl class="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+            {Object.entries(product.specs).map(([key, value]) => (
+              <div class="border-b border-gray-200 py-2">
+                <dt class="text-sm font-medium text-gray-500">{key}</dt>
+                <dd class="mt-1 text-sm font-bold text-gray-900">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        {product.Werkstoffs && (
+          <div class="bg-gray-50 p-6 rounded-xl border border-gray-200/60 space-y-4">
+            <h2 class="text-xl font-bold text-gray-900">Teile- und Werkstoffliste</h2>
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+              {Object.entries(product.Werkstoffs).map(([part, Werkstoff]) => (
+                <div class="border-b border-gray-200/60 py-2 flex justify-between items-center text-sm">
+                  <dt class="font-medium text-gray-500">{part}</dt>
+                  <dd class="font-bold text-gray-900 text-right">{Werkstoff}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )}
+
+        {product.dimensions && (
+          <div class="bg-white p-6 rounded-xl border border-gray-100 space-y-4 shadow-sm overflow-x-auto">
+            <h2 class="text-xl font-bold text-gray-900">Standardabmessungen</h2>
+            <table class="min-w-full divide-y divide-gray-200 text-sm">
+              <thead class="bg-gray-50">
+                <tr>
+                  {product.dimensions.headers.map(header => (
+                    <th class="px-3 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">{header}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                {product.dimensions.rows.map(row => (
+                  <tr class="hover:bg-gray-50/50">
+                    {row.map(cell => (
+                      <td class="px-3 py-3 text-gray-700 font-medium whitespace-nowrap">{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {info && (
+          <div class="space-y-4">
+            <div class="bg-blue-50/50 p-6 rounded-xl border border-blue-100/50">
+              <h2 class="text-xl font-bold text-gray-900 mb-3">Anwendungen</h2>
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {info.applications.map(app => (
+                  <li class="flex items-start text-sm text-gray-700">
+                    <svg class="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {app}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200/60">
+              <h2 class="text-xl font-bold text-gray-900 mb-3">Qualität und Prüfungen</h2>
+              <p class="text-sm text-gray-700 leading-relaxed">{info.testing}</p>
+            </div>
+          </div>
+        )}
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-6">
+          <a
+            href={`/de/contact/?product=${encodeURIComponent(product.name)}`}
+            class="flex-1 text-center py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-600/20"
+          >
+            Angebot anfordern
+          </a>
+          <a
+            href={`/de/contact/?product=${encodeURIComponent('Produktdokumentation anfordern')}`}
+            class="flex-1 text-center py-4 bg-white text-blue-600 font-bold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition"
+          >
+            Produktdokumentation anfordern
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    {faqs.length > 0 && (
+      <section class="mt-20 max-w-4xl">
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Häufig gestellte Fragen</h2>
+        <div class="space-y-4">
+          {faqs.map((faq, index) => (
+            <details class="group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer px-6 py-5 font-bold text-gray-900 hover:bg-gray-50 transition list-none">
+                <span>{faq.question}</span>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-45 transition-transform flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                {faq.answer}
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related Guides (backlinks GEO) -->
+    {relatedGuides.length > 0 && (
+      <section class="mt-20">
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Verwandte Einkaufsleitfäden</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {relatedGuides.map(guide => (
+            <a href={guide.href} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-blue/30 transition p-6 flex flex-col">
+              <span class="text-[10px] font-bold text-brand-blue uppercase tracking-wider mb-2">Einkaufsleitfaden</span>
+              <h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-blue transition leading-snug">{guide.title}</h3>
+              <p class="text-xs text-gray-500 leading-relaxed mt-2 flex-grow">{guide.description}</p>
+              <span class="mt-4 inline-flex items-center text-brand-red font-bold text-xs group-hover:gap-1 transition-all">
+                Leitfaden lesen
+                <svg class="w-3.5 h-3.5 ml-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related Products -->
+    {relatedProducts.length > 0 && (
+      <section class="mt-20">
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Verwandte Produkte</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {relatedProducts.map(related => (
+            <a href={`/de/products/${related.slug}/`} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-blue/30 transition p-6 flex flex-col">
+              <img src={related.image} alt={related.name} class="w-full h-40 object-contain rounded-lg bg-gray-50 p-2 mb-4" loading="lazy" />
+              <span class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">{related.category}</span>
+              <h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-blue transition leading-snug">{related.name}</h3>
+              <span class="mt-4 inline-flex items-center text-brand-red font-bold text-xs group-hover:gap-1 transition-all">
+                Details ansehen
+                <svg class="w-3.5 h-3.5 ml-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+  </main>
+</Layout>

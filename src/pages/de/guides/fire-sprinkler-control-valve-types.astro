@@ -1,0 +1,186 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Müssen Steuerarmaturen für Feuersprinkler UL- oder FM-gelistet sein?',
+		answer: 'Für die meisten nordamerikanischen und viele internationale Projekte muss die Sprinkler-Steuerarmatur für den Brandschutz gelistet sein. Wir fertigen auf Anfrage UL/FM-gelistete Absperrschieber, Absperrklappen, Rückschlagventile, Sprühflutventile und Pre-Action-Ventile. Bestätigen Sie vor der Bestellung die gemäß Projektspezifikation und Zielmarkt erforderliche Listung.'
+	},
+	{
+		question: 'Was ist der Unterschied zwischen einem OS&Y- und einem Absperrschieber mit nicht steigender Spindel für Sprinkleranlagen?',
+		answer: 'Ein OS&Y-Absperrschieber (Outside Screw and Yoke) besitzt eine steigende Spindel. Dadurch zeigt die Spindelposition sichtbar, ob die Armatur geöffnet oder geschlossen ist. Bei Ausführungen mit nicht steigender Spindel liegt die Spindel verdeckt und es wird ein separater Stellungsanzeiger benötigt. Unser UL/FM-gelisteter OS&Y-Absperrschieber verbindet die sichtbare Spindelanzeige mit genuteten Enden für eine schnelle mechanische Kupplung.'
+	},
+	{
+		question: 'Warum benötigt eine Abschnittsarmatur einer Sprinkleranlage einen Überwachungsschalter?',
+		answer: 'Ein Überwachungs- oder Endschalter sendet jedes Mal ein elektrisches Signal an die Brandmeldezentrale, wenn die Armatur geschlossen oder teilweise geschlossen wird. So bleibt die Sprinkleranlage nicht unbemerkt außer Betrieb – eine zwingende Sicherheitsanforderung bei Installationen nach dem Muster von NFPA 13. Signal-Absperrklappen wie unser genutetes DN80-Wafermodell integrieren diesen Schalter standardmäßig.'
+	},
+	{
+		question: 'Wo wird ein Nassalarm-Rückschlagventil eingebaut?',
+		answer: 'Das Nassalarm-Rückschlagventil ZSFZ wird an der Sprinkler-Steigleitung einer Nassanlage eingebaut. Es hält die Rohrleitung unter normalen Bedingungen unter Druck. Sobald Wasser zu einem Sprinkler fließt, hebt die Klappe ab, löst die hydraulische Alarmglocke aus und aktiviert den Druckschalter. Eine integrierte Verzögerungskammer verhindert Fehlalarme durch vorübergehende Druckspitzen.'
+	},
+	{
+		question: 'Welche Nennweiten decken Wanlian-Steuerarmaturen für Sprinkleranlagen ab?',
+		answer: 'Unser UL/FM-OS&Y-Absperrschieber deckt mit genuteten Enden 2 bis 10 Zoll (DN50–DN250) ab; genutete Signal-Wafer-Absperrklappen sind für DN50–DN300 bei PN16 erhältlich; Nassalarm-Rückschlagventile gibt es in DN100, DN150 und DN200 bei 1,6 MPa. Geben Sie bei Ihrer Anfrage die Nennweiten von Steigleitungen und Abschnitten an.'
+	}
+];
+
+const toc = [
+	{ id: 'what-control-valves-do', label: '1. Funktion von Steuerarmaturen für Sprinkleranlagen' },
+	{ id: 'osy-gate-valves', label: '2. OS&Y-Absperrschieber: überwachte Hauptabsperrung' },
+	{ id: 'signal-butterfly-valves', label: '3. Signal-Absperrklappen für die Abschnittssteuerung' },
+	{ id: 'check-and-alarm-valves', label: '4. Rückschlag- und Alarmventile' },
+	{ id: 'control-valve-comparison', label: '5. Vergleichstabelle der Steuerarmaturen' },
+	{ id: 'specification-checklist', label: '6. Spezifikation: B2B-Checkliste' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const products = [
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM-OS&Y-Absperrschieber (genutet)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: 'UL/FM-gelisteter Absperrschieber mit steigender Spindel, 2–10 Zoll, genutete Enden' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Genutete Signal-Wafer-Absperrklappe', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', desc: 'DN80 PN16 mit integriertem Überwachungsschalter' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Nassalarm-Rückschlagventil ZSFZ-150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Nassalarm-Rückschlagventil DN100–DN200 mit Verzögerungskammer' },
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Sprühflut-Alarmventilgruppe (ZSFM)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'Membrangesteuerte Systemarmatur, DN50–DN300' },
+	{ slug: 'pre-action-alarm-system-zsfy', name: 'Pre-Action-Alarmanlage (ZSFY)', img: '/assets/products/pre-action-alarm-system-zsfy.jpg', desc: 'Ausfallsichere Doppelaktivierung für wasserempfindliche Räume' }
+];
+
+const referencePages = [
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM-OS&Y-Absperrschieber' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Genutete Signal-Wafer-Absperrklappe' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Nassalarm-Rückschlagventil ZSFZ-150' },
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Sprühflut-Alarmventilgruppe ZSFM' },
+	{ slug: 'pre-action-alarm-system-zsfy', name: 'Pre-Action-Alarmanlage ZSFY' }
+];
+---
+
+<Layout
+	title="Steuerarmaturen für Sprinkler: OS&Y, Klappe & Rückschlagventil"
+	description="Steuerarmaturen für Sprinkleranlagen im Vergleich: OS&Y-Schieber, Signal-Absperrklappen und Rückschlagventile. B2B-Spezifikation mit UL/FM-Listung."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Steuerarmaturen für Sprinkleranlagen' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Steuerarmaturen für Sprinkleranlagen</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Brandschutz-Leitfaden</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Steuerarmaturen für Sprinkleranlagen: OS&amp;Y, Klappe und Rückschlagventil</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Eine Sprinkleranlage ist nur so zuverlässig wie ihre Steuerarmaturen. Kurz gesagt: Verwenden Sie einen überwachten OS&amp;Y-Absperrschieber für die Hauptabsperrung, überwachte Absperrklappen für Abschnitte, Rückschlagventile in der Alarmventilstation und ein Sprühflut- oder Pre-Action-Ventil, wenn die Anlage bis zum Brandsignal trocken bleiben muss. Dieser Leitfaden erklärt die verschiedenen Steuerarmaturen und ihre korrekte Spezifikation.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-control-valves-do" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Funktion von Steuerarmaturen für Sprinkleranlagen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Steuerarmaturen befinden sich zwischen der Wasserversorgung und den Sprinklerköpfen. Sie sperren Anlagenteile für Wartungsarbeiten ab, halten Wasser zurück, bis es benötigt wird, und müssen – besonders wichtig – <strong>ihre Stellung „offen/geschlossen“ melden</strong>, damit der Brandschutz nicht versehentlich abgeschaltet werden kann. Deshalb sind die folgenden Armaturentypen nicht ohne Weiteres durch gewöhnliche Industriearmaturen ersetzbar.</p>
+			<p class="text-gray-700 leading-relaxed">Wer nach einer „Steuerarmatur für Sprinkleranlagen“ sucht, benötigt meist eine von vier Lösungen: einen OS&amp;Y-Absperrschieber für die Hauptversorgung, eine Signal-Absperrklappe für die Abschnittssteuerung, eine Rückschlag-/Alarmventilstation an der Steigleitung oder ein Sprühflut-/Pre-Action-Ventil für Sondergefahrenanlagen. Eine vollständige Übersicht zu Nass-, Sprühflut- und Pre-Action-Ventilgruppen finden Sie in unserem <a href="/de/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Ventilen für Sprinkleranlagen</a>.</p>
+
+			<h2 id="osy-gate-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. OS&amp;Y-Absperrschieber: überwachte Hauptabsperrung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Der OS&amp;Y-Absperrschieber (Outside Screw and Yoke) ist die klassische Hauptsteuerarmatur für Sprinkler-Steigleitungen und Feuerlöschleitungen. Da sich die Gewindespindel außerhalb des Oberteils befindet, steigt sie beim Öffnen sichtbar nach oben. Jede vorbeigehende Person kann erkennen, ob die Armatur geöffnet ist; ein Überwachungsschalter am Joch meldet die Stellung an die Brandmeldezentrale.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Für den Einsatz im Brandschutz sollte die Armatur eine anerkannte Listung besitzen. Unser <a href="/de/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM-gelisteter weichdichtender OS&amp;Y-Absperrschieber</a> wird mit genuteten Enden von 2 bis 10 Zoll (DN50–DN250) aus Sphäroguss geliefert. Er verfügt über eine Anzeige der steigenden Spindel und einen EPDM-weichdichtenden Sitz für tropfdichtes Schließen. Wenn das Projekt Flanschverbindungen vorsieht, ist der <a href="/de/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">weichdichtende Absperrschieber Z41X aus duktilem Gusseisen</a> die übliche Alternative mit vollem Durchgang für die Hauptabsperrung.</p>
+			<p class="text-gray-700 leading-relaxed">Als Faustregel gilt: Absperrschieber öffnen und schließen langsam (über mehrere Umdrehungen) und verursachen bei vollständiger Öffnung nahezu keinen Druckverlust. Damit sind sie die richtige Wahl für Armaturen, die selten betätigt werden dürfen, den Durchfluss aber nicht einschränken sollen.</p>
+
+			<h2 id="signal-butterfly-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Signal-Absperrklappen für die Abschnittssteuerung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Wo Armaturen in Steigleitungsräumen, Technikräumen oder Armaturenverteilern dicht angeordnet sind, ist Platz kostbar. Eine Absperrklappe benötigt nur einen Bruchteil der Baulänge und des Gewichts eines Absperrschiebers, und ihre Vierteldrehung erleichtert die Betätigung. Der Nachteil: Eine einfache Absperrklappe liefert keine optische oder elektrische Stellungsanzeige. Deshalb werden zur Abschnittssteuerung von Sprinkleranlagen <strong>Signal-Absperrklappen</strong> mit integriertem Überwachungs-/Endschalter eingesetzt.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Unsere <a href="/de/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">genutete DN80-Signal-Wafer-Absperrklappe</a> ist ein typisches Beispiel: DN80 PN16, Gehäuse aus duktilem Gusseisen QT450, Schneckengetriebe und ein wasserdichter Mikroschalter, der den Status „offen/geschlossen“ an die Alarmzentrale meldet. Die genutete Verbindung ermöglicht die Montage mit Kupplungen statt Flanschen und verkürzt so die Installationszeit an den Sprinkler-Ansatzleitungen.</p>
+			<p class="text-gray-700 leading-relaxed">Wenn eine Zeichnung eine „überwachte Absperrklappe“ verlangt, ist die Spezifikation des Überwachungsschalters entscheidend. Fordern Sie Typ und IP-Schutzart des Endschalters an, damit er sauber mit Ihrer Brandmeldezentrale zusammenarbeitet.</p>
+
+			<h2 id="check-and-alarm-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Rückschlag- und Alarmventile</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Eine Nass-Sprinkler-Steigleitung wird normalerweise durch ein <strong>Nassalarm-Rückschlagventil</strong> unter Druck gehalten. Das <a href="/de/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">Nassalarm-Rückschlagventil ZSFZ-150</a> hält das Wasser in den Rohrleitungen der Anlage. Sobald ein Sprinkler öffnet, hebt die Strömung die Klappe an, löst die hydraulische Alarmglocke aus und aktiviert den Druckschalter. Die Verzögerungskammer nimmt vorübergehende Druckspitzen auf, damit normale Schwankungen der Versorgung keinen Alarm auslösen. ZSFZ-Ausführungen sind in DN100, DN150 und DN200 bei 1,6 MPa erhältlich.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Bei Anlagen, die bis zur Bestätigung eines Brandes trocken bleiben müssen – etwa in Bereichen mit hoher Gefährdung oder wasserempfindlichen Räumen –, wird die Steuerarmatur selbst zu einem <strong>Sprühflut- oder Pre-Action-Ventil</strong>. Das <a href="/de/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">Sprühflut-Alarmventil ZSFM</a> hält die Versorgung durch Membrandruck zurück und öffnet bei einem Erkennungssignal sofort, um alle offenen Düsen zu beaufschlagen. Das Pre-Action-System ZSFY benötigt dagegen zwei unabhängige Signale, bevor die Rohrleitung geflutet wird.</p>
+			<p class="text-gray-700 leading-relaxed">Kugel-Rückschlagventile kommen ebenfalls in Pumpen- und Versorgungsanordnungen zum Einsatz, wenn Rückfluss verhindert werden muss. Die <a href="/de/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">Gegenüberstellung von Absperrschieber und Absperrklappe</a> zeigt, wie Absperr- und Rückschlagfunktion in einer Feuerlöschleitung zusammenspielen.</p>
+
+			<h2 id="control-valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Vergleichstabelle der Steuerarmaturen</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Armaturentyp</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Hauptfunktion</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Stellungsüberwachung</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typischer Einbauort</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">OS&amp;Y-Absperrschieber</td>
+							<td class="px-4 py-3 text-gray-700">Absperrung der Hauptversorgung</td>
+							<td class="px-4 py-3 text-gray-700">Steigende Spindel + Überwachungsschalter</td>
+							<td class="px-4 py-3 text-gray-700">Steigleitung, Feuerlöschleitung, Pumpendruckseite</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Signal-Absperrklappe</td>
+							<td class="px-4 py-3 text-gray-700">Abschnitts- / Etagensteuerung</td>
+							<td class="px-4 py-3 text-gray-700">Integrierter Überwachungsschalter</td>
+							<td class="px-4 py-3 text-gray-700">Ansatzleitungen, Steigleitungsräume, Verteiler</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Nassalarm-Rückschlagventil</td>
+							<td class="px-4 py-3 text-gray-700">Druck halten, Alarm bei Durchfluss</td>
+							<td class="px-4 py-3 text-gray-700">Klappe + Alarmglocke + Druckschalter</td>
+							<td class="px-4 py-3 text-gray-700">Nass-Sprinkler-Steigleitung</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sprühflut- / Pre-Action-Ventil</td>
+							<td class="px-4 py-3 text-gray-700">Systemsteuerung für Trockenrohrzonen</td>
+							<td class="px-4 py-3 text-gray-700">Durch Erkennungssignal betätigt</td>
+							<td class="px-4 py-3 text-gray-700">Bereiche mit hoher Gefährdung / wasserempfindliche Zonen</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Die meisten Projekte benötigen alle vier Kategorien. Die Frage lautet daher nicht „Absperrschieber oder Absperrklappe?“, sondern „Welche Armatur gehört an welchen Einbauort?“</p>
+
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Spezifikation: B2B-Checkliste</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Prüfen Sie zuerst die Listungsanforderung</strong> – UL/ULC oder FM ist bei den meisten nordamerikanischen Projekten vorgeschrieben. Stimmen Sie die Zertifizierung vor dem Preisvergleich auf Zielmarkt und Armaturentyp ab.</li>
+				<li><strong>Gleichen Sie die Druckstufe ab</strong> – PN16 (1,6 MPa) ist für Steuerarmaturen von Sprinkleranlagen üblich. Prüfen Sie den maximalen statischen Druck Ihres Netzes und spezifizieren Sie bei Bedarf PN25.</li>
+				<li><strong>Wählen Sie die Verbindung passend zum Rohrleitungsplan</strong> – genutete Enden sparen bei Stahlrohren Montagezeit; Flansche eignen sich für Projekte, die bereits mit Flanschverbindungen geplant sind.</li>
+				<li><strong>Schreiben Sie die Spezifikation des Überwachungsschalters aus</strong> – Schaltertyp, Spannung und IP-Schutzart müssen mit Ihrer Brandmeldezentrale kompatibel sein.</li>
+				<li><strong>Fordern Sie Chargenprüfberichte an</strong> – verlangen Sie Druckprüfzeugnisse für Gehäuse und Sitz der tatsächlichen Produktionscharge, nicht eine allgemeine Vorlage.</li>
+				<li><strong>Bündeln Sie das Armaturenpaket</strong> – die Beschaffung von OS&amp;Y-, Absperrklappen- und Alarmventilen bei einem Hersteller vereinfacht die Zertifizierungsdokumentation. Nutzen Sie vor der Lieferantenentscheidung unsere <a href="/de/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B-Checkliste für die Ventilbeschaffung</a>.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Benötigen Sie ein Paket aus Sprinkler-Steuerarmaturen?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie uns Nennweiten der Steigleitungen, Verbindungstyp und erforderliche Zertifizierung. Unsere Ingenieure antworten innerhalb von 12 Stunden mit Datenblättern und Angebot.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Sprinkler%20Control%20Valves" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Hallo, ich benötige Steuerarmaturen für Sprinkleranlagen (OS&Y/Absperrklappe/Rückschlagventil).')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

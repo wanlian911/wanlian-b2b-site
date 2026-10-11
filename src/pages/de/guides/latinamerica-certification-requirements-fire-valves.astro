@@ -1,0 +1,256 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const toc = [
+	{ id: 'cert-landscape', label: '1. Zertifizierungslandschaft für Brandschutzprojekte in Lateinamerika' },
+	{ id: 'cert-table', label: '2. Zertifizierung für Zertifizierung: Inhalt und Prüfung' },
+	{ id: 'per-model-vs-plant', label: '3. Nach Modell oder Werk: der entscheidende Unterschied' },
+	{ id: 'genuine-certs', label: '4. Echte Zertifikate und chargenbezogene Prüfberichte anfordern' },
+	{ id: 'fake-red-flags', label: '5. Warnsignale gefälschter Zertifikate' },
+	{ id: 'wanlian-documents', label: '6. Wanlian-Dokumentation und Modellqualifizierung' },
+	{ id: 'verification-checklist', label: '7. Prüfliste vor der Bestellung' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' },
+	{ id: 'sources', label: 'Quellen' }
+];
+
+const faq = [
+	{
+		question: 'Erfordert ein kommunales Brandschutzprojekt in Lateinamerika immer eine UL- oder FM-Zertifizierung?',
+		answer: 'Nicht immer. Viele lateinamerikanische Ausschreibungen nennen AWWA, NFPA, EN oder lokale Normen (NOM/NR in Mexiko, ABNT in Brasilien) statt UL oder FM. UL-Listing und FM-Zulassung werden typischerweise bei Projekten nach US-Spezifikation, versicherungsgetriebenen Industrieanlagen oder Reexporten verlangt. Lesen Sie die Zertifizierungsklausel Ihrer Ausschreibungsunterlagen und bestätigen Sie das genaue Regelwerk vor der Bestellung.'
+	},
+	{
+		question: 'Wie unterscheidet sich ISO 9001 von einem UL-Listing oder einer FM-Zulassung?',
+		answer: 'ISO 9001 zertifiziert das Qualitätsmanagementsystem eines Herstellers, nicht ein bestimmtes Produkt. UL-Listing und FM-Zulassung gelten auf Produktebene: Sie prüfen ein definiertes Modell, eine Größe und einen Werkstoff nach einer benannten Norm und erfordern laufende Nachkontrollen. Ein ISO-9001-Zertifikat auf Werksebene sagt nichts darüber aus, ob eine bestimmte Armatur UL-gelistet oder FM-zugelassen ist – prüfen Sie stets auf Modellebene.'
+	},
+	{
+		question: 'Wie prüfe ich, ob ein UL- oder FM-Zertifikat echt ist und mein Modell abdeckt?',
+		answer: 'Fordern Sie das Zertifikat oder die Aktennummer an und suchen Sie sie anschließend im offiziellen Verzeichnis der ausstellenden Stelle (UL Product iQ auf ul.com, FM-Global-Datenbank auf fmglobal.com). Bestätigen Sie, dass das Listing aktiv ist und genau das von Ihnen bestellte Modell, die Größe und die Druckstufe nennt. Ein auf eine Broschüre gedrucktes Logo ist kein Nachweis.'
+	},
+	{
+		question: 'Welche Dokumente kann Wanlian Fluid für eine Bestellung von Brandschutzarmaturen oder Hydranten bereitstellen?',
+		answer: 'Wanlian Fluid arbeitet mit einem Qualitätsmanagementsystem nach ISO 9001, führt vor dem Versand an jeder Einheit eine Gehäuse-Druckprüfung und eine Luftdichtheitsprüfung durch und koordiniert die Exportdokumentation für jeden Auftrag. Für jede konkrete Norm (UL, FM, AWWA, NOM usw.) wird die Konformität je Modell vor der Bestellung anhand der zutreffenden Prüfberichte und Zertifikate bestätigt.'
+	},
+	{
+		question: 'Welche Hydrantennorm schreiben die meisten lateinamerikanischen Versorgungsunternehmen vor?',
+		answer: 'AWWA C502 ist bei Projekten nach US-Spezifikation und US-finanzierten Projekten üblich (Trockenrohr-Überflurhydranten). Europa und viele andere Märkte verweisen auf Säulenhydranten nach EN 14384. Bestätigen Sie, welche Norm Ihr Versorgungsunternehmen oder Planer in die Ausschreibung aufgenommen hat, und stimmen Sie Hydrant, Kupplungen und Gewinde darauf ab.'
+	},
+	{
+		question: 'Was sind die eindeutigsten Anzeichen für ein gefälschtes Zertifikat?',
+		answer: 'Eine Zertifikatsnummer, die in der Datenbank der ausstellenden Stelle nicht gefunden wird, ein Listing ohne Ihr genaues Modell und Ihre Größe, allgemeine Formulierungen ohne Normausgabe oder ein Dokument, das der Lieferant auf Anfrage nicht erneut ausstellt. Unser Leitfaden zur Fälschungserkennung beschreibt den vollständigen Prüfprozess.'
+	}
+];
+
+const referencePages = [
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM-OS&Y-Absperrschieber' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Z41X weichdichtender Flansch-Absperrschieber' },
+	{ slug: 'anti-pollution-backflow-preventer-hs41x', name: 'HS41X Rückflussverhinderer' }
+];
+---
+
+<Layout
+	title="Zertifizierungen für Brandschutzventile in Lateinamerika (2026)"
+	description="UL, FM, AWWA, NOM und NFPA: Zertifizierungsanforderungen für Brandschutzventile in Lateinamerika, Zertifikate prüfen und sicher beschaffen Sie."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Zertifizierung lateinamerikanischer Brandschutzarmaturen' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Zertifizierung lateinamerikanischer Brandschutzarmaturen</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden zu Zertifizierung und Konformität</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Zertifizierungsanforderungen für Brandschutzventile und Hydranten in lateinamerikanischen Projekten (2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Der Zuschlag für einen Auftrag über Brandschutzventile oder Hydranten in Lateinamerika hängt von einem Punkt ab: Die Armatur muss exakt der in der Ausschreibung genannten Zertifizierung entsprechen. Die Region kennt jedoch kein einheitliches Regelwerk – ein kommunales Projekt in Mexiko, eine Industrieanlage in Brasilien und ein US-finanzierter Reexport können jeweils AWWA, NOM/ABNT, NFPA, EN, UL oder FM verlangen. Dieser Leitfaden gibt einen Überblick über die Zertifizierungslandschaft, erklärt die Prüfung echter Zertifikate und ihrer Modellabdeckung, trennt ISO 9001 auf Werksebene vom produktbezogenen Listing und bietet eine Prüfliste vor der Bestellung, damit Sie nie eine nicht dokumentierbare Armatur kaufen.</p>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="cert-landscape" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Zertifizierungslandschaft für Brandschutzprojekte in Lateinamerika</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Brandschutzausrüstung in Lateinamerika unterliegt nicht einer einzigen Norm. Welches Regelwerk gilt, hängt vom Land, der Finanzierungsquelle, dem Versicherer und davon ab, ob die Ausrüstung für ein Projekt nach US-Spezifikation oder für einen Reexport bestimmt ist. Als Käufer werden Sie mit den folgenden Anforderungen konfrontiert. Sie werden hier als mögliche Vorgaben einer lateinamerikanischen Ausschreibung dargestellt, nicht als Zertifizierungsstatus eines bestimmten Lieferanten:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>UL-Listing / FM-Zulassung</strong> – produktbezogene Zertifizierung für den Brandschutz, am häufigsten bei Projekten nach US-Spezifikation, versicherungsgetriebenen Industrieanlagen und Reexportaufträgen.</li>
+				<li><strong>AWWA C502 / C515</strong> – Normen der American Water Works Association für Trockenrohrhydranten (C502) und weichdichtende Absperrschieber (C515), häufig bei US-finanzierten kommunalen Paketen.</li>
+				<li><strong>NFPA 13 / NFPA 24</strong> – Systemnormen für Sprinkleranlagen und private Hydranteninstallationen; sie bestimmen, welche Ventile und Hydranten die Systeme verwenden dürfen.</li>
+				<li><strong>Mexiko NOM / NR und Brasilien ABNT</strong> – nationale Normenwerke, auf die lokale kommunale und industrielle Ausschreibungen verweisen.</li>
+				<li><strong>EN / CE</strong> – europäische Normen (z. B. EN 14384 für Hydranten, EN 1074 / ISO 5208 für Armaturen), relevant für Reexporte in die EU bzw. das Vereinigte Königreich oder für Projekte mit europäischer Spezifikation.</li>
+				<li><strong>ISO 9001</strong> – die grundlegende Qualitätsmanagementnorm auf Werksebene, die viele Ausschreibungen als Vorbedingung verlangen und die von jedem Produkt-Listing zu unterscheiden ist.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Die praktische Konsequenz: Lesen Sie zuerst die Zertifizierungsklausel Ihrer Ausschreibung, benennen Sie Norm und Ausgabe schriftlich und behandeln Sie jedes weitere Dokument (UL, FM, AWWA, NOM, ABNT, CE) als Nachweis, der <strong>je Modell</strong> bestätigt werden muss. Normen wie diese sind Branchenreferenzen. Ob eine bestimmte Armatur oder ein Hydrant eine Norm erfüllt, ist eine Modellfrage, die durch Prüfberichte und Zertifikate beantwortet wird – nicht durch ein Werkssiegel.</p>
+
+			<h2 id="cert-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Zertifizierung für Zertifizierung: Inhalt und Prüfung</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Zertifizierung</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Was sie ist</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Wann eine lateinamerikanische Ausschreibung sie verlangt</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Prüfung</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">UL-Listing</td>
+							<td class="px-4 py-3 text-gray-700">Produktbezogenes Listing, bei dem eine definierte Armatur bzw. ein Modell nach UL-Brandschutznormen geprüft und regelmäßig nachkontrolliert wird.</td>
+							<td class="px-4 py-3 text-gray-700">Brandschutzprojekte nach US-Spezifikation, bestimmte US-finanzierte oder Reexportaufträge; gelegentlich auch in Industrieausschreibungen.</td>
+							<td class="px-4 py-3 text-gray-700">Akten- bzw. Zertifikatsnummer im UL-Product-iQ-Verzeichnis (ul.com) prüfen; aktiven Status sowie genaues Modell und Größe bestätigen.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">FM-Zulassung</td>
+							<td class="px-4 py-3 text-gray-700">Produktzulassung durch FM Global, die Prüfung mit einer Bewertung des Werks und der Schadenverhütung verbindet.</td>
+							<td class="px-4 py-3 text-gray-700">Industrieanlagen und hochwertige Einrichtungen, insbesondere wenn der Versicherer oder die Spezifikation FM nennt.</td>
+							<td class="px-4 py-3 text-gray-700">Zulassung in der FM-Global-Datenbank (fmglobal.com) bestätigen; prüfen, ob genaues Modell, Größe und Druckstufe abgedeckt sind.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">AWWA C502</td>
+							<td class="px-4 py-3 text-gray-700">AWWA-Norm für Trockenrohr-Überflurhydranten.</td>
+							<td class="px-4 py-3 text-gray-700">Kommunale Hydrantenpakete nach US-Spezifikation oder mit US-Finanzierung in der gesamten Region.</td>
+							<td class="px-4 py-3 text-gray-700">AWWA ist ein Normungsverband (awwa.org). Genannte Ausgabe abgleichen, einen auf C502 verweisenden Prüfbericht verlangen und Werkstoffe sowie Schnittstellen des Hydranten prüfen.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">AWWA C515</td>
+							<td class="px-4 py-3 text-gray-700">AWWA-Norm für weichdichtende Absperrschieber im Wasser- und Brandschutzdienst.</td>
+							<td class="px-4 py-3 text-gray-700">Kommunale Ausschreibungen für Wasser- und Brandschutz-Absperrschieber nach AWWA.</td>
+							<td class="px-4 py-3 text-gray-700">In der Spezifikation genannte Ausgabe und modellbezogenen Prüfbericht prüfen; die AWWA-Konformität wird je Modell bestätigt.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">NFPA 13 / NFPA 24</td>
+							<td class="px-4 py-3 text-gray-700">Systemnormen für Sprinkleranlagen (13) und private Hydranteninstallationen (24).</td>
+							<td class="px-4 py-3 text-gray-700">Sie regeln die von Ventilen und Hydranten versorgten Systeme und legen daher fest, welche Produkte zulässig sind.</td>
+							<td class="px-4 py-3 text-gray-700">Aktuelle Ausgabe heranziehen (nfpa.org); NFPA definiert Systemanforderungen, die einzelnen Produkte werden durch eigene Listings oder Normen geprüft.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Mexiko NOM / NR</td>
+							<td class="px-4 py-3 text-gray-700">Amtliche mexikanische Normen und zugehörige Anforderungen für Beschaffungen in Mexiko.</td>
+							<td class="px-4 py-3 text-gray-700">Kommunale und industrielle Ausschreibungen in Mexiko sowie Projekte nach mexikanischen Import- und Normenvorgaben.</td>
+							<td class="px-4 py-3 text-gray-700">Die in der Ausschreibung genannte NOM bestimmen und vor der Bestellung einen modellbezogenen Konformitätsnachweis für diese NOM verlangen.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Brasilien ABNT</td>
+							<td class="px-4 py-3 text-gray-700">Associação Brasileira de Normas Técnicas – das brasilianische nationale Normenwerk.</td>
+							<td class="px-4 py-3 text-gray-700">Kommunale und industrielle Ausschreibungen für Brandschutz und Wasser in Brasilien.</td>
+							<td class="px-4 py-3 text-gray-700">Die in der Ausschreibung genannte ABNT-Norm bestimmen und die Modellkonformität vor der Bestellung anhand von Prüfberichten bestätigen.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">EN / CE (Reexport)</td>
+							<td class="px-4 py-3 text-gray-700">Europäische Normen (z. B. EN 14384 für Hydranten, EN 1074 / ISO 5208 für Armaturen) sowie die CE-Kennzeichnung für den EU- bzw. UK-Markt.</td>
+							<td class="px-4 py-3 text-gray-700">Reexporte in die EU bzw. das Vereinigte Königreich oder Projekte mit europäischer Normenspezifikation.</td>
+							<td class="px-4 py-3 text-gray-700">Konkrete EN-Norm und gegebenenfalls CE-Konformitätserklärung am exakten Modell prüfen; bestätigen, dass die Kennzeichnung für den gekauften Artikel gilt.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">ISO 9001</td>
+							<td class="px-4 py-3 text-gray-700">Internationale Norm für ein Qualitätsmanagementsystem auf Werksebene.</td>
+							<td class="px-4 py-3 text-gray-700">Grundvoraussetzung vieler Ausschreibungen als Nachweis eines kontrollierten Fertigungsprozesses.</td>
+							<td class="px-4 py-3 text-gray-700">Zertifikat bei der ausstellenden Akkreditierungsstelle prüfen und den Geltungsbereich auf das gekaufte Produkt beziehen. Es ist ein Prozesszertifikat, kein Produkt-Listing.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Beim tatsächlichen Einkauf sind zwei Spalten besonders wichtig: Die dritte erklärt, <em>warum</em> eine Ausschreibung ein Schema nennt, und die vierte zeigt, <em>wo</em> der Nachweis zu führen ist. Ein Lieferant, der auf die Datenbank der ausstellenden Stelle und einen modellbezogenen Prüfbericht verweisen kann, unterscheidet sich grundlegend von einem Anbieter, der nur ein Logo sendet.</p>
+
+			<h2 id="per-model-vs-plant" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Nach Modell oder Werk: der entscheidende Unterschied</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Der häufigste Konformitätsfehler in dieser Kategorie ist die Verwechslung eines <strong>Zertifikats auf Werksebene</strong> mit einer <strong>produktbezogenen Qualifizierung auf Modellebene</strong>. Beide beantworten unterschiedliche Fragen:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Werksebene (z. B. ISO 9001)</strong> – das Qualitätsmanagementsystem des Herstellers ist zertifiziert. Es umfasst die Organisation und ihre Prozesse, nicht ein bestimmtes Produkt. Es zeigt, dass das Werk nach einem kontrollierten System arbeitet.</li>
+				<li><strong>Modellebene (z. B. UL-Listing, FM-Zulassung, AWWA-/NOM-/ABNT-Konformität)</strong> – ein bestimmtes Modell, eine Größe, ein Werkstoff und eine Druckstufe werden nach einer benannten Norm qualifiziert und laufend überwacht oder geprüft.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Ein Werkszertifikat ersetzt niemals eine Modellqualifizierung. Nennt Ihre Ausschreibung AWWA C515 oder eine bestimmte NOM, benötigen Sie eine <strong>modellbezogene</strong> Antwort: Die Konformität mit dieser Norm muss vor der Bestellung je Modell anhand der zutreffenden Prüfberichte und Zertifikate bestätigt werden. Fragen Sie, welche exakten Modelle für welche Größen und nach welcher Normausgabe qualifiziert sind, und lassen Sie dies im kommerziellen Angebot schriftlich festhalten.</p>
+
+			<h2 id="genuine-certs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Echte Zertifikate und chargenbezogene Prüfberichte anfordern</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Echte Dokumentation wird <em>angefordert und geprüft</em>; sie darf nicht einfach vorausgesetzt werden. Nehmen Sie diese Anforderungen in Ihre RFQ auf, damit sie vertraglich geschuldet sind und keine Gefälligkeit bleiben:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Norm und Ausgabe benennen.</strong> Eine präzise Zeile (z. B. „weichdichtender Absperrschieber, DN50–DN300, nach AWWA C515, aktuelle Ausgabe“) filtert Lieferanten heraus, die diesen genauen Geltungsbereich nicht dokumentieren können.</li>
+				<li><strong>Zertifikats- oder Aktennummern anfordern.</strong> Bei UL/FM die Listingnummer, bei nationalen Normen das zutreffende Zertifikat. Eine nachschlagbare Nummer ist der eigentliche Zweck.</li>
+				<li><strong>Chargenbezogene Prüfberichte verlangen.</strong> Auf Ihren Auftrag bezogene Gehäuse-Druck- und Luftdichtheitsprüfungen statt eines einzigen allgemeinen Berichts aus vergangenen Jahren.</li>
+				<li><strong>Werkstoff- und Werksprüfzeugnisse anfordern.</strong> Nachweise zum Gehäusewerkstoff (z. B. duktiles Gusseisen), damit die Ausführung und nicht nur das Etikett der Norm entspricht.</li>
+				<li><strong>Im eigenen Verzeichnis der ausstellenden Stelle prüfen.</strong> UL-/FM-Nummern auf ul.com oder fmglobal.com auflösen; bei Normungsverbänden wie AWWA und NFPA die genannte Ausgabe bestätigen.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Wenn Brandschutzarmaturen spezifiziert werden, gehören typischerweise unsere <a href="/de/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">weichdichtenden OS&amp;Y-Absperrschieber</a> zur überwachten Abschnittssteuerung, der <a href="/de/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">weichdichtende Z41X-Flansch-Absperrschieber</a> zur vollquerschnittigen Netzabsperrung oder der <a href="/de/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">Rückflussverhinderer</a> dazu, wenn die Wasserversorgung ihn erfordert. Unabhängig vom spezifizierten Modell gilt dieselbe Qualifizierungsfrage: Bestätigen Sie Norm, Modell und Größe schriftlich, bevor die Bestellung ausgestellt wird.</p>
+
+			<h2 id="fake-red-flags" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Warnsignale gefälschter Zertifikate</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Gefälschte Brandschutzausrüstung ist in dieser Kategorie ein reales Risiko, weil Brandschutz sicherheitskritisch ist und die Preisspanne groß sein kann. Behandeln Sie die folgenden Punkte als fehlgeschlagene Prüfung, nicht als nebensächliches Detail:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Ein Zertifikat oder eine Aktennummer, die in der offiziellen Datenbank der ausstellenden Stelle <strong>nicht gefunden wird</strong>.</li>
+				<li>Ein Listing, das ein <strong>anderes Modell, eine andere Größe oder Druckstufe</strong> als den von Ihnen gekauften Artikel nennt.</li>
+				<li><strong>Allgemeine Formulierungen ohne Normausgabe</strong> oder ein auf ein Datenblatt gesetztes Logo ohne zugrunde liegenden Eintrag.</li>
+				<li><strong>Fehlende Einzel- oder Chargenprüfungen</strong> – Ergebnisse der Gehäuse-Druck- und Luftdichtheitsprüfung müssen vorhanden und Ihrem Auftrag zuordenbar sein.</li>
+				<li>Ein Lieferant, der <strong>auf Anfrage kein Zertifikat erneut ausstellt</strong> oder sich einer Drittinspektion bzw. einer kleinen Musterbestellung widersetzt.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Wenn eines dieser Signale auftritt, stoppen Sie den Vorgang und eskalieren Sie ihn. Unser spezieller Leitfaden <a href="/de/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">Gefälschte Armaturen und Zertifikate für Brandschutzausrüstung erkennen</a> behandelt den vollständigen Prüfprozess – von kopierten Typenschildern bis zu gefälschten PDFs und dem Ablauf einer Vorbestellungsprüfung mit einem unabhängigen Inspektor.</p>
+
+			<h2 id="wanlian-documents" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Wanlian-Dokumentation und Modellqualifizierung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Wanlian Fluid (Quanzhou Wanlian Fluid Equipment Co., Ltd.) ist ein Hersteller und Exporteur von Armaturen, Hydranten und Brandschutzausrüstung in Quanzhou, Fujian. Die veröffentlichte Position ist bewusst konkret, damit Sie sie prüfen können, statt sie einfach vorauszusetzen:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>ISO 9001</strong>-Qualitätsmanagementsystem mit eigenen Produktionslinien in Quanzhou und ausgewählten Produkten qualifizierter Fertigungspartner; die Armaturengehäuse werden intern CNC-bearbeitet.</li>
+				<li><strong>Prüfung jeder Einheit</strong> – jede Einheit wird vor dem Versand einer Gehäuse-Druckprüfung und einer Luftdichtheitsprüfung unterzogen, sodass für jeden Artikel ein dem Auftrag zuordenbarer Prüfnachweis vorhanden ist.</li>
+				<li><strong>Exportdokumentation</strong> wird für jeden Auftrag koordiniert, ergänzt durch OEM-/ODM- und kundenspezifische Branding-Optionen.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Bei den Zertifizierungen, die eine lateinamerikanische Ausschreibung nennen kann – UL, FM, AWWA, NOM, ABNT, NFPA-referenzierte Systeme oder CE für den Reexport – verfolgt Wanlian einen Ansatz der <strong>Modellqualifizierung</strong>, statt eine pauschale Zertifizierung zu behaupten: <em>Die Konformität mit einer bestimmten Norm muss vor der Bestellung je Modell durch Prüfberichte und Zertifikate bestätigt werden.</em> Das ist die ehrliche und überprüfbare Position und genau die Position, die Ihre Beschaffungsakte widerspiegeln sollte. Bei Hydranten wird beispielsweise unser <a href="/de/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">Überflurhydrant</a> nach der in Ihrer Ausschreibung genannten Hydrantennorm spezifiziert; die zutreffende C502-/EN-Konformität und die Prüfprotokolle werden für dieses Modell und diese Größe vor Auftragsfreigabe bestätigt.</p>
+			<p class="text-gray-700 leading-relaxed">Wenn Ihre Spezifikation Brandschutzarmaturen nach US-Standard verlangt, lesen Sie <a href="/de/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">UL-gelistete Brandschutzventile richtig auswählen</a>, um echte Listing-Nachweise zu prüfen. Bei europäischer Spezifikation oder Reexporten in die EU bzw. das Vereinigte Königreich hilft <a href="/de/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">CE-/EN-12845-Konformität im Brandschutz</a>.</p>
+
+			<!-- Verwandte Leitfäden -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Verwandte Leitfäden</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Die zugrunde liegenden Normen werden in <a href="/de/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Normen für Hydranten, Feuerwehrschläuche und Armaturen erklärt</a>. Bevor Sie die Unterlagen eines Lieferanten freigeben, arbeiten Sie die <a href="/de/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">Prüfung gefälschter Armaturen und Brandschutzausrüstung</a> durch.</p>
+			</div>
+
+			<h2 id="verification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Prüfliste vor der Bestellung</h2>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Ermitteln Sie aus den Ausschreibungsunterlagen die genaue Zertifizierungsklausel und die Ausgabe der Norm.</li>
+				<li>Bestätigen Sie, ob die Anforderung auf Werksebene (ISO 9001), auf Modellebene (UL, FM, AWWA, NOM, ABNT, CE) oder auf beiden Ebenen gilt.</li>
+				<li>Fordern Sie Zertifikats- oder Aktennummer an und prüfen Sie sie im offiziellen Verzeichnis der ausstellenden Stelle.</li>
+				<li>Bestätigen Sie, dass die Qualifizierung genau das von Ihnen gekaufte Modell, die Größe und die Druckstufe nennt.</li>
+				<li>Verlangen Sie chargenbezogene Prüfberichte zu Gehäuse-Druck und Luftdichtheit, die Ihrem Auftrag zugeordnet sind.</li>
+				<li>Fordern Sie Werkstoff- und Werksprüfzeugnisse an, damit die Ausführung und nicht nur das Etikett der Norm entspricht.</li>
+				<li>Nehmen Sie alle vorgenannten Punkte in die Bestellung auf, damit die Dokumentation vertraglich geschuldet ist.</li>
+				<li>Erwägen Sie bei Erstbestellungen eine Drittinspektion und eine kleine Musterbestellung, bevor Sie sich auf größere Mengen festlegen.</li>
+			</ol>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Quellen -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Quellen</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>Underwriters Laboratories – UL-Product-iQ-Listingverzeichnis: <a href="https://www.ul.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ul.com</a></li>
+				<li>FM Global – Datenbank für Produktzulassungen im Brandschutz: <a href="https://www.fmglobal.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">fmglobal.com</a></li>
+				<li>AWWA – Hydranten- und Armaturennormen (AWWA C502, C515): <a href="https://www.awwa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">awwa.org</a></li>
+				<li>NFPA – Normen für Sprinkler- und Hydranteninstallationen (NFPA 13, NFPA 24): <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">Die Zertifizierungsangaben sind ein allgemeiner Käuferleitfaden für 2026. Bestätigen Sie vor der Beschaffung stets die aktuelle Ausgabe und Anwendbarkeit mit Ihrem Planer und der ausstellenden Stelle.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Bereiten Sie ein Angebot für Brandschutzarmaturen oder Hydranten in Lateinamerika vor?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie uns Ihre Spezifikation und den Bestimmungsort – wir antworten innerhalb von 12 Stunden mit einem aufgeschlüsselten Angebot.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href={`/de/contact/?product=${uri.EscapeDataString('Zertifizierung von Brandschutzarmaturen RFQ (Lateinamerika)')}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Guten Tag, ich benötige ein Angebot für Brandschutzarmaturen und Hydranten für ein Projekt in Lateinamerika')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Per WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

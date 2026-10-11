@@ -1,0 +1,179 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ: 4–6 realistische Beschaffungsfragen (erzeugt FAQPage-JSON-LD)
+const faq = [
+	{
+		question: 'Was ist eine Feuerwehr-Einspeisung mit Doppelstutzen und warum hat sie zwei Eingänge?',
+		answer: 'Eine Feuerwehr-Einspeisung (FDC) ist die Stelle, an der Einsatzfahrzeuge Wasser in die Brandschutzanlage eines Gebäudes pumpen – in die Steigleitung oder die Sprinklerhauptleitung. Eine Ausführung mit Doppelstutzen hat zwei Eingänge und einen gemeinsamen Ausgang, sodass zwei Fahrzeuge gleichzeitig denselben Steigstrang versorgen können und sich der verfügbare Volumenstrom für die Anlage verdoppelt. Die SQD100-1.6 besitzt zwei DN65-Eingänge (2,5 Zoll) und führt über einen einzelnen geflanschten DN100-Ausgang (4 Zoll) in die Gebäudehauptleitung.'
+	},
+	{
+		question: 'Welche Eingangskupplung sollte ich für eine Feuerwehr-Einspeisung spezifizieren?',
+		answer: 'Die Eingänge müssen zu den Schlauchkupplungen passen, die der örtliche Feuerwehrdienst tatsächlich verwendet, denn diese müssen unter Druck angeschlossen werden. Die SQD100-1.6 wird mit zwei DN65-Eingängen und Kappen in der Ausführung SQS65 / KWS65 geliefert. Bei deutschen Storz-Anschlüssen decken unsere 2,5-Zoll-Storz-Kupplungen aus Aluminium DN50 bis DN150 mit selbstabdichtender Dichtkante ab. Adapter der HS-Serie (DN50/DN65, 1,6 MPa, GB12514) ermöglichen den Wechsel zwischen Gewindearten – geben Sie die benötigte Kupplung in der Anfrage an.'
+	},
+	{
+		question: 'Enthält die SQD100 ein Regelventil?',
+		answer: 'Ja. Die SQD100-1.6 verfügt über ein integriertes Regelventil mit Handrad, sodass der Durchfluss durch die Einspeisung geregelt und nicht nur gesperrt oder freigegeben werden kann. Beide Eingänge werden mit Kappen und geflochtenen Stahlsicherungsseilen geliefert. Dadurch bleiben die Kappen beim Abnehmen während des Pumpens an der Einspeisung.'
+	},
+	{
+		question: 'Welche Angaben gelten für Abmessungen, Druck und Werkstoffe?',
+		answer: 'Eingänge: 2 × DN65 (2,5 Zoll) mit Kappen. Ausgang: geflanschter DN100 (4 Zoll). Druckstufe: 1,6 MPa. Gesamtlänge: 120 mm. Gehäuse: Sphäroguss / Gusseisen mit korrosionsbeständiger roter Pulverbeschichtung; Handradspindel aus Messing oder Edelstahl. Die kompakte Baulänge eignet sich für enge Pumpenräume sowie Brandschutz-Einspeisepunkte an Flughäfen oder in kommunalen Anlagen.'
+	},
+	{
+		question: 'Wie sollte eine Feuerwehr-Einspeisung geprüft werden?',
+		answer: 'Prüfen Sie, ob beide Kappen mit intakten Dichtungen montiert und die Sicherungsseile unbeschädigt sind, ob der geflanschte Ausgang keine Leckage oder Korrosion zeigt und ob sich das Handrad leicht betätigen lässt. Die Einspeisung muss sichtbar, gekennzeichnet und jederzeit frei von parkenden Fahrzeugen, Begrünung oder gelagerten Waren sein. In Frostregionen ist außerdem zu bestätigen, dass die Einspeisung nach der Nutzung vollständig entwässert, damit kein Wasser im Gehäuse stehen bleibt.'
+	},
+	{
+		question: 'Was ist der Unterschied zwischen einer Feuerwehr-Einspeisung und einem Hydranten?',
+		answer: 'Sie arbeiten in entgegengesetzter Richtung. Ein Hydrant ist eine Entnahmestelle am kommunalen Wassernetz – Einsatzfahrzeuge schließen ihn an und entnehmen Wasser. Eine Feuerwehr-Einspeisung ist ein gebäudeseitiger Eingang – Einsatzfahrzeuge pumpen darüber Wasser in die Steigleitung oder Sprinkleranlage des Gebäudes. Viele Standorte benötigen beides; beide Komponenten werden in unserem Leitfaden zur Hydrantenauswahl behandelt.'
+	}
+];
+
+// Inhaltsverzeichnis: IDs entsprechen exakt den H2-IDs im Text
+const toc = [
+	{ id: 'what-is-fdc', label: '1. Was ist eine Feuerwehr-Einspeisung?' },
+	{ id: 'how-siamese-works', label: '2. Zwei Eingänge, ein Ausgang' },
+	{ id: 'coupling-standards', label: '3. Eingangskupplungen und Adapter' },
+	{ id: 'where-fdc-installed', label: '4. Wo werden Einspeisungen installiert?' },
+	{ id: 'fdc-comparison', label: '5. Doppelstutzen, Storz-Kupplung oder Adapter?' },
+	{ id: 'fdc-spec-checklist', label: '6. Checkliste für Spezifikation und Installation' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+// Verknüpfte Produkte (Slugs bleiben unverändert)
+const referencePages = [
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'SQD100-1.6 Feuerwehr-Pumpenadapter mit Doppelstutzen', img: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', desc: '2 × DN65-Eingänge, geflanschter DN100-Ausgang, 1,6 MPa' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: '2,5-Zoll-Storz-Kupplung aus Aluminium (deutscher Standard)', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'DN50–DN150, 1,6 MPa, selbstabdichtendes Aluminium' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'HS-Kupplungsadapter', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65, GB12514, eloxiertes Aluminium' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Wandhydrantenventil SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'DN65-Wandhydrantenventil für Steigleitungsanschlüsse' }
+];
+---
+
+<Layout
+	title="Feuerwehr-Einspeisung: Doppelstutzen & Kupplungen"
+	description="Leitfaden zur Feuerwehr-Einspeisung: zwei DN65-Eingänge, DN100-Ausgang, SQS65/KWS65- und Storz-Kupplungen, Regelventil und B2B-Checkliste für B2B-Anfragen."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Leitfaden zur Feuerwehr-Einspeisung' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Leitfaden zur Feuerwehr-Einspeisung</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden für den Brandschutz</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Leitfaden zur Feuerwehr-Einspeisung: Doppelstutzen &amp; Kupplungen</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kurz gesagt: Eine Feuerwehr-Einspeisung (FDC) ist der Eingang, über den Einsatzfahrzeuge Wasser in die Steigleitung oder Sprinkleranlage eines Gebäudes pumpen. Die Ausführung mit Doppelstutzen besitzt zwei Eingänge zu einem Ausgang, sodass zwei Fahrzeuge denselben Steigstrang versorgen können. Die Eingänge müssen zu den Schlauchkupplungen des örtlichen Feuerwehrdienstes passen. Dieser Leitfaden behandelt die Doppelstutzen-Einspeisung SQD100-1.6, passende Kupplungen und die Prüfpunkte vor der Bestellung.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{referencePages.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-fdc" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Was ist eine Feuerwehr-Einspeisung?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Eine Feuerwehr-Einspeisung ist die gebäudeseitige Schnittstelle für den Feuerwehrdienst. Wenn die eigene Wasserversorgung des Gebäudes nicht ausreicht oder die Sprinkleranlage außer Betrieb genommen wurde, schließen die eintreffenden Einsatzfahrzeuge ihre Schläuche an die FDC an und pumpen Wasser in den Steigstrang oder die Sprinklerhauptleitung. Die Einspeisung ist somit ein druckbeaufschlagter Eintrittspunkt in das Gebäude und keine Wasserquelle.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Da sie unter Notfallbedingungen eingesetzt wird, muss eine FDC drei praktische Fragen beantworten: Kann der Feuerwehrdienst sie mit den vorhandenen Kupplungen schnell anschließen? Kann ausreichend Wasser durch sie gefördert werden? Ist sie zugänglich, wenn das Gebäude verraucht und mit Einsatzfahrzeugen belegt ist? Alle Empfehlungen dieses Leitfadens leiten sich aus diesen drei Fragen ab.</p>
+			<p class="text-gray-700 leading-relaxed">Eine Einspeisung mit <strong>Doppelstutzen</strong> beantwortet die Frage nach dem Volumenstrom mit zwei Eingängen. Bei Bedarf kann ein Fahrzeug die Anlage allein versorgen. Trifft ein zweites Fahrzeug ein, werden beide Eingänge genutzt und der Volumenstrom in den Steigstrang ungefähr verdoppelt, ohne dass eine Pumpe an einem ungünstigen Betriebspunkt ihrer Kennlinie arbeiten muss.</p>
+
+			<h2 id="how-siamese-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Zwei Eingänge, ein Ausgang</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Der <a href="/de/products/sqd100-1-6-fire-pump-adapter/" class="text-brand-blue font-semibold hover:underline">Feuerwehr-Pumpenadapter SQD100-1.6</a> ist ein kompakter Doppelstutzenkörper: Auf einer Seite befinden sich zwei DN65-Eingänge (2,5 Zoll) mit Kappen, auf der anderen ein geflanschter DN100-Ausgang (4 Zoll), der mit der Gebäudehauptleitung verschraubt wird. Der Betriebsdruck beträgt 1,6 MPa. Mit einer Baulänge von nur 120 mm eignet sich der Körper für enge Pumpenräume und unterirdische Schachtbauwerke.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Für die Beschaffung sind zwei Konstruktionsdetails besonders wichtig. Erstens besitzt der Körper ein integriertes, über ein Handrad betätigtes Regelventil, sodass der Durchfluss geregelt und nicht nur geöffnet oder gesperrt werden kann. Zweitens sind die Eingangskappen mit geflochtenen Stahlsicherungsseilen befestigt. Dieses kleine Detail verhindert einen häufigen Fehler im Einsatz: Während des Pumpens abgelegte Kappen gehen nicht verloren.</p>
+			<p class="text-gray-700 leading-relaxed">Der Körper besteht aus Sphäroguss / Gusseisen und besitzt eine korrosionsbeständige rote Pulverbeschichtung; die Handradspindel ist aus Messing oder Edelstahl. Die Kombination aus zwei Eingängen und einem Ausgang unterscheidet die Doppelstutzen-Einspeisung von einer Ausführung mit nur einem Eingang, die das System auf ein einziges Pumpenfahrzeug begrenzen würde.</p>
+
+			<h2 id="coupling-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Eingangskupplungen und Adapter</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Dieser Spezifikationspunkt entscheidet darüber, ob eine FDC im Einsatz tatsächlich nutzbar ist. Schlauchkupplungen sind regional unterschiedlich: Eine Verbindung, die zur Ausrüstung einer Feuerwehr passt, kann für eine andere unbrauchbar sein. Die SQD100-1.6 wird mit zwei DN65-Eingängen und Kappen in der Ausführung <strong>SQS65 / KWS65</strong> geliefert. Der Kupplungstyp muss vor der Bestellung mit dem örtlichen Feuerwehrdienst abgestimmt werden.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Bei Projekten mit deutschen Standardanschlüssen deckt die <a href="/de/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">2,5-Zoll-Storz-Kupplung aus Aluminium</a> DN50 bis DN150 ab. Sie besitzt eine selbstabdichtende Dichtkante und die typische Storz-Schnellverbindungsgeometrie. Neben Aluminium sind Ausführungen aus Messing oder verchromte Varianten erhältlich; die Druckstufe beträgt 1,6 MPa. Die Kupplung eignet sich für Klarwasser und Schaummittelgemisch.</p>
+			<p class="text-gray-700 leading-relaxed">Für Übergänge von Gewinden zu Kupplungen vor Ort verwendet der <a href="/de/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS-Kupplungsadapter</a> (DN50 / DN65, 1,6 MPa / 232 PSI) eine eloxierte Aluminiumlegierung mit standardisierten Innen- und Außengewinden nach GB12514 oder Werksstandard. So lassen sich Schläuche sowie Hydranten- oder FDC-Ausgänge leckagefrei verbinden. Wenn die Verbindungssysteme durch eine Projektnorm vorgegeben sind, erläutert unser <a href="/de/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur CE- und EN-12845-Konformität</a> die Behandlung von Storz-, KWS- und Gewindesystemen in europäischen Spezifikationen.</p>
+
+			<h2 id="where-fdc-installed" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Wo werden Einspeisungen installiert?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Eine FDC wird an der Außenwand des geschützten Gebäudes an einer Stelle montiert, die der Feuerwehrdienst mit Schläuchen von der Straße oder einer befestigten Aufstellfläche aus erreichen kann. Sie muss von Türbewegungen, Begrünung, Schildern und allem freigehalten werden, was später zu einem Stellplatz werden könnte. Üblicherweise wird eine Kennzeichnung angebracht, die das versorgte System nennt. So erkennt eine Einsatzmannschaft auf einem großen Gelände, welchen Steigstrang sie unter Druck setzt.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Gebäudeseitig speist die FDC das Steigleitungsnetz: die Steigleitung mit Wandhydrantenventilen und <a href="/de/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">Wandhydrantenventilen</a> und/oder die Sprinklerhauptleitung. Deshalb gehört die FDC in die Spezifikation der Gebäudehydranten und Steigleitung und sollte nicht als isolierte Einzelbeschaffung betrachtet werden.</p>
+			<p class="text-gray-700 leading-relaxed">Zwei Installationsregeln verhindern die meisten Ausfälle. Der Ausgangsflansch und der Körper müssen entwässerbar sein, damit bei Frost kein Wasser in der Einspeisung stehen bleibt. Außerdem darf die Einspeisung niemals verstellt werden. Eine FDC hinter einem parkenden Lieferwagen ist praktisch nicht vorhanden und stellt den häufigsten bei Baustellenbegehungen festgestellten Mangel dar.</p>
+
+			<h2 id="fdc-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Doppelstutzen, Storz-Kupplung oder Adapter?</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Komponente</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Funktion</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Größe und Druckstufe</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Werkstoff / Hinweise</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Doppelstutzenkörper SQD100-1.6</td>
+							<td class="px-4 py-3 text-gray-700">Zwei Fahrzeuge pumpen in die Gebäudehauptleitung</td>
+							<td class="px-4 py-3 text-gray-700">2 × DN65-Eingänge, geflanschter DN100-Ausgang, 1,6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">Sphäroguss, rote Pulverbeschichtung, 120 mm lang, integriertes Regelventil, Kappen mit Sicherungsseilen</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">2,5-Zoll-Storz-Kupplung</td>
+							<td class="px-4 py-3 text-gray-700">Schnelle Schlauch-zu-Schlauch- oder Schlauch-zu-Eingang-Verbindung</td>
+							<td class="px-4 py-3 text-gray-700">DN50–DN150, 1,6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">Aluminium (Messing- / Chromvarianten), deutscher Storz-Standard, selbstabdichtend, Wasser und Schaum</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">HS-Kupplungsadapter</td>
+							<td class="px-4 py-3 text-gray-700">Passt Gewindearten vor Ort an Schlauchkupplungen an</td>
+							<td class="px-4 py-3 text-gray-700">DN50 / DN65, 1,6 MPa (232 PSI)</td>
+							<td class="px-4 py-3 text-gray-700">Eloxierte Aluminiumlegierung, GB12514 / Werksstandard, Innen- und Außengewinde</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Die drei Komponenten lösen unterschiedliche Aufgaben: Der Doppelstutzenkörper ist die FDC selbst, die Storz-Kupplung ist das Verbindungssystem bei einem Projekt mit deutschem Standard, und der Adapter ist die Lösung vor Ort für nicht passende Gewinde und Kupplungen. Ein gut spezifiziertes Projekt benötigt normalerweise den Körper und ein Kupplungssystem. Adapter sollten die Ausnahme und nicht Teil des Plans sein.</p>
+
+			<h2 id="fdc-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Checkliste für Spezifikation und Installation</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Kupplung mit dem Feuerwehrdienst abstimmen</strong> – Passen Sie den Eingangstyp an die tatsächlich mitgeführten Kupplungen der örtlichen Einsatzfahrzeuge an (SQS65 / KWS65 im Lieferumfang oder Storz gemäß Projektspezifikation), bevor Sie bestellen.</li>
+				<li><strong>Strömungsweg prüfen</strong> – 2 × DN65-Eingänge zu einem geflanschten DN100-Ausgang bei 1,6 MPa Betriebsdruck; bestätigen Sie anhand der Werkstattzeichnungen, dass der Ausgangsflansch zum Steigleitungsanschluss passt.</li>
+				<li><strong>Ventil- und Kappendetails festlegen</strong> – Die SQD100-1.6 enthält ein integriertes Handrad-Regelventil sowie gekappte Eingänge mit geflochtenen Stahlsicherungsseilen.</li>
+				<li><strong>Montageort planen</strong> – Außenwand, von der Straße mit Schläuchen erreichbar, gekennzeichnet, sichtbar und vor späterem Parken oder Begrünung geschützt; wählen Sie einen entwässerbaren Körper für Frostbedingungen.</li>
+				<li><strong>Beschichtung und Werkstoff spezifizieren</strong> – Sphäroguss- / Gusseisenkörper mit roter Pulverbeschichtung, Handradspindel aus Messing oder Edelstahl, kompakte Baulänge von 120 mm für beengte Einbauorte.</li>
+				<li><strong>Dokumentation anfordern</strong> – Fordern Sie chargenbezogene Druckprüfberichte und Werkstoffzeugnisse für die Baugruppe an. Nutzen Sie vor der Lieferantenbindung unsere <a href="/de/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B-Checkliste zur Armaturenbeschaffung</a>. Für die Wasserversorgung desselben Projekts siehe <a href="/de/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">Hydrantenauswahl: So treffen Sie die richtige Wahl</a>.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Benötigen Sie eine Feuerwehr-Einspeisung für Ihr Projekt?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Teilen Sie uns den vom Feuerwehrdienst geforderten Eingangskupplungstyp, die Größe des Ausgangsflanschs und die Projektnorm mit. Unsere Ingenieure bestätigen die passende Doppelstutzen-Einspeisung und erstellen innerhalb von 12 Stunden ein Angebot.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Feuerwehr-Einspeisung%20(SQD100)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href="https://wa.me/8618684324501?text=Hallo%2C%20ich%20ben%C3%B6tige%20eine%20Feuerwehr-Einspeisung%20mit%20Doppelstutzen" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp schreiben</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

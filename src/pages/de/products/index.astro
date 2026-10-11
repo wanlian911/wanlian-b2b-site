@@ -1,0 +1,178 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { productsDe } from '../../../utils/products.de';
+
+// Get all unique categories
+const categories = ['Alle', ...new Set(productsDe.map(p => p.category))];
+
+// ItemList JSON-LD (PT): 45 produtos + 3 páginas temáticas (prefixo /de/)
+const itemCatalog = [
+  ...[...productsDe].sort((a, b) => a.slug.localeCompare(b.slug)).map(p => ({
+    name: p.name,
+    url: `https://wanlian911.com/de/products/${p.slug}/`
+  })),
+  { name: 'Sprinkleranlagen Brandschutz', url: 'https://wanlian911.com/de/fire-sprinkler-systems/' },
+  { name: 'Löschmonitore Brandschutz', url: 'https://wanlian911.com/de/fire-water-cannon/' },
+  { name: 'UL-gelistete Brandschutzventile', url: 'https://wanlian911.com/de/ul-fire-valves/' }
+];
+const itemListJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Produktkatalog Wanlian Fluid',
+  description: 'Vollständiger Katalog für Ventile, Hydranten, mangueiras contra Brand- und Feuerschutz, Sprinkler e equipamentos de Schutz contra Brand- und Feuerschutz gefertigt por Quanzhou Wanlian Fluid Equipment Co., Ltd.',
+  itemListElement: itemCatalog.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.name,
+    url: item.url
+  }))
+};
+
+// FAQ de compra do catálogo (também sae como JSON-LD FAQPage)
+const faqs = [
+  { question: 'A gama de produtos desta página é o catálogo komplett?', answer: 'Diese Seite listet über 43 lagernde Modelle aus den Bereichen Ventile, Hydranten, Sprinkleranlagen, Schlauchhaspeln, Feuerlöscher und Löschmonitore. Nossa gama de Produktion é mais ampla — se você não encontrar o modelo, a dimensão ou o Werkstoff exato de que precisa, envie a Anfrage e unsere Ingenieure confirmarão a Verfügbarkeit e as alternativas equivalentes.' },
+  { question: 'Welche é o MOQ para Ventile e equipamentos de Schutz contra Brand- und Feuerschutz?', answer: 'Das Standard-MOQ é tipicamente de 20 unidades por modelo para Größen em estoque, com prazos de Produktion de 15 a 30 dias gemäß a quantidade e a personalização. Pedidos de amostra estão verfügbar para testes e aprovação antes do envio.' },
+  { question: 'Os produtos podem ser personalizados para Normen e Anschlüsse de exportação?', answer: 'Ja. Válvulas e Hydranten podem ser gefertigt segundo as Normen GB, ANSI, DIN, JIS, BS ou EN, com Anschlüsse flangeadas, ranuradas, tipo wafer ou roscadas. Werkstoffe, revestimentos e certificações (UL/FM/CE nos modelos aplicáveis) podem ser adaptados à especificação do seu projeto.' },
+  { question: 'Welche Dokumentation você fornece com um Bestellung?', answer: 'Cada remessa inclui os documentos kommerzielle, além dos laudos de teste por lote gemäß a norma aplicável. Zertifizierungs ISO 9001, Zertifikate de Werkstoff e relatórios de inspeção de terceiros podem ser organizados e indicados na ordem de compra.' },
+  { question: 'Como solicitar uma Angebot?', answer: 'Use o formulário de Anfrage na página de contato e informe o modelo, a dimensão, a Druckstufe de Druck, o tipo de Anschluss, a quantidade e o destino. Nossa equipe kommerziell e de engenharia responde em innerhalb von 12 Stunden com as especificações, os preços e o Lieferzeit.' }
+];
+---
+
+<Layout locale="de" faq={faqs} title="Produktkatalog | Válvulas Industriais & Brandschutz" description="B2B-Katalog von Wanlian Fluid: über 43 Modelle von Ventilen, Hydranten, Sprinklern, Schlauchhaspeln und hydraulischen Ventilen. Angebot auf Anfrage.">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 mb-20">
+    <div class="text-center mb-8 space-y-3">
+      <span class="text-xs font-bold tracking-widest text-blue-600 uppercase">Produktzentrum</span>
+      <h1 class="text-4xl font-black text-gray-900 tracking-tight">Unser Premium-Katalog für Fluidtechnik</h1>
+      <p class="mt-4 text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+        Komponenten de alto Leistung projetados para máxima Zuverlässigkeit, Lebensdauer e Sicherheit em toda a Netz industriell.
+      </p>
+    </div>
+
+    <!-- Browse by System: entrada das páginas temáticas por System -->
+    <div class="flex flex-wrap justify-center items-center gap-2 mb-6">
+      <span class="text-[11px] font-black uppercase tracking-widest text-gray-400 mr-1">Nach System navigieren:</span>
+      <a href="/de/fire-hydrant-systems/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Hydrantensysteme</a>
+      <a href="/de/fire-sprinkler-systems/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Sprinkleranlagen</a>
+      <a href="/de/fire-water-cannon/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Löschmonitore</a>
+      <a href="/de/backflow-prevention/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Rückflussverhinderung</a>
+      <a href="/de/ul-fire-valves/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Válvulas UL Brandschutz</a>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="flex flex-wrap justify-center items-center gap-2 mb-10" id="filter-container">
+      <span class="text-[11px] font-black uppercase tracking-widest text-gray-400 mr-1">Nach Kategorie filtern:</span>
+      {categories.map((category) => (
+        <button
+          data-category={category}
+          class="px-5 py-2.5 rounded-lg text-sm font-semibold tracking-wide border border-gray-200 text-gray-600 bg-white hover:border-blue-500 hover:text-blue-600 transition cursor-pointer filter-btn [&.active]:bg-blue-600 [&.active]:text-white [&.active]:border-blue-600"
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+
+    <!-- Products Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
+      {productsDe.map((product) => (
+        <div
+          data-product-category={product.category}
+          class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300 flex flex-col product-card"
+        >
+          <div class="aspect-square relative overflow-hidden bg-white">
+            <img
+              src={product.image}
+              alt={product.name}
+              loading="lazy"
+              class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+            />
+            <span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold tracking-widest bg-gray-900/90 text-white rounded-md uppercase">
+              {product.category}
+            </span>
+          </div>
+          <div class="p-6 flex-grow flex flex-col space-y-3">
+            <h2 class="text-lg font-bold text-gray-900 line-clamp-2 min-h-[3rem] group-hover:text-blue-600 transition">
+              {product.name}
+            </h2>
+            <p class="text-gray-500 text-xs line-clamp-3 leading-relaxed flex-grow">
+              {product.description}
+            </p>
+            <div class="pt-6 border-t border-gray-100 flex items-center justify-between gap-4">
+              <a
+                href={`/de/products/${product.slug}/`}
+                class="text-blue-600 text-sm font-bold hover:text-blue-700 inline-flex items-center gap-1 group/btn"
+              >
+                Spezifikationen ansehen
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </a>
+              <a
+                href={`/de/contact/?product=${encodeURIComponent(product.name)}`}
+                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition"
+              >
+                Anfragen
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Catalog FAQ Section -->
+    <section class="mt-24 max-w-4xl mx-auto">
+      <h2 class="text-3xl font-black text-gray-900 mb-8 text-center">Häufig gestellte Fragen zum Katalog</h2>
+      <div class="space-y-4">
+        {faqs.map(faq => (
+          <details class="group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+            <summary class="flex items-center justify-between cursor-pointer px-6 py-5 font-bold text-gray-900 hover:bg-gray-50 transition list-none">
+              <span>{faq.question}</span>
+              <svg class="w-5 h-5 text-gray-400 group-open:rotate-45 transition-transform flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <!-- ItemList structured data (①) -->
+  <script type="application/ld+json" set:html={JSON.stringify(itemListJsonLd)} />
+
+  <!-- Client-side filtering script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.product-card');
+
+      const applyFilter = (category) => {
+        buttons.forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === category));
+        cards.forEach(card => {
+          const cardCategory = card.getAttribute('data-product-category');
+          card.style.display = (category === 'Alle' || cardCategory === category) ? 'flex' : 'none';
+        });
+      };
+
+      // Set 'Alle' button as active initially
+      applyFilter('Alle');
+
+      // Suporta links diretos /de/products/#category=xxx (mantém a URL fora da query string indexável)
+      const hashMatch = window.location.hash.match(/^#category=(.+)$/);
+      if (hashMatch) {
+        const target = decodeURIComponent(hashMatch[1]);
+        if ([...buttons].some(b => b.getAttribute('data-category') === target)) {
+          applyFilter(target);
+        }
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          applyFilter(btn.getAttribute('data-category'));
+        });
+      });
+    });
+  </script>
+</Layout>

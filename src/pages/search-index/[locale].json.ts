@@ -11,6 +11,7 @@ import { productsRu } from '../../utils/products.ru';
 import { productsFr } from '../../utils/products.fr';
 import { productsAr } from '../../utils/products.ar';
 import { productsPt } from '../../utils/products.pt';
+import { productsDe } from '../../utils/products.de';
 
 const productsByLocale: Record<Locale, Product[]> = {
   en: products,
@@ -18,7 +19,8 @@ const productsByLocale: Record<Locale, Product[]> = {
   ru: productsRu,
   fr: productsFr,
   ar: productsAr,
-  pt: productsPt
+  pt: productsPt,
+  de: productsDe
 };
 
 // 阿拉伯语去掉变音符号（tashkeel），查询端做同样归一化以提升命中率

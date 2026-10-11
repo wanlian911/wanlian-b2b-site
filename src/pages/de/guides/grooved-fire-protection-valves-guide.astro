@@ -1,0 +1,195 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Was ist ein genutetes Ventil und wie wird es an die Rohrleitung angeschlossen?',
+		answer: 'Ein genutetes Ventil besitzt nahe jedem Ende eine umlaufend eingearbeitete Nut anstelle von Flanschen oder Gewinden. Rohre und Ventile werden mit einer mechanischen Kupplung verbunden: Zwei Gehäusesegmente umschließen die genuteten Enden, dazwischen liegt eine Dichtung. Die Verbindung wird ausschließlich mit Schrauben hergestellt – ohne Schweißen, Gewindeschneiden oder offene Flamme. Deshalb werden genutete Verbindungen häufig in Brandschutz- und Wasserleitungen eingesetzt.'
+	},
+	{
+		question: 'Wann sollte ich genutete statt geflanschter Ventile wählen?',
+		answer: 'Wählen Sie genutete Enden, wenn eine schnelle Montage wichtig ist, Schweiß- oder Heißarbeiten auf der Baustelle eingeschränkt sind oder die Leitung später für Wartungsarbeiten geöffnet werden muss – die Kupplungen werden einfach gelöst. Geflanschte Verbindungen bleiben die traditionelle Ausführung für Hauptleitungen mit großen Nennweiten und hohem Druck. Im Wanlian-Sortiment sind genutete Brandschutzventile für PN16 (1,6 MPa) ausgelegt; der GKZF-1-Magnet-Absperrschieber erreicht 300 PSI (2,0 MPa).'
+	},
+	{
+		question: 'Welche Wanlian-Ventile sind mit genuteten Enden erhältlich?',
+		answer: 'Fünf Modelle decken die Produktfamilie für genutete Brandschutz-Hauptleitungen ab: die genutete D381X-16Q-Absperrklappe (DN50–DN300, PN16, Schneckengetriebe mit optionaler Signalverriegelung), die genutete Signal-Zwischenflansch-Absperrklappe DN80 (DN50–DN300 mit integriertem elektrischen Signalschalter), der UL/FM-gelistete weichdichtende OS&Y-Absperrschieber (2–10 Zoll, genutete Enden), der genutete Z85X-Edelstahl-Absperrschieber (DN40–DN300, gegossener CF8M-316-Körper) und der genutete GKZF-1-Magnet-Steuerabsperrschieber (DN50–DN300, AC220V/DC24V, 300 PSI).'
+	},
+	{
+		question: 'Können Sprinkler-Hauptventile ihre Stellung offen/geschlossen melden?',
+		answer: 'Ja. Ein OS&Y-Absperrschieber zeigt seine Stellung mechanisch über die steigende Spindel und den Bügel. Für die Fernüberwachung besitzt die genutete Signal-Zwischenflansch-Absperrklappe einen integrierten elektrischen Signalschalter; die D381X-Absperrklappe ist optional mit einer Signalverriegelung erhältlich. So erkennt die Brandmeldezentrale oder die Gebäudeleittechnik, ob ein Abschnittsventil geschlossen geblieben ist.'
+	},
+	{
+		question: 'Sind genutete Brandschutzventile UL- oder FM-gelistet?',
+		answer: 'Der weichdichtende OS&Y-Absperrschieber mit genuteten Enden ist für Brandschutzanwendungen UL- und FM-gelistet. Die übrigen Modelle des Sortiments werden nach GB-Anforderungen und Werksstandards gefertigt – eine Listung der gesamten Serie wird nicht behauptet, wenn sie nur für bestimmte Modelle gilt. Geben Sie bei nordamerikanischen Projekten die in Ihrer Spezifikation geforderte Listung an; wir wählen das zertifizierte Modell aus oder organisieren eine Projektbewertung.'
+	},
+	{
+		question: 'Wie prüfe ich die Qualität eines genuteten Ventils vor der Bestellung?',
+		answer: 'Fordern Sie die Druckprüfberichte für Gehäuse und Sitz der Charge sowie Werkstoffzeugnisse an, zum Beispiel für den CF8M-316-Körper des Z85X. Bestätigen Sie außerdem, dass die Nutabmessungen dem Kupplungsstandard Ihres Montageunternehmens entsprechen. Eine Prüfung durch Dritte vor dem Versand kann organisiert werden – unsere B2B-Checkliste für die Ventilbeschaffung beschreibt den vollständigen Prüfprozess.'
+	}
+];
+
+const toc = [
+	{ id: 'what-is-grooved-valve', label: '1. Was ist ein genutetes Ventil?' },
+	{ id: 'grooved-vs-flanged', label: '2. Genutet, geflanscht oder mit Gewinde' },
+	{ id: 'grooved-valve-family', label: '3. Die genutete Ventilfamilie für Brandschutz-Hauptleitungen' },
+	{ id: 'valve-supervision-signals', label: '4. Überwachung und Signaloptionen' },
+	{ id: 'retrofit-installation', label: '5. Nachrüstung und Montage' },
+	{ id: 'grooved-valve-spec-checklist', label: '6. B2B-Spezifikationscheckliste' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const referencePages = [
+	{ slug: 'd381x-16q-grooved-butterfly-valve', name: 'Genutete D381X-16Q-Absperrklappe', img: '/assets/products/d381x-16q-grooved-butterfly-valve.webp', desc: 'DN50–DN300 PN16, Schneckengetriebe, optionale Signalverriegelung' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Genutete Signal-Zwischenflansch-Absperrklappe', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', desc: 'DN50–DN300 PN16, integrierter Signalschalter' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM-OS&Y-Absperrschieber (genutet)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2–10 Zoll, UL- und FM-gelistet, Anzeige mit steigender Spindel' },
+	{ slug: 'z85x-stainless-steel-grooved-gate-valve', name: 'Genuteter Z85X-Edelstahl-Absperrschieber', img: '/assets/products/z85x-stainless-steel-grooved-gate-valve.webp', desc: 'DN40–DN300, gegossener CF8M-316-Körper, Kupplungsanschluss' }
+];
+---
+
+<Layout
+	title="Genutete Brandschutzventile: Nut- oder Flanschverbindung"
+	description="Genutete Brandschutzventile für Sprinkler-Hauptleitungen: Signal-Absperrklappen, OS&Y-Schieber, Edelstahl- und Magnetventile. Montage und B2B-Anfrage."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Leitfaden zu genuteten Ventilen' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Leitfaden zu genuteten Ventilen</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden zu Brandschutzventilen</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Genutete Brandschutzventile: Nut- oder Flanschverbindung</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kurz gesagt: Genutete Ventile verbinden Rohre mit einer verschraubten mechanischen Kupplung statt mit Flanschen, Gewinden oder Schweißnähten. Dadurch wird die Montage der Brandschutz-Hauptleitung beschleunigt, offene Flammen werden von der Baustelle ferngehalten und Wartungsteams können einen Abschnitt durch Lösen von zwei Klemmen öffnen. Verwendet Ihr Sprinkler- oder Steigleitungsprojekt genutete Rohre, sollten alle Absperr- und Regelventile der Hauptleitung dieselben genuteten Enden besitzen. Dieser Leitfaden erläutert die Abwägungen und die passende Ventilfamilie.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{referencePages.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-grooved-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Was ist ein genutetes Ventil?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein genutetes Ventil ist ein Standardventil (Absperrschieber, Absperrklappe oder Durchgangsventil), dessen Enden mit einer umlaufenden Nut versehen sind. Die Verbindung erfolgt über eine mechanische Kupplung: Zwei Gehäusesegmente mit einer elastomeren Dichtung werden über die beiden genuteten Enden gesetzt und mit Schrauben angezogen. Dabei wird die Dichtung in die Nuten gedrückt und bildet die Abdichtung.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Da die Verbindung rein mechanisch ist, werden weder Schweißer noch Gewindeschneidmaschine oder Heißarbeitsgenehmigung benötigt. Die Kupplung nimmt außerdem geringe Ausrichtungs- und Wärmebewegungen an der Verbindungsstelle auf und kann später mit denselben zwei Schrauben geöffnet werden – ein Vorteil bei jedem Austausch eines Abschnitts- oder Regelventils.</p>
+			<p class="text-gray-700 leading-relaxed">Genutete Verbindungen sind in vielen Märkten die vorherrschende Verbindungstechnik moderner Brandschutz-Hauptleitungen. Daher werden Brandschutzventile üblicherweise werkseitig mit genuteten Enden spezifiziert, statt sie auf der Baustelle anzupassen.</p>
+
+			<h2 id="grooved-vs-flanged" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Genutet, geflanscht oder mit Gewinde</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Vergleich</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Geflanscht</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Mit Gewinde</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Genutet (Kupplung)</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Montage</td>
+							<td class="px-4 py-3 text-gray-700">Verschraubt, präzise Ausrichtung erforderlich</td>
+							<td class="px-4 py-3 text-gray-700">Gewindeschneiden erforderlich, größenbegrenzt</td>
+							<td class="px-4 py-3 text-gray-700">Klemme und Schrauben, schnelle mechanische Kupplung</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Heißarbeit / Brandgenehmigung</td>
+							<td class="px-4 py-3 text-gray-700">Keine an der Verbindung, aber schwere Flansche</td>
+							<td class="px-4 py-3 text-gray-700">Keine, jedoch Gewindeschneiden vor Ort</td>
+							<td class="px-4 py-3 text-gray-700">Keine – kein Schweißen und keine offene Flamme</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Ausrichtungstoleranz</td>
+							<td class="px-4 py-3 text-gray-700">Gering – Flansche müssen fluchten</td>
+							<td class="px-4 py-3 text-gray-700">Mittel</td>
+							<td class="px-4 py-3 text-gray-700">Hoch – Kupplung nimmt geringe Fehlausrichtung auf</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Demontage</td>
+							<td class="px-4 py-3 text-gray-700">Viele Verbindungselemente lösen</td>
+							<td class="px-4 py-3 text-gray-700">Abschrauben, kann fest sitzen</td>
+							<td class="px-4 py-3 text-gray-700">Zwei Schrauben je Kupplung lösen</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typischer Druckbereich (genutetes Wanlian-Sortiment)</td>
+							<td class="px-4 py-3 text-gray-700">PN10–PN40 je nach Modell</td>
+							<td class="px-4 py-3 text-gray-700">Nur kleine Nennweiten</td>
+							<td class="px-4 py-3 text-gray-700">PN16; GKZF-1 für 300 PSI (2,0 MPa)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typischer Einsatz</td>
+							<td class="px-4 py-3 text-gray-700">Hauptleitungen mit großer Nennweite, Prozessanlagen</td>
+							<td class="px-4 py-3 text-gray-700">Kleine Abzweigleitungen</td>
+							<td class="px-4 py-3 text-gray-700">Brandschutz-Hauptleitungen, Sprinkler-Steigleitungen, Wassernetze</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Geflanschte Ventile bleiben für viele Spezifikationen mit großen Nennweiten und hohem Druck die richtige Wahl. Ist jedoch das Rohrleitungssystem selbst genutet – der übliche Fall bei Sprinkler-Hauptleitungen –, erfordert ein geflanschtes Ventil zusätzliche Adapter und macht den Geschwindigkeitsvorteil der Verbindungstechnik zunichte.</p>
+
+			<h2 id="grooved-valve-family" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Die genutete Ventilfamilie für Brandschutz-Hauptleitungen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Hauptabsperrung mit sichtbarer Stellung.</strong> Der <a href="/de/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM-weichdichtende OS&amp;Y-Absperrschieber</a> besitzt genutete Enden von 2 bis 10 Zoll (DN50–DN250) und eine steigende Spindel, die die Stellung offen/geschlossen auf einen Blick anzeigt – das Anzeigeventil, das ein Brandschutzprüfer an einer Abschnitts-Hauptleitung erwartet. Der Körper aus duktilem Gusseisen mit weichdichtendem EPDM-Sitz gewährleistet einen tropfdichten Abschluss.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Kompakte Vierteldrehungsregelung.</strong> Für die Regelung von Abzweigen und Steigleitungen bei beengten Platzverhältnissen kombiniert die <a href="/de/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">genutete Signal-Zwischenflansch-Absperrklappe</a> (DN50–DN300, PN16) einen Zwischenflanschkörper mit integriertem elektrischen Signalschalter und Schneckengetriebe. Die <a href="/de/products/d381x-16q-grooved-butterfly-valve/" class="text-brand-blue font-semibold hover:underline">genutete D381X-16Q-Absperrklappe</a> bietet dieselben genuteten Enden, optional mit Signalverriegelung zur Stellungsanzeige.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Korrosionsbeständiger Einsatz.</strong> Wenn Wasserqualität oder aggressive Medien duktiles Gusseisen ausschließen, verwendet der <a href="/de/products/z85x-stainless-steel-grooved-gate-valve/" class="text-brand-blue font-semibold hover:underline">genutete Z85X-Edelstahl-Absperrschieber</a> (DN40–DN300) einen gegossenen 316-CF8M-Körper, eine nicht steigende Spindel und genutete Klemmenden für Gas-, Öl- und Wasserleitungen.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Automatische Fernsteuerung.</strong> Wenn das Ventil auf Befehl einer Steuerung öffnen und schließen muss, steuert der <a href="/de/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">genutete GKZF-1-Magnet-Steuerabsperrschieber</a> (DN50–DN300) einen Absperrschieber aus duktilem Gusseisen mit einem DC24V- oder AC220V-Magneten – ausgelegt für 300 PSI (2,0 MPa) zur automatischen Regelung von kommunalem Lösch- und Brauchwasser.</p>
+
+			<h2 id="valve-supervision-signals" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Überwachung und Signaloptionen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Brandschutzvorschriften betrachten ein geschlossenes Abschnittsventil als erhebliches Risiko: Wird eine Sprinkleranlage durch ein geschlossenes Hauptventil abgesperrt, kann sie das Gebäude nicht schützen. Deshalb sind Regelventile in Sprinkleranlagen entweder Anzeigeventile (die Stellung ist am Ventil sichtbar) oder überwachte Ventile (die Stellung wird elektrisch gemeldet).</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Die genutete Produktfamilie deckt beide Möglichkeiten ab. Der OS&amp;Y-Absperrschieber ist grundsätzlich ein Anzeigeventil – die Stellung der steigenden Spindel ist im Raum gut ablesbar. Die genutete Signal-Zwischenflansch-Absperrklappe ergänzt einen integrierten elektrischen Signalschalter zur Fernüberwachung, die D381X bietet eine Signalverriegelung als Option, und der GKZF-1-Magnet-Schieber wird konstruktionsbedingt elektrisch betätigt, sodass sein Zustand dem ansteuernden Leitsystem bekannt ist.</p>
+			<p class="text-gray-700 leading-relaxed">Bei überwachten Ventilen sollte die Verdrahtung an dieselbe Brandmeldezentrale melden, die Strömungswächter und Alarmventile überwacht. Weitere Informationen enthält unser <a href="/de/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Regelventiltypen für Sprinkleranlagen</a> mit der vollständigen Aufgabenübersicht von OS&amp;Y-, Absperrklappen- und Rückschlagventilen sowie der <a href="/de/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu UL-gelisteten Brandschutzventilen</a> zur Prüfung echter Listungen vor dem Kauf.</p>
+
+			<h2 id="retrofit-installation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Nachrüstung und Montage</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Genutete Verbindungen spielen ihre Vorteile bei Nachrüstungen aus. Der Austausch eines Ventils in einer bestehenden Sprinkler-Hauptleitung bedeutet normalerweise, den Abschnitt zu entleeren und entweder die alte Verbindung herauszutrennen oder zwei Kupplungen zu lösen. Sind stromauf- und stromabwärts genutete Ventile vorhanden, wird das neue Ventil mit zwei Kupplungen eingesetzt und die Leitung schnell wieder in Betrieb genommen.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">In genutzten Gebäuden ist der Verzicht auf Heißarbeiten ein echter Vorteil: Schweißarbeiten an einer aktiven Brandschutz-Hauptleitung erfordern Genehmigungen, eine Brandwache und häufig Abschaltungen, die das Gebäudemanagement vermeiden möchte. Mechanische Kupplungen beseitigen diese Einschränkung; die kompakten Zwischenflanschkörper der Absperrklappen erleichtern zudem die Montage in engen Steigleitungsräumen.</p>
+			<p class="text-gray-700 leading-relaxed">Klären Sie die Nut- und Kupplungsspezifikation vor der Bestellung mit Ihrem Montageunternehmen. Die Nutabmessungen müssen zur Kupplungsmarke und zum Standard der Projektrohre passen; mit genuteten Enden bestellte Ventilkörper können vor Ort nicht in eine geflanschte Ausführung umgewandelt werden.</p>
+
+			<h2 id="grooved-valve-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. B2B-Spezifikationscheckliste</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Verbindungssystem abstimmen</strong> – Ist die Hauptleitung genutet, spezifizieren Sie genutete Enden an jedem Abschnitts- und Regelventil, damit keine Adapter erforderlich sind; geben Sie den Nutstandard der Kupplung in der Anfrage an.</li>
+				<li><strong>Einsatz und Nennweite definieren</strong> – Abschnittsabsperrung (OS&amp;Y-Absperrschieber, 2–10 Zoll), platzsparende Vierteldrehungsregelung (Signal-Absperrklappe oder D381X, DN50–DN300) oder automatische Fernsteuerung (GKZF-1, DN50–DN300).</li>
+				<li><strong>Druck und Werkstoff festlegen</strong> – Das genutete Sortiment ist für PN16 (1,6 MPa) ausgelegt, der GKZF-1 für 300 PSI (2,0 MPa); Körper aus duktilem Gusseisen QT450 für Standardwasser und gegossenes CF8M 316 (Z85X) für korrosive Medien.</li>
+				<li><strong>Überwachung festlegen</strong> – Anzeige über OS&amp;Y, integrierter Signalschalter an der Absperrklappe, Signalverriegelung als D381X-Option oder Magnetbetätigung am GKZF-1, passend zu den Anforderungen Ihrer Brandmeldezentrale.</li>
+				<li><strong>Zertifizierungsbedarf angeben</strong> – UL/FM-gelisteter OS&amp;Y-Absperrschieber für nordamerikanische Projekte; bestätigen Sie, welches Modell die in Ihrer Spezifikation geforderte Listung besitzt.</li>
+				<li><strong>Prüfnachweise verlangen</strong> – Druckprüfberichte für Gehäuse und Sitz der Charge, Werkstoffzeugnisse sowie unsere <a href="/de/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B-Checkliste für die Ventilbeschaffung</a>, bevor Sie sich für einen Hersteller entscheiden.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Benötigen Sie genutete Brandschutzventile für eine Sprinkler-Hauptleitung?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Teilen Sie uns DN, Druckstufe, Überwachungsanforderungen und Kupplungsstandard mit – unsere Ingenieure bestätigen die passende Ventilausführung und erstellen innerhalb von 12 Stunden ein Angebot.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Genutetes%20Brandschutzventil" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href="https://wa.me/8618684324501?text=Hallo%2C%20ich%20ben%C3%B6tige%20genutete%20Brandschutzventile%20f%C3%BCr%20eine%20Sprinkler-Hauptleitung" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

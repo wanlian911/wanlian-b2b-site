@@ -1,0 +1,178 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const toc = [
+	{ id: 'scope', label: '1. Was die Modernisierung einer Löschwasserleitung umfasst' },
+	{ id: 'isolation-valves', label: '2. Absperrschieber: Z41X vs. teleskopische Z41X-T' },
+	{ id: 'hydrants-by-climate', label: '3. Hydrantenauswahl nach Klima und Straßenrisiko' },
+	{ id: 'hose-couplings', label: '4. Feuerwehrschläuche und Kupplungen für die kommunale Flotte' },
+	{ id: 'standards-table', label: '5. Normen nach Zielmarkt' },
+	{ id: 'one-po', label: '6. Das Paket mit einem Bestellauftrag: Warum Bündelung Risiken senkt' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const faq = [
+	{
+		question: 'Können Hydranten, Armaturen und Feuerwehrschläuche als ein kommunales Paket bestellt werden?',
+		answer: 'Ja — ein einziger Bestellauftrag kann Überflur- oder Unterflurhydranten, weichdichtende Absperrschieber, gummierte Feuerwehrschläuche sowie Storz- oder BS336-Kupplungen kombinieren, einschließlich OEM-Kennzeichnung, Exportverpackung und eines abgestimmten Satzes von Prüfprotokollen. Bei kommunalen Ausschreibungen mit Dokumentation je Position wird diese je Zeile auf derselben Packliste bereitgestellt.'
+	},
+	{
+		question: 'Welchen Hydrantentyp sollte eine Stadt in kaltem Klima spezifizieren?',
+		answer: 'Einen frostsicheren Trockenhydranten: Das Steigrohr oberhalb der Frostgrenze wird nach jeder Nutzung automatisch entleert, sodass der Hydrantenkörper nicht einfriert. Der Überflurhydrant SS100/65 (1,6 MPa, geprüft mit 2,4 MPa) ist unsere Standardausführung für kalte Klimazonen; Varianten mit Anfahrschutz und IoT sind verfügbar, wenn Straßenverkehr oder Netzüberwachung zum Leistungsumfang gehören.'
+	},
+	{
+		question: 'Warum sollte bei einer Modernisierung ein teleskopischer Absperrschieber statt eines Standard-Absperrschiebers eingesetzt werden?',
+		answer: 'Der Z41X-T verbindet blasenfreie Absperrung mit einem integrierten Längenausgleich von ±25 mm. Bei einer neu verlegten oder an eine bestehende Rohrleitung angeschlossenen Hauptleitung nimmt diese Toleranz Fluchtungsfehler und Setzungen auf. Außerdem kann der Schieber später ohne Auftrennen der Leitung ausgetauscht werden — beides sind wiederkehrende Kosten in kommunalen Netzen.'
+	},
+	{
+		question: 'Welchen Kupplungsstandard für Feuerwehrschläuche verwendet die Feuerwehr in meinem Markt?',
+		answer: 'Das hängt von den Feuerwehrfahrzeugen ab: Storz (deutscher Standard) ist das häufigste Exportmuster, BS336/BS5912 gilt für Flotten im Vereinigten Königreich und im Commonwealth, und NIST deckt mehrere Spezifikationen im Nahen Osten ab. Schlauch, Kupplungen und Abdeckungen der Hydrantenausgänge müssen demselben Muster entsprechen — spezifizieren Sie es einmal für das gesamte Paket.'
+	},
+	{
+		question: 'Wie werden Modernisierungsprojekte typischerweise von der Bestellung bis zur Lieferung terminiert?',
+		answer: 'Bei Standardmodellen erfolgen Spezifikation und Einzelangebot innerhalb weniger Tage, gefolgt von einer Prüfeinheit und anschließend der Produktion innerhalb von 15–30 Tagen, abhängig von Menge und kundenspezifischer Ausführung. Vor der Exportverpackung werden Gehäusedruck und Luftdichtheit für jede Einheit geprüft. Eine Prüfung durch Dritte im Werk kann vor dem Versand organisiert werden.'
+	}
+];
+
+const referencePages = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Frostsicherer Überflurhydrant SS100/65', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Trockenrohrentleerung, 1,6 MPa, Ausgänge 2x65 + 1x100' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Weichdichtender Flansch-Absperrschieber Z41X', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50–DN700, PN10/PN16, Nachweis der Wiedereinsitzung auf Anfrage' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Gummierter Flachrollschlauch für Feuerlöschanlagen', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Modell 8-65 für kommunale und industrielle Anwendungen' }
+];
+---
+
+<Layout
+	title="Kommunale Löschwasserleitung modernisieren: Ventile & Hydranten"
+	description="Leitfaden für Löschwasserleitungen: Absperrschieber, Hydranten, Feuerwehrschläuche und Kupplungen nach Norm – mit Angebot aus einer Hand und geprüfter Qualität."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Modernisierung der Löschwasserleitung' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Modernisierung der Löschwasserleitung</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Beschaffungsleitfaden · Kommunale Infrastruktur</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Modernisierung der kommunalen Löschwasserleitung: Ventile, Hydranten und Schläuche als Gesamtpaket</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Bei der Modernisierung einer Löschwasserleitung geht es selten um ein einzelnes Produkt. Es handelt sich um ein Paket — Absperrschieber an jeder Einbindung, Hydranten an den neuen Leitungsabschnitten, Schläuche und Kupplungen für die Feuerwehrflotte sowie einen Pumpenanschluss, den die Feuerwehr tatsächlich nutzen kann. Dieser Leitfaden erläutert die vier Leistungspositionen, die klimabedingten Entscheidungen innerhalb jeder Position und warum kommunale Einkäufer zunehmend das gesamte Paket in einem Bestellauftrag bündeln.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Hinweis zum Leistungsumfang:</strong> Mengen und Hydrantendichte richten sich nach der kommunalen Bauordnung und dem Planungsstandard des Versorgers; die nachfolgende Komponentenauswahl umfasst die technischen Entscheidungen, die ein Leistungsverzeichnis für Löschwasserleitungen tatsächlich erfordert. Maßgeblich ist stets die Ausschreibungsklausel.</p>
+			</div>
+
+			<!-- Produktstreifen -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{referencePages.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="scope" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Was die Modernisierung einer Löschwasserleitung umfasst</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Liest man das Leistungsverzeichnis der Ausschreibung, gliedert sich der Brandschutzumfang in vier wiederkehrende Positionen: <strong>Absperrschieber</strong> an Hauptleitungen, Hydranten und Pumpeneinbindungen; <strong>Hydranten</strong> an den erneuerten oder erweiterten Leitungsabschnitten; <strong>Feuerwehrschläuche und Kupplungen</strong>, die die Kompatibilität der Flotte mit den neuen Ausgangsstandards sicherstellen; sowie der <strong>Pumpen- bzw. Feuerwehreinspeiseanschluss</strong>, an dem die Feuerwehr anschließt. Jede Position hat eine normative Dimension (welches Regelwerk am Zielort gilt) und eine logistische Dimension (was gemeinsam in einem Container versendet wird).</p>
+			<p class="text-gray-700 leading-relaxed">Das typische Fehlerbild, gegen das dieser Leitfaden geschrieben ist: Schieber von einem Lieferanten, Hydranten von einem zweiten, Schläuche von einem dritten — während die Ausgangsabdeckungen nicht zu den Flottenkupplungen oder die Flanschflächen der Schieber nicht zum Hydranteneinlass passen. Derselbe Leistungsumfang aus einer Hand und mit einem einzigen Bestellauftrag vermeidet diese Schnittstellenprobleme.</p>
+
+			<h2 id="isolation-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Absperrschieber: Z41X vs. teleskopische Z41X-T</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Jede Modernisierung benötigt Absperrpunkte, damit an einem Leitungsabschnitt gearbeitet werden kann, ohne das Netz zu entleeren. Die beiden Kernmodelle unseres Sortiments sind der standardmäßige <a href="/de/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">weichdichtende Absperrschieber Z41X</a> (DN50–DN700, PN10/PN16, vollständig EPDM-ummantelter Keil; Nachweis der Wiedereinsitzung auf Anfrage) und die <a href="/de/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">teleskopische Ausführung Z41X-T</a> (DN50–DN600 mit integriertem Längenausgleich von ±25 mm).</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Entscheidung</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Z41X</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Teleskopische Z41X-T</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Größenbereich</td><td class="px-4 py-3 text-gray-700">DN50–DN700</td><td class="px-4 py-3 text-gray-700">DN50–DN600</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Längenausgleich</td><td class="px-4 py-3 text-gray-700">Keiner (bei Bedarf Dehnungsstück vorsehen)</td><td class="px-4 py-3 text-gray-700">±25 mm integriert</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Austausch ohne Auftrennen der Leitung</td><td class="px-4 py-3 text-gray-700">Nein</td><td class="px-4 py-3 text-gray-700">Ja</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Geeignet für</td><td class="px-4 py-3 text-gray-700">Neue Hauptleitungen, große Nennweiten, feste Installationen</td><td class="px-4 py-3 text-gray-700">Einbindungen in bestehende Leitungen, setzungsgefährdete Böden, spätere Wartung</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Als praktische Faustregel aus dem Einsatz: Neue, gerade Hauptleitungen erhalten den Standard-Z41X; Einbindungen, Querungen und alle Stellen, an denen das Wartungsteam den Schieber später austauschen könnte, die teleskopische Ausführung. Beide Varianten besitzen denselben vollständig ummantelten Keil, sodass sich das für den Versorger entscheidende Dichtverhalten nicht ändert.</p>
+
+			<h2 id="hydrants-by-climate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Hydrantenauswahl nach Klima und Straßenrisiko</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Das Klima bestimmt das Steigrohr, das Straßenrisiko die zusätzlichen Ausstattungsmerkmale:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Kalte Klimazonen:</strong> der <a href="/de/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">frostsichere Überflurhydrant SS100/65</a> — die automatische Entleerung nach dem Schließen leert das Steigrohr oberhalb der Frostgrenze, mit 1,6 MPa Betriebsdruck / 2,4 MPa Prüfdruck und Ausgängen 2×DN65 plus DN100.</li>
+				<li><strong>Straßen mit hohem Verkehrsaufkommen:</strong> der <a href="/de/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">anfahrsichere Hydrant SSFT100</a> — kalibrierte Scherbolzen brechen beim Aufprall, das innenliegende Ventil schließt automatisch und die Reparatur beschränkt sich auf den Austausch der Bolzen bei weiterhin druckbeaufschlagter Leitung.</li>
+				<li><strong>Smart-City-Programme:</strong> der <a href="/de/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">IoT-Hydrant SS100ZN</a> — Alarme für Druck, Durchfluss, Neigung/Kollision und unbefugte Nutzung über NB-IoT/LTE-M, fünfjährige Batterie mit Solarunterstützung und Gehäuse nach GB 4452.</li>
+				<li><strong>Unterirdische Leitungen:</strong> der <a href="/de/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">Unterflurhydrant SA</a> für erdverlegte Installationen mit KWS65-Ausgängen.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Die Kupplungsmuster der Ausgänge (KWS65, BS336, Storz, NIST) sind eine marktspezifische Vorgabe — derselbe Hydrantenkörper wird mit den Abdeckungen geliefert, die zu Ihrer Feuerwehrflotte passen. In dieser einen Position des Leistungsverzeichnisses gehen die meisten grenzüberschreitenden Hydrantenbestellungen schief; genau hier sollte ein Paketlieferant den Fehler für Sie abfangen. Unser <a href="/de/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu frostsicheren und anfahrsicheren Hydranten</a> erläutert das hydraulische Verhalten jeder Variante im Detail.</p>
+
+			<h2 id="hose-couplings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Feuerwehrschläuche und Kupplungen für die kommunale Flotte</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Schlauchausstattung der Flotte muss zu den neuen Hydrantenausgängen passen; andernfalls ist die Modernisierung am Tag der Übergabe unvollständig. Der <a href="/de/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">gummierte Flachrollschlauch (Modell 8-65)</a> ist das kommunale Standardmodell unseres Sortiments — 8 Zoll, für DN65 ausgelegt und für wiederholte Druckbeanspruchung konzipiert. Als standardmäßige Export-Endarmatur dient die <a href="/de/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">2,5-Zoll-Storz-Kupplung aus Aluminium</a>; Kupplungsadapter DN50/DN65 der <a href="/de/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS-Serie</a> überbrücken den Übergang, wenn alte und neue Muster im Netz nebeneinander bestehen. Größen, Auskleidungen und Randabdichtung werden im <a href="/de/guides/fire-hose-buying-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zum Kauf von Flachrollschläuchen</a> erläutert.</p>
+
+			<h2 id="standards-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Normen nach Zielmarkt</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Derselbe Hydrant und derselbe Schieber werden je nach Projektziel unter unterschiedlichen Regelwerken spezifiziert. Geben Sie das Regelwerk für jede Position im Leistungsverzeichnis an:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Region</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typische Referenzen</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Hinweis für Einkäufer</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">USA und weite Teile Amerikas</td><td class="px-4 py-3 text-gray-700">AWWA C502 (Hydranten), AWWA C515, ISO 5208 / EN 1074 (Armaturen)</td><td class="px-4 py-3 text-gray-700">Norm und Prüfbericht für jedes Modell bestätigen</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Lateinamerika</td><td class="px-4 py-3 text-gray-700">AWWA (Ausschreibungen nach US-Spezifikation), mexikanische NOM, brasilianische ABNT</td><td class="px-4 py-3 text-gray-700">Die Ausschreibungsklausel ist maßgeblich; je Modell prüfen</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Europa</td><td class="px-4 py-3 text-gray-700">EN 14384 (Hydranten), EN 1074, EN 12266-1 (Armaturenprüfung), CE</td><td class="px-4 py-3 text-gray-700">CE und Prüfungen richten sich nach Modell und Richtlinie</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Nahost und Afrika</td><td class="px-4 py-3 text-gray-700">Häufig AWWA oder BS 750; NIST-Ausgänge sind üblich</td><td class="px-4 py-3 text-gray-700">Kupplungsmuster des Ausgangs im Leistungsverzeichnis bestätigen</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Eine vollständige Gegenüberstellung der Normenfamilien enthält der <a href="/de/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Hydranten-, Schlauch- und Armaturennormen</a> — einschließlich der Prüfung, wie eine Norm vor der Zahlung mit einem Prüfbericht abgeglichen wird.</p>
+
+			<h2 id="one-po" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Das Paket mit einem Bestellauftrag: Warum Bündelung Risiken senkt</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein kommunales Paket von einem einzigen Hersteller bietet drei Vorteile, die ein Leistungsverzeichnis mit mehreren Lieferanten nicht gewährleisten kann: <strong>konstruktiv kompatible Schnittstellen</strong> (Ausgangsabdeckungen, Schieberflansche und Schlauchkupplungen werden in einer einzigen Zeichnungsprüfung festgelegt), <strong>ein einheitlicher Satz von Prüfprotokollen</strong>, der für die Abnahmedokumentation mit einer einzigen Packliste abgeglichen wird, und <strong>ein einheitlicher Logistikplan</strong> — Hydranten und Schläuche nutzen den Containerraum effizient, und ein einziger Incoterm hält die Risikoteilung vom Werkstor bis zur Baustelle eindeutig. Die Schrittfolge — Spezifikation, Lieferantenprüfung, Bemusterung, Qualitätskontrolle, Dokumentation und Logistik — steht im <a href="/de/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">Beschaffungsleitfaden</a>; die modellbezogene Prüfdisziplin wird im <a href="/de/whitepaper/" class="text-brand-blue font-semibold hover:underline">Branchen-Whitepaper</a> erläutert.</p>
+			<p class="text-gray-700 leading-relaxed">Für den regionalen Kontext der Ausschreibungen behandelt der <a href="/de/guides/municipal-water-fire-infrastructure-latinamerica/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur kommunalen Infrastruktur in Lateinamerika</a> die regionalen Regelwerke und die Praxis eines einzigen Bestellauftrags ausführlich.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Doppelter CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Setzen Sie Ihr Leistungsverzeichnis für die Löschwasserleitung um</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie uns die Positionen, die Zielnorm und die Hydrantendichte — innerhalb von 12 Stunden erhalten Sie ein Einzelangebot mit modellbezogenem Prüfkonzept und einem konsolidierten Logistikplan.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href={`/de/contact/?product=${uri.EscapeDataString('Kommunales Paket für Löschwasserleitungen')}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Guten Tag, wir modernisieren eine kommunale Löschwasserleitung (Ventile + Hydranten + Schläuche) und benötigen ein Einzelangebot')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

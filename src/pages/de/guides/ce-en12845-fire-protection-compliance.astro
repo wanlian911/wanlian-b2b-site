@@ -1,0 +1,154 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Liefert Wanlian CE-zertifizierte Brandschutzprodukte?',
+		answer: 'Die Zertifizierung ist stets modell- und zielmarktspezifisch. Wir liefern die für das exakt bestellte Modell und die bestellte Ventil- bzw. Schlauchkonfiguration geltenden Zertifikate, Konformitätserklärungen und Chargenprüfberichte. Eine pauschale Zertifizierung ganzer Produktserien behaupten wir nicht. Teilen Sie uns Produkt und Zielland mit; wir bestätigen vor der Fertigung, welches Dokumentationspaket gilt.'
+	},
+	{
+		question: 'Was ist EN 12845 und wie steht sie mit Ihren Produkten in Verbindung?',
+		answer: 'EN 12845 ist die europäische Norm für die Planung und Installation ortsfester Sprinkleranlagen zur Brandbekämpfung. Sie legt Anforderungen an die gesamte Löschwasserversorgung fest, einschließlich der Wirbelvermeidung an Pumpensaugseiten. Unser Saugschirm wird nach EN 12845 und GB50974-2014 gefertigt: Er wird im Tank an der Pumpensaugseite installiert, verhindert Lufteintrag und Kavitation und ermöglicht eine sichere Entleerung des Tanks bis auf sehr niedrige Wasserstände.'
+	},
+	{
+		question: 'Was ist der Unterschied zwischen ISO 7165, CE-Kennzeichnung und CCCF bei einem Feuerlöscher?',
+		answer: 'ISO 7165 ist die internationale Leistungsnorm für tragbare Feuerlöscher und regelt Konstruktion, Prüfung und Kennzeichnung. Die CE-Kennzeichnung ist das EU-Konformitätszeichen für Produkte auf dem europäischen Markt; ihre Anforderungen hängen von den für das jeweilige Produkt geltenden Richtlinien ab. CCCF ist die chinesische Pflichtzertifizierung für Brandschutzprodukte und qualifiziert ein Gerät nur für den chinesischen Markt; sie ist kein Exportzertifikat. Fordern Sie stets das für Ihren Zielmarkt und das exakte Modell geltende Zertifikat an.'
+	},
+	{
+		question: 'Welche Kupplungs- und Anschlussnormen werden in europäischen Brandschutzsystemen verwendet?',
+		answer: 'Storz-Schnellkupplungen sind in Europa und weiten Teilen Asiens am weitesten verbreitet. Deutsche KWS-Ausgänge finden sich ebenfalls an Hydranten- und Steigleitungsanschlüssen; im Vereinigten Königreich und im Commonwealth werden BS336-Gewinde verwendet. Unsere Aluminium-Storz-Kupplung 2,5 Zoll (DN50–DN150, 1,6 MPa) deckt die deutsche Anschlussfamilie ab; Außenhydranten wie der SSFT100 werden mit KWS65-Ausgängen geliefert. Geben Sie in Ihrer Anfrage das in Ihrem Markt verwendete Gewindesystem an, damit Schlauch-, Hydranten- und Düsenanschlüsse zusammenpassen.'
+	},
+	{
+		question: 'Können Sie Chargenprüfberichte für Ventile nach EN 12266-1 bereitstellen?',
+		answer: 'Ja. Ventile aus unserem Sortiment werden auf Anfrage gemäß GB/T13927 oder EN 12266-1 einer 100-prozentigen Druckprüfung von Gehäuse und Sitz unterzogen. Hydranten werden typischerweise mit 2,4 MPa hydrostatisch und entsprechend der anwendbaren Norm auf Durchfluss geprüft. Fordern Sie den Prüfbericht für die tatsächlich gefertigte Charge an, nicht eine allgemeine Vorlage.'
+	},
+	{
+		question: 'Können Produkte für bestimmte EU-Länder etikettiert und dokumentiert werden?',
+		answer: 'Ja. Sprache des Etiketts, Piktogramme, Sprache der Anleitung und Begleitdokumentation können im Rahmen des OEM-Umfangs an das Zielland angepasst werden. Da eine Umetikettierung nach Ankunft kostenintensiv ist, bestätigen Sie Etikettensprache und Dokumentationsformat vor der Serienfertigung.'
+	}
+];
+
+const toc = [
+	{ id: 'european-market', label: '1. Warum europäische Konformität bei Brandschutzausrüstung zählt' },
+	{ id: 'ce-marking-basics', label: '2. Grundlagen der CE-Kennzeichnung: modellbezogen, nie serienbezogen' },
+	{ id: 'en12845-pump-suction', label: '3. EN 12845 und die Pumpensaugseite der Löschwasserversorgung' },
+	{ id: 'testing-standards', label: '4. Prüfungsnachweise: EN 12266-1 und Chargenberichte' },
+	{ id: 'connections-regional', label: '5. Kupplungen, Schnittstellen und tragbare Ausrüstung' },
+	{ id: 'european-checklist', label: '6. Spezifikations-Checkliste für europäische Käufer' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const products = [
+	{ slug: 'suction-vortex-preventer-en12845', name: 'Saugschirm zur Wirbelvermeidung (EN12845)', img: '/assets/products/suction-vortex-preventer-en12845.webp', desc: 'SS304/316, DN50–DN1000, EN12845 & GB50974-2014' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: 'Aluminium-Storz-Kupplung 2,5 Zoll', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'Schnellkupplung nach deutschem Standard, DN50–DN150, 1,6 MPa' },
+	{ slug: 'abc-dry-powder-fire-extinguisher-5kg', name: 'ABC-Pulverfeuerlöscher (5 kg)', img: '/assets/products/abc-dry-powder-fire-extinguisher-5kg.webp', desc: 'Tragbares Gerät nach ISO 7165 für Brände der Klassen A/B/C/E' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Anfahrsicherer Außenhydrant (SSFT100)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Druckregelnd, KWS65-Ausgänge, duktiles Gusseisen PN16' }
+];
+---
+
+<Layout
+	title="Leitfaden: CE- & EN-12845-Konformität im Brandschutz"
+	description="CE- und EN-12845-Konformität für Brandschutzausrüstung: Saugwirbelverhinderer, Ventilprüfungen nach EN 12266-1, Storz-Kupplungen und Feuerlöscher."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'CE- & EN-12845-Konformität' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">CE- &amp; EN-12845-Konformität</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden zur Zertifizierung</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Leitfaden zur CE- &amp; EN-12845-Konformität: Brandschutzausrüstung für den europäischen Markt</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Der Verkauf von Brandschutzausrüstung in Europa ist zunächst eine Dokumentationsaufgabe und erst danach eine Produktaufgabe. EN 12845 definiert den Aufbau von Sprinkler-Löschwasserversorgungen, EN 12266-1 die Prüfung von Ventilen und ISO 7165 die Leistung tragbarer Feuerlöscher. Die CE-Kennzeichnung muss, sofern anwendbar, auf ein bestimmtes Modell zurückführbar sein, niemals auf eine ganze Serie. Dieser Leitfaden erläutert den normativen Rahmen und die Nachweise, die ein europäischer Käufer von einem chinesischen Lieferanten verlangen sollte.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="european-market" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Warum europäische Konformität bei Brandschutzausrüstung zählt</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Europa ist kein Nischenmarkt für Brandschutzlieferanten. In der Käuferstichprobe der Branchenplattform, auf der die Marktrecherche dieses Leitfadens (August 2026) basiert, war Europa mit 20,05 % die größte Käuferregion der Brandschutzkategorie. Europa und Südostasien zusammen machten rund 39 % aus. In derselben Stichprobe war CE bei Feuerlöscherangeboten mit 42,35 % das häufigste Zertifizierungsmerkmal. Das zeigt, dass europäische Käufer zunächst die dokumentierte Konformität und erst danach den Preis prüfen.</p>
+			<p class="text-gray-700 leading-relaxed">Was technische Käufer in Europa tatsächlich prüfen, ist eine lückenlose Dokumentationskette: Nach welcher Norm wird das Produkt gefertigt? Nach welcher Prüfnorm wurde die Charge geprüft? Welches Zertifikat deckt das exakte Modell ab? An welches Kupplungs- und Gewindesystem wird die Ausrüstung angeschlossen? Alle folgenden Abschnitte beantworten eine dieser vier Fragen.</p>
+
+			<h2 id="ce-marking-basics" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Grundlagen der CE-Kennzeichnung: modellbezogen, nie serienbezogen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die CE-Kennzeichnung ist das Konformitätszeichen für Produkte, die auf dem europäischen Markt bereitgestellt werden. Ihre rechtliche Grundlage variiert je nach Produkt; die geltenden Richtlinien und harmonisierten Normen hängen von der Produktart ab. Genau deshalb macht ein verantwortungsvoller Lieferant niemals pauschale Aussagen.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Die Kennzeichnung gehört zu einem Modell</strong> — CE und die zugehörige Konformitätserklärung gelten für ein definiertes Produkt mit definierten Eigenschaften. Ändern sich Ventilgröße, Werkstoff oder Konfiguration, ändert sich auch die Konformitätsbewertung.</li>
+				<li><strong>Serienbezogene Aussagen zurückweisen</strong> — Ein Zertifikat, das nur eine Marke oder eine komplette Produktreihe ohne Modellbezeichnungen nennt, ist bei der europäischen Beschaffung ein Warnsignal. Fordern Sie das Dokument an, in dem das exakt gekaufte Modell und seine Spezifikation genannt werden.</li>
+				<li><strong>Eine technische Dokumentation erwarten</strong> — Der Hersteller sollte die Prüfberichte und technischen Unterlagen hinter der Erklärung vorlegen können. Unsere Seite <a href="/de/certificates/" class="text-brand-blue font-semibold hover:underline">Zertifikate und Konformität</a> erläutert, wie diese Dokumentation für unser Brandschutzsortiment verwaltet wird.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Beantwortet ein Angebot die Frage „Ist das Produkt CE-zertifiziert?“ mit „Ja, die gesamte Serie“, lautet die richtige Anschlussfrage: Welche Richtlinie, welche Norm, welches Modell — und kann ich die Konformitätserklärung sehen?</p>
+
+			<h2 id="en12845-pump-suction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. EN 12845 und die Pumpensaugseite der Löschwasserversorgung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">EN 12845 ist die europäische Norm für ortsfeste Sprinkleranlagen zur Brandbekämpfung und regelt deren Planung und Installation. Sie umfasst die gesamte Löschwasserversorgung: Vorratsbehälter, Pumpensaugseiten, Pumpen, Ventile und Verteilung. Eine wiederkehrende Anforderung ist, dass Pumpensaugseiten aus Tanks die Wirbelbildung verhindern müssen. Ein Wirbel zieht Luft in die Pumpe, verursacht Kavitation und kann der Sprinkleranlage genau dann die erforderliche volle Fördermenge entziehen.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Diese Aufgabe übernimmt der <a href="/de/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">Saugschirm zur Wirbelvermeidung</a> aus unserem Sortiment: eine Baugruppe aus austenitischem Edelstahl (SS304/316), die im Tank an der Pumpensaugseite montiert und nach EN 12845 sowie GB50974-2014 von DN50 bis DN1000 gefertigt wird. Sie beseitigt den Wirbel, ermöglicht die Entleerung des Tanks bis auf sehr niedrige Wasserstände (etwa 100 mm) und besitzt keine beweglichen, zu wartenden Teile.</p>
+			<p class="text-gray-700 leading-relaxed">Der übrige Saug- und Druckleitungsstrang folgt derselben Logik: Absperrschieber oder Absperrklappen zur Absperrung, Rückschlagventile am Pumpendruckstutzen und Alarmventile am Steigstrang. Eine vollständige Übersicht der Komponenten einer Sprinkleranlage nach EN 12845 finden Sie in unserem <a href="/de/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Ventilen für Sprinkleranlagen</a>.</p>
+
+			<h2 id="testing-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Prüfungsnachweise: EN 12266-1 und Chargenberichte</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Europäische Käufer akzeptieren selten die allgemeine Aussage „nach Norm geprüft“. Sie möchten die genannte Prüfnorm und die identifizierte Charge sehen. Für unsere Werksprüfungen gelten folgende Grundsätze:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Ventile</strong> — Auf Anfrage erfolgt eine 100-prozentige Druckprüfung von Gehäuse und Sitz gemäß GB/T13927 oder <strong>EN 12266-1</strong>, der europäischen Norm für die Prüfung von Industrieventilen.</li>
+				<li><strong>Hydranten</strong> — Hydrostatische Druckprüfung (typischerweise 2,4 MPa) und Durchflussprüfung gemäß GB 4452 oder der jeweils geltenden Exportnorm.</li>
+				<li><strong>Feuerlöscher</strong> — Leistung, Konstruktion und Kennzeichnung gemäß ISO 7165, einschließlich der Modellkennzeichnung auf dem Behälter.</li>
+				<li><strong>Chargennachweis</strong> — Prüfberichte müssen die tatsächlich gelieferte Produktionscharge abdecken, nicht eine Vorlage für ein anderes Modell oder einen anderen Produktionslauf.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Nennen Sie die gewünschte Prüfnorm in der Anfrage und im Kaufauftrag. Ein Lieferant, der sich schriftlich auf eine Norm festlegt, kann den entsprechenden Bericht vorlegen.</p>
+
+			<h2 id="connections-regional" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Kupplungen, Schnittstellen und tragbare Ausrüstung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Konformität endet nicht bei den Zertifikaten. Anschlüsse und tragbare Ausrüstung unterliegen eigenen regionalen Regeln. In Europa und weiten Teilen Asiens sind <strong>Storz-Schnellkupplungen</strong> das vorherrschende Feuerwehrschlauchsystem. Unsere <a href="/de/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">Aluminium-Storz-Kupplung 2,5 Zoll</a> entspricht dem deutschen Standard, besitzt eine selbstabdichtende Kante, ist für 1,6 MPa ausgelegt und eignet sich für klares Wasser und Schaummittelgemische. Im Vereinigten Königreich und im Commonwealth werden BS336-Gewinde verwendet; deutsche KWS-Ausgänge finden sich an Hydranten- und Steigleitungsanschlüssen. Unser <a href="/de/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">anfahrsicherer Außenhydrant SSFT100</a> wird standardmäßig mit zwei KWS65-Ausgängen und einem DN100-Ausgang geliefert.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Bei für Europa bestimmten tragbaren Feuerlöschern ist die Zertifikatsgrenze klar zu halten: Unser <a href="/de/products/abc-dry-powder-fire-extinguisher-5kg/" class="text-brand-blue font-semibold hover:underline">ABC-Pulverfeuerlöscher 5 kg</a> wird nach ISO 7165 gefertigt und trägt CCCF. ISO 7165 regelt die internationale Leistung tragbarer Feuerlöscher; die CE-Kennzeichnung für den EU-Markt hängt von den für das Modell geltenden Richtlinien ab. CCCF gilt nur für China und lässt sich nicht auf den europäischen Vertrieb übertragen. Sprache des Etiketts, Piktogramme und Anleitungssprache sollten vor der Fertigung für das Zielland bestätigt werden.</p>
+			<p class="text-gray-700 leading-relaxed">Die wichtigste Erkenntnis für Käufer: Nennen Sie Kupplungssystem und Feuerlöscherstandard im selben Satz wie die Zertifikatsanfrage — beides gehört gemeinsam in die Spezifikation.</p>
+
+			<h2 id="european-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Spezifikations-Checkliste für europäische Käufer</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Komponentennorm nennen</strong> — EN 12845 für die Sprinkler-Löschwasserversorgung, EN 12266-1 für die Ventilprüfung, ISO 7165 für tragbare Feuerlöscher sowie die geltende Norm für Hydranten und Kupplungen.</li>
+				<li><strong>Modellbezogene Zertifikate verlangen</strong> — CE-Konformitätserklärung, sofern anwendbar, sowie das Zertifikat mit dem exakt bestellten Modell, der Größe und der Konfiguration.</li>
+				<li><strong>Schnittstellensystem bestätigen</strong> — Storz, BS336, KWS oder andere Gewinde für Schlauch-, Hydranten- und Düsenanschlüsse; halten Sie dies schriftlich fest.</li>
+				<li><strong>Dokumentationssprache festlegen</strong> — Etikett- und Anleitungssprache für das Zielland als Teil des OEM-Umfangs.</li>
+				<li><strong>Chargenprüfberichte anfordern</strong> — Prüfaufzeichnungen für die tatsächlich gelieferte Produktionscharge, keine allgemeine Datei.</li>
+				<li><strong>Dokumentationskette bündeln</strong> — Die Bestellung von Ventilen, Hydranten und Feuerlöschern bei einem Hersteller hält Zertifikate und Fracht in einer Akte. Nutzen Sie vor der Lieferantenentscheidung unsere <a href="/de/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B-Checkliste zur Beschaffung von Ventilen</a>.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Planen Sie eine Brandschutzbestellung für Europa?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Teilen Sie uns Produkte, Mengen und Zielland mit. Unser Team bestätigt innerhalb von 12 Stunden die geltenden Normen, das Zertifikatspaket und das Anschlusssystem.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=European%20Compliance%20Package" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href="https://wa.me/8618684324501?text=Hallo%2C%20ich%20ben%C3%B6tige%20Brandschutzausr%C3%BCstung%20f%C3%BCr%20den%20EU-Markt" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

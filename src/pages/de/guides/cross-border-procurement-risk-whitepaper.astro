@@ -1,0 +1,264 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'risk-frame', label: '1. Warum grenzüberschreitender Einkauf scheitert: der Risikorahmen' },
+	{ id: 'eight-risk-families', label: '2. Die acht Risikofamilien' },
+	{ id: 'counterparty-risk', label: '3. Risiko der Gegenpartei und Authentizität' },
+	{ id: 'quality-risk', label: '4. Qualitäts- und Spezifikationsrisiko' },
+	{ id: 'certification-risk', label: '5. Zertifizierungs- und Konformitätsrisiko' },
+	{ id: 'payment-risk', label: '6. Zahlungs- und Finanzrisiko' },
+	{ id: 'logistics-risk', label: '7. Logistik-, Zoll- und Lieferrisiko' },
+	{ id: 'dispute-risk', label: '8. Streit-, Gewährleistungs- und Kontinuitätsrisiko' },
+	{ id: 'control-checklist', label: '9. Kontrollcheckliste nach Prozessstufe' },
+	{ id: 'red-flags', label: '10. Warnsignale: Prozess stoppen und erneut prüfen' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const faq = [
+	{
+		question: 'Was ist die häufigste Ursache für gescheiterte grenzüberschreitende Beschaffung von Ausrüstung?',
+		answer: 'Nicht der Preis und auch nicht unbedingt Fälschungen – am häufigsten scheitert der Einkauf an einer Spezifikation, die nie vollständig genug war, um den Lieferanten haftbar zu machen. Wenn Norm, Größe, Druckstufe, Werkstoff und Abnahmeprüfung nicht schriftlich festgelegt sind, hat „Das Produkt entspricht nicht“ keine messbare Definition und der Streit wird unlösbar. Die schriftliche Vervollständigung der Spezifikation vor dem Angebot ist die wirkungsvollste Risikokontrolle dieses Whitepapers.'
+	},
+	{
+		question: 'Welche Zahlungsstruktur ist bei einer Erstbestellung bei einem chinesischen Hersteller am sichersten?',
+		answer: 'Eine T/T-Struktur nach Meilensteinen ist die übliche, vertretbare Lösung: eine Anzahlung bei Auftragserteilung (bei Ausrüstungsaufträgen liegt die Marktüblichkeit bei etwa 30 %) und der Restbetrag gegen Versanddokumente oder nach bestandener Vorversandinspektion. Bei einer großen Erstbestellung bietet ein Sichtakkreditiv nach UCP 600 zusätzliche Sicherheit zwischen den Banken. Zu vermeiden sind 100 % Vorauszahlung an eine ungeprüfte Gegenpartei, Überweisungen auf Privatkonten außerhalb der Vertragsgesellschaft und ein Preis, der deutlich unter den eingeholten Vergleichsangeboten liegt – der Nachlass ist das Risiko, nicht der Schutz.'
+	},
+	{
+		question: 'Wie kann ich mich gegen gefälschte UL-, FM- oder CE-Zertifikate schützen?',
+		answer: 'Behandeln Sie jede Zertifikatsnummer als Behauptung, nicht als Tatsache: Prüfen Sie sie vor der Aufnahme in die Spezifikation im offiziellen Portal der ausstellenden Stelle – bezogen auf das exakte Modell und das exakte Werk. Eine Nummer, die dort nicht gefunden wird, ist unabhängig vom Aussehen des PDF eine Fälschung. Nehmen Sie die Verifikation als Abnahmebedingung in den Vertrag auf, verlangen Sie Einzelprüfprotokolle, die mit den Seriennummern der Packliste übereinstimmen, und führen Sie zunächst eine Musterbestellung durch. Unser Leitfaden zur Fälschungserkennung nennt die physischen Merkmale – geklonte Seriennummern, kopierte Typenschilder und dünnwandige Gussteile.'
+	},
+	{
+		question: 'Welcher Incoterm legt das größte Risiko auf den Käufer?',
+		answer: 'EXW (Ex Works) legt nahezu alles auf den Käufer: Sie organisieren die Abholung im Werk, die Ausfuhrzollabfertigung, den Haupttransport und die Versicherung. Jede Schwäche Ihrer lokalen Logistikkette wird damit zu Ihren Kosten. DDP (Delivered Duty Paid) kehrt das Problem um: Der Lieferant trägt alles, wodurch die Preisbildung intransparent wird – der Käufer kann die angesetzten Kosten nicht prüfen, und jede Komplikation auf der Exportseite fällt auf den Lieferanten zurück, während Sie warten. FOB und CIF bilden den üblichen Mittelweg mit einem klaren Gefahrenübergang und prüfbaren Preisen; entscheiden Sie danach, welchen Transportabschnitt Sie besser kontrollieren können.'
+	},
+	{
+		question: 'Welche Klauseln muss der Vertrag vor der Unterzeichnung enthalten?',
+		answer: 'Mindestens: die technische Spezifikation als Anlage (Norm, Größe, Druckstufe, Werkstoff, Oberflächenfinish), schriftliche Abnahmekriterien mit Bezug auf Einzelprüfprotokolle, Ihr Recht auf Inspektion oder die Beauftragung eines unabhängigen Prüfers vor dem Versand, den Zahlungsplan nach Meilensteinen, einen Incoterm und Hafen, höhere Gewalt, das anwendbare Recht und das Streitforum (Schiedsklauseln sind grenzüberschreitend zuverlässiger durchsetzbar als Verfahren vor ausländischen Gerichten), die Gewährleistungsfrist sowie eine Ersatzteilzusage für die Nutzungsdauer der Ausrüstung. Ein Angebot ist kein Vertrag; der unterzeichnete Vertrag mit Spezifikationsanlage ist das maßgebliche Risikodokument.'
+	},
+	{
+		question: 'Kann ich alle diese Kontrollen durchführen, ohne das Werk zu besuchen?',
+		answer: 'Ja, abgestuft – und für Erstbestellungen ist dies der normale Weg. Ein Live-Video-Rundgang durch das Werk, die Exportdokumentationshistorie, ein Muster je Modell mit einem seriennummerierten Druckprüfvideo und anschließend eine Vorversandinspektion durch eine unabhängige Stelle (SGS, Bureau Veritas oder Intertek) decken den größten Teil der Prüfung ab, die ein physischer Besuch ermöglicht – zu einem Bruchteil der Kosten. Planen Sie den persönlichen Besuch für die zweite Bestellung oder für Auftragswerte ein, bei denen die Prüfgebühr kaum ins Gewicht fällt. Was Sie mit oder ohne Besuch niemals auslassen sollten: die Verifikation des Zertifikats bei der ausstellenden Stelle und die Musterbestellung.'
+	}
+];
+
+const referencePages = [
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'ZSFZ Nassalarm-Rückschlagventil' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'SS100 Überflurhydrant' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Z41X weichdichtender Absperrschieber' }
+];
+---
+
+<Layout
+	title="Risiken im grenzüberschreitenden Einkauf | Wanlian Fluid"
+	description="Kontrollieren Sie Risiken beim internationalen Einkauf von Armaturen und Brandschutzausrüstung: 8 Risikofamilien, Prüfungen, Zahlungsmodelle und Warnsignale."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Whitepaper zu Beschaffungsrisiken' }]}
+	locale="de"
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Whitepaper zu Beschaffungsrisiken</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Industrie-Whitepaper · 2026</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Risiken im grenzüberschreitenden Einkauf: Kontrolle vor der Zahlung</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Der grenzüberschreitende Einkauf von Armaturen, Hydranten und Brandschutzausrüstung ist Risikomanagement, bei dem nebenbei Ausrüstung entsteht. Die für Käufer teuren Fehler sind selten und dramatisch (ein Lieferant verschwindet mit der Anzahlung, ein Container voller gefälschter Armaturen), doch der typische Schaden ist leiser: eine nie abgeschlossene Spezifikation, ein nicht verifiziertes Zertifikat oder ein Incoterm, der den falschen Transportabschnitt bepreist. Dieses Whitepaper gliedert die Risiken des internationalen Einkaufs in acht Familien, ordnet jeder eine Kontrollsequenz zu und endet mit einer Checkliste nach Prozessstufen sowie einer Warnsignaltabelle, die Sie einer Bestellung beilegen können.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Methode:</strong> Wir sind Hersteller und damit Lieferant in diesen Transaktionen; das legen wir offen dar. Der Abschnitt zur Authentizität der Gegenpartei ist der einzige, bei dem unser Interesse als eigennützig verstanden werden könnte. Deshalb ist er so formuliert, dass er symmetrisch für jeden Lieferanten gilt, auch für uns. Die genannten Instrumente (Incoterms 2020, UCP 600, T/T nach Meilensteinen, Drittinspektion und Zertifikatsverifikation bei der ausstellenden Stelle) sind die Standardinstrumente, die Käufer tatsächlich einsetzen. Wo eine Zahl eine Marktübung und keine verifizierte Tatsache darstellt, wird dies kenntlich gemacht.</p>
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="risk-frame" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Warum grenzüberschreitender Einkauf scheitert: der Risikorahmen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die nationale Beschaffung hat drei Risikodimensionen – Qualität, Preis und Lieferung. Der grenzüberschreitende Einkauf fügt mindestens vier weitere hinzu: <strong>Authentizität der Gegenpartei</strong> (ist die von Ihnen bezahlte Gesellschaft dieselbe, die versendet, und existiert sie noch zum Gewährleistungszeitpunkt?), <strong>regulatorische Übersetzung</strong> (die am Bestimmungsort geltende Norm muss der Norm entsprechen, nach der das Produkt gefertigt wurde), <strong>Währung und Zahlungsinstrumente</strong> (das Geld bewegt sich vor der Ware) sowie <strong>Durchsetzbarkeit</strong> (ein Vertrag, den Sie nicht durchsetzen können, ist nur ein höfliches Dokument). Die Entfernung ist entscheidend: Jede ausgelassene Kontrolle wird durch die Risikobereitschaft des Lieferanten eingepreist. Der einzige Weg, den Risikopreis zu senken, ist, das Risiko schriftlich zu reduzieren.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Zwei Grundsätze bestimmen alles Folgende. Erstens: <strong>Risiken werden in der Dokumentation gesteuert, nicht in der Beziehung.</strong> Ein Lieferant, der sich gegen Dokumentation – Prüfprotokolle, Zertifikatsverifikation, Inspektionsrechte und Zahlung nach Meilensteinen – wehrt, hat die Frage nach seinem Verhalten im Störungsfall bereits beantwortet. Zweitens: <strong>Die Reihenfolge ist wichtiger als jede einzelne Kontrolle.</strong> Das Unternehmen vor dem Zertifikat, das Zertifikat vor dem Muster, das Muster vor der Menge und den Restbetrag vor dem Versand zu prüfen, ist eine Sequenz. Führen Sie sie in einer anderen Reihenfolge aus, übernimmt der nächste Schritt das gesamte Risiko, das der vorherige Schritt beseitigen sollte.</p>
+			<p class="text-gray-700 leading-relaxed">Unser <a href="/de/glossary/" class="text-brand-blue font-semibold hover:underline">Industrieglossar</a> definiert die Begriffe, die für die folgenden Ausführungen präzise sein müssen – Incoterms, Druckstufe, Gehäuseprüfung, Typenschild und Konnossement. Das <a href="/de/whitepaper/" class="text-brand-blue font-semibold hover:underline">Whitepaper zu Spezifikation und Verifikation</a> zeigt, wie eine belastbare schriftliche Spezifikation aussieht.</p>
+
+			<h2 id="eight-risk-families" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Die acht Risikofamilien</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Jeder uns bekannte Verlust im grenzüberschreitenden Einkauf lässt sich in eine von acht Familien zerlegen. Die Tabelle ist die Übersicht; die Abschnitte 3–8 enthalten die Kontrollsequenzen für jede Familie. Wahrscheinlichkeit und Auswirkung werden qualitativ angegeben, da sie vom Verhalten des Lieferanten abhängen – genau dafür sind die Kontrollen vorgesehen.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Risikofamilie</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Ausprägung</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Primäre Kontrolle</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">1. Gegenpartei &amp; Authentizität</td><td class="px-4 py-3 text-gray-700">Handelsbüro verkauft Gussteile als eigene Produkte; Gesellschaft verschwindet nach der Anzahlung; Website und Rechtsträger stimmen nicht überein</td><td class="px-4 py-3 text-gray-700">Verifikation des Rechtsträgers + Werksvideo/-besuch + Exporthistorie (§3)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">2. Qualität &amp; Spezifikation</td><td class="px-4 py-3 text-gray-700">Werkstoffgüte herabgesetzt; Einheit erfüllt die vorausgesetzte Norm nicht; Charge uneinheitlich</td><td class="px-4 py-3 text-gray-700">Abgeschlossene schriftliche Spezifikation + Musterbestellung + Einzelprüfprotokolle (§4)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">3. Zertifizierung &amp; Konformität</td><td class="px-4 py-3 text-gray-700">Gefälschte oder veraltete Zertifikate; Werkszertifikat für eine Modellanforderung verwendet; Abweichung von der Bestimmungsnorm</td><td class="px-4 py-3 text-gray-700">Verifikation je Modell bei der ausstellenden Stelle + vertragliche Abnahmebedingung (§5)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">4. Preis &amp; kaufmännische Bedingungen</td><td class="px-4 py-3 text-gray-700">Lockangebot mit späterem Austausch; Werkzeug-, Verpackungs- oder Währungskosten nach Unterzeichnung ergänzt; „bester Preis“ unterhalb der physikalischen Möglichkeit</td><td class="px-4 py-3 text-gray-700">Aufgeschlüsselte Vergleichsangebote + Preisgültigkeit + Klausel zum tatsächlichen Lieferumfang (§4, §6)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">5. Zahlung</td><td class="px-4 py-3 text-gray-700">100 % Vorauszahlung an ungeprüfte Gegenpartei; Restbetrag vor Inspektion verlangt; Umleitung auf Privatkonto</td><td class="px-4 py-3 text-gray-700">T/T nach Meilensteinen oder L/C + auf den Rechtsträger lautendes Konto + Inspektionsfreigabe (§6)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">6. Logistik &amp; Zoll</td><td class="px-4 py-3 text-gray-700">Incoterm bepreist den falschen Abschnitt; Dokumente scheitern beim Bestimmungszoll; Schiff verpasst; Gefahrgut falsch deklariert</td><td class="px-4 py-3 text-gray-700">Incoterm-Wahl + Dokumentenpaket + Containerprüfung vor dem Versand (§7)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">7. Lieferung &amp; Kontinuität</td><td class="px-4 py-3 text-gray-700">Terminverzug gefährdet das Programm; im fünften Jahr keine Ersatzteile; Lieferant bei Gewährleistungsfall nicht mehr tätig</td><td class="px-4 py-3 text-gray-700">Terminplan mit Rechtsbehelfen + Ersatzteilklausel + Prüfung der Lieferantenbeständigkeit (§8)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">8. Streit &amp; Recht</td><td class="px-4 py-3 text-gray-700">Kein anwendbares Recht; Gewährleistung nicht durchsetzbar; Schiedsklausel fehlt; Aufzeichnungen verloren</td><td class="px-4 py-3 text-gray-700">Vertragsanlage + Schiedsklausel + aufbewahrte Prüfprotokolle (§8)</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="counterparty-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Risiko der Gegenpartei und Authentizität</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Dies ist die einzige Risikofamilie, bei der eine nachträgliche Prüfung nicht möglich ist – die Kontrolle muss vollständig erfolgen, bevor Geld fließt. Erkannt werden soll das Handelsbüro, das sich als Hersteller ausgibt: Es bietet Fabrikpreise an, zeigt Fabrikfotos (aufgenommen in einem besuchten, aber nicht eigenen Werk) und versendet Gussteile, die von einem echten Hersteller umgekennzeichnet wurden. In einem Cluster wie der chinesischen Brandschutzindustrie arbeiten mehrere hundert Unternehmen in derselben Metropolregion. „Fabrikfotos“ belegen daher den Standort, nicht das Eigentum.</p>
+		<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+			<li><strong>Prüfen Sie den Rechtsträger, nicht die Marke.</strong> Firmenname, Registrierungsnummer, eingetragene Anschrift, Geschäftszweck und Stammkapital sind anhand der Gewerbelizenz des Lieferanten zu prüfen, nicht anhand seiner Website. Markenname auf der Website und Rechtsträger auf der Banküberweisung müssen identisch sein.</li>
+			<li><strong>Prüfen Sie den Geltungsbereich des Qualitätsmanagementsystems.</strong> Ein ISO-9001-Zertifikat gilt für einen benannten Geltungsbereich an einer benannten Anschrift. „Armaturen und Brandschutzausrüstung“ an der Werksanschrift ist ein Signal; „Handel“ oder eine andere Anschrift ist ein anderes Signal.</li>
+			<li><strong>Führen Sie einen Live-Video-Rundgang durch das Werk durch.</strong> Keine Aufzeichnung, sondern ein Live-Gespräch, bei dem die Kamera vom Eingang durch Gießerei, Bearbeitung, Montage und Prüfung geführt wird. Ein Hersteller, der etwas zu verbergen hat, bietet stattdessen die Aufzeichnung und die Broschüre an.</li>
+			<li><strong>Prüfen Sie die Exporthistorie.</strong> Jahre im Exportgeschäft, Zielländer und eine Referenzbestellung, deren Ansprechpartner Sie unabhängig kontaktieren können. Fragen Sie im Brandschutz-Cluster konkret: Welche dieser Einheiten haben <em>Sie</em> gefertigt und welche Ihre Partner? Ein Hersteller beantwortet diese Frage; ein Handelsbüro weicht ihr aus.</li>
+			<li><strong>Gleichen Sie die Präsenz ab.</strong> Alter der Webdomain, Profil bei Alibaba oder einer Handelsplattform im Abgleich mit dem Rechtsträger sowie die Frage, ob der Ansprechpartner eine Unternehmensdomain statt eines privaten Postfachs verwendet.</li>
+		</ol>
+		<p class="text-gray-700 leading-relaxed">Die Schritt-für-Schritt-Methode mit den fünf Prüfungen und den Fragen, die ein Werk von einem Handelsbüro unterscheiden, finden Sie in unserem <a href="/de/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur Prüfung chinesischer Armaturenlieferanten</a>. Die 8-Punkte-Due-Diligence in unserer <a href="/de/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B-Beschaffungscheckliste für Armaturen</a> können Sie in eine erste E-Mail übernehmen.</p>
+
+			<h2 id="quality-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Qualitäts- und Spezifikationsrisiko</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Das Qualitätsrisiko wird gewöhnlich bei der Angebotserstellung angelegt, nicht im Werk. Wenn Ihre Anfrage „Absperrschieber DN100, bevorzugt AWWA, 200 Stück“ lautet, kann jeder Lieferant antworten – und jeder antwortet mit einem anderen Produkt. Die drei wertvollsten Qualitätskontrollen sind daher Spezifikationskontrollen, die vor dem Guss der ersten Einheit ausgeführt werden:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Schließen Sie die Spezifikation schriftlich ab.</strong> Maßgebliche Norm (AWWA C502/C515, ISO 5208, EN 1074, NFPA 13 oder Referenz der Ausschreibung), Größe und Druckstufe, Werkstoffgüte und Oberflächenfinish, Anschlussart sowie die je Einheit erforderliche Prüfung. Ein Angebot auf Basis einer offenen Spezifikation ist ein Gespräch, kein Risikodokument. Der <a href="/de/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu den Normen</a> stellt die Regelwerke gegenüber.</li>
+				<li><strong>Bestellen Sie das Muster vor der Serie.</strong> Eine Einheit je Modell: Typenschild, Seriennummer, Werkszeugnis und ein seriennummeriertes Video der Gehäuse-Druckprüfung und Luftleckprüfung. Ein <a href="/de/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">Nassalarm-Rückschlagventil ZSFZ-150</a> oder ein <a href="/de/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">Überflurhydrant SS100/65</a> ist als Muster günstig genug, dass das Überspringen dieses Schritts nie rational ist – das Muster ist die günstigste verfügbare Versicherung gegen Fälschungs- und Spezifikationsrisiken.</li>
+				<li><strong>Verlangen Sie Einzelprüfprotokolle, nicht nur Chargenprotokolle.</strong> Ein Chargenbericht sagt: „Wir haben einige geprüft.“ Ein Einzelprotokoll mit Seriennummern, die mit der Packliste übereinstimmen, sagt: „Wir haben Ihre Einheiten geprüft.“ Dies ist auch das Dokument, das der Prüfer am Bestimmungsort bei der Abnahme verlangen wird.</li>
+				<li><strong>Beauftragen Sie für die Serie eine Drittinspektion.</strong> Wenn SGS, Bureau Veritas oder Intertek die Prüfung begleiten und die Unterlagen vor dem Versand prüfen, wird aus „Der Lieferant sagt“ die Aussage „Eine unabhängige Stelle hat es bezeugt“. Die Gebühr ist gegenüber den Kosten eines falschen Containers vernachlässigbar.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Auf der Preisseite dieser Risikofamilie gilt: Ein Angebot, das deutlich unter den eingeholten Vergleichsangeboten liegt, ist kein Schnäppchen, sondern eingepreistes Risiko – der Nachlass muss aus Werkstoffgüte, Wanddicke, Prüfungen oder Ihrer späteren Restzahlung kommen. Unser <a href="/de/cost-calculator/" class="text-brand-blue font-semibold hover:underline">Beschaffungskostenrechner</a> bewertet die legitimen Kostentreiber (Menge, Incoterm, Bestimmungsort), damit ein Niedrigangebot an den tatsächlichen Parametern des Auftrags und nicht am Gefühl geprüft werden kann.</p>
+
+			<h2 id="certification-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Zertifizierungs- und Konformitätsrisiko</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Zertifikate sind in dieser Industrie die am häufigsten gefälschten und am häufigsten falsch angewendeten Dokumente. Es gibt zwei unterschiedliche Fehler: <strong>Fälschung</strong> (das Zertifikat ist gefälscht oder von einem echten Zertifikat kopiert) und <strong>Geltungsbereichsabweichung</strong> (das Zertifikat ist echt, gilt aber für ein anderes Modell, ein anderes Werk oder ein anderes Jahr als in Ihrer Bestellung vorausgesetzt). Für beide gilt dasselbe Kontrollinstrument: die <strong>Verifikation im offiziellen Portal der ausstellenden Stelle</strong> – im UL-product-iQ-Verzeichnis, in der FM-Datenbank, im LPCB RedBook oder im Zertifikatsregister der ausstellenden Stelle für die chinesische Brandschutzproduktzertifizierung. Eine Zertifikatsnummer, die nicht auf den Rechtsträger Ihres Lieferanten und Ihr Modell verweist, ist eine Fälschung – unabhängig davon, wie sauber das PDF aussieht.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Die zweite Kontrolle ist vertraglicher Natur: Machen Sie die Zertifikatsverifikation zu einer <em>Abnahmebedingung</em>, nicht zu einer Produktbeschreibung. „UL listed“ in der Beschreibungsspalte eines Angebots ist ohne Gewicht; „Der Lieferant garantiert, dass Modell Z41X-100 unter dem UL-262-Zertifikat mit der Nummer [X] gelistet und zum Versanddatum in UL product-iQ verifizierbar ist; eine Kopie des Zertifikats wird vor der Restzahlung geliefert“ hat Gewicht. Die physischen Merkmale gefälschter Armaturen – geklonte Seriennummern, kopierte Typenschilder, dünnwandige Gussteile und zu dicke Lackierung über einer Prägung – behandelt unser <a href="/de/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur Erkennung gefälschter Armaturen</a>.</p>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Modellbezogen oder werksbezogen: die entscheidende Unterscheidung</p>
+				<p class="text-sm text-gray-700 leading-relaxed">Ein Systemzertifikat (ISO 9001, Werkslizenz) besagt, dass das <em>Unternehmen</em> einen kontrollierten Prozess betreibt. Ein Produktzertifikat (UL-Listing, FM-Zulassung, CE-Kennzeichnung nach der anwendbaren Richtlinie, Brandschutzproduktzertifizierung) besagt, dass das <em>Modell</em> geprüft wurde. Der Prüfer am Bestimmungsort setzt das Produktzertifikat durch. Ein Lieferant, der sein Systemzertifikat anbietet, obwohl Sie ein Produktzertifikat verlangt haben, beantwortet eine andere Frage als Ihre – und Ihre Frage entscheidet darüber, ob Ihr Container abgenommen wird.</p>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Für die bestimmungsortspezifische Zuordnung – was eine Ausschreibung in Lateinamerika mit UL/FM/AWWA/NOM meint, was die EU mit CE je Modell meint und was NFPA 13 für einen <a href="/de/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">AWWA-Absperrschieber</a> bedeutet – lesen Sie den <a href="/de/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu UL-gelisteten Brandschutzarmaturen</a>, den <a href="/de/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Zertifizierungsanforderungen in Lateinamerika</a> und den <a href="/de/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur CE- und EN-12845-Konformität</a>.</p>
+
+			<h2 id="payment-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Zahlungs- und Finanzrisiko</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Im grenzüberschreitenden Ausrüstungshandel fließt das Geld vor der Ware; die Struktur dieses Geldflusses ist die Kontrolle. Vier Instrumente, geordnet nach dem zunehmenden Käuferschutz bei einer Erstbestellung:</p>
+			<table class="w-full text-sm my-5 border-collapse">
+				<thead>
+					<tr class="bg-gray-50">
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">Instrument</th>
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">Wirkung</th>
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">Geeigneter Einsatz</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-gray-200">
+					<tr><td class="px-4 py-3 font-bold text-gray-900">T/T nach Meilensteinen</td><td class="px-4 py-3 text-gray-700">Anzahlung bei Auftrag; Restbetrag gegen Versanddokumente oder nach bestandener Vorversandinspektion</td><td class="px-4 py-3 text-gray-700">Übliche, vertretbare Struktur bei geprüften Lieferanten – die marktübliche Anzahlung bei Ausrüstungsaufträgen liegt bei etwa 30 %</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Sichtakkreditiv (UCP 600)</td><td class="px-4 py-3 text-gray-700">Die Bank zahlt gegen konforme Dokumente; die Sicherheit zwischen Banken ersetzt Vertrauen</td><td class="px-4 py-3 text-gray-700">Große Erstbestellungen oder Aufträge, bei denen die Anzahlung allein Ihre Risikobereitschaft übersteigt</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Plattform-Treuhandkonto</td><td class="px-4 py-3 text-gray-700">Die Plattform hält die Zahlung bis zur Lieferung/Inspektion zurück</td><td class="px-4 py-3 text-gray-700">Kleine Aufträge und Musterkäufe mit einer neuen Gegenpartei</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Exportkreditversicherung</td><td class="px-4 py-3 text-gray-700">Versichert die Forderung gegen Lieferantenausfall (China Ex&amp;I / Sinosure auf Exportseite; lokale Kreditversicherer auf Ihrer Seite)</td><td class="px-4 py-3 text-gray-700">Programme und Folgeaufträge, sobald die Gegenpartei bewährt ist</td></tr>
+				</tbody>
+			</table>
+			<p class="text-gray-700 leading-relaxed mb-4">Drei Zahlungsregeln sollten als feste Grenzen formuliert werden. <strong>Erstens:</strong> Eine Vorauszahlung von 100 % ist nur gegenüber einer Gegenpartei vertretbar, die die Prüfung nach §3 bereits bestanden hat und deren Erfolgsbilanz Sie unabhängig kontaktiert haben – und selbst dann nur auf Grundlage eines Vertrags, der die Rückerstattung bei nicht bestandener Inspektion vorsieht. <strong>Zweitens:</strong> Jede Überweisung geht auf das Bankkonto des im Vertrag genannten Rechtsträgers – die Aufforderung, an ein anderes Unternehmen oder ein Privatkonto zu zahlen, ist für sich genommen ein Betrugssignal. <strong>Drittens:</strong> Die Währung ist eine eingepreiste Variable. Angebot und Vertrag müssen in einer einzigen festgelegten Währung erfolgen. „Preis in USD, Zahlung in RMB zum Tageskurs“ ist eine offene Wechselkursposition, die Sie gerade akzeptiert haben. Währungsabsicherung gibt es aus gutem Grund; bei den meisten Ausrüstungsaufträgen ist ein Vertrag in nur einer Währung die einfachere Kontrolle.</p>
+
+			<h2 id="logistics-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Logistik-, Zoll- und Lieferrisiko</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Der Incoterm ist die Risikokarte der Reise. Die meisten Streitigkeiten in dieser Familie sind Incoterm-Streitigkeiten in anderer Verkleidung. Nach Incoterms 2020 gilt:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>EXW</strong> – Sie übernehmen am Werkstor: Ausfuhrabfertigung, Haupttransport, Versicherung, alles liegt bei Ihnen. Maximale Kontrolle, maximale Belastung; sinnvoll, wenn Sie über eine eigene Speditionskette in China verfügen.</li>
+				<li><strong>FOB</strong> – Der Lieferant erledigt die Ausfuhrabfertigung und verlädt; das Risiko geht an Bord über. Der häufigste Termin für Container-Ausrüstung; Sie kontrollieren das Schiff und die Versicherung auf Ihrer Seite.</li>
+				<li><strong>CIF</strong> – Der Lieferant ergänzt Transport und Versicherung bis zu Ihrem Hafen; das Risiko geht am Ursprungsort dennoch an Bord über. Sie bezahlen einen Frachtführer, den Sie nicht ausgewählt haben – kalkulieren Sie entsprechend.</li>
+				<li><strong>DDP</strong> – Der Lieferant liefert verzollt bis zu Ihrer Tür: vollständige Kontrolle, vollständige Intransparenz. Jeder Kostenbestandteil steckt in einer Zahl, die Sie nicht prüfen können; verwenden Sie DDP nur bei einem Lieferanten, dessen Logistik sich bereits bewährt hat.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Das Dokumentenpaket ist die zweite Kontrolle und dient zugleich als Qualitätsnachweis: Handelsrechnung, Packliste, Konnossement, Ursprungszeugnis sowie die <strong>auf die Seriennummern der Packliste abgestimmten Prüfprotokolle je Charge und je Einheit</strong>. Ein vollständiges, abstimmbares Dokumentenpaket ist selbst ein Qualitätssignal – und wird bei der Abnahme sowie im fünften Betriebsjahr vom Bestimmungsprüfer und Ihrem Instandhaltungsteam benötigt. Druckbeaufschlagte Produkte (tragbare Feuerlöscher) sind Gefahrgut und erfordern eine vorschriftsmäßige Gefahrgutverpackung und -deklaration; wasserbasierte Ausrüstung ist allgemeine Fracht. Dieser Unterschied verändert Ihre Transportoptionen und Versicherung, daher muss er bereits in der Anfrage korrekt angegeben werden, wie der <a href="/de/guides/fire-extinguisher-selection-guide/" class="text-brand-blue font-semibold hover:underline">Feuerlöscher-Leitfaden</a> erläutert. Nehmen Sie schließlich eine Containerprüfung vor dem Versand in den Inspektionsumfang auf: fotografierte Plombennummern, abgeglichene Packlistenzählung und Prüfprotokolle im Dokumentenordner des Containers. Die Kosten sind gering; es ist der letzte Zeitpunkt, an dem Sie die Ware sehen, bevor das Risiko den Ozean überquert.</p>
+
+			<h2 id="dispute-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. Streit-, Gewährleistungs- und Kontinuitätsrisiko</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Aufgabe eines grenzüberschreitenden Vertrags besteht darin, den schlimmsten Fall beherrschbar zu machen. Die Klauseln, die bei einem Ausrüstungskauf tatsächlich Gewicht haben:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Spezifikation als Anlage</strong> – die abgeschlossene Spezifikation aus §4 ist Vertragsanlage, nicht nur Anhang einer E-Mail. Der Vertrag nimmt sie durch Verweis auf und sie regelt die Abnahme.</li>
+				<li><strong>Abnahmekriterien mit Prüfrechten</strong> – je Einheit eine Gehäuse-Druckprüfung und Luftleckprüfung nach der benannten Norm, Ihr Recht auf Inspektion oder Beauftragung eines Dritten vor dem Versand sowie der für jede Fehlerart definierte Rechtsbehelf (Austausch, Nachprüfung, Rückerstattung).</li>
+				<li><strong>Bedingung der Zertifikatsverifikation</strong> – gemäß §5: benanntes Zertifikat, benanntes Modell, bei der ausstellenden Stelle auffindbar und eine Kopie vor der Restzahlung geliefert.</li>
+				<li><strong>Zahlungsmeilensteine</strong> – die Struktur aus §6 wird in den Vertrag aufgenommen, damit sie unter Zeitdruck nicht neu verhandelt werden kann.</li>
+				<li><strong>Höhere Gewalt und Terminplan</strong> – ein Liefertermin mit definiertem Rechtsbehelf bei Verzögerung, nicht nur ein „bestmöglicher Versuch“. Programme geraten in Verzug, weil Verträge Verzögerungen günstig machen.</li>
+				<li><strong>Anwendbares Recht und Schiedsgerichtsbarkeit</strong> – eine Schiedsklausel (neutraler Schiedsort, benannte Schiedsinstitution) ist nach dem New Yorker Übereinkommen grenzüberschreitend deutlich zuverlässiger durchsetzbar als das Versprechen, vor den Gerichten der anderen Seite zu klagen. Für die meisten Käufer entscheidet diese einzelne Klausel darüber, ob ein Verlust wiedereinbringbar ist oder nur ein teurer Brief bleibt.</li>
+				<li><strong>Gewährleistung und Ersatzteile</strong> – die Gewährleistungsfrist wird je Modell angegeben, und die Ersatzteilverfügbarkeit wird auf die Nutzungsdauer der Ausrüstung ausgelegt. Ein Absperrschieber, dessen Sitz im achten Jahr nicht mehr erneuert werden kann, wird zu einem Ersatzprodukt, von dem Sie hoffen müssen, dass der Lieferant es noch fertigt.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Das Kontinuitätsrisiko ist das leise Risiko: Der Lieferant versendet Ihren Container und ist zum Gewährleistungszeitpunkt verschwunden. Die Prüfung basiert auf denselben Nachweisen aus §3 – Bestehensjahre, Kapital, Exporthistorie und Breite des Kundenstamms – sowie auf einer strukturellen Maßnahme: <strong>Planen Sie für ein sicherheitskritisches Produkt niemals eine Abhängigkeit von nur einer Quelle, ohne eine zweite qualifizierte Quelle zu dokumentieren.</strong> Wir verlangen nicht, dass Sie einen Wettbewerber als Absicherung qualifizieren; wir verlangen, dass Spezifikation und Prüfprotokolle so vollständig bleiben, dass Sie dies bei Bedarf könnten.</p>
+
+			<h2 id="control-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">9. Kontrollcheckliste nach Prozessstufe</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Kontrollen aus den Abschnitten 3–8 in Ausführungsreihenfolge. Drucken Sie die Liste aus, legen Sie sie der Bestellung bei und haken Sie sie ab – die Reihenfolge ist entscheidend: Die Kontrollen jeder Stufe beseitigen das Risiko, das sonst durch die Zahlung der nächsten Stufe eingepreist würde.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Stufe</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Kontrollen</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Freigabekriterium</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Vor der Qualifizierung</td><td class="px-4 py-3 text-gray-700">Abgeschlossene schriftliche Spezifikation; mindestens 3 Vergleichsangebote; Kostentreiber bewertet</td><td class="px-4 py-3 text-gray-700">Spezifikationsanlage fertig; Vergleichspreisband festgelegt</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Qualifizierung</td><td class="px-4 py-3 text-gray-700">Rechtsträger + ISO-Geltungsbereich + Live-Werksvideo + Exportreferenzen (§3)</td><td class="px-4 py-3 text-gray-700">Werk bestätigt; Referenzen unabhängig kontaktiert</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Vertrag</td><td class="px-4 py-3 text-gray-700">Abnahmekriterien, Zertifikatsbedingung, Meilensteine, Incoterm, Schiedsklausel (§6–8)</td><td class="px-4 py-3 text-gray-700">Unterzeichneter Vertrag mit Spezifikationsanlage – kein Angebot</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Muster</td><td class="px-4 py-3 text-gray-700">Eine Einheit je Modell: Typenschild, Seriennummer, Werkszeugnis, Prüfvideo (§4)</td><td class="px-4 py-3 text-gray-700">Muster gemäß Anlage abgenommen; Zertifikate bei der ausstellenden Stelle verifiziert</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Produktion</td><td class="px-4 py-3 text-gray-700">Terminplan bestätigt; Meilenstein 1 bezahlt; regelmäßige Foto-/Videonachweise</td><td class="px-4 py-3 text-gray-700">Fortschritt gemäß Terminplan; Abweichungen schriftlich gemeldet</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Vor dem Versand</td><td class="px-4 py-3 text-gray-700">Drittinspektion begleitet Prüfung und Dokumentenprüfung; Containerkontrolle; Dokumente verpackt</td><td class="px-4 py-3 text-gray-700">Inspektion bestanden; Dokumentenpaket vollständig und abgestimmt</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Zahlung &amp; Versand</td><td class="px-4 py-3 text-gray-700">Restbetrag gegen bestandene Inspektion/Versanddokumente freigegeben; Konnossement geprüft</td><td class="px-4 py-3 text-gray-700">Risiko an Bord übergegangen; Dokumente liegen vor</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Ankunft und danach</td><td class="px-4 py-3 text-gray-700">Abnahme am Bestimmungsort gegen Prüfprotokolle; Unterlagen für Instandhaltung archiviert; Gewährleistungskanal getestet</td><td class="px-4 py-3 text-gray-700">Abnahme dokumentiert; Unterlagen für die Lebensdauer der Ausrüstung archiviert</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Wie dieselben Kontrollen in unserer eigenen Produktion gelten</p>
+				<p class="text-sm text-gray-700 leading-relaxed">Wir sind Hersteller. Die ehrliche Anwendung dieses Whitepapers bedeutet daher, die Kontrollen auch auf uns selbst anzuwenden. Unsere Prozessnachweise, also das, was wir tun: Produktion nach einem ISO-9001:2015-System (Zertifikat zur Verifikation bei der ausstellenden Stelle verfügbar); 100 % Gehäuse-Druckprüfung und Luftleckprüfung je Einheit mit Einzelprotokollen, die mit der Packliste abgeglichen werden; ein seriennummeriertes Prüfvideo für ein Muster; modellbezogene Zertifikate auf unserer <a href="/de/certificates/" class="text-brand-blue font-semibold hover:underline">Zertifikatsseite</a> auf Anfrage; mit dem Versand koordinierte Exportdokumentation sowie eine Antwortzusage innerhalb von 12 Stunden bei vollständiger Spezifikation. Jede Aussage dieses Absatzes kann exakt nach dem in diesem Whitepaper beschriebenen Verfahren geprüft werden – genau das ist der Zweck seiner Veröffentlichung.</p>
+			</div>
+
+			<h2 id="red-flags" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">10. Warnsignale: Prozess stoppen und erneut prüfen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Zehn Signale, die den Prozess stoppen und Sie zur Checkliste zurückführen. Jedes einzelne ist eine Woche Wartezeit wert; bei zwei oder mehr sollten Sie einen anderen Lieferanten wählen.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Nr.</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Signal</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Warum es wichtig ist</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-black text-gray-400">1</td><td class="px-4 py-3 font-bold text-gray-900">Verweigert einen Live-Video-Rundgang durch das Werk</td><td class="px-4 py-3 text-gray-700">Ein Hersteller hat in seinem eigenen Werk nichts zu verbergen; nur ein Handelsbüro hat dies</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">2</td><td class="px-4 py-3 font-bold text-gray-900">Zertifikatsnummer lässt sich bei der ausstellenden Stelle nicht verifizieren</td><td class="px-4 py-3 text-gray-700">Die Fälschung ist unabhängig vom Aussehen des PDF bestätigt</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">3</td><td class="px-4 py-3 font-bold text-gray-900">Zahlung auf ein Privatkonto oder an einen anderen Rechtsträger verlangt</td><td class="px-4 py-3 text-gray-700">Vertragsgesellschaft und Zahlungsempfänger müssen übereinstimmen; dies ist allein bereits ein Betrugssignal</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">4</td><td class="px-4 py-3 font-bold text-gray-900">Bei einer großen Erstbestellung werden 100 % Vorauszahlung verlangt</td><td class="px-4 py-3 text-gray-700">Das gesamte verbleibende Risiko wird auf Sie verlagert, ohne dass die Zahlungsstruktur noch eine Kontrolle bietet</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">5</td><td class="px-4 py-3 font-bold text-gray-900">Angebot weit unter dem Vergleichspreisband ohne erklärte Gegenleistung</td><td class="px-4 py-3 text-gray-700">Der Nachlass wird durch Werkstoff, Wanddicke, Prüfungen oder Ihren Restbetrag finanziert</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">6</td><td class="px-4 py-3 font-bold text-gray-900">Musterbestellung wird abgelehnt</td><td class="px-4 py-3 text-gray-700">Ein Muster kostet den Lieferanten wenig und beweist am meisten; die Ablehnung ist eine klare Aussage</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">7</td><td class="px-4 py-3 font-bold text-gray-900">„Chargenbericht“ statt Einzelprüfprotokollen angeboten</td><td class="px-4 py-3 text-gray-700">Ihre Einheiten sind nicht „irgendwelche aus der Charge“; das seriennummernbezogene Protokoll ist das Abnahmedokument</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">8</td><td class="px-4 py-3 font-bold text-gray-900">Modell auf dem Typenschild stimmt nicht mit der Bestellung überein</td><td class="px-4 py-3 text-gray-700">Der Austausch hat bereits stattgefunden; die Frage ist, was sonst noch abweicht</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">9</td><td class="px-4 py-3 font-bold text-gray-900">Kann nicht angeben, nach welcher Norm jedes Modell geprüft wird</td><td class="px-4 py-3 text-gray-700">Ein Hersteller von Sicherheitsausrüstung kennt seine Normen; Unklarheit deutet auf ein anderes Geschäftsmodell hin</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">10</td><td class="px-4 py-3 font-bold text-gray-900">Widersetzt sich Inspektionsrechten oder einer Drittinspektion im Vertrag</td><td class="px-4 py-3 text-gray-700">Ein Werk, das seine eigenen Prüfungen besteht, fürchtet keinen unabhängigen Zeugen</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- FAQ-Bereich -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Lassen Sie Ihre nächste Bestellung live auf Risiken prüfen</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie uns Ihre Spezifikation, den Lieferanten, mit dem Sie arbeiten, und Ihren Bestimmungsort. Innerhalb von 12 Stunden prüfen wir den Auftrag anhand der Checkliste dieses Whitepapers: abgeschlossene Spezifikation, Zertifikatsverifikation, Zahlungsstruktur und Dokumentenpaket, das die Sendung begleiten sollte.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Procurement%20Risk%20Check" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Guten Tag, ich wünsche eine Prüfung der Beschaffungsrisiken für meine Bestellung')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

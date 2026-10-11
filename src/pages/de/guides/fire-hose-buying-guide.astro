@@ -1,0 +1,240 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Was ist der Unterschied zwischen einem Flachroll-Feuerwehrschlauch und einer Schlauchhaspel?',
+		answer: 'Ein Flachroll-Feuerwehrschlauch ist eine flexible Versorgungsleitung, die sich im leeren Zustand flach zusammenlegen lässt und bis zum Einsatz in Gestellen, Fahrzeugen oder Schränken gelagert wird; gekauft wird der Schlauch selbst pro Meter. Eine Feuerlösch-Schlauchhaspel ist eine fest installierte Einheit, bei der der Schlauch auf einer Trommel vorgespult und dauerhaft an die Wasserversorgung angeschlossen ist – ein vollständiges Gerät und kein einzelnes Schlauchstück. Für Innenhydrantenstationen beachten Sie unseren Leitfaden zu Schlauchhaspeln und Hydrantenschränken; bei Ersatz- oder Versorgungsschläuchen in größeren Mengen gilt dieser Leitfaden.'
+	},
+	{
+		question: 'Welche Größen von Flachroll-Feuerwehrschläuchen sind verfügbar?',
+		answer: 'Unser Flachroll-Feuerwehrschlauch mit PVC-Gummierung deckt Innendurchmesser von 19 mm bis 400 mm ab. Die Konfiguration Modell 8-65 mit der üblichen Kupplungsgröße 65 mm ist die gängige Löschleitung. Die Längen sind kundenspezifisch anpassbar, sodass ein Händler Standardrollen lagern und für einzelne Projekte bestimmte Längen zuschneiden oder bestellen kann.'
+	},
+	{
+		question: 'Welche Kupplungen passen zum Flachroll-Feuerwehrschlauch?',
+		answer: 'Der Schlauch wird mit standardmäßigen Feuerwehrkupplungen aus Aluminium oder Messing geliefert. Unsere Aluminiumadapter der HS-Serie (DN50/DN65, auf Grundlage von GB12514) verbinden Hydranten, Schläuche und Strahlrohre mit selbstdichtenden Gewinden. Für Systeme nach deutschem Standard liefern wir außerdem Aluminium-Storz-Kupplungen 2,5 Zoll (DN50–DN150, 1,6 MPa). Teilen Sie uns Ihren Zielmarkt mit; wir stimmen das Gewindesystem – BS336 (Vereinigtes Königreich/Commonwealth), NIST (Nahost), KWS (Deutschland) oder andere – im Angebot ab.'
+	},
+	{
+		question: 'Kann der Flachroll-Feuerwehrschlauch für Schaum und industrielle Wasserförderung eingesetzt werden?',
+		answer: 'Ja. Der Schlauch ist für die Brandbekämpfung der Klassen A und B, den Flughafenschutz sowie die industrielle Wasserförderung vorgesehen. Die PVC-Gummierung eignet sich für klares Wasser und Schaummittelgemische. Bestätigen Sie für Ihren Durchmesser das genaue Medium und den Druck mit unseren Ingenieuren, damit Schlauchwand und Kupplungen korrekt ausgelegt werden.'
+	},
+	{
+		question: 'Kann ich Feuerwehrschläuche mit eigener Marke als OEM bestellen?',
+		answer: 'Ja. Länge, Innendurchmesser und Logo sind anpassbar; der Schlauch kann mit Ihrer Etikettensprache und farbigen Kennstreifen gefertigt werden. OEM-Lieferzeit und Mindestmengen werden im Angebot bestätigt. Geben Sie die Durchmesser, Längen und Mengen an, die Sie bevorraten möchten.'
+	},
+	{
+		question: 'Wie sollte ein Flachroll-Feuerwehrschlauch zwischen den Einsätzen gelagert werden?',
+		answer: 'Trocknen Sie den Schlauch vor einer längerfristigen Lagerung, lagern Sie ihn flach gefaltet oder gerollt und schützen Sie ihn vor direkter Sonneneinstrahlung, Ozon und scharfen Kanten. Flachrollschläuche sind so ausgelegt, dass sie sich nach dem Entleeren flach zusammenlegen lassen; dadurch benötigen sie deutlich weniger Lagerraum als Rundschläuche. Die praktische Wartungsroutine umfasst die regelmäßige Prüfung des Gewebemantels auf Abrieb und der Kupplungen auf Gewindeschäden.'
+	}
+];
+
+const toc = [
+	{ id: 'layflat-vs-reel', label: '1. Flachrollschlauch oder Schlauchhaspel?' },
+	{ id: 'hose-construction', label: '2. Schlauchaufbau: Gewebemantel, Auskleidung und Kantenabdichtung' },
+	{ id: 'sizing-fire-hose', label: '3. Auslegung: Durchmesser, Länge und Anwendungen' },
+	{ id: 'couplings-standards', label: '4. Kupplungen und Anschlussnormen' },
+	{ id: 'nozzles-flow', label: '5. Strahlrohre und Durchflussregelung' },
+	{ id: 'factory-checklist', label: '6. Werks-Checkliste: OEM und Qualität' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const products = [
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Flachroll-Feuerwehrschlauch mit PVC-Gummierung', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Modell 8-65, ID 19–400 mm, Gewebemantel, OEM-Längen' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: 'Aluminium-Storz-Kupplung 2,5 Zoll', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'Schnellkupplung nach deutschem Standard, DN50–DN150, 1,6 MPa' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'Verstellbares Strahlrohr mit Pistolengriff', img: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg', desc: '150–500 LPM, Vollstrahl bis Sprühstrahl, Eingang 1,5–2,5 Zoll' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Kupplungsadapter für Hydranten und Feuerwehrschläuche', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'Aluminium-HS-Serie, DN50/DN65, selbstdichtende Gewinde' }
+];
+
+const referencePages = [
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Flachroll-Feuerwehrschlauch mit PVC-Gummierung' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: 'Aluminium-Storz-Kupplung 2,5 Zoll' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'Verstellbares Strahlrohr mit Pistolengriff' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Kupplungsadapter für Hydranten und Feuerwehrschläuche' }
+];
+---
+
+<Layout
+	title="Feuerwehrschlauch kaufen: Größen, Kupplungen &amp; Auswahl"
+	description="B2B-Leitfaden für Flachrollschläuche: Größen 19–400 mm, PVC-Gummierung, Gewebemantel, Storz- und 65-mm-Kupplungen, Strahlrohre und OEM-Lieferung."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Feuerwehrschlauch kaufen' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Feuerwehrschlauch kaufen</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden für den Brandschutz</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Leitfaden zum Kauf von Flachroll-Feuerwehrschläuchen: Größen, Auskleidungen und Kupplungen</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Feuerwehrschläuche wirken wie ein Standardprodukt, doch die Kaufentscheidung hängt von vier Details ab: Benötigen Sie eine Versorgungsleitung oder ein Haspelgerät, wie sind Gewebemantel und Auskleidung aufgebaut, welcher Durchmesser und welche Länge passen zur Förderaufgabe, und welches Kupplungssystem verwendet Ihr Markt? Dieser Leitfaden führt Importeure und Händler durch alle Punkte und zeigt, welche Angaben eines Lieferanten kritisch zu hinterfragen sind.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="layflat-vs-reel" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Flachroll-Feuerwehrschlauch oder Schlauchhaspel: Was wird tatsächlich gekauft?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Am schnellsten kommt es zu einer Fehlspezifikation, wenn Schlauch und Gerät verwechselt werden. Ein <strong>Flachroll-Feuerwehrschlauch</strong> ist ein flexibles, flach zusammenlegbares Schlauchstück, das eine Feuerwehrmannschaft oder ein Pumpenbediener an beiden Enden anschließt. Eine <strong>Feuerlösch-Schlauchhaspel</strong> ist dagegen eine Wandinstallation mit auf einer Trommel vorgespultem Schlauch, die dauerhaft an die Gebäudewasserversorgung angeschlossen und für die Bedienung durch ungeschultes Personal bereit ist.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Merkmal</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Flachroll-Feuerwehrschlauch</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Feuerlösch-Schlauchhaspel und Hydrantenschrank</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Ausführung</td>
+							<td class="px-4 py-3 text-gray-700">Flexible Versorgungsleitung, nach Länge gekauft</td>
+							<td class="px-4 py-3 text-gray-700">Fest installiertes Gerät mit Trommel und Strahlrohr</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Wasseranschluss</td>
+							<td class="px-4 py-3 text-gray-700">Je nach Bedarf an Pumpe, Hydrant oder Verteiler angeschlossen</td>
+							<td class="px-4 py-3 text-gray-700">Dauerhaft an die Gebäudewasserversorgung angeschlossen</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Lagerung</td>
+							<td class="px-4 py-3 text-gray-700">Flach gefaltet; Gestelle, Fahrzeugfächer, Ersatzbestand</td>
+							<td class="px-4 py-3 text-gray-700">Auf einer Trommel im Wandschrank aufgewickelt</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typischer Käufer</td>
+							<td class="px-4 py-3 text-gray-700">Feuerwehren, Industriebetriebe, Schlauchhändler</td>
+							<td class="px-4 py-3 text-gray-700">Bauunternehmen und Betreiber von Gebäuden</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Geht es bei Ihrer Bestellung tatsächlich um Innenhydrantenstationen, ist das Paket aus Haspel und Schrank der richtige Lieferumfang – lesen Sie dazu unseren <a href="/de/guides/fire-hose-reel-cabinet-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur Auswahl von Feuerlösch-Schlauchhaspeln und Hydrantenschränken</a>. Dieser Leitfaden behandelt den Schlauch selbst: Aufbau, Auslegung, Kupplungen und Beschaffung.</p>
+
+			<h2 id="hose-construction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Schlauchaufbau: Gewebemantel, Auskleidung und Kantenabdichtung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein Flachroll-Feuerwehrschlauch ist ein Verbundprodukt: Der <strong>Gewebemantel</strong> nimmt den Druck auf und widersteht dem Abrieb, die <strong>Auskleidung</strong> dichtet den Durchgang ab und bestimmt die Medienbeständigkeit, während <strong>Kanten und Enden</strong> maßgeblich für die Lebensdauer bei rauer Nutzung sind.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Gewebemantel</strong> – Achten Sie auf einen dicht gewebten Mantel aus synthetischen Fasern. Unser Schlauch verwendet ein Gewebe aus synthetischen Fasern mit PVC-Gummierung; die Gewebedichte schützt vor Scheuerstellen auf Beton und verhindert ein Aufplatzen an den Falten.</li>
+				<li><strong>Auskleidung</strong> – Die PVC-Gummierung bietet einen glatten Durchgang mit geringem Reibungsverlust und eignet sich für klares Wasser sowie Schaummittelgemische. Für aggressivere Chemikalien muss die Auskleidung anders spezifiziert werden. Bestätigen Sie das Medium vor der Bestellung, statt von einer universellen Auskleidung auszugehen.</li>
+				<li><strong>Kanten- und Eckverstärkung</strong> – Flach gefaltete Schläuche sind an den Falten und an den geklemmten Enden besonders gefährdet. Gewebte Kantenabdichtungen und verstärkte Ecken verhindern dort eine Ablösung der Schichten; beides gehört bei uns zur Standardausführung.</li>
+				<li><strong>Enden</strong> – Kupplungen werden je nach Bestellung montiert oder lose geliefert. Lose Enden eignen sich für Händler, die Kupplungen vor Ort crimpen oder klemmen; werkseitig montierte Enden gewährleisten eine geprüfte Verbindung.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Stellen Sie beim Vergleich von Lieferantendatenblättern drei Fragen: Welches Gewebematerial und welche Gewebedichte werden verwendet, aus welcher Mischung besteht die Auskleidung und wie sind die Kanten abgedichtet? Allgemeine Beschreibungen als „Gummischlauch“ geben auf keine dieser Fragen eine ausreichende Antwort.</p>
+
+			<h2 id="sizing-fire-hose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Auslegung: Durchmesser, Länge und Anwendungen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Der Innendurchmesser bestimmt die Förderleistung, die Länge die Reichweite. Eine falsche Kombination führt entweder zu einer unterversorgten Düse oder zu unnötigem Gewicht. Unser Flachrollsortiment deckt <strong>Innendurchmesser von 19 mm bis 400 mm</strong> ab; Modell 8-65 mit der standardmäßigen 65-mm-Kupplungskonfiguration ist die bewährte Löschleitung. Als Faustregel in der Brandbekämpfung gilt:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>19–25 mm</strong> – Leitungen mit kleinem Durchmesser für leichte Aufgaben und bestimmte Anwendungen mit Schlauchhaspel.</li>
+				<li><strong>40–50 mm</strong> – Angriffsleitungen für den Einsatz mit Handstrahlrohren und kleineren Durchflussmengen.</li>
+				<li><strong>65 mm (2,5 Zoll)</strong> – die Standardgröße für Angriffs- und Versorgungsleitungen bei den meisten Gebäude- und Industriebränden sowie die Konfiguration von Modell 8-65.</li>
+				<li><strong>100 mm und größer</strong> – Förder- und Hydrantenleitungen für große Wassermengen über längere Strecken; unser Sortiment reicht für die Massenförderung bis 400 mm.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Bei der Länge ist OEM-Anpassung besonders wichtig: Unser <a href="/de/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">Flachroll-Feuerwehrschlauch mit PVC-Gummierung</a> wird mit anpassbarer Länge, anpassbarem Durchmesser und Logo gefertigt. Das Datenblatt nennt eine Tragfähigkeit von 50–200 kN als Festigkeitsreferenz für den Gewebeaufbau. Beachten Sie: Die Tragfähigkeit ist ein Zug- bzw. Strukturwert und nicht der Betriebsdruck. Fordern Sie die Druckstufe für Ihren konkreten Durchmesser immer separat an und leiten Sie sie niemals allein aus der Kupplungsdruckstufe ab.</p>
+			<p class="text-gray-700 leading-relaxed">Das Produktsortiment ist für die Brandbekämpfung der Klassen A und B, den Flughafenschutz sowie die industrielle Wasserförderung vorgesehen. In diesen Marktsegmenten ersetzt der Flachrollschlauch starre oder rundwandige Alternativen, weil er platzsparend gelagert und schnell ausgelegt werden kann.</p>
+
+			<h2 id="couplings-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Kupplungen und Anschlussnormen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Der häufigste Exportfehler besteht darin, Schläuche ohne Festlegung der Kupplungsnorm zu bestellen und erst danach festzustellen, dass die Gewinde nicht zu den Hydranten oder Strahlrohren des Ziellandes passen. Feuerwehrschlauchanschlüsse sind regional unterschiedlich. Die wichtigsten Systeme sind:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Kupplungssystem</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Übliche Regionen</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Passendes Wanlian-Produkt</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Storz (Schnellkupplung)</td>
+							<td class="px-4 py-3 text-gray-700">Deutschland, Europa, große Teile Asiens</td>
+							<td class="px-4 py-3 text-gray-700">Aluminium-Storz-Kupplung 2,5 Zoll, DN50–DN150, 1,6 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">BS336</td>
+							<td class="px-4 py-3 text-gray-700">Vereinigtes Königreich und Commonwealth-Märkte</td>
+							<td class="px-4 py-3 text-gray-700">Projektbezogene Gewindeadapter</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">NIST</td>
+							<td class="px-4 py-3 text-gray-700">Hydrantenanschlüsse im Nahen Osten</td>
+							<td class="px-4 py-3 text-gray-700">Projektbezogene Gewindeadapter</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">GB12514 / 65-mm-Gewinde</td>
+							<td class="px-4 py-3 text-gray-700">Systeme nach chinesischem Standard und 2,5-Zoll-Hydranten</td>
+							<td class="px-4 py-3 text-gray-700">Aluminiumadapter der HS-Serie, DN50/DN65</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Für Installationen nach deutschem Standard bietet die <a href="/de/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">Aluminium-Storz-Kupplung 2,5 Zoll</a> eine Schnellverbindung mit selbstdichtender Verbindung und einer Druckstufe von 1,6 MPa für klares Wasser und Schaummittelgemische. Muss der Schlauch an Hydrantenausgänge oder Strahlrohre eines anderen Systems angeschlossen werden, überbrückt der <a href="/de/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">Aluminium-Kupplungsadapter der HS-Serie</a> (DN50/DN65, selbstdichtende Innengewinde, 1,6 MPa) die Schnittstelle. Deshalb bieten wir unsere Hydranten auf Anfrage auch mit BS336-, NIST-, KWS- und Flanschausführungen an.</p>
+			<p class="text-gray-700 leading-relaxed">Geben Sie das Kupplungssystem bereits in der Anfrage und nicht erst nach Produktionsbeginn an. Nachträgliche Gewindeanpassungen an fertigen Schlauchenden sind teuer und selten so zuverlässig wie werkseitig abgestimmte Kupplungen.</p>
+
+			<h2 id="nozzles-flow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Strahlrohre und Durchflussregelung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein Schlauch ist nur so leistungsfähig wie das Strahlrohr an seinem Ende. Für Handangriffsleitungen deckt ein verstellbares Strahlrohr mit variablem Durchfluss und unterschiedlichen Strahlbildern den Bereich vom Vollstrahl für große Reichweite bis zum Sprühstrahl für Hitzeschutz und Brandbekämpfung ab. Unser <a href="/de/products/adjustable-pistol-grip-fire-nozzle/" class="text-brand-blue font-semibold hover:underline">verstellbares Strahlrohr mit Pistolengriff</a> liefert 150–500 LPM, bietet Voll- bis Sprühstrahl und passt zu Eingängen von 1,5, 2 und 2,5 Zoll – passend zur in diesem Leitfaden behandelten 65-mm-Leitungsfamilie.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Zwei Auslegungsregeln halten das System stimmig:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Strahlrohreingang und Schlauchkupplung aufeinander abstimmen</strong> – Eine 2,5-Zoll-Leitung sollte mit einem Strahlrohr mit 2,5-Zoll-Eingang enden, sofern kein Adapter vorgesehen ist.</li>
+				<li><strong>Strahlrohrdurchfluss und Schlauchleistung abstimmen</strong> – Fordert ein Strahlrohr mehr Durchfluss, als der Schlauchdurchmesser liefern kann, wird der Strahl schwach und Pumpenenergie verschwendet. Geben Sie bei der Auslegung des Schlauchdurchmessers den gewünschten Durchfluss an.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Händler führen Schläuche, Kupplungen und Strahlrohre meist als eine zusammengehörige Artikelgruppe, damit Notfallersatz kompatibel bleibt. Das ist ein weiterer Grund, das Paket bei einem Hersteller zu bündeln.</p>
+
+			<h2 id="factory-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Werks-Checkliste: OEM und Qualität</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Wenn Sie Flachroll-Feuerwehrschläuche bei einem chinesischen Werk beschaffen, prüfen Sie vor Produktionsbeginn folgende Punkte:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Kupplungsnorm schriftlich festlegen</strong> – Storz, BS336, NIST, KWS oder 65-mm-Gewinde; bestätigen Sie lose oder werkseitig montierte Enden und klären Sie, wer die fertige Verbindung prüft.</li>
+				<li><strong>Druckstufe für jeden Durchmesser anfordern</strong> – Akzeptieren Sie keine einheitliche Druckangabe für das gesamte Sortiment; Wanddicke und Gewebe ändern sich mit der Nennweite.</li>
+				<li><strong>Medienbeständigkeit bestätigen</strong> – Klares Wasser und Schaummittelgemische sind Standard für die PVC-Gummierung. Geben Sie chemische Medien vor der Bestellung an.</li>
+				<li><strong>OEM-Lieferumfang festlegen</strong> – Länge, Durchmesser, Logo, Etikettensprache und farbige Kennstreifen; nehmen Sie Freigabestufen für die Druckvorlage in den Zeitplan auf.</li>
+				<li><strong>Chargenbezogene Qualitätsnachweise anfordern</strong> – Prüfungen der Gewebedichte, Inspektion der Kantenabdichtung und Auszugstests der Kupplungen für die tatsächliche Charge. Nutzen Sie unsere <a href="/de/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B-Checkliste zur Armaturenbeschaffung</a> für die Werksprüfung, die ebenso auf Schlauchlieferanten anwendbar ist.</li>
+				<li><strong>Lagerung und Verpackung planen</strong> – Flachrollschläuche werden gefaltet versendet. Bestätigen Sie Rollen- bzw. Palettenverpackung und Containerbeladung, um Transportschäden an den Faltstellen zu vermeiden.</li>
+			</ul>
+
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Verwandte Leitfäden</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Vergleichen Sie Schlauchlieferanten direkt miteinander: <a href="/de/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian Fluid und American AVK im Vergleich</a>.</p>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Unsicher, welche Schlauchnorm für Ihre Bestellung gilt? Lesen Sie <a href="/de/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Normen für Hydranten, Feuerwehrschläuche und Armaturen erklärt</a>.</p>
+			</div>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Flachroll-Feuerwehrschläuche in größeren Mengen beschaffen?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie uns Durchmesser, Längen, Kupplungsnorm und Zielmarkt. Unser Team bestätigt innerhalb von 12 Stunden Druckstufen, OEM-Optionen und Lieferzeit.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Flachroll-Feuerwehrschlauch" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Hallo, ich benötige Flachroll-Feuerwehrschläuche mit Kupplungen')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

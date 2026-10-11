@@ -1,0 +1,201 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Was ist der Unterschied zwischen einer Feuerlösch-Schlauchhaspel und einem Hydrantenschrank?',
+		answer: 'Eine Feuerlösch-Schlauchhaspel (z. B. JPS0.8-19) ist eine fest angeschlossene, halbautomatische Löscheinheit: eine Haspel mit flexiblem Flachrollschlauch, die Wasser direkt aus der Gebäudeversorgung entnimmt. Ein Hydrantenschrank ist das Gehäuse für Haspel, Hydrantenventil, Schlauch und Strahlrohr – oder, beim Schaumschrank PSG30, eine eigenständige Schaummitteldosiereinheit. In vielen Projekten wird ein Hydrantenschrank mit SN65-Hydrantenventil und Schlauchhaspel spezifiziert.'
+	},
+	{
+		question: 'Welche Schlauchlänge und welchen Durchmesser sollte ich spezifizieren?',
+		answer: 'Innenliegende Schlauchhaspeln werden üblicherweise mit 20 m, 25 m oder 30 m Flachrollschlauch mit 19 mm (3/4 Zoll) geliefert. Die erforderliche Länge wird durch den Abdeckungsradius der Haspelstation bestimmt – Bauvorschriften verlangen häufig, dass jeder Punkt der Geschossfläche von einer Haspel aus erreichbar ist (z. B. innerhalb einer Wurfweite des Strahlrohrs von 6 m). Prüfen Sie die für Ihren Markt geltende Norm (NFPA 14, EN 671, GB 15090 / XF180).'
+	},
+	{
+		question: 'Wann sollte ich statt einer Wasserhaspel einen Schaumlöschschrank wählen?',
+		answer: 'Schaumeinheiten (PSG30 mit 3 % AFFF) werden spezifiziert, wenn Brände brennbarer Flüssigkeiten der Klasse B zu erwarten sind: in Kraftstofflagern, Chemieanlagen, Lackierereien, Transformatorräumen und Fahrzeugdepots. Wasser ist bei brennenden Flüssigkeiten unwirksam; Schaum mit niedriger Expansion bedeckt die Oberfläche und erstickt den Brand. Für allgemeine gewerbliche Nutzungen mit ausschließlich Brandlasten der Klasse A ist eine Standard-Wasserhaspel ausreichend und kostengünstiger.'
+	},
+	{
+		question: 'Welchen Druck benötigt eine Schlauchhaspel für den Betrieb?',
+		answer: 'Die Haspel JPS0.8-19 arbeitet mit 0,8–1,0 MPa und einer Strahlweite von mindestens 6 m. Die Gebäudeversorgung oder Feuerlöschpumpe muss diesen Druck während der Entnahme am Haspelzulauf bereitstellen. Bei unzureichender Versorgung ist eine Druckerhöhung vorzusehen oder der Strahlrohrdruck durch eine hydraulische Berechnung zu bestätigen – eine Haspel mit weniger als 6 m Reichweite entspricht nicht den Vorschriften.'
+	},
+	{
+		question: 'Sind Schlauchhaspeln und Hydrantenschränke in exportgeeigneten Ausführungen verfügbar?',
+		answer: 'Ja. Wanlian fertigt Haspeln mit Schlauchlängen von 20/25/30 m, Strahlrohren aus Messing oder einer Legierung, drehbaren Wandhalterungen sowie Schränken mit passenden Schnittstellen für Hydrantenventile (SN65- oder BS336-Kupplungen über Adapter der HS-Serie). Geben Sie die Norm Ihres Zielmarktes an; wir stimmen Anschluss und Dokumentationspaket darauf ab.'
+	}
+];
+
+const products = [
+	{ slug: 'fire-hose-reel-jpso8-19', name: 'Feuerlösch-Schlauchhaspel JPS0.8-19', img: '/assets/products/fire-hose-reel-jpso8-19.jpg', desc: 'Haspel aus Kohlenstoffstahl, PVC-Schlauch 20–30 m, Messing-Strahlrohr' },
+	{ slug: 'foam-fire-hydrant-cabinet-psg30', name: 'Schaum-Hydrantenschrank PSG30', img: '/assets/06_extinguishing_cannons/cannon_p42.webp', desc: 'Integrierte 3-%-AFFF-Einheit für Brände der Klasse B' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Innenliegendes Hydrantenventil SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'Hydrantenventil aus duktilem Gusseisen, PN16, für Schränke' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'HS-Kupplungsadapter für Feuerwehrschläuche', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'Aluminiumkupplungen für Hydrant-Schlauch-Strahlrohr-Anschlüsse' }
+];
+
+const referencePages = [
+	{ slug: 'fire-hose-reel-jpso8-19', name: 'Feuerlösch-Schlauchhaspel JPS0.8-19' },
+	{ slug: 'foam-fire-hydrant-cabinet-psg30', name: 'Schaum-Hydrantenschrank PSG30' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Innenliegendes Hydrantenventil SN65' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'HS-Kupplungsadapter für Feuerwehrschläuche' }
+];
+
+const toc = [
+	{ id: 'role', label: 'Die Funktion von Schlauchhaspeln und Hydrantenschränken' },
+	{ id: 'reel-vs-cabinet', label: 'Schlauchhaspel oder Hydrantenschrank: Definitionen' },
+	{ id: 'hose-specs', label: 'Schlauchlänge, Durchmesser und Druck' },
+	{ id: 'nozzle', label: 'Strahlrohrtypen und Strahlarten' },
+	{ id: 'foam', label: 'Schaumschränke für Brände der Klasse B' },
+	{ id: 'materials', label: 'Werkstoffe und Korrosionsbeständigkeit' },
+	{ id: 'compliance', label: 'Normen, Prüfungen und Exporthinweise' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+---
+
+<Layout
+	title="Schlauchhaspeln &amp; Hydrantenschränke: Auswahlleitfaden"
+	description="B2B-Leitfaden zur Auswahl von Schlauchhaspeln und Hydrantenschränken: Schlauchlänge, Strahlarten, Schaumlöschung, Werkstoffe und Normen für Einkäufer."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Leitfaden zu Schlauchhaspeln und Hydrantenschränken' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Schlauchhaspeln &amp; Hydrantenschränke</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden für Brandschutzausrüstung</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Leitfaden zur Auswahl von Schlauchhaspeln und Hydrantenschränken</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Schlauchhaspeln und Hydrantenschränke sind die Ausrüstung, die Gebäudenutzer in den ersten Minuten eines Brandes tatsächlich einsetzen – noch bevor die Feuerwehr eintrifft. Sie müssen für ungeschultes Personal einfach bedienbar, für jahrelange Bereitschaft robust und so ausgelegt sein, dass der erforderliche Strahl bei dem vorgeschriebenen Druck erreicht wird. Dieser Leitfaden behandelt Schlauchspezifikationen, Strahlarten, Schaumoptionen, Werkstoffe und die maßgeblichen Normen.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Produktübersicht -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="role" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Die Funktion von Schlauchhaspeln und Hydrantenschränken</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Eine Feuerlösch-Schlauchhaspel ermöglicht ungeschulten Gebäudenutzern eine fest installierte Wasserlöschhilfe: Ventil öffnen, Schlauch herausziehen – und sofort steht ein Wasserstrahl zur Verfügung. Sie bildet die erste Abwehr gegen Entstehungsbrände in Gewerbe-, Beherbergungs-, Büro- und Industriegebäuden und ergänzt automatische Sprinkleranlagen, die während der Evakuierung die Brandbekämpfung übernehmen. Hydrantenschränke ordnen die Ausrüstung – Hydrantenventil, Schlauch, Haspel und Strahlrohr – in einer übersichtlichen, zugänglichen Einheit an, auf die sich Prüfer und Anwender verlassen können.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Bei der B2B-Beschaffung sind drei Fragen entscheidend: Welche Abdeckung verlangt die Norm, welcher Versorgungsdruck steht zur Verfügung und welche Brandklassen sind am Einsatzort vorhanden? Diese drei Antworten bestimmen die nachfolgende Auslegung.</p>
+
+			<h2 id="reel-vs-cabinet" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Schlauchhaspel oder Hydrantenschrank: Definitionen</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Einheit</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Enthaltene Komponenten</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typische Anwendung</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Schlauchhaspel-Set (JPS0.8-19)</td>
+							<td class="px-4 py-3 text-gray-700">Schwenkhalterung, Trommel, Flachrollschlauch, Strahlrohr</td>
+							<td class="px-4 py-3 text-gray-700">Eigenständige Stationen mit angeschlossener Wasserversorgung</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hydrantenschrank</td>
+							<td class="px-4 py-3 text-gray-700">SN65-Ventil + Haspel/Schlauch + Strahlrohr in einem Gehäuse</td>
+							<td class="px-4 py-3 text-gray-700">Standard-Innenhydrantenstationen</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Schaum-Hydrantenschrank (PSG30)</td>
+							<td class="px-4 py-3 text-gray-700">Schaumtank + Zumischer + Schlauchhaspel + Schaumstrahlrohr</td>
+							<td class="px-4 py-3 text-gray-700">Bereiche mit Flüssigkeitsbränden der Klasse B</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Das <a href="/de/products/fire-hose-reel-jpso8-19/" class="text-brand-blue font-semibold hover:underline">Haspel-Set JPS0.8-19</a> ist die zentrale Komponente; das <a href="/de/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">Innenhydrantenventil SN65</a> bildet die Ventilschnittstelle zur Versorgung aus der Steigleitung, während die <a href="/de/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS-Kupplungsadapter</a> die Anschlüsse zwischen Hydrant und Schlauch sowie Schlauch und Strahlrohr vereinheitlichen.</p>
+
+			<h2 id="hose-specs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Schlauchlänge, Durchmesser und Druck</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Drei Werte bestimmen eine Schlauchhaspel: Schlauchlänge, Innendurchmesser und Betriebsdruck.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Länge (20 / 25 / 30 m).</strong> Sie wird durch den Abdeckungsradius bestimmt. Normen wie EN 671-1 verlangen, dass jeder Punkt des geschützten Bereichs von der Haspel aus erreichbar ist – üblicherweise über Schlauchlänge plus nominale Wurfweite des Strahlrohrs. Ein längerer Schlauch erhöht den Reibungsverlust; die Druckberechnung muss daher die Länge berücksichtigen.</li>
+				<li><strong>Durchmesser (19 mm / 3/4 Zoll).</strong> Dies ist der Standard-Innendurchmesser für Innenhaspeln. Größere Querschnitte liefern mehr Durchfluss, führen aber zu einem schwereren Schlauch, der sich schwieriger herausziehen lässt; 19 mm bieten bei Entstehungsbränden der Klasse A ein ausgewogenes Verhältnis von Reichweite und Bedienbarkeit.</li>
+				<li><strong>Druck (0,8–1,0 MPa).</strong> Die JPS0.8-19 arbeitet mit 0,8–1,0 MPa und einer Strahlweite von mindestens 6 m. Bestätigen Sie den Druck der Steigleitung oder Versorgung am Haspelzulauf bei gleichzeitiger Entnahme – häufig wird eine Haspel spezifiziert, ohne zuvor eine hydraulische Berechnung durchzuführen.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Bei Exportprojekten ist die Schlauchnorm anzugeben (EN 694 für Europa, NFPA 1962 für Nordamerika, GB 15090 / XF180 für eine zertifizierungsbasierte Ausführung für China), damit das Dokumentationspaket zum Zielmarkt passt.</p>
+
+			<h2 id="nozzle" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Strahlrohrtypen und Strahlarten</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Das Strahlrohr ist die Schnittstelle zum Anwender – von ihm hängt ab, ob ein Gebäudenutzer den Brand überhaupt bekämpfen kann. Strahlrohre für Haspeln unterstützen zwei Betriebsarten:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Vollstrahl.</strong> Maximale Reichweite für die Brandbekämpfung aus größerer Entfernung. Die übliche Mindestreichweite beträgt bei Nenndruck 6 m.</li>
+				<li><strong>Sprühstrahl/Nebel.</strong> Ein breiter Kegel zum Schutz des Bedieners, zur Kühlung des Bereichs und zum Benetzen von Oberflächen. Der Sprühbetrieb benötigt mehr Durchfluss und ist auf größere Entfernung weniger effizient; der Bediener wechselt die Betriebsart je nach Situation.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Auch der Werkstoff ist wichtig: Messing-Strahlrohre sind korrosionsbeständig und behalten ihre Geometrie; Strahlrohre aus Druckgusslegierung sind leichter, sollten in feuchten oder küstennahen Umgebungen jedoch mit einer anodisierten Oberfläche spezifiziert werden. Die JPS0.8-19 wird mit einem Messing-/Legierungs-Sprühstrahlrohr für beide Betriebsarten und einem Absperrgriff zur Unterbrechung des Durchflusses am Strahlrohr geliefert.</p>
+
+			<h2 id="foam" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Schaumschränke für Brände der Klasse B</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Wasser kann eine brennende Flüssigkeit nicht löschen, sondern verteilt den Brand. Bei Gefahren der Klasse B – Kraftstofflager, chemische Prozessbereiche, Transformatorräume, Lack- und Lösungsmittellager sowie Fahrzeugdepots – wird daher Schaum vorgeschrieben. Der <a href="/de/products/foam-fire-hydrant-cabinet-psg30/" class="text-brand-blue font-semibold hover:underline">Schaum-Hydrantenschrank PSG30</a> vereint das gesamte System in einer wandmontierten Einheit: Schaummittelkonzentratbehälter, 3-%-AFFF-Zumischer, Schlauchhaspel und Schaumstrahlrohr.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Beim Öffnen der Haspel saugt der Zumischer 3 % Schaummittelkonzentrat in den Wasserstrom und erzeugt Schaum mit niedriger Expansion, einem Expansionsverhältnis von mindestens 4,5:1 und einer Strahlweite von mindestens 6 m. Der Schaum bedeckt die Oberfläche der brennenden Flüssigkeit und sperrt Sauerstoff sowie Dämpfe ab – wirksam bei Kraftstoff-, Chemikalien- und Lösungsmittelbränden.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Spezifikationshinweise für Schaumschränke:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Schaumtyp.</strong> AFFF (wässriger filmbildender Schaum) ist der Standard für gemischte Kohlenwasserstoffgefahren; stimmen Sie die Konzentratklasse (AR-AFFF für polare Lösungsmittel) mit dem Brandschutzplaner ab.</li>
+				<li><strong>Fassungsvermögen.</strong> Stimmen Sie das Tankvolumen auf die erwartete Entleerungsdauer ab – prüfen Sie die örtliche Norm hinsichtlich der Mindestbetriebszeit bei Nenndurchfluss.</li>
+				<li><strong>Zulaufdruck.</strong> Der PSG30 arbeitet mit 0,5–0,8 MPa; die Versorgung muss diesen Druck während der Entleerung aufrechterhalten.</li>
+			</ul>
+
+			<h2 id="materials" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Werkstoffe und Korrosionsbeständigkeit</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bereitschaftsausrüstung ist über Jahre feuchten Korridoren, Kesselräumen und küstennahen Anlagen ausgesetzt. Die Werkstoffauswahl ist daher eine Entscheidung über die Lebenszykluskosten:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Haspeltrommel und Halterung.</strong> Kaltgewalzter Kohlenstoffstahl mit korrosionsbeständiger roter Pulverbeschichtung (JPS0.8-19) ist wirtschaftlich und normgerecht; für maritime oder chemische Umgebungen ist Edelstahl zu spezifizieren.</li>
+				<li><strong>Schlauch.</strong> NBR/PVC-Mischungen mit mehrlagiger Polyestergewebeverstärkung widerstehen Knicken und Abrieb; bei direkter Sonneneinstrahlung ist die UV-Beständigkeit zu bestätigen.</li>
+				<li><strong>Strahlrohr und Zumischer.</strong> Messing bietet Korrosionsbeständigkeit und präzise Dosierung; der PSG30-Zumischer besteht aus massivem Messing mit korrosionsbeständigem Gehäuse.</li>
+				<li><strong>Schrankgehäuse.</strong> Pulverbeschichteter Stahl ist Standard; verglaste oder Edelstahlfronten werden in architektonisch anspruchsvollen Eingangshallen eingesetzt. Legen Sie stets fest, ob der Zugang über eine einschlagbare Glasscheibe oder einen Schlüssel erfolgen soll, entsprechend den örtlichen Vorgaben der Feuerwehr.</li>
+			</ul>
+
+			<h2 id="compliance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Normen, Prüfungen und Exporthinweise</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Konformität von Schlauchhaspeln und Hydrantenschränken wird üblicherweise durch Druckprüfung der Baugruppe, Prüfung von Strahlweite und Durchfluss bei Nenndruck sowie Werkstoff- und Beschichtungsprüfung verifiziert. Zu den relevanten Normen gehören EN 671 (Europa), NFPA 14 (Nordamerika, Steig- und Schlauchsysteme), GB 15090 und XF180 (China) sowie BS 5306 für die britische Praxis.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Export-Checkliste:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Bestätigen Sie die Kupplungsnorm Ihres Zielmarktes – Adapter der HS-Serie decken gängige internationale Kupplungen (BS336, NIST, KWS) ab und können mit der Bestellung geliefert werden.</li>
+				<li>Fordern Sie den chargenbezogenen Druckprüfbericht für Haspeln und Schränke an.</li>
+				<li>Prüfen Sie, ob die Zugangsart der Schranktür und die Beschilderung den Erwartungen der örtlichen Feuerwehr entsprechen.</li>
+				<li>Bei Schaumeinheiten sind Konzentrattyp und Ablaufmanagement zu bestätigen – AFFF-Konzentrat hat eine begrenzte Haltbarkeit und muss planmäßig ersetzt werden.</li>
+				<li>Klären Sie Ersatzteile (Strahlrohre, Schlauch, Dichtungen, Prüfventile) und Lieferzeit vor der Bestellung.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Wanlian prüft jede Haspel und jeden Schrank vor dem Versand und liefert das Dokumentationspaket – Druckprüfberichte, Werkstoffzertifikate und Betriebsanleitungen – mit der Sendung.</p>
+
+			<!-- FAQ-Bereich -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Kontaktaufforderung -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Benötigen Sie Schlauchhaspeln oder Hydrantenschränke für Ihr Projekt?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie uns Abdeckungsfläche, Versorgungsdruck und Brandklassen – unsere Ingenieure antworten innerhalb von 12 Stunden mit einer Empfehlung für Layout und Ausführung sowie einem Angebot.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href={`/de/contact/?product=${encodeURIComponent('Auswahl von Schlauchhaspeln und Hydrantenschränken')}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Hallo, ich benötige Hilfe bei der Auswahl von Feuerlösch-Schlauchhaspeln und Hydrantenschränken')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

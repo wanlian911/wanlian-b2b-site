@@ -1,0 +1,192 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const faq = [
+	{
+		question: 'Wie funktioniert ein hydraulisches Druckminderventil ohne Strom?',
+		answer: 'Ein selbsttätiges hydraulisches Druckminderventil nutzt ein Pilotventil und den Leitungsdruck selbst als Antriebskraft. Der Pilot erfasst den Nachdruck: Steigt dieser über den Sollwert, schließt der Pilot teilweise, der Druck in der Membrankammer steigt und das Hauptventil drosselt; fällt er ab, entlastet der Pilot die Kammer und das Hauptventil öffnet weiter. Eine externe Energiequelle ist nicht erforderlich.'
+	},
+	{
+		question: 'Welchen Nachdruckbereich kann das Druckminderventil 500X halten?',
+		answer: 'Das hydraulische, einstellbare Druckminderventil Wanlian 500X deckt DN20–DN600 (3/4" bis 24") ab; der Nachdruck ist von 0,1 MPa bis 1,6 MPa einstellbar. Das Ventilgehäuse ist für 1,0 MPa, 1,6 MPa oder 2,5 MPa Nenndruck ausgelegt. Geben Sie bei der Anfrage daher den Eingangsdruck und den erforderlichen Einstelldruck an.'
+	},
+	{
+		question: 'Was ist der Unterschied zwischen einem Druckminderventil 500X und einem Niveauregelventil F745X?',
+		answer: 'Ein Druckminderventil 500X hält den Nachdruck unabhängig von Durchflussschwankungen konstant. Das hydraulische Niveauregelventil F745X hält dagegen mit einem Schwimmerpilot einen voreingestellten Wasserstand in Behältern, Tanks oder Wassertürmen und öffnet bzw. schließt das Hauptventil entsprechend der Pegeländerung. Beide sind selbsttätige hydraulische Regelventile ohne externe Energie.'
+	},
+	{
+		question: 'Wann sollte ich das F745X statt des ferngesteuerten Schwimmerventils 100X-16P wählen?',
+		answer: 'Das F745X (DN50–DN400, 1,0/1,6 MPa, Sphäroguss QT450-10) ist die Standardwahl für große Behälter und Wassertürme. Das ferngesteuerte Schwimmerventil 100X-16P (DN40–DN300, 0–1,0 MPa) besitzt ein gegossenes Edelstahlgehäuse CF8 und eignet sich für korrosive Medien, höhere Hygieneanforderungen oder küstennahe Anlagen. Die Betätigung erfolgt über einen Schwimmerpilot.'
+	},
+	{
+		question: 'Warum wird ein Y-Schmutzfänger vor hydraulischen Regelventilen empfohlen?',
+		answer: 'Hydraulische Regelventile werden pilotgesteuert; Pilotanschlüsse und Nadelventile reagieren empfindlich auf Partikel. Der teleskopische Y-Schmutzfänger SGL41H wird am Ventileinlass zur Filtration von Verunreinigungen installiert und verfügt über Siebe aus Edelstahl 304/316 (18–30 Mesh für Wasser). Die integrierte Teleskopverbindung ermöglicht den Ausbau des Ventils zur Wartung, ohne die Rohrleitung zu trennen.'
+	},
+	{
+		question: 'Verhindern langsam schließende hydraulische Ventile den Wasserschlag?',
+		answer: 'Ja. 500X und F745X sind für ein gleichmäßiges, langsames Schließen ausgelegt. Das Ventil fällt bei Durchflussstopp nicht schlagartig zu, wodurch schädliche Druckstöße und Wasserschlag im Netz vermieden werden. In Pumpensaugleitungen sollte zusätzlich ein EN12845-Saugwirbelverhinderer eingesetzt werden, um Lufteintrag und dadurch verursachte Kavitation sowie Druckspitzen zu verhindern.'
+	}
+];
+
+const toc = [
+	{ id: 'what-is-hydraulic-prv', label: '1. Was ist ein hydraulisches Druckminderventil?' },
+	{ id: 'how-pilot-prv-works', label: '2. Funktionsweise des selbsttätigen 500X-Druckminderventils' },
+	{ id: 'hydraulic-control-valve-comparison', label: '3. Druckminderung vs. Niveauregelung vs. Schwimmerventil' },
+	{ id: 'typical-applications', label: '4. Einsatzbereiche der einzelnen Ventile' },
+	{ id: 'installation-and-protection', label: '5. Installation und Schutz' },
+	{ id: 'specification-checklist', label: '6. B2B-Spezifikationscheckliste' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const referencePages = [
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: 'Hydraulisches Druckminderventil 500X', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'DN20–DN600, Nachdruck von 0,1 bis 1,6 MPa einstellbar' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'Hydraulisches Niveauregelventil F745X', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'DN50–DN400, Schwimmerpilot zur Tankniveauregelung' },
+	{ slug: 'remote-control-float-valve-100x', name: 'Ferngesteuertes Schwimmerventil 100X-16P (CF8)', img: '/assets/products/remote-control-float-valve-100x.webp', desc: 'Edelstahl, DN40–DN300, 0–1,0 MPa' },
+	{ slug: 'groove-solenoid-control-gate-valve-gkzf1', name: 'Magnetventil-gesteuerter Absperrschieber GKZF-1', img: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg', desc: 'DN50–DN300, AC220V/DC24V, 300 PSI' }
+];
+---
+
+<Layout
+	title="Druckminderventil 500X: Leitfaden für Wasserversorgung"
+	description="Erfahren Sie, wie hydraulische Druckminderventile arbeiten und wann 500X, F745X oder 100X passen. B2B-Checkliste für Auswahl und Anfrage im Wassernetz."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Leitfaden Druckminderventil' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Leitfaden Druckminderventil</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden für hydraulische Regelventile</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Leitfaden Druckminderventil: Hydraulisches 500X-Druckminderventil und Regelventile für die Wasserversorgung</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kurz gesagt: Ein hydraulisches Druckminderventil ist ein selbsttätiges, pilotgesteuertes Ventil, das allein mit dem Leitungsdruck einen konstanten Nachdruck hält – ohne Strom. In Wasserversorgungsnetzen wählen Sie typischerweise zwischen einem 500X-Druckminderventil (konstanter Nachdruck), einem F745X-Niveauregelventil (konstanter Tankfüllstand) und einem ferngesteuerten 100X-Schwimmerventil (kompakte Edelstahlvariante). Dieser Leitfaden erläutert die Funktionsweise und die korrekte Spezifikation.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{referencePages.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-hydraulic-prv" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Was ist ein hydraulisches Druckminderventil?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein hydraulisches Druckminderventil (PRV) ist ein selbsttätiges Regelventil, das einen höheren, schwankenden Eingangsdruck auf einen konstanten niedrigeren Nachdruck reduziert. Die Bezeichnung „hydraulisch“ bedeutet, dass das Ventil vollständig über den Rohrleitungsdruck und ein Pilotsystem betätigt wird – ohne Magnetventil, Motor oder Schaltschrank. Dadurch ist es ein kostengünstiges und zuverlässiges Grundelement für Wasserversorgungszonen, Druckerhöhungsanlagen, Bewässerungsnetze und Prozesswasserleitungen.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Das klassische Beispiel ist das <a href="/de/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">hydraulische, einstellbare Druckminderventil 500X</a>: ein Hauptventil aus Sphäroguss (QT450-10) mit Pilot aus Schmiedemessing, für DN20–DN600 und einen einstellbaren Nachdruck von 0,1 MPa bis 1,6 MPa. Das Hauptventilgehäuse ist für 1,0 MPa, 1,6 MPa oder 2,5 MPa Nenndruck erhältlich; die Konstruktion entspricht den Normen ANSI, JIS und GB.</p>
+			<p class="text-gray-700 leading-relaxed">Die Membranbaugruppe besteht aus nylonverstärktem EPDM, die innere Spindel aus Edelstahl 304. Für die Pilotleitungen sind Kupfer oder Edelstahl verfügbar. Diese Werkstoffauswahl entscheidet maßgeblich darüber, ob ein PRV seinen Sollwert auch nach jahrelangem Betrieb zuverlässig hält.</p>
+
+			<h2 id="how-pilot-prv-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Funktionsweise des selbsttätigen 500X-Druckminderventils</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Das 500X ist ein membrangesteuertes Durchgangsventil mit einem oben montierten, einstellbaren Pilotventil. Der Pilot erfasst den Nachdruck kontinuierlich über eine Messleitung. Steigt der Nachdruck über den Sollwert, drosselt der Pilot, der Druck in der Membrankammer steigt und das Hauptventil bewegt sich in Richtung „geschlossen“. Fällt der Nachdruck unter den Sollwert, öffnet der Pilot weiter, die Kammer wird entlastet und das Hauptventil öffnet sich. So moduliert das Ventil kontinuierlich und hält den eingestellten Druck unabhängig von Durchfluss- oder Eingangsdruckschwankungen.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Da das Ventil vollständig selbsttätig arbeitet, regelt es auch bei einem Stromausfall weiter – eine wichtige Eigenschaft für Löschwasser- und kommunale Netze, in denen ein Druckverlust kritisch sein kann. Das gleichmäßige, langsame Schließen verhindert zudem hohe Druckstöße und Wasserschlag beim Durchflussstopp. Deshalb werden hydraulische Regelventile an großen Hauptleitungen häufig gegenüber schnell schaltenden elektrischen Ventilen bevorzugt.</p>
+			<p class="text-gray-700 leading-relaxed">Wenn anstelle einer kontinuierlichen Regelung tatsächlich eine elektrische Fernsteuerung erforderlich ist, ermöglicht eine magnetventilgesteuerte Einheit wie der <a href="/de/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">gerillte, magnetventilgesteuerte Absperrschieber GKZF-1</a> (AC220V/DC24V, DN50–DN300, 300 PSI) das automatische Öffnen und Schließen per Befehl, während das PRV den konstanten Druck regelt.</p>
+
+			<h2 id="hydraulic-control-valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Druckminderung vs. Niveauregelung vs. Schwimmerventil</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Hydraulische Regelventile beruhen auf demselben selbsttätigen Pilotprinzip, regeln jedoch unterschiedliche Prozessgrößen. Die folgende Tabelle vergleicht die drei häufigsten Aufgaben in der Wasserversorgung.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Vergleich</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">500X PRV</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">F745X-Niveauregelung</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">100X-16P-Schwimmerventil</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Geregelte Größe</td>
+							<td class="px-4 py-3 text-gray-700">Nachdruck</td>
+							<td class="px-4 py-3 text-gray-700">Wasserstand im Tank/Behälter</td>
+							<td class="px-4 py-3 text-gray-700">Wasserstand (ferngesteuerter Schwimmerpilot)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Nennweitenbereich</td>
+							<td class="px-4 py-3 text-gray-700">DN20–DN600</td>
+							<td class="px-4 py-3 text-gray-700">DN50–DN400</td>
+							<td class="px-4 py-3 text-gray-700">DN40–DN300</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Druckstufe</td>
+							<td class="px-4 py-3 text-gray-700">1,0 / 1,6 / 2,5 MPa; Einstellung 0,1–1,6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">1,0 / 1,6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">0–1,0 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Gehäusewerkstoff</td>
+							<td class="px-4 py-3 text-gray-700">Sphäroguss QT450-10 / Stahlguss</td>
+							<td class="px-4 py-3 text-gray-700">Sphäroguss QT450-10</td>
+							<td class="px-4 py-3 text-gray-700">Guss-Edelstahl CF8</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typischer Einsatz</td>
+							<td class="px-4 py-3 text-gray-700">Druckzonen, Druckerhöhungsabgang</td>
+							<td class="px-4 py-3 text-gray-700">Behälter, Tanks, Wassertürme</td>
+							<td class="px-4 py-3 text-gray-700">Korrosive oder hygienekritische Tanks</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Benötigt ein Projekt sowohl Druckregelung als auch Tankbefüllung, besteht die Standardanordnung aus einem 500X-PRV in der Versorgungsleitung, das ein F745X- oder 100X-Schwimmerventil am Tankeinlass speist – jedes Ventil übernimmt die dafür vorgesehene Aufgabe.</p>
+
+			<h2 id="typical-applications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Einsatzbereiche der einzelnen Ventile</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Druckminderung (500X):</strong> überall dort, wo eine Hochdruck-Hauptleitung eine Niederdruckzone versorgt – in Druckzonen mit Messung, am Abgang von Druckerhöhungsanlagen für Hochhäuser, in Bewässerungssammlern und bei Prozesswasser. Stellen Sie den Nachdruck einmal ein; das Ventil hält ihn über den täglichen Bedarfsgang konstant.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Niveauregelung (F745X):</strong> Das <a href="/de/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">hydraulische Wasserstandsregelventil F745X</a> hält mithilfe eines Schwimmerpiloten automatisch einen voreingestellten Pegel in Behältern, Wassertanks und Wassertürmen. Es verhindert Überfüllung und kritische Niedrigstände. Da es vollständig über den Rohrleitungsdruck arbeitet und langsam schließt, eignet es sich für große Speicher, bei denen ein plötzliches Absperren Wasserschlag im Netz verursachen würde.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Ferngesteuerter Schwimmer (100X):</strong> Das <a href="/de/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">ferngesteuerte Schwimmerventil 100X-16P</a> erfüllt dieselbe Aufgabe mit einem Gehäuse aus Guss-Edelstahl (CF8). Es deckt DN40–DN300 bei 0–1,0 MPa und einer Betriebstemperatur von −50 °C bis 100 °C ab – passend für Tanks mit korrosivem oder hochreinem Wasser sowie für küstennahe Anlagen, in denen Rost ein Risiko darstellt.</p>
+			<p class="text-gray-700 leading-relaxed">Bei jedem dieser Ventile in einem Trinkwassernetz sollte am Anschlusspunkt ein <a href="/de/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">HS41X-Rückflussverhinderer mit Trinkwasserschutz</a> installiert werden, damit Tankwasser niemals in die Trinkwasserhauptleitung zurückströmen kann. Unser <a href="/de/guides/backflow-prevention-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur Rückflussverhinderung</a> erläutert die vollständige Absicherung von Kreuzverbindungen. Digitale Strangregulierventile wie das <a href="/de/products/sp45f-flange-digital-balancing-valve/" class="text-brand-blue font-semibold hover:underline">digitale Flansch-Strangregulierventil SP45F</a> werden am Pumpenabgang und in druckstabilen Leitungen eingesetzt. Eine verriegelte Einstellung und gut ablesbare Prüfanschlüsse halten den Abgleich nach der Inbetriebnahme stabil.</p>
+
+			<h2 id="installation-and-protection" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Installation und Schutz</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Zuverlässigkeit hydraulischer Regelventile hängt unmittelbar von ihrem Pilotsystem ab; Pilotanschlüsse reagieren empfindlich auf Partikel. Installieren Sie am Ventileinlass einen Schmutzfänger: Der <a href="/de/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">teleskopische Y-Schmutzfänger SGL41H</a> wurde speziell zum Schutz hydraulischer Wasserregelventile und Präzisionsmaschinen entwickelt. Er verbindet Schmutzfänger und Dehnstück in einem Gehäuse, sodass das Ventil zur Wartung ohne Auftrennen der Rohrleitung ausgebaut werden kann. Die Filtersiebe bestehen aus Edelstahl 304/316; für Wasser sind 18–30 Mesh vorgesehen.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Montieren Sie vor und hinter dem Regelventil einen Absperrschieber, damit die Einheit überbrückt und gewartet werden kann, ohne das Netz zu entleeren. Bei pumpengespeisten Anlagen ist auch die Saugseite zu schützen: Ein an der Pumpensaugseite montierter EN12845-Saugwirbelverhinderer beseitigt Wirbelbildung und Lufteintrag und verhindert so Kavitation sowie Druckspitzen, die Pumpen und Regelventile beschädigen.</p>
+			<p class="text-gray-700 leading-relaxed">Prüfen Sie Ausrichtung und Einbauraum vor der Bestellung. Geflanschte hydraulische Regelventile benötigen geraden Zugang für die Pilotleitungen sowie Platz für die Absperrventile. DN und Endanschluss (ANSI/JIS/GB-Flanschbohrung) müssen im Datenblatt angegeben werden.</p>
+
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. B2B-Spezifikationscheckliste</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Regelgröße festlegen</strong> – Nachdruck (500X PRV), Tankniveau (F745X / 100X) oder elektrisches Öffnen/Schließen (GKZF-1-Magnetventil). Eine Leitung benötigt häufig zwei Funktionen: ein PRV vor einem Niveauregelventil am Tank.</li>
+				<li><strong>Nennweite und Druck angeben</strong> – DN20–DN600 beim 500X mit 1,0/1,6/2,5 MPa Nenndruck; DN50–DN400 bei 1,0/1,6 MPa beim F745X; DN40–DN300 bei 0–1,0 MPa beim 100X-16P. Eingangsdruck und erforderlichen Einstelldruck bestätigen (500X: 0,1–1,6 MPa).</li>
+				<li><strong>Gehäusewerkstoff nach Medium wählen</strong> – Sphäroguss QT450-10 für sauberes Wasser; Guss-Edelstahl CF8 (100X-16P) für korrosive oder hygienekritische Anwendungen.</li>
+				<li><strong>Anschlussnorm festlegen</strong> – Die ANSI-, JIS- oder GB-Flanschbohrung muss zur Rohrleitung passen; geben Sie sie in der Anfrage ausdrücklich an.</li>
+				<li><strong>Schutzzubehör ergänzen</strong> – teleskopischer Y-Schmutzfänger SGL41H am Einlass, Absperrschieber und HS41X-Rückflussverhinderer an Trinkwasseranschlüssen; EN12845-Saugwirbelverhinderer an Pumpensaugleitungen.</li>
+				<li><strong>Lieferanten zuerst prüfen</strong> – Die Pilotqualität ist auf Fotos nicht erkennbar. Verlangen Sie Chargenprüfberichte für Gehäuse und Sitz sowie Werkstoffzeugnisse und nutzen Sie vor der Herstellerbeauftragung unsere <a href="/de/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B-Checkliste zur Ventilbeschaffung</a>.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Benötigen Sie Druckminder- oder hydraulische Regelventile?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Teilen Sie uns DN, Druckstufe, Einstelldruck und Anschlussnorm mit – unsere Ingenieure bestätigen die Pilotkonfiguration und erstellen innerhalb von 12 Stunden ein Angebot.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href={`/de/contact/?product=${uri.EscapeDataString('Druckminderventil 500X')}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Hallo, ich benötige Druckminderventile für die Wasserversorgung')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Per WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

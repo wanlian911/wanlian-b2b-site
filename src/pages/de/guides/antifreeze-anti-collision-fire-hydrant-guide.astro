@@ -1,0 +1,213 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ: reale Beschaffungsfragen für das FAQPage-Markup
+const faq = [
+	{
+		question: 'Wie verhindert ein Frostschutz-Hydrant das Einfrieren im Winter?',
+		answer: 'Ein Frostschutz-Hydrant ist als Trockenrohrhydrant ausgeführt: Das Hauptventil liegt unterhalb der Frostgrenze, und das darüberliegende Rohr entleert sich bei jedem Schließen des Ventils automatisch. Im Rohr bleibt kein Wasser stehen, das gefrieren und den Körper sprengen könnte. Der Überflurhydrant SS100/65 nutzt genau diesen automatischen Frostablauf und wird mit einem standardmäßigen Flanschfuß für den unterirdischen Anschluss geliefert.'
+	},
+	{
+		question: 'Was geschieht, wenn ein Anfahrschutz-Hydrant von einem Fahrzeug getroffen wird?',
+		answer: 'Der SSFT100 wird durch kalibrierte Sollbruchschrauben zusammengehalten. Beim Aufprall scheren die Schrauben bei der vorgesehenen Kraft sauber ab, und das interne Ventil schließt automatisch. Statt eines unkontrollierten Wasseraustritts dichtet sich der Hydrant selbst ab und eine Überflutung wird vermieden. Die Reparatur erfolgt unter Druck durch den Austausch der Sollbruchschrauben und die Wiederinbetriebnahme des Hydranten. Dadurch bleiben die Wartungskosten niedrig und die Hauptleitung muss nicht entleert werden.'
+	},
+	{
+		question: 'Funktionieren Anfahrschutz-Hydranten auch in kalten Klimazonen?',
+		answer: 'Ja. Der SSFT100 vereint drei Funktionen in einem Gehäuse: Anfahrschutz, eine integrierte Druckregeleinrichtung für eine progressive und gleichmäßige Abgabe sowie ein automatisches Entleerungssystem gegen Frost im Winter. Damit eignet er sich für kommunale und industrielle Netze in kalten Regionen, in denen Hydranten zudem nahe am Verkehr stehen.'
+	},
+	{
+		question: 'Können Feuerhydranten aus der Ferne überwacht werden?',
+		answer: 'Der intelligente IoT-Hydrant SS100ZN integriert Mikrosensoren und überträgt Daten über die Mobilfunknetze NB-IoT, LTE-M oder GPRS. Er überwacht Neigung und Vibration, den Wasserdruck in der Rohrleitung sowie den Ventilstatus und meldet unbefugte Wasserentnahme, Ventilöffnung oder Fahrzeugkollisionen. Die Versorgung erfolgt über eine Lithiumbatterie mit einer Lebensdauer von fünf Jahren und Solarunterstützung; die Modul-Kapsel besitzt die Schutzart IP68. Der Hydrantenkörper wird nach GB4452-2011 gefertigt.'
+	},
+	{
+		question: 'Welche Abgangskonfiguration und Druckstufe soll ich spezifizieren?',
+		answer: 'SS100/65 und SSFT100/65 werden mit zwei Abgängen DN65 und einem Abgang DN100 geliefert – der üblichen Konfiguration für kommunale Überflurhydranten. Der Betriebsdruck beträgt 1,6 MPa, der SS100 wird mit 2,4 MPa geprüft. Die Abgangsgewinde richten sich nach dem Projektstandard. Die Aluminium-Kupplungsadapter der Wanlian-HS-Serie (DN50/DN65, 1,6 MPa, GB12514) verbinden Hydranten leckagefrei mit Schläuchen und Strahlrohren.'
+	},
+	{
+		question: 'Welche Normen gelten für Feuerhydranten in Exportprojekten?',
+		answer: 'Der Körper des intelligenten IoT-Hydranten wird nach GB4452-2011 gefertigt; die mechanischen Hydranten entsprechen den GB-Anforderungen und den Werksnormen. Wenn ein Projekt Vorgaben nach AWWA, EN oder NFPA verlangt, sollte dies bereits in der Anfrage angegeben werden, damit Modell und Prüfdokumentation übereinstimmen. Unser Leitfaden zu Feuerhydranten- und Armaturennormen erläutert, wie diese Normenfamilien und Prüfberichte vor der Bestellung zu bewerten sind.'
+	}
+];
+
+// TOC: IDs entsprechen den H2-Ankern im Text
+const toc = [
+	{ id: 'cold-climate-problem', label: '1. Warum Hydranten bei Kälte versagen' },
+	{ id: 'antifreeze-mechanism', label: '2. Funktionsweise von Frostschutz-Trockenrohrhydranten' },
+	{ id: 'anti-collision-mechanism', label: '3. Wie Anfahrschutz-Hydranten schließen' },
+	{ id: 'hydrant-comparison', label: '4. Standard, Anfahrschutz oder IoT' },
+	{ id: 'smart-hydrant-monitoring', label: '5. Intelligente Hydrantenüberwachung' },
+	{ id: 'hydrant-spec-checklist', label: '6. Spezifikations-Checkliste' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+// Zugehörige Produkte (Slugs identisch zu products.ts)
+const products = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Frostschutz-Überflurhydrant (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'DN100, 1,6 MPa, automatischer Frostablauf, 2xDN65 + 1xDN100' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Anfahrschutz-Hydrant (SSFT100/65)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Abschaltung durch Sollbruchschrauben, Druckregelung, automatische Entleerung' },
+	{ slug: 'iot-smart-ground-fire-hydrant-ss100zn', name: 'Intelligenter IoT-Hydrant (SS100/65-1.6ZN)', img: '/assets/products/iot-smart-ground-fire-hydrant-ss100zn.webp', desc: 'NB-IoT/4G, Neigungs- und Drucksensoren, 5-Jahres-Batterie' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Hydranten-Kupplungsadapter (HS-Serie)', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65, 1,6 MPa, selbstdichtendes Aluminium' }
+];
+---
+
+<Layout
+	title="Frostschutz- und Anfahrschutz-Hydranten: Einkaufsleitfaden"
+	description="Frostschutz-Trockenrohrhydranten verhindern Einfrieren, Anfahrschutz-Hydranten schließen bei Kollisionen; IoT verbessert die Überwachung. B2B-Checkliste."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Frostschutz- und Anfahrschutz-Hydranten' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Frostschutz- und Anfahrschutz-Hydranten</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden für Feuerhydranten</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Frostschutz- und Anfahrschutz-Hydranten: Einkaufsleitfaden</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kurz gesagt: Ein standardmäßiger Überflurhydrant hat im kommunalen Betrieb zwei Schwachstellen: Stehendes Wasser im Rohr kann gefrieren und den Körper sprengen, und ein von einem Fahrzeug angefahrener Hydrant kann Wasser mit vollem Leitungsquerschnitt austreten lassen. Frostschutz-Trockenrohrhydranten lösen das erste Problem durch eine Entleerung nach jedem Einsatz; Anfahrschutz-Hydranten lösen das zweite mit kalibrierten Sollbruchschrauben und einer automatischen internen Abschaltung. Dieser Leitfaden erklärt beide Mechanismen, vergleicht die Modelle und zeigt den Zusatznutzen der IoT-Überwachung.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Produktleiste -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Abschnitt 1 -->
+			<h2 id="cold-climate-problem" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Warum Hydranten bei Kälte versagen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein Nassrohrhydrant hält das ganze Jahr über Wasser im Rohr oberhalb des Ventils. Bei starkem Frost dehnt sich dieses Wasser beim Gefrieren aus, und der Druck kann nicht entweichen: Rohr, Haube oder Ventilkörper reißen. Der Schaden bleibt meist bis zum Tauwetter unbemerkt. Wird der Hydrant dann geöffnet, tritt das Wasser im ungünstigsten Moment aus dem gebrochenen Körper statt aus den Abgängen aus.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Ebenso häufig tritt das umgekehrte Problem auf: Wird ein Hydrant nach dem Einsatz nicht entleert, bleibt oberhalb der Frostgrenze ein Wasservolumen stehen. Deshalb verlangen Spezifikationen für kalte Klimazonen nicht einfach einen „stärkeren“ Hydranten, sondern einen Hydranten, dessen Rohr bei geschlossenem Ventil leer ist.</p>
+			<p class="text-gray-700 leading-relaxed">Die andere Ausfallursache hat nichts mit dem Wetter zu tun: Hydranten stehen am Straßenrand, und dort werden Anlagen angefahren. Ohne eine definierte Bruchstelle kann ein Fahrzeugaufprall den Körper abscheren. Der volle Netzdruck tritt dann durch das gebrochene Rohr aus, bis das Absperrventil erreicht wird.</p>
+
+			<!-- Abschnitt 2 -->
+			<h2 id="antifreeze-mechanism" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Funktionsweise von Frostschutz-Trockenrohrhydranten</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bei einem Trockenrohrhydranten liegt das Hauptventil unterhalb der Frostgrenze, und das darüberliegende Rohr ist leer, solange kein Wasser entnommen wird. Wird die Betätigungsspindel geschlossen, setzt sich das Ventil, und das im Rohr verbleibende Wasser läuft über eine Entleerungseinrichtung am Fuß ab. Das Rohr ist damit vor dem nächsten Frost wieder trocken.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Der <a href="/de/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">Frostschutz-Überflurhydrant SS100/65</a> setzt dieses Prinzip mit einem automatischen Frostablauf nach dem Schließen um. Wichtige Spezifikationsdaten: DN100, Betriebsdruck 1,6 MPa bei einem Prüfdruck von 2,4 MPa, zwei Abgänge DN65 und ein Abgang DN100, ein robuster Säulenkröper aus duktilem Gusseisen QT450, doppelte Messingsitze mit witterungsbeständigen Blindkappen, ein mit EPDM ummantelter unterer Ventilteller sowie eine Entleerungseinrichtung aus Edelstahl und Messing. Der Hydrant ist für Wasser und Löschschaumgemisch geeignet; der standardmäßige unterirdische Flanschfuß vereinfacht die Montage.</p>
+			<p class="text-gray-700 leading-relaxed">Da sich das Rohr nach jedem Einsatz entleert, ist der Frostschutz wiederholbar und keine einmalige Winterisierungsmaßnahme. Das ist besonders wichtig für Netze, die in größeren Inspektionsabständen geprüft werden.</p>
+
+			<!-- Abschnitt 3 -->
+			<h2 id="anti-collision-mechanism" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Wie Anfahrschutz-Hydranten schließen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein Anfahrschutz-Hydrant ist so ausgelegt, dass er kontrolliert versagt. Der <a href="/de/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">druckregelnde Anfahrschutz-Hydrant SSFT100/65</a> wird mit speziell kalibrierten Sollbruchschrauben montiert. Wenn ein Fahrzeug die Säule trifft, scheren die Schrauben bei der vorgesehenen Kraft ab und das interne Ventil schließt automatisch. Der Hydrant dichtet sich ab, anstatt die Hauptleitung zu entleeren.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Folgen sind praktisch und nicht nur theoretisch: Wasserverlust und Überflutung werden vermieden, das Netz behält seinen Druck für den übrigen Versorgungsbereich, und die Reparatur erfolgt unter Druck. Dazu werden die Sicherungsschrauben ersetzt und der Hydrant wieder in Betrieb genommen. Im Vergleich zum Austausch eines abgescherten Körpers und dem Freilegen des Anschlusses sind die Wartungskosten sehr niedrig.</p>
+			<p class="text-gray-700 leading-relaxed">Das Modell verfügt außerdem über eine integrierte Druckregeleinrichtung. Dadurch erfolgt die Abgabe progressiv und gleichmäßig statt als plötzlicher Druckstoß für das Schlauchpersonal. Ein automatisches Entleerungssystem schützt zusätzlich vor Frost. Spezifikationsdaten: DN100 oder DN150, Nenndruck 1,6 MPa, Flanscheingang, zwei Abgänge DN65 (KWS65) und ein Abgang DN100, Körper aus duktilem Gusseisen QT450, unterer Ventilsitz aus massiver Messinglegierung mit EPDM-Beschichtung, Federn aus Edelstahl 304 sowie Kappen aus eloxierter Aluminiumlegierung oder Messing.</p>
+
+			<!-- Abschnitt 4 -->
+			<h2 id="hydrant-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Standard, Anfahrschutz oder IoT</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Merkmal</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SS100/65 Frostschutz</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SSFT100 Anfahrschutz</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SS100ZN IoT Smart</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Frostschutz</td>
+							<td class="px-4 py-3 text-gray-700">Automatischer Frostablauf nach dem Schließen</td>
+							<td class="px-4 py-3 text-gray-700">Automatisches Entleerungssystem</td>
+							<td class="px-4 py-3 text-gray-700">Trockenrohrbauweise, Statusüberwachung</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Fahrzeugaufprall</td>
+							<td class="px-4 py-3 text-gray-700">Nur dickwandiger QT450-Körper</td>
+							<td class="px-4 py-3 text-gray-700">Kalibrierte Sollbruchschrauben und automatische Abschaltung</td>
+							<td class="px-4 py-3 text-gray-700">Neigungs- und Vibrationssensoren melden Kollisionen</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Druckregelung</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">Integriert, progressive Abgabe</td>
+							<td class="px-4 py-3 text-gray-700">Kontinuierliche Drucküberwachung</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Überwachung</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">NB-IoT / LTE-M / GPRS, Ventil- und Diebstahlmeldungen</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Größe und Abgänge</td>
+							<td class="px-4 py-3 text-gray-700">DN100, 2xDN65 + 1xDN100</td>
+							<td class="px-4 py-3 text-gray-700">DN100/DN150, 2xKWS65 + 1xDN100</td>
+							<td class="px-4 py-3 text-gray-700">DN100-Überflurkörper (GB4452-2011)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Druck</td>
+							<td class="px-4 py-3 text-gray-700">1,6 MPa (mit 2,4 MPa geprüft)</td>
+							<td class="px-4 py-3 text-gray-700">1,6 MPa nominal</td>
+							<td class="px-4 py-3 text-gray-700">Netzdruck kontinuierlich überwacht</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Geeignet für</td>
+							<td class="px-4 py-3 text-gray-700">Kommunale Netze in kalten Klimazonen</td>
+							<td class="px-4 py-3 text-gray-700">Verkehrsnahe, anfahrexponierte Standorte</td>
+							<td class="px-4 py-3 text-gray-700">Smart-City-Netze mit geringer Vor-Ort-Überwachung</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Die drei Bauarten sind weniger Alternativen als Antworten auf drei unterschiedliche Risiken: Frost, Aufprall und unüberwachte Nutzung. Eine Stadt mit kaltem Klima und starkem Verkehr benötigt typischerweise die ersten beiden gemeinsam und ergänzt die dritte Lösung dort, wo die Betriebsteams nicht jeden Hydranten planmäßig vor Ort prüfen können.</p>
+
+			<!-- Abschnitt 5 -->
+			<h2 id="smart-hydrant-monitoring" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Intelligente Hydrantenüberwachung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Der <a href="/de/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">intelligente IoT-Überflurhydrant SS100ZN</a> ergänzt den standardmäßigen Überflurkörper um eine Sensorkapsel. Integrierte Mikrosensoren übertragen über NB-IoT, LTE-M oder GPRS Daten zu Neigung und Vibration, Wasserdruck in der Rohrleitung und Ventilstatus. Die Plattform meldet unbefugte Wasserentnahme, Ventilöffnung, Wasserentnahme ohne Genehmigung oder Fahrzeugkollisionen. Gleichzeitig werden Wasserdruck und Durchfluss kontinuierlich erfasst, sodass Rohrleitungsfehler vor einem Schadensereignis erkannt werden können.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Für Betreiber liegt der Nutzen in der Transparenz. Ein Hydrant, der von einer unbefugten Person geöffnet oder umgestoßen wurde oder an einer Leitung mit fallendem Druck steht, bleibt normalerweise bis zur nächsten Vor-Ort-Prüfung unbemerkt. Ein überwachter Hydrant verwandelt solche Ereignisse in Benachrichtigungen. Eine besonders stromsparende Ausführung mit Lithiumbatterie für fünf Jahre und Solarunterstützung übernimmt die Energieversorgung. Die stoßfeste ABS-Kapsel des IoT-Moduls ist nach IP68 abgedichtet – ein wichtiges Detail, da sie an einer Anlage sitzt, die einem Aufprall ausgesetzt sein kann.</p>
+			<p class="text-gray-700 leading-relaxed">Der Hydrantenkörper entspricht GB4452-2011 und verfügt über eine Säule aus duktilem Gusseisen QT450, eine Wasserprüfsonde aus Edelstahl 316 sowie eine untere Spindel und einen Ventilsitz aus Edelstahl oder Messing. Wenn ein Projekt andere Normenfamilien verlangt, sollte dies in der Anfrage angegeben werden. Der <a href="/de/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Feuerhydranten- und Armaturennormen</a> erläutert die Zuordnung von AWWA-, EN-, NFPA- und ISO-Referenzen zur Prüfdokumentation.</p>
+
+			<!-- Abschnitt 6 -->
+			<h2 id="hydrant-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Spezifikations-Checkliste</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Mit dem Klima beginnen</strong> – Bei Frost ist ein Frostschutz-Trockenrohrhydrant (SS100/65) oder ein Anfahrschutz-Modell mit automatischer Entleerung zu spezifizieren. Bestätigen Sie den Typ der Entleerungseinrichtung und dass das Rohr bei geschlossenem Ventil leerläuft.</li>
+				<li><strong>Verkehrsrisiko bewerten</strong> – Hydranten an Bordsteinen, Ladehöfen und Industrietoren sollten mit kalibrierten Sollbruchschrauben und einer automatischen internen Abschaltung (SSFT100/65) ausgestattet sein, damit ein Aufprall nicht zur Entleerung der Hauptleitung führt.</li>
+				<li><strong>Bedarf an Transparenz klären</strong> – Smart-City-, Campus- oder Netze mit geringer Vor-Ort-Überwachung können den SS100ZN für die Meldung von Neigung, Druck und Ventilstatus über NB-IoT/LTE-M/GPRS einsetzen.</li>
+				<li><strong>Abgangskonfiguration festlegen</strong> – Zwei Abgänge DN65 und ein Abgang DN100 entsprechen der üblichen Überflurhydranten-Konfiguration. Ergänzen Sie <a href="/de/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">Kupplungsadapter der HS-Serie</a> (DN50/DN65, 1,6 MPa, GB12514), damit Schläuche und Strahlrohre leckagefrei angeschlossen werden können.</li>
+				<li><strong>Druck und Prüfunterlagen angeben</strong> – Der Betriebsdruck von 1,6 MPa ist Standard; der SS100 wird mit 2,4 MPa geprüft. Fordern Sie vor dem Versand die chargenbezogenen Druckprüfberichte und Werkstoffzertifikate an.</li>
+				<li><strong>Normen und Lieferant bestätigen</strong> – Geben Sie Anforderungen nach AWWA/EN/NFPA bereits zu Beginn an und verwenden Sie vor der Herstellerentscheidung unsere <a href="/de/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B-Checkliste für die Armaturenbeschaffung</a>. Für den breiteren Auswahlkontext lesen Sie <a href="/de/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">Feuerhydranten richtig auswählen</a>.</li>
+			</ul>
+
+			<!-- FAQ-Abschnitt -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Zwei CTAs -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Benötigen Sie Frostschutz- oder Anfahrschutz-Hydranten?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Nennen Sie uns Klima, Verkehrsbelastung, DN, Abgangskonfiguration und Norm. Unsere Ingenieure bestätigen den passenden Hydranten und erstellen innerhalb von 12 Stunden ein Angebot.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Frostschutz-Hydrant%20SS100" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href="https://wa.me/8618684324501?text=Hallo%2C%20ich%20ben%C3%B6tige%20Frostschutz-%20oder%20Anfahrschutz-Hydranten" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Per WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

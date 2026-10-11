@@ -1,0 +1,254 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'why-counterfeits-concentrate', label: '1. Warum sich Fälschungen auf diese Kategorie konzentrieren' },
+	{ id: 'common-forms-of-fakes', label: '2. Die häufigsten Formen von Fälschungen' },
+	{ id: 'detection-checklist', label: '3. Prüfliste zur Erkennung in sieben Schritten' },
+	{ id: 'red-flags-table', label: '4. Echt oder gefälscht: Tabelle der Warnsignale' },
+	{ id: 'how-wanlian-operates', label: '5. So arbeitet Wanlian Fluid: Prozessnachweise' },
+	{ id: 'pre-order-workflow', label: '6. Prüfablauf vor der Bestellung' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' },
+	{ id: 'sources', label: 'Quellen' }
+];
+
+const faq = [
+	{
+		question: 'Ist ein deutlich niedrigeres Angebot ein zuverlässiges Zeichen für ein gefälschtes Produkt?',
+		answer: 'Es ist ein Prüfsignal, kein Beweis. Konforme Sphäroguss-Gussteile, Druckprüfungen und Exportdokumente haben reale Kostenuntergrenzen; ein Preis weit unter dem Marktpreis verdient daher eine Prüfung. Manche Angebote beziehen sich jedoch schlicht auf eine geringere Spezifikation. Vergleichen Sie Norm, Werkstoffgüte und Prüfanforderungen jedes Angebots, bevor Sie die Differenz bewerten.'
+	},
+	{
+		question: 'Wie prüfe ich ein UL- oder FM-Zertifikat vor der Bestellung eines Brandschutzventils?',
+		answer: 'Fordern Sie die genaue Zertifikats- oder Listennummer des angebotenen Modells an und prüfen Sie sie anschließend unabhängig im offiziellen Portal der ausstellenden Stelle. Bestätigen Sie, dass gelistetes Produkt, Modell und Werk zu Ihrem Lieferanten passen. Bis zur Prüfung ist jedes Zertifikatbild in einer E-Mail als ungeprüft zu behandeln.'
+	},
+	{
+		question: 'Welche Angaben müssen stückbezogene Prüfprotokolle tatsächlich enthalten?',
+		answer: 'Mindestens: die Seriennummer des Bauteils, das Prüfdatum, das Ergebnis der Gehäusedruckprüfung und der Luftleckprüfung sowie die Identifikation des Bedieners oder Prüfers. Die Seriennummern müssen mit Packliste, Typenschild und Exportdokumenten übereinstimmen. Ein Bericht, der nur eine „Charge“ ohne Bauteilkennungen abdeckt, ist ein Warnsignal.'
+	},
+	{
+		question: 'Benötige ich bei meiner ersten Bestellung eine Drittinspektion?',
+		answer: 'Bei sicherheitskritischer Brandschutzausrüstung empfehlen wir sie dringend, zumindest bei der ersten Bestellung. Eine unabhängige Stelle wie SGS oder Bureau Veritas kann Prüfungen bezeugen, Werkstoffe kontrollieren und Aufzeichnungen im Werk prüfen. Die Gebühr ist nur ein kleiner Bruchteil des Containerwerts und deutlich günstiger als ein ausgefallenes Bauteil.'
+	},
+	{
+		question: 'Was kann Wanlian vor meiner Zahlung bereitstellen?',
+		answer: 'Wanlian Fluid kann das ISO-9001-Zertifikat zur Prüfung bei der ausstellenden Stelle, Werksprüfzeugnisse für die Gussgüte, ein seriennummeriertes Video der Druck- und Luftleckprüfung eines Musterbauteils sowie den üblichen Satz an Exportdokumenten bereitstellen. Die Konformität mit einer bestimmten Norm, etwa AWWA oder NFPA, wird vor der Bestellung je Modell mit Prüfberichten und Zertifikaten bestätigt.'
+	},
+	{
+		question: 'Was soll ich tun, wenn ich eine gefälschte Einheit in einer erhaltenen Lieferung entdecke?',
+		answer: 'Nehmen Sie die betroffene Ausrüstung nicht in Betrieb, fotografieren Sie das Bauteil mit Typenschild und Seriennummer und bewahren Sie alle Prüfprotokolle und Dokumente auf. Stellen Sie beim Lieferanten einen formellen Anspruch wegen Nichtkonformität, fordern Sie Rückverfolgbarkeitsunterlagen an und ziehen Sie Ihren Drittprüfer oder die Vergabestelle hinzu. Bei kritischen Systemen ist der betroffene Abschnitt zu isolieren, bis geprüfte Ersatzteile vorliegen.'
+	}
+];
+
+const productRows = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Weichdichtender Absperrschieber, geflanscht (Z41X)', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'Voll durchgängiger weichdichtender Absperrschieber für Feuerlöschleitungen und Wasserhauptleitungen' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Überflurhydrant (SS100)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Frostsicherer Überflurhydrant für kommunale Löschwassernetze' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Feuerwehrschlauch mit Gummierung (Modell 8-65)', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Flachrollschlauch mit Polyestergewebe und vulkanisierter Gummiseele' }
+];
+
+const referencePages = [
+	{ slug: 'how-to-verify-chinese-valve-supplier', name: 'Leitfaden zur Prüfung chinesischer Ventillieferanten' },
+	{ slug: 'b2b-valve-sourcing-checklist', name: 'B2B-Prüfliste für die Ventilbeschaffung' },
+	{ slug: 'how-to-choose-ul-listed-fire-valves', name: 'UL-gelistete Brandschutzventile auswählen' },
+	{ slug: 'latinamerica-certification-requirements-fire-valves', name: 'Zertifizierungsanforderungen für Brandschutzventile' }
+];
+---
+
+<Layout
+	title="Gefälschte Ventile erkennen: Leitfaden für Brandschutz (2026)"
+	description="B2B-Leitfaden für gefälschte Ventile, Zertifikate und Brandschutzausrüstung aus China: Prüfliste, Warnsignale und Lieferantenprüfung vor der Bestellung."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Fälschungen erkennen' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Fälschungen erkennen</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden zum Beschaffungsrisiko</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Gefälschte Ventile und Zertifikate für Brandschutzausrüstung erkennen (Einkaufsleitfaden 2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Käufer von Brandschutzventilen, Hydranten und Schläuchen aus China stoßen regelmäßig auf gefälschte Gussteile, kopierte Typenschilder und verfälschte Zertifikate. Eine Fälschung ist auf Fotos oder in der Preisliste nicht erkennbar – sie zeigt sich bei der physischen Prüfung, in stückbezogenen Prüfprotokollen und anhand unabhängig prüfbarer Dokumente. Dieser Leitfaden liefert konkrete Signale, eine Prüfliste in einzelnen Schritten und einen Prüfablauf vor der Bestellung, den Sie jeder Bestellung beifügen können.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Warum dieser Leitfaden erforderlich ist:</strong> Gefälschte Brandschutzausrüstung ist kein hypothetisches Risiko – kopierte Seriennummern, nachgemachte Typenschilder und gefälschte Zertifizierungs-PDFs gehören zum üblichen Vorgehen nichtkonformer Lieferanten in sicherheitskritischen Kategorien. Diese Seite macht daraus einen dokumentierten Prüfprozess, den Sie vor der Zahlung auf jeden chinesischen Lieferanten, einschließlich Wanlian Fluid, anwenden können.</p>
+			</div>
+
+			<!-- Produktübersicht -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="why-counterfeits-concentrate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Warum sich Fälschungen auf diese Kategorie konzentrieren</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Drei Eigenschaften der Feuerlösch- und Wasserinfrastruktur machen sie zu einem bevorzugten Ziel für Fälschungen:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Brandschutzausrüstung ist sicherheitskritisch.</strong> Ein konformes Ventil oder ein konformer Hydrant muss genau dann eine Druckbelastung mit vollem Durchgang überstehen, wenn keine Zeit für einen Austausch bleibt. Genau das können nichtkonforme Gussteile nicht leisten.</li>
+				<li><strong>Die Beschaffung erfolgt in großen Mengen und nach Spezifikation.</strong> Kommunale Ausschreibungen und Bauprojekte kaufen große Mengen zu wettbewerbsfähigen Preisen; die Unterlagen – Zertifikate und Prüfprotokolle – werden mit der Bestellung weitergegeben. Gefälschte Unterlagen ermöglichen es einem nichtkonformen Produkt, in ein legitimes Angebot zu gelangen.</li>
+				<li><strong>Die Ausrüstung „versagt“ erst im Notfall.</strong> Ein dünnwandiger Hydrantenkörper oder ein unzureichend geprüftes Absperrventil kann jahrelang im Lager einwandfrei aussehen. Der Mangel tritt unter Druck und bei Nacht zutage, wenn Menschenleben und Sachwerte auf dem Spiel stehen.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Der eigentliche Antrieb ist die Preisdifferenz. Konforme Sphäroguss-Gussteile, Harz- oder Gummiummantelung, stückbezogene Druckprüfungen und Exportdokumente haben jeweils reale Kostenuntergrenzen. Ein gefälschtes Zertifikat ermöglicht es einem nichtkonformen Produkt, darunter angeboten zu werden; der Käufer erkennt beim bloßen Angebotsvergleich den Unterschied nicht.</p>
+			<p class="text-gray-700 leading-relaxed">Nachdem Ihnen einmal ein gefälschtes Zertifikat vorgelegt wurde, können Sie keinen Lieferanten mehr allein anhand von Dokumenten beurteilen. Die praktische Antwort lautet: Bauteil, stückbezogene Prüfprotokolle und unabhängig prüfbare Dokumentation kontrollieren. Die folgenden Abschnitte legen genau fest, worauf Sie achten müssen.</p>
+
+			<h2 id="common-forms-of-fakes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Die häufigsten Formen von Fälschungen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Gefälschte Brandschutzausrüstung dieser Kategorie tritt in wenigen wiederkehrenden Formen auf. Wenn Sie diese sechs kennen, erkennen Sie den Großteil des Risikos:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Kopierte Seriennummern.</strong> Dieselbe Nummer auf mehreren Einheiten, Nummern mit einem erkennbaren Muster oder von veröffentlichten Katalogbildern kopierte Nummern. Ein echter Hersteller vergibt eindeutige Seriennummern, die mit Gussaufzeichnungen und Packliste übereinstimmen.</li>
+				<li><strong>Nachgemachte Typenschilder.</strong> Ein Typenschild mit einer Marke, bei der Sie tatsächlich nicht einkaufen, einem nicht mehr bestehenden Markennamen oder Angaben zu Norm, Größe und Druckstufe, die nicht zur Bestellung passen. Bei konformen Produkten sind Kennzeichnungen dauerhaft; ein aufgesetzt wirkendes oder widersprüchliches Typenschild ist ein negatives Prüfergebnis.</li>
+				<li><strong>Nichtkonformer Werkstoff und dünnwandige Gussteile.</strong> Falsche Legierung, recycelter Schrott oder Wandungen unter den Maßtoleranzen der Norm. Solche Körper bestehen die Sichtprüfung und versagen bei der Gehäusedruckprüfung – oder schlimmer: Sie bestehen die Prüfung im Werk und versagen im Betrieb.</li>
+				<li><strong>Fehlende oder allgemeine Prüfprotokolle.</strong> Gar keine stückbezogenen Aufzeichnungen oder ein einziges „Chargenprotokoll“ für Hunderte Einheiten ohne Seriennummern, Daten oder Messwerte.</li>
+				<li><strong>Gefälschte Zertifizierungs-PDFs.</strong> UL-, FM- oder AWWA-Dokumente, die in einem Textprogramm erstellt wurden: falsche Schrift, allgemeiner Firmenname, Daten vor Einführung der Produktlinie oder Zertifikatsnummern, die bei der ausstellenden Stelle nicht existieren.</li>
+				<li><strong>Ersatz durch minderwertige Feuerwehrschläuche.</strong> Ein echter Angriffsschlauch kombiniert ein hochfestes Polyestergewebe mit einer blasenfreien vulkanisierten Gummiseele. Fälschungen sparen bei Seele oder Gewebe, sodass der Schlauch im Lager richtig aussieht, unter Betriebsdruck jedoch undicht wird oder sich ablöst.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Keine dieser Formen ist auf einem Katalogfoto sichtbar. Alle zeigen sich in Prüfprotokollen, Werkstoffzeugnissen und einem kurzen Video des Bauteils auf dem Prüfstand – deshalb fordert die folgende Prüfliste genau diese Nachweise.</p>
+
+			<h2 id="detection-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Prüfliste zur Erkennung in sieben Schritten</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Führen Sie diese sieben Schritte bei jedem in die engere Wahl kommenden Lieferanten durch. Die Schritte 1–2 betreffen das Unternehmen, die Schritte 3–7 die einzelne Einheit. Ein Lieferant, der sich gegen einen dieser Punkte wehrt, hat die Frage bereits beantwortet.</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Prüfen Sie zuerst das Unternehmen.</strong> Rechtlicher Name auf der Gewerbeerlaubnis, übereinstimmendes Bankkonto und Rechnungseinheit. Auf Wunsch sollte ein Videorundgang durch Produktion, Prüf- und Verpackungsbereiche möglich sein. Kann das „Werk“ nicht gezeigt werden, handelt es sich um einen Handelsschalter – möglicherweise mit gebrauchten Gussteilen und neuen Typenschildern.</li>
+				<li><strong>Fordern Sie stückbezogene Prüfprotokolle.</strong> Jedes bestellte Ventil und jeder Hydrant muss ein Ergebnis der Gehäusedruckprüfung und der Luftleckprüfung unter seiner eigenen Seriennummer aufweisen. Bitten Sie vor der Zahlung um die Protokolle eines Musterbauteils – ein echter Hersteller führt sie, ein Fälscher kann sie nicht vorlegen.</li>
+				<li><strong>Prüfen Sie Zertifikate im offiziellen Portal der ausstellenden Stelle.</strong> Bei UL-Listung oder FM-Zulassung prüfen Sie die Nummer im offiziellen Portal der ausstellenden Stelle, etwa im UL-Produktverzeichnis oder in der FM-Global-Zulassungssuche, und bestätigen Sie, dass gelistetes Modell und Werk zu Ihrem Lieferanten passen. Bei AWWA prüfen Sie Zertifikats- oder Registrierungsnummer bei AWWA. Wird die Nummer nicht gefunden, ist das PDF gefälscht, unabhängig davon, wie sauber es aussieht.</li>
+				<li><strong>Bestellen Sie zuerst ein Muster.</strong> Eine Einheit jedes Modells mit Seriennummer, Typenschildfoto und vollständiger Dokumentation. Führen Sie die gesamte Prüfung am Muster durch – Kennzeichnungen, Werkstoffzeugnis, Prüfvideo und Protokolle –, bevor Sie sich auf eine Serienbestellung festlegen. Das ist der günstigste verfügbare Schutz gegen Fälschungen.</li>
+				<li><strong>Fordern Sie Werkstoffzeugnisse an.</strong> Die Gussgüte im Werksprüfzeugnis muss der Güte in Ihrer Zeichnung entsprechen. Ein Lieferant, der kein Zeugnis für den exakt spezifizierten Werkstoff vorlegen kann, fertigt nicht das von Ihnen bestellte Produkt.</li>
+				<li><strong>Sehen Sie sich das Maß- und Druckprüfvideo an.</strong> Fordern Sie ein kurzes Video des konkreten Musterbauteils auf dem Druckprüfstand an, wobei die Seriennummer sichtbar ist. Ein echter Hersteller zeichnet diese Routineprüfung auf; ein Lieferant, der kein Video liefern kann, prüft die von Ihnen gekauften Einheiten nicht mit Druck.</li>
+				<li><strong>Führen Sie ein Werkaudit oder eine Drittinspektion durch.</strong> Besuchen Sie das Werk, wenn Ihr Volumen dies rechtfertigt; andernfalls beauftragen Sie eine unabhängige Stelle (SGS, Bureau Veritas, Intertek oder ein renommiertes lokales Unternehmen), um Prüfungen zu bezeugen, Gussteile zu kontrollieren und Unterlagen vor dem Versand zu prüfen.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed mb-4">Wenden Sie die Prüfliste auf die konkreten Produkte Ihrer Vorauswahl an – etwa unseren <a href="/de/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM-weichdichtenden OS&amp;Y-Absperrschieber</a>, den <a href="/de/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">Überflurhydranten SS100</a>, den <a href="/de/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">weichdichtenden Flansch-Absperrschieber Z41X</a> oder den <a href="/de/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">flachrollbaren Feuerwehrschlauch 8-65 mit Gummiseele</a> – mit modellbezogenen Prüfprotokollen statt allgemeiner Qualitätserklärungen.</p>
+			<p class="text-gray-700 leading-relaxed">Für den umfassenderen Rahmen zur Lieferantenqualifizierung (Rechtsträger, Exporterfahrung, Referenzen) lesen Sie unseren <a href="/de/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur Prüfung chinesischer Ventillieferanten</a>. Die vollständige Dokumentations- und Inspektionsliste für Ihre Bestellung finden Sie in der <a href="/de/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B-Prüfliste für die Ventilbeschaffung</a>.</p>
+
+			<h2 id="red-flags-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Echt oder gefälscht: Tabelle der Warnsignale</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Dieselbe Prüfanforderung führt bei einem seriösen Hersteller und einem Fälscher zu sehr unterschiedlichen Antworten. Die folgende Tabelle ist das schnellste Triagewerkzeug dieses Leitfadens:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Signal</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Was ein seriöser Lieferant bereitstellt</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Was eine Fälschung zeigt</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Unternehmensdokumente</td>
+							<td class="px-4 py-3 text-gray-700">Gewerbeerlaubnis, Rechnungseinheit und Bankkonto stimmen überein; Videorundgang auf Anfrage</td>
+							<td class="px-4 py-3 text-gray-700">Abweichende Namen, Privatkonten, Weigerung, die Produktion zu zeigen</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Stückbezogene Prüfprotokolle</td>
+							<td class="px-4 py-3 text-gray-700">Seriennummerierte Ergebnisse der Gehäusedruck- und Luftleckprüfung mit Datum und Bediener</td>
+							<td class="px-4 py-3 text-gray-700">Nur ein „Chargenprotokoll“, keine Seriennummern oder Daten bzw. keine Übereinstimmung mit der Packliste</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">UL-/FM-/AWWA-Zertifikate</td>
+							<td class="px-4 py-3 text-gray-700">Zertifikat lässt sich im offiziellen Portal für das exakte Modell und Werk finden</td>
+							<td class="px-4 py-3 text-gray-700">Nicht auffindbares PDF, falscher Firmenname, Daten vor dem Produkt, allgemeines Logo</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Werkstoffnachweis</td>
+							<td class="px-4 py-3 text-gray-700">Werksprüfzeugnis passend zur Gussgüte in der Zeichnung</td>
+							<td class="px-4 py-3 text-gray-700">Kein Zeugnis oder Zeugnis für eine andere Güte oder ein anderes Werk</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Druckprüfvideo</td>
+							<td class="px-4 py-3 text-gray-700">Seriennummerierte Einheit auf dem Prüfstand, auf Anfrage aufgezeichnet und geteilt</td>
+							<td class="px-4 py-3 text-gray-700">Archiv- oder Endlosschleifenaufnahme, keine sichtbare Seriennummer, „Der Prüfstand ist heute belegt“</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typenschild und Kennzeichnung</td>
+							<td class="px-4 py-3 text-gray-700">Normnummer, Größe, Druckstufe, Herstelleridentität und eindeutige Seriennummer – dauerhaft und konsistent</td>
+							<td class="px-4 py-3 text-gray-700">Kopierter Markenname, wiederholte Seriennummern, Angaben passen nicht zur Bestellung</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Musterbestellung</td>
+							<td class="px-4 py-3 text-gray-700">Routinemäßig akzeptiert, mit vollständiger Dokumentation der Muster-Einheit</td>
+							<td class="px-4 py-3 text-gray-700">Widerstand, Zusatzkosten oder ein Muster, das von der Serienware abweicht</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Preisniveau</td>
+							<td class="px-4 py-3 text-gray-700">Auf oder über der Kostenuntergrenze für konformen Werkstoff und 100-%-Prüfung</td>
+							<td class="px-4 py-3 text-gray-700">Für dieselbe Norm weit unter dem Marktpreis – bezahlt durch Wandstärke und ausgelassene Prüfungen</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Zwei oder mehr „gefälschte“ Antworten eines Lieferanten sollten die Bewertung beenden. Eine „echte“ Lücke, die der Lieferant innerhalb eines Tages schließt, etwa durch Nachreichen eines fehlenden Zeugnisses, ist normal; eine Lücke, die Ausreden hervorbringt, ist ein Urteil.</p>
+
+			<h2 id="how-wanlian-operates" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. So arbeitet Wanlian Fluid: Prozessnachweise</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Wenn Wanlian Fluid auf Ihrer Auswahlliste steht, sollten Sie folgende Prozessnachweise von uns erwarten – als Beschreibung unserer Arbeit, nicht als Zertifizierungsbehauptungen:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Qualitätsmanagementsystem nach ISO 9001.</strong> Unsere Produktion in Quanzhou, Fujian, arbeitet nach einem ISO-9001-System. Fordern Sie die Zertifikatsnummer an und prüfen Sie sie bei der ausstellenden Stelle, wie bei jedem Lieferanten.</li>
+				<li><strong>Ventilkörper aus eigener CNC-Bearbeitung.</strong> Ventilkörper werden in unserem eigenen Werk in Quanzhou CNC-bearbeitet; ausgewählte Artikel werden von qualifizierten Fertigungspartnern hergestellt, und der Produktionsstandort wird in der Bestellung dokumentiert.</li>
+				<li><strong>100-%-Gehäusedruck- und Luftleckprüfung.</strong> Jede Einheit – jedes Ventil, jeder Hydrant und jeder Schlauch – wird vor dem Versand einer Gehäusedruck- und Luftleckprüfung unterzogen. Wir können ein seriennummeriertes Prüfvideo eines Musterbauteils senden; die stückbezogenen Protokolle werden mit der Lieferung bereitgestellt.</li>
+				<li><strong>Aufbau der Feuerwehrschläuche.</strong> Unser Feuerwehrschlauch kombiniert ein hochfestes Polyestergewebe mit einer vulkanisierten Gummiseele und ist für eine blasenfreie Dichtheit ausgelegt – genau der Aufbau, den der Abschnitt zu Fälschungen oben nachzuahmen versucht.</li>
+				<li><strong>Normkonformität je Modell bestätigt.</strong> Die Konformität mit einer bestimmten Norm (AWWA, NFPA, UL-Listung, FM-Zulassung, NOM oder andere) wird vor der Bestellung je Modell durch Prüfberichte und Zertifikate bestätigt. Wir verlangen nicht, dass Sie ein werksweit geltendes Zertifikat voraussetzen.</li>
+				<li><strong>Exportdokumentation.</strong> Handelsrechnung, Packliste, Konnossement, Ursprungszeugnis und chargenbezogene Prüfberichte begleiten die Lieferungen. OEM/ODM, kundenspezifische Kennzeichnung und Exportverpackung werden mit der Bestellung abgestimmt; Angebote beantworten wir innerhalb von 12 Stunden.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Diese Liste ist zugleich Ihre Prüfung: Senden Sie uns die Sieben-Schritte-Prüfliste und beobachten Sie, wie schnell jeder Nachweis eintrifft. Wenn Sie uns bei der Qualifizierung mit westlichen Herstellern vergleichen, lesen Sie <a href="/de/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">wie Sie UL-gelistete Brandschutzventile auswählen</a> und die <a href="/de/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">Zertifizierungsanforderungen für Brandschutzventile in lateinamerikanischen Projekten</a>.</p>
+
+			<h2 id="pre-order-workflow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Prüfablauf vor der Bestellung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Der oben beschriebene Erkennungsprozess wird zu einem Ablauf, sobald Sie ihn an die Bestellung anfügen. Fünf Stufen in dieser Reihenfolge:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Norm schriftlich festlegen.</strong> Die für Ihr Projekt erforderliche Norm, etwa AWWA C502 für Trockenhydranten, AWWA C515 für weichdichtende Absperrschieber oder NFPA 1961 für Feuerwehrschläuche, sowie die vollständige Dokumentationsliste – stückbezogene Prüfprotokolle, Werkstoffzeugnis und Exportdokumente. Nehmen Sie beides in die Bestellung auf, damit die Konformität vertraglich festgelegt und nicht nur erbeten ist.</li>
+				<li><strong>Lieferanten in der Unternehmensprüfung vorauswählen.</strong> Rechtsträger, Geltungsbereich der ISO 9001 und Produktzertifikate müssen im Portal der ausstellenden Stelle auffindbar sein. Streichen Sie jeden Lieferanten, der hier einen Prüfschritt nicht besteht.</li>
+				<li><strong>Musterbestellung.</strong> Eine Einheit je Modell. Führen Sie die vollständige Prüfung am Muster durch: Typenschild, Seriennummer, Werkstoffzeugnis, Druckprüfvideo und stückbezogene Protokolle.</li>
+				<li><strong>Drittinspektion.</strong> Beauftragen Sie eine unabhängige Stelle, um Prüfungen zu bezeugen und die Unterlagen vor dem Versand der Produktionsserie im Werk zu prüfen. Nehmen Sie die Inspektionsklausel in die Bestellung auf.</li>
+				<li><strong>Dokumentenpaket und Freigabe.</strong> Vor der Schlusszahlung: vollständige Exportdokumente, stückbezogene Prüfprotokolle zu den Seriennummern auf der Packliste und das Prüfvideo eines Musterbauteils aus der Produktionscharge. Erst danach geben Sie die Bestellung frei.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Dieser Ablauf gilt für jeden Lieferanten, einschließlich Wanlian Fluid. Zu Beginn der Bewertung durchgeführt, dauert er Tage statt Monate und ist der wirksamste Filter gegen Fälschungen bei der Beschaffung von Brandschutzausrüstung.</p>
+
+			<!-- FAQ-Bereich -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Quellen -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Quellen</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>UL – Produktverzeichnis und Prüfung der Listung: <a href="https://www.ul.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ul.com</a></li>
+				<li>FM Global – Prüfung von Zulassungen: <a href="https://www.fmglobal.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">fmglobal.com</a></li>
+				<li>AWWA – Hydranten- und Ventilnormen, z. B. AWWA C502 und C515: <a href="https://www.awwa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">awwa.org</a></li>
+				<li>NFPA – Normen für Brandschutz und Feuerwehrschläuche, z. B. NFPA 1961: <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+				<li>ISO – Normen für Qualitätsmanagement und Ventile, ISO 9001 und ISO 5208: <a href="https://www.iso.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">iso.org</a></li>
+				<li>Wanlian Fluid – Unternehmensprofil und Prüfrichtlinie: <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">Die Prüfanforderungen variieren je nach Zielmarkt und Projektspezifikation. Bestätigen Sie vor der Bestellung stets die geltende Norm und das Prüfregime mit Ihrer Vergabestelle. Informationen auf dem Stand von September 2026.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Brandschutzausrüstung eines chinesischen Lieferanten prüfen?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie uns Ihre Spezifikation und den Zielmarkt – wir antworten innerhalb von 12 Stunden mit einem aufgeschlüsselten Angebot.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Gef%C3%A4lschte%20Ventile%20und%20Brandschutzausr%C3%BCstung%20pr%C3%BCfen" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href="https://wa.me/8618684324501?text=Hallo%2C%20ich%20m%C3%B6chte%20Brandschutzventile%20und%20Hydranten%20vor%20der%20Bestellung%20pr%C3%BCfen%20%E2%80%94%20bitte%20senden%20Sie%20Zertifikate%2C%20st%C3%BCckbezogene%20Pr%C3%BCfprotokolle%20und%20ein%20Druckpr%C3%BCfvideo" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

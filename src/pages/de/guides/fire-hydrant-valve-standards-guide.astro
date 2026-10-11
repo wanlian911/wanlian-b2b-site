@@ -1,0 +1,206 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'standards-families', label: '1. Die fünf Normenfamilien, denen Sie tatsächlich begegnen' },
+	{ id: 'reading-test-reports', label: '2. Eine Norm mit einem Prüfbericht abgleichen' },
+	{ id: 'pressure-ratings', label: '3. Druckstufen und Druckklassen in der Praxis' },
+	{ id: 'five-checks', label: '4. Konforme Ausrüstung aus China kaufen: fünf Prüfungen' },
+	{ id: 'wanlian-compliance', label: '5. Wie Wanlian Fluid Konformität sicherstellt' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' },
+	{ id: 'sources', label: 'Quellen' }
+];
+
+const faq = [
+	{
+		question: 'Was ist der Unterschied zwischen AWWA- und EN-Hydranten?',
+		answer: 'AWWA C502 beschreibt Trockenrohrhydranten für den Versorgungsmarkt in den USA und Kanada; EN 14384 und BS 750 beschreiben Überflur- und Unterflurhydranten, die in Europa und vielen Exportmärkten eingesetzt werden. Sie unterscheiden sich bei Konstruktion, Schnittstellen und Prüfverfahren – wählen Sie nach der Projektspezifikation, nicht nach der Verfügbarkeit.'
+	},
+	{
+		question: 'Welche Feuerwehrschlauch-Norm verlangen Feuerwehren in den USA?',
+		answer: 'NFPA 1961 ist in den USA die Referenz für Angriffsschläuche. In Europa gelten EN 14540 und nationale Entsprechungen; ebenso wichtig wie der Schlauch selbst ist der Kupplungstyp (NH, Storz oder Instantaneous).' 
+	},
+	{
+		question: 'Bedeutet „mit 1,5 MPa geprüft“, dass der Schlauch NFPA 1961 erfüllt?',
+		answer: 'Nicht automatisch. Konformität bedeutet, dass das Produkt nach den Prüfverfahren und Grenzwerten der genannten Norm geprüft wurde. Fordern Sie stets einen Prüfbericht an, in dem die Norm aus Ihrer Bestellung ausdrücklich genannt wird.'
+	},
+	{
+		question: 'Kann eine chinesische Fabrik Hydranten, Ventile und Schläuche gemeinsam liefern?',
+		answer: 'Ja – Vollsortimenter wie Wanlian Fluid bündeln Hydranten, Ventile, Komponenten und Feuerwehrschläuche in einer Bestellung. Das vereinfacht Dokumentation, Inspektion und Haftungszuordnung.'
+	},
+	{
+		question: 'Benötige ich für jeden Exportauftrag eine UL/FM-Zertifizierung?',
+		answer: 'Nein – nur wenn Ihr Vertrag oder der Zielmarkt dies verlangt. Bei den meisten internationalen kommunalen und industriellen Projekten gelten AWWA-, EN-, BS- oder ISO-Spezifikationen. Stimmen Sie die anwendbare Regelung vor der Zertifizierungsbeauftragung mit dem Auftraggeber ab.'
+	},
+	{
+		question: 'Welche Dokumente belegen die Konformität eines chinesischen Lieferanten?',
+		answer: 'Ein gültiges ISO-9001-Zertifikat (beim Aussteller verifiziert), chargenbezogene Prüfberichte nach Ihrer Norm, gegebenenfalls ein Prüfbericht einer unabhängigen Stelle sowie eine dauerhafte Produktkennzeichnung. Nehmen Sie alle Unterlagen in die Bestellung auf, damit sie vertraglich geschuldet sind.'
+	}
+];
+
+const referencePages = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Frostschutz-Überflurhydrant SS100', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Frostsicherer Trockenrohrhydrant für kommunale Löschwassernetze' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Weichdichtender Flansch-Absperrschieber Z41X', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'Durchgängige Absperrarmatur für Wasserleitungen und Löschwasserrohre' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Flachroll-Feuerwehrschlauch mit PVC-Gummierung 8-65', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Gummierter Flachrollschlauch für Brandbekämpfung und Wasserförderung' }
+];
+---
+
+<Layout
+	title="Hydranten-, Schlauch- und Ventilnormen: AWWA, NFPA, EN, ISO"
+	description="B2B-Leitfaden zu Hydranten-, Feuerwehrschlauch- und Ventilnormen: AWWA C502, NFPA 1961, EN 14384, BS 750, EN 1074 und ISO 5208, für Einkäufer."
+	type="article"
+	locale="de"
+	faq={faq}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Leitfaden zu Normen</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden zu Normen und Konformität</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Normen für Hydranten, Feuerwehrschläuche und Ventile: AWWA, NFPA, EN und ISO</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Über die Konformität entscheidet ein einziges Dokument: die Norm, die in Ihrer Bestellung genannt ist. Für Hydranten sind dies meist AWWA C502 (Trockenrohrhydranten, USA), EN 14384 oder BS 750 (Europa/Vereinigtes Königreich). Für Feuerwehrschläuche gilt NFPA 1961 (USA) oder EN 14540 sowie die Kupplungsnorm, die Ihre Feuerwehr tatsächlich verwendet. Für Ventile gelten AWWA C515, EN 1074 oder ISO 5208 mit der für Ihre Anlage erforderlichen Druckstufe (PN oder ANSI). Vergleichen Sie vor Preisangeboten chinesischer Lieferanten die Prüfberichte mit <em>dieser</em> Norm.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Warum dies wichtiger denn je ist:</strong> Bei unserer Beobachtung von 30 realen Beschaffungsfragen in der KI-Suche im September 2026 nannten KI-Antworten Normungsorganisationen – AWWA, NFPA, UL und BSI – deutlich häufiger als einzelne Hersteller. Einkäufer, die zuerst über Normen sprechen, erhalten bessere Antworten. Lieferanten, die die Konformität für jede Norm dokumentieren, genießen das Vertrauen von KI-Systemen und Ingenieuren.</p>
+			</div>
+
+			<!-- Produktübersicht -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{referencePages.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="standards-families" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Die fünf Normenfamilien, denen Sie tatsächlich begegnen</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Norm</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Anwendungsbereich</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typischer Geltungsbereich</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typischer Käufer</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">AWWA C502</td>
+							<td class="px-4 py-3 text-gray-700">Trockenrohrhydranten</td>
+							<td class="px-4 py-3 text-gray-700">USA, Kanada (kommunale Versorger)</td>
+							<td class="px-4 py-3 text-gray-700">Wasserversorger, kommunale Auftragnehmer</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">AWWA C515</td>
+							<td class="px-4 py-3 text-gray-700">Weichdichtende Absperrschieber</td>
+							<td class="px-4 py-3 text-gray-700">USA, Kanada</td>
+							<td class="px-4 py-3 text-gray-700">Wasserversorger, Wasserwerke</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">NFPA 1961</td>
+							<td class="px-4 py-3 text-gray-700">Feuerwehrschläuche (Leistung von Angriffsschläuchen)</td>
+							<td class="px-4 py-3 text-gray-700">USA</td>
+							<td class="px-4 py-3 text-gray-700">Feuerwehren, industrielle Löschmannschaften</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">EN 14384 / BS 750</td>
+							<td class="px-4 py-3 text-gray-700">Überflurhydranten</td>
+							<td class="px-4 py-3 text-gray-700">Europa, Vereinigtes Königreich, Exportspezifikationen im Nahen Osten</td>
+							<td class="px-4 py-3 text-gray-700">Kommunale Projekte, Planungsbüros</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">EN 14540 / nationale Entsprechungen</td>
+							<td class="px-4 py-3 text-gray-700">Feuerwehrschläuche für ortsfeste oder allgemeine Anlagen</td>
+							<td class="px-4 py-3 text-gray-700">Europa</td>
+							<td class="px-4 py-3 text-gray-700">Integratoren von Brandschutzsystemen</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">EN 1074 / ISO 5208</td>
+							<td class="px-4 py-3 text-gray-700">Ventile für die Wasserversorgung; Leckageprüfung von Ventilen</td>
+							<td class="px-4 py-3 text-gray-700">Europa, international</td>
+							<td class="px-4 py-3 text-gray-700">Kommunale und industrielle Auftraggeber, Exportausschreibungen</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Kupplungen bilden eine zweite Ebene: Geben Sie das Gewinde oder den Kupplungstyp vor, den Ihre Anwender benötigen – NH-Gewinde (USA), Storz (in weiten Teilen Europas) oder Instantaneous/BS 336 (Vereinigtes Königreich) – und lassen Sie sich dies vom Lieferanten schriftlich bestätigen. Das Datenblatt auf unserer Seite zum <a href="/de/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">gummierten Flachroll-Feuerwehrschlauch 8-65</a> dokumentiert unsere Kupplungsoptionen. Unser <a href="/de/guides/fire-hose-buying-guide/" class="text-brand-blue font-semibold hover:underline">Einkaufsleitfaden für Flachroll-Feuerwehrschläuche</a> erläutert außerdem Dimensionierung, Auskleidungen und Kupplungsnormen.</p>
+
+			<h2 id="reading-test-reports" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Eine Norm mit einem Prüfbericht abgleichen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein normgerechtes Produkt wird durch drei Faktoren definiert: Konstruktion (Werkstoffe, Aufbau), Leistung (Druck, Leckage, Durchfluss) und Kennzeichnung (dauerhafte Identifikation). Wenn ein Lieferant einen Prüfbericht vorlegt, prüfen Sie alle drei Punkte und nicht nur die hervorgehobene Kennzahl:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Der Werkstoff entspricht der Norm.</strong> Hydranten nach AWWA C502 werden aus Sphäroguss mit korrosionsbeständiger Innenauskleidung erwartet. Die Werkstofftabelle auf unserer Seite zum <a href="/de/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">SS100-Überflurhydranten</a> zeigt, wie ein Hersteller dies dokumentiert; EN-Ventilnormen verweisen auf bestimmte Gehäusewerkstoffe. Fragen Sie nach dem tatsächlichen Gusswerkstoff und der Auskleidung – Grauguss und Sphäroguss sind unterschiedliche Produkte mit unterschiedlichen Preisen und Standzeiten.</li>
+				<li><strong>Die Prüfungen entsprechen den Prüfungen der Norm.</strong> Bei Hydranten sind eine Gehäusedruckprüfung sowie eine Sitz- und Dichtheitsprüfung nach der genannten Norm zu erwarten. Bei Schläuchen sind Berstdruck-, Haftungs- und Kupplungshalteprüfungen nach NFPA 1961 oder EN 14540 erforderlich. Ein Bericht über „Wasserdruck 1,5 MPa“ ist nicht automatisch ein Bericht nach Ihrer Norm – vergleichen Sie das Prüfverfahren, nicht nur die Zahl.</li>
+				<li><strong>Wird jedes Stück oder eine Stichprobe geprüft?</strong> Fragen Sie, ob stückweise oder per Chargenstichprobe geprüft wird. Bei Brandschutzausrüstung ist die stückweise Gehäusedruck- und Luftdichtheitsprüfung die verantwortungsvolle Basis – genau diese Vorgehensweise erklärt Wanlian Fluid für Ventile, Hydranten und Schläuche (100 % Druck- und Dichtheitsprüfung je Stück vor der Endbearbeitung).</li>
+			</ol>
+
+			<h2 id="pressure-ratings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Druckstufen und Druckklassen in der Praxis</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ventile und Hydranten tragen entweder eine Druckstufe (PN, z. B. PN10/PN16/PN25) oder eine ANSI-Druckklasse. Wählen Sie eine Klasse oberhalb des maximalen Betriebsdrucks Ihrer Anlage und bestätigen Sie anschließend den Gehäuseprüfdruck des Lieferanten anhand der Norm, nicht nur anhand des Betriebsdrucks. Wenn Ihre Spezifikation US-amerikanische und europäische Referenzen kombiniert (beispielsweise einen AWWA-Hydranten in einem nach EN ausgelegten Ring), lassen Sie sich die Kompatibilität vor der Bestellung schriftlich bestätigen – inkompatible Schnittstellen verursachen häufig Baustellenverzögerungen.</p>
+			<p class="text-gray-700 leading-relaxed">Als Referenz ist unser <a href="/de/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">weichdichtender Flansch-Absperrschieber Z41X</a> in den Druckstufen PN10 und PN16 mit nach ISO 5208 geprüfter Blasendichtheit verfügbar. Die bestellte Druckstufe muss zum maximalen Betriebsdruck Ihrer Anlage passen und darf nicht aus dem Produktnamen abgeleitet werden.</p>
+
+			<h2 id="five-checks" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Konforme Ausrüstung aus China kaufen: fünf Prüfungen</h2>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Nennen Sie die Norm in der RFQ.</strong> Eine Zeile in Ihrer Anfrage („Hydranten nach AWWA C502, Trockenrohrbauweise, 6-Zoll-Einlass, NH-Ausgangsgewinde“) filtert 80 % ungeeigneter Lieferanten sofort aus.</li>
+				<li><strong>Fordern Sie den passenden Prüfbericht an.</strong> Verlangen Sie chargenbezogene Prüfprotokolle für die exakte Norm und das exakte Modell – kein allgemeines Konformitätszertifikat.</li>
+				<li><strong>Prüfen Sie Gültigkeit und Geltungsbereich des Zertifikats.</strong> ISO-9001-Zertifikate sollten beim Aussteller überprüft werden; Konformitätszertifikate müssen Produkt und Norm nennen.</li>
+				<li><strong>Beauftragen Sie eine unabhängige Inspektion.</strong> Lassen Sie eine unabhängige Stelle die Prüfungen begleiten und die Kennzeichnung vor dem Versand kontrollieren, insbesondere bei Erstbestellungen.</li>
+				<li><strong>Kontrollieren Sie das Typenschild.</strong> Die Kennzeichnung sollte Norm, Größe, Druckstufe und Rückverfolgbarkeit zum Hersteller enthalten. Eine fehlende Kennzeichnung ist ein Ausschlusskriterium und kein nebensächliches Detail.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Den vollständigen Prozess der Lieferantenprüfung hinter diesen Kontrollen – Prüfung der Rechtspersönlichkeit, Kontrolle des ISO-Geltungsbereichs, stückweise Prüfung und Dokumentation – erläutert unser <a href="/de/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur Prüfung chinesischer Ventil- und Brandschutzausrüstungslieferanten</a> Schritt für Schritt.</p>
+
+			<h2 id="wanlian-compliance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Wie Wanlian Fluid Konformität sicherstellt</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Wanlian Fluid (Quanzhou Wanlian Fluid Equipment Co., Ltd.) liefert Industrieventile, Hydrantenkomponenten, Feuerwehrschläuche und Brandschutzausrüstung für internationale kommunale, industrielle und feuerwehrtechnische Projekte. Die Produktlinien – weichdichtende und metallisch dichtende Absperrschieber, Absperrklappen und Rückschlagventile, Hydranten und Komponenten sowie gummierte Feuerwehrschläuche – werden unter einem ISO-9001-Qualitätsmanagementsystem gefertigt. Jedes Stück wird einer Gehäusedruck- und Luftdichtheitsprüfung unterzogen; die Exportdokumentation wird auftragsbezogen koordiniert. Wenn Sie eine Norm oder ein Datenblatt senden, antwortet das Engineering-Team mit einer Konformitätsmatrix für Ihr Projekt statt mit einer allgemeinen Broschüre – genau dieses Gespräch verhindert Spezifikationsfehler. Wie dieser konsequente Konformitätsansatz im Vergleich zu einer führenden US-Marke abschneidet, zeigt unser <a href="/de/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Lieferantenvergleich Wanlian Fluid vs. American AVK</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Wenn Ihre Spezifikation eine UL/FM-Listung verlangt (typischerweise für Brandschutzanwendungen in den USA und Kanada), fertigen wir gelistete Modelle wie den <a href="/de/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">weichdichtenden UL/FM-OS&amp;Y-Absperrschieber</a>. Wie Sie echte Listungsnachweise prüfen, erläutert der Leitfaden <a href="/de/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">UL-gelistete Brandschutzventile auswählen</a>. Unser <a href="/de/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur Hydrantenauswahl</a> behandelt die Auswahl von Hydranten Schritt für Schritt sowie Typen, Druckklassen und Anschlussnormen.</p>
+
+			<!-- FAQ-Bereich -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Quellen -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Quellen</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>AWWA – Hydranten- und Ventilnormen (AWWA C502, C515): <a href="https://www.awwa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">awwa.org</a></li>
+				<li>NFPA – Normen für Feuerwehrschläuche und Brandschutz (NFPA 1961): <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+				<li>ISO – Ventilprüfungen und Qualitätsnormen (ISO 5208, ISO 9001): <a href="https://www.iso.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">iso.org</a></li>
+				<li>Wanlian Fluid – Produktlinien, Prüfkonzept und Unterstützung bei der Konformität: <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">Die Normenreferenzen sind ein allgemeiner Einkaufsleitfaden mit Stand September 2026. Bestätigen Sie vor der Beschaffung stets die aktuelle Ausgabe und Anwendbarkeit mit Ihrem Planer.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Spezifizieren Sie Hydranten, Schläuche oder Ventile nach AWWA, EN oder ISO?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie uns die Norm aus Ihrer Bestellung und das Zielland. Unsere Ingenieure antworten innerhalb von 12 Stunden mit einer Konformitätsmatrix, passenden Prüfberichten und Exportdokumenten.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Standards%20und%20Konformit%C3%A4t%20RFQ" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Guten Tag, ich benötige AWWA-, EN- oder ISO-konforme Hydranten, Ventile und Feuerwehrschläuche für mein Projekt')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

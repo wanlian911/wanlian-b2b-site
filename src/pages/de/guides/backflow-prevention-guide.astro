@@ -1,0 +1,224 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Wann ist ein Rückflussverhinderer gesetzlich vorgeschrieben?',
+		answer: 'Immer dann, wenn ein nicht trinkbares System an eine Trinkwasserversorgung angeschlossen wird. Typische vorgeschriebene Anschlusspunkte sind Sprinkler- und Steigleitungen, Bewässerungssysteme, Kesselspeiseleitungen, Kühltürme und industrielles Prozesswasser. Die meisten Rechtsordnungen wenden Vorschriften zur Verhinderung von Kreuzverbindungen auf Grundlage von AWWA M14, EN 1717 oder nationalen Installationsvorschriften an. Klären Sie mit dem örtlichen Wasserversorger, welcher Gefahrenklasse Ihr Anschluss zuzuordnen ist.'
+	},
+	{
+		question: 'Was ist der Unterschied zwischen einem Doppelrückschlagventil und einer Systemtrennerstation mit reduziertem Druckzonenbereich (RPZ)?',
+		answer: 'Eine Doppelrückschlagventil-Armatur (DCVA) wie der HS41X verfügt über zwei unabhängige Rückschlagventile sowie eine Zwischenablasskammer und ist die Standardwahl für den Brandschutz sowie Anschlüsse mit geringer bis mittlerer Gefährdung. Eine RPZ-Armatur ergänzt ein Entlastungsventil, das bei abfallendem Zonendruck abbläst und vor dem Rücksaugen hochgefährlicher Schadstoffe schützt. Sie ist für Abwasser-, Chemikalien- und andere Kreuzverbindungen mit hoher Gefährdung vorgeschrieben und muss jährlich geprüft werden.'
+	},
+	{
+		question: 'Verursacht ein Rückflussverhinderer Druckverlust in der Feuerlöschleitung?',
+		answer: 'Ja, jede Rückflussverhinderer-Armatur verursacht einen Druckverlust. Eine gut ausgelegte Doppelrückschlagventil-Armatur verursacht bei Auslegungsdurchfluss typischerweise 0,5–1,5 bar. Die Feuerlöschpumpe und die hydraulischen Berechnungen müssen den Geräteverlust berücksichtigen, andernfalls erreichen nachgeschaltete Sprinkler möglicherweise nicht den erforderlichen Restdruck. Geben Sie den Durchfluss an; wir stellen die Druckverlustkurve des HS41X in Ihrer Nennweite bereit.'
+	},
+	{
+		question: 'Kann der HS41X horizontal oder vertikal installiert werden?',
+		answer: 'Der Doppelrückschlag-Rückflussverhinderer HS41X ist für den horizontalen Einbau in der am Gehäuse markierten Durchflussrichtung ausgelegt; die Zwischenablasskammer muss dabei unten liegen. Bei vertikalen Steigleitungen ist die Einbaulage mit unseren Ingenieuren abzustimmen. Einige Nennweiten können bei geeigneter interner Ablaufanordnung mit aufwärts gerichtetem Durchfluss vertikal installiert werden.'
+	},
+	{
+		question: 'Wie oft muss ein Rückflussverhinderer geprüft werden?',
+		answer: 'Typische Prüfintervalle sind eine jährliche Prüfung von Doppelrückschlagventil-Armaturen und RPZ-Geräten in gewerblichen Anlagen sowie häufigere Prüfungen (vierteljährlich bis halbjährlich) bei Anschlüssen mit hoher Gefährdung oder wenn örtliche Vorschriften dies verlangen. Ein Prüfgerät kontrolliert, ob die Rückschlagventile bei 1,0 bar dicht halten und die Zwischenkammer ordnungsgemäß entleert wird.'
+	}
+];
+
+const products = [
+	{ slug: 'anti-pollution-backflow-preventer-hs41x', name: 'Rückflussverhinderer HS41X gegen Verunreinigung', img: '/assets/products/anti-pollution-backflow-preventer-hs41x.webp', desc: 'Doppelrückschlagventil-Armatur mit automatischer Zwischenentleerung' },
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: 'Hydraulisches Druckminderventil 500X', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'Selbsttätige pilotgesteuerte Druckregelung ohne externe Energie' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'Wasserstandsregelventil F745X', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'Schwimmerpilot zur Wasserstandsregelung in Behältern und Tanks' },
+	{ slug: 'groove-solenoid-control-gate-valve-gkzf1', name: 'GKZF-1 Magnetventil-Absperrschieber', img: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg', desc: 'Elektrisch pilotgesteuertes Nutventil für automatisierte Netze' }
+];
+
+const toc = [
+	{ id: 'why-backflow', label: '1. Warum Rückflussverhinderung wichtig ist' },
+	{ id: 'hazard-classes', label: '2. Gefahrenklassen und Gerätetypen' },
+	{ id: 'double-check', label: '3. Funktionsweise der HS41X-Doppelrückschlagventil-Armatur' },
+	{ id: 'fire-main', label: '4. Rückfluss in Brandschutz-Hauptleitungen' },
+	{ id: 'sizing', label: '5. Dimensionierung und Druckverlust' },
+	{ id: 'specs-compare', label: '6. HS41X im Vergleich zu hydraulischen Regelventilen' },
+	{ id: 'testing', label: '7. Prüfung, Wartung und Konformität' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+---
+
+<Layout
+	title="Leitfaden Rückflussverhinderung: Rückschlagventile für Trinkwasser"
+	description="Rückflussverhinderung in Trinkwasser- und Brandschutznetzen: Gefahrenklassen, HS41X-Doppelrückschlagventil, Dimensionierung, Druckverlust und Prüfung."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Leitfaden Rückflussverhinderung' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Rückflussverhinderung</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden für hydraulische Sicherheitstechnik</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Rückflussverhinderung in Brandschutz- und Trinkwassernetzen</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Schon ein einziger kontaminierter Rückfluss kann die kommunale Versorgung unterbrechen, einen Löschwasserbehälter verunreinigen oder die Trinkwasserzulassung eines gesamten Gebäudes gefährden. Rückflussverhinderer sitzen an der Stelle, an der nicht trinkbare Systeme – Sprinkler-Hauptleitungen, Bewässerung, Kessel und Prozessleitungen – an Trinkwasser angeschlossen werden. Dieser Leitfaden erläutert die Gefahrenklassen, die Funktionsweise einer Doppelrückschlagventil-Armatur sowie die Auslegung und Spezifikation des passenden Geräts für Ihr Projekt.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Produktübersicht -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-backflow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Warum Rückflussverhinderung wichtig ist</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Rückfluss tritt auf, wenn der Druck in einem nicht trinkbaren System den Versorgungsdruck übersteigt (Gegendruck) oder wenn eine Versorgungsleitung Druck verliert und Wasser zurückgesaugt wird (Rücksaugen). In einem Gebäude, das Trinkwasser und eine Sprinkleranlage verbindet, stellt die Sprinkler-Hauptleitung eine dauerhafte Kreuzverbindung dar: Stagnierendes Wasser, Korrosionsprodukte und Biofilm befinden sich in der Feuerlöschleitung, und jede Druckschwankung kann dieses Wasser in die Trinkwasserversorgung drücken.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Aufsichtsbehörden weltweit behandeln dies als Problem der öffentlichen Gesundheit und nicht als Frage der Geräteauswahl. Die europäische Praxis (EN 1717) klassifiziert Flüssigkeiten nach dem Verunreinigungsrisiko und schreibt entsprechende Schutzgeräte vor; Nordamerika folgt der Kreuzverbindungskontrolle nach AWWA M14 und den örtlichen Installationsvorschriften; in China gelten GB 50084 (Sprinkleranlagen) und GB 17051 neben den lokalen Vorschriften für die Wasserversorgung. In nahezu allen Regelwerken erfordert ein Brandschutzanschluss an Trinkwasser mindestens eine <strong>Doppelrückschlagventil-Armatur</strong> und bei höheren Gefahrenklassen häufig ein Gerät mit reduziertem Druckzonenbereich.</p>
+
+			<h2 id="hazard-classes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Gefahrenklassen und Gerätetypen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Das Schutzgerät wird anhand der Gefahrenklasse des angeschlossenen Systems ausgewählt. Die folgende Tabelle fasst die gängigen Klassen und die typischerweise zugelassenen Geräte zusammen:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Gefahrenklasse</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typischer Anschluss</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typisches Gerät</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Niedrig (Fluid 2)</td>
+							<td class="px-4 py-3 text-gray-700">Kaltwasser, ungiftig, keine Gesundheitsgefahr</td>
+							<td class="px-4 py-3 text-gray-700">Einfaches Rückschlagventil / Luftspalt</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Mittel (Fluid 3)</td>
+							<td class="px-4 py-3 text-gray-700">Sprinkler-Hauptleitungen, Heizkreise, Grauwasser</td>
+							<td class="px-4 py-3 text-gray-700">Doppelrückschlagventil-Armatur (HS41X) / DCVA</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hoch (Fluid 4)</td>
+							<td class="px-4 py-3 text-gray-700">Chemikalien, Abwasser, industrielle Prozessflüssigkeiten</td>
+							<td class="px-4 py-3 text-gray-700">Armatur mit reduziertem Druckzonenbereich (RPZ)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sehr hoch (Fluid 5)</td>
+							<td class="px-4 py-3 text-gray-700">Pathogene oder radioaktive Medien</td>
+							<td class="px-4 py-3 text-gray-700">Trennung durch Luftspalt (kein mechanisches Gerät)</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Brandschutzanschlüsse gehören fast immer zur mittleren Gefährdung (Fluid 3). Deshalb ist der <a href="/de/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">Rückflussverhinderer HS41X gegen Verunreinigung</a> – eine Doppelrückschlagventil-Armatur mit Zwischenablasskammer – das Standardgerät für diese Anwendung.</p>
+
+			<h2 id="double-check" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Funktionsweise der HS41X-Doppelrückschlagventil-Armatur</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Der HS41X besteht aus zwei unabhängigen, in Reihe geschalteten Rückschlagventilen mit einem Entleerungsraum dazwischen. Bei normalem Durchfluss passiert das Wasser beide Ventile, während der Raum trocken bleibt. Sinkt der Versorgungsdruck unter den nachgeschalteten Druck, schließen beide Rückschlagventile. Wenn das erste Ventil undicht ist, füllt sich der Raum und die automatische Zwischenentleerung öffnet zur Atmosphäre; das verunreinigte Wasser wird sichtbar abgeleitet. Dieses klassische Prinzip „Leckage vor Ausfall“ macht Doppelrückschlagventil-Armaturen prüfbar und zuverlässig.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Wesentliche Konstruktionsmerkmale des Wanlian HS41X-16: ein Gehäuse aus duktilem Gusseisen (QT450) mit Epoxidbeschichtung für kommunale und industrielle Umgebungen, eine mit EPDM ummantelte Dichtfläche für zuverlässiges Absperren sowie Innenteile aus Edelstahl 304 in den Rückschlag- und Entleerungsmechanismen. Die Nennweiten reichen von DN50 bis DN600, mit Druckstufen PN10 / PN16 / PN25 für die meisten Gebäude- und Versorgungsanschlüsse.</p>
+
+			<h2 id="fire-main" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Rückfluss in Brandschutz-Hauptleitungen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Eine an die Trinkwasserleitung angeschlossene Sprinkler- oder Steigrohranlage ist die typische Kreuzverbindung mittlerer Gefährdung: Die Feuerlöschleitung steht normalerweise still, enthält Korrosionsprodukte und kann zwischen den Prüfungen jahrelang stehendes Wasser führen. Der Rückflussverhinderer wird am Feuerlöschanschluss vor der Ansaugung der Feuerlöschpumpe oder vor der Anlagensteigleitung installiert.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Bei Brandschutzanlagen sind zwei Auslegungspunkte entscheidend:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Druckverlustbudget.</strong> Das Gerät sitzt in der Saugleitung der Feuerlöschpumpe oder an der Trennung von Haus- und Feuerlöschversorgung; sein Druckverlust muss in die hydraulische Berechnung einfließen. Eine druckverlustarme Doppelrückschlagventil-Ausführung begrenzt den Verlust bei Auslegungsdurchfluss auf etwa 0,5–1,0 bar.</li>
+				<li><strong>Anlagendruck.</strong> Bei von einer Feuerlöschpumpe gespeisten Steigleitungen ist sicherzustellen, dass der Pumpenaustrittsdruck innerhalb des zulässigen Betriebsdrucks des Geräts bleibt (HS41X: PN16 oder PN25). Eine Überdimensionierung allein anhand der DN-Nennweite reicht nicht aus – Durchfluss und Druckverlust müssen gemeinsam geprüft werden.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Wenn dasselbe Netz zusätzlich eine Druckregelung benötigt – beispielsweise eine aus einem Behälter gespeiste Sprinkleranlage mit Druckerhöhung –, arbeitet der Rückflussverhinderer vor anderen hydraulischen Regelventilen, etwa dem <a href="/de/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">Druckminderventil 500X</a>. Dieses schützt nachgeschaltete Komponenten vor Überdruck, während die Rückschlagventil-Armatur die Versorgung schützt.</p>
+
+			<h2 id="sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Dimensionierung und Druckverlust</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Dimensionieren Sie einen Rückflussverhinderer nach <strong>Strömungsgeschwindigkeit und Druckverlust</strong>, nicht nur nach dem Rohrdurchmesser. Das Gerät muss den ungünstigsten Durchfluss bewältigen – bei einem Brandschutzanschluss den größten Einzelbedarf der Sprinkleranlage oder den Hydrantendurchfluss, bei einer Gebäudeversorgung die Summe der gleichzeitig auftretenden Haus- und Brandschutzbedarfe. Eine Überdimensionierung erhöht bei niedrigem Durchfluss das Risiko eines geräuschvollen, instabilen Rückschlagbetriebs; eine Unterdimensionierung führt bei Bedarf zu einer Unterversorgung der Anlage.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Auswahl-Checkliste:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Bestimmen Sie den maximalen Auslegungsdurchfluss (L/s oder m³/h) und den erforderlichen Restdruck auf der Nachdruckseite.</li>
+				<li>Bestätigen Sie die Gefahrenklasse und den von der örtlichen Behörde geforderten Gerätetyp.</li>
+				<li>Wählen Sie die DN-Nennweite so, dass die Auslegungsströmungsgeschwindigkeit in der Armatur unter etwa 2,5 m/s bleibt.</li>
+				<li>Fordern Sie die Druckverlustkurve für diese Nennweite an und berücksichtigen Sie den Verlust in der hydraulischen Berechnung.</li>
+				<li>Bestätigen Sie die Anschlussart (geflanscht/genutet), den medienbeständigen Werkstoff und eventuelle Prüfanforderungen Dritter.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Wanlian fertigt den HS41X mit geflanschten oder genuteten Enden und kann die Durchfluss-Druckverlust-Kurve für Ihre gewünschte Nennweite bereitstellen. Lassen Sie die hydraulische Berechnung vor der Bestellung von unseren Ingenieuren prüfen.</p>
+
+			<h2 id="specs-compare" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. HS41X im Vergleich zu hydraulischen Regelventilen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Rückflussverhinderung ist eine Funktion innerhalb der größeren Familie hydraulischer Regelventile. Da diese Geräte häufig im selben Armaturenraum spezifiziert werden, sollten die Aufgaben klar unterschieden werden:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Ventil</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Funktion</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typische Position</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Rückflussverhinderer HS41X</td>
+							<td class="px-4 py-3 text-gray-700">Verhindert kontaminierten Rückfluss, Doppelrückschlagventil + Entleerung</td>
+							<td class="px-4 py-3 text-gray-700">Versorgungsanschluss / Einlass der Feuerlöschleitung</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Druckminderventil 500X</td>
+							<td class="px-4 py-3 text-gray-700">Hält den nachgeschalteten Druck konstant</td>
+							<td class="px-4 py-3 text-gray-700">Nach dem Zähler / Versorgung der Druckzone</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Wasserstandsregelventil F745X</td>
+							<td class="px-4 py-3 text-gray-700">Hält den Wasserstand in Tank oder Behälter konstant</td>
+							<td class="px-4 py-3 text-gray-700">Tankeinlass, Dachbehälter und Reservoirs</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Magnetventil GKZF-1</td>
+							<td class="px-4 py-3 text-gray-700">Fernbediente Auf-/Zu-Steuerung über DC24V/AC220V</td>
+							<td class="px-4 py-3 text-gray-700">Automatisierte Haupt- und Zonenventile</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">In einem typischen Pumpenraum finden Sie die Geräte in dieser Reihenfolge: Rückflussverhinderer am Versorgungseintritt, nachgeschaltetes Druckminderventil für Druckzonen, Wasserstandsregelventile an den Tankzuläufen und Magnetventile in automatisierten Netzen. Die Spezifikation als Paket – wie sie Wanlian fertigt – vermeidet Kompatibilitätsprobleme zwischen Piloten, Innengarnituren und Druckstufen.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Prüfung, Wartung und Konformität</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein Rückflussverhinderer schützt nur bei einwandfreier Funktion. Deshalb schreiben die meisten Vorschriften eine regelmäßige Prüfung durch eine zertifizierte Fachkraft vor. Bei Doppelrückschlagventil-Armaturen wird standardmäßig geprüft, ob beide Rückschlagventile mindestens 1,0 bar leckagefrei halten und die Zwischenablasskammer funktioniert. Typisches Intervall: jährlich bei gewerblichen Anlagen, häufiger, wenn der örtliche Wasserversorger dies verlangt.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Gerät zugänglich halten</strong> – Prüfanschlüsse und Ablasskammer müssen für das Prüfgerät erreichbar sein.</li>
+				<li><strong>Ablass überprüfen</strong> – kontinuierliches Tropfen aus der Zwischenkammer weist auf ein undichtes Rückschlagventil hin; reparieren Sie es vor der nächsten Prüfung.</li>
+				<li><strong>Vor Frost schützen</strong> – Außenanlagen in kalten Klimazonen benötigen eine Isolierung oder ein beheiztes Gehäuse; Eis im Inneren kann Gehäuse und Dichtungen beschädigen.</li>
+				<li><strong>Ersatzdichtungen vorhalten</strong> – EPDM-Dichtsätze und Rückschlagventil-Armaturen sind Verschleißteile. Halten Sie Ersatzsätze auf Lager, um längere Stillstände zu vermeiden.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Wanlian kann Prüfanschluss-Konfigurationen, geflanschte oder genutete Enden sowie Ersatzdichtungssätze in die Erstbestellung aufnehmen. Alle HS41X-Geräte werden vor dem Versand gemäß GB/T13927 einer 100-prozentigen Druckprüfung unterzogen; Prüfberichte werden je Charge bereitgestellt.</p>
+
+			<!-- Abschnitt häufig gestellter Fragen -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Handlungsaufforderung -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Benötigen Sie einen Rückflussverhinderer für Ihr Netz?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie uns DN-Nennweite, Druckstufe, Anschlussart und Auslegungsdurchfluss. Unsere Ingenieure antworten innerhalb von 12 Stunden mit Druckverlustkurve, technischem Datenblatt und Angebot.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Auswahl%20R%C3%BCckflussverhinderung" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href="https://wa.me/8618684324501?text=Hallo%2C%20ich%20ben%C3%B6tige%20Hilfe%20bei%20der%20Auswahl%20eines%20R%C3%BCckflussverhinderers" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Per WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

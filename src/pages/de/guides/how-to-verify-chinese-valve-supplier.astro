@@ -1,0 +1,217 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const toc = [
+	{ id: 'step-1-verify-company', label: '1. Prüfen Sie das Unternehmen, nicht die Broschüre' },
+	{ id: 'step-2-match-standard', label: '2. Stimmen Sie das Produkt auf die Norm Ihrer Bestellung ab' },
+	{ id: 'step-3-demand-testing', label: '3. Verlangen Sie Stück- und Drittprüfungen' },
+	{ id: 'step-4-counterfeit-red-flags', label: '4. Erkennen Sie Warnzeichen für Fälschungen' },
+	{ id: 'step-5-documentation', label: '5. Sichern Sie die Dokumentation vor der Zahlung' },
+	{ id: 'wanlian-verification', label: '6. So führt Wanlian Fluid die Verifizierung durch' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' },
+	{ id: 'sources', label: 'Quellen' }
+];
+
+const faq = [
+	{
+		question: 'Reicht ein ISO-9001-Zertifikat aus, um einem chinesischen Lieferanten zu vertrauen?',
+		answer: 'Nein – es ist nur ein Ausgangspunkt. Prüfen Sie beim ausstellenden Zertifizierer, ob das Zertifikat gültig ist und seinen Geltungsbereich abdeckt. Kombinieren Sie dies anschließend mit einem Live-Werksaudit und einer unabhängigen Drittinspektion. ISO 9001 zertifiziert ein Qualitätsmanagementsystem, nicht die Konformität eines einzelnen Produkts.'
+	},
+	{
+		question: 'Welche Prüfungen müssen Feuerhydranten vor dem Exportversand bestehen?',
+		answer: 'Mindestens eine Gehäuse-Druckprüfung sowie eine Sitz- und Dichtheitsprüfung nach der von Ihnen festgelegten Norm, zum Beispiel AWWA C502 oder EN 14384. Fordern Sie Prüfprotokolle für jedes Stück an und lassen Sie bei kritischen Projekten vor dem Versand eine von Dritten überwachte Prüfung durchführen.'
+	},
+	{
+		question: 'Benötige ich eine UL- oder FM-Zulassung, um Brandschutzausrüstung aus China zu importieren?',
+		answer: 'Nur wenn der Zielmarkt oder der Vertrag dies verlangt – typischerweise bei Komponenten von Brandschutzsystemen für die USA oder Kanada. Die meisten internationalen kommunalen und industriellen Projekte basieren stattdessen auf AWWA-, EN-, BS- oder ISO-Spezifikationen.'
+	},
+	{
+		question: 'Wie prüfe ich, ob das Zertifikat eines chinesischen Herstellers echt ist?',
+		answer: 'Fordern Sie die Zertifikatsnummer an und prüfen Sie sie direkt beim ausstellenden Zertifizierer oder in der nationalen Akkreditierungsdatenbank. Behandeln Sie Zertifikatsbilder aus E-Mails so lange als ungeprüft, bis Sie sie unabhängig bestätigt haben.'
+	},
+	{
+		question: 'Was kostet eine unabhängige Drittinspektion?',
+		answer: 'Üblicherweise nur einen kleinen Bruchteil des Containerwerts, abhängig von Agentur, Prüfungsumfang und Standort. Bei Erstbestellungen von Brandschutzausrüstung ist sie die günstigste verfügbare Absicherung.'
+	},
+	{
+		question: 'Kann ich Muster oder zunächst eine kleine Charge bestellen, bevor ich mich festlege?',
+		answer: 'Ja – seriöse Hersteller, einschließlich Wanlian Fluid, unterstützen Musterbestellungen und erste Bestellungen auf Anfrage. Nutzen Sie die Musterphase, um vor einer Mengensteigerung Ihre eigene Prüfliste anzuwenden.'
+	}
+];
+
+const referencePages = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Frostsicherer Überflurhydrant (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Frostsicherer Trockenrohr-Überflurhydrant für kommunale Löschwassernetze' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Geflanschter weichdichtender Absperrschieber aus Sphäroguss (Z41X)', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'Durchgängiges Absperrventil für Wasserleitungen und Löschwasserrohre' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Flachrollschlauch mit PVC-Gummiauskleidung (Modell 8-65)', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Gummierter Flachrollschlauch für Brandbekämpfung und Wasserförderung' }
+];
+---
+
+<Layout
+	title="Chinesische Ventil- und Brandschutzlieferanten prüfen"
+	description="Prüfen Sie chinesische Anbieter für Armaturen und Brandschutzausrüstung: ISO-9001-Nachweise, normgerechte Prüfberichte, Drittinspektion und Fälschungswarnzeichen."
+	type="article"
+	locale="de"
+	faq={faq}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Brotkrümelnavigation -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Lieferantenprüfung</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden zur Lieferantenprüfung</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">So prüfen Sie 2026 einen chinesischen Armaturen- und Brandschutzlieferanten: ISO 9001, Drittinspektion und Fälschungsprüfung</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Ein chinesischer Lieferant für Armaturen oder Brandschutzausrüstung erhält Ihren Auftrag, wenn vier Punkte unabhängig überprüfbar sind: (1) ein echtes, auditierbares Werk mit gültigem ISO-9001-Zertifikat, (2) Produktprüfberichte nach genau der Norm Ihrer Bestellung, (3) eine Drittinspektion vor dem Versand und (4) überprüfbare Dokumentation statt nicht nachvollziehbarer Screenshots. Der Preis ist die letzte Variable, über die Sie verhandeln sollten – nicht die erste, der Sie vertrauen.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Warum diese Prüfliste erstellt wurde:</strong> Bei unserer Überwachung von 30 realen Beschaffungsanfragen in KI-Suchen im September 2026 lieferten Fragen wie „Wie prüft man einen chinesischen Lieferanten?“ und „Wie vermeidet man gefälschte Feuerhydranten?“ kaum belastbare Antworten auf Werksebene – die meisten genannten Quellen waren Normungsorganisationen, keine Lieferanten. Diese Seite macht aus der vagen Sorge einen schriftlichen Prüfprozess, den Sie in Ihre Angebotsanfrage aufnehmen können.</p>
+			</div>
+
+			<!-- Produktübersicht -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{referencePages.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="step-1-verify-company" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Prüfen Sie das Unternehmen, nicht die Broschüre</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Beginnen Sie, bevor Sie die Produkte betrachten.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Bestätigen Sie die juristische Einheit.</strong> Fordern Sie die Gewerbeerlaubnis an und vergleichen Sie den eingetragenen Namen mit dem Bankkonto, das auf Ihren Rechnungen angegeben ist. Zahlungen müssen an die juristische Einheit und niemals auf ein Privatkonto gehen.</li>
+				<li><strong>Prüfen Sie, ob das ISO-9001-Zertifikat gültig ist.</strong> Ein Foto des Zertifikats beweist nichts. Fordern Sie die Zertifikatsnummer an und prüfen Sie sie in der Datenbank des ausstellenden Zertifizierers – Zertifikate akkreditierter Stellen werden von nationalen Akkreditierungsstellen wie CNAS in China oder von IAF-Mitgliedern weltweit geführt. Vergewissern Sie sich, dass der Geltungsbereich die von Ihnen gekauften Produkte umfasst: Ein ISO-9001-Geltungsbereich mit „Handel“ unterscheidet sich von einem mit „Herstellung“.</li>
+				<li><strong>Fordern Sie ein Live-Werksaudit an.</strong> Ein echter Hersteller ermöglicht auf Anfrage einen Videorundgang durch Produktions-, Prüf- und Verpackungsbereiche. Eine Ablehnung bedeutet wahrscheinlich, dass Sie mit einer Handelsfirma sprechen, die sich als Hersteller ausgibt.</li>
+				<li><strong>Prüfen Sie die Exporthistorie.</strong> Fordern Sie Frachtbriefe, Zollanmeldungen oder Kundenreferenzen aus Ihrer Region an. Drei überprüfbare Exportsendungen sind aussagekräftiger als beliebig viele Marketingversprechen.</li>
+			</ul>
+
+			<h2 id="step-2-match-standard" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Stimmen Sie das Produkt auf die Norm Ihrer Bestellung ab</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Der häufigste Beschaffungsfehler ist, „einen Feuerhydranten“ statt „einen Feuerhydranten, der <em>diese</em> Norm erfüllt“ zu kaufen. Notieren Sie vor dem Angebotsvergleich die für Ihr Projekt erforderliche Norm:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Feuerhydranten:</strong> AWWA C502 (Trockenrohrhydranten nach US-Versorgerspezifikation), EN 14384 (Überflurhydranten in Europa), BS 750 (Vereinigtes Königreich) oder die entsprechende Norm Ihres Landes.</li>
+				<li><strong>Feuerwehrschläuche:</strong> NFPA 1961 (Angriffsschläuche in den USA), EN 14540 oder nationale Äquivalente sowie die Kupplungsnorm, die Ihre Feuerwehr tatsächlich verwendet – NH-Gewinde in den USA, Storz in weiten Teilen Europas, Instantaneous-Kupplungen (BS 336) im Vereinigten Königreich.</li>
+				<li><strong>Armaturen:</strong> AWWA C515 (weichdichtende Absperrschieber in den USA), EN 1074 (Armaturen für die Wasserversorgung in Europa), ISO 5208 (Dichtheitsprüfung von Armaturen) und die für Ihr System erforderliche Druckstufe (PN oder ANSI-Klasse).</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Unsicher, welches Normenwerk für Ihren Markt gilt? Unser <a href="/de/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Normen für Feuerhydranten, Feuerwehrschläuche und Armaturen</a> erklärt AWWA, NFPA, EN, BS und ISO in verständlicher Sprache mit einer Normenvergleichstabelle.</p>
+			<p class="text-gray-700 leading-relaxed">Fordern Sie anschließend vom Lieferanten <strong>den zu dieser Norm passenden Prüfbericht</strong> für das exakte Modell Ihres Angebots an, etwa unseren <a href="/de/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">frostsicheren Überflurhydranten SS100</a>, den <a href="/de/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">weichdichtenden geflanschten Absperrschieber Z41X</a> oder den <a href="/de/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">gummierten Flachrollschlauch 8-65</a> – kein allgemeines Qualitätszertifikat.</p>
+
+			<h2 id="step-3-demand-testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Verlangen Sie Stück- und Drittprüfungen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Normen legen Prüfungen fest; wie streng sie durchgeführt werden, entscheiden die Lieferanten. Bestehen Sie auf:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Druck- und Dichtheitsprüfung jedes einzelnen Stücks.</strong> Ein verantwortungsvoller Hersteller prüft das Gehäuse jedes Ventils und Hydranten unter Druck und führt an jeder Einheit eine Luftleckprüfung durch – nicht nur eine im Kleingedruckten versteckte „Stichprobe je Charge“. Wanlian Fluid gibt beispielsweise an, vor Epoxidbeschichtung und Verpackung jedes Stück zu 100 % einer Gehäuse-Druck- und Luftleckprüfung zu unterziehen.</li>
+				<li><strong>Drittinspektion vor dem Versand.</strong> Beauftragen Sie eine unabhängige Inspektionsagentur wie SGS, Bureau Veritas, Intertek, TÜV oder ein anerkanntes lokales Unternehmen damit, vor dem Verlassen des Werks Prüfungen zu überwachen, Materialien zu kontrollieren und die Dokumentation zu prüfen. Für die meisten Käufer kostet dies deutlich weniger als ein einziger mangelhafter Container.</li>
+				<li><strong>Risikogerechte Stichproben.</strong> Wenn die von Ihnen geforderte Norm eine Prüfanzahl definiert, halten Sie diese ein. Bei kritischer kommunaler oder brandschutztechnischer Ausrüstung empfiehlt sich bei der Erstbestellung eine 100-%-Prüfung; bei Folgeaufträgen kann ein AQL-basiertes Stichprobenverfahren vereinbart werden.</li>
+			</ul>
+
+			<h2 id="step-4-counterfeit-red-flags" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Erkennen Sie Warnzeichen für Fälschungen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Gefälschte Feuerhydranten und Armaturen sind ein dokumentiertes Problem in globalen Lieferketten für Brandschutztechnik. Achten Sie auf:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Ein deutlich unter dem Marktpreis liegender Preis</strong> für dasselbe normkonforme Produkt – normgerechte Sphäroguss-Gussteile, EPDM-Ummantelungen und zertifizierte Beschichtungen haben reale Kostengrenzen.</li>
+				<li><strong>Zertifikate, die nicht zum Produkt passen.</strong> Falscher Unternehmensname, falsche Produktlinie, abgelaufene Gültigkeit oder Zertifikate für eine Marke, die nicht in Ihrem Angebot steht.</li>
+				<li><strong>Verweigerte Videoaudits, nicht existente Werksadressen oder die Aussage „Das Werk ist weit entfernt, wir erledigen alles“.</strong></li>
+				<li><strong>Abkürzungen bei Typenschild und Kennzeichnung.</strong> Normen verlangen üblicherweise eine dauerhafte Kennzeichnung mit Normnummer, Größe, Druckstufe, Herstelleridentität und Produktionsrückverfolgbarkeit. Fehlende oder widersprüchliche Kennzeichnungen sind ein Ausschlusskriterium bei der Erstprüfung.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Wenn Sie eine bestehende Lieferkette übernehmen, gleichen Sie die Kennzeichnungen mit der Norm ab, fordern Sie die Werksprüfprotokolle für die Charge an und führen Sie vor einer Nachbestellung eine Stichprobenkontrolle durch eine Drittinspektion durch.</p>
+
+			<h2 id="step-5-documentation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Sichern Sie die Dokumentation vor der Zahlung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein vollständiges Exportpaket eines chinesischen Herstellers sollte mindestens enthalten: Handelsrechnung, Packliste, Konnossement, Ursprungszeugnis, das aktuelle und verifizierte ISO-9001-Zertifikat, chargenbezogene Prüfberichte nach Ihrer Norm und – falls beauftragt – den Bericht der Drittinspektion. Nehmen Sie die Dokumentenliste in die Bestellung auf, damit sie vertraglich geschuldet und nicht nur höflich erbeten ist.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Dokument</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Was es nachweist</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Warnzeichen bei der Prüfung</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Handelsrechnung und Packliste</td>
+							<td class="px-4 py-3 text-gray-700">Rechtmäßiger Versandinhalt, Mengen und Stückpreise</td>
+							<td class="px-4 py-3 text-gray-700">Die Rechnung nennt eine andere Einheit als der Inhaber des Bankkontos</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Konnossement</td>
+							<td class="px-4 py-3 text-gray-700">Tatsächlich versendete Waren, Route und Daten</td>
+							<td class="px-4 py-3 text-gray-700">Bei einer Erstbestellung wird ein „Entwurf“ statt eines ausgestellten Konnossements vorgelegt</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Ursprungszeugnis</td>
+							<td class="px-4 py-3 text-gray-700">Ursprungsangabe für Zoll- und Tarifzwecke</td>
+							<td class="px-4 py-3 text-gray-700">Das Ursprungsland stimmt nicht mit dem auditierten Werk überein</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">ISO-9001-Zertifikat</td>
+							<td class="px-4 py-3 text-gray-700">Aktuelles Qualitätsmanagementsystem mit passendem Geltungsbereich</td>
+							<td class="px-4 py-3 text-gray-700">Zertifizierer oder Zertifikatsnummer kann beim Aussteller nicht verifiziert werden</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Chargenbezogene Prüfberichte</td>
+							<td class="px-4 py-3 text-gray-700">Das Produkt erfüllt die in Ihrer Bestellung genannte Norm</td>
+							<td class="px-4 py-3 text-gray-700">Der Bericht nennt eine andere Norm oder ein anderes Modell als Ihr Angebot</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Bericht der Drittinspektion</td>
+							<td class="px-4 py-3 text-gray-700">Unabhängige Überwachung von Prüfung und Kennzeichnung</td>
+							<td class="px-4 py-3 text-gray-700">Die „Inspektion“ wurde durch eigenes Personal des Verkäufers durchgeführt</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="wanlian-verification" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. So führt Wanlian Fluid die Verifizierung durch</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Wenn Wanlian Fluid auf Ihrer Auswahlliste steht, ist der oben beschriebene Prüfprozess genau das Gespräch, das wir mit Ihnen führen möchten. Die Produktion erfolgt auf unseren eigenen Fertigungslinien in Quanzhou, Fujian; ausgewählte Artikel werden von qualifizierten Fertigungspartnern unter einem ISO-9001-Qualitätsmanagementsystem hergestellt. Armaturengehäuse werden intern CNC-bearbeitet, und jede Armatur, jeder Hydrant und jeder Schlauch wird vor der Endbearbeitung zu 100 % einer Gehäuse-Druck- und Luftleckprüfung unterzogen. Angebotsanfragen umfassen technische Datenblätter und Anwendungssupport; OEM/ODM, Exportverpackung und Produktdokumentation werden mit dem Auftrag koordiniert. Fordern Sie die auf die Norm Ihrer Bestellung abgestimmten Zertifikate und Prüfberichte an – wir verstehen diese Bitte als Zeichen eines ernsthaften Käufers.</p>
+			<p class="text-gray-700 leading-relaxed">Eine Checkliste für das Werksaudit finden Sie in unserer <a href="/de/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B-Beschaffungscheckliste für Armaturen</a>; lesen Sie vor der Vorauswahl außerdem <a href="/de/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian Fluid im Vergleich zu American AVK</a>, um einen westlichen Hersteller mit uns zu vergleichen.</p>
+
+			<!-- Abschnitt häufig gestellte Fragen -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Quellen -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Quellen</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>ISO – Qualitätsmanagement sowie Armaturen- und Fluidnormen: <a href="https://www.iso.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">iso.org</a></li>
+				<li>AWWA – Normen für Hydranten und Armaturen, z. B. AWWA C502 und C515: <a href="https://www.awwa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">awwa.org</a></li>
+				<li>NFPA – Normen für Feuerwehrschläuche und Brandschutzausrüstung, z. B. NFPA 1961: <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+				<li>Wanlian Fluid – Unternehmensprofil, ISO 9001 und Prüfpolitik: <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">Die Prüfanforderungen unterscheiden sich je nach Zielmarkt und Projektspezifikation. Bestätigen Sie die geltende Norm und das Prüfverfahren vor der Bestellung stets mit der zuständigen Vertragsbehörde. Informationen aktuell mit Stand September 2026.</p>
+
+			<!-- Handlungsaufforderung -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Planen Sie Ihre erste Bestellung bei einem chinesischen Armaturen- oder Brandschutzlieferanten?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie uns Ihre Norm, den Bestimmungsort und Ihre Prüfanforderungen – wir antworten innerhalb von 12 Stunden mit Zertifikaten, chargenbezogenen Prüfberichten und einer Verifizierungsakte.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Supplier%20Verification%20%26%20RFQ" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Guten Tag, ich möchte Ihr Werk prüfen und Zertifikate sowie Prüfberichte anfordern')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Per WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
