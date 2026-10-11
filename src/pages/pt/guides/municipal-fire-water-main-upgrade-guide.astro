@@ -1,0 +1,178 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const toc = [
+	{ id: 'scope', label: '1. O que uma modernização da rede de incêndio realmente inclui' },
+	{ id: 'isolation-valves', label: '2. Válvulas de isolamento: Z41X vs. Z41X-T telescópica' },
+	{ id: 'hydrants-by-climate', label: '3. Seleção de hidrantes por clima e risco viário' },
+	{ id: 'hose-couplings', label: '4. Mangueiras e acoplamentos para a frota municipal' },
+	{ id: 'standards-table', label: '5. Normas por mercado de destino' },
+	{ id: 'one-po', label: '6. O pacote com um único PO: por que consolidar reduz riscos' },
+	{ id: 'faq', label: 'Perguntas frequentes' }
+];
+
+const faq = [
+	{
+		question: 'Hidrantes, válvulas e mangueiras contra incêndio podem ser pedidos em um único pacote municipal?',
+		answer: 'Sim — um único pedido de compra pode combinar hidrantes de coluna ou subterrâneos, válvulas de isolamento com assento elástico, mangueiras contra incêndio revestidas de borracha e acoplamentos Storz ou BS336, com marca OEM, embalagem para exportação e um conjunto único de registros de teste conciliados. Licitações municipais que exigem documentação por item recebem os documentos por linha na mesma lista de embalagem.'
+	},
+	{
+		question: 'Que tipo de hidrante uma cidade de clima frio deve especificar?',
+		answer: 'Um hidrante anticongelante de barril seco: o barril acima da linha de congelamento é drenado automaticamente após cada uso, evitando o congelamento do corpo. O hidrante de coluna SS100/65 (1.6 MPa, testado a 2.4 MPa) é nossa unidade padrão para climas frios, com variantes anti-colisão e IoT quando o tráfego viário ou o monitoramento da rede fizer parte do escopo.'
+	},
+	{
+		question: 'Por que usar uma válvula de gaveta telescópica em uma modernização em vez de uma válvula de gaveta padrão?',
+		answer: 'A Z41X-T combina fechamento com vedação estanque e compensação de expansão de ±25 mm em uma única unidade. Em uma rede que está sendo reinstalada ou conectada a uma tubulação existente, essa tolerância absorve desalinhamento e recalque, e a válvula pode ser substituída depois sem cortar a linha — ambos são custos recorrentes nas redes municipais.'
+	},
+	{
+		question: 'Qual padrão de acoplamento de mangueira a frota de incêndio usa no meu mercado?',
+		answer: 'Depende dos caminhões de bombeiros: Storz (padrão alemão) é o modelo de exportação mais comum, BS336/BS5912 atende frotas do Reino Unido e da Commonwealth, e NIST atende várias especificações do Oriente Médio. A mangueira, os acoplamentos e as tampas das saídas do hidrante precisam seguir o mesmo padrão — especifique-o uma vez para todo o pacote.'
+	},
+	{
+		question: 'Como os projetos de modernização normalmente são programados do pedido à entrega?',
+		answer: 'Para modelos padrão: especificação e cotação detalhada em poucos dias, uma unidade de amostra para verificação e, depois, produção de 15–30 dias conforme a quantidade e a personalização, com teste de pressão do corpo e de vazamento de ar por unidade antes da embalagem para exportação. Uma inspeção de terceiros na fábrica pode ser organizada antes do embarque.'
+	}
+];
+
+const referencePages = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hidrante de Coluna Anticongelante SS100/65', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Drenagem de barril seco, 1.6 MPa, saídas 2x65 + 1x100' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Válvula de Gaveta com Assento Elástico Z41X', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50-DN700, PN10/PN16, documentação de reassentamento sob consulta' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Mangueira Plana contra Incêndio Revestida de Borracha', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Modelo 8-65 para uso municipal e industrial' }
+];
+---
+
+<Layout
+	title="Modernização da Rede de Incêndio Municipal: Válvulas e Hidrantes"
+	description="Guia para modernização de redes municipais de incêndio: válvulas, hidrantes anticongelantes, mangueiras, acoplamentos, normas e pacote único."
+	type="article"
+	locale="pt"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guias', href: '/pt/blog/' }, { name: 'Modernização da Rede de Incêndio' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/pt/" class="hover:text-blue-600">Início</a>
+			<span>/</span>
+			<a href="/pt/blog/" class="hover:text-blue-600">Guias</a>
+			<span>/</span>
+			<span class="text-gray-600">Modernização da Rede de Incêndio</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guia de Compras · Infraestrutura Municipal</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Modernização da Rede Municipal de Água contra Incêndio: Válvulas, Hidrantes e Mangueiras em um Único Pacote</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Uma modernização da rede de incêndio raramente envolve um único produto. É um pacote — válvulas de isolamento em cada conexão, hidrantes nos novos trechos, mangueiras e acoplamentos para a frota e uma conexão de bomba que o serviço de bombeiros possa realmente usar. Este guia apresenta as quatro linhas do escopo, as escolhas definidas pelo clima em cada uma delas e por que compradores municipais colocam cada vez mais o pacote inteiro em um único pedido de compra.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Nota sobre o escopo:</strong> as quantidades e a densidade de hidrantes seguem o código municipal e o padrão de projeto da concessionária; as seleções de componentes abaixo são as decisões de engenharia que um BOQ de rede de incêndio realmente exige. A cláusula da licitação sempre prevalece.</p>
+			</div>
+
+			<!-- Faixa de produtos -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{referencePages.map(p => (
+					<a href={`/pt/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="scope" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. O que uma modernização da rede de incêndio realmente inclui</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Leia o BOQ da licitação e o escopo de incêndio se resume a quatro linhas recorrentes: <strong>válvulas de isolamento</strong> nas redes, hidrantes e conexões de bomba; <strong>hidrantes</strong> nos trechos substituídos ou ampliados; <strong>mangueiras contra incêndio e acoplamentos</strong> que mantêm a frota compatível com os novos padrões de saída; e a <strong>conexão de bomba/de bombeiros</strong> onde o serviço de incêndio faz a ligação. Cada linha tem uma dimensão normativa (qual regime o destino aplica) e uma dimensão logística (o que é embarcado junto em um contêiner).</p>
+			<p class="text-gray-700 leading-relaxed">O padrão de falha que este guia procura evitar é conhecido: válvulas de um fornecedor, hidrantes de outro, mangueiras de um terceiro — e tampas de saída incompatíveis com os acoplamentos da frota, ou faces de flange das válvulas incompatíveis com a entrada do hidrante. O mesmo escopo, em um único PO de um único fabricante, elimina essas interfaces problemáticas.</p>
+
+			<h2 id="isolation-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Válvulas de isolamento: Z41X vs. Z41X-T telescópica</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Toda modernização precisa de pontos de isolamento para que seja possível trabalhar em um trecho sem drenar a rede. Os dois modelos principais da nossa linha são a <a href="/pt/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">válvula de gaveta com assento elástico Z41X</a> padrão (DN50–DN700, PN10/PN16, cunha totalmente encapsulada em EPDM; documentação de reassentamento disponível sob consulta) e a <a href="/pt/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">versão telescópica Z41X-T</a> (DN50–DN600 com compensação de expansão de ±25 mm integrada).</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Decisão</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Z41X</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Z41X-T telescópica</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Faixa de tamanhos</td><td class="px-4 py-3 text-gray-700">DN50–DN700</td><td class="px-4 py-3 text-gray-700">DN50–DN600</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Compensação de expansão</td><td class="px-4 py-3 text-gray-700">Nenhuma (instale uma junta de expansão se necessário)</td><td class="px-4 py-3 text-gray-700">±25 mm integrada</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Substituição sem cortar a tubulação</td><td class="px-4 py-3 text-gray-700">Não</td><td class="px-4 py-3 text-gray-700">Sim</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Ideal para</td><td class="px-4 py-3 text-gray-700">Redes novas, grandes diâmetros, instalações fixas</td><td class="px-4 py-3 text-gray-700">Conexões em tubulações existentes, solo sujeito a recalque, manutenção futura</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">A regra prática do campo: redes novas e retas usam a Z41X padrão; conexões, travessias e qualquer ponto que a equipe de manutenção possa querer substituir um dia usam a telescópica. Ambas têm a mesma cunha totalmente encapsulada, portanto o comportamento de vedação em que a concessionária confia não muda.</p>
+
+			<h2 id="hydrants-by-climate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Seleção de hidrantes por clima e risco viário</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">O clima define o barril, e o risco viário define os recursos adicionais:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Climas frios:</strong> o <a href="/pt/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">hidrante de coluna anticongelante SS100/65</a> — a drenagem automática após o fechamento esvazia o barril acima da linha de congelamento, com pressão de trabalho de 1.6 MPa / teste a 2.4 MPa e saídas 2×DN65 mais DN100.</li>
+				<li><strong>Ruas com tráfego intenso:</strong> o <a href="/pt/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">hidrante anti-colisão SSFT100</a> — os parafusos de cisalhamento calibrados se rompem no impacto, a válvula interna fecha automaticamente e o reparo consiste em substituir os parafusos com a linha ainda pressurizada.</li>
+				<li><strong>Programas de cidade inteligente:</strong> o <a href="/pt/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">hidrante IoT SS100ZN</a> — alarmes de pressão, vazão, inclinação/colisão e uso indevido por NB-IoT/LTE-M, bateria de cinco anos com apoio solar e corpo GB 4452.</li>
+				<li><strong>Redes subterrâneas:</strong> o <a href="/pt/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">hidrante subterrâneo SA</a> para instalações enterradas com saídas KWS65.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Os padrões de acoplamento das saídas (KWS65, BS336, Storz, NIST) são uma especificação de cada mercado — o mesmo corpo de hidrante é enviado com as tampas compatíveis com a sua frota. Essa única linha do BOQ é onde a maioria dos pedidos internacionais de hidrantes dá errado e onde um fornecedor de pacote deve identificar o problema para você. Nosso <a href="/pt/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">guia de hidrantes anticongelantes e anti-colisão</a> explica em detalhes o comportamento hidráulico de cada variante.</p>
+
+			<h2 id="hose-couplings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Mangueiras e acoplamentos para a frota municipal</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A linha de mangueiras da frota precisa corresponder às novas saídas dos hidrantes; caso contrário, a modernização estará incompleta no dia da entrega. A <a href="/pt/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">mangueira plana contra incêndio revestida de borracha (modelo 8-65)</a> é o padrão municipal da nossa linha — 8 polegadas, classificação DN65, desenvolvida para uso repetido sob pressão — com o <a href="/pt/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">acoplamento Storz de alumínio de 2.5 polegadas</a> como conexão de extremidade padrão para exportação; os adaptadores de acoplamento DN50/DN65 da <a href="/pt/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">série HS</a> cobrem a transição quando padrões antigos e novos coexistem na rede. Tamanhos, revestimentos e vedação das bordas são apresentados no <a href="/pt/guides/fire-hose-buying-guide/" class="text-brand-blue font-semibold hover:underline">guia de compra de mangueiras planas contra incêndio</a>.</p>
+
+			<h2 id="standards-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Normas por mercado de destino</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">O mesmo hidrante e a mesma válvula são especificados sob regimes diferentes conforme o destino do projeto. Indique o regime em cada item do BOQ:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Região</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Referências típicas</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Nota para o comprador</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">EUA e grande parte das Américas</td><td class="px-4 py-3 text-gray-700">AWWA C502 (hidrantes), AWWA C515, ISO 5208 / EN 1074 (válvulas)</td><td class="px-4 py-3 text-gray-700">Confirme a norma e o relatório de teste por modelo</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">América Latina</td><td class="px-4 py-3 text-gray-700">AWWA (licitações com especificação dos EUA), NOM do México, ABNT do Brasil</td><td class="px-4 py-3 text-gray-700">A cláusula da licitação prevalece; verifique por modelo</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Europa</td><td class="px-4 py-3 text-gray-700">EN 14384 (hidrantes), EN 1074, EN 12266-1 (testes de válvulas), CE</td><td class="px-4 py-3 text-gray-700">CE e testes são definidos por modelo e diretiva</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Oriente Médio e África</td><td class="px-4 py-3 text-gray-700">Frequentemente AWWA ou BS 750; saídas NIST são comuns</td><td class="px-4 py-3 text-gray-700">Confirme o padrão de acoplamento da saída no BOQ</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">A comparação lado a lado das famílias de normas está no <a href="/pt/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">guia de normas para hidrantes, mangueiras e válvulas</a> — incluindo como comparar uma norma com um relatório de teste antes do pagamento.</p>
+
+			<h2 id="one-po" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. O pacote com um único PO: por que consolidar reduz riscos</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Um pedido de pacote municipal a um único fabricante oferece três coisas que um BOQ com vários fornecedores não consegue: <strong>interfaces compatíveis por projeto</strong> (tampas de saída, flanges de válvulas e acoplamentos de mangueiras especificados em uma única revisão de desenho), <strong>um único conjunto de registros de teste</strong> conciliado com uma lista de embalagem para o dossiê de aceitação e <strong>um único plano logístico</strong> — hidrantes e mangueiras compartilham bem o espaço do contêiner, e um único Incoterm mantém clara a divisão de riscos do portão da fábrica ao local da obra. A sequência passo a passo — especificação, verificação do fornecedor, amostragem, QC, documentação e logística — está no <a href="/pt/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">guia de compras</a>; a disciplina de verificação por modelo está no <a href="/pt/whitepaper/" class="text-brand-blue font-semibold hover:underline">whitepaper do setor</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Para o contexto regional de como esses escopos são licitados, o <a href="/pt/guides/municipal-water-fire-infrastructure-latinamerica/" class="text-brand-blue font-semibold hover:underline">guia de infraestrutura municipal da América Latina</a> aborda em detalhes os regimes normativos regionais e a prática de um único PO.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Perguntas frequentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA duplo -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Coloque seu BOQ de rede de incêndio em prática</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envie os itens, a norma de destino e a densidade de hidrantes — retornaremos em até 12 horas com uma cotação detalhada, a abordagem de testes por modelo e um plano logístico consolidado.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href={`/pt/contact/?product=${uri.EscapeDataString('Pacote municipal para rede de incêndio')}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar uma cotação</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Olá, temos uma modernização de rede municipal de incêndio (válvulas + hidrantes + mangueiras) e precisamos de uma cotação detalhada')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Conversar no WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

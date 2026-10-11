@@ -150,7 +150,7 @@ const en: UIStrings = {
     inquireNow: 'Inquire Now',
     language: 'Language',
     tagline: 'Manufacturer & Exporter of Fluid Equipment',
-    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français', ar: 'العربية' },
+    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français', ar: 'العربية', pt: 'Português' },
     allProducts: 'All Products',
     categoriesTitle: 'Categories',
     solutionsTitle: 'Solutions',
@@ -969,7 +969,173 @@ const ar: UIStrings = {
   },
 };
 
-export const ui: Record<Locale, UIStrings> = { en, es, ru, fr, ar };
+const pt: UIStrings = {
+  nav: [
+    { name: 'Início', href: '/' },
+    { name: 'Produtos', href: '/products/' },
+    { name: 'Aplicações', href: '/applications/' },
+    { name: 'Certificados', href: '/certificates/' },
+    { name: 'Blog', href: '/blog/' },
+    { name: 'Sobre Nós', href: '/about/' },
+    { name: 'Contato', href: '/contact/' },
+  ],
+  header: {
+    alibabaStore: 'Loja Alibaba',
+    inquireNow: 'Solicitar Cotação',
+    language: 'Idioma',
+    tagline: 'Fabricante e Exportador de Equipamentos de Fluidos',
+    languageLabel: { en: 'English', es: 'Español', ru: 'Русский', fr: 'Français', ar: 'العربية', pt: 'Português' },
+    allProducts: 'Todos os produtos',
+    categoriesTitle: 'Categorias',
+    solutionsTitle: 'Soluções',
+    search: {
+      ariaLabel: 'Pesquisar produtos',
+      placeholder: 'Pesquisar produto, modelo ou tamanho…',
+      loading: 'Pesquisando…',
+      noResults: 'Nenhum produto encontrado para "{q}". Tente um código de modelo (ex: Z41X, SN65), tamanho (ex: DN50) ou material — ou envie uma consulta.',
+      viewAll: 'Ver todos os produtos',
+      inquiry: 'Não encontrou o que precisa? Envie uma consulta',
+      error: 'A pesquisa está temporariamente indisponível. Consulte o catálogo completo ou envie uma consulta.'
+    }
+  },
+  footer: {
+    companyName: 'WANLIAN FLUID',
+    companyDesc:
+      'A Quanzhou Wanlian Fluid Equipment Co., Ltd. fabrica e exporta válvulas, equipamentos de proteção contra incêndio, produtos de controle hidráulico e componentes de sistemas de fluidos a partir de suas próprias linhas de produção em Quanzhou, Fujian, com itens selecionados produzidos por parceiros de fabricação qualificados. Os corpos de válvula são usinados em CNC na própria planta e cada unidade é submetida a testes de pressão de corpo e estanqueidade a ar antes do envio, sob um sistema de gestão da qualidade ISO 9001.',
+    tagline: '"Flow Far, Link Global."',
+    subscribeTitle: 'Fique Informado',
+    subscribeDesc: 'Novos produtos, guias e notícias da fábrica. Sem spam, cancele quando quiser.',
+    subscribePlaceholder: 'voce@empresa.com',
+    subscribeButton: 'Assinar',
+    subscribeSuccess: 'Inscrição confirmada — obrigado!',
+    subscribeVerify: 'Complete a verificação antes de enviar.',
+    subscribeError: 'Falha ao enviar. Tente novamente.',
+    quickLinksTitle: 'Links Rápidos',
+    quickLinks: [
+      { name: 'Início', href: '/' },
+      { name: 'Central de Produtos', href: '/products/' },
+      { name: 'Aplicações', href: '/applications/' },
+      { name: 'Sobre Nós', href: '/about/' },
+      { name: 'Blog', href: '/blog/' },
+      { name: 'Contato e Consultas', href: '/contact/' },
+    ],
+    productSeriesTitle: 'Linha de Produtos',
+    productSeries: [
+      { name: 'Válvulas e Peças', href: '/products/#category=V%C3%A1lvulas%20e%20Pe%C3%A7as' },
+      { name: 'Hidrantes e Conexões de Bomba', href: '/products/#category=Hidrantes%20e%20Conex%C3%B5es%20de%20Bomba' },
+      { name: 'Rociadores e Válvulas de Alarme', href: '/products/#category=Rociadores%20e%20V%C3%A1lvulas%20de%20Alarme' },
+      { name: 'Canhões Monitora de Incêndio', href: '/products/#category=Canh%C3%B5es%20Monitora%20de%20Inc%C3%AAndio' },
+    ],
+    solutionsTitle: 'Soluções de Produto',
+    solutions: [
+      { name: 'Válvulas Contra Incêndio UL', href: '/ul-fire-valves/' },
+      { name: 'Canhão Monitora de Incêndio', href: '/fire-water-cannon/' },
+      { name: 'Sistemas de Rociadores', href: '/fire-sprinkler-systems/' },
+    ],
+    resourcesTitle: 'Recursos',
+    resources: [
+      { name: 'Guia de Aquisição', href: '/sourcing-guide/' },
+      { name: 'Documento Técnico', href: '/whitepaper/' },
+      { name: 'Perguntas Frequentes', href: '/faq/' },
+      { name: 'Glossário', href: '/glossary/' },
+      { name: 'Calculadora de Custos', href: '/cost-calculator/' },
+    ],
+    contactTitle: 'Contato',
+    contact: {
+      emailLabel: 'E-mail:',
+      phoneLabel: 'Telefone:',
+      addressLabel: 'Endereço:',
+      addressValue: 'Quanzhou, Fujian, China',
+    },
+    bottom: {
+      linkedin: 'LinkedIn',
+      alibaba: 'Loja Alibaba',
+      blog: 'Blog',
+      privacy: 'Privacidade',
+      terms: 'Termos',
+      support: 'Suporte',
+    },
+    copyright: '© {year} Quanzhou Wanlian Fluid Equipment Co., Ltd. Todos os direitos reservados.',
+  },
+  whatsapp: {
+    ariaLabel: 'Fale conosco no WhatsApp',
+    tooltip: 'Fale Conosco',
+    defaultMessage: 'Olá, tenho interesse nas suas válvulas e equipamentos contra incêndio.',
+  },
+  inquiry: {
+    fullName: 'Nome Completo *',
+    email: 'E-mail *',
+    company: 'Empresa',
+    country: 'País/Região *',
+    countryPlaceholder: 'Selecione país/região',
+    product: 'Produto de Interesse',
+    productCol: 'Produto de Interesse',
+    expectedPrice: 'Preço Esperado',
+    quantity: 'Quantidade Pedida',
+    expectedPricePlaceholder: 'ex.: USD 120 / un',
+    quantityPlaceholder: 'ex.: 500',
+    message: 'Mensagem e Requisitos Específicos *',
+    messagePlaceholder: 'Descreva seus requisitos, quantidade e eventuais personalizações...',
+    send: 'Enviar Consulta Agora',
+    sending: 'Enviando...',
+    verifyRequired: 'Complete a verificação antes de enviar.',
+    submitFailed: 'Falha no envio. Tente novamente ou fale conosco pelo WhatsApp.',
+    successTitle: 'Consulta Enviada com Sucesso!',
+    successBody:
+      'Obrigado pela sua consulta. Nossa equipe comercial e de engenharia analisará seus requisitos e responderá em até 12 horas.',
+    successWhatsappHint: 'Prefere chat instantâneo? Fale conosco direto pelo WhatsApp:',
+    chatWhatsapp: 'Chamar no WhatsApp',
+    sendAnother: '← Enviar Outra Consulta',
+    waFollowupMessage:
+      'Olá, acabei de enviar uma consulta no wanlian911.com e gostaria de um acompanhamento rápido.',
+  },
+  lead: {
+    eyebrow: 'Deixe seu Contato',
+    title: 'Deixe seu Contato — Nós Retornamos',
+    body:
+      'Ainda não está pronto para escrever uma consulta completa? Deixe seu nome e um telefone ou e-mail, e nossa equipe comercial entrará em contato com informações do produto, documentação e cotação exatamente quando você precisar.',
+    bullets: [
+      'Resposta em até 12 horas, 7 dias por semana',
+      'WhatsApp, e-mail ou telefone — você escolhe',
+      'Seus dados são usados apenas para o seu acompanhamento, sem spam',
+    ],
+    cardTitle: 'Deixe seus Dados de Contato',
+    fullName: 'Nome Completo *',
+    email: 'E-mail *',
+    phone: 'Telefone / WhatsApp',
+    phonePlaceholder: '+55 11 91234 5678',
+    message: 'Produto ou Requisito (Opcional)',
+    messagePlaceholder: 'ex.: válvulas de gaveta DN50-300, quantidade, porto de destino...',
+    submit: 'Deixar Meu Contato',
+    sending: 'Enviando...',
+    verifyRequired: 'Complete a verificação antes de enviar.',
+    submitFailed: 'Falha no envio. Tente novamente ou fale conosco pelo WhatsApp.',
+    privacyNote: 'Usamos seus dados apenas para acompanhar sua solicitação. Sem spam, sem compartilhamento.',
+    successTitle: 'Dados de Contato Recebidos!',
+    successBody:
+      'Obrigado. Nossa equipe comercial entrará em contato em até 12 horas com informações do produto e opções de cotação.',
+    successWhatsappHint: 'Prefere chat instantâneo? Fale conosco direto pelo WhatsApp:',
+    chatWhatsapp: 'Chamar no WhatsApp',
+    sendAnother: '← Deixar Outro Contato',
+    waFollowupMessage:
+      'Olá, acabei de deixar meus dados de contato no wanlian911.com e gostaria de um acompanhamento rápido.',
+    floatLabel: 'Deixar Contato',
+    close: 'Fechar',
+  },
+  notFound: {
+    title: '404 - Página Não Encontrada | Wanlian Fluid Equipment',
+    description:
+      'A página que você procura não foi encontrada. Explore as válvulas industriais e equipamentos de proteção contra incêndio da Wanlian Fluid.',
+    heading: 'Página Não Encontrada',
+    body:
+      'A página que você procura pode ter sido movida, renomeada ou deixado de existir. Explore nosso catálogo de válvulas certificadas e de proteção contra incêndio.',
+    backHome: 'Voltar ao Início',
+    browseProducts: 'Ver Produtos',
+    contactUs: 'Fale Conosco',
+  },
+};
+
+export const ui: Record<Locale, UIStrings> = { en, es, ru, fr, ar, pt };
 
 /** 按语言取字典；缺省回退 en（保证接口容错）。 */
 export function t(locale: Locale): UIStrings {

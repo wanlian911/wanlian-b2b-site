@@ -1,0 +1,184 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'one-package', label: '1. Por que o pacote de rociadores é adquirido como um único escopo' },
+	{ id: 'alarm-valve-group', label: '2. O grupo de válvula de alarme: o coração do sistema molhado' },
+	{ id: 'monitored-isolation', label: '3. Separação monitorada: válvulas OS&Y e borboletas de sinal' },
+	{ id: 'siamese', label: '4. Conexão de Bombeiros (Siamese)' },
+	{ id: 'sprinkler-heads', label: '5. Rociadores: Fator K, Temperatura e Orientação' },
+	{ id: 'flow-indicators', label: '6. Indicadores de Vazão e Monitoramento de Zonas' },
+	{ id: 'bom-table', label: '7. A Tabela de Planejamento do BOM' },
+	{ id: 'standards', label: '8. Normas e Certificações a Especificar' },
+	{ id: 'faq', label: 'Perguntas Frequentes' }
+];
+
+const faq = [
+	{
+		question: 'Um único fabricante pode fornecer um pacote completo de sistema de rociadores molhado?',
+		answer: 'Sim. Um único pedido de compra pode cobrir o grupo de válvula de alarme molhada ZSFZ, as válvulas de controle OS&Y e borboletas de sinal, a conexão siamesa, os rociadores de bulbo de vidro e os indicadores de vazão de água, com registros de teste por unidade e um único conjunto de documentos de exportação. Consolidar o escopo contra incêndio sob um único fabricante responsável elimina o risco de coordenação de cinco fornecedores separados.'
+	},
+	{
+		question: 'O que inclui um grupo de válvula de alarme molhada ZSFZ?',
+		answer: 'O grupo ZSFZ inclui o corpo da válvula de retenção de alarme (DN100/DN150/DN200 a 1,6 MPa), o sino de alarme com motor hidráulico, a câmara de retardo e o pressostato, com corpos em ferro fundido cinzento ou ferro fundido dúctil e vedação EPDM/NBR. O sino toca com a vazão dos rociadores, enquanto o pressostato sinaliza o painel de alarme contra incêndio do prédio.'
+	},
+	{
+		question: 'Os rociadores precisam de listagem UL para o meu projeto?',
+		answer: 'Se a sua especificação ou a autoridade local exige rociadores listados UL, especifique isso explicitamente e solicite o certificado de listagem para o modelo exato antes de pedir. Os rociadores ZST da Wanlian são fabricados conforme a família GB 5135; para projetos que exigem rociadores listados UL ou FM, confirme a cobertura do modelo por escrito na etapa de cotação.'
+	},
+	{
+		question: 'Quantos rociadores eu preciso por compartimento contra incêndio?',
+		answer: 'Isso vem do dimensionamento hidráulico dos rociadores, não do fornecedor: a quantidade de rociadores segue a área do pavimento, a densidade de projeto e o fator K na pressão de trabalho requerida. Envie-nos o seu layout de planta ou as premissas de projeto e nossos engenheiros devolvem a contagem de rociadores e o dimensionamento correspondente da válvula de alarme e da conexão siamesa.'
+	},
+	{
+		question: 'Quais documentos a remessa do pacote de rociadores deve incluir?',
+		answer: 'Fatura comercial, lista de embalagem, certificado de origem, registros de teste de pressão do corpo e de estanqueidade ao ar por unidade, conciliados com os números de série, e os certificados específicos de norma exigidos pela sua licitação. Os rociadores são fornecidos com a cota de temperatura e o fator K marcados na moldura.'
+	}
+];
+
+const productRows = [
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Válvula de Retenção de Alarme Molhada ZSFZ 150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Sino + câmara de retardo + pressostato, DN100-DN200' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Válvula de Gaveta OS&Y (Ranurada)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: 'Separação principal 2"-10" com haste aparente para linhas de incêndio' },
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'Conexão Siamesa SQD100', img: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', desc: 'Duplas entradas DN65 para abastecimento por duas viaturas' }
+];
+---
+
+<Layout
+	title="BOM de Sistema de Rociadores Comercial: Guia de Aquisição (2026)"
+	description="BOM completo para sistema de rociadores em prédio comercial: válvula de alarme, OS&Y, siamese, rociadores e indicadores de vazão — um pacote, um pedido."
+	type="article"
+	locale="pt"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guias', href: '/pt/blog/' }, { name: 'BOM do Sistema de Rociadores' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/pt/" class="hover:text-blue-600">Início</a>
+			<span>/</span>
+			<a href="/pt/blog/" class="hover:text-blue-600">Guias</a>
+			<span>/</span>
+			<span class="text-gray-600">BOM do Sistema de Rociadores</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guia de Aquisição · Prédios Comerciais</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Está montando um sistema de rociadores comercial? Veja o BOM completo</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">A maioria dos problemas de aquisição de rociadores não está em nenhum componente individual — está nas emendas: uma válvula de alarme de uma fábrica, rociadores de outra, a conexão siamesa de uma terceira, cada um com seus próprios registros de teste, seu próprio prazo de entrega e seu próprio silêncio quando algo não encaixa. Este guia percorre, peça por peça, um escopo completo de sistema de rociadores molhado comercial, com os componentes que você de fato vai especificar, como eles se encaixam e a tabela de planejamento para levar direto à sua RFQ.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Nota de escopo:</strong> Esta é uma referência de planejamento para um sistema comercial molhado padrão. Seu dimensionamento hidráulico e as regras da autoridade de incêndio local definem o BOM final — envie-nos o seu layout de planta e devolvemos quantidades itemizadas e tamanhos de componentes correspondentes.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/pt/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="one-package" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Por que o pacote de rociadores é adquirido como um único escopo</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Um sistema de rociadores molhado é uma sequência de componentes: o grupo de válvula de alarme inicia a vazão e dispara o alarme, as válvulas de controle separam as seções, a conexão siamesa recebe o abastecimento das viaturas dos bombeiros, os rociadores entregam a água e os indicadores de vazão informam ao painel de controle qual zona está em descarga. Cada interface entre dois fornecedores é um ponto onde dimensões, normas e registros de teste podem divergir em silêncio — e a divergência costuma aparecer no local da obra, depois que o aço já está instalado.</p>
+			<p class="text-gray-700 leading-relaxed">Consolidar todo o escopo contra incêndio em um único pedido de compra garante um único fabricante responsável, um único conjunto de registros de teste por unidade que concilia com uma única lista de embalagem e um único pacote de frete e alfândega. É por isso que o nosso <a href="/pt/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">guia de aquisição</a> trata o kit completo como unidade de aquisição padrão e por que este BOM percorre cada componente principal de um sistema molhado comercial em uma única leitura.</p>
+
+			<h2 id="alarm-valve-group" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. O grupo de válvula de alarme: o coração do sistema molhado</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A <a href="/pt/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">válvula de retenção de alarme molhada ZSFZ</a> é o componente do qual o sistema depende. Ela mantém o sistema pressurizado sob a pressão da tubulação, abre automaticamente quando a vazão dos rociadores começa, aciona o sino de alarme com motor hidráulico e fecha o contato do pressostato que notifica o painel de alarme contra incêndio do prédio. A câmara de retardo fica entre a vazão e o alarme para filtrar surtos transitórios — sem ela, o disparo de uma bomba pode tocar um alarme falso.</p>
+			<p class="text-gray-700 leading-relaxed">Especifique o grupo, não a válvula nua: tamanho do corpo (DN100 / DN150 / DN200 a 1,6 MPa), sino, câmara de retardo e pressostato, mais a orientação de montagem que a sua sala de montantes permite. Para zonas de alto risco no mesmo prédio — estantes, cozinhas, armazenamento de tintas — a <a href="/pt/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">válvula de dilúvio ZSFM</a> e o <a href="/pt/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">sistema de pré-ação ZSFY</a> estendem o mesmo conceito para descarga instantânea e de duplo sinal.</p>
+
+			<h2 id="monitored-isolation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Separação monitorada: válvulas OS&Y e borboletas de sinal</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Toda linha principal e toda zona precisa de uma válvula de separação cuja posição a sala de controle possa verificar. A resposta padrão para linhas principais de incêndio é a <a href="/pt/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">válvula de gaveta OS&Y</a> de haste aparente — totalmente elevada significa aberta, baixada significa fechada, sem precisar abrir a válvula para checar. Para o controle de seções em linhas de rociadores, a <a href="/pt/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">válvula borboleta de sinal</a> ranurada adiciona um transmissor de posição, de modo que uma válvula deixada fechada se reporta como sinal de anormalidade em vez de falhar em silêncio quando começa um incêndio.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">O par que comprar:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Válvula</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Papel no sistema</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Posição típica</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Válvula de gaveta OS&Y</td><td class="px-4 py-3 text-gray-700">Desligamento principal, posição visível pela haste</td><td class="px-4 py-3 text-gray-700">Sala de montantes, alimentação do sistema</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Borboleta de sinal (ranurada)</td><td class="px-4 py-3 text-gray-700">Controle de seção/zona com posição transmitida</td><td class="px-4 py-3 text-gray-700">Linhas principais ramais, por zona</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Válvula de retenção (HQ44X)</td><td class="px-4 py-3 text-gray-700">Proteção anti-retorno em linha de bomba ou de ligação cruzada</td><td class="px-4 py-3 text-gray-700">Descarga da bomba, linha siamesa</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Onde a linha retorna a uma conexão municipal ou a uma bomba, uma válvula de retenção sem choque, como a <a href="/pt/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">retenção esférica HQ44X</a>, protege contra reflujo sem o choque de batida que uma retenção de clapeta pode causar em uma linha longa.</p>
+
+			<h2 id="siamese" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Conexão de Bombeiros (Siamese)</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A conexão siamesa é por onde o corpo de bombeiros adiciona a própria vazão. O <a href="/pt/products/sqd100-1-6-fire-pump-adapter/" class="text-brand-blue font-semibold hover:underline">SQD100-1.6</a> oferece duplas entradas DN65 — SQS65 ou KWS65, compatíveis com a norma de acoplamento do seu corpo de bombeiros local — alimentando uma única saída flangeada DN100, com válvula de controle de volante integrada e cabos de segurança trançados nas tampas. As entradas duplas permitem que duas viaturas abasteçam ao mesmo tempo, o que importa em grandes áreas comerciais onde a capacidade das bombas do prédio sozinha não cobre a demanda de pico.</p>
+			<p class="text-gray-700 leading-relaxed">Dois detalhes de especificação comumente esquecidos: a norma de acoplamento das entradas deve corresponder às viaturas do seu corpo de bombeiros (não um padrão genérico), e a localização da siamesa deve atender às regras de acessibilidade do seu código local — confirme os dois por escrito antes de fabricar as tampas e os adaptadores.</p>
+
+			<h2 id="sprinkler-heads" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Rociadores: Fator K, Temperatura e Orientação</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Os rociadores são o item de maior quantidade no BOM e o mais fácil de especificar errado. Três parâmetros fazem o trabalho: <strong>fator K</strong> (K=80 é a escolha padrão de densidade, K=115 para vazão maior), <strong>cota de temperatura</strong> (57 / 68 / 79 / 93 / 141°C com o código de cores padrão dos bulbos) e <strong>orientação</strong> (pendente para tetos, ereto para tubulação aparente, e variantes de parede lateral e embutidas para interiores acabados).</p>
+			<p class="text-gray-700 leading-relaxed">A <a href="/pt/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">série ZST de bulbo de vidro</a> cobre pendente, ereto e de parede lateral em DN15/DN20, com bulbos de resposta rápida ou padrão; as variantes <a href="/pt/products/horizontal-sidewall-fire-sprinkler-t-zstbs/" class="text-brand-blue font-semibold hover:underline">T-ZSTBS de parede lateral horizontal</a> e <a href="/pt/products/zstdy-concealed-fire-sprinkler/" class="text-brand-blue font-semibold hover:underline">ZSTDY embutida</a> resolvem os casos arquitetônicos. Para aplicações de armazenamento, o <a href="/pt/products/esfr-sprinkler-head/" class="text-brand-blue font-semibold hover:underline">rociador ESFR</a> é o tipo designado. O seu dimensionamento hidráulico define o fator K e a quantidade por zona — a fábrica os marca na moldura e no certificado de teste.</p>
+
+			<h2 id="flow-indicators" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Indicadores de Vazão e Monitoramento de Zonas</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Quando um rociador entra em descarga em um prédio de quarenta andares, a sala de controle precisa saber qual andar. O <a href="/pt/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">indicador de vazão de água tipo pá ZSJZ</a> converte a vazão em um ramal específico em um contato elétrico para o painel de alarme contra incêndio, zona a zona. Especifique um por ramal monitorado, com a cota do contato compatível com o seu painel, e rotule as zonas de forma consistente com os seus projetos as-built — um alarme de vazão que ninguém consegue localizar é uma investigação de incêndio, não uma resposta a incêndio.</p>
+
+			<h2 id="bom-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. A Tabela de Planejamento do BOM</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Use-a como esqueleto da sua RFQ. As quantidades são placeholders a substituir pelo seu dimensionamento hidráulico — o ponto é que todo item do escopo seja nomeado e mapeado para um modelo real antes de pedir a cotação, para que o preço itemizado que você receber seja comparável linha a linha.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Item do escopo</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Modelo de referência</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Dimensionado por</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Grupo de válvula de alarme molhada (sino + retardo + pressostato)</td><td class="px-4 py-3 text-gray-700">ZSFZ-150 (DN100/DN150/DN200)</td><td class="px-4 py-3 text-gray-700">Vazão de projeto</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Desligamento principal (OS&Y, ranurado)</td><td class="px-4 py-3 text-gray-700">2"–10" OS&Y</td><td class="px-4 py-3 text-gray-700">Tamanho da linha principal</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Controle de zona (borboleta de sinal)</td><td class="px-4 py-3 text-gray-700">DN80–DN150 de sinal ranurada</td><td class="px-4 py-3 text-gray-700">Linhas principais ramais</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Válvula de retenção (bomba / anti-retorno)</td><td class="px-4 py-3 text-gray-700">HQ44X-16</td><td class="px-4 py-3 text-gray-700">Tamanho da linha da bomba</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Conexão de bombeiros</td><td class="px-4 py-3 text-gray-700">SQD100-1.6 (SQS65/KWS65)</td><td class="px-4 py-3 text-gray-700">Norma do corpo de bombeiros local</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Rociadores (pendente/ereto/parede lateral)</td><td class="px-4 py-3 text-gray-700">ZST / T-ZSTBS / ZSTDY, K80 ou K115</td><td class="px-4 py-3 text-gray-700">Dimensionamento hidráulico</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Indicadores de vazão de água</td><td class="px-4 py-3 text-gray-700">ZSJZ por ramal monitorado</td><td class="px-4 py-3 text-gray-700">Plano de zonas</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Postos de incêndio internos (carretes de mangueira + armários)</td><td class="px-4 py-3 text-gray-700">JPS0.8-19 + SN65</td><td class="px-4 py-3 text-gray-700">Plano de rotas de fuga</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Dois itens finais de escopo para conferir: os postos de incêndio internos (<a href="/pt/products/fire-hose-reel-jpso8-19/" class="text-brand-blue font-semibold hover:underline">carrete de mangueira JPS0.8-19</a> com válvula <a href="/pt/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">SN65</a>, dimensionados pelo seu plano de rotas de fuga) e a mangueira de incêndio plana e os <a href="/pt/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">acoplamentos Storz</a> que alimentam a siamesa. Tudo — do grupo de alarme ao último rociador — é despachado em um único PO com um único conjunto de registros de teste.</p>
+
+			<h2 id="standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. Normas e Certificações a Especificar</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">O regime de normas depende do destino: a <strong>NFPA 13</strong> rege o projeto do sistema em projetos com especificação dos EUA, com listagem UL/FM de componentes específicos quando a autoridade exige; a família <strong>GB 5135</strong> é a referência de fabricação para válvulas de alarme e rociadores no ambiente de produção chinês; os regimes <strong>EN</strong> se aplicam a destinos europeus. A regra prática é a do nosso <a href="/pt/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">guia de normas</a>: a norma é propriedade do produto e do destino, não da marca — por isso a RFQ nomeia a norma por item e o fornecedor responde por modelo com o certificado correspondente.</p>
+			<p class="text-gray-700 leading-relaxed">Para um projeto comercial que precisa passar na inspeção, o conjunto de documentos que mantém o dossiê limpo é: registros de teste de pressão e estanqueidade por unidade, marcações de temperatura/fator K dos rociadores, certificados das válvulas compatíveis com a norma especificada e o pacote de documentos de exportação. O nosso <a href="/pt/whitepaper/" class="text-brand-blue font-semibold hover:underline">whitepaper do setor</a> percorre a sequência completa de verificação, da especificação por escrito ao produto verificado.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Perguntas Frequentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Envie Seu Layout de Planta — Receba uma Cotação Itemizada do BOM</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envie seus desenhos ou liste suas zonas, e devolvemos quantidades itemizadas, tamanhos de componentes correspondentes e a abordagem de teste por modelo em até 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/pt/contact/?product=BOM%20Sistema%20de%20Rociadores%20Comercial" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotação</a>
+						<a href="https://wa.me/8618684324501?text=Ol%C3%A1%2C%20estou%20montando%20um%20sistema%20de%20rociadores%20para%20um%20pr%C3%A9dio%20comercial%20e%20preciso%20de%20uma%20cota%C3%A7%C3%A3o%20completa%20do%20BOM" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Conversar no WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

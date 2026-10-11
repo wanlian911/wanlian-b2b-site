@@ -1,0 +1,34 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { guidesPt } from '../../utils/guides.pt';
+import { tagsPt } from '../../utils/tags.pt';
+
+const solutions = [
+  { title: 'Sistemas de hidrantes contra incêndio', description: 'Hidrantes internos, externos e subterrâneos para redes municipais, instalações industriais e projetos de proteção contra incêndio.', href: '/pt/fire-hydrant-systems/' },
+  { title: 'Prevenção de refluxo e controle hidráulico', description: 'Dispositivos anti-retorno, válvulas redutoras de pressão e válvulas de controle para água potável e segurança hidráulica.', href: '/pt/backflow-prevention/' },
+  { title: 'Aplicações de válvulas e equipamentos', description: 'Soluções para água municipal, HVAC, irrigação, petróleo e gás e tubulações industriais.', href: '/pt/applications/' },
+  { title: 'Válvulas contra incêndio UL e sistemas de rociadores', description: 'Válvulas de proteção contra incêndio, sistemas de rociadores e canhões monitora com suporte técnico.', href: '/pt/ul-fire-valves/' },
+  { title: 'Canhões monitora contra incêndio', description: 'Canhões monitora manuais e automáticos para refinarias, armazéns, aeroportos e áreas de alto risco.', href: '/pt/fire-water-cannon/' },
+  { title: 'Sistemas de rociadores contra incêndio', description: 'Válvulas de alarme molhadas, válvulas de dilúvio, sistemas de pré-ação e indicadores de vazão.', href: '/pt/fire-sprinkler-systems/' }
+];
+---
+<Layout title="Blog e Guias de Suprimentos | Wanlian Fluid Equipment" description="Guias técnicos de suprimentos e conhecimento industrial sobre proteção contra incêndio, válvulas e controle de fluidos." locale="pt">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mb-20">
+    <div class="text-center mb-16 space-y-4">
+      <span class="text-xs font-bold tracking-widest text-blue-600 uppercase">Blog e Guias</span>
+      <h1 class="text-4xl font-black text-gray-900 tracking-tight">Guias de suprimentos e conhecimento industrial</h1>
+      <p class="mt-4 text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">Conhecimento prático de engenharia e compras para projetos de proteção contra incêndio e controle de fluidos.</p>
+    </div>
+    {guidesPt.length > 0 && <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {guidesPt.map(article => <a href={article.href} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition p-8 flex flex-col">
+        <div class="flex items-center gap-3 mb-4"><span class="px-2.5 py-1 bg-brand-blue/10 text-brand-blue text-[11px] font-black rounded-full uppercase tracking-wider">{article.category}</span><span class="text-xs text-gray-400">{article.date} · {article.readTime}</span></div>
+        <h2 class="text-lg font-black text-gray-900 group-hover:text-brand-blue transition leading-snug mb-3">{article.title}</h2><p class="text-sm text-gray-500 leading-relaxed flex-grow">{article.description}</p>
+        <div class="flex flex-wrap gap-2 mt-4">{article.tags.map(tag => <a href={`/pt/tags/${tag}/`} class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">#{tagsPt[tag]?.name ?? tag.replace(/-/g, ' ')}</a>)}</div>
+        <span class="mt-6 inline-flex items-center text-brand-red font-bold text-sm">Ler o guia →</span>
+      </a>)}
+    </div>}
+    <div class="mt-16 mb-8 flex items-center gap-4"><h2 class="text-2xl font-black text-gray-900 tracking-tight">Soluções de produtos</h2><div class="flex-1 h-px bg-gray-200"></div></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">{solutions.map(article => <a href={article.href} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition p-8 flex flex-col"><span class="px-2.5 py-1 bg-brand-red/10 text-brand-red text-[11px] font-black rounded-full uppercase tracking-wider w-fit mb-4">Solução</span><h2 class="text-lg font-black text-gray-900 group-hover:text-brand-red transition leading-snug mb-3">{article.title}</h2><p class="text-sm text-gray-500 leading-relaxed flex-grow">{article.description}</p><span class="mt-6 inline-flex items-center text-brand-blue font-bold text-sm">Ver solução →</span></a>)}</div>
+    <div class="mt-20 p-10 bg-gray-900 rounded-3xl text-white text-center space-y-4"><h2 class="text-2xl font-black">Precisa de uma consulta técnica?</h2><p class="text-gray-400 max-w-xl mx-auto">Nossos engenheiros ajudam você a escolher as válvulas e equipamentos adequados ao seu projeto.</p><a href="/pt/contact/" class="inline-block px-8 py-4 bg-brand-red text-white font-bold rounded-xl">Falar com um engenheiro</a></div>
+  </main>
+</Layout>

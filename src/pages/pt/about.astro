@@ -1,0 +1,368 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Layout from '../../layouts/Layout.astro';
+
+// Os assets de evidência da fábrica são colocados em public/assets/factory/.
+// A seção só é renderizada para arquivos que realmente existem, para que o site
+// ao vivo nunca exiba uma imagem quebrada ou um placeholder vazio antes dos assets chegarem.
+const factoryDir = path.join(process.cwd(), 'public', 'assets', 'factory');
+const hasFactoryAsset = (file) => fs.existsSync(path.join(factoryDir, file));
+
+const plantPhotos = [
+  { file: 'plant-exterior.webp', alt: 'Exterior da planta de manufatura da Wanlian Fluid em Quanzhou, Fujian', caption: 'Nossa planta — Quanzhou, Fujian' },
+  { file: 'workshop.webp', alt: 'Área de dobra de chapas com dobradeiras de prensa e pórtico de ponte rolante no workshop da Wanlian Fluid', caption: 'Área de dobra — dobradeiras de prensa e pórtico de ponte rolante' },
+  { file: 'powder-coating.webp', alt: 'Linha de revestimento a pó com esteira suspensa na Wanlian Fluid', caption: 'Linha de revestimento a pó — da cabine de pintura à cura' },
+  { file: 'assembly.webp', alt: 'Baia de montagem e acabamento com armários de carretes de mangueira contra incêndio na Wanlian Fluid', caption: 'Baia de montagem e acabamento' },
+  { file: 'fire-hose.webp', alt: 'Carretes de mangueira contra incêndio prontos e mangueiras enroladas preparadas para exportação na Wanlian Fluid', caption: 'Produção de mangueiras e carretes contra incêndio' },
+  { file: 'qc-test-bench.webp', alt: 'Bancada de teste de pressão de corpo e vazamento de ar de válvulas da Wanlian Fluid', caption: 'Bancada de teste de pressão de corpo e vazamento de ar' }
+].filter((p) => hasFactoryAsset(p.file));
+
+const verifiableItems = [
+  'Certificado do sistema de gestão da qualidade ISO 9001, com escopo e organismo emissor',
+  'Laudos de teste de pressão de corpo e vazamento de ar por lote para as unidades do seu pedido',
+  'Inspeção de terceiros (estilo SGS / BV) agendada na pré-entrega, a seu pedido',
+  'Passeio em vídeo ao vivo pela linha e pela bancada de teste durante a sua produção',
+  'Marcação OEM/ODM, embalagem de exportação e o pacote completo de documentação de exportação'
+];
+
+const hasBusinessLicense = hasFactoryAsset('business-license.webp');
+const hasProductionVideo = hasFactoryAsset('production-line.mp4');
+const hasFactoryEvidence = plantPhotos.length > 0 || hasBusinessLicense || hasProductionVideo;
+const heroPhoto = hasFactoryAsset('plant-exterior.webp') ? '/assets/factory/plant-exterior.webp' : '/og-image.jpg';
+
+const productionSteps = [
+  { step: '01', name: 'Inspeção de Materiais Recebidos', desc: 'Inspeção de recebimento de ferro fundido dúctil, peças fundidas, materiais de vedação e revestimentos conforme a especificação do pedido.' },
+  { step: '02', name: 'Usinagem CNC', desc: 'Usinagem de precisão de corpos de válvula, discos e itens internos conforme as tolerâncias dimensionais exigidas.' },
+  { step: '03', name: 'Montagem', desc: 'Montagem de itens internos, elementos de vedação e mecanismos de operação sob condições controladas de oficina.' },
+  { step: '04', name: 'Testes de Pressão e Vazamento', desc: 'Teste de pressão de corpo e de vazamento de ar no assento em 100% das unidades antes do acabamento.' },
+  { step: '05', name: 'Revestimento Epóxi', desc: 'Aplicação de revestimento em resina epóxi não tóxica para resistência à corrosão e longa vida em serviço.' },
+  { step: '06', name: 'Embalagem para Exportação', desc: 'Embalagem, identificação e documentação de nível exportador preparadas para o envio internacional.' }
+];
+
+const values = [
+  { title: 'Inovação', desc: 'Otimização contínua de projetos e avanços em pesquisa para criar sistemas de combate a incêndio e de fluidos mais inteligentes e eficientes.' },
+  { title: 'Qualidade', desc: 'Dada a importância crítica de sistemas contra incêndio e tubulações industriais, inspecionamos rigorosamente cada válvula para superar as normas internacionais.' },
+  { title: 'Responsabilidade', desc: 'Como empresa socialmente responsável, buscamos melhorar a segurança pública e garantir a segurança dos fluidos em redes globais.' },
+  { title: 'Meio Ambiente', desc: 'Incorporamos padrões de manufatura verde e conceitos de sustentabilidade no nosso fluxo de produção para promover a segurança ecológica.' }
+];
+
+const faq = [
+  {
+    question: 'A Wanlian Fluid é fabricante ou empresa comercializadora?',
+    answer: 'Somos fabricante com linhas de produção próprias em Quanzhou, Fujian: os corpos de válvula são usinados em CNC internamente, e a montagem e os testes de pressão são realizados no nosso próprio workshop. Itens selecionados são produzidos por parceiros de manufatura qualificados, documentados por pedido. A entidade que emite a fatura do seu pedido é a entidade de manufatura do nosso alvará comercial.'
+  },
+  {
+    question: 'Quais linhas de produtos a Wanlian Fluid fabrica?',
+    answer: 'Seis linhas de produtos e mais de 43 modelos em estoque: válvulas de gaveta com assento elástico e metálico, válvulas borboleta e de retenção, hidrantes e componentes de hidrante, rociadores e válvulas de alarme, mangueira contra incêndio revestida de borracha, canhões monitora e extintores — para projetos de abastecimento de água, controle de fluidos industrial e proteção contra incêndio.'
+  },
+  {
+    question: 'Como as válvulas e os hidrantes são testados antes do envio?',
+    answer: 'Cada unidade passa por 100% de teste de pressão de corpo e de vazamento de ar na nossa própria bancada de teste antes do acabamento, com registros por unidade. Um vídeo de teste com número de série de uma unidade de amostra e inspeção de terceiros (estilo SGS / BV) podem ser providenciados sob solicitação.'
+  },
+  {
+    question: 'A Wanlian Fluid oferece serviço OEM e ODM?',
+    answer: 'Sim — marcação OEM/ODM, personalização não padrão, embalagem de exportação e o pacote completo de documentação de exportação, com compromisso de resposta em 12 horas para cotações e questões técnicas.'
+  },
+  {
+    question: 'Como posso verificar a empresa antes de fazer um pedido?',
+    answer: 'Solicite o certificado ISO 9001 com o organismo emissor, um vídeo ao vivo da linha e da bancada de teste, laudos de teste por lote para os seus modelos e um pedido de amostra de uma unidade. Um fornecedor que resiste à verificação já respondeu à pergunta.'
+  }
+];
+---
+
+<Layout
+  locale="pt"
+  title="Sobre Nós | Quanzhou Wanlian Fluid Equipment"
+  description="Fábrica de válvulas e equipamentos contra incêndio em Quanzhou, Fujian, China. Linhas de produção próprias, OEM/ODM e suporte técnico para projetos B2B."
+  faq={faq}
+  breadcrumbs={[{ name: 'Sobre' }]}
+>
+  <!-- Cabeçalho do Banner -->
+  <section class="relative bg-gray-900 text-white overflow-hidden py-20">
+    <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/og-image.jpg');"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+      <span class="text-xs font-bold tracking-widest text-blue-500 uppercase">Quem Somos</span>
+      <h1 class="text-3xl sm:text-5xl font-black tracking-tight">Sobre a Quanzhou Wanlian</h1>
+      <p class="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
+        Fabricante e exportador de válvulas e equipamentos contra incêndio, com linhas de produção próprias no coração do polo de válvulas e encanamento da China.
+      </p>
+    </div>
+  </section>
+
+  <!-- Perfil da Empresa -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="space-y-6">
+          <div class="border-l-4 border-blue-600 pl-4">
+            <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Perfil da Empresa</span>
+            <h2 class="text-3xl font-black text-gray-900 tracking-tight mt-1">Enraizados no Coração do Polo da Indústria de Válvulas</h2>
+          </div>
+           <p class="text-base text-gray-600 leading-relaxed">
+             A Quanzhou Wanlian Fluid Equipment Co., Ltd. está localizada em Quanzhou, Fujian — o ponto de partida da Rota da Seda Marítima e o núcleo do polo de válvulas e encanamento da China. Fabricamos e exportamos válvulas, equipamentos contra incêndio, equipamentos de controle de fluidos e soluções integradas para os setores industrial, municipal, de proteção contra incêndio e de abastecimento e drenagem, e nossos engenheiros apoiam a seleção e a personalização de produtos em cada pedido.
+          </p>
+          <p class="text-base text-gray-600 leading-relaxed">
+             Nossas linhas de produção próprias em Quanzhou, Fujian, combinam uma equipe de engenharia sênior com usinagem CNC interna, montagem e testes de pressão — apoiadas por parceiros de manufatura qualificados para itens selecionados. Os corpos de válvula são usinados em CNC internamente, cada unidade passa por teste de pressão de corpo e de vazamento de ar antes do envio, e a produção é conduzida sob um sistema de gestão da qualidade ISO 9001, juntamente com as normas industriais nacionais aplicáveis, garantindo a estabilidade, a confiabilidade e a durabilidade de cada produto.
+          </p>
+          <p class="text-base text-gray-600 leading-relaxed">
+             Nosso catálogo é estruturado em torno das especificações com as quais engenheiros de projeto realmente trabalham — classe de pressão, norma de conexão, material do corpo e dos itens internos e aplicação — com cotações sob consulta e suporte técnico para abastecimento de água, controle de fluidos industrial e projetos contra incêndio.
+          </p>
+          <div class="grid grid-cols-2 gap-6 pt-4 border-t border-gray-100">
+            <div>
+              <span class="block text-2xl font-black text-blue-600">Válvulas</span>
+              <span class="block text-xs text-gray-400 font-bold tracking-wider uppercase mt-1">Sistemas de Controle de Fluidos</span>
+            </div>
+            <div>
+              <span class="block text-2xl font-black text-blue-600">Proteção Contra Incêndio</span>
+               <span class="block text-xs text-gray-400 font-bold tracking-wider uppercase mt-1">Linhas de Produção Próprias</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative rounded-2xl overflow-hidden aspect-video shadow-lg border border-gray-100 bg-gray-50">
+          <img 
+            src={heroPhoto}
+            alt="Planta de manufatura da Wanlian Fluid e produção de válvulas, Quanzhou, Fujian"
+            loading="lazy"
+            class="object-cover w-full h-full"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Evidências da Manufatura: fotos da planta, alvará comercial, vídeo de produção -->
+  {hasFactoryEvidence && (
+  <section class="py-24 bg-gray-50 border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Evidências da Fábrica</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Dentro das Nossas Linhas de Produção em Quanzhou</h2>
+        <p class="text-base text-gray-500">Documentos e imagens para a sua due diligence — os mesmos registros que nossos próprios compradores verificam. Solicite-nos o pacote completo de certificados e laudos de teste correspondente ao seu pedido.</p>
+      </div>
+
+      {plantPhotos.length > 0 && (
+      <div class="columns-1 sm:columns-2 gap-6 mb-16">
+        {plantPhotos.map((photo) => (
+          <figure class="mb-6 break-inside-avoid bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+            <img src={`/assets/factory/${photo.file}`} alt={photo.alt} loading="lazy" class="w-full h-auto" />
+            <figcaption class="px-5 py-4 text-sm font-semibold text-gray-700">{photo.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+      )}
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        {hasProductionVideo && (
+        <div class="lg:col-span-1 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <video
+            class="w-full aspect-[9/16] bg-gray-900 object-cover"
+            controls
+            playsinline
+            preload="metadata"
+            poster={hasFactoryAsset('production-line-poster.webp') ? '/assets/factory/production-line-poster.webp' : undefined}
+          >
+            <source src="/assets/factory/production-line.mp4" type="video/mp4" />
+            Seu navegador não oferece suporte a vídeo incorporado.
+          </video>
+          <div class="px-6 py-5">
+            <h3 class="font-bold text-lg text-gray-900">No Piso de Produção</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Vinte e cinco segundos de imagens não editadas das nossas próprias linhas de produção — dobra de chapas, solda, linha de revestimento a pó e tecelagem de cobertura de mangueira contra incêndio. Nenhum vídeo de banco de imagens.</p>
+          </div>
+        </div>
+        )}
+
+        <div class={hasProductionVideo ? 'lg:col-span-2 space-y-8' : 'lg:col-span-3 space-y-8'}>
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+            <h3 class="font-bold text-lg text-gray-900">O que você pode verificar conosco</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">A verificação é parte normal dos negócios com um fornecedor chinês. Veja o que colocaremos nas suas mãos antes do seu compromisso — solicite tudo.</p>
+            <ul class="mt-6 space-y-3">
+              {verifiableItems.map((item) => (
+                <li class="flex items-start gap-3 text-sm text-gray-600 leading-relaxed">
+                  <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {hasBusinessLicense && (
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <img src="/assets/factory/business-license.webp" alt="Alvará comercial da Quanzhou Wanlian Fluid Equipment Co., Ltd., com escopo de atuação cobrindo manufatura" loading="lazy" class="w-full object-contain bg-gray-50 max-h-[420px]" />
+            <div class="px-6 py-5">
+              <h3 class="font-bold text-lg text-gray-900">Alvará Comercial</h3>
+              <p class="mt-2 text-sm text-gray-500 leading-relaxed">Registrada em Quanzhou, Fujian. O escopo de atuação cobre manufatura, processamento e exportação de válvulas e equipamentos contra incêndio — a entidade que emite a fatura do seu pedido é a entidade que fabrica o produto.</p>
+            </div>
+          </div>
+          )}
+        </div>
+      </div>
+
+      <p class="mt-10 text-center text-sm text-gray-500">
+        Quer um vídeo ao vivo da linha e da bancada de teste para o seu projeto? <a href="/pt/contact/" class="text-brand-blue font-semibold hover:underline">Solicitar uma visita à fábrica</a>.
+      </p>
+    </div>
+  </section>
+  )}
+
+  <!-- Produtos e Serviços -->
+  <section class="py-24 bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Produtos e Serviços</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Linha de Produtos Completa e Serviços Diversificados</h2>
+        <p class="text-base text-gray-500">Realizando funções de transmissão, regulação, bloqueio e proteção de segurança de fluidos em várias indústrias.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
+          <h3 class="font-bold text-lg text-gray-900 mb-4">Produtos Principais</h3>
+          <ul class="space-y-2 text-sm text-gray-600">
+            {['Válvulas de Gaveta', 'Válvulas Borboleta', 'Válvulas de Esfera', 'Válvulas de Balanceamento', 'Válvulas de Globo', 'Válvulas de Retenção', 'Filtros', 'Válvulas de Controle Hidráulico', 'Acessórios de Tubulação', 'Atuadores'].map(item => (
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
+          <h3 class="font-bold text-lg text-gray-900 mb-4">Equipamentos Contra Incêndio</h3>
+          <ul class="space-y-2 text-sm text-gray-600">
+            {['Armários Contra Incêndio', 'Hidrantes Contra Incêndio', 'Extintores Contra Incêndio', 'Carretes de Mangueira', 'Mangueiras Contra Incêndio', 'Bicos de Incêndio', 'Acoplamentos de Mangueira', 'Rociadores Contra Incêndio'].map(item => (
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-brand-blue rounded-full flex-shrink-0"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
+          <h3 class="font-bold text-lg text-gray-900 mb-4">Aplicações e Serviços</h3>
+          <p class="text-sm text-gray-600 leading-relaxed mb-6">Amplamente aplicados nas indústrias de petroquímica, energia elétrica, metalurgia, abastecimento e drenagem municipal, proteção contra incêndio em edificações, tratamento de esgoto, HVAC e outras.</p>
+          <div class="flex flex-wrap gap-2">
+            {['OEM', 'ODM', 'Personalização Não Padrão'].map(tag => (
+              <span class="px-3 py-1.5 bg-white border border-gray-200 text-xs font-black uppercase tracking-wider text-gray-700 rounded-full">{tag}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Processo de Produção -->
+  <section class="py-24 bg-gray-50 border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Controle de Qualidade</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Nosso Processo Padrão de Produção</h2>
+          <p class="text-base text-gray-500">Cada pedido segue a mesma sequência de produção controlada — da inspeção de materiais recebidos até a embalagem para exportação.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {productionSteps.map(step => (
+          <div class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm relative overflow-hidden group">
+            <span class="absolute right-6 top-6 text-4xl font-black text-gray-100 group-hover:text-blue-50 transition duration-300">
+              {step.step}
+            </span>
+            <div class="space-y-4">
+              <h3 class="font-bold text-lg text-gray-900 pr-12">{step.name}</h3>
+              <p class="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Valores Centrais -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Crenças Centrais</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Quatro Pilares Corporativos Centrais</h2>
+        <p class="text-base text-gray-500">Impulsionando a segurança sustentável e a excelência industrial em todo o mundo.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        {values.map(val => (
+          <div class="flex gap-6 items-start">
+            <div class="bg-blue-500/10 p-4 rounded-xl text-blue-600 flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+              </svg>
+            </div>
+            <div class="space-y-2">
+              <h3 class="font-bold text-xl text-gray-900">{val.title}</h3>
+              <p class="text-sm text-gray-500 leading-relaxed">{val.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Filosofia de Negócios e Visão -->
+  <section class="py-24 bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-500 uppercase">Nosso Compromisso</span>
+        <h2 class="text-3xl font-black tracking-tight">Filosofia de Negócios</h2>
+      </div>
+
+      <blockquote class="text-center text-2xl sm:text-3xl font-black tracking-tight text-white mb-16">
+        "Qualidade em Primeiro Lugar, Cliente em Primeiro Lugar, Integridade para o Ganho-Mútuo, <span class="text-brand-red">Inovação para o Desenvolvimento Sustentável</span>"
+      </blockquote>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        {[
+          { title: 'Consultoria Pré-Vendas', desc: 'Orientação profissional de seleção de produtos e soluções técnicas personalizadas para os requisitos do seu projeto.' },
+          { title: 'Suporte em Vendas', desc: 'Orientação técnica para instalação e comissionamento, com resposta rápida às demandas do cliente.' },
+          { title: 'Serviço Pós-Vendas', desc: 'Manutenção pós-vendas e soluções práticas de problemas em aplicações de sistemas de fluidos.' }
+        ].map((item, idx) => (
+          <div class="p-8 bg-white/5 border border-white/10 rounded-2xl text-center">
+            <span class="block text-4xl font-black text-white/10 mb-4">{String(idx + 1).padStart(2, '0')}</span>
+            <h3 class="font-bold text-lg mb-3">{item.title}</h3>
+            <p class="text-xs text-gray-400 leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center max-w-3xl mx-auto space-y-6">
+        <p class="text-lg text-gray-300 leading-relaxed">
+          Enraizados em Quanzhou, cobrindo mercados em todo o país e abraçando oportunidades globais, seguimos focados no setor de equipamentos de fluidos — promovendo a atualização de produtos por meio de inovação tecnológica e construindo uma sólida reputação de marca com serviços de alta qualidade.
+        </p>
+        <p class="text-gray-400 leading-relaxed">
+          Nosso objetivo é ser um fabricante e parceiro de exportação de confiança nos setores de controle de fluidos, nacional e internacional, entregando soluções de sistemas de fluidos mais eficientes, seguras e inteligentes para clientes de todos os segmentos, e contribuindo para o desenvolvimento industrial e a construção de infraestrutura.
+        </p>
+        <a href="/pt/contact/" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-red hover:opacity-90 text-white font-bold rounded-lg transition">
+          Iniciar uma Conversa <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Perguntas Frequentes -->
+  <section class="py-24 bg-gray-50 border-t border-gray-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">FAQ</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Perguntas Frequentes</h2>
+      </div>
+      <div class="space-y-4">
+        {faq.map(item => (
+          <details class="group bg-white rounded-xl border border-gray-100 p-6 open:border-brand-red/30">
+            <summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+              <span>{item.question}</span>
+              <span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,189 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'O que é uma conexão siamesa e por que ela tem duas entradas?',
+		answer: 'A conexão de bombeiros (FDC) é o ponto pelo qual os caminhões-bomba de emergência bombeiam água para o sistema de proteção contra incêndio do edifício — a coluna (montante) ou a tubulação principal dos rociadores. A conexão siamesa tem duas entradas alimentando uma única saída, para que dois caminhões-bomba abasteçam o mesmo montante ao mesmo tempo, dobrando a vazão disponível para o sistema. O SQD100-1.6 recebe duas entradas DN65 (2,5\") e descarrega por uma única saída flangeada DN100 (4\") para a tubulação principal do edifício.'
+	},
+	{
+		question: 'Qual norma de acoplamento de entrada devo especificar para uma FDC?',
+		answer: 'As entradas devem corresponder aos acoplamentos de mangueira que o Corpo de Bombeiros local realmente usa, porque são eles que precisam se conectar sob pressão às 3 da manhã. O SQD100-1.6 é fornecido com 2 × DN65 de entradas e tampas em formato SQS65 / KWS65. Quando o projeto usa conexões Storz de norma alemã, nossos acoplamentos Storz 2,5\" em alumínio cobrem de DN50 a DN150 com borda autovedante, e os adaptadores da série HS (DN50/DN65, 1,6 MPa, GB12514) convertem entre tipos de rosca — informe o acoplamento necessário na consulta.'
+	},
+	{
+		question: 'O SQD100 inclui uma válvula de controle?',
+		answer: 'Sim. O SQD100-1.6 possui uma válvula de controle integrada acionada por volante, de modo que a vazão pela conexão pode ser regulada, e não apenas bloqueada ou aberta. Ambas as entradas são fornecidas com tampas retidas por cabos de segurança de aço trançado, para que as tampas permaneçam junto à conexão quando forem removidas durante o bombeamento.'
+	},
+	{
+		question: 'Quais são as especificações de tamanho, pressão e material?',
+		answer: 'Entradas: 2 × DN65 (2,5\") com tampas. Saída: DN100 (4\") flangeada. Classe de pressão: 1,6 MPa. Comprimento total: 120 mm. Corpo: ferro fundido dúctil / ferro fundido cinzento com acabamento vermelho em revestimento em pó resistente à corrosão; haste do volante em latão ou aço inox. O comprimento compacto do corpo atende à instalação em salas de bombas com pouco espaço e em pontos de proteção contra incêndio de aeroportos ou da rede municipal.'
+	},
+	{
+		question: 'Como a conexão de bombeiros deve ser inspecionada?',
+		answer: 'Verifique se as duas tampas estão no lugar com as juntas intactas e os cabos de segurança em bom estado, se a saída flangeada não apresenta vazamento ou corrosão, se o volante gira com folga e se a conexão é visível, sinalizada e nunca obstruída por veículos estacionados, paisagismo ou materiais armazenados. Em climas com congelamento, confirme que a conexão drena corretamente após o uso para que a água não fique parada no corpo.'
+	},
+	{
+		question: 'Qual é a diferença entre uma FDC e um hidrante contra incêndio?',
+		answer: 'Eles funcionam em sentidos opostos. O hidrante contra incêndio é um ponto de abastecimento na rede de água municipal — os caminhões-bomba se conectam a ele e retiram a água. A conexão de bombeiros é uma entrada do lado do edifício — os caminhões-bomba bombeiam água para o sistema de coluna (montante) ou de rociadores do edifício por meio dela. Muitos locais precisam dos dois, e os dois são abordados no nosso guia de seleção de hidrantes contra incêndio.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'what-is-fdc', label: '1. O que é uma Conexão de Bombeiros?' },
+	{ id: 'how-siamese-works', label: '2. Duas Entradas, Uma Saída' },
+	{ id: 'coupling-standards', label: '3. Normas de Acoplamento de Entrada e Adaptadores' },
+	{ id: 'where-fdc-installed', label: '4. Onde as FDC são Instaladas' },
+	{ id: 'fdc-comparison', label: '5. Corpo Siamesa, Acoplamento Storz ou Adaptador?' },
+	{ id: 'fdc-spec-checklist', label: '6. Checklist de Especificação e Instalação' },
+	{ id: 'faq', label: 'Perguntas Frequentes' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'Adaptador de Bomba Contra Incêndio SQD100-1.6 (Siamesa)', img: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', desc: '2 entradas DN65, saída flangeada DN100, 1,6 MPa' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: 'Acoplamento Storz 2,5\" (Norma Alemã)', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'DN50-DN150, 1,6 MPa, alumínio autovedante' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Adaptador de Acoplamento HS', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65, GB12514, alumínio anodizado' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Boca de Hidrante Interno (SN65)', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'Boca de hidrante interno DN65 para saídas do montante' }
+];
+---
+
+<Layout
+	title="Guia da Conexão de Bombeiros: Entradas Siamesas e Acoplamentos"
+	description="Guia da conexão de bombeiros (siamesa): duas entradas DN65, saída DN100, acoplamentos SQS65/KWS65 e Storz, válvula de controle, instalação e checklist B2B."
+	type="article"
+	locale="pt"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guias', href: '/pt/blog/' }, { name: 'Guia da Conexão de Bombeiros' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/pt/" class="hover:text-blue-600">Início</a>
+			<span>/</span>
+			<a href="/pt/blog/" class="hover:text-blue-600">Guias</a>
+			<span>/</span>
+			<span class="text-gray-600">Guia da Conexão de Bombeiros</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guia de Proteção Contra Incêndio</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Guia da Conexão de Bombeiros: Entradas Siamesas &amp; Acoplamentos</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Resumindo: a conexão de bombeiros (FDC) é a entrada pela qual os caminhões-bomba de emergência bombeiam água para o sistema de coluna (montante) ou de rociadores do edifício. A versão siamesa tem duas entradas alimentando uma única saída, para que dois caminhões-bomba abasteçam o mesmo montante, e suas entradas devem corresponder aos acoplamentos de mangueira que o Corpo de Bombeiros local usa. Este guia cobre a conexão siamesa SQD100-1.6, as opções de acoplamento ao seu redor e o que verificar antes de pedir orçamento.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/pt/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="what-is-fdc" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. O que é uma Conexão de Bombeiros?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A conexão de bombeiros é a interface do lado do edifício para o Corpo de Bombeiros. Quando o abastecimento de água próprio do edifício não é suficiente — ou quando o sistema de rociadores foi isolado — os caminhões-bomba que chegam conectam suas mangueiras à FDC e bombeiam água para o montante da coluna ou para a tubulação principal dos rociadores. A conexão é, portanto, um ponto de entrada sob pressão no edifício, e não uma fonte de água.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Por ser usada em condições de emergência, a FDC é avaliada por três perguntas práticas: o Corpo de Bombeiros consegue se conectar rapidamente com os acoplamentos que possui, é possível entregar água suficiente por ela e ela está acessível quando o edifício está cheio de fumaça e de viaturas. Tudo neste guia parte dessas três perguntas.</p>
+			<p class="text-gray-700 leading-relaxed">A conexão <strong>siamesa</strong> responde à pergunta da vazão com duas entradas. Um caminhão-bomba pode abastecer o sistema sozinho, se necessário; quando um segundo chega, as duas entradas são usadas e a vazão para o montante é aproximadamente dobrada, sem que nenhuma bomba trabalhe em ponto desfavorável da sua curva.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="how-siamese-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Duas Entradas, Uma Saída</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">O <a href="/pt/products/sqd100-1-6-fire-pump-adapter/" class="text-brand-blue font-semibold hover:underline">adaptador de bomba contra incêndio SQD100-1.6</a> é um corpo siamesa compacto: duas entradas DN65 (2,5\") com tampas de um lado e uma única saída flangeada DN100 (4\") do outro, que é parafusada à tubulação principal do edifício. A pressão de trabalho é 1,6 MPa e o corpo tem apenas 120 mm de comprimento, o que importa em salas de bombas e caixas enterradas onde o espaço é apertado.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Dois detalhes de projeto merecem destaque para a compra. Primeiro, o corpo possui uma válvula de controle integrada acionada por volante, de modo que a vazão pela conexão pode ser regulada, e não apenas bloqueada ou aberta. Segundo, as tampas das entradas são retidas por cabos de segurança de aço trançado — um pequeno recurso que evita a cena mais comum em uma ocorrência real, em que as tampas são deixadas no chão durante o bombeamento e se perdem.</p>
+			<p class="text-gray-700 leading-relaxed">A construção é em ferro fundido dúctil / ferro fundido cinzento com acabamento vermelho em revestimento em pó resistente à corrosão, com haste do volante em latão ou aço inox. A disposição combinada de duas entradas e uma única saída é o que diferencia a conexão siamesa de uma conexão de entrada única, que limitaria o sistema a um único caminhão-bomba.</p>
+
+			<!-- 章节 3 -->
+			<h2 id="coupling-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Normas de Acoplamento de Entrada e Adaptadores</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Este é o ponto da especificação que decide se a FDC será utilizável no dia. Os acoplamentos de mangueira são regionais: uma conexão compatível com o equipamento de um Corpo de Bombeiros pode ser inútil para outro. O SQD100-1.6 é fornecido com 2 × DN65 de entradas e tampas em formato <strong>SQS65 / KWS65</strong>, e o tipo de acoplamento deve ser confirmado junto ao Corpo de Bombeiros local antes de fechar o pedido.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Quando o projeto usa conexões de norma alemã, o <a href="/pt/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">acoplamento Storz 2,5\" em alumínio</a> cobre de DN50 a DN150 com borda autovedante e a geometria de conexão rápida Storz, em alumínio com opções em latão ou cromado e classe de 1,6 MPa — adequado para água limpa e mistura de espuma.</p>
+			<p class="text-gray-700 leading-relaxed">Para transições de rosca para acoplamento no local, o <a href="/pt/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">adaptador de acoplamento da série HS</a> (DN50 / DN65, 1,6 MPa / 232 PSI) usa liga de alumínio anodizado com roscas internas e externas padrão segundo GB12514 ou norma de fábrica, para que mangueiras e saídas de hidrantes ou FDC possam ser combinadas sem vazamento. Quando os sistemas de conexão são especificados por norma do projeto, nosso <a href="/pt/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">guia de conformidade CE &amp; EN 12845</a> explica como os sistemas Storz, KWS e roscados são tratados nas especificações europeias.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="where-fdc-installed" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Onde as FDC são Instaladas</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A FDC é montada na face externa do edifício que protege, em um ponto ao qual o Corpo de Bombeiros pode chegar com mangueiras a partir da rua ou de uma área pavimentada — longe da abertura de portas, paisagismo, placas e de qualquer coisa que possa se tornar uma vaga de estacionamento. Normalmente é combinada com uma placa identificando o sistema que atende, para que uma equipe que chegue a um grande local saiba qual montante está pressurizando.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Do lado do edifício, ela alimenta a rede de montantes: o sistema de coluna (montante) que atende as válvulas de patamar e as <a href="/pt/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">bocas de hidrantes internos</a>, e/ou a tubulação principal dos rociadores. É por isso que a FDC faz parte da conversa de especificação junto ao equipamento de hidrantes e montantes do edifício, e não como uma compra isolada.</p>
+			<p class="text-gray-700 leading-relaxed">Dois hábitos de instalação evitam a maioria das falhas. Mantenha a flange de saída e o corpo drenáveis para que a água não fique parada na conexão em clima de congelamento, e certifique-se de que a conexão nunca fica obstruída — uma FDC escondida atrás de uma van de entrega estacionada está funcionalmente ausente, e é o defeito mais comum encontrado em visitas a obra.</p>
+
+			<!-- 章节 5 -->
+			<h2 id="fdc-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Corpo Siamesa, Acoplamento Storz ou Adaptador?</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Componente</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Função</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tamanho &amp; classe</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Material / observações</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Corpo siamesa SQD100-1.6</td>
+							<td class="px-4 py-3 text-gray-700">Dois caminhões-bomba bombeiam para a tubulação principal do edifício</td>
+							<td class="px-4 py-3 text-gray-700">2 entradas DN65, saída flangeada DN100, 1,6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">Ferro fundido dúctil, revestimento em pó vermelho, 120 mm de comprimento, válvula de controle integrada, entradas com tampas e cabos de segurança</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Acoplamento Storz 2,5\"</td>
+							<td class="px-4 py-3 text-gray-700">Conexão rápida mangueira-mangueira / mangueira-entrada</td>
+							<td class="px-4 py-3 text-gray-700">DN50 – DN150, 1,6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">Alumínio (opções em latão / cromado), norma Storz alemã, borda autovedante, água e espuma</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Adaptador de acoplamento HS</td>
+							<td class="px-4 py-3 text-gray-700">Adapta tipos de rosca a acoplamentos de mangueira no local</td>
+							<td class="px-4 py-3 text-gray-700">DN50 / DN65, 1,6 MPa (232 PSI)</td>
+							<td class="px-4 py-3 text-gray-700">Liga de alumínio anodizado, GB12514 / norma de fábrica, roscas internas e externas</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Os três itens resolvem problemas diferentes: o corpo siamesa é a própria FDC, o acoplamento Storz é o sistema de conexão quando o projeto especifica a norma alemã, e o adaptador é a correção de campo que permite que roscas e acoplamentos incompatíveis funcionem juntos. Um projeto bem especificado geralmente precisa do corpo e de um sistema de acoplamento — os adaptadores devem ser a exceção, não o plano.</p>
+
+			<!-- 章节 6 -->
+			<h2 id="fdc-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Checklist de Especificação e Instalação</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Confirme o acoplamento com o Corpo de Bombeiros</strong> — combine o tipo de entrada com os acoplamentos que os caminhões-bomba locais realmente usam (SQS65 / KWS65 como fornecido, ou Storz quando o projeto especifica) antes de fechar o pedido.</li>
+				<li><strong>Verifique o caminho de fluxo</strong> — 2 entradas DN65 para uma saída flangeada DN100 a 1,6 MPa de pressão de trabalho; confirme que a flange de saída corresponde à conexão do montante nos desenhos de oficina.</li>
+				<li><strong>Defina os detalhes da válvula e das tampas</strong> — o SQD100-1.6 inclui uma válvula de controle com volante integrada e entradas com tampas e cabos de segurança de aço trançado.</li>
+				<li><strong>Planeje a localização</strong> — face externa, alcançável por mangueira a partir da rua, sinalizada, visível e protegida de estacionamentos ou paisagismo futuros; especifique um corpo que drene para que a água não fique parada em clima de congelamento.</li>
+				<li><strong>Especifique o acabamento e o material</strong> — corpo em ferro fundido dúctil / ferro fundido cinzento com revestimento em pó vermelho, haste do volante em latão ou aço inox, comprimento compacto de 120 mm para instalações em espaço apertado.</li>
+				<li><strong>Solicite a documentação</strong> — laudos de teste de pressão por lote e certificados de material do conjunto, e aplique nosso <a href="/pt/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">checklist de compra de válvulas B2B</a> antes de se comprometer com um fornecedor. Para o lado do abastecimento do mesmo projeto, veja <a href="/pt/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">como escolher um hidrante contra incêndio</a>.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Perguntas Frequentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Precisa de uma Conexão de Bombeiros para o Seu Projeto?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Informe o tipo de acoplamento de entrada exigido pelo seu Corpo de Bombeiros, o tamanho da flange de saída e a norma do projeto — nossos engenheiros confirmam a conexão siamesa e enviam a cotação em até 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/pt/contact/?product=Conex%C3%A3o%20de%20Bombeiros%20(SQD100)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotação</a>
+						<a href="https://wa.me/8618684324501?text=Ol%C3%A1%2C%20preciso%20de%20uma%20conex%C3%A3o%20siamesa%20de%20bombeiros" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Conversar no WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,202 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'O que é uma válvula de extremidade ranurada e como ela se conecta à tubulação?',
+		answer: 'Uma válvula de extremidade ranurada tem uma ranhura circunferencial usinada próxima a cada extremidade, em vez de flanges ou roscas. Tubos e válvulas são unidos por um acoplamento mecânico — dois segmentos de carcaça que prendem as extremidades ranuradas com uma junta no interior. A união é feita somente com parafusos: sem soldagem, roscagem ou chama aberta. Por isso, as conexões ranuradas são amplamente usadas em tubulações de proteção contra incêndio e de água.'
+	},
+	{
+		question: 'Quando devo escolher válvulas ranuradas em vez de válvulas flangeadas?',
+		answer: 'Escolha extremidades ranuradas quando a velocidade de instalação for importante, quando a soldagem ou o trabalho a quente forem restritos no local, ou quando a linha puder precisar ser aberta para manutenção — basta desapertar os acoplamentos. As juntas flangeadas continuam sendo a especificação tradicional para redes principais de grande diâmetro e alta pressão. Na linha Wanlian, as válvulas contra incêndio ranuradas são classificadas como PN16 (1.6 MPa), e a válvula de gaveta de controle por solenoide GKZF-1 é classificada até 300 PSI (2.0 MPa).'
+	},
+	{
+		question: 'Quais válvulas Wanlian estão disponíveis com extremidades ranuradas?',
+		answer: 'Cinco modelos cobrem a família de redes principais contra incêndio ranuradas: a válvula borboleta ranurada D381X-16Q (DN50-DN300, PN16, engrenagem sem fim com opção de trava de sinal), a válvula borboleta wafer ranurada com sinal DN80 (DN50-DN300 com microinterruptor elétrico integrado), a válvula de gaveta OS&Y com assento elástico listada UL/FM (2"-10", extremidades ranuradas), a válvula de gaveta ranurada em aço inox Z85X (DN40-DN300, corpo fundido CF8M 316) e a válvula de gaveta de controle por solenoide ranurada GKZF-1 (DN50-DN300, AC220V/DC24V, 300 PSI).'
+	},
+	{
+		question: 'As válvulas principais de rociadores podem informar seu estado aberto/fechado?',
+		answer: 'Sim. Uma válvula de gaveta OS&Y mostra sua posição mecanicamente pela haste ascendente e pelo jugo. Para supervisão remota, a válvula borboleta wafer ranurada com sinal possui um microinterruptor elétrico integrado para monitoramento do estado, e a válvula borboleta ranurada D381X oferece uma opção de dispositivo de trava de sinal. Assim, o painel de alarme de incêndio ou o sistema de gerenciamento do edifício consegue identificar se uma válvula de seção foi deixada fechada.'
+	},
+	{
+		question: 'As válvulas ranuradas contra incêndio são listadas pela UL ou FM?',
+		answer: 'A válvula de gaveta OS&Y com assento elástico e extremidades ranuradas é listada pela UL e pela FM para serviço de proteção contra incêndio. Os demais modelos da linha são fabricados conforme requisitos GB e padrões de fábrica — não alegamos listagem para toda a série quando apenas modelos específicos a possuem. Para projetos da América do Norte, informe a listagem exigida pela sua especificação e indicaremos o modelo certificado adequado ou organizaremos uma avaliação do projeto.'
+	},
+	{
+		question: 'Como verificar a qualidade de uma válvula ranurada antes de fazer o pedido?',
+		answer: 'Solicite os laudos de teste de pressão do corpo e do assento do lote, os certificados de material (por exemplo, do corpo CF8M 316 da Z85X) e confirme se as dimensões das ranhuras correspondem ao padrão de acoplamento usado pelo seu empreiteiro. É possível organizar uma inspeção de terceiros antes do embarque — nosso checklist de sourcing B2B de válvulas apresenta o processo completo de verificação.'
+	}
+];
+
+const toc = [
+	{ id: 'what-is-grooved-valve', label: '1. O Que É uma Válvula de Extremidade Ranurada?' },
+	{ id: 'grooved-vs-flanged', label: '2. Ranurada vs Flangeada vs Roscada' },
+	{ id: 'grooved-valve-family', label: '3. A Família de Válvulas Ranuradas para Redes Principais' },
+	{ id: 'valve-supervision-signals', label: '4. Opções de Supervisão e Sinal' },
+	{ id: 'retrofit-installation', label: '5. Considerações de Retrofit e Instalação' },
+	{ id: 'grooved-valve-spec-checklist', label: '6. Checklist de Especificação B2B' },
+	{ id: 'faq', label: 'Perguntas Frequentes' }
+];
+
+const products = [
+	{ slug: 'd381x-16q-grooved-butterfly-valve', name: 'Válvula Borboleta Ranurada D381X-16Q', img: '/assets/products/d381x-16q-grooved-butterfly-valve.webp', desc: 'DN50-DN300 PN16, engrenagem sem fim, opção de trava de sinal' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Válvula Borboleta Wafer Ranurada com Sinal', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', desc: 'DN50-DN300 PN16, microinterruptor de sinal integrado' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Válvula de Gaveta OS&Y UL/FM (Ranurada)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10", listada UL e FM, indicador de haste ascendente' },
+	{ slug: 'z85x-stainless-steel-grooved-gate-valve', name: 'Válvula de Gaveta Ranurada em Aço Inox Z85X', img: '/assets/products/z85x-stainless-steel-grooved-gate-valve.webp', desc: 'DN40-DN300, CF8M 316 fundido, conexão por acoplamento' }
+];
+
+const referencePages = [
+	{ slug: 'd381x-16q-grooved-butterfly-valve', name: 'Válvula Borboleta Ranurada D381X-16Q' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Válvula Borboleta Wafer Ranurada com Sinal' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Válvula de Gaveta OS&Y UL/FM Ranurada' },
+	{ slug: 'z85x-stainless-steel-grooved-gate-valve', name: 'Válvula de Gaveta Ranurada em Aço Inox Z85X' }
+];
+---
+
+<Layout
+	title="Válvulas Ranuradas Contra Incêndio: Ranurada vs Flangeada"
+	description="Válvulas ranuradas para redes de rociadores contra incêndio: borboleta com sinal, gaveta OS&Y, gaveta inox e solenoide, instalação e checklist B2B."
+	type="article"
+	locale="pt"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guias', href: '/pt/blog/' }, { name: 'Guia de Válvulas Ranuradas' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/pt/" class="hover:text-blue-600">Início</a>
+			<span>/</span>
+			<a href="/pt/blog/" class="hover:text-blue-600">Guias</a>
+			<span>/</span>
+			<span class="text-gray-600">Guia de Válvulas Ranuradas</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guia de Válvulas de Proteção Contra Incêndio</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Válvulas Ranuradas Contra Incêndio: Ranurada vs Flangeada</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Em resumo: válvulas de extremidade ranurada unem tubos com um acoplamento mecânico aparafusado, em vez de flanges, roscas ou soldagem — tornando mais rápida a instalação da rede principal contra incêndio, mantendo chamas abertas fora do local e permitindo que a equipe de manutenção abra uma seção desapertando dois grampos. Se o seu projeto de rociadores ou coluna usa tubulação ranurada, todas as válvulas de bloqueio e controle da rede principal devem ter as mesmas extremidades ranuradas. Este guia explica as alternativas e a família de válvulas a especificar.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{referencePages.map(p => (
+					<a href={`/pt/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-grooved-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. O Que É uma Válvula de Extremidade Ranurada?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Uma válvula de extremidade ranurada é uma válvula padrão (de gaveta, borboleta ou globo) cujas extremidades são usinadas com uma ranhura circunferencial. A união é feita com um acoplamento mecânico: dois segmentos de carcaça com uma junta sintética são colocados sobre as duas extremidades ranuradas e apertados com parafusos, comprimindo a junta nas ranhuras para formar a vedação.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Como a conexão é puramente mecânica, a instalação não exige soldador, máquina de roscar ou autorização para trabalho a quente. O acoplamento também absorve pequenos desalinhamentos e movimentos térmicos na união, podendo ser aberto posteriormente com os mesmos dois parafusos — uma vantagem sempre que uma válvula de seção ou de controle precisa ser substituída.</p>
+			<p class="text-gray-700 leading-relaxed">As conexões ranuradas são o método de união predominante em redes modernas de proteção contra incêndio em muitos mercados. Por isso, válvulas para incêndio são normalmente especificadas com extremidades ranuradas de fábrica, em vez de serem adaptadas no local.</p>
+
+			<h2 id="grooved-vs-flanged" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Ranurada vs Flangeada vs Roscada</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Comparação</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Flangeada</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Roscada</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Ranurada (Acoplamento)</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Instalação</td>
+							<td class="px-4 py-3 text-gray-700">Aparafusada, exige alinhamento preciso</td>
+							<td class="px-4 py-3 text-gray-700">Requer roscagem, tamanho limitado</td>
+							<td class="px-4 py-3 text-gray-700">Grampo + parafusos, acoplamento mecânico rápido</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Trabalho a quente / autorização</td>
+							<td class="px-4 py-3 text-gray-700">Nenhum na união, mas flanges pesadas</td>
+							<td class="px-4 py-3 text-gray-700">Nenhum, mas exige corte de rosca no local</td>
+							<td class="px-4 py-3 text-gray-700">Nenhum — sem soldagem ou chama aberta</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tolerância de alinhamento</td>
+							<td class="px-4 py-3 text-gray-700">Baixa — as flanges devem se alinhar</td>
+							<td class="px-4 py-3 text-gray-700">Média</td>
+							<td class="px-4 py-3 text-gray-700">Alta — o acoplamento absorve pequenos desalinhamentos</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Desmontagem</td>
+							<td class="px-4 py-3 text-gray-700">Desapertar muitos fixadores</td>
+							<td class="px-4 py-3 text-gray-700">Desrosquear, podendo travar</td>
+							<td class="px-4 py-3 text-gray-700">Desapertar dois parafusos por acoplamento</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Classe típica (linha ranurada Wanlian)</td>
+							<td class="px-4 py-3 text-gray-700">PN10-PN40, conforme o modelo</td>
+							<td class="px-4 py-3 text-gray-700">Somente pequenos diâmetros</td>
+							<td class="px-4 py-3 text-gray-700">PN16; GKZF-1 classificada em 300 PSI (2.0 MPa)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Aplicação típica</td>
+							<td class="px-4 py-3 text-gray-700">Redes de grande diâmetro, plantas de processo</td>
+							<td class="px-4 py-3 text-gray-700">Pequenas linhas de derivação</td>
+							<td class="px-4 py-3 text-gray-700">Redes principais contra incêndio, colunas de rociadores, redes de água</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Válvulas flangeadas continuam sendo a escolha certa para muitas especificações de grande diâmetro e alta pressão. Porém, quando o próprio sistema de tubulação é ranurado — o caso comum em redes principais de rociadores — uma válvula flangeada exige adaptadores na linha e elimina a vantagem de velocidade do método de união.</p>
+
+			<h2 id="grooved-valve-family" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. A Família de Válvulas Ranuradas para Redes Principais</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Bloqueio principal com posição visível.</strong> A <a href="/pt/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">válvula de gaveta OS&amp;Y com assento elástico UL/FM</a> possui extremidades ranuradas de 2" a 10" (DN50-DN250) e uma haste ascendente que mostra a posição aberta/fechada à primeira vista — a válvula indicadora esperada por um inspetor de incêndio em uma rede de seção. O corpo em ferro fundido dúctil com assento elástico EPDM proporciona fechamento estanque, sem gotejamento.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Controle compacto de um quarto de volta.</strong> Para controle de ramais e colunas onde o espaço é limitado, a <a href="/pt/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">válvula borboleta wafer ranurada com sinal</a> (DN50-DN300, PN16) combina um corpo wafer com microinterruptor elétrico de sinal integrado e operador por engrenagem sem fim. A <a href="/pt/products/d381x-16q-grooved-butterfly-valve/" class="text-brand-blue font-semibold hover:underline">válvula borboleta ranurada D381X-16Q</a> oferece as mesmas extremidades ranuradas, com opção de dispositivo de trava de sinal para indicação do estado.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Serviço resistente à corrosão.</strong> Quando a qualidade da água ou meios agressivos impedem o uso de ferro fundido dúctil, a <a href="/pt/products/z85x-stainless-steel-grooved-gate-valve/" class="text-brand-blue font-semibold hover:underline">válvula de gaveta ranurada em aço inox Z85X</a> (DN40-DN300) usa corpo fundido em 316 CF8M, haste não ascendente e extremidades ranuradas para linhas de gás, petróleo e água.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Controle remoto automático.</strong> Quando a válvula precisa abrir e fechar por comando de um painel de controle, a <a href="/pt/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">válvula de gaveta de controle por solenoide ranurada GKZF-1</a> (DN50-DN300) aciona uma válvula de gaveta em ferro fundido dúctil com solenoide DC24V ou AC220V — classificada em 300 PSI (2.0 MPa) para controle automático do fluxo de água municipal e de combate a incêndio.</p>
+
+			<h2 id="valve-supervision-signals" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Opções de Supervisão e Sinal</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">As normas de proteção contra incêndio tratam uma válvula de seção fechada como um risco grave: se um sistema de rociadores for isolado por uma válvula principal fechada, o sistema não poderá proteger o edifício. Por isso, as válvulas de controle dos sistemas de rociadores são válvulas indicadoras (a posição é visível na válvula) ou válvulas supervisionadas (a posição é informada eletricamente).</p>
+			<p class="text-gray-700 leading-relaxed mb-4">A família ranurada atende às duas opções. A válvula de gaveta OS&amp;Y é naturalmente indicadora — a posição da haste ascendente pode ser lida de um lado a outro do ambiente. A válvula borboleta wafer ranurada com sinal acrescenta um microinterruptor elétrico integrado para monitoramento remoto, a D381X oferece opção de dispositivo de trava de sinal e a válvula de solenoide GKZF-1 é acionada eletricamente por projeto, de modo que seu estado é conhecido pelo sistema de controle que a comanda.</p>
+			<p class="text-gray-700 leading-relaxed">Quando as válvulas são supervisionadas, a fiação deve reportar ao mesmo painel de alarme que monitora os pressostatos de fluxo e as válvulas de alarme. Consulte nosso <a href="/pt/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">guia de tipos de válvulas de controle de rociadores</a> para ver a divisão completa das funções de válvulas OS&amp;Y, borboleta e retenção em um sistema de rociadores, e o <a href="/pt/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">guia de válvulas contra incêndio listadas UL</a> para saber como verificar listagens legítimas antes da compra.</p>
+
+			<h2 id="retrofit-installation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Considerações de Retrofit e Instalação</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">As conexões ranuradas são excelentes em trabalhos de retrofit. Substituir uma válvula em uma rede de rociadores existente normalmente significa drenar a seção e cortar a união antiga ou desapertar dois acoplamentos — com válvulas ranuradas a montante e a jusante, a nova válvula é instalada com dois acoplamentos e a linha volta rapidamente ao serviço.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Em edifícios ocupados, a ausência de trabalho a quente é uma vantagem real: soldar em uma rede principal contra incêndio em operação exige autorizações, vigilância contra incêndio e muitas vezes paradas que a administração do edifício tenta evitar. Os acoplamentos mecânicos eliminam essa restrição, e os corpos wafer compactos dos modelos borboleta facilitam a instalação em salas de colunas apertadas.</p>
+			<p class="text-gray-700 leading-relaxed">Confirme a especificação das ranhuras e do acoplamento com seu empreiteiro antes de fazer o pedido — as dimensões das ranhuras devem corresponder à marca e ao padrão do acoplamento usados na tubulação do projeto, e corpos de válvula encomendados com extremidades ranuradas não podem ser convertidos em flangeados no local.</p>
+
+			<h2 id="grooved-valve-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Checklist de Especificação B2B</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Combine o sistema de união</strong> — se a rede principal for ranurada, especifique extremidades ranuradas em todas as válvulas de seção e de controle para não precisar de adaptadores; informe o padrão de ranhura do acoplamento na consulta.</li>
+				<li><strong>Defina a aplicação e o tamanho</strong> — bloqueio de seção (válvula de gaveta OS&amp;Y, 2"-10"), controle compacto de um quarto de volta (borboleta com sinal ou D381X, DN50-DN300) ou controle remoto automático (GKZF-1, DN50-DN300).</li>
+				<li><strong>Determine pressão e material</strong> — a linha ranurada é PN16 (1.6 MPa), com a GKZF-1 classificada em 300 PSI (2.0 MPa); corpos em ferro fundido dúctil QT450 para água padrão e CF8M 316 fundido (Z85X) para serviço corrosivo.</li>
+				<li><strong>Defina a supervisão</strong> — OS&amp;Y indicadora, microinterruptor de sinal integrado na borboleta, opção de trava de sinal na D381X ou operação por solenoide na GKZF-1, conforme o que seu painel de alarme exige.</li>
+				<li><strong>Informe as necessidades de certificação</strong> — válvula de gaveta OS&amp;Y listada UL/FM para projetos da América do Norte; confirme qual modelo possui a listagem exigida pela sua especificação.</li>
+				<li><strong>Exija evidências de teste</strong> — laudos de teste de pressão do corpo e do assento por lote, certificados de material e nosso <a href="/pt/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">checklist de sourcing B2B de válvulas</a> antes de fechar com um fabricante.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Perguntas Frequentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Precisa de Válvulas Ranuradas Contra Incêndio para uma Rede de Rociadores?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Informe seu DN, classe de pressão, requisitos de supervisão e padrão de acoplamento — nossos engenheiros confirmam a válvula adequada e enviam a cotação em até 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/pt/contact/?product=V%C3%A1lvula%20de%20Prote%C3%A7%C3%A3o%20Contra%20Inc%C3%AAndio%20Ranurada" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotação</a>
+						<a href="https://wa.me/8618684324501?text=Ol%C3%A1%2C%20preciso%20de%20v%C3%A1lvulas%20ranuradas%20contra%20inc%C3%AAndio%20para%20uma%20rede%20de%20rociadores" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Conversar no WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

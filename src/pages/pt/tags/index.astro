@@ -1,0 +1,14 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { tags } from '../../../utils/tags';
+import { tagsPt } from '../../../utils/tags.pt';
+const plural = (n: number, one: string, many: string) => n === 1 ? one : many;
+const tagStats = tags.map(tag => ({ ...tag, pt: tagsPt[tag.slug] ?? { name: tag.name, description: tag.description, seoTitle: tag.seoTitle }, guideCount: tag.guideHrefs.length, productCount: tag.productSlugs.length }));
+---
+<Layout title="Central de Conhecimento: Proteção Contra Incêndio e Válvulas" description="Explore temas técnicos sobre hidrantes, rociadores, canhões monitora, prevenção de refluxo, certificação e compras B2B." locale="pt" breadcrumbs={[{ name: 'Temas' }]}>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mb-20">
+    <div class="text-center mb-16 space-y-4"><span class="text-xs font-bold tracking-widest text-brand-red uppercase">Central de conhecimento</span><h1 class="text-4xl font-black text-gray-900 tracking-tight">Explore por tema</h1><p class="mt-4 text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">Guias técnicos e produtos reunidos por tema — de hidrantes e sistemas de rociadores à prevenção de refluxo e compras B2B.</p></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">{tagStats.map(tag => <a href={`/pt/tags/${tag.slug}/`} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition p-8 flex flex-col"><div class="flex items-center justify-between mb-4"><span class="px-2.5 py-1 bg-brand-blue/10 text-brand-blue text-[11px] font-black rounded-full uppercase tracking-wider">Tema</span><span class="text-xs text-gray-400">{tag.guideCount} {plural(tag.guideCount, 'guia', 'guias')} · {tag.productCount} {plural(tag.productCount, 'produto', 'produtos')}</span></div><h2 class="text-xl font-black text-gray-900 group-hover:text-brand-blue transition leading-snug mb-3">{tag.pt.name}</h2><p class="text-sm text-gray-500 leading-relaxed flex-grow">{tag.pt.description}</p><div class="mt-6 flex flex-wrap gap-2">{tag.relatedTags.slice(0, 3).map(rel => <a href={`/pt/tags/${rel}/`} class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">#{tagsPt[rel]?.name ?? rel.replace(/-/g, ' ')}</a>)}</div><span class="mt-4 inline-flex items-center text-brand-red font-bold text-sm">Explorar tema →</span></a>)}</div>
+    <div class="mt-20 p-10 bg-gray-900 rounded-3xl text-white text-center space-y-4"><h2 class="text-2xl font-black">Procura uma família de produtos?</h2><p class="text-gray-400 max-w-xl mx-auto">Consulte o catálogo completo ou fale com nossos engenheiros.</p><div class="flex flex-col sm:flex-row justify-center gap-4"><a href="/pt/products/" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl">Catálogo completo</a><a href="/pt/contact/" class="px-8 py-4 bg-white/10 border border-white/20 text-white font-bold rounded-xl">Falar com um engenheiro</a></div></div>
+  </main>
+</Layout>

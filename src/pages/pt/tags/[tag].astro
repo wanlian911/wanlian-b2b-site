@@ -1,0 +1,22 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { tags, type Tag } from '../../../utils/tags';
+import { tagsPt } from '../../../utils/tags.pt';
+import { guidesPt } from '../../../utils/guides.pt';
+import { productsPt } from '../../../utils/products.pt';
+export function getStaticPaths() { return tags.map(tag => ({ params: { tag: tag.slug }, props: { tag } })); }
+const { tag } = Astro.props as { tag: Tag };
+const tagPt = tagsPt[tag.slug] ?? { name: tag.name, seoTitle: tag.seoTitle, description: tag.description };
+const tagGuides = guidesPt.filter(g => tag.guideHrefs.some(h => g.href === `/pt${h}` || g.href === h));
+const tagProducts = productsPt.filter(p => tag.productSlugs.includes(p.slug));
+const relatedTags = tags.filter(t => tag.relatedTags.includes(t.slug));
+---
+<Layout title={tagPt.seoTitle} description={tagPt.description} type="website" locale="pt" breadcrumbs={[{ name: 'Temas', href: '/pt/tags/' }, { name: tagPt.name }]}>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mb-20"><nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-8 flex gap-2"><a href="/pt/">Início</a><span>/</span><a href="/pt/tags/">Temas</a><span>/</span><span class="text-gray-600">{tagPt.name}</span></nav>
+    <div class="max-w-3xl mb-14 space-y-4"><span class="text-xs font-bold tracking-widest text-brand-red uppercase">Tema</span><h1 class="text-4xl font-black text-gray-900 tracking-tight">{tagPt.name}</h1><p class="text-lg text-gray-500 leading-relaxed">{tagPt.description}</p></div>
+    <div class="flex flex-wrap gap-2 mb-14"><span class="text-xs font-bold text-gray-400 uppercase tracking-wider self-center mr-1">Relacionados:</span>{relatedTags.map(rel => <a href={`/pt/tags/${rel.slug}/`} class="px-3 py-1.5 bg-gray-100 text-gray-600 text-xs font-bold rounded-full">{tagsPt[rel.slug]?.name ?? rel.name}</a>)}</div>
+    {tagGuides.length > 0 && <section class="mb-16"><h2 class="text-2xl font-black text-gray-900 mb-8">Guias e artigos</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-6">{tagGuides.map(guide => <a href={guide.href} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition p-8"><span class="text-xs text-gray-400">{guide.date} · {guide.readTime}</span><h3 class="text-lg font-black text-gray-900 group-hover:text-brand-blue transition leading-snug my-3">{guide.title}</h3><p class="text-sm text-gray-500 leading-relaxed">{guide.description}</p><span class="mt-6 inline-flex text-brand-red font-bold text-sm">Ler o guia →</span></a>)}</div></section>}
+    {tagProducts.length > 0 && <section class="mb-16"><h2 class="text-2xl font-black text-gray-900 mb-8">Produtos relacionados</h2><div class="grid grid-cols-2 lg:grid-cols-4 gap-6">{tagProducts.map(product => <a href={`/pt/products/${product.slug}/`} class="group bg-white rounded-2xl border border-gray-100 shadow-sm p-6"><img src={product.image} alt={product.name} loading="lazy" class="w-full h-36 object-contain rounded-lg bg-gray-50 p-2 mb-4"/><span class="text-[10px] font-bold text-brand-blue uppercase tracking-wider">{product.category}</span><h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-red transition leading-snug mt-2">{product.name}</h3></a>)}</div></section>}
+    <div class="mt-20 p-10 bg-gray-900 rounded-3xl text-white text-center space-y-4"><h2 class="text-2xl font-black">Precisa de ajuda com este tema?</h2><p class="text-gray-400 max-w-xl mx-auto">Nossos engenheiros ajudam a selecionar os produtos para o seu projeto.</p><a href="/pt/contact/" class="inline-block px-8 py-4 bg-brand-red text-white font-bold rounded-xl">Falar com um engenheiro</a></div>
+  </main>
+</Layout>

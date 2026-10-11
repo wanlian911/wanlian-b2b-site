@@ -1,0 +1,190 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'manual-monitors-ps', label: '1. Monitores Manuais (Série PS): Controle do Operador' },
+	{ id: 'auto-tracking-monitors-zdms', label: '2. Monitores de Rastreamento Automático (ZDMS): Resposta Autônoma' },
+	{ id: 'head-to-head-comparison', label: '3. Comparação Direta' },
+	{ id: 'sizing-and-installation', label: '4. Dimensionamento e Instalação' },
+	{ id: 'faq', label: 'Perguntas Frequentes' }
+];
+
+const faq = [
+	{
+		question: 'Qual é a diferença entre um canhão monitora de água manual e um de rastreamento automático?',
+		answer: 'Um canhão monitora de água manual (série PS) é visado e operado por um bombeiro no local, seja diretamente na torre seja por meio de um volante remoto. Um monitor de rastreamento automático (série ZDMS) varre continuamente a área protegida com detectores de chama infravermelho/UV e gira automaticamente em direção ao fogo, extinguindo-o sem ação do operador — essencial em grandes espaços, onde o fogo precisa ser atingido em segundos.'
+	},
+	{
+		question: 'Onde os canhões de rastreamento automático (ZDMS) são exigidos?',
+		answer: 'Canhões de rastreamento automático são tipicamente especificados para grandes espaços internos com pé-direito alto, onde a detecção e a resposta devem ser automáticas: pavilhões de exposição, átrios, armazéns, hangares de aviação e oficinas industriais. A altura do teto e a área do piso determinam o número de canhões e suas zonas de cobertura.'
+	},
+	{
+		question: 'Qual é o alcance efetivo de um canhão monitora de água?',
+		answer: 'O alcance efetivo depende da vazão e da configuração do bocal. Monitores manuais PS entregam comumente 20–60 L/s, com alcance de 30 a 70 metros; canhões ZDMS de rastreamento automático são dimensionados tipicamente em 20–40 L/s para cobertura interna, com tempo de resposta inferior a 30 segundos. O projeto de proteção contra incêndio deve dimensionar o monitora a partir da densidade de água necessária e da área a cobrir.'
+	},
+	{
+		question: 'Os canhões monitora de água podem ser usados com espuma?',
+		answer: 'Sim. A maioria dos monitores da série PS aceita água ou espuma, trocando a configuração do bocal — por isso são comuns em terminais petroquímicos e parques de tanques. Se o uso com espuma estiver previsto, especifique na consulta para que o monitora seja configurado com a interface de dosagem de espuma correta.'
+	}
+];
+
+const monitorProducts = [
+	{
+		slug: 'manual-fire-water-cannon-ps',
+		name: 'Canhão Monitora de Água Manual (Série PS)',
+		img: '/assets/products/manual-fire-water-cannon-ps.webp',
+		desc: 'Monitora manual de grande vazão para água ou espuma, alcance de 30 a 70 m'
+	},
+	{
+		slug: 'auto-tracking-jet-suppression-cannon-zdms',
+		name: 'Canhão de Supressão por Jato com Rastreamento Automático (Série ZDMS)',
+		img: '/assets/06_extinguishing_cannons/cannon_p45.webp',
+		desc: 'Canhão com varredura IR/UV, detecção e supressão autônomas'
+	}
+];
+---
+
+<Layout
+	title="Guia de Canhões Monitora: Manual vs Rastreamento Automático (ZDMS)"
+	description="Guia de canhões monitora: monitores manuais PS vs ZDMS de rastreamento automático em alcance, vazão, detecção e tempo de resposta. Fábrica: Wanlian Fluid."
+	type="article"
+	locale="pt"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guias', href: '/pt/blog/' }, { name: 'Canhões Monitora' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/pt/" class="hover:text-blue-600">Início</a>
+			<span>/</span>
+			<a href="/pt/blog/" class="hover:text-blue-600">Guias</a>
+			<span>/</span>
+			<span class="text-gray-600">Canhões Monitora</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guia de Proteção Contra Incêndio</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Seleção de Canhão Monitora: Manual vs Rastreamento Automático (ZDMS)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Os canhões monitora de água — também chamados de canhões de água — projetam um jato concentrado e de alta vazão a distâncias elevadas. Existem em duas filosofias de operação fundamentalmente diferentes: <strong>monitores manuais</strong>, visados por operadores, e <strong>monitores de rastreamento automático</strong>, que detectam, visam e suprimem sozinhos. Escolher entre eles é uma questão de tempo de resposta, risco de ocupação e orçamento. Este guia detalha a decisão.</p>
+
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+				{monitorProducts.map(p => (
+					<a href={`/pt/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-40 object-contain bg-white p-3" />
+						<div class="p-4">
+							<p class="text-sm font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-xs text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="manual-monitors-ps" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Monitores Manuais (Série PS): Controle do Operador</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">O <a href="/pt/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">monitora manual de água da série PS</a> é o cavalo de batalha do combate a incêndios industriais: uma torre fixa que entrega 20–60 L/s, com alcance de até 70 metros, comutável entre jato reto e spray, e utilizável com água ou espuma. A operação é direta (volante ou torre) ou remota, por um operador que observa a cena.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Onde ele se encaixa:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Terminais petroquímicos, parques de tanques e plataformas de carregamento</strong> — monitores com capacidade para espuma, em pontos fixos de proteção.</li>
+				<li><strong>Pátios externos e áreas de processo</strong>, onde os operadores podem alcançar o monitora ou uma posição de controle remoto com segurança.</li>
+				<li><strong>Resfriamento e apoio a dilúvio</strong>, onde jatos manuais direcionados complementam os sistemas automáticos.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">O compromisso é simples: um monitora manual só é tão rápido quanto o operador. Se ninguém puder alcançar com segurança o ponto de controle quando o fogo começar, pode ser que ele nem seja disparado.</p>
+
+			<h2 id="auto-tracking-monitors-zdms" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Monitores de Rastreamento Automático (ZDMS): Resposta Autônoma</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">O <a href="/pt/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">canhão ZDMS de supressão por jato com rastreamento automático</a> remove o ser humano do ciclo de resposta. Detectores de chama infravermelho/UV de banda dupla varrem continuamente o espaço protegido; quando a assinatura da chama é confirmada, o canhão gira em direção ao fogo, abre a válvula e o suprime — tipicamente em até 30 segundos após o início, a qualquer hora do dia.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Onde ele se encaixa:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Grandes espaços internos com pé-direito alto</strong> — pavilhões de exposição, átrios, armazéns, oficinas, hangares.</li>
+				<li><strong>Ocupações onde o fogo pode se alastrar mais rápido do que o pessoal consegue responder</strong>.</li>
+				<li><strong>Risco sem vigilância ou noturno</strong> — o sistema vigia o tempo todo.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Como os canhões ZDMS são dimensionados por zona de cobertura e altura do teto, o projeto deve mapear o campo de visão dos detectores e a densidade de água em toda a área. Por isso o suporte de engenharia do fornecedor importa tanto quanto o equipamento.</p>
+
+			<h2 id="head-to-head-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Comparação Direta</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Critério</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Manual (PS)</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Rastreamento Automático (ZDMS)</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Resposta</td>
+							<td class="px-4 py-3 text-gray-700">Depende do alcance e da reação do operador</td>
+							<td class="px-4 py-3 text-gray-700">Autônoma, tipicamente &lt;30 s após o início</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Vazão / alcance</td>
+							<td class="px-4 py-3 text-gray-700">20–60 L/s, 30–70 m</td>
+							<td class="px-4 py-3 text-gray-700">20–40 L/s, cobertura interna por zona</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Detecção</td>
+							<td class="px-4 py-3 text-gray-700">Nenhuma (direcionado pelo operador)</td>
+							<td class="px-4 py-3 text-gray-700">Varredura IR/UV de banda dupla</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Meio</td>
+							<td class="px-4 py-3 text-gray-700">Água ou espuma (comutável)</td>
+							<td class="px-4 py-3 text-gray-700">Água; espuma conforme a configuração</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Uso típico</td>
+							<td class="px-4 py-3 text-gray-700">Parques de tanques, pátios, áreas de processo</td>
+							<td class="px-4 py-3 text-gray-700">Átrios, armazéns, pavilhões, oficinas</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Custo</td>
+							<td class="px-4 py-3 text-gray-700">Custo do equipamento menor</td>
+							<td class="px-4 py-3 text-gray-700">Maior; inclui detecção e controle</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="sizing-and-installation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Dimensionamento e Instalação</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Hidráulica em primeiro lugar</strong> — a demanda de vazão do monitora (L/s) e a pressão residual necessária devem ser confirmadas em relação à bomba e à rede de tubulação antes da seleção.</li>
+				<li><strong>Mapeamento de cobertura para o ZDMS</strong> — o campo de visão dos detectores, a altura do teto e a densidade de água definem a quantidade e a posição dos canhões; solicite um desenho de layout ao fornecedor.</li>
+				<li><strong>Compatibilidade com espuma</strong> — para parques de tanques, confirme o bocal do monitora e a interface de dosagem para uso com espuma.</li>
+				<li><strong>Protocolo de testes</strong> — combine com o fornecedor, no contrato, um teste de comissionamento (alcance e tempo de resposta).</li>
+			</ul>
+
+			<!-- Related guide -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">Guia Relacionado: a Decisão de Compra</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Decidir entre controle fixo, remoto e inteligente — e dimensionar a vazão e o alcance para o seu site? Leia o <a href="/pt/guides/fire-water-cannon-buying-guide/" class="text-brand-blue font-semibold hover:underline">Guia de Compra de Canhões Monitora Contra Incêndio</a>.</p>
+			</div>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Perguntas Frequentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Dimensionando um Sistema de Monitoras para o Seu Site?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envie o tipo do seu site, a área protegida e a altura do teto — nossos engenheiros respondem com o layout dos canhões e o preço em até 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/pt/contact/?product=Canh%C3%A3o%20Monitora%20de%20%C3%81gua" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotação</a>
+						<a href="https://wa.me/8618684324501?text=Ol%C3%A1%2C%20preciso%20de%20ajuda%20para%20dimensionar%20canh%C3%B5es%20monitora%20contra%20inc%C3%AEndio" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Conversar no WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

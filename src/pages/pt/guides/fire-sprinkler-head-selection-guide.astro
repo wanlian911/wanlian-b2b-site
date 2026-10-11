@@ -1,0 +1,207 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// FAQ:4-6 条真实采购问题(会生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'O que significa o fator K de um rociador?',
+		answer: 'O fator K vincula a vazão de um rociador à pressão no rociador pela fórmula Q = K × √P (vazão em L/min, pressão em bar). Um rociador K=80 a 1 bar entrega cerca de 80 L/min; um K=115 entrega cerca de 115 L/min na mesma pressão. Fatores K mais altos são usados onde mais água deve alcançar o fogo mais rápido — ocupações de perigo extra ou com tetos altos — enquanto K=80 permanece o padrão comum para espaços de perigo leve e ordinário.'
+	},
+	{
+		question: 'O que significam as classes de temperatura e as cores do bulbo?',
+		answer: 'O bulbo de vidro contém um líquido que se expande e estoura em sua temperatura nominal, liberando o defletor. As classes e os códigos de cor padrão são 57°C (laranja), 68°C (vermelho), 79°C (amarelo), 93°C (verde) e 141°C (azul). Um rociador com bulbo vermelho de 68°C é o padrão para a maioria dos escritórios e armazéns; classes mais altas são usadas perto de fontes de calor como caldeiras, aquecedores e cozinhas, para que o rociador não dispare acidentalmente.'
+	},
+	{
+		question: 'Qual é a diferença entre rociadores de resposta rápida e de resposta padrão?',
+		answer: 'A velocidade de resposta é definida pela massa térmica do elemento sensível: um rociador de resposta rápida usa um bulbo de vidro de 3mm, e um de resposta padrão usa um bulbo de 5mm. Rociadores de resposta rápida ativam mais rápido e são preferidos em ocupações de perigo leve e ordinário, onde o disparo mais precoce salva vidas e patrimônio; os de resposta padrão são comuns em ambientes industriais e de armazenagem, onde um disparo um pouco mais lento e mais controlado é aceitável. Nossa série ZST está disponível nos dois tipos de resposta.'
+	},
+	{
+		question: 'Quais rociadores são listados UL na linha Wanlian?',
+		answer: 'O rociador embutido ZSTDY é listado UL com bulbo vermelho de 68°C e acabamento cromado por eletrodeposição. A série ZST de bulbo de vidro e o modelo T-ZSTBS de parede lateral horizontal são fabricados conforme os requisitos da série GB 5135 e as normas de fábrica — para projetos na América do Norte, confirme a certificação exigida pela sua especificação e nós casamos o modelo certificado ou organizamos a avaliação do projeto. Não afirmamos certificação da série inteira quando apenas modelos específicos a possuem.'
+	},
+	{
+		question: 'Rociadores de classes de temperatura diferentes podem ser misturados em uma mesma área?',
+		answer: 'Não — e essa é uma constatação comum em inspeções. Todos os rociadores que protegem a mesma área de perigo devem ter a mesma classe de temperatura, porque um rociador de classe mais baixa perto de uma fonte de calor dispara precocemente, e um de classe mais alta em uma área normal responde tarde demais. Reserve os rociadores de temperatura mais alta estritamente para locais com fontes de calor reais, e indique a zona de classe nos desenhos de projeto.'
+	},
+	{
+		question: 'Quando escolher um rociador embutido em vez de um pendente?',
+		answer: 'Escolha rociadores embutidos (recessos com placa de cobertura) onde a estética do teto importa — escritórios, hotéis, revestimentos comerciais — porque apenas a placa de cobertura é visível. Rociadores pendentes ficam suspensos abaixo do teto e proporcionam padrões de spray sem obstruções, razão pela qual continuam sendo o padrão para armazéns, tetos industriais e áreas onde o próprio teto é a superfície de perigo. Os dois tipos estão disponíveis na linha; o embutido ZSTDY é a opção listada UL.'
+	}
+];
+
+// TOC:与正文 H2 的 id 一一对应
+const toc = [
+	{ id: 'system-type-first', label: '1. Comece Pelo Tipo de Sistema, Depois pelo Rociador' },
+	{ id: 'k-factor-flow', label: '2. Fator K e Vazão: Adequando o Fornecimento de Água' },
+	{ id: 'temperature-ratings', label: '3. Classes de Temperatura e Código de Cores dos Bulbos' },
+	{ id: 'response-orientation', label: '4. Velocidade de Resposta e Orientação de Instalação' },
+	{ id: 'us-standards-context', label: '5. Certificação UL e Contexto NFPA 13 para Projetos nos EUA' },
+	{ id: 'spec-checklist', label: '6. Checklist de Especificação de Rociadores' },
+	{ id: 'faq', label: 'Perguntas Frequentes' }
+];
+
+// 关联产品(slug 与 products.ts 一致)
+const products = [
+	{ slug: 'glass-bulb-fire-sprinkler-zst', name: 'Rociador de Bulbo de Vidro (ZST)', img: '/assets/products/glass-bulb-fire-sprinkler-zst.webp', desc: 'K=80/K=115, 57-141°C, pendente/ereto/de parede' },
+	{ slug: 'horizontal-sidewall-fire-sprinkler-t-zstbs', name: 'Rociador de Parede Lateral Horizontal (T-ZSTBS)', img: '/assets/products/horizontal-sidewall-fire-sprinkler-t-zstbs.png', desc: 'Bulbo vermelho 68°C, acabamento cromado, cobertura perimetral' },
+	{ slug: 'zstdy-concealed-fire-sprinkler', name: 'Rociador Embutido (ZSTDY)', img: '/assets/products/zstdy-concealed-fire-sprinkler.webp', desc: 'Listado UL, placa recessa, 68°C, cromo' }
+];
+---
+
+<Layout
+	title="Guia de Seleção de Rociadores Contra Incêndio: Fator K & Temperatura"
+	description="Guia para escolher rociadores contra incêndio: fator K, temperatura, resposta e orientação pendente, lateral ou embutida, UL e NFPA 13. Fábrica na China."
+	type="article"
+	locale="pt"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guias', href: '/pt/blog/' }, { name: 'Seleção de Rociadores Contra Incêndio' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- 面包屑 -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/pt/" class="hover:text-blue-600">Início</a>
+			<span>/</span>
+			<a href="/pt/blog/" class="hover:text-blue-600">Guias</a>
+			<span>/</span>
+			<span class="text-gray-600">Seleção de Rociadores Contra Incêndio</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guia de Proteção Contra Incêndio</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Guia de Seleção de Rociadores Contra Incêndio: Fator K, Temperatura &amp; Resposta</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">O rociador é a única parte do sistema que decide quando a água é liberada e quanto chega até o fogo. Quatro parâmetros fazem todo o trabalho: fator K, classe de temperatura, velocidade de resposta e orientação. Este guia explica cada um e como especificar corretamente os rociadores para projetos comerciais, de armazém e do mercado dos EUA — incluindo o que "listado UL" realmente cobre.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- 产品条 -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/pt/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- 章节 1 -->
+			<h2 id="system-type-first" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Comece Pelo Tipo de Sistema, Depois pelo Rociador</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Os rociadores são especificados dentro de uma decisão de sistema, não isoladamente. Em um <strong>sistema molhado</strong>, a tubulação permanece cheia e todo rociador é um ponto de liberação pronto para abrir; em um <strong>sistema seco</strong>, a tubulação contém ar sob pressão e os rociadores devem expulsar o ar antes que a água chegue; em configurações de <strong>dilúvio e pré-ação</strong>, os rociadores podem ser bocais abertos ou rociadores selados, conforme o projeto da zona. O lado das válvulas dessa decisão é coberto no nosso <a href="/pt/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">guia de sistemas molhados, secos e de pré-ação</a> e no <a href="/pt/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">guia de válvulas para sistemas de rociadores</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Uma vez definido o tipo de sistema, o próprio rociador é selecionado pelo fator K, temperatura, resposta e orientação — os quatro parâmetros abaixo. Especificar o rociador antes do tipo de sistema é o erro de fornecimento mais comum na nossa caixa de consultas.</p>
+
+			<!-- 章节 2 -->
+			<h2 id="k-factor-flow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Fator K e Vazão: Adequando o Fornecimento de Água</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">O fator K define a quantidade de água que um rociador entrega em uma pressão dada: <strong>Q = K × √P</strong> (vazão em L/min, pressão em bar). É o número que vincula o cálculo hidráulico do sistema ao rociador físico.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>K=80 (nominal 80 ±4)</strong> — o padrão de longa data para ocupações de perigo leve e ordinário; a escolha padrão para escritórios, varejo e a maioria dos espaços comerciais.</li>
+				<li><strong>K=115 (nominal 115 ±9)</strong> — fornecimento maior para ocupações de armazenagem, tetos altos e áreas onde a densidade de projeto exige mais água por rociador.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Ambos os coeficientes estão disponíveis na nossa <a href="/pt/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">série de rociadores de bulbo de vidro ZST</a>, que cobre K=80 e K=115 com classes de temperatura de 57°C a 141°C em padrões pendente, ereto e de parede. O projetista hidráulico calcula a densidade necessária por metro quadrado para a classe de perigo; o fator K é então escolhido para que cada rociador entregue sua parte a uma pressão realista.</p>
+			<p class="text-gray-700 leading-relaxed">Se uma ficha técnica lista apenas o tamanho da rosca e não o fator K, trate-a como incompleta: o fator K é o número mais importante dela.</p>
+			<!-- 章节 3 -->
+			<h2 id="temperature-ratings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Classes de Temperatura e Código de Cores dos Bulbos</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">O bulbo de vidro contém um líquido termossensível; em sua temperatura nominal o bulbo estoura e o rociador dispara. As classes seguem um código de cores padrão para que inspetores possam identificar um rociador pelo bulbo:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Classe de Temperatura</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Cor do Bulbo</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Uso Típico</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Na Linha ZST</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">57°C (135°F)</td>
+							<td class="px-4 py-3 text-gray-700">Laranja</td>
+							<td class="px-4 py-3 text-gray-700">Residencial / áreas de baixo calor</td>
+							<td class="px-4 py-3 text-gray-700">Disponível</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">68°C (155°F)</td>
+							<td class="px-4 py-3 text-gray-700">Vermelho</td>
+							<td class="px-4 py-3 text-gray-700">Escritórios, armazéns — a classe padrão</td>
+							<td class="px-4 py-3 text-gray-700">Disponível (também T-ZSTBS, ZSTDY)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">79°C (175°F)</td>
+							<td class="px-4 py-3 text-gray-700">Amarelo</td>
+							<td class="px-4 py-3 text-gray-700">Perto de aquecedores, claraboias, telhados quentes</td>
+							<td class="px-4 py-3 text-gray-700">Disponível</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">93°C (200°F)</td>
+							<td class="px-4 py-3 text-gray-700">Verde</td>
+							<td class="px-4 py-3 text-gray-700">Salas de caldeiras, fornos, áreas de alto calor</td>
+							<td class="px-4 py-3 text-gray-700">Disponível</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">141°C (286°F)</td>
+							<td class="px-4 py-3 text-gray-700">Azul</td>
+							<td class="px-4 py-3 text-gray-700">Fontes de calor industriais especiais</td>
+							<td class="px-4 py-3 text-gray-700">Disponível</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Regra prática: use rociadores de bulbo vermelho de 68°C para áreas gerais e aumente a classe apenas onde uma fonte de calor real torna o disparo precoce um risco concreto. Classes mais altas respondem mais tarde em um incêndio real, portanto superdimensionar a classe "por segurança" não é seguro de forma alguma.</p>
+
+			<!-- 章节 4 -->
+			<h2 id="response-orientation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Velocidade de Resposta e Orientação de Instalação</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A velocidade de resposta é definida pela massa térmica do bulbo: um rociador de <strong>resposta rápida</strong> usa um bulbo de 3mm e ativa mais rápido; um de <strong>resposta padrão</strong> usa um bulbo de 5mm. Resposta rápida é preferida onde há ocupantes e o disparo mais precoce importa; resposta padrão se adequa a ambientes de armazenagem e industriais, onde o disparo é projetado em função do desenvolvimento do fogo. A série ZST está disponível nas duas.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">A orientação segue a superfície de perigo e o teto:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Pendente</strong> — fica suspenso abaixo da linha de derivação, o padrão para tetos expostos e o padrão coberto pela maior parte da linha ZST.</li>
+				<li><strong>Ereto</strong> — fica montado acima da linha de derivação, comum em armazéns com treliças abertas, onde o defletor deve projetar a água contra obstruções das treliças.</li>
+				<li><strong>De parede</strong> — montado na parede perto do teto, para ambientes onde linhas de derivação através da laje são impraticáveis; o <a href="/pt/products/horizontal-sidewall-fire-sprinkler-t-zstbs/" class="text-brand-blue font-semibold hover:underline">rociador de parede lateral horizontal T-ZSTBS</a> (bulbo vermelho de 68°C, acabamento cromado) é o modelo de cobertura perimetral da linha.</li>
+				<li><strong>Embutido</strong> — recesso atrás de uma placa de cobertura que se solta quando o rociador opera; escolhido para tetos com sensibilidade arquitetônica. O <a href="/pt/products/zstdy-concealed-fire-sprinkler/" class="text-brand-blue font-semibold hover:underline">rociador embutido ZSTDY</a> traz bulbo vermelho de 68°C e acabamento cromado por eletrodeposição, e é a opção listada UL da linha.</li>
+			</ul>
+
+			<!-- 章节 5 -->
+			<h2 id="us-standards-context" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Certificação UL e Contexto NFPA 13 para Projetos nos EUA</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Projetos na América do Norte são regidos pela NFPA 13, cujas classificações de perigo (leve, ordinário e extra) definem a densidade de projeto, o espaçamento e, em consequência, a especificação dos rociadores. Além dos parâmetros hidráulicos, as especificações dos EUA quase sempre exigem rociadores <strong>certificados</strong> — UL ou uma certificação equivalente que cubra o modelo específico.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Seja preciso sobre o que nossa linha traz: o <strong>rociador embutido ZSTDY é listado UL</strong> (bulbo vermelho de 68°C, construção em aço inoxidável, DN15-DN20), o que o torna a opção direta para aplicações embutidas especificadas nos EUA. A série ZST de bulbo de vidro e o modelo de parede T-ZSTBS são fabricados conforme a série GB 5135 e as normas de fábrica — são especificados confirmando a certificação exigida para o seu projeto, e nós casamos o modelo certificado ou organizamos a avaliação do projeto, em vez de afirmar status UL da série inteira.</p>
+			<p class="text-gray-700 leading-relaxed">Essa distinção importa na contratação nos EUA: um substituto sem certificação em uma linha que exige certificação pode falhar na revisão de projeto e invalidar a aceitação do sistema. Exija que a certificação seja nomeada na cotação, modelo a modelo — nossa página de <a href="/pt/certificates/" class="text-brand-blue font-semibold hover:underline">certificados e conformidade</a> mostra como a documentação de certificação é tratada.</p>
+			<!-- 章节 6 -->
+			<h2 id="spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Checklist de Especificação de Rociadores</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Fator K</strong> — K=80 para perigo leve/ordinário, K=115 para densidade maior; informe a densidade de projeto alvo com o pedido.</li>
+				<li><strong>Classe de temperatura</strong> — 68°C como padrão; classes mais altas apenas em fontes de calor reais; nunca misture classes em uma mesma área de perigo.</li>
+				<li><strong>Resposta</strong> — resposta rápida (bulbo de 3mm) ou resposta padrão (bulbo de 5mm) conforme a ocupação e o projeto do sistema.</li>
+				<li><strong>Orientação e acabamento</strong> — pendente, ereto, de parede ou embutido; cromo, polido ou acabamento personalizado para o tipo de teto.</li>
+				<li><strong>Certificação por modelo</strong> — nomeie a certificação exigida (ex.: UL) na cotação; confirme que ela cobre o modelo e o tamanho exatos.</li>
+				<li><strong>Documentação por lote</strong> — registros de teste de pressão e de sensibilidade do lote de produção; veja nosso <a href="/pt/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">checklist de fornecimento B2B</a> para a rotina de verificação de fábrica que também se aplica a fornecedores de rociadores.</li>
+			</ul>
+
+			<!-- FAQ 章节 -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Perguntas Frequentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- 双 CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Especificando Rociadores para o Seu Projeto?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envie sua classe de perigo, fator K, classe de temperatura e exigência de certificação — nossos engenheiros confirmam o modelo correspondente em até 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/pt/contact/?product=Rociadores%20Contra%20Inc%C3%AAndio" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotação</a>
+						<a href="https://wa.me/8618684324501?text=Ol%C3%A1%2C%20preciso%20de%20rociadores%20contra%20inc%C3%AAndio%20(fator%20K%2Ftemperatura%2Fresposta)" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Conversar no WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
