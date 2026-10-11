@@ -1,0 +1,246 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'risk-frame', label: '1. Sınır ötesi tedarik neden başarısız olur: Risk çerçevesi' },
+	{ id: 'eight-risk-families', label: '2. Sekiz risk ailesi' },
+	{ id: 'counterparty-risk', label: '3. Karşı taraf ve özgünlük riski' },
+	{ id: 'quality-risk', label: '4. Kalite ve spesifikasyon riski' },
+	{ id: 'certification-risk', label: '5. Sertifikasyon ve uygunluk riski' },
+	{ id: 'payment-risk', label: '6. Ödeme ve finansal risk' },
+	{ id: 'logistics-risk', label: '7. Lojistik, gümrük ve teslimat riski' },
+	{ id: 'dispute-risk', label: '8. Uyuşmazlık, garanti ve süreklilik riski' },
+	{ id: 'control-checklist', label: '9. Aşamaya göre kontrol listesi' },
+	{ id: 'red-flags', label: '10. Uyarı işaretleri: Süreci durdurun ve yeniden doğrulayın' },
+	{ id: 'faq', label: 'Sık sorulan sorular' }
+];
+
+const faq = [
+	{
+		question: 'Sınır ötesi ekipman tedariklerinin başarısız olmasının en yaygın nedeni nedir?',
+		answer: 'Ne fiyat ne de sahte ürünlerdir; en yaygın başarısızlık, tedarikçiyi sorumlu tutmaya yetecek kadar tamamlanmamış bir spesifikasyondur. Standart, ölçü, basınç sınıfı, malzeme ve kabul testi yazılı olarak belirlenmediğinde, "ürün eşleşmiyor" ifadesinin ölçülebilir bir tanımı olmaz ve uyuşmazlık çözülemez hâle gelir. Tekliften önce spesifikasyonu yazılı olarak tamamlamak, bu teknik dokümandaki en yüksek etkili risk kontrolüdür.'
+	},
+	{
+		question: 'Çinli bir üreticiyle ilk sipariş için en güvenli ödeme yapısı hangisidir?',
+		answer: 'Aşamalı T/T yapısı, savunulabilir standart çözümdür: sipariş karşılığında peşinat (ekipman siparişlerinde piyasa uygulaması yaklaşık %30 düzeyindedir) ve bakiye, sevkiyat belgeleri karşılığında veya sevkiyat öncesi denetim geçildikten sonra ödenir. Büyük bir ilk siparişte UCP 600 kurallarına tabi görüldüğünde ödemeli akreditif, bankalar arası güvence sağlar. Kaçınılması gerekenler: doğrulanmamış bir karşı tarafa %100 peşin ödeme, sözleşmedeki tüzel kişilik dışında kişisel hesaplara transfer ve topladığınız emsal tekliflerin çok altında bir fiyatı kabul etmektir; indirim koruma değil, riskin kendisidir.'
+	},
+	{
+		question: 'Sahte UL, FM veya CE sertifikalarına karşı nasıl korunabilirim?',
+		answer: 'Her sertifika numarasını gerçek değil, doğrulanması gereken bir beyan olarak ele alın: spesifikasyona eklemeden önce, tam model ve tam fabrika için sertifikayı düzenleyen kuruluşun resmî portalında sorgulayın. Portaldan doğrulanamayan bir numara, PDF ne kadar temiz görünürse görünsün sahtedir. Doğrulama adımını sözleşmeye kabul koşulu olarak ekleyin, ambalaj listesindeki seri numaralarıyla eşleşen birim bazlı test kayıtlarını isteyin ve önce numune siparişi verin. Sahte tespit kılavuzumuz fiziksel göstergeleri (klonlanmış seri numaraları, kopya etiketler ve ince cidarlı dökümler) listeler.'
+	},
+	{
+		question: 'Alıcıya en fazla riski hangi Incoterm yükler?',
+		answer: 'EXW (Ex Works), neredeyse her şeyi alıcıya yükler: fabrikadan teslim alma, ihracat gümrük işlemleri, ana taşıma ve sigortayı siz düzenlersiniz; yerel lojistik zincirinizdeki her zayıflık sizin maliyetiniz olur. DDP (Delivered Duty Paid) sorunu tersine çevirir: tedarikçi her şeyi üstlenir, bu da fiyatlandırmayı şeffaflıktan uzaklaştırır; alıcı hangi maliyetlerin fiyatlandığını denetleyemez ve ihracat tarafındaki her komplikasyon tedarikçiye kalırken siz beklersiniz. FOB ve CIF, açık bir risk devir noktası ve denetlenebilir fiyatlarla yaygın orta yoldur; seçimi, yolculuğun hangi bölümünü daha iyi kontrol edebildiğinize göre yapın.'
+	},
+	{
+		question: 'Sözleşme imzalanmadan önce hangi maddeleri içermelidir?',
+		answer: 'En azından şunlar bulunmalıdır: teknik spesifikasyonun ek olarak verilmesi (standart, ölçü, basınç sınıfı, malzeme, yüzey işlemi), birim bazlı test kayıtlarına bağlı yazılı kabul kriterleri, sevkiyattan önce denetleme veya üçüncü taraf denetçi atama hakkınız, aşamalı ödeme planı, bir Incoterm ve liman, mücbir sebep, uygulanacak hukuk ve uyuşmazlık mercii (tahkim maddeleri sınır ötesinde yabancı mahkemelere kıyasla daha güvenilir biçimde uygulanabilir), garanti süresi ve ekipmanın hizmet ömrü boyunca yedek parça taahhüdü. Teklif sözleşme değildir; spesifikasyon ekinin bulunduğu imzalı sözleşme risk dokümanıdır.'
+	},
+	{
+		question: 'Fabrikayı ziyaret etmeden tüm bu kontrolleri uygulayabilir miyim?',
+		answer: 'Evet, kademeli olarak; ilk siparişler için normal yöntem budur. Canlı fabrika video turu, ihracat belgeleri geçmişi, her model için seri numaralı basınç testi videosu bulunan birimlik numune ve ardından bağımsız bir kuruluşun (SGS, Bureau Veritas veya Intertek) gerçekleştireceği sevkiyat öncesi denetim, fiziksel ziyaretin sağladığı doğrulamanın çoğunu çok daha düşük maliyetle karşılar. Fiziksel ziyareti ikinci siparişe veya denetim ücretinin toplam değer içinde önemsiz kaldığı tutarlara ayırın. Ziyaret olsun veya olmasın asla atlamamanız gerekenler, sertifikanın düzenleyen kuruluşta doğrulanması ve numune siparişidir.'
+	}
+];
+
+const referencePages = [
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'ZSFZ Islak Alarm Çekvalfi' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'SS100 Yer Üstü Yangın Hidrantı' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Z41X Elastomer Yataklı Flanşlı Sürgülü Vana' }
+];
+---
+
+<Layout
+	title="Sınır Ötesi Tedarik Riskleri | Wanlian Fluid"
+	description="Yangın ve su altyapısı ekipmanlarında sınır ötesi tedarik riskini kontrol edin: 8 risk ailesi, sevkiyat öncesi kontroller, ödeme yapıları ve uyarılar."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Tedarik Riski Teknik Dokümanı' }]}
+	locale="tr"
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Tedarik Riski Teknik Dokümanı</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Endüstri teknik dokümanı · 2026</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Sınır Ötesi Tedarik Risklerinin Kontrolü: Ödeme Yapmadan Önce Kontrol Edin</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Vanalar, hidrantlar ve yangın koruma ekipmanlarının sınır ötesi satın alınması, sonunda ekipman üretse de özünde bir risk yönetimi çalışmasıdır. Alıcıya pahalıya mal olan başarısızlıklar nadir ve dramatiktir (bir tedarikçinin peşinatla ortadan kaybolması veya sahte vanalarla dolu bir konteyner); ancak olağan zarar daha sessizdir: tamamlanmamış bir spesifikasyon, doğrulanamayan bir sertifika veya yolculuğun yanlış bölümünü fiyatlandıran bir Incoterm. Bu teknik doküman sınır ötesi tedarik riskini sekiz aileye ayırır, her biri için bir kontrol sırası belirler ve siparişe eklenebilecek aşama bazlı bir kontrol listesi ile uyarı işaretleri tablosuyla sona erer.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Yöntem:</strong> Bu işlemlerde tedarikçi tarafında yer alan bir üreticiyiz ve bunu açıkça belirtiyoruz. Karşı tarafın özgünlüğü bölümü, çıkarımızın kendimize hizmet eder biçimde yorumlanabileceği tek bölümdür; bu nedenle bizim de dâhil olduğumuz her tedarikçiye eşit biçimde uygulanacak şekilde yazılmıştır. Atıf yapılan mekanizmalar (Incoterms 2020, UCP 600, aşamalı T/T, üçüncü taraf denetimi ve sertifikayı düzenleyen kuruluşta doğrulama), alıcıların fiilen kullandığı standart araçlardır; bir rakam doğrulanmış gerçek değil piyasa uygulaması olduğunda bu açıkça belirtilir.</p>
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="risk-frame" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Sınır Ötesi Tedarik Neden Başarısız Olur: Risk Çerçevesi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Yurt içi tedarik üç risk boyutuna sahiptir: kalite, fiyat ve teslimat. Sınır ötesi tedarik bunlara en az dört boyut daha ekler: <strong>karşı tarafın özgünlüğü</strong> (ödeme yaptığınız kuruluş, sevkiyatı yapan kuruluşla aynı mı ve garanti zamanında hâlâ var olacak mı), <strong>mevzuatın aktarılması</strong> (varış yerinizde uygulanan standart, ürünün üretildiği standart olmalıdır), <strong>para birimi ve ödeme araçları</strong> (para, ürün hareket etmeden önce hareket eder) ve <strong>uygulanabilirlik</strong> (uygulayamayacağınız bir sözleşme yalnızca nazik bir belgedir). Mesafe burada belirleyicidir: atladığınız her kontrol, tedarikçinin risk iştahı tarafından fiyatlandırılır; riskin maliyetini düşürmenin tek yolu riski yazılı olarak azaltmaktır.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Aşağıdaki her şeyi iki ilke yönetir. Birincisi, <strong>risk ilişki içinde değil, belge izinde yönetilir.</strong> Dokümantasyona (test kayıtları, sertifika doğrulaması, denetim hakkı ve aşamalı ödeme) direnen tedarikçi, bir sorun çıktığında ne olacağı sorusunu zaten yanıtlamıştır. İkincisi, <strong>sıra, tek bir kontrolden daha önemlidir.</strong> Şirketi sertifikadan önce, sertifikayı numuneden önce, numuneyi miktardan önce ve bakiyeyi sevkiyattan önce doğrulamak bir sıradır; bunu farklı sırayla yürütürseniz sonraki adım, önceki adımın ortadan kaldırması gereken tüm riski devralır.</p>
+			<p class="text-gray-700 leading-relaxed">Devamını kesinleştiren terimler (Incoterms, basınç sınıfı, gövde testi, etiket ve konşimento) için <a href="/tr/glossary/" class="text-brand-blue font-semibold hover:underline">endüstri sözlüğümüz</a> her terimi tanımlar; <a href="/tr/whitepaper/" class="text-brand-blue font-semibold hover:underline">spesifikasyon ve doğrulama teknik dokümanı</a> ise savunulabilir bir yazılı spesifikasyonun nasıl olması gerektiğini açıklar.</p>
+
+			<h2 id="eight-risk-families" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Sekiz Risk Ailesi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Gördüğümüz her sınır ötesi tedarik kaybı, sekiz aileden birine ayrılabilir. Tablo haritadır; 3–8. bölümler her aile için kontrol sıralarını verir. Olasılık ve etki nitel olarak ifade edilmiştir; çünkü bunlar tam olarak kontrollerin hedeflediği tedarikçi davranışına bağlıdır.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Risk ailesi</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Nasıl ortaya çıkar</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Birincil kontrol</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">1. Karşı taraf ve özgünlük</td><td class="px-4 py-3 text-gray-700">Ticaret ofisi dökümleri kendi ürünü gibi yeniden satar; kuruluş peşinattan sonra ortadan kaybolur; web sitesi ile tüzel kişilik eşleşmez</td><td class="px-4 py-3 text-gray-700">Tüzel kişilik doğrulaması + fabrika videosu/ziyareti + ihracat geçmişi (§3)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">2. Kalite ve spesifikasyon</td><td class="px-4 py-3 text-gray-700">Malzeme sınıfı düşürülür; birim ihalenin öngördüğü standardı karşılamaz; parti tutarsızdır</td><td class="px-4 py-3 text-gray-700">Tamamlanmış yazılı spesifikasyon + numune siparişi + birim bazlı test kayıtları (§4)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">3. Sertifikasyon ve uygunluk</td><td class="px-4 py-3 text-gray-700">Sahte veya süresi geçmiş sertifikalar; tesis sertifikası model şartı için kullanılır; varış standardı uyuşmazlığı</td><td class="px-4 py-3 text-gray-700">Model bazında düzenleyen kuruluş doğrulaması + sözleşmesel kabul koşulu (§5)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">4. Fiyat ve ticari şartlar</td><td class="px-4 py-3 text-gray-700">Yem teklifinden sonra ürün değiştirilir; kalıp, ambalaj veya para birimi maliyetleri imzadan sonra eklenir; "en iyi fiyat" fiziksel olarak mümkün olanın altındadır</td><td class="px-4 py-3 text-gray-700">Kalem kalem karşılaştırılabilir teklifler + fiyat geçerliliği + fiilî teslimat kapsamı maddesi (§4, §6)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">5. Ödeme</td><td class="px-4 py-3 text-gray-700">Doğrulanmamış karşı tarafa %100 peşin ödeme; denetimden önce bakiye talebi; kişisel hesaba yönlendirme</td><td class="px-4 py-3 text-gray-700">Aşamalı T/T veya L/C + tüzel kişilikle eşleşen hesap + denetim onayı (§6)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">6. Lojistik ve gümrük</td><td class="px-4 py-3 text-gray-700">Incoterm yanlış bölümü fiyatlandırır; belgeler varış gümrüğünde geçmez; gemi kaçırılır; tehlikeli ürünler yanlış beyan edilir</td><td class="px-4 py-3 text-gray-700">Incoterm seçimi + belge paketi + sevkiyat öncesi konteyner kontrolü (§7)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">7. Teslimat ve süreklilik</td><td class="px-4 py-3 text-gray-700">Termin kayar ve program aksar; beşinci yılda yedek parça yoktur; tedarikçi garanti talebi sırasında faaliyette değildir</td><td class="px-4 py-3 text-gray-700">Çözüm yolları içeren program + yedek parça maddesi + tedarikçi sürekliliği kontrolü (§8)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">8. Uyuşmazlık ve hukuk</td><td class="px-4 py-3 text-gray-700">Uygulanacak hukuk yoktur; garanti uygulanamaz; tahkim maddesi eksiktir; kayıtlar kaybolur</td><td class="px-4 py-3 text-gray-700">Sözleşme eki + tahkim maddesi + saklanan test kayıtları (§8)</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="counterparty-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Karşı Taraf ve Özgünlük Riski</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bu, sonradan denetimle ortadan kaldırılamayan tek risk ailesidir; kontrol tamamen para hareket etmeden önce yapılmalıdır. Yakalanması gereken model, kendisini üretici olarak sunan ticaret ofisidir: fabrika fiyatı verir, kendi olmayan fakat ziyaret ettiği fabrikada çekilmiş fabrika fotoğrafları gösterir ve gerçek bir üreticinin yeniden markaladığı dökümleri sevk eder. Çin yangın ekipmanı gibi kümelenmiş bir sektörde yüzlerce şirket aynı metropol bölgesinde çalışır; bu nedenle "fabrika fotoğrafları" mülkiyeti değil, coğrafyayı kanıtlar.</p>
+		<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+			<li><strong>Markayı değil tüzel kişiliği doğrulayın.</strong> Şirket adı, kayıt numarası, kayıtlı adres, faaliyet alanı ve kayıtlı sermaye, web sitesine göre değil tedarikçinin kendi işletme ruhsatına göre kontrol edilmelidir. Web sitesindeki marka adı ile banka havalesindeki tüzel kişilik aynı olmalıdır.</li>
+			<li><strong>Kalite sisteminin kapsamını doğrulayın.</strong> ISO 9001 sertifikası, belirtilen bir adresteki belirtilen kapsam için geçerlidir. Fabrika adresinde "vanalar ve yangın ekipmanı" yazması bir göstergedir; "ticaret" veya farklı bir adres başka bir göstergedir.</li>
+			<li><strong>Canlı video fabrika turu gerçekleştirin.</strong> Önceden kaydedilmiş tur değil, kameranın kapıdan dökümhane, işleme, montaj ve test alanlarına kadar gezdirildiği canlı bir görüşme olmalıdır. Saklayacak bir şeyi olan üretici bunun yerine kayıtlı turu ve broşürü sunar.</li>
+			<li><strong>İhracat geçmişini kontrol edin.</strong> İhracat yapılan yıllar, hedef ülkeler ve bağımsız olarak iletişim kurabileceğiniz bir referans siparişi isteyin. Yangın ekipmanı kümesinde özellikle şunu sorun: Bu birimlerden hangilerini <em>siz</em> ürettiniz, hangilerini ortaklarınız üretti? Üretici bu soruyu yanıtlar; ticaret ofisi konuyu geçiştirir.</li>
+			<li><strong>Varlık göstergelerini çapraz kontrol edin.</strong> Web alan adının yaşı, Alibaba veya ticaret platformu profilinin tüzel kişilikle eşleşmesi ve irtibat kişisinin kişisel posta kutusu yerine kurumsal alan adı kullanıp kullanmadığı kontrol edilmelidir.</li>
+		</ol>
+		<p class="text-gray-700 leading-relaxed">Bir fabrikayı ticaret ofisinden ayıran beş kontrolü ve soruları içeren adım adım yöntem <a href="/tr/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">Çinli vana tedarikçisini doğrulama kılavuzumuzda</a> yer alır. <a href="/tr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B vana tedarik kontrol listemizdeki</a> 8 maddelik durum tespiti, ilk e-postaya doğrudan eklenebilir.</p>
+
+			<h2 id="quality-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Kalite ve Spesifikasyon Riski</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Kalite riski genellikle fabrikada değil, teklif aşamasında oluşur. Talebiniz "DN100 sürgülü vana, tercihen AWWA, 200 adet" şeklindeyse her tedarikçi yanıt verebilir ve her biri farklı bir ürün sunar. Bu nedenle en yüksek değer taşıyan üç kalite kontrolü, ilk birim dökülmeden önce gerçekleştirilen spesifikasyon kontrolleridir:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Spesifikasyonu yazılı olarak tamamlayın.</strong> Geçerli standart (AWWA C502/C515, ISO 5208, EN 1074, NFPA 13 veya ihalenin referansı), ölçü ve basınç sınıfı, malzeme sınıfı ve yüzey işlemi, bağlantı tipi ve birim başına gerekli test belirtilmelidir. Açık bir spesifikasyona dayalı teklif, risk dokümanı değil bir görüşmedir. <a href="/tr/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Standartlar kılavuzu</a> düzenlemeleri yan yana karşılaştırır.</li>
+				<li><strong>Seri üretimden önce numune sipariş edin.</strong> Her modelden bir birim: etiket, seri numarası, malzeme sertifikası ve seri numaralı gövde basınç testi ile hava kaçağı test videosu. <a href="/tr/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ-150 ıslak alarm çekvalfi</a> veya <a href="/tr/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">SS100/65 yer üstü hidrant</a> numune için yeterince düşük maliyetlidir; bu adımı atlamak hiçbir zaman mantıklı değildir. Numune, sahte ürün ve spesifikasyon riskine karşı mevcut en ucuz sigortadır.</li>
+				<li><strong>Parti bazlı değil birim bazlı test kayıtları isteyin.</strong> Parti raporu "bazılarını test ettik" der. Seri numaraları ambalaj listesiyle eşleşen birim kaydı ise "sizin birimlerinizi test ettik" der. Bu aynı zamanda varış yerindeki denetçinin kabul sırasında isteyeceği belgedir.</li>
+				<li><strong>Seri üretim için üçüncü taraf denetçisi atayın.</strong> SGS, Bureau Veritas veya Intertek'in teste tanıklık etmesi ve sevkiyattan önce kayıtları incelemesi, "tedarikçi söylüyor" ifadesini "bağımsız kuruluş tanıklık etti" ifadesine dönüştürür. Ücret, tek bir yanlış konteynerin maliyeti yanında ihmal edilebilir düzeydedir.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Bu risk ailesinin fiyat boyutunda kural şudur: topladığınız emsal tekliflerin çok altındaki teklif bir pazarlık değil, fiyatlandırılmış risktir; indirim malzeme sınıfından, cidar kalınlığından, testlerden veya gelecekteki bakiye ödemenizden karşılanıyordur. <a href="/tr/cost-calculator/" class="text-brand-blue font-semibold hover:underline">Tedarik maliyeti hesaplayıcımız</a> meşru maliyet etkenlerini (miktar, Incoterm, varış yeri) ölçer; böylece düşük teklif hisle değil siparişin fiziksel koşullarıyla karşılaştırılabilir.</p>
+
+			<h2 id="certification-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Sertifikasyon ve Uygunluk Riski</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Sertifikasyon, bu sektörde en çok sahtesi üretilen ve en sık yanlış uygulanan belgedir. İki farklı hata vardır: <strong>sahtecilik</strong> (sertifika sahtedir veya gerçek bir sertifikadan kopyalanmıştır) ve <strong>kapsam kayması</strong> (sertifika gerçektir ancak siparişinizin varsaydığından farklı bir model, fabrika veya yıl için geçerlidir). Her ikisinin kontrol aracı aynıdır: <strong>sertifikayı düzenleyen kuruluşun resmî portalında doğrulama</strong>. Buna UL product-iQ dizini, FM onay veri tabanı, LPCB RedBook ve Çin yangın ürünü sertifikasyonu için düzenleyen kuruluşun sertifika kaydı dahildir. Tedarikçinizin tüzel kişiliğine ve modelinize bağlanamayan bir sertifika numarası, PDF ne kadar düzgün görünürse görünsün kesinlikle sahtedir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">İkinci kontrol sözleşmeseldir: sertifika doğrulamasını ürün tanımı değil, <em>kabul koşulu</em> hâline getirin. Teklifin açıklama sütunundaki "UL listeli" ifadesinin ağırlığı yoktur; "tedarikçi, Z41X-100 modelinin [X] numaralı UL 262 sertifikası kapsamında listelendiğini, sevkiyat tarihinde UL product-iQ üzerinde doğrulanabildiğini ve sertifika kopyasının bakiye ödemeden önce teslim edileceğini garanti eder" ifadesi ağırlık taşır. Sahte vanaların fiziksel göstergeleri (klonlanmış seri numaraları, kopya etiketler, ince cidarlı dökümler ve damgalamanın üzerine çok kalın boya) <a href="/tr/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">sahtecilik tespit kılavuzumuzda</a> ele alınır.</p>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Model bazlı mı tesis bazlı mı: önemli ayrım</p>
+				<p class="text-sm text-gray-700 leading-relaxed">Sistem sertifikası (ISO 9001, fabrika ruhsatı), <em>şirketin</em> kontrollü bir süreç yürüttüğünü gösterir. Ürün sertifikası (UL listesi, FM onayı, geçerli direktif kapsamındaki CE işareti, yangın ürünü sertifikasyonu), <em>modelin</em> test edildiğini gösterir. Varış yeri denetçisi ürün sertifikasını uygular. Ürün sertifikası istediğiniz hâlde sistem sertifikasını sunan tedarikçi, sorduğunuzdan farklı bir soruyu yanıtlamaktadır; konteynerinizin kabul edilip edilmeyeceğini belirleyen ise sizin sorunuzdur.</p>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Varış yerine özgü eşleştirme için (Latin Amerika ihalesinin UL/FM/AWWA/NOM ile ne kastettiği, AB'nin model bazında CE yaklaşımı ve NFPA 13'ün <a href="/tr/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">AWWA tipi sürgülü vana</a> için anlamı) <a href="/tr/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">UL listeli yangın vanası seçme kılavuzuna</a>, <a href="/tr/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">Latin Amerika sertifikasyon kılavuzuna</a> ve <a href="/tr/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">CE ve EN 12845 uygunluk kılavuzuna</a> bakın.</p>
+
+			<h2 id="payment-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Ödeme ve Finansal Risk</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Sınır ötesi ekipman ticaretinde para, ürün hareket etmeden önce hareket eder; bu hareketin yapısı kontroldür. İlk siparişte alıcı koruması artacak şekilde sıralanan dört araç şunlardır:</p>
+			<table class="w-full text-sm my-5 border-collapse">
+				<thead><tr class="bg-gray-50"><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">Araç</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">Ne sağlar</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">Uygun olduğu yer</th></tr></thead>
+				<tbody class="divide-y divide-gray-200">
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Aşamalı T/T</td><td class="px-4 py-3 text-gray-700">Sipariş karşılığında peşinat; sevkiyat belgeleri karşılığında veya sevkiyat öncesi denetim geçildikten sonra bakiye</td><td class="px-4 py-3 text-gray-700">Doğrulanmış tedarikçiler için savunulabilir standart; ekipman siparişlerinde peşinat piyasa uygulaması yaklaşık %30'dur</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Görüldüğünde ödemeli akreditif (UCP 600)</td><td class="px-4 py-3 text-gray-700">Banka uygun belgelere karşı ödeme yapar; bankalar arası güvence güvenin yerini alır</td><td class="px-4 py-3 text-gray-700">Büyük ilk siparişler veya yalnızca peşinatın risk iştahınızı aştığı siparişler</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Platform emanet hesabı</td><td class="px-4 py-3 text-gray-700">Platform, ödemeyi teslimat/denetime kadar tutar</td><td class="px-4 py-3 text-gray-700">Yeni bir karşı tarafla küçük siparişler ve numune alımları</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">İhracat kredi sigortası</td><td class="px-4 py-3 text-gray-700">Alacağı tedarikçi temerrüdüne karşı sigortalar (ihracat tarafında China Ex&amp;I / Sinosure; sizin tarafınızda yerel kredi sigortacıları)</td><td class="px-4 py-3 text-gray-700">Karşı taraf kanıtlandıktan sonra programlar ve tekrarlanan siparişler</td></tr>
+				</tbody>
+			</table>
+			<p class="text-gray-700 leading-relaxed mb-4">Üç ödeme kuralı kesin sınırlar olarak belirtilmelidir. <strong>Birincisi:</strong> %100 peşin ödeme, yalnızca §3 doğrulamasını geçmiş ve geçmiş performansını bağımsız olarak kontrol ettiğiniz bir karşı tarafa karşı savunulabilir; o durumda bile sözleşme, denetim başarısız olursa peşinatın iade edilmesini sağlamalıdır. <strong>İkincisi:</strong> her havale, sözleşmedeki tüzel kişiliğin banka hesabına yapılmalıdır; farklı bir şirkete veya kişisel hesaba ödeme talebi tek başına dolandırıcılık işaretidir. <strong>Üçüncüsü:</strong> para birimi fiyatlandırılmış bir değişkendir; teklif ve sözleşme tek bir para biriminde yapılmalıdır. "Fiyat USD, ödeme günün kuruyla RMB" ifadesi, kabul ettiğiniz açık bir döviz pozisyonudur. Dövizden korunma uygulamaları bir nedenle vardır; çoğu ekipman siparişinde en basit kontrol tek para birimli sözleşmedir.</p>
+
+			<h2 id="logistics-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Lojistik, Gümrük ve Teslimat Riski</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Incoterm, yolculuğun risk haritasıdır; bu ailedeki uyuşmazlıkların çoğu farklı kılığa bürünmüş Incoterm uyuşmazlıklarıdır. Incoterms 2020 kapsamında:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>EXW</strong> – fabrika kapısında devralırsınız: ihracat işlemleri, ana taşıma ve sigorta tamamen sizindir. Maksimum kontrol, maksimum yük; Çin'de kendi nakliye zinciriniz olduğunda uygundur.</li>
+				<li><strong>FOB</strong> – tedarikçi ihracatı temizler ve yükler; risk gemiye yüklendiğinde devredilir. Konteynerli ekipmanda en yaygın terimdir; gemiyi ve kendi tarafınızdaki sigortayı siz kontrol edersiniz.</li>
+				<li><strong>CIF</strong> – tedarikçi varış limanınıza kadar taşıma ve sigortayı ekler; risk yine çıkışta gemiye yükleme sırasında devredilir. Seçmediğiniz bir taşıyıcı için ödeme yaparsınız; buna göre fiyatlandırın.</li>
+				<li><strong>DDP</strong> – tedarikçi vergileri ödenmiş şekilde kapınıza teslim eder: tam kontrol, tam şeffaflık eksikliği. Her maliyet unsuru denetleyemediğiniz tek bir rakamın içindedir; DDP'yi yalnızca lojistiğinin çalıştığını daha önce gördüğünüz bir tedarikçiyle kullanın.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Belge paketi ikinci kontroldür ve aynı zamanda kalite kanıtıdır: ticari fatura, ambalaj listesi, konşimento, menşe şahadetnamesi ve <strong>ambalaj listesindeki seri numaralarıyla eşleştirilmiş parti ve birim bazlı test kayıtları</strong>. Eksiksiz ve uzlaştırılabilir bir belge paketi başlı başına kalite göstergesidir; varış yeri denetçisi ve bakım ekibiniz bunu kabul sırasında ve beşinci yılda kullanır. Basınçlı ürünler (taşınabilir yangın söndürücüler) tehlikeli malzemedir ve tehlikeli maddeye uygun ambalaj ile beyan gerektirir; su bazlı ekipman genel kargodur. Bu ayrım taşıma seçeneklerinizi ve sigortanızı değiştirir; bu nedenle talepte doğru beyan edilmelidir; ayrıntılar <a href="/tr/guides/fire-extinguisher-selection-guide/" class="text-brand-blue font-semibold hover:underline">yangın söndürücü kılavuzunda</a> açıklanır. Son olarak sevkiyat öncesi konteyner kontrolünü denetim kapsamına koyun: mühür numaraları fotoğraflanmalı, ambalaj listesi adedi doğrulanmalı ve test kayıtları konteynerin belge klasörüne konulmalıdır. Maliyet önemsizdir; risk okyanusu geçmeden önce malları görebileceğiniz son andır.</p>
+
+			<h2 id="dispute-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. Uyuşmazlık, Garanti ve Süreklilik Riski</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Sınır ötesi sözleşmenin görevi en kötü senaryoyu yönetilebilir kılmaktır. Ekipman alımında gerçekten ağırlık taşıyan maddeler şunlardır:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Ek olarak spesifikasyon</strong> – §4'te tamamlanan spesifikasyon, e-postaya ek değil sözleşmenin ekidir. Sözleşme buna atıf yapar ve kabulü bu ek yönetir.</li>
+				<li><strong>Test hakkı bulunan kabul kriterleri</strong> – belirtilen standarda göre birim bazında gövde basınç ve hava kaçağı testi, sevkiyattan önce denetleme veya üçüncü taraf atama hakkınız ve her hata türü için çözüm (değişim, yeniden test, iade) tanımlanmalıdır.</li>
+				<li><strong>Sertifika doğrulama koşulu</strong> – §5 uyarınca sertifika ve model belirtilmeli, düzenleyen kuruluşta doğrulanabilmeli ve kopyası bakiye ödemeden önce teslim edilmelidir.</li>
+				<li><strong>Ödeme aşamaları</strong> – §6'daki yapı sözleşmeye yazılmalı ve zaman baskısı altında yeniden müzakere edilememelidir.</li>
+				<li><strong>Mücbir sebep ve termin</strong> – yalnızca "en iyi çaba" değil, gecikme için belirlenmiş çözüm yolu bulunan bir teslim tarihi konulmalıdır. Sözleşmeler gecikmeyi ucuz hâle getirdiğinde programlar aksar.</li>
+				<li><strong>Uygulanacak hukuk ve tahkim</strong> – tarafsız bir tahkim yeri ve belirli bir tahkim kurumu içeren tahkim maddesi, New York Sözleşmesi kapsamında sınır ötesinde karşı tarafın mahkemelerinde dava açma vaadinden çok daha güvenilir biçimde uygulanır. Çoğu alıcı için bu tek madde, kaybın geri alınabilir olması ile pahalı bir mektuptan ibaret kalması arasındaki farktır.</li>
+				<li><strong>Garanti ve yedek parçalar</strong> – garanti süresi modele göre belirtilmeli ve yedek parça bulunabilirliği ekipmanın hizmet ömrüne göre taahhüt edilmelidir. Sekizinci yılda yatağı yenilenemeyen vana, tedarikçinin hâlâ üretmesini umduğunuz bir yenileme ürününe dönüşür.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Süreklilik riski sessiz olandır: tedarikçi konteynerinizi sevk eder ve garanti zamanı geldiğinde ortadan kaybolur. Kontrol §3'teki kanıtların aynısını (faaliyet yılı, sermaye, ihracat geçmişi ve müşteri tabanının genişliği) ve yapısal bir önlemi içerir: <strong>güvenlik açısından kritik bir kalem için dosyada ikinci nitelikli kaynak olmadan tek kaynağa bağımlılık oluşturmayın.</strong> Sizden rakibi önlem olarak nitelendirmenizi istemiyoruz; spesifikasyon ile test kayıtlarını, gerektiğinde bunu yapabileceğiniz kadar eksiksiz tutmanızı istiyoruz.</p>
+
+			<h2 id="control-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">9. Aşamaya Göre Kontrol Listesi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">3–8. bölümlerdeki kontroller uygulama sırasına göre düzenlenmiştir. Yazdırın, siparişe ekleyin ve işaretleyin; sıra önemlidir: her aşamanın kontrolleri, sonraki aşamanın parasının aksi hâlde fiyatlandıracağı riski ortadan kaldırır.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50"><tr><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Aşama</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Kontroller</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Geçiş koşulu</th></tr></thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Nitelendirmeden önce</td><td class="px-4 py-3 text-gray-700">Tamamlanmış yazılı spesifikasyon; 3 veya daha fazla karşılaştırılabilir teklif; maliyet etkenleri ölçülmüş</td><td class="px-4 py-3 text-gray-700">Spesifikasyon eki hazır; emsal fiyat aralığı belirlenmiş</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Nitelendirme</td><td class="px-4 py-3 text-gray-700">Tüzel kişilik + ISO kapsamı + canlı fabrika videosu + ihracat referansları (§3)</td><td class="px-4 py-3 text-gray-700">Fabrika doğrulandı; referanslarla bağımsız olarak iletişim kuruldu</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Sözleşme</td><td class="px-4 py-3 text-gray-700">Kabul kriterleri, sertifika koşulu, aşamalar, Incoterm, tahkim maddesi (§6–8)</td><td class="px-4 py-3 text-gray-700">Spesifikasyon ekli imzalı sözleşme; teklif değil</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Numune</td><td class="px-4 py-3 text-gray-700">Model başına birim: etiket, seri, malzeme sertifikası, test videosu (§4)</td><td class="px-4 py-3 text-gray-700">Numune eke göre kabul edildi; sertifikalar düzenleyen kuruluşta doğrulandı</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Üretim</td><td class="px-4 py-3 text-gray-700">Program onaylandı; 1. aşama ödendi; periyodik fotoğraf/video kanıtı</td><td class="px-4 py-3 text-gray-700">Programa göre ilerleme; istisnalar yazılı bildirildi</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Sevkiyat öncesi</td><td class="px-4 py-3 text-gray-700">Üçüncü taraf denetimi teste ve kayıt incelemesine tanıklık etti; konteyner kontrol edildi; belgeler paketlendi</td><td class="px-4 py-3 text-gray-700">Denetim geçildi; belge paketi eksiksiz ve eşleştirilmiş</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Ödeme ve sevkiyat</td><td class="px-4 py-3 text-gray-700">Bakiye, geçerli denetim/sevkiyat belgeleri karşılığında serbest bırakıldı; konşimento doğrulandı</td><td class="px-4 py-3 text-gray-700">Risk gemiye yükleme sırasında devredildi; belgeler alındı</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Varış ve sonrası</td><td class="px-4 py-3 text-gray-700">Varış kabulü test kayıtlarına göre yapıldı; kayıtlar bakım için dosyalandı; garanti kanalı test edildi</td><td class="px-4 py-3 text-gray-700">Kabul kaydedildi; kayıtlar ekipmanın ömrü boyunca dosyalandı</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Aynı kontroller kendi üretimimizde nasıl uygulanıyor</p>
+				<p class="text-sm text-gray-700 leading-relaxed">Üreticiyiz; bu teknik dokümanı dürüstçe kullanmanın yolu kontrolleri bize de uygulamaktır. Süreç kanıtlarımız, yani yaptıklarımız: ISO 9001:2015 sistemi altında üretim (sertifika düzenleyen kuruluşta doğrulanmak üzere sunulabilir); ambalaj listesiyle eşleştirilmiş birim bazlı kayıtlarla %100 birim gövde basınç ve hava kaçağı testi; bir numune birim için seri numaralı test videosu; talep üzerine <a href="/tr/certificates/" class="text-brand-blue font-semibold hover:underline">sertifika sayfamızdaki</a> model bazlı sertifikalar; sevkiyatla koordine edilen ihracat belgeleri ve eksiksiz spesifikasyona 12 saat içinde yanıt taahhüdü. Bu paragraftaki her iddia, tam olarak bu teknik dokümanda açıklanan prosedürle kontrol edilebilir; yayımlama amacımız da budur.</p>
+			</div>
+
+			<h2 id="red-flags" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">10. Uyarı İşaretleri: Süreci Durdurun ve Yeniden Doğrulayın</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Süreci durdurup sizi kontrol listesine geri gönderen on işaret vardır. Bunlardan biri bile bir haftalık beklemeye değer; iki veya daha fazlası farklı bir tedarikçi seçmeniz için yeterlidir.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50"><tr><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">No.</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">İşaret</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Neden önemli</th></tr></thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-black text-gray-400">1</td><td class="px-4 py-3 font-bold text-gray-900">Canlı fabrika video turunu reddeder</td><td class="px-4 py-3 text-gray-700">Üreticinin kendi tesisinde saklayacağı bir şey yoktur; bunu yalnızca ticaret ofisi yapar</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">2</td><td class="px-4 py-3 font-bold text-gray-900">Sertifika numarası düzenleyen kuruluşta doğrulanamaz</td><td class="px-4 py-3 text-gray-700">PDF nasıl görünürse görünsün sahtecilik doğrulanmıştır</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">3</td><td class="px-4 py-3 font-bold text-gray-900">Kişisel hesaba veya farklı bir tüzel kişiliğe ödeme ister</td><td class="px-4 py-3 text-gray-700">Sözleşmedeki kuruluş ile ödeme alıcısı aynı olmalıdır; bu tek başına dolandırıcılık işaretidir</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">4</td><td class="px-4 py-3 font-bold text-gray-900">Büyük bir ilk sipariş için %100 peşin ödeme talep eder</td><td class="px-4 py-3 text-gray-700">Kalan tüm riski yapıda hiçbir kontrol bırakmadan size yükler</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">5</td><td class="px-4 py-3 font-bold text-gray-900">Belirtilmiş bir ödün olmadan emsal aralığın çok altında teklif verir</td><td class="px-4 py-3 text-gray-700">İndirim malzeme, cidar kalınlığı, test veya bakiyenizden karşılanır</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">6</td><td class="px-4 py-3 font-bold text-gray-900">Numune siparişini reddeder</td><td class="px-4 py-3 text-gray-700">Numune tedarikçiye az maliyet çıkarır ve en çok kanıtı sağlar; ret açık bir beyandır</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">7</td><td class="px-4 py-3 font-bold text-gray-900">Birim bazlı test kayıtları yerine "parti raporu" sunar</td><td class="px-4 py-3 text-gray-700">Birimleriniz "partinin bazıları" değildir; seri numarasıyla eşleştirilen kayıt kabul belgesidir</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">8</td><td class="px-4 py-3 font-bold text-gray-900">Etiketteki model siparişle eşleşmez</td><td class="px-4 py-3 text-gray-700">Değişiklik gerçekleşmiştir; soru, başka nelerin farklı olduğudur</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">9</td><td class="px-4 py-3 font-bold text-gray-900">Her modelin hangi standarda göre test edildiğini belirtemez</td><td class="px-4 py-3 text-gray-700">Güvenlik ekipmanı üreticisi standartlarını bilir; belirsizlik farklı bir iş modeline işaret eder</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">10</td><td class="px-4 py-3 font-bold text-gray-900">Sözleşmede denetim haklarına veya üçüncü taraf denetimine direnç gösterir</td><td class="px-4 py-3 text-gray-700">Kendi testlerini geçen bir fabrika, bunlara bağımsız bir tanığın şahitlik etmesinden çekinmez</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- SSS Bölümü -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sık Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Bir Sonraki Siparişiniz İçin Canlı Risk Kontrolü Yaptırın</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Spesifikasyonunuzu, çalıştığınız tedarikçiyi ve varış yerinizi gönderin. 12 saat içinde siparişinizi bu teknik dokümandaki kontrol listesine göre inceleyelim: spesifikasyonun tamamlanması, sertifika doğrulaması, ödeme yapısı ve sevkiyata eşlik etmesi gereken belge paketi.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Procurement%20Risk%20Check" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İsteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Merhaba, siparişim için tedarik riski kontrolü talep ediyorum')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp'tan Yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

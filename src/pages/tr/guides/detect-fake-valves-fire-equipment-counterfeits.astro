@@ -1,0 +1,254 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'why-counterfeits-concentrate', label: '1. Sahte ürünler neden bu kategoride yoğunlaşır?' },
+	{ id: 'common-forms-of-fakes', label: '2. Sahteciliğin yaygın biçimleri' },
+	{ id: 'detection-checklist', label: '3. Yedi adımlı tespit kontrol listesi' },
+	{ id: 'red-flags-table', label: '4. Gerçek ve sahte: uyarı işaretleri tablosu' },
+	{ id: 'how-wanlian-operates', label: '5. Wanlian Fluid nasıl çalışır: süreç kanıtları' },
+	{ id: 'pre-order-workflow', label: '6. Sipariş öncesi doğrulama süreci' },
+	{ id: 'faq', label: 'Sık Sorulan Sorular' },
+	{ id: 'sources', label: 'Kaynaklar' }
+];
+
+const faq = [
+	{
+		question: 'Çok daha düşük bir fiyat teklifi sahte ürünün güvenilir bir işareti midir?',
+		answer: 'Bu bir tarama sinyalidir, kanıt değildir. Uygun sünek dökme demir dökümler, basınç testleri ve ihracat belgelerinin gerçek bir maliyet tabanı vardır; bu nedenle piyasanın çok altındaki bir fiyat doğrulama gerektirir. Ancak bazı teklifler yalnızca daha düşük bir spesifikasyona ait olabilir. Farkı değerlendirmeden önce her teklifteki standardı, malzeme sınıfını ve test gerekliliklerini karşılaştırın.'
+	},
+	{
+		question: 'Yangın vanası sipariş etmeden önce UL veya FM sertifikasını nasıl doğrularım?',
+		answer: 'Teklif edilen modele ait kesin sertifika veya listeleme numarasını isteyin ve ardından düzenleyen kuruluşun resmî portalında bağımsız olarak doğrulayın. Listelenen ürünün, modelin ve fabrikanın tedarikçinizle eşleştiğini teyit edin. Kontrol edene kadar e-postadaki herhangi bir sertifika görselini doğrulanmamış kabul edin.'
+	},
+	{
+		question: 'Birim bazlı test kayıtları gerçekte hangi bilgileri içermelidir?',
+		answer: 'Asgari olarak birim seri numarası, test tarihi, gövde basınç testi sonucu, hava sızıntısı testi sonucu ve operatörün veya denetçinin kimliği bulunmalıdır. Seri numaraları çeki listesi, etiket ve ihracat belgeleriyle örtüşmelidir. Hiçbir birim tanımlayıcısı bulunmadan yalnızca bir “partiyi” kapsayan rapor bir uyarı işaretidir.'
+	},
+	{
+		question: 'İlk siparişimde üçüncü taraf denetimine ihtiyacım var mı?',
+		answer: 'Kritik güvenlik gerektiren yangın ekipmanları için, en azından ilk siparişte bunu kesinlikle öneriyoruz. SGS veya Bureau Veritas gibi bağımsız bir kuruluş testlere şahit olabilir, malzemeleri kontrol edebilir ve fabrika kayıtlarını inceleyebilir. Ücret, bir konteyner değerinin küçük bir bölümüdür ve tek bir arızalı birimden çok daha ucuzdur.'
+	},
+	{
+		question: 'Wanlian ödeme yapmadan önce hangi belgeleri gönderebilir?',
+		answer: 'Wanlian Fluid, düzenleyen kuruluşta doğrulanmak üzere ISO 9001 sertifikasını, döküm sınıfına ait fabrika test sertifikalarını, numune birimin basınç ve hava sızıntısı testine ilişkin seri numaralı bir video ile standart ihracat belge setini sağlayabilir. AWWA veya NFPA gibi belirli bir standarda uygunluk, sipariş öncesinde test raporları ve sertifikalarla model bazında teyit edilir.'
+	},
+	{
+		question: 'Teslim aldığım sevkiyatta sahte bir birim tespit edersem ne yapmalıyım?',
+		answer: 'Etkilenen ekipmanı devreye almayı durdurun; birimi etiket ve seri numarası görünür şekilde fotoğraflayın ve tüm test kayıtlarıyla belgeleri saklayın. Tedarikçiye resmî bir uygunsuzluk talebi sunun, izlenebilirlik belgelerini isteyin ve üçüncü taraf denetçinizi veya sözleşme makamını sürece dahil edin. Kritik sistemlerde, doğrulanmış yedek birimler temin edilene kadar etkilenen bölümü izole edin.'
+	}
+];
+
+const productRows = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Elastomer Yataklı Flanşlı Sürgülü Vana (Z41X)', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'Yangın boru hatları ve su ana hatları için tam geçişli elastomer yataklı sürgülü vana' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Yer Üstü Yangın Hidrantı (SS100)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Belediye yangın şebekeleri için antifriz özellikli yer üstü hidrant' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Kauçuk İç Kaplamalı Yangın Hortumu (Model 8-65)', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Polyester ceketli ve vulkanize kauçuk iç kaplamalı yatırılabilir hortum' }
+];
+
+const referencePages = [
+	{ slug: 'how-to-verify-chinese-valve-supplier', name: 'Çinli vana tedarikçisini doğrulama kılavuzu' },
+	{ slug: 'b2b-valve-sourcing-checklist', name: 'B2B vana tedarik kontrol listesi' },
+	{ slug: 'how-to-choose-ul-listed-fire-valves', name: 'UL listeli yangın vanalarını seçme kılavuzu' },
+	{ slug: 'latinamerica-certification-requirements-fire-valves', name: 'Yangın vanaları için sertifikasyon gereklilikleri' }
+];
+---
+
+<Layout
+	title="Sahte Vanaları ve Yangın Ekipmanı Sertifikalarını Tespit Etme"
+	description="Çin’den sahte vana, sertifika ve yangın ekipmanı riskini azaltın: B2B alıcılar için tespit listesi, uyarı işaretleri ve sipariş öncesi tedarikçi doğrulaması."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Sahte Ürünleri Tespit Etme' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Ekmek kırıntıları -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Sahte Ürünleri Tespit Etme</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Tedarik Riski Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Sahte Vanaları ve Yangın Ekipmanı Sertifikalarını Tespit Etme (2026 Alıcı Kılavuzu)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Çin’den yangın vanası, hidrant ve hortum alan alıcılar düzenli olarak sahte dökümler, kopyalanmış etiketler ve tahrif edilmiş sertifikalarla karşılaşır. Sahte birim fotoğraflarda veya fiyat listesinde kendini göstermez; fiziksel inceleme, birim bazlı test kayıtları ve bağımsız olarak kontrol edilebilen belgeler üzerinden ortaya çıkar. Bu kılavuz, her satın alma siparişine ekleyebileceğiniz kesin sinyalleri, adım adım tespit kontrol listesini ve sipariş öncesi doğrulama sürecini sunar.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Bu kılavuz neden gereklidir:</strong> Sahte yangın ekipmanı varsayımsal bir risk değildir; kopyalanmış seri numaraları, taklit etiketler ve sahte sertifikasyon PDF’leri, güvenlik açısından kritik kategorilerdeki uygunsuz tedarikçilerin standart yöntemleridir. Bu sayfa, ödeme yapmadan önce Wanlian Fluid dahil her Çinli tedarikçiye uygulayabileceğiniz yazılı bir tespit süreci sunar.</p>
+			</div>
+
+			<!-- Ürün şeridi -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="why-counterfeits-concentrate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Sahte ürünler neden bu kategoride yoğunlaşır?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Yangın ve su altyapısının üç özelliği onu sahte ürünler için öncelikli bir hedef haline getirir:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Yangın ekipmanı güvenlik açısından kritiktir.</strong> Uygun bir vana veya hidrant, değiştirmeye zaman olmayan anda tam geçişli basınç olayına dayanmalıdır. Uygun olmayan dökümler tam olarak bunu yapamaz.</li>
+				<li><strong>Tedarik yüksek hacimli ve spesifikasyon odaklıdır.</strong> Belediye ihaleleri ve yapı projeleri rekabetçi fiyatlarla büyük miktarlarda ürün alır; sertifikalar ve test kayıtları gibi belgeler satın alma siparişiyle birlikte iletilir. Sahte belgeler, uygun olmayan bir ürünün meşru bir teklife girmesini sağlar.</li>
+				<li><strong>Ekipman yalnızca acil durumda “arızalanır”.</strong> İnce cidarlı bir hidrant gövdesi veya yetersiz test edilmiş bir sürgülü vana, depoda yıllarca kusursuz görünebilir. Kusur, insanların ve mülkün risk altında olduğu gece saatlerinde ve basınç altında ortaya çıkar.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Asıl itici güç fiyat farkıdır. Uygun sünek dökme demir dökümlerin, reçine bağlı veya kauçuk kapsüllemenin, birim bazlı basınç testlerinin ve ihracat belgelerinin gerçek maliyet tabanları vardır. Sahte bir sertifika, uygun olmayan bir ürünün bu tabanın altında fiyatlandırılmasını sağlar; yalnızca kâğıt üzerindeki teklifleri karşılaştıran alıcı farkı göremez.</p>
+			<p class="text-gray-700 leading-relaxed">Bir kez sahte bir sertifika gördüğünüzde hiçbir tedarikçiyi yalnızca belgeler üzerinden değerlendiremezsiniz. Uygulamadaki çözüm; fiziksel birimi, birim bazlı test kayıtlarını ve bağımsız olarak doğrulanabilir belgeleri kontrol etmektir. Sonraki bölümlerde tam olarak nelere bakmanız gerektiği açıklanmaktadır.</p>
+
+			<h2 id="common-forms-of-fakes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Sahteciliğin yaygın biçimleri</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bu kategorideki sahte yangın ekipmanları, tekrarlanan birkaç biçimde görülür. Bu altı biçimi öğrenirseniz riskin büyük bölümünü yakalayabilirsiniz:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Kopyalanmış seri numaraları.</strong> Birden fazla birimde aynı numaranın kullanılması, görünür bir düzen izleyen numaralar veya yayımlanmış katalog görsellerinden kopyalanan numaralar. Gerçek üretici, döküm kayıtları ve çeki listesiyle eşleşen benzersiz seri numaraları verir.</li>
+				<li><strong>Taklit etiketler.</strong> Gerçekte alışveriş yapmadığınız bir markayı, artık faaliyet göstermeyen bir marka adını veya standardı, ölçüyü ve basınç sınıfı siparişle uyuşmayan bilgileri taşıyan etiketler. Uygun ürünlerde işaretlemeler kalıcıdır; yapıştırılmış gibi görünen veya tutarsız bir etiket incelemede başarısızlık işaretidir.</li>
+				<li><strong>Uygun olmayan malzeme ve ince cidarlı dökümler.</strong> Yanlış alaşım, geri dönüştürülmüş hurda veya standardın boyutsal toleranslarının altında kalan cidarlar. Bu tür gövdeler görsel incelemeden geçer ve gövde basınç testinde başarısız olur; daha kötüsü, fabrikada testi geçip kullanımda arızalanabilir.</li>
+				<li><strong>Eksik veya genel test kayıtları.</strong> Hiçbir birim bazlı kayıt bulunmaması ya da yüzlerce birimi seri numarası, tarih veya test değeri olmadan kapsayan tek bir “parti raporu”.</li>
+				<li><strong>Sahte sertifikasyon PDF’leri.</strong> Bir kelime işlemci programında hazırlanmış UL, FM veya AWWA belgeleri: yanlış yazı tipi, genel bir şirket adı, ürün serisinden önceki tarihler veya düzenleyen kuruluşta bulunmayan sertifika numaraları.</li>
+				<li><strong>Yangın hortumu ikameleri.</strong> Gerçek bir yangın hortumu, yüksek dayanımlı polyester ceketi kabarcık sızdırmaz vulkanize kauçuk iç kaplamayla birleştirir. Sahte ürünler iç kaplama veya ceket malzemesinden tasarruf eder; hortum depoda doğru görünür, ancak çalışma basıncında sızdırır veya katmanlarından ayrılır.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Bu biçimlerin hiçbiri katalog fotoğrafında görünmez. Hepsi test kayıtlarında, malzeme sertifikalarında ve test tezgâhındaki birime ait kısa bir videoda görülebilir; aşağıdaki kontrol listesi tam olarak bu belgeleri talep eder.</p>
+
+			<h2 id="detection-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Yedi adımlı tespit kontrol listesi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bu yedi adımı kısa listeye aldığınız her tedarikçiye uygulayın. 1–2. adımlar şirket düzeyinde, 3–7. adımlar birim düzeyindedir. Bu adımlardan herhangi birine direnen tedarikçi sorunun yanıtını vermiş olur.</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Önce şirketi doğrulayın.</strong> Ticaret sicilindeki yasal ad, eşleşen banka hesabı ve fatura düzenleyen kuruluş. Talep üzerine üretim, test ve paketleme alanlarında video gezintisi. “Fabrika” gösterilemiyorsa, muhtemelen kullanılmış dökümler ve yeni etiketlerle çalışan bir ticaret aracısıyla karşı karşıyasınız.</li>
+				<li><strong>Birim bazlı test kayıtlarını talep edin.</strong> Sipariş ettiğiniz her vana ve hidrant, kendi seri numarasına karşılık gelen gövde basınç testi ve hava sızıntısı testi sonuçlarına sahip olmalıdır. Ödeme yapmadan önce örnek birime ait kayıtları tedarikçiden isteyin; gerçek üretici bunları saklar, sahteci üretemez.</li>
+				<li><strong>Sertifikaları düzenleyen kuruluşun resmî portalında doğrulayın.</strong> UL listelemesi veya FM onayı için numarayı düzenleyen kuruluşun resmî portalında, örneğin UL ürün dizininde veya FM Global onay aramasında doğrulayın ve listelenen model ile fabrikanın tedarikçinizle eşleştiğini teyit edin. AWWA için sertifika veya kayıt numarasını AWWA üzerinden doğrulayın. Numara bulunamıyorsa PDF ne kadar temiz görünürse görünsün sahtedir.</li>
+				<li><strong>Önce bir numune sipariş edin.</strong> Her modelden seri numarası, etiket fotoğrafı ve eksiksiz belge seti bulunan bir birim alın. Hacimli siparişe geçmeden önce numune üzerinde işaretlemeler, malzeme sertifikası, test videosu ve kayıtlar dahil tüm kontrol listesini uygulayın. Bu, mevcut en ucuz sahtecilik sigortasıdır.</li>
+				<li><strong>Malzeme sertifikalarını (fabrika test sertifikalarını) isteyin.</strong> Malzeme sertifikasındaki döküm sınıfı, çiziminizdeki sınıfla eşleşmelidir. Belirttiğiniz kesin malzeme için sertifika sunamayan tedarikçi, satın aldığınız ürünü üretmiyor demektir.</li>
+				<li><strong>Boyutsal ölçüm ve basınç testi videosunu izleyin.</strong> Seri numarası görünür halde, belirli numune birimin basınç test tezgâhındaki kısa bir videosunu isteyin. Gerçek üretici bu rutin işlemleri kaydeder; video sunamayan tedarikçi, satın aldığınız birimleri basınçla test etmiyor demektir.</li>
+				<li><strong>Fabrika denetimi veya üçüncü taraf incelemesi yaptırın.</strong> Hacminiz haklı çıkarıyorsa fabrikayı ziyaret edin; aksi halde sevkiyattan önce testlere şahit olması, dökümleri kontrol etmesi ve kayıtları incelemesi için bağımsız bir kuruluş (SGS, Bureau Veritas, Intertek veya saygın bir yerel firma) görevlendirin.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed mb-4">Kontrol listesini kısa listenizdeki gerçek ürünlere, örneğin <a href="/tr/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM elastomer yataklı OS&amp;Y sürgülü vanamıza</a>, <a href="/tr/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">SS100 yer üstü yangın hidrantımıza</a>, <a href="/tr/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X elastomer yataklı flanşlı sürgülü vanamıza</a> veya <a href="/tr/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">8-65 kauçuk iç kaplamalı yatırılabilir yangın hortumumuza</a> uygulayın; genel kalite beyanları yerine model bazlı test kayıtlarını talep edin.</p>
+			<p class="text-gray-700 leading-relaxed">Daha kapsamlı tedarikçi yeterlilik çerçevesi (tüzel kişilik, ihracat geçmişi, referanslar) için <a href="/tr/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">Çinli vana tedarikçisini doğrulama kılavuzumuza</a> bakın. Siparişinize yazılacak eksiksiz belge ve inceleme listesi için <a href="/tr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B vana tedarik kontrol listesini</a> inceleyin.</p>
+
+			<h2 id="red-flags-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Gerçek ve sahte: uyarı işaretleri tablosu</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Aynı doğrulama talebi, meşru bir üretici ile sahteciden çok farklı yanıtlar alır. Aşağıdaki tablo, bu kılavuzdaki en hızlı ön değerlendirme aracıdır:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Sinyal</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Gerçek tedarikçi ne sağlar?</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Sahte ürün ne gösterir?</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Şirket belgeleri</td>
+							<td class="px-4 py-3 text-gray-700">Ticaret sicili, fatura düzenleyen kuruluş ve banka hesabı eşleşir; talep üzerine video gezintisi sağlanır</td>
+							<td class="px-4 py-3 text-gray-700">İsim uyuşmazlıkları, kişisel banka hesapları, üretimi göstermeyi reddetme</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Birim bazlı test kayıtları</td>
+							<td class="px-4 py-3 text-gray-700">Tarih ve operatör bilgisiyle seri numaralı gövde basınç ve hava sızıntısı sonuçları</td>
+							<td class="px-4 py-3 text-gray-700">Yalnızca “parti raporu”, seri numarası veya tarih yok ya da kayıtlar çeki listesiyle uyuşmuyor</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">UL / FM / AWWA sertifikaları</td>
+							<td class="px-4 py-3 text-gray-700">Sertifika, kesin model ve fabrika için düzenleyen kuruluşun resmî portalında bulunur</td>
+							<td class="px-4 py-3 text-gray-700">Bulunamayan PDF, yanlış şirket adı, ürün tarihinden önceki tarihler, genel logo</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Malzeme kanıtı</td>
+							<td class="px-4 py-3 text-gray-700">Çizimdeki döküm sınıfıyla eşleşen fabrika test sertifikası</td>
+							<td class="px-4 py-3 text-gray-700">MTC yok veya farklı bir sınıfa ya da farklı bir fabrikaya ait MTC</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Basınç testi videosu</td>
+							<td class="px-4 py-3 text-gray-700">Test tezgâhında seri numarası bulunan birim; talep üzerine kaydedilir ve paylaşılır</td>
+							<td class="px-4 py-3 text-gray-700">Stok veya döngüsel görüntü, görünür seri numarası yok, “test tezgâhı bugün meşgul” bahanesi</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Etiket ve işaretleme</td>
+							<td class="px-4 py-3 text-gray-700">Standart numarası, ölçü, basınç sınıfı, üretici kimliği ve benzersiz seri numarası; kalıcı ve tutarlı</td>
+							<td class="px-4 py-3 text-gray-700">Kopyalanmış marka adı, tekrarlanan seri numaraları, siparişle uyuşmayan sınıflar</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Numune siparişi</td>
+							<td class="px-4 py-3 text-gray-700">Numune birimine ait eksiksiz belge setiyle rutin olarak kabul edilir</td>
+							<td class="px-4 py-3 text-gray-700">Direnç, ek ücretler veya seri üretim ürünlerinden farklı bir numune</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Fiyat konumu</td>
+							<td class="px-4 py-3 text-gray-700">Uygun malzeme ve %100 test için maliyet tabanında veya üzerinde</td>
+							<td class="px-4 py-3 text-gray-700">Aynı standarda göre piyasanın çok altında; fark cidar kalınlığından ve atlanan testlerden karşılanır</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Bir tedarikçide iki veya daha fazla “sahte” yanıt değerlendirmeyi sona erdirmelidir. Tedarikçinin bir gün içinde kapattığı, örneğin eksik bir MTC’yi gönderdiği bir “gerçek” boşluk normaldir; bahaneler üreten bir boşluk ise karar için yeterlidir.</p>
+
+			<h2 id="how-wanlian-operates" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Wanlian Fluid nasıl çalışır: süreç kanıtları</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Wanlian Fluid kısa listenizdeyse bizden beklemeniz gereken süreç kanıtları aşağıdadır; bunlar sertifika iddiaları değil, yaptığımız işlerin açıklamasıdır:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>ISO 9001 kalite yönetim sistemi.</strong> Fujian, Quanzhou’daki üretimimiz ISO 9001 sistemi kapsamında yürütülür; her tedarikçide olduğu gibi sertifika numarasını isteyin ve düzenleyen kuruluşta doğrulayın.</li>
+				<li><strong>Kendi tesisimizde CNC işlenmiş vana gövdeleri.</strong> Vana gövdeleri Quanzhou’daki kendi tesisimizde CNC ile işlenir; seçili ürünler nitelikli üretim ortaklarınca üretilir ve üretim yeri siparişte belgelenir.</li>
+				<li><strong>%100 gövde basıncı ve hava sızıntısı testi.</strong> Her birim; her vana, hidrant ve hortum sevkiyattan önce gövde basınç testinden ve hava sızıntısı testinden geçirilir. Numune birime ait seri numaralı bir test videosu gönderebiliriz; birim bazlı kayıtlar sevkiyatla birlikte iletilir.</li>
+				<li><strong>Yangın hortumu yapısı.</strong> Yangın hortumumuz yüksek dayanımlı polyester ceketi, kabarcık sızdırmazlık sağlayacak şekilde tasarlanmış vulkanize kauçuk iç kaplamayla birleştirir; bu, yukarıdaki sahtecilik bölümünün taklit etmeye çalıştığı yapının aynısıdır.</li>
+				<li><strong>Standarda uygunluk model bazında doğrulanır.</strong> Belirli bir standarda (AWWA, NFPA, UL listelemesi, FM onayı, NOM veya diğerleri) uygunluk, sipariş öncesinde test raporları ve sertifikalarla model bazında teyit edilir; sizden fabrika geneli için geçerli bir sertifika varsaymanızı istemeyiz.</li>
+				<li><strong>İhracat belgeleri.</strong> Ticari fatura, çeki listesi, konşimento, menşe şahadetnamesi ve parti bazlı test raporları sevkiyatlara eşlik eder; OEM/ODM, özel markalama ve ihracat ambalajı siparişle koordine edilir ve teklif yanıtı 12 saat içinde verilir.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Bu liste aynı zamanda sizin testinizdir: yedi adımlı kontrol listesini bize gönderin ve her belgenin ne kadar hızlı ulaştığını görün. Yeterlilik açısından bizi Batılı üreticilerle karşılaştırıyorsanız <a href="/tr/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">UL listeli yangın vanalarının nasıl seçileceğini</a> ve <a href="/tr/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">Latin Amerika projelerinde yangın vanaları için sertifikasyon gerekliliklerini</a> inceleyin.</p>
+
+			<h2 id="pre-order-workflow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Sipariş öncesi doğrulama süreci</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Yukarıdaki tespit süreci satın alma siparişine eklendiğinde bir iş akışına dönüşür. Sırasıyla beş aşama:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Standardı yazılı olarak tanımlayın.</strong> Projenizin gerektirdiği standardı, örneğin kuru tip hidrantlar için AWWA C502, elastomer yataklı sürgülü vanalar için AWWA C515 veya yangın hortumu için NFPA 1961 ve eksiksiz belge listesini (birim bazlı test kayıtları, MTC, ihracat belgeleri) belirleyin. Uygunluk yalnızca talep edilen değil, sözleşmeye bağlı bir şart olsun diye her ikisini de satın alma siparişine yazın.</li>
+				<li><strong>Tedarikçileri şirket düzeyinde kısa listeye alın ve doğrulayın.</strong> Tüzel kişilik, ISO 9001 kapsamı ve ürün sertifikaları düzenleyen kuruluşun portalında bulunabilmelidir. Buradaki doğrulama adımlarından birini geçemeyen tedarikçiyi eleyin.</li>
+				<li><strong>Numune siparişi.</strong> Her modelden bir birim. Numune üzerinde eksiksiz kontrol yapın: etiket, seri numarası, MTC, basınç testi videosu ve birim bazlı kayıtlar.</li>
+				<li><strong>Üçüncü taraf incelemesi.</strong> Üretim serisi sevk edilmeden önce fabrikada testlere şahit olması ve kayıtları incelemesi için bağımsız bir kuruluş görevlendirin. İnceleme maddesini satın alma siparişine yazın.</li>
+				<li><strong>Belge setini tamamlayın ve serbest bırakın.</strong> Son ödemeden önce: eksiksiz ihracat belgelerini, çeki listesindeki seri numaralarına ait birim bazlı test kayıtlarını ve üretim partisinden bir numune birimin test videosunu tamamlayın. Siparişi ancak bundan sonra serbest bırakın.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Bu süreç Wanlian Fluid dahil her tedarikçiye uygulanabilir. Değerlendirmenin başında uygulandığında aylar değil günler sürer ve yangın ekipmanı tedarikinde sahteciliğe karşı en etkili filtredir.</p>
+
+			<!-- SSS bölümü -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sık Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Kaynaklar -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Kaynaklar</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>UL — ürün dizini ve listeleme doğrulaması: <a href="https://www.ul.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ul.com</a></li>
+				<li>FM Global — onay doğrulaması: <a href="https://www.fmglobal.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">fmglobal.com</a></li>
+				<li>AWWA — hidrant ve vana standartları (ör. AWWA C502, C515): <a href="https://www.awwa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">awwa.org</a></li>
+				<li>NFPA — yangından korunma ve yangın hortumu standartları (ör. NFPA 1961): <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+				<li>ISO — kalite yönetimi ve vana standartları (ISO 9001, ISO 5208): <a href="https://www.iso.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">iso.org</a></li>
+				<li>Wanlian Fluid — şirket profili ve test politikası: <a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">Doğrulama gereklilikleri hedef pazara ve proje spesifikasyonuna göre değişir; sipariş vermeden önce geçerli standardı ve inceleme rejimini daima sözleşme makamınızla teyit edin. Bilgiler Eylül 2026 itibarıyla günceldir.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Çinli bir tedarikçiden yangın ekipmanı mı doğruluyorsunuz?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Spesifikasyonunuzu ve hedef pazarınızı bize gönderin; 12 saat içinde kalem bazlı teklifimizle yanıt verelim.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Sahte%20vanalar%20ve%20yang%C4%B1n%20ekipman%C4%B1n%C4%B1%20do%C4%9Frulama" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İsteyin</a>
+						<a href="https://wa.me/8618684324501?text=Merhaba%2C%20sipari%C5%9F%20%C3%B6ncesinde%20yang%C4%B1n%20vanalar%C4%B1n%C4%B1%20ve%20hidrantlar%C4%B1%20do%C4%9Frulamak%20istiyorum%20%E2%80%94%20l%C3%BCtfen%20sertifikalar%C4%B1%2C%20birim%20bazl%C4%B1%20test%20kay%C4%B1tlar%C4%B1n%C4%B1%20ve%20bas%C4%B1n%C3%A7%20testi%20videosunu%20g%C3%B6nderin" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp’tan Yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

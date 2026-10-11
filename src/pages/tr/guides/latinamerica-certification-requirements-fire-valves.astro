@@ -1,0 +1,256 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const toc = [
+	{ id: 'cert-landscape', label: '1. Latin Amerika yangın projelerinde sertifikasyon görünümü' },
+	{ id: 'cert-table', label: '2. Sertifikasyonları tek tek inceleme ve doğrulama' },
+	{ id: 'per-model-vs-plant', label: '3. Model bazında ve tesis bazında sertifikasyon farkı' },
+	{ id: 'genuine-certs', label: '4. Gerçek sertifikalar ve parti test raporlarını talep etme' },
+	{ id: 'fake-red-flags', label: '5. Sahte sertifikaların uyarı işaretleri' },
+	{ id: 'wanlian-documents', label: '6. Wanlian belgeleri ve model yeterlilikleri' },
+	{ id: 'verification-checklist', label: '7. Sipariş öncesi doğrulama kontrol listeniz' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' },
+	{ id: 'sources', label: 'Kaynaklar' }
+];
+
+const faq = [
+	{
+		question: 'Latin Amerika’daki bir belediye yangın projesi her zaman UL veya FM sertifikası gerektirir mi?',
+		answer: 'Her zaman değil. Latin Amerika’daki birçok ihale UL veya FM yerine AWWA, NFPA, EN ya da yerel standartları (Meksika’da NOM/NR, Brezilya’da ABNT) belirtir. UL listesi ve FM onayı genellikle ABD şartnameli projelerde, sigorta koşullarının belirleyici olduğu endüstriyel tesislerde veya yeniden ihracatta aranır. İhale belgelerinizdeki sertifikasyon maddesini okuyun ve siparişten önce geçerli düzeni kesinleştirin.'
+	},
+	{
+		question: 'ISO 9001, UL listesi veya FM onayından nasıl farklıdır?',
+		answer: 'ISO 9001, belirli bir ürünü değil üreticinin kalite yönetim sistemini belgelendirir. UL listesi ve FM onayı ürün düzeyindedir: tanımlanmış bir model, ölçü ve malzeme belirli bir standarda göre test edilir ve sürekli takip gerektirir. Tesis düzeyindeki ISO 9001 sertifikası, belirli bir vananın UL listesinde veya FM onaylı olup olmadığı hakkında bilgi vermez; daima model düzeyinde kontrol yapın.'
+	},
+	{
+		question: 'Bir UL veya FM sertifikasının gerçek olduğunu ve modelimi kapsadığını nasıl doğrularım?',
+		answer: 'Sertifika veya dosya numarasını talep edin ve ardından düzenleyen kuruluşun resmî dizininde aratın (ul.com üzerindeki UL Product iQ veya fmglobal.com üzerindeki FM Global veri tabanı). Listenin aktif olduğunu ve satın aldığınız tam model, ölçü ve basınç sınıfını belirttiğini doğrulayın. Broşüre basılmış bir logo kanıt sayılmaz.'
+	},
+	{
+		question: 'Wanlian Fluid, yangın vanası veya hidrant siparişi için hangi belgeleri sağlayabilir?',
+		answer: 'Wanlian Fluid, ISO 9001 kalite yönetim sistemi kapsamında faaliyet gösterir; sevkiyattan önce her birime gövde basınç testi ve hava sızdırmazlık testi uygular ve ihracat belgelerini sipariş bazında koordine eder. Belirli bir standarda (UL, FM, AWWA, NOM vb.) uygunluk, siparişten önce geçerli test raporları ve sertifikalarla model bazında doğrulanır.'
+	},
+	{
+		question: 'Latin Amerika’daki kamu su işletmeleri en çok hangi hidrant standardını belirtir?',
+		answer: 'AWWA C502, ABD şartnameli ve ABD finansmanlı projelerde yaygındır (kuru gövdeli hidrantlar). Avrupa ve diğer birçok pazar EN 14384 kolon hidrantlarını referans alır. Su işletmenizin veya danışmanınızın ihaleye hangi standardı yazdığını doğrulayın; ardından hidrantı, kaplinleri ve dişleri bu standarda göre eşleştirin.'
+	},
+	{
+		question: 'Sahte bir sertifikanın en açık işaretleri nelerdir?',
+		answer: 'Sertifika numarasının düzenleyen kuruluşun veri tabanında bulunamaması, listenin tam modelinizi ve ölçünüzü belirtmemesi, standart baskısı olmayan genel ifadeler veya tedarikçinin talep üzerine belgeyi yeniden düzenlememesi en belirgin işaretlerdir. Sahtecilik tespit kılavuzumuz, eksiksiz inceleme sürecini açıklar.'
+	}
+];
+
+const referencePages = [
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM elastomer yataklı OS&Y sürgülü vana' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Z41X elastomer yataklı flanşlı sürgülü vana' },
+	{ slug: 'anti-pollution-backflow-preventer-hs41x', name: 'HS41X geri akış önleyici' }
+];
+---
+
+<Layout
+	title="Latin Amerika Yangın Vanaları için Sertifikasyon (2026)"
+	description="UL, FM, AWWA, NOM ve NFPA: Latin Amerika yangın vanaları için sertifikasyon gereklilikleri, belge doğrulama ve 2026 satın alma kontrol listesi."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Latin Amerika yangın vanası sertifikasyonu' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Kırıntı navigasyonu -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Latin Amerika yangın vanası sertifikasyonu</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Sertifikasyon ve uygunluk kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Latin Amerika Projelerinde Yangın Vanaları ve Hidrantlar için Sertifikasyon Gereklilikleri (2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Latin Amerika’da yangın vanası veya hidrant sözleşmesini kazanmak tek bir unsura bağlıdır: İhalede belirtilen sertifikasyonun tam olarak karşılanması. Ancak bölgede tek bir düzen bulunmaz; Meksika’daki bir belediye projesi, Brezilya’daki bir sanayi tesisi ve ABD finansmanlı bir yeniden ihracat projesi AWWA, NOM/ABNT, NFPA, EN, UL veya FM talep edebilir. Bu kılavuz sertifikasyon görünümünü açıklar, bir sertifikanın gerçek olduğunu ve modelinizi gerçekten kapsadığını doğrulama yöntemini gösterir, tesis düzeyindeki ISO 9001’i model bazındaki ürün listesinden ayırır ve belgelendiremeyeceğiniz bir vanayı satın almamanız için sipariş öncesi kontrol listesi sunar.</p>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="cert-landscape" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Latin Amerika yangın projelerinde sertifikasyon görünümü</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Latin Amerika’daki yangından korunma ekipmanları tek bir standarda tabi değildir. Hangi düzenin geçerli olduğu ülkeye, finansman kaynağına, sigortacıya ve ekipmanın ABD şartnameli bir projede mi yoksa yeniden ihracatta mı kullanılacağına bağlıdır. Bir alıcı olarak aşağıdaki gerekliliklerle karşılaşabilirsiniz. Bunlar belirli bir tedarikçinin sertifikasyon durumu olarak değil, Latin Amerika’daki bir ihalenin talep edebileceği hususlar olarak sunulmaktadır:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>UL listesi / FM onayı</strong> — en çok ABD şartnameli projelerde, sigorta koşullarının belirleyici olduğu sanayi tesislerinde ve yeniden ihracat siparişlerinde görülen, ürün düzeyinde yangından korunma sertifikasyonu.</li>
+				<li><strong>AWWA C502 / C515</strong> — kuru gövdeli hidrantlar (C502) ve elastomer yataklı sürgülü vanalar (C515) için American Water Works Association standartları; ABD finansmanlı belediye paketlerinde yaygındır.</li>
+				<li><strong>NFPA 13 / NFPA 24</strong> — sprinkler sistemleri ve özel hidrant tesisatları için sistem standartları; sistemlerin hangi vana ve hidrantları kullanabileceğini belirler.</li>
+				<li><strong>Meksika NOM / NR ve Brezilya ABNT</strong> — yerel belediye ve sanayi ihalelerinde belirtilen ulusal standart çerçeveleri.</li>
+				<li><strong>EN / CE</strong> — Avrupa standartları (ör. hidrantlar için EN 14384, vanalar için EN 1074 / ISO 5208); AB/İngiltere’ye yeniden ihracat veya Avrupa şartnameli projeler için önemlidir.</li>
+				<li><strong>ISO 9001</strong> — birçok ihalenin ön koşul olarak istediği, tesis düzeyindeki temel kalite yönetim sistemi standardı; ürün listesinden ayrı değerlendirilmelidir.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Pratik sonuç şudur: Önce ihalenizin sertifikasyon maddesini okuyun, standardı ve baskısını yazılı olarak belirtin ve diğer tüm belgeleri (UL, FM, AWWA, NOM, ABNT, CE) <strong>model bazında</strong> doğrulanması gereken kanıtlar olarak değerlendirin. Bu standartlar sektör referanslarıdır; belirli bir vana veya hidrantın standardı karşılayıp karşılamadığı, tesis logosuyla değil test raporları ve sertifikalarla yanıtlanan bir model sorusudur.</p>
+
+			<h2 id="cert-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Sertifikasyonları tek tek inceleme ve doğrulama</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Sertifikasyon</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Nedir?</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Latin Amerika ihalesi ne zaman ister?</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Nasıl doğrulanır?</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">UL listesi</td>
+							<td class="px-4 py-3 text-gray-700">Tanımlı bir vana veya modelin UL yangından korunma standartlarına göre test edildiği ve periyodik olarak takip edildiği ürün düzeyindeki listedir.</td>
+							<td class="px-4 py-3 text-gray-700">ABD şartnameli yangın projeleri, bazı ABD finansmanlı veya yeniden ihracat siparişleri; zaman zaman sanayi ihaleleri.</td>
+							<td class="px-4 py-3 text-gray-700">Dosya veya sertifika numarasını UL Product iQ dizininde (ul.com) doğrulayın; aktif durumu ile tam model ve ölçüyü kontrol edin.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">FM onayı</td>
+							<td class="px-4 py-3 text-gray-700">Testleri fabrika ve hasar önleme incelemesiyle birleştiren, FM Global tarafından verilen ürün onayıdır.</td>
+							<td class="px-4 py-3 text-gray-700">Özellikle sigortacının veya şartnamenin FM belirttiği sanayi tesisleri ve yüksek değerli tesisler.</td>
+							<td class="px-4 py-3 text-gray-700">Onayı FM Global veri tabanında (fmglobal.com) doğrulayın; tam model, ölçü ve basınç sınıfını kapsadığını kontrol edin.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">AWWA C502</td>
+							<td class="px-4 py-3 text-gray-700">Kuru gövdeli yangın hidrantları için AWWA standardıdır.</td>
+							<td class="px-4 py-3 text-gray-700">Bölge genelinde ABD şartnameli veya ABD finansmanlı belediye hidrantı paketleri.</td>
+							<td class="px-4 py-3 text-gray-700">AWWA bir standart kuruluşudur (awwa.org); belirtilen baskıyı eşleştirin, C502’ye atıf yapan test raporu isteyin ve hidrant malzemeleri ile bağlantılarını doğrulayın.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">AWWA C515</td>
+							<td class="px-4 py-3 text-gray-700">Su ve yangın hizmetlerinde kullanılan elastomer yataklı sürgülü vanalar için AWWA standardıdır.</td>
+							<td class="px-4 py-3 text-gray-700">AWWA’ya göre hazırlanan belediye su ve yangın sürgülü vana ihaleleri.</td>
+							<td class="px-4 py-3 text-gray-700">Şartnamede belirtilen baskıyı ve model bazlı test raporunu doğrulayın; AWWA uygunluğu model bazında teyit edilir.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">NFPA 13 / NFPA 24</td>
+							<td class="px-4 py-3 text-gray-700">Sprinklerler (13) ve özel hidrant tesisatları (24) için sistem standartlarıdır.</td>
+							<td class="px-4 py-3 text-gray-700">Vanaların ve hidrantların beslediği sistemleri yönettikleri için hangi ürünlerin kabul edilebilir olduğunu belirlerler.</td>
+							<td class="px-4 py-3 text-gray-700">Güncel baskıyı referans alın (nfpa.org); NFPA sistem gerekliliklerini belirler, münferit ürünler kendi listeleri veya standartlarıyla doğrulanır.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Meksika NOM / NR</td>
+							<td class="px-4 py-3 text-gray-700">Meksika tedariklerinde kullanılan Meksika Resmî Standartları ve ilgili gerekliliklerdir.</td>
+							<td class="px-4 py-3 text-gray-700">Meksika’daki belediye ve sanayi ihaleleri ile Meksika ithalat ve standart kurallarını izleyen projeler.</td>
+							<td class="px-4 py-3 text-gray-700">İhalede belirtilen özel NOM standardını belirleyin ve siparişten önce bu NOM için model bazlı uygunluk kanıtı isteyin.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Brezilya ABNT</td>
+							<td class="px-4 py-3 text-gray-700">Brezilya Teknik Standartlar Birliği’nin ulusal standart çerçevesidir.</td>
+							<td class="px-4 py-3 text-gray-700">Brezilya’daki belediye ve sanayi yangın/su ihaleleri.</td>
+							<td class="px-4 py-3 text-gray-700">İhalede belirtilen ABNT standardını belirleyin ve siparişten önce test raporlarıyla model bazlı uygunluğu doğrulayın.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">EN / CE (yeniden ihracat)</td>
+							<td class="px-4 py-3 text-gray-700">Avrupa standartları (ör. hidrantlar için EN 14384, vanalar için EN 1074 / ISO 5208) ve AB/İngiltere pazarı için CE işaretidir.</td>
+							<td class="px-4 py-3 text-gray-700">AB/İngiltere’ye yeniden ihracat veya Avrupa standartlarını belirten projeler.</td>
+							<td class="px-4 py-3 text-gray-700">Özel EN standardını ve varsa CE uygunluk beyanını tam modelle karşılaştırın; işaretin satın aldığınız ürün için geçerli olduğunu doğrulayın.</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">ISO 9001</td>
+							<td class="px-4 py-3 text-gray-700">Tesis düzeyindeki uluslararası kalite yönetim sistemi standardıdır.</td>
+							<td class="px-4 py-3 text-gray-700">Kontrollü bir üretim sürecini kanıtlamak için birçok ihalenin temel şartı.</td>
+							<td class="px-4 py-3 text-gray-700">Sertifikayı düzenleyen akreditasyon kuruluşuyla doğrulayın ve kapsamın satın aldığınız ürünü içerdiğini kontrol edin. Bu bir süreç sertifikasıdır, ürün listesi değildir.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Gerçek satın alma sırasında iki sütun özellikle önemlidir: Üçüncü sütun ihalenin bir şemayı <em>neden</em> belirttiğini, dördüncü sütun ise kanıtın <em>nerede</em> sunulacağını açıklar. Düzenleyen kuruluşun kendi veri tabanına ve model bazlı test raporuna yönlendirebilen bir tedarikçi, yalnızca logo gönderebilen bir tedarikçiden temelden farklıdır.</p>
+
+			<h2 id="per-model-vs-plant" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Model bazında ve tesis bazında sertifikasyon farkı</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bu kategorideki en yaygın uygunluk hatası, <strong>tesis düzeyindeki sertifikanın</strong> <strong>model düzeyindeki ürün yeterliliğiyle</strong> karıştırılmasıdır. Bu belgeler farklı sorulara yanıt verir:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Tesis düzeyi (ör. ISO 9001)</strong> — üreticinin kalite yönetim sistemi sertifikalıdır. Kuruluşu ve süreçlerini kapsar, belirli bir ürünü kapsamaz. Fabrikanın kontrollü bir sistemle işletildiğini gösterir.</li>
+				<li><strong>Model düzeyi (ör. UL listesi, FM onayı, AWWA / NOM / ABNT uygunluğu)</strong> — belirli bir model, ölçü, malzeme ve basınç sınıfı, adı belirtilen bir standarda göre yeterli bulunur ve sürekli takip veya teste tabi tutulur.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Tesis sertifikası hiçbir zaman model yeterliliğinin yerine geçmez. İhaleniz AWWA C515 veya belirli bir NOM standardını belirtiyorsa ihtiyacınız olan yanıt <strong>model bazında</strong> olmalıdır: Bu standarda uygunluk, siparişten önce geçerli test raporları ve sertifikalarla model bazında doğrulanmalıdır. Hangi modellerin, hangi ölçüler için ve hangi standart baskısına göre yeterli bulunduğunu sorun ve bunları ticari teklifte yazılı olarak isteyin.</p>
+
+			<h2 id="genuine-certs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Gerçek sertifikalar ve parti test raporlarını talep etme</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Gerçek belgeler varsayılmaz; <em>talep edilir ve doğrulanır</em>. Bu talepleri RFQ’nıza ekleyin; böylece bir iyilik değil, sözleşme gereği teslim edilmesi gereken belgeler olurlar:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Standardı ve baskısını belirtin.</strong> Tek ve kesin bir satır (ör. “elastomer yataklı sürgülü vana, DN50–DN300, AWWA C515 güncel baskıya uygun”) tam kapsamı belgelendiremeyen tedarikçileri eler.</li>
+				<li><strong>Sertifika veya dosya numaralarını isteyin.</strong> UL/FM için liste numarasını, ulusal standartlar için geçerli sertifikayı talep edin. Aratabileceğiniz bir numara asıl amaçtır.</li>
+				<li><strong>Parti bazlı test raporlarını zorunlu tutun.</strong> Yıllar önce hazırlanmış tek bir genel rapor yerine siparişinizle eşleştirilmiş gövde basınç ve hava sızdırmazlık test kayıtlarını isteyin.</li>
+				<li><strong>Malzeme / üretici test raporlarını talep edin.</strong> Yapının yalnızca etikete değil standarda uygun olduğunu göstermek için gövde malzemesine (ör. sünek dökme demir) ilişkin kanıt isteyin.</li>
+				<li><strong>Düzenleyen kuruluşun kendi dizininde doğrulayın.</strong> UL/FM numaralarını ul.com veya fmglobal.com üzerinde kontrol edin; AWWA ve NFPA gibi standart kuruluşlarında belirtilen baskıyı doğrulayın.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Yangından korunma vanaları belirlediğinizde, izlenen bölüm kontrolü için <a href="/tr/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">elastomer yataklı OS&amp;Y sürgülü vanamız</a>, ana hatları tam geçişli izole etmek için <a href="/tr/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X elastomer yataklı flanşlı sürgülü vanamız</a> veya su beslemesinin gerektirdiği yerlerde <a href="/tr/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">kirlilik önleyici geri akış önleyicimiz</a> gibi ürünleri belirleyebilirsiniz. Hangi modeli seçerseniz seçin yeterlilik sorusu aynıdır: Sipariş emri düzenlenmeden önce standardı, modeli ve ölçüyü yazılı olarak doğrulayın.</p>
+
+			<h2 id="fake-red-flags" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Sahte sertifikaların uyarı işaretleri</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Yangından korunma ekipmanlarında sahtecilik gerçek bir risktir; çünkü yangın güvenliği kritik öneme sahiptir ve fiyat farkı büyük olabilir. Aşağıdaki hususları küçük bir ayrıntı değil, başarısız bir ön inceleme olarak değerlendirin:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Düzenleyen kuruluşun resmî veri tabanında <strong>bulunamayan</strong> bir sertifika veya dosya numarası.</li>
+				<li>Satın aldığınız üründen <strong>farklı bir model, ölçü veya basınç sınıfı</strong> belirten bir liste.</li>
+				<li><strong>Standart baskısı olmayan genel ifadeler</strong> veya altında kayıt bulunmayan bir veri sayfasına eklenmiş logo.</li>
+				<li><strong>Birim veya parti bazlı test kayıtlarının bulunmaması</strong> — gövde basınç ve hava sızdırmazlık sonuçları mevcut olmalı ve siparişinizle eşleştirilebilmelidir.</li>
+				<li><strong>Talep üzerine sertifikayı yeniden düzenlemeyen</strong> ya da üçüncü taraf denetimine veya önce küçük bir numune siparişine direnen tedarikçi.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Bu işaretlerden biri ortaya çıkarsa süreci durdurun ve konuyu üst seviyeye taşıyın. <a href="/tr/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">Sahte vanaları ve yangın ekipmanı sertifikalarını tespit etme</a> kılavuzumuz, kopyalanmış etiketlerden sahte PDF’lere ve üçüncü taraf denetçiyle sipariş öncesi doğrulama sürecine kadar tüm incelemeyi ele alır.</p>
+
+			<h2 id="wanlian-documents" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Wanlian belgeleri ve model yeterlilikleri</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Wanlian Fluid (Quanzhou Wanlian Fluid Equipment Co., Ltd.), Fujian eyaletinin Quanzhou şehrinde vana, hidrant ve yangından korunma ekipmanı üreten ve ihraç eden bir firmadır. Firmanın yayımlanmış yaklaşımı, olduğu gibi kabul etmek yerine doğrulayabilmeniz için bilinçli olarak somuttur:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>ISO 9001</strong> kalite yönetim sistemi; Quanzhou’da kendi üretim hatları ve nitelikli üretim ortaklarınca üretilen seçili ürünler bulunur, vana gövdeleri şirket içinde CNC ile işlenir.</li>
+				<li><strong>Birim bazında test</strong> — her birim sevkiyattan önce gövde basınç ve hava sızdırmazlık testlerinden geçirilir; böylece her ürün için siparişle eşleştirilebilecek test kanıtı bulunur.</li>
+				<li><strong>İhracat belgeleri</strong> her sipariş için koordine edilir; OEM/ODM ve özel markalama seçenekleri de sunulur.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Latin Amerika ihalesinde belirtilen UL, FM, AWWA, NOM, ABNT, NFPA referanslı sistemler veya yeniden ihracat için CE gibi sertifikasyonlarda Wanlian, genel bir sertifika iddiası yerine <strong>model bazlı yeterlilik</strong> yaklaşımını benimser: <em>Belirli bir standarda uygunluk, siparişten önce test raporları ve sertifikalarla model bazında doğrulanmalıdır.</em> Bu dürüst ve doğrulanabilir yaklaşımdır; tedarik dosyanız da tam olarak bunu yansıtmalıdır. Örneğin <a href="/tr/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">yer üstü yangın hidrantımız</a>, ihalenizde belirtilen hidrant standardına göre belirlenir; geçerli C502/EN uygunluğu ve test kayıtları sipariş serbest bırakılmadan önce bu model ve ölçü için doğrulanır.</p>
+			<p class="text-gray-700 leading-relaxed">Şartnameniz ABD şartnameli yangın vanaları istiyorsa gerçek liste kayıtlarını doğrulamak için <a href="/tr/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">UL listeli yangın vanaları nasıl seçilir</a> kılavuzumuzu okuyun. Projeniz Avrupa şartnameli ise veya AB/İngiltere’ye yeniden ihracat yapıyorsa <a href="/tr/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">CE / EN 12845 yangından korunma uygunluğu</a> kılavuzuna bakın.</p>
+
+			<!-- İlgili kılavuzlar -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">İlgili Kılavuzlar</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Temel standartların açıklaması için <a href="/tr/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Yangın hidrantı, yangın hortumu ve vana standartları</a> kılavuzunu okuyun. Bir tedarikçinin belgelerini onaylamadan önce <a href="/tr/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">sahte vanaları ve yangın ekipmanını tespit etme</a> adımlarını uygulayın.</p>
+			</div>
+
+			<h2 id="verification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Sipariş öncesi doğrulama kontrol listeniz</h2>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>İhale belgelerinden tam sertifikasyon maddesini ve standardın baskısını çıkarın.</li>
+				<li>Gerekliliğin tesis düzeyinde (ISO 9001), model düzeyinde (UL, FM, AWWA, NOM, ABNT, CE) veya her iki düzeyde mi olduğunu doğrulayın.</li>
+				<li>Sertifika veya dosya numarasını isteyin ve düzenleyen kuruluşun resmî dizininde doğrulayın.</li>
+				<li>Yeterlilik belgesinde satın aldığınız tam model, ölçü ve basınç sınıfının yer aldığını doğrulayın.</li>
+				<li>Siparişinizle eşleştirilmiş parti bazlı gövde basınç ve hava sızdırmazlık test raporlarını zorunlu tutun.</li>
+				<li>Yapının yalnızca etikete değil standarda da uygun olması için malzeme / üretici test raporlarını isteyin.</li>
+				<li>Belgelerin sözleşme gereği teslim edilmesini sağlamak için yukarıdaki tüm hususları satın alma emrine yazın.</li>
+				<li>İlk siparişlerde yüksek miktara geçmeden önce üçüncü taraf denetimini ve küçük bir numune siparişini değerlendirin.</li>
+			</ol>
+
+			<!-- SSS -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Kaynaklar -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Kaynaklar</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>Underwriters Laboratories — UL Product iQ liste dizini: <a href="https://www.ul.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ul.com</a></li>
+				<li>FM Global — yangından korunma ürünü onay veri tabanı: <a href="https://www.fmglobal.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">fmglobal.com</a></li>
+				<li>AWWA — hidrant ve vana standartları (AWWA C502, C515): <a href="https://www.awwa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">awwa.org</a></li>
+				<li>NFPA — sprinkler ve hidrant tesisatı standartları (NFPA 13, NFPA 24): <a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">Sertifikasyon referansları 2026 itibarıyla genel bir alıcı kılavuzudur; tedarik öncesinde güncel baskıyı ve uygulanabilirliği daima şartname hazırlayan uzman ve düzenleyen kuruluşla doğrulayın.</p>
+
+			<!-- Eylem çağrısı -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Latin Amerika için yangın vanası veya hidrant teklifi mi hazırlıyorsunuz?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Şartnamenizi ve teslimat yerini bize gönderin; 12 saat içinde kalem bazlı teklifimizle yanıt verelim.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href={`/tr/contact/?product=${uri.EscapeDataString('Yangın vanası sertifikasyonu RFQ (Latin Amerika)')}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İsteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Merhaba, Latin Amerika projesi için yangın vanaları ve hidrantlara yönelik teklif istiyorum')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp’tan Yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

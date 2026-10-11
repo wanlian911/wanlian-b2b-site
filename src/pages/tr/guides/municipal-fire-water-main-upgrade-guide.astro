@@ -1,0 +1,178 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const toc = [
+	{ id: 'scope', label: '1. Yangın su hattı yenilemesi gerçekte neleri kapsar?' },
+	{ id: 'isolation-valves', label: '2. İzolasyon vanaları: Z41X ve teleskopik Z41X-T' },
+	{ id: 'hydrants-by-climate', label: '3. İklim ve sokak riskine göre hidrant seçimi' },
+	{ id: 'hose-couplings', label: '4. Belediye filosu için yangın hortumu ve kaplinler' },
+	{ id: 'standards-table', label: '5. Hedef pazara göre standartlar' },
+	{ id: 'one-po', label: '6. Tek satın alma siparişi paketi: Konsolidasyon neden riski azaltır?' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' }
+];
+
+const faq = [
+	{
+		question: 'Hidrantlar, vanalar ve yangın hortumu tek bir belediye paketi olarak sipariş edilebilir mi?',
+		answer: 'Evet — tek bir satın alma siparişi; yer üstü veya yer altı hidrantları, elastomer yataklı izolasyon vanalarını, kauçuk kaplı yangın hortumlarını ve Storz veya BS336 kaplinlerini bir araya getirebilir. Buna OEM markalama, ihracat ambalajı ve mutabakatı sağlanmış tek bir test kayıt seti de dahildir. Kalem bazında dokümantasyon isteyen belediye ihalelerinde belgeler aynı çeki listesinde her kalem için ayrıca sunulur.'
+	},
+	{
+		question: 'Soğuk iklimdeki bir şehir hangi hidrant tipini şart koşmalıdır?',
+		answer: 'Kuru gövdeli, donmaya karşı korumalı bir hidrant: Donma çizgisinin üzerindeki gövde, her kullanımdan sonra otomatik olarak boşalır ve hidrant gövdesinin donmasını önler. SS100/65 yer üstü hidrantı (1,6 MPa, 2,4 MPa basınçta test edilmiştir), soğuk iklimlerde standart yer üstü modelimizdir; sokak trafiği veya şebeke izleme kapsamdaysa çarpışma önleyici ve IoT varyantları da sunulur.'
+	},
+	{
+		question: 'Bir yenileme projesinde standart sürgülü vana yerine neden teleskopik sürgülü vana kullanılmalıdır?',
+		answer: 'Z41X-T, kabarcık sızdırmaz kapama işlevini ±25 mm genleşme telafisiyle tek bir ünitede birleştirir. Yeniden döşenen veya mevcut boruya bağlanan bir ana hatta bu tolerans hizasızlığı ve oturmayı telafi eder; vana daha sonra hattı kesmeden değiştirilebilir. Her ikisi de belediye şebekelerinde tekrarlanan maliyetlerdir.'
+	},
+	{
+		question: 'Yangın filosu benim pazarımda hangi hortum kaplini standardını kullanıyor?',
+		answer: 'Bu, itfaiye araçlarına bağlıdır: Storz (Alman standardı) en yaygın ihracat tipidir; BS336/BS5912 Birleşik Krallık ve Commonwealth filolarını, NIST ise Orta Doğu’daki çeşitli şartnameleri kapsar. Hortum, kaplinler ve hidrant çıkış kapaklarının tümü aynı tipe uymalıdır; bu tipi tüm paket için bir kez belirtin.'
+	},
+	{
+		question: 'Yenileme projeleri siparişten teslimata kadar genellikle nasıl programlanır?',
+		answer: 'Standart modellerde şartname ve kalem bazlı teklif birkaç gün içinde hazırlanır, doğrulama için numune ünite sunulur ve ardından miktar ile özelleştirmeye bağlı olarak 15–30 günlük üretim gerçekleştirilir. İhracat ambalajından önce her ünite için gövde basınç ve hava sızıntısı testleri yapılır. Sevkiyattan önce fabrikada üçüncü taraf denetimi de organize edilebilir.'
+	}
+];
+
+const referencePages = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Donmaya Karşı Korumalı Yer Üstü Hidrant SS100/65', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Kuru gövde tahliyesi, 1,6 MPa, 2x65 + 1x100 çıkış' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Elastomer Yataklı Flanşlı Sürgülü Vana Z41X', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50–DN700, PN10/PN16, yeniden oturma dokümantasyonu talep üzerine' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Kauçuk Kaplı Düz Yangın Hortumu', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Belediye ve endüstriyel kullanım için Model 8-65' }
+];
+---
+
+<Layout
+	title="Belediye Yangın Su Hattı Yenileme: Vana, Hidrant ve Hortum"
+	description="Belediye yangın su hattı yenilemesinde vana, donma önleyici hidrant, hortum ve kaplin seçimini; standartları ve tek paketin avantajlarını öğrenin."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Yangın Su Hattı Yenilemesi' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Yangın Su Hattı Yenilemesi</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Satın Alma Kılavuzu · Belediye Altyapısı</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Belediye Yangın Su Hattı Yenilemesi: Vana, Hidrant ve Hortum Tek Pakette</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Yangın su hattı yenilemesi nadiren tek bir ürünle sınırlıdır. Bu süreç; her bağlantı noktasında izolasyon vanalarını, yeni hat kesimlerinde hidrantları, filo için hortum ve kaplinleri ve itfaiyenin gerçekten kullanabileceği bir pompa bağlantısını içeren bir pakettir. Bu kılavuz, dört kapsam kalemini, her birindeki iklim kaynaklı seçimleri ve belediye alıcılarının neden giderek tüm paketi tek bir satın alma siparişinde birleştirdiğini açıklar.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Kapsam notu:</strong> Miktarlar ve hidrant yoğunluğu belediye mevzuatı ile işletmenin tasarım standardına göre belirlenir; aşağıdaki bileşen seçimleri, yangın su hattı keşif özetinin fiilen gerektirdiği mühendislik kararlarını kapsar. Her zaman ihalenin ilgili maddesi geçerlidir.</p>
+			</div>
+
+			<!-- Ürün şeridi -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{referencePages.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="scope" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Yangın su hattı yenilemesi gerçekte neleri kapsar?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">İhalenin keşif özetini incelediğinizde yangın güvenliği kapsamı dört tekrar eden kaleme ayrılır: ana hatlarda, hidrantlarda ve pompa bağlantılarında <strong>izolasyon vanaları</strong>; yenilenen veya uzatılan hat kesimlerinde <strong>hidrantlar</strong>; filonun yeni çıkış standartlarıyla uyumunu sağlayan <strong>yangın hortumu ve kaplinler</strong>; itfaiyenin bağlantı yaptığı <strong>pompa/itfaiye bağlantısı</strong>. Her kalemin normatif bir boyutu (hedef yerde hangi düzenlemenin geçerli olduğu) ve lojistik bir boyutu (konteynerde hangi ürünlerin birlikte sevk edileceği) vardır.</p>
+			<p class="text-gray-700 leading-relaxed">Bu kılavuzun önlemeyi amaçladığı tipik hata şudur: vanalar bir tedarikçiden, hidrantlar başka bir tedarikçiden, hortum ise üçüncü bir tedarikçiden alınır; çıkış kapakları filonun kaplinleriyle veya vana flanş yüzeyleri hidrant girişiyle eşleşmez. Aynı kapsamın tek üreticiden, tek satın alma siparişiyle temin edilmesi bu arayüz sorunlarını ortadan kaldırır.</p>
+
+			<h2 id="isolation-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. İzolasyon vanaları: Z41X ve teleskopik Z41X-T</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Her yenilemede, şebekeyi boşaltmadan bir hat kesimi üzerinde çalışabilmek için izolasyon noktaları gerekir. Ürün grubumuzdaki iki temel model, standart <a href="/tr/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X elastomer yataklı sürgülü vana</a> (DN50–DN700, PN10/PN16, tamamen EPDM kaplı kama; yeniden oturma dokümantasyonu talep üzerine) ve <a href="/tr/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">Z41X-T teleskopik modelidir</a> (entegre ±25 mm genleşme telafisiyle DN50–DN600).</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Karar ölçütü</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Z41X</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Teleskopik Z41X-T</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Boyut aralığı</td><td class="px-4 py-3 text-gray-700">DN50–DN700</td><td class="px-4 py-3 text-gray-700">DN50–DN600</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Genleşme telafisi</td><td class="px-4 py-3 text-gray-700">Yok (gerekirse genleşme parçası takılır)</td><td class="px-4 py-3 text-gray-700">Entegre ±25 mm</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Boru kesmeden değiştirme</td><td class="px-4 py-3 text-gray-700">Hayır</td><td class="px-4 py-3 text-gray-700">Evet</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">En uygun kullanım</td><td class="px-4 py-3 text-gray-700">Yeni ana hatlar, büyük çaplar, sabit tesisatlar</td><td class="px-4 py-3 text-gray-700">Mevcut boruya bağlantılar, oturmaya yatkın zemin, gelecekte bakım</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Sahadaki pratik kural şöyledir: Yeni ve düz ana hatlarda standart Z41X kullanılır; bağlantı noktalarında, geçişlerde ve bakım ekibinin ileride değiştirmek isteyebileceği tüm konumlarda teleskopik model tercih edilir. Her iki model de aynı tamamen kaplı kamaya sahiptir; bu nedenle işletmenin dayandığı sızdırmazlık davranışı değişmez.</p>
+
+			<h2 id="hydrants-by-climate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. İklim ve sokak riskine göre hidrant seçimi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">İklim gövde tipini, sokak riski ise ek donanımları belirler:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Soğuk iklimler:</strong> <a href="/tr/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">SS100/65 yer üstü donma önleyici hidrant</a> — kapandıktan sonra otomatik tahliye, donma çizgisinin üzerindeki gövdeyi boşaltır; çalışma basıncı 1,6 MPa / test basıncı 2,4 MPa olup 2×DN65 ve DN100 çıkışlara sahiptir.</li>
+				<li><strong>Trafiğin yoğun olduğu sokaklar:</strong> <a href="/tr/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">SSFT100 çarpışma önleyici hidrant</a> — kalibre edilmiş kesme cıvataları darbe anında kırılır, iç vana otomatik olarak kapanır ve hat basınç altındayken yalnızca cıvatalar değiştirilerek onarım yapılır.</li>
+				<li><strong>Akıllı şehir programları:</strong> <a href="/tr/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">SS100ZN IoT hidrantı</a> — NB-IoT/LTE-M üzerinden basınç, debi, eğilme/çarpışma ve yetkisiz kullanım alarmları; güneş destekli beş yıllık pil ve GB 4452 gövdesi.</li>
+				<li><strong>Yer altı ana hatları:</strong> KWS65 çıkışlı gömülü tesisatlar için <a href="/tr/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">SA yer altı hidrantı</a>.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Çıkış kaplin tipleri (KWS65, BS336, Storz, NIST) pazara özel bir şartnamedir; aynı hidrant gövdesi, itfaiye filonuzla uyumlu kapaklarla sevk edilir. Sınır ötesi hidrant siparişlerinin çoğu keşif özetindeki bu tek kalemde hatalı olur; paket tedarikçisinin sizin için tam olarak burada kontrol yapması gerekir. <a href="/tr/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">Donma önleyici ve çarpışma önleyici hidrant kılavuzumuz</a>, her varyantın hidrolik davranışını ayrıntılı olarak açıklar.</p>
+
+			<h2 id="hose-couplings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Belediye filosu için yangın hortumu ve kaplinler</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Filo hortumları yeni hidrant çıkışlarıyla uyumlu olmalıdır; aksi halde yenileme teslim gününde tamamlanmış sayılmaz. Ürün grubumuzdaki <a href="/tr/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">kauçuk kaplı düz yangın hortumu (Model 8-65)</a> belediye standardıdır: 8 inç, DN65 sınıfında ve tekrarlı basınç hizmeti için üretilmiştir. Varsayılan ihracat uç bağlantısı olarak <a href="/tr/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">2,5 inç alüminyum Storz kaplini</a> kullanılır; <a href="/tr/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS serisinin</a> DN50/DN65 kaplin adaptörleri, şebekede eski ve yeni tiplerin birlikte bulunduğu geçişleri karşılar. Boyutlar, astarlar ve kenar sızdırmazlığı <a href="/tr/guides/fire-hose-buying-guide/" class="text-brand-blue font-semibold hover:underline">düz yangın hortumu satın alma kılavuzunda</a> açıklanmıştır.</p>
+
+			<h2 id="standards-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Hedef pazara göre standartlar</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Aynı hidrant ve vana, projenin uygulanacağı yere göre farklı düzenlemeler kapsamında şartlandırılır. Keşif özetindeki her kalem için geçerli düzenlemeyi belirtin:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Bölge</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Yaygın referanslar</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Alıcı notu</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">ABD ve Amerika kıtasının büyük bölümü</td><td class="px-4 py-3 text-gray-700">AWWA C502 (hidrantlar), AWWA C515, ISO 5208 / EN 1074 (vanalar)</td><td class="px-4 py-3 text-gray-700">Her model için standardı ve test raporunu doğrulayın</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Latin Amerika</td><td class="px-4 py-3 text-gray-700">AWWA (ABD şartnameli ihaleler), Meksika NOM, Brezilya ABNT</td><td class="px-4 py-3 text-gray-700">İhale maddesi geçerlidir; her modeli doğrulayın</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Avrupa</td><td class="px-4 py-3 text-gray-700">EN 14384 (hidrantlar), EN 1074, EN 12266-1 (vana testleri), CE</td><td class="px-4 py-3 text-gray-700">CE ve testler modele ve direktife göre belirlenir</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Orta Doğu ve Afrika</td><td class="px-4 py-3 text-gray-700">Genellikle AWWA veya BS 750; NIST çıkışları yaygındır</td><td class="px-4 py-3 text-gray-700">Çıkış kaplin tipini keşif özetinde doğrulayın</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Standart ailelerinin kapsamlı karşılaştırması, ödeme yapmadan önce bir standardın test raporuyla nasıl karşılaştırılacağı da dahil olmak üzere <a href="/tr/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">hidrant, hortum ve vana standartları kılavuzunda</a> yer alır.</p>
+
+			<h2 id="one-po" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Tek satın alma siparişi paketi: Konsolidasyon neden riski azaltır?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Tek bir üreticiden alınan belediye paketi, çok tedarikçili bir keşif özetinin sağlayamayacağı üç avantaj sunar: <strong>tasarım gereği uyumlu arayüzler</strong> (çıkış kapakları, vana flanşları ve hortum kaplinleri tek bir çizim incelemesinde belirlenir), kabul dosyası için tek bir çeki listesiyle mutabık hale getirilen <strong>tek bir test kayıt seti</strong> ve <strong>tek bir lojistik planı</strong> — hidrantlar ve hortumlar konteyner alanını verimli kullanır, tek bir Incoterm fabrika kapısından sahaya kadar risk paylaşımını net tutar. Şartname, tedarikçi doğrulaması, numune, kalite kontrol, dokümantasyon ve lojistikten oluşan adım adım süreç <a href="/tr/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">tedarik kılavuzunda</a>; model bazlı doğrulama disiplini ise <a href="/tr/whitepaper/" class="text-brand-blue font-semibold hover:underline">sektör teknik incelemesinde</a> açıklanır.</p>
+			<p class="text-gray-700 leading-relaxed">Bu kapsamların ihaleye nasıl dönüştürüldüğüne ilişkin bölgesel bağlam için <a href="/tr/guides/municipal-water-fire-infrastructure-latinamerica/" class="text-brand-blue font-semibold hover:underline">Latin Amerika belediye altyapısı kılavuzu</a>, bölgesel düzenlemeleri ve tek satın alma siparişi uygulamasını ayrıntılı olarak ele alır.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Çift CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Yangın su hattı keşif özetinizi uygulamaya geçirin</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Kalemleri, hedef standardı ve hidrant yoğunluğunu gönderin; 12 saat içinde model bazlı test yaklaşımı ve konsolide lojistik plan içeren kalem bazlı bir teklif sunalım.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href={`/tr/contact/?product=${uri.EscapeDataString('Belediye yangın su hattı paketi')}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İsteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Merhaba, belediye yangın su hattı yenilemesi (vanalar + hidrantlar + hortumlar) yapıyoruz ve kalem bazlı teklif istiyoruz')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp’tan Yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

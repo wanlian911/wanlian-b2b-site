@@ -1,0 +1,195 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Yivli uçlu vana nedir ve boruya nasıl bağlanır?',
+		answer: 'Yivli uçlu vananın her iki ucuna, flanş veya diş yerine çevresel bir yiv işlenir. Borular ve vanalar mekanik bir kaplinle birleştirilir: iki gövde parçası, aralarındaki contayla birlikte yivli uçların üzerine geçirilir. Bağlantı yalnızca cıvatalarla yapılır; kaynak, diş açma veya açık alev gerekmez. Bu nedenle yivli bağlantılar yangından korunma ve su boru hatlarında yaygın olarak kullanılır.'
+	},
+	{
+		question: 'Flanşlı vanalar yerine ne zaman yivli vana seçmeliyim?',
+		answer: 'Montaj hızının önemli olduğu, sahada kaynak veya sıcak çalışma kısıtlamalarının bulunduğu ya da hattın ileride bakım için açılmasının gerekeceği durumlarda yivli uçları seçin; kaplinler kolayca cıvatalarından ayrılır. Flanşlı bağlantılar, büyük çaplı ve yüksek basınçlı ana hatlarda geleneksel çözüm olmaya devam eder. Wanlian ürün gamındaki yivli yangın vanaları PN16 (1,6 MPa) sınıfındadır; GKZF-1 solenoidli sürgülü vana ise 300 PSI (2,0 MPa) değerine kadar sınıflandırılmıştır.'
+	},
+	{
+		question: 'Hangi Wanlian vanaları yivli uçlarla sunuluyor?',
+		answer: 'Yivli yangın ana hattı ailesi beş modelden oluşur: D381X-16Q yivli kelebek vana (DN50-DN300, PN16, sinyal kilidi opsiyonlu sonsuz dişli), DN80 sinyal izleme anahtarlı yivli wafer tip kelebek vana (entegre elektrikli sinyal anahtarıyla DN50-DN300), UL/FM listeli elastomer yataklı OS&Y yükselen milli sürgülü vana (2"-10", yivli uçlu), Z85X paslanmaz çelik yivli sürgülü vana (DN40-DN300, döküm CF8M 316) ve GKZF-1 yivli solenoid kontrol sürgülü vana (DN50-DN300, AC220V/DC24V, 300 PSI).'
+	},
+	{
+		question: 'Sprinkler ana hat vanaları açık/kapalı durumunu bildirebilir mi?',
+		answer: 'Evet. OS&Y sürgülü vana, yükselen mil ve boyunduruk üzerinden konumunu mekanik olarak gösterir. Uzaktan izleme için sinyal izleme anahtarlı yivli wafer tip kelebek vanada entegre elektrikli sinyal anahtarı bulunur; D381X yivli kelebek vanada ise sinyal kilitleme cihazı opsiyonu vardır. Böylece yangın alarm paneli veya bina yönetim sistemi, bir bölüm vanasının kapalı bırakılıp bırakılmadığını görebilir.'
+	},
+	{
+		question: 'Yivli yangın vanaları UL veya FM listeli midir?',
+		answer: 'Yivli uçlu elastomer yataklı OS&Y yükselen milli sürgülü vana, yangından korunma hizmeti için UL ve FM listelidir. Ürün gamındaki diğer modeller GB gerekliliklerine ve fabrika standartlarına göre üretilir; yalnızca belirli modeller listeliyse tüm seri için listeleme iddiasında bulunmuyoruz. Kuzey Amerika projelerinde şartnamenizde gereken listeleme türünü belirtin; sertifikalı modeli eşleştirebilir veya proje değerlendirmesi organize edebiliriz.'
+	},
+	{
+		question: 'Sipariş vermeden önce yivli vana kalitesini nasıl doğrularım?',
+		answer: 'Partiye ait gövde ve yatak basınç test raporlarını, malzeme sertifikalarını (örneğin Z85X modelinin CF8M 316 gövdesi için) talep edin ve yiv ölçülerinin yüklenicinizin kullanacağı kaplin standardıyla uyumlu olduğunu doğrulayın. Sevkiyat öncesi üçüncü taraf denetimi organize edilebilir; B2B vana tedarik kontrol listemiz tüm doğrulama sürecini açıklar.'
+	}
+];
+
+const toc = [
+	{ id: 'what-is-grooved-valve', label: '1. Yivli uçlu vana nedir?' },
+	{ id: 'grooved-vs-flanged', label: '2. Yivli, flanşlı ve dişli bağlantıların karşılaştırması' },
+	{ id: 'grooved-valve-family', label: '3. Yangın ana hatları için yivli vana ailesi' },
+	{ id: 'valve-supervision-signals', label: '4. İzleme ve sinyal seçenekleri' },
+	{ id: 'retrofit-installation', label: '5. Yenileme ve montaj hususları' },
+	{ id: 'grooved-valve-spec-checklist', label: '6. B2B şartname kontrol listesi' },
+	{ id: 'faq', label: 'Sık sorulan sorular' }
+];
+
+const referencePages = [
+	{ slug: 'd381x-16q-grooved-butterfly-valve', name: 'D381X-16Q Yivli Kelebek Vana', img: '/assets/products/d381x-16q-grooved-butterfly-valve.webp', desc: 'DN50-DN300 PN16, sonsuz dişli, opsiyonel sinyal kilidi' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Sinyal İzleme Anahtarlı Yivli Wafer Tip Kelebek Vana', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', desc: 'DN50-DN300 PN16, entegre sinyal anahtarı' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM OS&Y Sürgülü Vana (Yivli)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10", UL ve FM listeli, yükselen mil göstergeli' },
+	{ slug: 'z85x-stainless-steel-grooved-gate-valve', name: 'Z85X Paslanmaz Çelik Yivli Sürgülü Vana', img: '/assets/products/z85x-stainless-steel-grooved-gate-valve.webp', desc: 'DN40-DN300, döküm CF8M 316, kaplin bağlantılı' }
+];
+---
+
+<Layout
+	title="Yivli Yangın Vanaları: Yivli ve Flanşlı Bağlantılar"
+	description="Sprinkler ana hatları için yivli yangın vanaları: sinyal kelebek, OS&Y sürgülü, paslanmaz ve solenoid seçenekleri; montaj ve B2B tedarik kontrol listesi."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Yivli Vanalar Kılavuzu' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Yivli Vanalar Kılavuzu</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Yangın Vanaları Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Yivli Yangın Vanaları: Yivli ve Flanşlı Bağlantılar</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kısaca: Yivli uçlu vanalar boruları flanş, diş veya kaynak yerine cıvatalı mekanik kaplinle birleştirir. Bu sayede yangın ana hattının montajı hızlanır, sahada açık alev kullanılmaz ve bakım ekipleri iki kelepçeyi cıvatalarından ayırarak bir bölümü açabilir. Sprinkler veya standpipe projenizde yivli boru kullanılıyorsa ana hattındaki her kesme ve kontrol vanası aynı yivli uçlara sahip olmalıdır. Bu kılavuz, seçenekleri ve belirtilmesi gereken vana ailesini açıklar.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{referencePages.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-grooved-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Yivli uçlu vana nedir?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Yivli uçlu vana; uçlarına çevresel yiv işlenmiş standart bir vanadır (sürgülü, kelebek veya glob vana). Bağlantı mekanik bir kaplinle yapılır: sentetik contalı iki gövde parçası iki yivli ucun üzerine yerleştirilir ve cıvatalarla sıkılır. Böylece conta yivlerin içine bastırılarak sızdırmazlık sağlanır.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Bağlantı tamamen mekanik olduğundan kaynakçıya, diş açma makinesine veya sıcak çalışma iznine gerek yoktur. Kaplin ayrıca bağlantı noktasındaki küçük hizalama ve ısıl hareketleri karşılar; aynı iki cıvatayla daha sonra açılabilir. Bu özellik, bir bölüm veya kontrol vanasının her değişiminde avantaj sağlar.</p>
+			<p class="text-gray-700 leading-relaxed">Yivli bağlantılar birçok pazarda modern yangın koruma ana hatlarının başlıca birleştirme yöntemidir. Bu nedenle yangın sınıfı vanalar, sahada uyarlanmak yerine çoğunlukla fabrikadan yivli uçlu olarak tedarik edilir.</p>
+
+			<h2 id="grooved-vs-flanged" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Yivli, flanşlı ve dişli bağlantıların karşılaştırması</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Karşılaştırma</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Flanşlı</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Dişli</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Yivli (Kaplinli)</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Montaj</td>
+							<td class="px-4 py-3 text-gray-700">Cıvatalı, hassas hizalama gerekir</td>
+							<td class="px-4 py-3 text-gray-700">Diş açma gerekir, çap aralığı sınırlıdır</td>
+							<td class="px-4 py-3 text-gray-700">Kelepçe ve cıvatalar, hızlı mekanik kaplin</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sıcak çalışma / yangın izni</td>
+							<td class="px-4 py-3 text-gray-700">Bağlantıda gerekmez, ancak flanşlar ağırdır</td>
+							<td class="px-4 py-3 text-gray-700">Gerekmez, ancak sahada diş açılır</td>
+							<td class="px-4 py-3 text-gray-700">Gerekmez; kaynak ve açık alev yoktur</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hizalama toleransı</td>
+							<td class="px-4 py-3 text-gray-700">Düşük; flanşlar aynı eksende olmalıdır</td>
+							<td class="px-4 py-3 text-gray-700">Orta</td>
+							<td class="px-4 py-3 text-gray-700">Yüksek; kaplin küçük hizasızlıkları karşılar</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sökme</td>
+							<td class="px-4 py-3 text-gray-700">Çok sayıda bağlantı elemanı sökülür</td>
+							<td class="px-4 py-3 text-gray-700">Vidalı bağlantı açılır, sıkışmış olabilir</td>
+							<td class="px-4 py-3 text-gray-700">Her kaplindeki iki cıvata sökülür</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tipik basınç sınıfı (Wanlian yivli ürün gamı)</td>
+							<td class="px-4 py-3 text-gray-700">Modele göre PN10-PN40</td>
+							<td class="px-4 py-3 text-gray-700">Yalnızca küçük çaplar</td>
+							<td class="px-4 py-3 text-gray-700">PN16; GKZF-1, 300 PSI (2,0 MPa)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tipik kullanım</td>
+							<td class="px-4 py-3 text-gray-700">Büyük çaplı ana hatlar, proses tesisleri</td>
+							<td class="px-4 py-3 text-gray-700">Küçük branşman hatları</td>
+							<td class="px-4 py-3 text-gray-700">Yangın ana hatları, sprinkler kolonları, su şebekeleri</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Flanşlı vanalar, büyük çaplı ve yüksek basınçlı birçok şartname için doğru seçim olmaya devam eder. Ancak boru sistemi yivliyse (sprinkler ana hatlarında yaygın durum), flanşlı vana hatta adaptör eklenmesini gerektirir ve bağlantı yönteminin hız avantajını ortadan kaldırır.</p>
+
+			<h2 id="grooved-valve-family" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Yangın ana hatları için yivli vana ailesi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Görülebilir konumlu ana kesme vanası.</strong> <a href="/tr/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM elastomer yataklı OS&amp;Y yükselen milli sürgülü vana</a>, 2"-10" (DN50-DN250) aralığında yivli uçlara ve açık/kapalı konumu bir bakışta gösteren yükselen mile sahiptir. Bu, yangın denetçisinin bir bölüm ana hattında beklediği gösterge vanasıdır. Elastomer EPDM yataklı sfero döküm gövde damlatmaz kapanma sağlar.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Kompakt çeyrek turlu kontrol.</strong> Alanın kısıtlı olduğu branşman ve kolon kontrolü için <a href="/tr/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">sinyal izleme anahtarlı yivli wafer tip kelebek vana</a> (DN50-DN300, PN16), wafer gövdeyi entegre elektrikli sinyal anahtarı ve sonsuz dişli kumanda ile birleştirir. <a href="/tr/products/d381x-16q-grooved-butterfly-valve/" class="text-brand-blue font-semibold hover:underline">D381X-16Q yivli kelebek vana</a> ise durum göstergesi için opsiyonel sinyal kilitleme cihazıyla aynı yivli uçları sunar.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Korozyona dayanıklı hizmet.</strong> Su kalitesi veya agresif akışkanlar sfero dökümü uygun olmaktan çıkardığında <a href="/tr/products/z85x-stainless-steel-grooved-gate-valve/" class="text-brand-blue font-semibold hover:underline">Z85X paslanmaz çelik yivli sürgülü vana</a> (DN40-DN300), gaz, yağ ve su hatları için döküm 316 CF8M gövde, yükselmeyen mil ve yivli kelepçe uçları kullanır.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Otomatik uzaktan kontrol.</strong> Vananın bir kontrol panelinden gelen komutla açılıp kapanması gerektiğinde <a href="/tr/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">GKZF-1 yivli solenoid kontrol sürgülü vana</a> (DN50-DN300), DC24V veya AC220V solenoid ile sfero döküm sürgülü vanayı kumanda eder. Otomatik belediye ve yangın söndürme suyu akış kontrolü için 300 PSI (2,0 MPa) değerine kadar sınıflandırılmıştır.</p>
+
+			<h2 id="valve-supervision-signals" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. İzleme ve sinyal seçenekleri</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Yangından korunma kuralları, kapalı bir bölüm vanasını ciddi bir tehlike olarak değerlendirir: Sprinkler sistemi kapalı bir ana vana nedeniyle izole edilirse bina korunamaz. Bu nedenle sprinkler sistemlerindeki kontrol vanaları ya gösterge vanasıdır (konum vana üzerinde görünür) ya da izlenen vanadır (konum elektriksel olarak bildirilir).</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Yivli vana ailesi her iki seçeneği de kapsar. OS&amp;Y sürgülü vana doğal olarak gösterge vanasıdır; yükselen milin konumu oda genelinden okunabilir. Sinyal izleme anahtarlı yivli wafer tip kelebek vana uzaktan durum izleme için entegre elektrikli sinyal anahtarı ekler, D381X sinyal kilitleme cihazı opsiyonu sunar ve GKZF-1 solenoidli vana tasarımı gereği elektrikle çalıştırıldığından durumu onu kumanda eden kontrol sistemi tarafından bilinir.</p>
+			<p class="text-gray-700 leading-relaxed">Vanalar izlendiğinde kablolama, akış anahtarları ve alarm vanalarını izleyen aynı yangın alarm paneline bildirim yapmalıdır. Sprinkler sisteminde OS&amp;Y, kelebek ve çekvalflerin görevlerini ayrıntılı olarak açıklayan <a href="/tr/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">sprinkler kontrol vana tipleri kılavuzumuza</a> ve satın almadan önce gerçek listelemelerin nasıl doğrulanacağını açıklayan <a href="/tr/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">UL listeli yangın vanaları kılavuzumuza</a> bakın.</p>
+
+			<h2 id="retrofit-installation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Yenileme ve montaj hususları</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Yivli bağlantılar yenileme çalışmalarında büyük avantaj sağlar. Mevcut bir sprinkler ana hattındaki vanayı değiştirmek genellikle bölümü boşaltmayı ve eski bağlantıyı keserek çıkarmayı ya da iki kaplini sökmeyi gerektirir. Hem üst akışta hem alt akışta yivli vanalar varsa yeni vana iki kaplinle yerine takılır ve hat kısa sürede yeniden hizmete alınır.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Kullanımdaki binalarda sıcak çalışmanın olmaması önemli bir avantajdır: aktif yangın ana hattında kaynak yapmak izin, yangın gözcüsü ve çoğu zaman bina yönetiminin istemediği duruşlar gerektirir. Mekanik kaplinler bu kısıtlamayı ortadan kaldırır; kelebek vana modellerinin kompakt wafer gövdeleri de dar kolon odalarında montajı kolaylaştırır.</p>
+			<p class="text-gray-700 leading-relaxed">Sipariş vermeden önce yiv ve kaplin şartnamesini yüklenicinizle doğrulayın. Yiv ölçüleri projede kullanılan kaplin markası ve boru standardıyla uyumlu olmalıdır; yivli uçlu sipariş edilen vana gövdeleri sahada flanşlı bağlantıya dönüştürülemez.</p>
+
+			<h2 id="grooved-valve-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. B2B şartname kontrol listesi</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Birleştirme sistemini eşleştirin</strong> – Ana hat yivliyse adaptör gerekmemesi için her bölüm ve kontrol vanasında yivli uçları belirtin; talepte kaplinin yiv standardını yazın.</li>
+				<li><strong>Görevi ve ölçüyü tanımlayın</strong> – Bölüm kesmesi (OS&amp;Y sürgülü vana, 2"-10"), alan tasarruflu çeyrek turlu kontrol (sinyal kelebek veya D381X, DN50-DN300) ya da otomatik uzaktan kontrol (GKZF-1, DN50-DN300).</li>
+				<li><strong>Basınç ve malzemeyi kesinleştirin</strong> – Yivli ürün gamı PN16 (1,6 MPa), GKZF-1 ise 300 PSI (2,0 MPa) değerindedir; standart su için QT450 sfero döküm gövdeler, korozif hizmet için döküm CF8M 316 (Z85X) kullanılır.</li>
+				<li><strong>İzleme yöntemine karar verin</strong> – OS&amp;Y gösterimi, kelebek vanadaki entegre sinyal anahtarı, D381X sinyal kilidi opsiyonu veya GKZF-1 solenoid kumandası; seçimi yangın alarm panelinizin beklentileriyle eşleştirin.</li>
+				<li><strong>Sertifikasyon gerekliliklerini belirtin</strong> – Kuzey Amerika projeleri için UL/FM listeli OS&amp;Y sürgülü vana; şartnamenizde gereken listelemeye hangi modelin sahip olduğunu doğrulayın.</li>
+				<li><strong>Test kanıtı isteyin</strong> – Parti gövde ve yatak basınç test raporları ile malzeme sertifikalarını talep edin ve üreticiyle taahhüt aşamasına geçmeden önce <a href="/tr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B vana tedarik kontrol listemizi</a> uygulayın.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sık sorulan sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Sprinkler ana hattı için yivli yangın vanalarına mı ihtiyacınız var?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">DN ölçüsünü, basınç sınıfını, izleme gerekliliklerini ve kaplin standardını bize iletin; mühendislerimiz uygun vana eşleşmesini doğrulayarak 12 saat içinde teklif sunar.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Yivli%20Yang%C4%B1n%20Koruma%20Vanas%C4%B1" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif isteyin</a>
+						<a href="https://wa.me/8618684324501?text=Merhaba%2C%20sprinkler%20ana%20hatt%C4%B1%20i%C3%A7in%20yivli%20yang%C4%B1n%20vanalar%C4%B1na%20ihtiyac%C4%B1m%20var" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp'tan yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,240 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Düz katlanır yangın hortumu ile yangın hortum makarası arasındaki fark nedir?',
+		answer: 'Düz katlanır yangın hortumu, boşken düz şekilde katlanabilen ve kullanılana kadar raflarda, araçlarda veya dolaplarda saklanan esnek bir besleme hattıdır; hortumun kendisi metre üzerinden satın alınır. Yangın hortum makarası ise hortumun tambura önceden sarıldığı ve su beslemesine kalıcı olarak bağlandığı sabit bir iç ünite olup tek bir hortum parçasından ziyade komple bir cihazdır. İç mekân yangınla mücadele istasyonları kuruyorsanız yangın hortum makarası ve dolabı kılavuzumuza bakın; yedek veya toplu besleme hortumu alıyorsanız bu kılavuz geçerlidir.'
+	},
+	{
+		question: 'Hangi ölçülerde düz katlanır yangın hortumu mevcuttur?',
+		answer: 'PVC kauçuk astarlı düz katlanır yangın hortumumuz 19 mm ile 400 mm iç çap aralığını kapsar. Standart 65 mm bağlantı ölçüsüne sahip Model 8-65 konfigürasyonu, yaygın yangınla mücadele hattıdır. Uzunluklar özelleştirilebilir; böylece distribütör standart ruloları stoklayabilir, proje bazında belirli uzunlukları kesebilir veya sipariş edebilir.'
+	},
+	{
+		question: 'Düz katlanır yangın hortumuna hangi bağlantılar uyar?',
+		answer: 'Hortum, standart alüminyum veya pirinç yangın hortumu bağlantılarıyla tedarik edilir. HS serisi alüminyum adaptörlerimiz (DN50/DN65, GB12514 esaslı), hidrantları, hortumları ve nozulları kendinden sızdırmaz dişlilerle birbirine bağlar. Alman standardındaki sistemler için ayrıca 2,5 inç alüminyum Storz bağlantılar (DN50–DN150, 1,6 MPa) sunuyoruz. Pazarınızı bildirin; teklif aşamasında dişli sistemini BS336 (Birleşik Krallık/Commonwealth), NIST (Orta Doğu), KWS (Almanya) veya diğer seçeneklere göre eşleştirelim.'
+	},
+	{
+		question: 'Düz katlanır yangın hortumu köpük ve endüstriyel su transferinde kullanılabilir mi?',
+		answer: 'Evet. Hortum, A ve B sınıfı yangınlarla mücadele, havalimanı yangın koruması ve endüstriyel su transferi için belirtilmiştir. PVC kauçuk astar, temiz suyun yanı sıra köpük karışımı akışkanlar için de uygundur. Hortum duvarı ve bağlantıların doğru boyutlandırılması için kendi çapınızda kullanılacak akışkanı ve basıncı mühendislerimizle teyit edin.'
+	},
+	{
+		question: 'Yangın hortumunu kendi markamla (OEM) sipariş edebilir miyim?',
+		answer: 'Evet. Uzunluk, iç çap ve logo özelleştirilebilir; hortum, etiket diliniz ve renkli işaret şeritlerinizle üretilebilir. OEM teslim süreleri ve minimum sipariş miktarları teklif aşamasında kesinleştirilir. Stoklamayı planladığınız çapları, uzunlukları ve miktarları belirtin.'
+	},
+	{
+		question: 'Düz katlanır yangın hortumu kullanımlar arasında nasıl saklanmalıdır?',
+		answer: 'Uzun süreli depolamadan önce hortumu kurutun, düz katlanmış veya rulo hâlinde saklayın ve doğrudan güneş ışığından, ozondan ve keskin kenarlardan koruyun. Düz katlanır hortum, boşaltıldıktan sonra düz şekilde katlanmak üzere tasarlanmıştır; bu özellik yuvarlak kesitli hortuma kıyasla depolama hacmini azaltır. Örgü kılıfı aşınmaya, bağlantıları ise diş hasarına karşı düzenli olarak kontrol etmek pratik bakım rutinidir.'
+	}
+];
+
+const toc = [
+	{ id: 'layflat-vs-reel', label: '1. Düz Katlanır Yangın Hortumu mu, Hortum Makarası mı?' },
+	{ id: 'hose-construction', label: '2. Hortum Yapısı: Kılıf, Astar ve Kenar Sızdırmazlığı' },
+	{ id: 'sizing-fire-hose', label: '3. Boyutlandırma: Çap, Uzunluk ve Uygulamalar' },
+	{ id: 'couplings-standards', label: '4. Bağlantılar ve Bağlantı Standartları' },
+	{ id: 'nozzles-flow', label: '5. Nozullar ve Debi Kontrolü' },
+	{ id: 'factory-checklist', label: '6. Fabrikadan Satın Alma Kontrol Listesi: OEM ve Kalite' },
+	{ id: 'faq', label: 'Sık Sorulan Sorular' }
+];
+
+const products = [
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'PVC Kauçuk Astarlı Düz Katlanır Yangın Hortumu', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Model 8-65, 19–400 mm iç çap, örgü kılıf, OEM uzunluklar' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: '2,5 inç Alüminyum Storz Bağlantısı', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'Alman standardında hızlı bağlantı, DN50–DN150, 1,6 MPa' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'Ayarlanabilir Tabanca Saplı Yangın Nozulu', img: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg', desc: '150–500 LPM, düz akıştan sise, 1,5–2,5 inç giriş' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Yangın Hidrantı Hortum Bağlantı Adaptörü', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'Alüminyum HS serisi, DN50/DN65, kendinden sızdırmaz dişliler' }
+];
+
+const referencePages = [
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'PVC Kauçuk Astarlı Düz Katlanır Yangın Hortumu' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: '2,5 inç Alüminyum Storz Bağlantısı' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'Ayarlanabilir Tabanca Saplı Yangın Nozulu' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Yangın Hidrantı Hortum Bağlantı Adaptörü' }
+];
+---
+
+<Layout
+	title="Yangın Hortumu Satın Alma: Çaplar, Bağlantılar ve Seçim"
+	description="B2B alıcılar için düz katlanır yangın hortumu rehberi: 19–400 mm çaplar, PVC kaplama, Storz ve 65 mm bağlantılar, nozullar, seçim ve OEM tedariki."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Yangın Hortumu Satın Alma' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Yangın Hortumu Satın Alma</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Yangın Koruma Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Düz Katlanır Yangın Hortumu Satın Alma Kılavuzu: Çaplar, Astarlar ve Bağlantılar</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Yangın hortumu standart bir ürün gibi görünür; ancak satın alma kararı dört ayrıntıya dayanır: bir besleme hattına mı yoksa makaralı cihaza mı ihtiyaç duyduğunuz, kılıf ve astarın nasıl üretildiği, hangi çap ve uzunluğun debi görevine uyduğu ve pazarınızın hangi bağlantı sistemini kullandığı. Bu kılavuz, ithalatçı ve distribütörlere her noktada yol gösterir ve tedarikçinin teknik föyünde hangi bilgilere itiraz edilmesi gerektiğini açıklar.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="layflat-vs-reel" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Düz Katlanır Yangın Hortumu mu, Hortum Makarası mı: Gerçekte Hangisini Alıyorsunuz?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Yanlış spesifikasyonun en hızlı yolu hortum ile cihazı birbirine karıştırmaktır. <strong>Düz katlanır yangın hortumu</strong>, bir itfaiye ekibinin veya pompa operatörünün iki ucundan bağladığı, esnek ve düz katlanabilen bir hortum uzunluğudur; <strong>yangın hortum makarası</strong> ise tambura önceden sarılmış, bina su beslemesine kalıcı olarak bağlanmış ve eğitimsiz bir kullanıcının çalıştırmasına hazır duvar tipi bir ünitedir.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Özellik</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Düz Katlanır Yangın Hortumu</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Yangın Hortum Makarası ve Dolabı</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tanım</td>
+							<td class="px-4 py-3 text-gray-700">Uzunluk üzerinden satın alınan esnek besleme hattı</td>
+							<td class="px-4 py-3 text-gray-700">Tambur ve nozullu sabit dolap cihazı</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Su bağlantısı</td>
+							<td class="px-4 py-3 text-gray-700">İhtiyaca göre pompa, hidrant veya manifolda bağlanır</td>
+							<td class="px-4 py-3 text-gray-700">Bina su beslemesine kalıcı olarak bağlıdır</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Depolama</td>
+							<td class="px-4 py-3 text-gray-700">Düz katlanır; raflar, araç bölmeleri ve yedek stok</td>
+							<td class="px-4 py-3 text-gray-700">Duvar dolabının içindeki tambura sarılır</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tipik alıcı</td>
+							<td class="px-4 py-3 text-gray-700">İtfaiye teşkilatları, sanayi tesisleri ve hortum distribütörleri</td>
+							<td class="px-4 py-3 text-gray-700">Müteahhitler ve tesis işletmecileri</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Siparişiniz aslında iç mekân yangınla mücadele istasyonları içinse makara ve dolap paketi doğru kapsamdır; <a href="/tr/guides/fire-hose-reel-cabinet-guide/" class="text-brand-blue font-semibold hover:underline">yangın hortum makarası ve dolabı seçim kılavuzumuza</a> bakın. Bu kılavuz hortumun kendisini, yani yapısını, boyutlandırmasını, bağlantılarını ve tedarikini ele alır.</p>
+
+			<h2 id="hose-construction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Hortum Yapısı: Kılıf, Astar ve Kenar Sızdırmazlığı</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Düz katlanır yangın hortumu bir kompozittir: <strong>örgü kılıf</strong> basıncı taşır ve aşınmaya dayanır; <strong>astar</strong> akış geçişini sızdırmaz hâle getirir ve akışkan uyumluluğunu belirler; <strong>kenarlar ve uçlar</strong> ise hortumun zorlu kullanımda ne kadar dayanacağını belirler.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Kılıf</strong> — Sık dokunmuş sentetik elyaf kılıf arayın. Hortumumuz PVC kauçuk astarlı, dokuma sentetik elyaftan üretilir; dokuma yoğunluğu beton üzerindeki sürtünmeye dayanır ve hortumun kat yerlerinden patlamasını önler.</li>
+				<li><strong>Astar</strong> — PVC kauçuk astar, düşük sürtünme kayıplı pürüzsüz bir geçiş sağlar ve temiz su ile köpük karışımı akışkanlara uygundur. Daha agresif kimyasallar için astar spesifikasyonu değiştirilmelidir; her astarın her akışkana uyacağını varsaymak yerine siparişten önce akışkanı teyit edin.</li>
+				<li><strong>Kenar ve köşe takviyesi</strong> — Düz katlanan hortum, katlandığı ve uçları kelepçelendiği yerlerde en savunmasızdır. Dokuma kenar sızdırmazlığı ve takviyeli köşeler, tam bu noktalarda katman ayrılmasını önler; her ikisi de üretimimizde standarttır.</li>
+				<li><strong>Uç işlemi</strong> — Bağlantılar siparişe göre takılmış veya ayrı olarak tedarik edilmiş olabilir. Ayrı uçlar, bağlantıları yerel olarak presleyen veya kelepçeleyen distribütörler için uygundur; fabrikada takılan uçlar test edilmiş bir birleşim sağlar.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Tedarikçi teknik föylerini karşılaştırırken üç soru sorun: dokuma malzemesi ve yoğunluğu nedir, astar bileşimi nedir ve kenarlar nasıl sızdırmaz hâle getirilmiştir? Genel nitelikteki “kauçuk hortum” açıklamaları bu üç sorunun hiçbirini yanıtlamaz.</p>
+
+			<h2 id="sizing-fire-hose" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Boyutlandırma: Çap, Uzunluk ve Uygulamalar</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">İç çap debi kapasitesini, uzunluk erişim mesafesini belirler; yanlış ikili ya nozula yetersiz besleme yapılmasına ya da gereksiz ağırlık taşınmasına neden olur. Düz katlanır ürün gamımız <strong>19 mm ile 400 mm iç çap</strong> aralığını kapsar; standart 65 mm bağlantı konfigürasyonuna sahip Model 8-65, temel yangınla mücadele hattıdır. Yangınla mücadele uygulamalarında genel bir kural olarak:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>19–25 mm</strong> — Hafif görevler ve bazı makara tipi uygulamalar için küçük çaplı hatlar.</li>
+				<li><strong>40–50 mm</strong> — El hatları ve daha düşük debilerle çalışan ekipler için branş hatları.</li>
+				<li><strong>65 mm (2,5 inç)</strong> — Çoğu bina ve sanayi yangınında standart saldırı/besleme hattı ölçüsü ve 8-65 modelinin konfigürasyonu.</li>
+				<li><strong>100 mm ve üzeri</strong> — Uzak mesafelere yüksek hacimde su taşıyan röle ve hidrant besleme hatları; dökme transfer için ürün gamımız 400 mm'ye kadar çıkar.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">OEM özelleştirmesi en çok uzunlukta önem taşır: <a href="/tr/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">PVC kauçuk astarlı düz katlanır yangın hortumumuz</a> özelleştirilebilir uzunluk, çap ve logo ile üretilir; teknik föyde dokuma yapısının dayanım referansı olarak 50–200 kN taşıma kapasitesi belirtilir. Taşıma kapasitesinin çalışma basıncı değil, çekme/yapısal bir değer olduğunu unutmayın; kendi çapınız için basınç sınıfını her zaman ayrıca isteyin ve bunu yalnızca bağlantı basıncından çıkarmayın.</p>
+			<p class="text-gray-700 leading-relaxed">Ürün gamındaki uygulamalar A ve B sınıfı yangınla mücadele, havalimanı yangın koruması ve endüstriyel su transferidir. Düz katlanır hortum, küçük hacimde saklanabildiği ve hızlı açılabildiği için pazarın bu iki ucunda rijit veya yuvarlak kesitli alternatiflerin yerini alır.</p>
+
+			<h2 id="couplings-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Bağlantılar ve Bağlantı Standartları</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">En yaygın ihracat hatası, bağlantı standardını kesinleştirmeden hortum sipariş etmek ve dişlilerin hedef ülkedeki hidrant veya nozullara uymadığını üretimden sonra fark etmektir. Yangın hortumu bağlantıları bölgeseldir; başlıca sistemler şunlardır:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Bağlantı Sistemi</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Yaygın Bölgeler</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Uygun Wanlian Ürünü</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Storz (hızlı bağlantı)</td>
+							<td class="px-4 py-3 text-gray-700">Almanya, Avrupa ve Asya'nın büyük bölümü</td>
+							<td class="px-4 py-3 text-gray-700">2,5 inç alüminyum Storz bağlantı, DN50–DN150, 1,6 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">BS336</td>
+							<td class="px-4 py-3 text-gray-700">Birleşik Krallık ve Commonwealth pazarları</td>
+							<td class="px-4 py-3 text-gray-700">Projeye göre dişli adaptörler</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">NIST</td>
+							<td class="px-4 py-3 text-gray-700">Orta Doğu hidrant bağlantıları</td>
+							<td class="px-4 py-3 text-gray-700">Projeye göre dişli adaptörler</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">GB12514 / 65 mm dişli</td>
+							<td class="px-4 py-3 text-gray-700">Çin standardındaki sistemler ve 2,5 inç hidrantlar</td>
+							<td class="px-4 py-3 text-gray-700">HS serisi alüminyum adaptör, DN50/DN65</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Alman standardındaki kurulumlar için <a href="/tr/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">2,5 inç alüminyum Storz bağlantı</a>, temiz su ve köpük karışımı için 1,6 MPa basınç sınıfına sahip hızlı, kendinden sızdırmaz bir kenar bağlantısı sağlar. Hortumun farklı bir sisteme ait hidrant çıkışlarına veya nozullara bağlanması gerektiğinde <a href="/tr/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS serisi alüminyum bağlantı adaptörü</a> (DN50/DN65, kendinden sızdırmaz iç dişliler, 1,6 MPa) arayüzü birleştirir. Bu nedenle hidrant ürün gamımızı talep üzerine BS336, NIST, KWS ve flanş seçenekleriyle de sunuyoruz.</p>
+			<p class="text-gray-700 leading-relaxed">Bağlantı sistemini üretimden sonra değil, talep aşamasında belirtin: bitmiş hortum uçlarında sonradan dişli uyarlaması pahalıdır ve fabrikada eşleştirilmiş bağlantılar kadar güvenilir olması nadirdir.</p>
+
+			<h2 id="nozzles-flow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Nozullar ve Debi Kontrolü</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bir hortum, ucundaki nozul kadar kullanışlıdır. El hatları için değişken debili ve püskürtme şekilli ayarlanabilir nozul; erişim için düz akıştan, ısı kalkanı ve söndürme için sis akışına kadar geniş bir aralığı kapsar. <a href="/tr/products/adjustable-pistol-grip-fire-nozzle/" class="text-brand-blue font-semibold hover:underline">Ayarlanabilir tabanca saplı yangın nozulumuz</a> 150–500 LPM debi sağlar, düz akıştan sise kadar püskürtme şekilleri sunar ve 1,5, 2 ve 2,5 inç girişlere uyar; bu kılavuzda ele alınan 65 mm hat ailesiyle eşleşir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">İki boyutlandırma kuralı setin uyumlu kalmasını sağlar:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Nozul girişini hortum bağlantısıyla eşleştirin</strong> — 2,5 inçlik bir hat, bilinçli olarak adaptör kullanılmıyorsa 2,5 inç girişli bir nozul ile sonlandırılmalıdır.</li>
+				<li><strong>Nozul debisini hortum kapasitesiyle eşleştirin</strong> — Nozulun talep ettiği debi hortum çapının sağlayabileceğinden fazlaysa akış zayıflar ve pompa enerjisi boşa harcanır; hortum çapını boyutlandırırken hedef debiyi belirtin.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Distribütörler, acil yedek parçaların uyumlu kalması için hortumları, bağlantıları ve nozulları genellikle tek bir ürün ailesi olarak stoklar. Paketi tek bir üreticiyle birleştirmenin bir başka nedeni de budur.</p>
+
+			<h2 id="factory-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Fabrikadan Satın Alma Kontrol Listesi: OEM ve Kalite</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Düz katlanır yangın hortumunu Çin'deki bir fabrikadan tedarik ederken üretim başlamadan önce şu noktaları doğrulayın:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Bağlantı standardını yazılı olarak belirtin</strong> — Storz, BS336, NIST, KWS veya 65 mm dişli; gevşek veya fabrikada takılmış uçları ve bitmiş birleşimin kimin tarafından test edileceğini teyit edin.</li>
+				<li><strong>Her çap için basınç sınıfını isteyin</strong> — Tüm ürün gamı için tek bir basınç değerini kabul etmeyin; duvar kalınlığı ve dokuma yapı çap ölçüsüne göre değişir.</li>
+				<li><strong>Akışkan uyumluluğunu doğrulayın</strong> — Temiz su ve köpük karışımı PVC kauçuk astar için standarttır; kimyasal akışkanları siparişten önce belirtin.</li>
+				<li><strong>OEM kapsamını kesinleştirin</strong> — Uzunluk, çap, logo, etiket dili ve renkli işaret şeritleri; tasarım onayı aşamalarını takvime ekleyin.</li>
+				<li><strong>Parti kalite kanıtı isteyin</strong> — Gerçek parti için dokuma yoğunluğu kontrolleri, kenar sızdırmazlığı muayenesi ve bağlantı çekme testleri. Hortum tedarikçileri için de geçerli olan fabrika doğrulama rutininde <a href="/tr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B vana tedarik kontrol listemizi</a> kullanın.</li>
+				<li><strong>Depolama ve ambalajı planlayın</strong> — Düz katlanır hortum katlanmış olarak sevk edilir; kat yerlerinde taşıma hasarını önlemek için rulo/palet ambalajını ve konteyner yüklemesini tedarikçiyle teyit edin.</li>
+			</ul>
+
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">İlgili Kılavuzlar</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Hortum tedarikçilerini doğrudan karşılaştırın: <a href="/tr/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian Fluid ve American AVK karşılaştırması</a>.</p>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Siparişiniz için hangi hortum standardının geçerli olduğundan emin değil misiniz? <a href="/tr/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Yangın hidrantı, yangın hortumu ve vana standartlarının açıklaması</a> kılavuzuna bakın.</p>
+			</div>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sık Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Toplu Düz Katlanır Yangın Hortumu mu Tedarik Ediyorsunuz?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Çaplarınızı, uzunluklarınızı, bağlantı standardınızı ve hedef pazarınızı gönderin; ekibimiz 12 saat içinde basınç sınıflarını, OEM seçeneklerini ve teslim süresini teyit eder.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Düz%20Katlanır%20Yangın%20Hortumu" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İste</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Merhaba, bağlantılarıyla birlikte düz katlanır yangın hortumuna ihtiyacım var')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp'ta Görüşün</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

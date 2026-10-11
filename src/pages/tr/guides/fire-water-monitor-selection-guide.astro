@@ -1,0 +1,190 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'manual-monitors-ps', label: '1. Manuel Monitörler (PS Serisi): Operatör Kontrolü' },
+	{ id: 'auto-tracking-monitors-zdms', label: '2. Otomatik Takipli Monitörler (ZDMS): Otonom Müdahale' },
+	{ id: 'head-to-head-comparison', label: '3. Doğrudan Karşılaştırma' },
+	{ id: 'sizing-and-installation', label: '4. Boyutlandırma ve Kurulum İçin Temel Noktalar' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' }
+];
+
+const faq = [
+	{
+		question: 'Manuel ve otomatik takipli yangın suyu monitörü arasındaki fark nedir?',
+		answer: 'Manuel yangın suyu monitörü (PS serisi), sahadaki bir itfaiye görevlisi tarafından doğrudan taret üzerinden veya uzaktan el çarkı ile yönlendirilir ve çalıştırılır. Otomatik takipli monitör (ZDMS serisi) ise korunan alanı kızılötesi/UV alev dedektörleriyle sürekli tarar; alev algısı doğrulandığında operatör müdahalesi olmadan yangına yönelir ve söndürme yapar. Bu özellik, yangına saniyeler içinde müdahale edilmesi gereken büyük alanlarda kritik önem taşır.'
+	},
+	{
+		question: 'Otomatik takipli yangın topları (ZDMS) nerelerde gereklidir?',
+		answer: 'Otomatik takipli yangın topları, algılama ve müdahalenin otomatik olması gereken yüksek tavanlı büyük kapalı alanlar için tercih edilir: sergi salonları, atriyumlar, depolar, uçak hangarları ve endüstriyel atölyeler. Tavan yüksekliği ve zemin alanı, gerekli top sayısını ve kapsama bölgelerini belirler.'
+	},
+	{
+		question: 'Bir yangın suyu monitörünün etkili menzili nedir?',
+		answer: 'Etkili menzil, debiye ve nozul yapılandırmasına bağlıdır. Manuel PS monitörleri genellikle 20–60 L/s debiyle 30–70 metre menzil sunar; otomatik takipli ZDMS topları ise kapalı alan kapsaması için çoğunlukla 20–40 L/s debiye ve 30 saniyenin altında tepki süresine göre boyutlandırılır. Yangın koruma tasarımında monitör, gerekli su yoğunluğu ve kapsanacak alana göre boyutlandırılmalıdır.'
+	},
+	{
+		question: 'Yangın suyu monitörleri köpükle kullanılabilir mi?',
+		answer: 'Evet. PS serisi monitörlerin çoğu nozul ayarı değiştirilerek su veya köpük püskürtülmesini destekler; bu nedenle petrokimya terminallerinde ve tank sahalarında yaygın olarak kullanılır. Köpüklü çalışma planlanıyorsa, monitörün uygun köpük orantılama arayüzüyle yapılandırılması için talebinizde bu bilgiyi belirtin.'
+	}
+];
+
+const referencePages = [
+	{
+		slug: 'manual-fire-water-cannon-ps',
+		name: 'Manuel Yangın Suyu Topu (PS Serisi)',
+		img: '/assets/products/manual-fire-water-cannon-ps.webp',
+		desc: 'Su veya köpük için yüksek debili manuel monitör, 30–70 m menzil'
+	},
+	{
+		slug: 'auto-tracking-jet-suppression-cannon-zdms',
+		name: 'Otomatik Takipli Jet Söndürme Yangın Topu (ZDMS Serisi)',
+		img: '/assets/06_extinguishing_cannons/cannon_p45.webp',
+		desc: 'Otonom algılama ve söndürme özellikli IR/UV taramalı yangın topu'
+	}
+];
+---
+
+<Layout
+	title="Yangın Monitörü Seçimi: Manuel ve Otomatik (ZDMS)"
+	description="Yangın monitörü seçim rehberi: Manuel PS ve otomatik ZDMS su toplarını menzil, debi, algılama, tepki süresi ve maliyet açısından karşılaştırın."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Yangın Monitörleri' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Yangın Monitörleri</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Yangın Söndürme Ekipmanları Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Yangın Monitörü Seçimi: Manuel ve Otomatik (ZDMS)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Su topları olarak da adlandırılan yangın suyu monitörleri, uzak mesafeye yoğun ve yüksek debili bir su akışı gönderir. Temelde iki farklı çalışma yaklaşımı vardır: operatör tarafından yönlendirilen <strong>manuel monitörler</strong> ve yangını kendi kendine algılayan, yönelen ve söndüren <strong>otomatik takipli monitörler</strong>. Seçim; tepki süresi, kullanım alanındaki risk ve bütçeye bağlıdır. Bu kılavuz, karar sürecini ayrıntılı olarak açıklar.</p>
+
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+				{referencePages.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-40 object-contain bg-white p-3" />
+						<div class="p-4">
+							<p class="text-sm font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-xs text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="manual-monitors-ps" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Manuel Monitörler (PS Serisi): Operatör Kontrolü</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/tr/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">PS serisi manuel yangın suyu monitörü</a>, endüstriyel yangınla mücadelenin temel ekipmanıdır: 20–60 L/s debi ve 70 metreye kadar menzil sunan, tam jet ile püskürtme arasında geçiş yapılabilen ve su ya da köpükle kullanılabilen sabit bir taret. Çalıştırma, el çarkı veya taret üzerinden doğrudan ya da sahayı izleyen bir operatör tarafından uzaktan gerçekleştirilir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Uygun kullanım alanları:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Petrokimya terminalleri, tank sahaları ve yükleme rafları</strong> — sabit koruma noktalarında köpük uyumlu monitörler.</li>
+				<li><strong>Açık saha ve proses alanları</strong>; operatörlerin monitöre veya uzaktan kumanda konumuna güvenli biçimde ulaşabildiği yerler.</li>
+				<li><strong>Soğutma ve baskın sistemi desteği</strong>; yönlendirilmiş manuel akışların otomatik sistemleri tamamladığı uygulamalar.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Dezavantajı açıktır: Manuel monitör yalnızca operatörü kadar hızlıdır. Yangın başladığında hiç kimse kumanda noktasına güvenli biçimde ulaşamıyorsa monitör hiç çalıştırılamayabilir.</p>
+
+			<h2 id="auto-tracking-monitors-zdms" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Otomatik Takipli Monitörler (ZDMS): Otonom Müdahale</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/tr/products/auto-tracking-jet-suppression-cannon-zdms/" class="text-brand-blue font-semibold hover:underline">ZDMS otomatik takipli jet söndürme yangın topu</a>, insanı müdahale döngüsünün dışına çıkarır. Çift bantlı kızılötesi/UV alev dedektörleri korunan alanı sürekli tarar; alev imzası doğrulandığında top yangına yönelir, vanayı açar ve söndürme yapar — genellikle tutuşmadan itibaren 30 saniye içinde ve günün her saati.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Uygun kullanım alanları:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Yüksek tavanlı büyük kapalı alanlar</strong> — sergi salonları, atriyumlar, depolar, atölyeler ve hangarlar.</li>
+				<li><strong>Yangının personelin müdahale edebileceğinden daha hızlı büyüyebileceği kullanım alanları</strong>.</li>
+				<li><strong>Gözetimsiz veya gece meydana gelebilecek riskler</strong> — sistem alanı sürekli izler.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">ZDMS topları kapsama bölgesine ve tavan yüksekliğine göre boyutlandırıldığından, tasarımda dedektörlerin görüş alanları ve tüm alandaki su yoğunluğu haritalandırılmalıdır. Bu nedenle tedarikçinin mühendislik desteği donanım kadar önemlidir.</p>
+
+			<h2 id="head-to-head-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Doğrudan Karşılaştırma</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Kriter</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Manuel (PS)</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Otomatik Takipli (ZDMS)</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tepki</td>
+							<td class="px-4 py-3 text-gray-700">Operatörün erişimine ve tepki süresine bağlı</td>
+							<td class="px-4 py-3 text-gray-700">Otonom, genellikle tutuşmadan itibaren &lt;30 sn</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Debi / menzil</td>
+							<td class="px-4 py-3 text-gray-700">20–60 L/s, 30–70 m</td>
+							<td class="px-4 py-3 text-gray-700">20–40 L/s, bölgeye göre kapalı alan kapsaması</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Algılama</td>
+							<td class="px-4 py-3 text-gray-700">Yok (operatör yönlendirmesi)</td>
+							<td class="px-4 py-3 text-gray-700">Çift bantlı IR/UV tarama</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Söndürme ortamı</td>
+							<td class="px-4 py-3 text-gray-700">Su veya köpük (değiştirilebilir)</td>
+							<td class="px-4 py-3 text-gray-700">Su; yapılandırmaya göre köpük</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tipik kullanım</td>
+							<td class="px-4 py-3 text-gray-700">Tank sahaları, açık sahalar, proses alanları</td>
+							<td class="px-4 py-3 text-gray-700">Atriyumlar, depolar, salonlar, atölyeler</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Maliyet</td>
+							<td class="px-4 py-3 text-gray-700">Daha düşük donanım maliyeti</td>
+							<td class="px-4 py-3 text-gray-700">Daha yüksek; algılama ve kontrol dâhil</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="sizing-and-installation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Boyutlandırma ve Kurulum İçin Temel Noktalar</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Önce hidrolik hesap</strong> — seçimden önce monitörün debi ihtiyacı (L/s) ve gerekli artık basınç, pompa ve boru şebekesine göre doğrulanmalıdır.</li>
+				<li><strong>ZDMS için kapsama haritası</strong> — dedektörlerin görüş alanı, tavan yüksekliği ve su yoğunluğu, top sayısını ve konumunu belirler; tedarikçiden yerleşim çizimi isteyin.</li>
+				<li><strong>Köpük uyumluluğu</strong> — tank sahaları için monitör nozulunun ve köpük orantılama arayüzünün uygunluğunu doğrulayın.</li>
+				<li><strong>Test protokolü</strong> — menzil ve tepki süresine ilişkin devreye alma testini tedarikçiyle sözleşmede kararlaştırın.</li>
+			</ul>
+
+			<!-- İlgili kılavuz -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">İlgili Kılavuz: Satın Alma Kararı</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Sahanız için sabit, uzaktan ve akıllı kontrol arasında karar vermek, debi ve menzili boyutlandırmak mı istiyorsunuz? <a href="/tr/guides/fire-water-cannon-buying-guide/" class="text-brand-blue font-semibold hover:underline">Yangın Suyu Topu Satın Alma Kılavuzu</a>'nu okuyun.</p>
+			</div>
+
+			<!-- SSS bölümü -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Eylem çağrısı -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Sahanız İçin Bir Monitör Sistemi mi Boyutlandırıyorsunuz?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Sahanızın türünü, korunan alanı ve tavan yüksekliğini gönderin — mühendislerimiz 12 saat içinde yangın topu yerleşimi ve fiyat bilgisiyle yanıt versin.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Fire%20Water%20Monitor" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İsteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Merhaba, yangın suyu monitörlerinin boyutlandırılması konusunda desteğe ihtiyacım var')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp'tan Yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,211 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'ABC kuru kimyevi tozlu yangın söndürücü hangi yangın sınıflarında kullanılabilir?',
+		answer: 'ABC kuru kimyevi tozlu yangın söndürücü A sınıfı (ahşap, kâğıt, tekstil), B sınıfı (yanıcı sıvılar), C sınıfı (yanıcı gazlar) ve E sınıfı (elektrikli ekipman) yangınlarını kapsar. Bu nedenle ticari ve endüstriyel binalarda taşınabilir standart ünite olarak kullanılır. F sınıfı yemeklik yağ yangınları için doğru seçim değildir; bu durumda ıslak kimyasal söndürücü, D sınıfı metal yangınlarında ise özel metal tozu kullanılmalıdır.'
+	},
+	{
+		question: 'Yangın söndürücü üzerindeki ISO 7165 sertifikası ne anlama gelir?',
+		answer: 'ISO 7165, taşınabilir yangın söndürücüler için performans, yapı, işaretleme ve test şartlarını kapsayan uluslararası standarttır. 5 kg ABC kuru kimyevi tozlu modelimiz ISO 7165 standardına göre üretilir ve ayrıca CCCF işareti taşır. CCCF, yangın ürünleri için Çin Zorunlu Sertifikasyonudur; ürünü Çin pazarı için uygun kılar ancak tek başına ihracat sertifikası değildir. İhracat öncesinde kesin model ve hedef pazar için geçerli sertifikayı talep edin.'
+	},
+	{
+		question: 'ABC kuru kimyevi tozlu yangın söndürücüler hangi ölçülerde mevcuttur?',
+		answer: 'Wanlian ABC kuru kimyevi tozlu yangın söndürücü, 3 kg, 4 kg ve 5 kg net söndürücü madde ağırlıklarıyla sunulur. Boşaltma süresi yaklaşık 8–15 saniyedir ve karbon çelik tüp üzerinde renk kodlu basınç göstergesi bulunur. 5 kg ünite ofisler, depolar ve ticari tesisler için yaygın bir spesifikasyondur. Teklif talebinizde tehlike sınıfını ve kapsanacak alanı belirtin.'
+	},
+	{
+		question: 'Yangın söndürücüleri kendi markam ve etiketimle (OEM) sipariş edebilir miyim?',
+		answer: 'Evet. Tüp rengi, gövde etiketi, logo ve dil için OEM özelleştirmesini destekliyoruz; etiket dilini hedef pazarınıza göre düzenleyebiliriz. Minimum sipariş miktarı, tasarım onayı ve teslim süresi teklifte kesinleştirilir. Doğru konfigürasyonu fiyatlandırabilmemiz için hedef miktarınızı ve pazarınızı iletin.'
+	},
+	{
+		question: 'Kuru kimyevi tozlu söndürücüler ihracat sevkiyatında özel ambalaj gerektirir mi?',
+		answer: 'Tüp basınç altında olduğundan, kesin model için tehlikeli madde sınıflandırmasını (UN numarası) ve taşıma ambalajı şartlarını nakliye firmanızla doğrulayın. Çin’den tehlikeli madde olarak sınıflandırılan sevkiyatlarda ihracatçı, çıkış tehlikeli maddelerinin taşıma ambalajına ilişkin değerlendirme belgesini sunmalıdır. Gümrük uygulamaları, bu belge olmadan sevkiyatların alıkonulabileceğini ve cezalandırılabileceğini göstermektedir. Üretimden önce ambalaj ve belge şartlarını sizinle teyit ederiz.'
+	},
+	{
+		question: 'ABC kuru kimyevi toz yerine ne zaman CO2 seçmeliyim?',
+		answer: 'Toz kalıntısının temizlenmesinin pahalı veya zor olduğu kontrol odaları, sunucu odaları, laboratuvarlar ve şalt ekipmanlarında CO2 kullanın. ABC kuru kimyevi toz, A/B sınıfı karışık tehlikelerin bulunduğu genel ticari, depo ve endüstriyel alanlar için daha iyi ve ekonomik bir genel çözümdür. Projede her iki alan da varsa açık alanlarda tozlu üniteler, hassas ekipman odalarında ise CO2 üniteleri birlikte kullanılabilir.'
+	}
+];
+
+const toc = [
+	{ id: 'why-fire-extinguishers', label: '1. Yangın söndürücüler neden yangın koruma tedarikinin başında gelir?' },
+	{ id: 'fire-classes-agents', label: '2. Yangın sınıfları ve söndürücü maddeler' },
+	{ id: 'abc-specifications', label: '3. ABC kuru kimyevi toz spesifikasyonları' },
+	{ id: 'certification-compliance', label: '4. İhracat için sertifikasyon ve uygunluk' },
+	{ id: 'applications-scenarios', label: '5. Yangın söndürücülerin kullanım yerleri' },
+	{ id: 'factory-buying-checklist', label: '6. Fabrika satın alma kontrol listesi: OEM, MOQ ve ambalaj' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' }
+];
+
+const referencePages = [
+	{ slug: 'abc-dry-powder-fire-extinguisher-5kg', name: 'ABC Kuru Kimyevi Tozlu Yangın Söndürücü (5 kg)', img: '/assets/products/abc-dry-powder-fire-extinguisher-5kg.webp', desc: 'A/B/C/E sınıfı yangınlar için ISO 7165 taşınabilir ünite' },
+	{ slug: 'stainless-steel-fire-extinguisher-box', name: 'Paslanmaz Çelik Yangın Söndürücü Dolabı', img: '/assets/products/stainless-steel-fire-extinguisher-box.jpg', desc: 'Yangın söndürücü veya hortum makarası için SS304/201 dolap' },
+	{ slug: 'metal-fire-extinguisher-box-red', name: 'Metal Yangın Söndürücü Dolabı (Kırmızı)', img: '/assets/products/metal-fire-extinguisher-box-red.jpg', desc: 'Talimat panelli, OEM ölçülerinde toz boyalı dolap' }
+];
+
+const whatsappText = encodeURIComponent('Merhaba, ABC kuru kimyevi tozlu yangın söndürücülere ihtiyacım var');
+---
+
+<Layout
+	title="Yangın Söndürücü Seçim Rehberi: ABC Kuru Toz"
+	description="B2B alıcıları için yangın söndürücü seçim rehberi: ABC kuru toz sınıfları, ISO 7165, ölçüler, OEM tedariki ve ihracat ambalajı şartları ve teklif süreci."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Yangın Söndürücü Seçimi' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Yangın Söndürücü Seçimi</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Yangın Koruma Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Yangın Söndürücü Seçim Rehberi: B2B ve İhracat Projeleri için ABC Kuru Toz</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Taşınabilir yangın söndürücüler, yangın koruma tedarikinde en yüksek hacimli başlangıç ürünüdür; ancak ABC kuru kimyevi toz, CO2, köpük ve su tipi üniteler birbirinin yerine kullanılamaz. Bu kılavuz; ithalatçıların, distribütörlerin ve proje alıcılarının yangın sınıflarını uygun söndürücü maddelerle eşleştirmesine, kritik spesifikasyonları kontrol etmesine ve sipariş sevk edilmeden önce sertifika ile tehlikeli madde belgelerini doğru hazırlamasına yardımcı olur.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{referencePages.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-fire-extinguishers" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Yangın söndürücüler neden yangın koruma tedarikinin başında gelir?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ağustos 2026 tarihli sektör platformu arama verileri, incelenen yangın koruma örnekleminde <strong>yangın söndürücü</strong> kategorisinin en çok aranan kategori olduğunu gösteriyor: yaklaşık 19.800 arama, yani önde gelen kategorilerdeki tüm aramaların yaklaşık üçte biri. Aerosol ve küresel tip üniteler gibi ilgili taşınabilir ürünler de binlerce ek arama oluşturdu. “Yangın söndürücü” için Google göreli ilgi endeksi, yılın başında 100’e ulaştıktan sonra Ağustos 2026’da 80/100 olarak ölçüldü; en güçlü göreli ilgi Katar, Birleşik Arap Emirlikleri, Filipinler, ABD ve Birleşik Krallık’ta görüldü.</p>
+			<p class="text-gray-700 leading-relaxed">Bu rakamların tedarikçi açısından gerçek anlamı şudur: talep aynı anda üç farklı satın alma biçiminden gelir. Distribütörler standart SKU stoklarını yeniler, yükleniciler binaları şartnameye göre donatır ve tesis yöneticileri kullanım süresi dolan üniteleri değiştirir. Genel bir “yangın ekipmanı” sunumu perakende ve mühendislik alıcılarını belirsiz tek bir talepte birleştirir. Söndürücü maddeyi, kapasiteyi, sınıf kapsamını ve sertifikasyonu baştan belirtmek, her alıcının doğru ürün ailesini kendisinin seçmesini sağlar.</p>
+
+			<h2 id="fire-classes-agents" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Yangın sınıfları ve söndürücü maddeler</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Her taşınabilir söndürücü belirli yangın sınıflarına göre derecelendirilir ve söndürücü madde tehlikeyle eşleşmelidir. ABC kuru kimyevi toz çok amaçlı standart çözümdür; kalıntı, yeniden tutuşma riski veya özel yakıtlar durumu değiştirdiğinde başka maddeler daha uygun olur.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Yangın sınıfı</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tipik yakıtlar</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">En etkili söndürücü maddeler</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">ABC kuru toz uygunluğu</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">A sınıfı</td>
+							<td class="px-4 py-3 text-gray-700">Ahşap, kâğıt, tekstil, plastik</td>
+							<td class="px-4 py-3 text-gray-700">Su, köpük, ABC tozu</td>
+							<td class="px-4 py-3 text-gray-700">Standart seçim</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">B sınıfı</td>
+							<td class="px-4 py-3 text-gray-700">Benzin, yağlar, solventler, boyalar</td>
+							<td class="px-4 py-3 text-gray-700">ABC tozu, köpük, CO2</td>
+							<td class="px-4 py-3 text-gray-700">Standart seçim</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">C sınıfı</td>
+							<td class="px-4 py-3 text-gray-700">Propan, bütan, metan, LPG</td>
+							<td class="px-4 py-3 text-gray-700">ABC tozu (önce beslemeyi kesin)</td>
+							<td class="px-4 py-3 text-gray-700">Uygun</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">E sınıfı</td>
+							<td class="px-4 py-3 text-gray-700">Gerilim altındaki elektrikli ekipman</td>
+							<td class="px-4 py-3 text-gray-700">CO2, ABC tozu (iletken değildir)</td>
+							<td class="px-4 py-3 text-gray-700">Uygun — toz kalıntısına dikkat</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">F sınıfı</td>
+							<td class="px-4 py-3 text-gray-700">Yemeklik yağlar ve katı yağlar</td>
+							<td class="px-4 py-3 text-gray-700">Islak kimyasal</td>
+							<td class="px-4 py-3 text-gray-700">Önerilmez</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">D sınıfı</td>
+							<td class="px-4 py-3 text-gray-700">Yanıcı metaller (Mg, Na)</td>
+							<td class="px-4 py-3 text-gray-700">Özel metal tozu</td>
+							<td class="px-4 py-3 text-gray-700">Uygun değil</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Çoğu B2B alıcının tedarik ettiği ofis, depo, atölye ve perakende alanlarındaki karma kullanımlar için tek bir ABC kuru toz ürün grubu, malzeme listesindeki taşınabilir ünitelerin genellikle %80’ini karşılar. CO2 elektrik odalarına, köpük veya ıslak kimyasal ise özel tehlikelere ayrılır.</p>
+
+			<h2 id="abc-specifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. ABC kuru kimyevi toz spesifikasyonları</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Teklif geldiğinde, tedarikçiler arasındaki fiyatları karşılaştırmadan önce şu beş parametreyi kontrol edin:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Söndürücü madde ve kapasite</strong> — monoamonyum fosfat esaslı ABC tozu çok amaçlı standarttır; net söndürücü madde ağırlığı (ürün grubumuzda 3 kg / 4 kg / 5 kg) hem kapsama alanını hem de navlun maliyetini belirler.</li>
+				<li><strong>Aktif madde oranı</strong> — ABC tozumuz %90 aktif madde oranına göre belirlenir; bu oran kilogram başına söndürme performansını etkiler.</li>
+				<li><strong>Boşaltma performansı</strong> — 5 kg ünitede yaklaşık 8–15 saniye etkili boşaltma beklenir. Teknik föy bu değeri açıkça belirtmelidir.</li>
+				<li><strong>Depolanmış basınçla çalışma ve gösterge</strong> — itici gaz ile toz aynı tüp içinde basınç altında tutulur. Renk kodlu gösterge, ünitenin kullanıma hazır olduğunu gösterir; bu nedenle gösterge tasarımı bakım kontrolleri için önemlidir.</li>
+				<li><strong>Tüp ve vana kalitesi</strong> — korozyona dayanıklı kırmızı kaplamalı karbon çelik tüp, pirinç vana grubu ve nozullu boşaltma hortumu üniteyi tamamlar.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/tr/products/abc-dry-powder-fire-extinguisher-5kg/" class="text-brand-blue font-semibold hover:underline">5 kg ABC kuru kimyevi tozlu yangın söndürücümüz</a> ISO 7165 standardına göre CCCF işaretiyle üretilir, A/B/C/E sınıfı yangınları kapsar ve bir yıl garantili 3 kg / 4 kg / 5 kg net ağırlık seçenekleriyle sunulur. Boşaltma hortumu, basınç göstergesi ve pirinç vana standart donanıma dahildir.</p>
+			<p class="text-gray-700 leading-relaxed">Müşterilerinize aktarmanız gereken dürüst bir uyarı: kuru toz, zemin ve makinelerden düşük maliyetle temizlenebilen ancak elektronik ekipmana zarar verebilen bir kalıntı bırakır. Yukarıdaki tabloda E sınıfı satırının uyarıyla birlikte verilmesinin nedeni budur.</p>
+
+			<h2 id="certification-compliance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. İhracat için sertifikasyon ve uygunluk</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Taşınabilir yangın söndürücü tedarikinde sertifikasyon kritik öneme sahiptir; çünkü işaretler yalnızca markaya veya ürün serisine değil, gerçek modele uymalıdır.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>ISO 7165</strong> — taşınabilir yangın söndürücülerin yapı, performans ve test şartlarını kapsayan uluslararası standarttır. Çoğu ihracat pazarı için referans noktasıdır ve 5 kg modelimiz üzerinde belirtilmiştir.</li>
+				<li><strong>CCCF</strong> — yangın ürünleri için Çin Zorunlu Sertifikasyonudur. Ürünü Çin pazarı için uygun kılar; <strong>ihracat sertifikası değildir</strong>. Alıcının Çin dışında yeniden satış planladığı durumlarda bu ayrım önemlidir.</li>
+				<li><strong>Hedef pazar sertifikasyonu</strong> — AB için kesin modele uygulanabilir standarda göre CE işaretini doğrulayın; Kuzey Amerika’daki bazı uygulamalar UL veya ULC listeli üniteler arar. İthal etmeyi planladığınız model ve vana kombinasyonunu kapsayan sertifikayı daima üreticiden isteyin ve genel “tüm seri” beyanlarını kabul etmeyin.</li>
+				<li><strong>İşaretleme ve dil</strong> — kullanım piktogramları, sınıf etiketleri ve talimat etiketinin dili, seri üretimden önce hedef ülkeye göre doğrulanmalıdır; varıştan sonra yeniden etiketleme maliyetlidir.</li>
+				<li><strong>Parti test raporları</strong> — farklı bir model için hazırlanmış şablon yerine gerçek üretim partisinin test raporunu talep edin. <a href="/tr/certificates/" class="text-brand-blue font-semibold hover:underline">Sertifika ve uygunluk</a> sayfamız, yangın koruma ürün grubumuzdaki sertifikasyon belgelerinin nasıl ele alındığını gösterir.</li>
+			</ul>
+
+			<h2 id="applications-scenarios" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Yangın söndürücülerin kullanım yerleri: ticari alanlar, depolar ve araçlar</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Aynı 5 kg ABC ünitesi çok farklı son kullanıcılar için kullanılabilir; spesifikasyon sahaya göre değişir:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Ticari binalar ve ofisler</strong> — çıkışların ve ortak alanların yakınına duvara monte edilen 4–5 kg ABC üniteleri; elektrik odalarında CO2 üniteleri kullanılır. Duvar dolapları üniteyi korur ve denetimi kolaylaştırır.</li>
+				<li><strong>Depolar ve endüstriyel alanlar</strong> — A/B sınıfı karma tehlikeler için ABC tozu kullanılır. Geniş açık alanlarda söndürücüler genellikle hortum makarası sistemleriyle, çok yüksek tavanlarda ise sabit söndürme sistemiyle birlikte kullanılır. Aynı paketin sabit ekipman tarafı için <a href="/tr/guides/fire-hose-reel-cabinet-guide/" class="text-brand-blue font-semibold hover:underline">yangın hortum makarası ve dolabı kılavuzumuza</a> bakın.</li>
+				<li><strong>Araçlar ve mobil kullanım</strong> — kamyonlar, forkliftler ve teknik odalar için kompakt üniteler kullanılır. 3 kg seçeneğimiz bu alanlar için uygundur ve montaj donanımıyla birlikte fiyatlandırılabilir.</li>
+				<li><strong>Dış ortamlar ve korozif çevreler</strong> — <a href="/tr/products/stainless-steel-fire-extinguisher-box/" class="text-brand-blue font-semibold hover:underline">paslanmaz çelik yangın söndürücü dolabı</a> (görüntüleme pencereli SS304/201) havaalanlarında, sahil tesislerinde ve kimya fabrikalarında üniteleri korur. Basılı kullanım talimatlarına sahip <a href="/tr/products/metal-fire-extinguisher-box-red/" class="text-brand-blue font-semibold hover:underline">kırmızı metal yangın söndürücü dolabı</a> ise ekonomik iç mekân standardıdır.</li>
+			</ul>
+
+			<h2 id="factory-buying-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Fabrika satın alma kontrol listesi: OEM, MOQ ve tehlikeli madde ambalajı</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Çin’deki bir fabrikadan yangın söndürücü satın almak, ürün incelemesi kadar belge yönetimi de gerektirir. Siparişi kesinleştirmeden önce şu kontrol listesini uygulayın:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>OEM kapsamı</strong> — tüp rengi, gövde etiketi, logo ve etiket dili özelleştirilebilir; tasarım onayını ve onay zamanını sipariş planında kesinleştirin.</li>
+				<li><strong>MOQ ve teslim süresi</strong> — her ikisi de model, miktar ve etiket konfigürasyonuna bağlıdır ve teklifte doğrulanır. Gerçekçi bir değer alabilmek için hedef pazarınızı ve yıllık hacminizi belirtin.</li>
+				<li><strong>Tehlikeli madde sınıflandırması</strong> — basınçlı tüp taşıma sırasında tehlikeli madde olarak sınıflandırılabilir. Alan rezervasyonu yapmadan önce kesin modelin UN sınıflandırmasını ve ambalaj şartlarını nakliye firmanızla doğrulayın.</li>
+				<li><strong>Çin ihracat belgeleri</strong> — sevkiyat tehlikeli madde sınıfına giriyorsa Çinli ihracatçı, çıkış tehlikeli maddelerinin taşıma ambalajına ilişkin değerlendirme belgesini sunmalıdır. Gümrük uygulamaları bu belge olmadan sevkiyatların alıkonulabildiğini ve cezalandırılabildiğini göstermektedir. Tedarikçinizden belgenin hazır olduğunu teyit etmesini isteyin.</li>
+				<li><strong>Paketi birleştirin</strong> — söndürücüleri duvar dolapları, hortum makaraları ve vanalarla birlikte tek üreticiden sipariş etmek sertifika dosyalarını ve navlunu kolaylaştırır. Aynı durum tespit sürecinin fabrika doğrulama tarafı için <a href="/tr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B vana tedarik kontrol listemize</a> bakın.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">ABC kuru kimyevi tozlu yangın söndürücü mü tedarik ediyorsunuz?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Hedef pazarınızı, miktarı ve etiket dilini gönderin. Ekibimiz 12 saat içinde sertifikasyon durumunu, MOQ’yu ve tehlikeli madde ambalajı şartlarını teyit eder.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=ABC%20Kuru%20Kimyevi%20Tozlu%20Yang%C4%B1n%20S%C3%B6nd%C3%BCr%C3%BCc%C3%BC" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif Talep Edin</a>
+						<a href={`https://wa.me/8618684324501?text=${whatsappText}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp’tan Yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

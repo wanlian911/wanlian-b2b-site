@@ -1,0 +1,176 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'market-size', label: '1. Pazar ne kadar büyük ve rakamlar neden farklı?' },
+	{ id: 'regional-signals', label: '2. Bölgesel sinyaller: Büyüme nerede?' },
+	{ id: 'sourcing-signals', label: '3. Veriler tedarik açısından ne ifade ediyor?' },
+	{ id: 'reading-claims', label: '4. Tedarikçi beyanlarını pazar verileriyle karşılaştırma' },
+	{ id: 'method', label: '5. Yöntem ve kaynak notları' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' }
+];
+
+const faq = [
+	{
+		question: 'Farklı araştırma şirketleri yangın koruma pazarı için neden farklı pazar büyüklükleri açıklıyor?',
+		answer: 'Çünkü kapsam tanımları farklıdır: "yangın koruma sistemleri" (tasarım + ekipman + hizmetler), "yangın güvenliği ekipmanından" (yalnızca donanım) daha geniştir ve her şirket sınırı farklı çizer. Tüm önemli tahminlerde ortak eğilim şudur: Pazar bugün 60–100 milyar ABD doları aralığındadır ve 2033–2036 dönemine kadar yaklaşık %5–7 CAGR ile büyümektedir. Tek bir rakam yerine aralığı kullanın.'
+	},
+	{
+		question: 'Yangın koruma alanında en hızlı büyüyen bölge hangisidir?',
+		answer: 'Birden fazla şirket (Spherical Insights, Ken Research), inşaat faaliyetleri ve yenileme programlarının etkisiyle Asya-Pasifik bölgesini en hızlı büyüyen bölge olarak belirlemektedir. Market Data Forecast verilerine göre yalnızca sistemlerde 2025 yılında 28 milyar ABD dolarını aşan Kuzey Amerika, büyük bir kurulu tabana sahip olmaya devam etmektedir; buradaki büyüme yeni yapılardan çok yaşlanan altyapının yenilenmesinden kaynaklanır.'
+	},
+	{
+		question: 'Bir B2B alıcısı için %5–7 CAGR değerinin pratik sonucu nedir?',
+		answer: 'Vanalar, hidrantlar ve yangın bileşenlerine yönelik istikrarlı bir talep vardır; ancak arz tarafında bir balon yoktur. Tedarik süreleri önemini korur, sertifikasyon kapasitesi (UL/FM/EN testleri) asıl darboğazdır ve model bazında uygunluğu belgeleyebilen tedarikçiler ihaleleri kazanmaya devam eder. Büyüme yeterince geniş tabanlı olduğundan tek bir bileşen sınıfı pazara hâkim değildir; bu nedenle birleştirilmiş yangın kapsamı paketleri verimli olmaya devam eder.'
+	},
+	{
+		question: 'Bu pazar verileri nereden geliyor ve Wanlian Fluid’den bağımsız mı?',
+		answer: 'Tüm rakamlar, kamuya açık araştırma yayınlarından alınan üçüncü taraf tahminleridir (Grand View Research, Precedence Research, Fact.MR, IMARC, Spherical Insights, Ken Research, Market Data Forecast). Veriler Eylül 2026’da derlenmiş ve kaynak tablosunda belirtilmiştir. Rakamların hiçbiri Wanlian Fluid kaynaklı değildir ve tek bir şirketin tahmini olarak kullanılmamalıdır; bunlar sektör düzeyinde planlama referanslarıdır.'
+	},
+	{
+		question: 'Veriler IoT / akıllı hidrantların gerçek bir segment olduğunu destekliyor mu?',
+		answer: 'Araştırma özetleri, akıllı şehir ve bağlantılı altyapı girişimlerini APAC ve Orta Doğu’da yangın koruma büyümesinin itici güçleri arasında sürekli olarak göstermektedir. Burada akıllı hidrantlar için ayrı bir gelir tahmini yayımlamıyoruz; bu nişteki segment büyüklüğüne ilişkin tedarikçi beyanlarını daha dikkatli doğrulayın ve pilot uygulamayı küçük tutun: ağ genelinde yaygınlaştırmadan önce bir test sokağında SS100ZN gibi birkaç IoT ünitesi kullanın.'
+	}
+];
+
+const referencePages = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Z41X Elastomer Yataklı Sürgülü Vana' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'SS100 Yer Üstü Yangın Hidrantı' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'ZSFZ Islak Alarm Vanası' }
+];
+---
+
+<Layout
+	title="Yangın Koruma Pazarı 2026: Veriler ve Tedarik Sinyalleri"
+	description="2026 yangın koruma pazarı verileri: yedi bağımsız tahmin, bölgesel büyüme sinyalleri ve vana, hidrant ile ekipman tedariki için somut sonuçlar."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Pazar Verileri 2026' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Pazar Verileri Raporu</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Sektör Veri Raporu · 2026</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Yangın Koruma Pazarı 2026: Rakamlar ve Tedarik Açısından Anlamları</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Yangın ekipmanı sektöründeki her tedarikçi pazarın "patlama yaşadığını" iddia ediyor. Veriler ise bu iddiadan daha ilginç: Yedi bağımsız araştırma şirketi 2025–2026 için yedi farklı pazar büyüklüğü ortaya koyuyor ve aralarındaki fark, sektörün nasıl ölçüldüğüne dair başlı başına yararlı bir sinyal oluşturuyor. Bu rapor, tahminleri kaynaklarıyla yan yana getirir, bölgesel büyüme sinyallerini çıkarır ve çoğu raporun yarıda bıraktığı bölümü tamamlayarak rakamları somut tedarik kararlarına dönüştürür: 2026’da neyi şartnameye bağlamalı, neyi doğrulamalı ve gerçek darboğazların nerede olduğunu nasıl belirlemeli?</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Bağımsızlık notu:</strong> Bu rapordaki tüm rakamlar, kamuya açık araştırma yayınlarından alınan ve Eylül 2026’da derlenen üçüncü taraf tahminleridir; Bölüm 5’te satır satır kaynaklandırılmıştır. Hiçbir rakam Wanlian Fluid kaynaklı değildir. Tahminler sektör düzeyindedir ve kapsam tanımına göre farklılık gösterir; bunları tahmin olarak değil, planlama amacıyla kullanın.</p>
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="market-size" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Pazar ne kadar büyük ve rakamlar neden farklı?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">İlk tablo, farklılıkları ortaya koyduğu için rakiplerin çoğunun yayımlamayacağı tablodur:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Araştırma şirketi</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Kapsam tanımı</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Büyüklük (baz yıl)</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Öngörü</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">CAGR</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Grand View Research</td><td class="px-4 py-3 text-gray-700">Yangın koruma sistemleri</td><td class="px-4 py-3 text-gray-700">94,9 milyar ABD doları (2025)</td><td class="px-4 py-3 text-gray-700">2033’te 156,2 milyar ABD doları</td><td class="px-4 py-3 text-gray-700">%6,4</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Precedence Research</td><td class="px-4 py-3 text-gray-700">Yangın koruma sistemleri</td><td class="px-4 py-3 text-gray-700">101,46 milyar ABD doları (2026)</td><td class="px-4 py-3 text-gray-700">2035’te 182,2 milyar ABD doları</td><td class="px-4 py-3 text-gray-700">%6,73</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Fact.MR</td><td class="px-4 py-3 text-gray-700">Yangın koruma sistemleri</td><td class="px-4 py-3 text-gray-700">87,1 milyar ABD doları (2026)</td><td class="px-4 py-3 text-gray-700">2036’da 150,2 milyar ABD doları</td><td class="px-4 py-3 text-gray-700">%5,6</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Grand View Research</td><td class="px-4 py-3 text-gray-700">Yangın güvenliği ekipmanı</td><td class="px-4 py-3 text-gray-700">60,5 milyar ABD doları (2025)</td><td class="px-4 py-3 text-gray-700">2033’te 96,8 milyar ABD doları</td><td class="px-4 py-3 text-gray-700">%6,0</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">IMARC Group</td><td class="px-4 py-3 text-gray-700">Yangın güvenliği ekipmanı</td><td class="px-4 py-3 text-gray-700">60,9 milyar ABD doları (2025)</td><td class="px-4 py-3 text-gray-700">2034’te 94,6 milyar ABD doları</td><td class="px-4 py-3 text-gray-700">%4,87</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Fact.MR</td><td class="px-4 py-3 text-gray-700">Yangın güvenliği ekipmanı</td><td class="px-4 py-3 text-gray-700">65,5 milyar ABD doları (2026)</td><td class="px-4 py-3 text-gray-700">2036’da 148,0 milyar ABD doları</td><td class="px-4 py-3 text-gray-700">%8,5</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Spherical Insights</td><td class="px-4 py-3 text-gray-700">Yangın koruma sistemleri</td><td class="px-4 py-3 text-gray-700">— (2026 baz yılı)</td><td class="px-4 py-3 text-gray-700">2035 öngörüsü</td><td class="px-4 py-3 text-gray-700">%6,82</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Ken Research</td><td class="px-4 py-3 text-gray-700">Yangın koruma sistemleri (hacim)</td><td class="px-4 py-3 text-gray-700">— (hacim bazında)</td><td class="px-4 py-3 text-gray-700">2030 öngörüsü</td><td class="px-4 py-3 text-gray-700">%4,7 → %5,2</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Bu aralıktan çıkarılabilecek üç açık sonuç vardır. <strong>Birincisi</strong>, kapsam belirleyici değişkendir: "sistem" tahminleri (tasarım, ekipman, kurulum, hizmetler) 2025–2026 için 87–101 milyar ABD doları iken "ekipman" tahminleri (yalnızca donanım) 60–66 milyar ABD dolarıdır; farklı merceklerden görülen aynı pazardır. <strong>İkincisi</strong>, büyüme beklentisi birbirine yakındır: Her şirket yaklaşık %5–7 CAGR aralığında sonuçlanır (tek istisna %8,5’tir). Bu, heyecan dalgası değil, mutlak dolar bazında istikrarlı ve on milyarlarca dolarlık pazar genişlemesidir. <strong>Üçüncüsü</strong>, bu gruptaki hiçbir şirket arz fazlası öngörmemektedir; yaklaşık %6’lık büyümede asıl sınırlayıcılar talep değil, sertifikasyon kapasitesi, nitelikli kurulum ve bileşen tedarik süreleridir.</p>
+
+			<h2 id="regional-signals" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Bölgesel sinyaller: Büyüme nerede?</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Bölge</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Verilerdeki sinyal</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tedarik açısından yorum</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Kuzey Amerika</td><td class="px-4 py-3 text-gray-700">En büyük kurulu taban — 2025’te sistemler için 28,33 milyar ABD doları (Market Data Forecast)</td><td class="px-4 py-3 text-gray-700">Büyüme yenileme odaklıdır: yaşlanan ana hatlar, hidrant ve vana yenileme döngüleri, NFPA kaynaklı iyileştirmeler</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Asya-Pasifik</td><td class="px-4 py-3 text-gray-700">En hızlı büyüyen bölge (Spherical Insights, Ken Research)</td><td class="px-4 py-3 text-gray-700">Yeni yapı + yenileme; akıllı şehir yangın altyapısı (IoT hidrantlar, ağa bağlı alarm vanaları) metrajlara giriyor</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Avrupa</td><td class="px-4 py-3 text-gray-700">Mevzuat odaklı (EN standartları, model başına CE)</td><td class="px-4 py-3 text-gray-700">Uygunluk dokümantasyonu giriş koşuludur: EN 14384/1074/12266-1 kapsamında model bazında doğrulama</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Orta Doğu ve Afrika</td><td class="px-4 py-3 text-gray-700">Belediye ve petrokimya altyapı programları; NIST/BS750/AWWA karışımı</td><td class="px-4 py-3 text-gray-700">Saha genelinde çıkış düzeni ve standartların tutarlılığı kritik ayrıntıdır</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Küresel alıcı için ana sonuç şudur: <strong>aynı bileşen ailelerine (hidrantlar, sürgülü vanalar, alarm vanaları, hortumlar) her bölgede talep vardır; değişen ürün değil, standartlar rejimidir.</strong> Bu koşul, AWWA, EN, GB ve bölgesel rejimlerde model bazında uygunluğu belgeleyen üreticiye yapısal bir avantaj sağlar. Aynı şekilde bölgeler arasındaki şartnameleri standartlaştıran alıcı da yapısal bir fiyat avantajı elde eder.</p>
+
+			<h2 id="sourcing-signals" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Veriler tedarik açısından ne ifade ediyor?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Rakamlar doğrudan dört karara işaret ediyor:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Yenileme döngülerini fiyat döngülerine göre değil, %5–7 CAGR’a göre planlayın.</strong> İstikrarlı büyümede hidrant ve vana fiyatları kıtlıktan değil, hammadde ve sertifikasyon maliyetlerinden etkilenir. Çok yıllı bir belediye programında model bazlı sertifikalar erkenden kesinleştirilerek şartname hazırlanması, aynı büyüme eğrisi içinde her yıl yeniden ihaleye çıkılmasından daha ekonomiktir.</li>
+				<li><strong>Sertifikasyon kapasitesi, planlamanın etrafında yapılması gereken darboğazdır.</strong> Yaklaşık %6 büyüyen bir pazarda UL/FM/EN test kontenjanları sektörün gerçek kısıtıdır. Gerekli standardı erkenden belirleyen ve siparişten önce tam olarak listelenmiş modeli doğrulayan alıcı, sertifikanın geç fark edilmesi riskinden kaçınır. <a href="/tr/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">Latin Amerika sertifikasyon kılavuzumuz</a> ve <a href="/tr/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">UL listeli vana kılavuzumuz</a> kontrol listesi olarak kullanılabilir.</li>
+				<li><strong>Yangın kapsamını tek bir siparişte birleştirin.</strong> Her bölge aynı bileşen ailelerini alıyorsa, birden fazla tedarikçinin koordinasyon maliyetleri (ayrı navlun, ayrı test kayıtları, arayüz uyumsuzlukları) karşılığında fayda sağlamayan saf genel giderlerdir. <a href="/tr/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">Tedarik kılavuzu</a> altı aşamalı paket akışını açıklar.</li>
+				<li><strong>Akıllı yangın altyapısını küçük ölçekli pilotla başlatın.</strong> IoT/akıllı şehir sinyali büyüme verilerinde gerçektir, ancak tahminlerde henüz olgunlaşmamıştır; hiçbir şirket akıllı hidrant geliri için savunulabilir bir rakam yayımlamamaktadır. Disiplinli yaklaşım, ağ genelinde uygulamaya geçmeden önce basınç, eğim ve hırsızlık alarmlarına sahip birkaç <a href="/tr/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">SS100ZN IoT hidrantı</a> ile sokak ölçeğinde küçük bir pilot ve tanımlı KPI’lar yürütmektir.</li>
+			</ul>
+
+			<h2 id="reading-claims" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Tedarikçi beyanlarını pazar verileriyle karşılaştırma</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Pazar verileri, tedarikçi beyanlarını doğrulamak için de kullanılabilir. Yıllık yaklaşık %6 büyüyen 60–100 milyar ABD doları büyüklüğündeki bir sektörde üç tür iddia özellikle dikkatle incelenmelidir:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>"X ülkesine ihracat yaptık" / "Y proje teslim ettik"</strong> — Bu kadar büyük bir pazarda küçük bir üreticinin faaliyet alanı genellikle küresel değil, bölgeseldir. Her referans için hedef ülkeleri ve ilgili ihracat belgelerini (ticari faturalar, menşe şahadetnameleri) isteyin. Doğrulama sırası <a href="/tr/whitepaper/" class="text-brand-blue font-semibold hover:underline">sektör teknik incelemesinde</a> açıklanmaktadır.</li>
+				<li><strong>Tedarikçinin kendi pazarlamasında kaynaksız pazar rakamları</strong> — Güvenilir bir tahmin kapsamını ve yöntemini belirtir. Bir tedarikçinin "pazar lideri" iddiasının kaynağı yoksa bu veri değil, slogandır; bu raporun kaynak tablosu kaynaklandırılmış verinin nasıl göründüğünü gösterir.</li>
+				<li><strong>Şirket düzeyinde iddia edilen sertifikasyon kapsamı</strong> — UL, FM, CE ve AWWA model ve kapsam bazında verilir. Şirket düzeyindeki "UL sertifikalıyız" ifadesi sertifika değildir; doğrulanabilir numaraya sahip model bazlı beyan ise belgedir.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Pazar rakamlarında uygulanan disiplin burada da aynıdır: kapsamı belirtin, standardı belirtin, numarayı doğrulayın. Tedarik verisini tedarik gürültüsünden ayıran budur. Bu yaklaşım, Kuzey Amerikalı yerleşik bir tedarikçi ile ihracat uzmanı için aynı şekilde geçerlidir; <a href="/tr/guides/wanlian-fluid-vs-mueller/" class="text-brand-blue font-semibold hover:underline">Mueller karşılaştırmamız</a> ve <a href="/tr/guides/wanlian-fluid-vs-tupy/" class="text-brand-blue font-semibold hover:underline">Tupy karşılaştırmamız</a> da model bazlı ifadelerle tam olarak bu karşılaştırmayı yapar.</p>
+
+			<h2 id="method" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Yöntem ve kaynak notları</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Rakamlar Eylül 2026’da adı geçen araştırma şirketlerinin kamuya açık özet sayfalarından derlenmiştir (ücretli raporlar yeniden yayımlanmamıştır). Bölüm 1’deki her satırda şirket, kapsam etiketi ve yayımlanan baz/öngörü yılları belirtilir. Bir şirket, açık bir baz yıl rakamı olmadan CAGR yayımladığında (Spherical Insights, Ken Research), rakam uydurmak yerine satırda bu durum belirtilmiştir. Tahminler, sektörün kapsam tanımlarındaki farklılıklar nedeniyle çelişmektedir; bu rapor, bunları sahte bir kesinlik taşıyan ortalamaya dönüştürmek yerine aralığı ve bu aralığın nedenlerini sunar.</p>
+			<ul class="list-disc pl-6 text-sm text-gray-600 space-y-2 mb-4">
+				<li>Grand View Research — yangın koruma sistemleri ve yangın güvenliği ekipmanı pazar özetleri (grandviewresearch.com)</li>
+				<li>Precedence Research — yangın koruma sistemleri pazarı özeti (precedenceresearch.com)</li>
+				<li>Fact.MR — yangın koruma sistemleri ve yangın güvenliği ekipmanı pazar özetleri (factmr.com)</li>
+				<li>IMARC Group — yangın güvenliği ekipmanı pazarı özeti (imarcgroup.com)</li>
+				<li>Spherical Insights — yangın koruma sistemleri pazarı özeti (sphericalinsights.com)</li>
+				<li>Ken Research — küresel yangın koruma sistemleri pazarı özeti (kenresearch.com)</li>
+				<li>Market Data Forecast — Kuzey Amerika yangın koruma sistemleri pazarı özeti (marketdataforecast.com)</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Slogana Değil, Veriye Göre Şartname Hazırlayın</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Yangın kapsamındaki kalemleri hedef standartlarla birlikte gönderin; 12 saat içinde kalem bazlı teklif, model bazında sertifikasyon planı ve test kayıtları yaklaşımını sunalım.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Market%20Report%20%26%20Fire%20Scope%20RFQ" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İsteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Merhaba, 2026 yangın koruma pazarı raporunuzu okudum ve bir yangın kapsamı belirlemek istiyorum.')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp’tan Yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

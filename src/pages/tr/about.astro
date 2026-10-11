@@ -1,0 +1,40 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Layout from '../../layouts/Layout.astro';
+
+const factoryDir = path.join(process.cwd(), 'public', 'assets', 'factory');
+const hasFactoryAsset = (file: string) => fs.existsSync(path.join(factoryDir, file));
+const plantPhotos = [
+  { file: 'plant-exterior.webp', alt: 'Quanzhou Wanlian Fluid üretim tesisi dış görünümü', caption: 'Tesisimiz — Quanzhou, Fujian' },
+  { file: 'workshop.webp', alt: 'Wanlian Fluid üretim atölyesi', caption: 'Üretim atölyesi' },
+  { file: 'powder-coating.webp', alt: 'Toz boya kaplama hattı', caption: 'Toz boya kaplama hattı' },
+  { file: 'assembly.webp', alt: 'Montaj ve son işlem alanı', caption: 'Montaj ve son işlem alanı' },
+  { file: 'fire-hose.webp', alt: 'Yangın hortumu üretimi', caption: 'Yangın hortumu üretimi' },
+  { file: 'qc-test-bench.webp', alt: 'Vana basınç test tezgâhı', caption: 'Basınç ve sızdırmazlık test tezgâhı' }
+].filter(p => hasFactoryAsset(p.file));
+const hasFactoryEvidence = plantPhotos.length > 0 || hasFactoryAsset('business-license.webp') || hasFactoryAsset('production-line.mp4');
+const heroPhoto = hasFactoryAsset('plant-exterior.webp') ? '/assets/factory/plant-exterior.webp' : '/og-image.jpg';
+const manufacturingProcess = [
+  { step: '01', name: 'Gelen Malzeme Kontrolü', desc: 'Sfero dökme demir, dökümler, sızdırmazlık elemanları ve kaplama malzemeleri sipariş şartlarına göre kontrol edilir.' },
+  { step: '02', name: 'CNC İşleme', desc: 'Vana gövdeleri, diskler ve iç parçalar gerekli boyutsal toleranslara göre hassas işlenir.' },
+  { step: '03', name: 'Montaj', desc: 'İç parçalar, sızdırmazlık elemanları ve çalıştırma mekanizmaları kontrollü atölye koşullarında monte edilir.' },
+  { step: '04', name: 'Basınç ve Sızdırmazlık Testleri', desc: 'Tüm birimler son işlemden önce gövde basıncı ve hava sızdırmazlığı testinden geçirilir.' },
+  { step: '05', name: 'Epoksi Kaplama', desc: 'Korozyon direnci ve uzun hizmet ömrü için toksik olmayan epoksi reçine uygulanır.' },
+  { step: '06', name: 'İhracat Ambalajı', desc: 'Uluslararası sevkiyat için ambalaj, ürün tanımlama ve ihracat belgeleri hazırlanır.' }
+];
+const values = [
+  { title: 'Yenilikçilik', desc: 'Daha akıllı ve verimli yangın ve akışkan sistemleri için tasarım ve mühendisliği sürekli geliştiririz.' },
+  { title: 'Kalite', desc: 'Her vanayı uluslararası standartların ötesine geçecek şekilde titizlikle denetleriz.' },
+  { title: 'Sorumluluk', desc: 'Küresel şebekelerde kamu güvenliğini ve akışkan güvenliğini geliştirmeyi hedefleriz.' },
+  { title: 'Çevre', desc: 'Üretim akışımıza yeşil üretim ve sürdürülebilirlik ilkelerini dâhil ederiz.' }
+];
+---
+<Layout locale="tr" title="Hakkımızda | Quanzhou Wanlian Fluid Equipment" description="Quanzhou, Fujian, Çin'de vana ve yangın güvenliği ekipmanı üreticisi. Kendi üretim hatları, OEM/ODM ve B2B teknik destek." breadcrumbs={[{ name: 'Hakkımızda' }]}>
+  <section class="relative bg-gray-900 text-white py-20"><div class="absolute inset-0 bg-cover bg-center opacity-20" style={`background-image: url('${heroPhoto}');`}></div><div class="relative max-w-7xl mx-auto px-4 text-center space-y-4"><span class="text-xs font-bold tracking-widest text-blue-500 uppercase">Biz Kimiz?</span><h1 class="text-3xl sm:text-5xl font-black">Quanzhou Wanlian Fluid Hakkında</h1><p class="text-lg text-gray-400 max-w-2xl mx-auto">Çin'in vana ve boru endüstrisi merkezinde kendi üretim hatlarına sahip vana ve yangın güvenliği ekipmanı üreticisi ve ihracatçısı.</p></div></section>
+  <section class="py-24 bg-white"><div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center"><div class="space-y-6"><span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Şirket Profili</span><h2 class="text-3xl font-black text-gray-900">Vana Endüstrisinin Kalbinde Kökleniyoruz</h2><p class="text-gray-600 leading-relaxed">Quanzhou Wanlian Fluid Equipment Co., Ltd., Quanzhou, Fujian'da faaliyet gösterir. Endüstriyel, belediye, yangından korunma ve su temini uygulamaları için vanalar, yangın güvenliği ekipmanları, akışkan kontrol ürünleri ve entegre çözümler üretir ve ihraç eder.</p><p class="text-gray-600 leading-relaxed">Kendi üretim hatlarımız CNC işleme, montaj ve basınç testlerini deneyimli mühendislik ekibiyle birleştirir. Seçili ürünlerde nitelikli üretim ortakları kullanılır. Her birim sevkiyattan önce gövde basıncı ve hava sızdırmazlığı testinden geçirilir.</p><p class="text-gray-600 leading-relaxed">Kataloğumuz; basınç sınıfı, bağlantı standardı, gövde ve iç parça malzemesi ile uygulama gibi gerçek mühendislik gereksinimleri etrafında yapılandırılmıştır.</p></div><div class="rounded-2xl overflow-hidden aspect-video shadow-lg"><img src={heroPhoto} alt="Wanlian Fluid üretim tesisi" loading="lazy" class="object-cover w-full h-full" /></div></div></section>
+  {hasFactoryEvidence && <section class="py-24 bg-gray-50 border-y"><div class="max-w-7xl mx-auto px-4"><div class="text-center max-w-3xl mx-auto mb-14"><span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Fabrika Kanıtları</span><h2 class="text-3xl font-black text-gray-900 mt-3">Quanzhou Üretim Hatlarımızın İçinden</h2><p class="text-gray-500 mt-3">Due diligence süreciniz için tesis görüntüleri ve belgeler. Siparişinize ait sertifika ve test raporu paketini talep edebilirsiniz.</p></div>{plantPhotos.length > 0 && <div class="columns-1 sm:columns-2 gap-6">{plantPhotos.map(photo => <figure class="mb-6 break-inside-avoid bg-white rounded-2xl overflow-hidden"><img src={`/assets/factory/${photo.file}`} alt={photo.alt} loading="lazy" class="w-full" /><figcaption class="px-5 py-4 text-sm font-semibold">{photo.caption}</figcaption></figure>)}</div>}<div class="mt-10 bg-white rounded-2xl p-8"><h3 class="font-bold text-lg">Bizimle neleri doğrulayabilirsiniz?</h3><ul class="mt-5 space-y-3 text-gray-600"><li>• ISO 9001 kalite yönetim sistemi sertifikası</li><li>• Sipariş partisine ait gövde basıncı ve hava sızdırmazlığı test raporları</li><li>• Talep üzerine üçüncü taraf sevkiyat öncesi denetimi</li><li>• OEM/ODM işaretleme, ihracat ambalajı ve belge paketi</li></ul></div></div></section>}
+  <section class="py-24 bg-gray-50"><div class="max-w-7xl mx-auto px-4"><div class="text-center mb-14"><span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Kalite Kontrolü</span><h2 class="text-3xl font-black text-gray-900 mt-3">Standart Üretim Prosesimiz</h2></div><div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">{manufacturingProcess.map(step => <div class="bg-white p-8 rounded-xl border relative"><span class="absolute right-6 top-6 text-4xl font-black text-gray-100">{step.step}</span><h3 class="font-bold text-lg pr-12">{step.name}</h3><p class="text-sm text-gray-500 mt-4 leading-relaxed">{step.desc}</p></div>)}</div></div></section>
+  <section class="py-24 bg-white"><div class="max-w-7xl mx-auto px-4"><div class="text-center mb-14"><span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Temel İlkeler</span><h2 class="text-3xl font-black text-gray-900 mt-3">Dört Kurumsal Sütun</h2></div><div class="grid md:grid-cols-2 gap-12">{values.map(value => <div><h3 class="font-bold text-xl text-gray-900">{value.title}</h3><p class="text-sm text-gray-500 mt-2 leading-relaxed">{value.desc}</p></div>)}</div></div></section>
+  <section class="py-20 bg-gray-900 text-white text-center"><div class="max-w-3xl mx-auto px-4"><h2 class="text-3xl font-black">Güvenilir Bir Tedarik Ortağı Olun</h2><p class="text-gray-400 mt-5">Projenizin ürün seçimi ve teknik gereksinimlerini görüşmek için bizimle iletişime geçin.</p><a href="/tr/contact/" class="inline-block mt-8 px-8 py-4 bg-brand-red rounded-lg font-bold">Görüşme Başlatın →</a></div></section>
+</Layout>

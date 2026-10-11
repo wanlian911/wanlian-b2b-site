@@ -1,0 +1,201 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Yangın hortum makarası ile yangın dolabı arasındaki fark nedir?',
+		answer: 'Yangın hortum makarası (örneğin JPS0.8-19), bina su beslemesinden doğrudan su alan, esnek yassı hortumlu, sabit bağlantılı ve yarı otomatik bir söndürme ünitesidir. Yangın dolabı ise makara, hidrant vanası, hortum ve nozulu barındıran muhafazadır; köpük dolabında (PSG30) bağımsız bir köpük oranlama ünitesi bulunur. Birçok projede SN65 hidrant vanası ile hortum makarasını birlikte içeren bir hidrant dolabı belirtilir.'
+	},
+	{
+		question: 'Hangi hortum uzunluğunu ve çapını belirtmeliyim?',
+		answer: 'İç mekân hortum makaraları genellikle 19 mm (3/4 inç) çapında, 20 m, 25 m veya 30 m uzunluğunda yassı hortumla tedarik edilir. Gerekli uzunluk, makara istasyonunun kapsama yarıçapına göre belirlenir; yapı mevzuatları çoğunlukla döşeme alanının her noktasına makaradan ulaşılmasını ister (örneğin nozül atış mesafesi 6 m içinde). Pazarınızda geçerli standardı (NFPA 14, EN 671, GB 15090 / XF180) doğrulayın.'
+	},
+	{
+		question: 'Su makarası yerine ne zaman köpüklü yangın dolabı seçmeliyim?',
+		answer: 'Köpük üniteleri ( %3 AFFF içeren PSG30), B sınıfı yanıcı sıvı yangınlarının beklendiği yakıt depoları, kimya tesisleri, boya atölyeleri, trafo odaları ve araç depoları için belirtilir. Su, yanan sıvılarda etkisizdir; düşük genleşmeli köpük yüzeyi kaplayarak yangını bastırır. Yalnızca A sınıfı yangın yüklerinin bulunduğu genel ticari kullanımlarda standart su hortum makarası yeterli ve daha ekonomiktir.'
+	},
+	{
+		question: 'Bir hortum makarasının çalışması için hangi basınç gerekir?',
+		answer: 'JPS0.8-19 makarası 0,8–1,0 MPa basınçta ve en az 6 metre jet erişiminde çalışır. Bina su beslemesi veya yangın pompası, talep sırasında makara girişinde bu basıncı sağlamalıdır. Besleme yetersizse bir hidrofor ekleyin veya nozül basıncını hidrolik hesapla doğrulayın; 6 m erişemeyen bir makara mevzuata uygun değildir.'
+	},
+	{
+		question: 'Hortum makaraları ve dolapları ihracata uygun konfigürasyonlarda mevcut mudur?',
+		answer: 'Evet. Wanlian Fluid, 20/25/30 m hortum uzunluklarına, pirinç veya alaşımlı nozullara, döner duvar braketlerine ve uyumlu hidrant vana arayüzlerine sahip dolaplar üretir (HS serisi adaptörlerle SN65 veya BS336 kaplinleri). Pazar standardınızı belirtin; bağlantı ve dokümantasyon paketini buna göre eşleştirelim.'
+	}
+];
+
+const products = [
+	{ slug: 'fire-hose-reel-jpso8-19', name: 'JPS0.8-19 Yangın Hortum Makarası Seti', img: '/assets/products/fire-hose-reel-jpso8-19.jpg', desc: 'Karbon çelik makara, 20–30 m PVC hortum, pirinç nozul' },
+	{ slug: 'foam-fire-hydrant-cabinet-psg30', name: 'PSG30 Köpüklü Yangın Dolabı', img: '/assets/06_extinguishing_cannons/cannon_p42.webp', desc: 'B sınıfı yangınlar için entegre %3 AFFF köpük ünitesi' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'SN65 İç Saha Hidrant Vanası', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'Dolaplar için PN16 sünek dökme demir hidrant vanası' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'HS Hortum Kaplin Adaptörü', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'Hidrant-hortum-nozul bağlantıları için alüminyum kaplinler' }
+];
+
+const referencePages = [
+	{ slug: 'fire-hose-reel-jpso8-19', name: 'JPS0.8-19 Yangın Hortum Makarası' },
+	{ slug: 'foam-fire-hydrant-cabinet-psg30', name: 'PSG30 Köpüklü Yangın Dolabı' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'SN65 İç Saha Hidrant Vanası' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'HS Hortum Kaplin Adaptörü' }
+];
+
+const toc = [
+	{ id: 'role', label: 'Hortum Makaraları ve Dolaplarının İşlevi' },
+	{ id: 'reel-vs-cabinet', label: 'Hortum Makarası ve Yangın Dolabı: Tanımlar' },
+	{ id: 'hose-specs', label: 'Hortum Uzunluğu, Çapı ve Basıncı' },
+	{ id: 'nozzle', label: 'Nozul Tipleri ve Jet Modları' },
+	{ id: 'foam', label: 'B Sınıfı Yangınlar için Köpük Dolapları' },
+	{ id: 'materials', label: 'Malzemeler ve Korozyon Direnci' },
+	{ id: 'compliance', label: 'Standartlar, Testler ve İhracat Notları' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' }
+];
+---
+
+<Layout
+	title="Yangın Hortum Makarası ve Dolabı: Seçim Rehberi"
+	description="Yangın hortum makaraları ve yangın dolapları için hortum uzunluğu, nozul modları, köpük, malzeme ve standartlara yönelik kapsamlı B2B seçim rehberi."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Rehberler', href: '/tr/blog/' }, { name: 'Yangın Hortum Makarası ve Dolabı Rehberi' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Rehberler</a>
+			<span>/</span>
+			<span class="text-gray-600">Hortum Makaraları ve Dolapları</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Yangın Koruma Ekipmanları Rehberi</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Yangın Hortum Makarası ve Dolabı Seçim Rehberi</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Hortum makaraları ve yangın dolapları, itfaiye ulaşmadan önce bir yangının ilk dakikalarında bina kullanıcılarının fiilen kullandığı ekipmanlardır. Eğitimsiz personelin kullanabileceği kadar basit, yıllarca beklemede kalmaya dayanacak kadar sağlam olmalı ve gerekli jeti gerekli basınçta sağlayacak şekilde seçilmelidir. Bu rehberde hortum özellikleri, nozul modları, köpük seçenekleri, malzemeler ve ilgili standartlar ele alınmaktadır.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Ürün şeridi -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="role" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Hortum Makaraları ve Dolaplarının İşlevi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Yangın hortum makarası, eğitimsiz bina kullanıcılarına sabit suyla söndürme imkânı sağlar: vanayı açın, hortumu çekin ve su jeti hemen kullanıma hazır olsun. Ticari, konaklama, ofis ve sanayi binalarında başlangıç yangınlarına karşı ilk savunma hattıdır; kullanıcılar tahliye olurken söndürmeyi sürdüren otomatik sprinkler sistemlerini tamamlar. Yangın dolapları; hidrant vanası, hortum, makara ve nozulu denetçilerin ve kullanıcıların güvenebileceği, düzenli ve erişilebilir bir ünitede bir araya getirir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">B2B tedarikinde pratik sorular şunlardır: Standart hangi kapsama alanını gerektiriyor, mevcut besleme basıncı nedir ve sahada hangi yangın sınıfları bulunuyor? Aşağıdaki seçimi bu üç yanıt belirler.</p>
+
+			<h2 id="reel-vs-cabinet" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Hortum Makarası ve Yangın Dolabı: Tanımlar</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Ünite</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">İçeriği</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tipik kullanım</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hortum makarası seti (JPS0.8-19)</td>
+							<td class="px-4 py-3 text-gray-700">Döner braket, tambur, yassı hortum, nozul</td>
+							<td class="px-4 py-3 text-gray-700">Su beslemesine bağlı bağımsız istasyonlar</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hidrant dolabı</td>
+							<td class="px-4 py-3 text-gray-700">Muhafaza içinde SN65 vana + makara/hortum + nozul</td>
+							<td class="px-4 py-3 text-gray-700">Standart iç saha yangın istasyonları</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Köpük dolabı (PSG30)</td>
+							<td class="px-4 py-3 text-gray-700">Köpük tankı + oranlayıcı + hortum makarası + köpük nozulu</td>
+							<td class="px-4 py-3 text-gray-700">B sınıfı sıvı yangını bulunan alanlar</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed"><a href="/tr/products/fire-hose-reel-jpso8-19/" class="text-brand-blue font-semibold hover:underline">JPS0.8-19 makara seti</a> temel bileşendir; <a href="/tr/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">SN65 iç saha hidrant vanası</a>, dikey borudan beslemeyi sağlayan vana arayüzüdür; <a href="/tr/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS kaplin adaptörleri</a> ise hidrant-hortum ve hortum-nozul bağlantılarını standartlaştırır.</p>
+
+			<h2 id="hose-specs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Hortum Uzunluğu, Çapı ve Basıncı</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bir makarayı üç değer tanımlar: hortum uzunluğu, iç çap ve çalışma basıncı.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Uzunluk (20 / 25 / 30 m).</strong> Kapsama yarıçapına göre belirlenir. EN 671-1 gibi standartlar, korunan alanın her noktasına makaradan ulaşılmasını ister; bu genellikle hortum uzunluğu ile nozulun nominal atış mesafesinin toplamı olarak tanımlanır. Daha uzun hortum sürtünme kaybını artırır; bu nedenle basınç hesabı uzunluğu dikkate almalıdır.</li>
+				<li><strong>Çap (19 mm / 3/4 inç).</strong> İç mekân makaralarında standart iç çaptır. Daha büyük çaplar daha fazla debi sağlar, ancak kullanıcıların çekmesini zorlaştıran daha ağır bir hortum gerektirir; 19 mm, A sınıfı başlangıç yangınları için erişim ile kullanım kolaylığını dengeler.</li>
+				<li><strong>Basınç (0,8–1,0 MPa).</strong> JPS0.8-19, 0,8–1,0 MPa basınçta ve en az 6 m jet erişiminde çalışır. Eş zamanlı talep sırasında dikey boru veya besleme basıncını makara girişinde doğrulayın; yaygın bir hata, hidrolik hesap yapılmadan makara belirtmektir.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">İhracat projelerinde hortum standardını belirtin (Avrupa için EN 694, Kuzey Amerika için NFPA 1962, Çin merkezli sertifikasyon için GB 15090 / XF180); böylece dokümantasyon paketi pazarınızla uyumlu olur.</p>
+
+			<h2 id="nozzle" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Nozul Tipleri ve Jet Modları</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Nozul, kullanıcı arayüzüdür; bir bina kullanıcısının yangına müdahale edip edemeyeceğini belirler. Makara nozulları iki modu destekler:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Düz jet.</strong> Yangına uzaktan müdahale için azami erişim sağlar. Anma basıncında tipik minimum erişim 6 m'dir.</li>
+				<li><strong>Püskürtme/sis.</strong> Operatörü korumak, alanı soğutmak ve yüzeyleri ıslatmak için geniş bir koni oluşturur. Püskürtme modu daha fazla debi tüketir ve mesafede daha az verimlidir; operatör duruma göre mod değiştirir.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Malzeme önemlidir: pirinç nozullar korozyona dayanır ve geometrisini korur; basınçlı döküm alaşımlı nozullar daha hafiftir, ancak nemli veya kıyı ortamlarında anodize kaplama belirtilmelidir. JPS0.8-19, her iki modu destekleyen pirinç/alaşımlı püskürtme nozulu ve akışı nozulda kesmek için kapatma kolu ile teslim edilir.</p>
+
+			<h2 id="foam" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. B Sınıfı Yangınlar için Köpük Dolapları</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Su, yanan bir sıvını söndüremez; yangını yayar. Yakıt depoları, kimyasal proses alanları, trafo odaları, boya ve solvent depoları ile araç depoları gibi B sınıfı risklerin bulunduğu yerlerde standart köpük ister. <a href="/tr/products/foam-fire-hydrant-cabinet-psg30/" class="text-brand-blue font-semibold hover:underline">PSG30 köpüklü yangın dolabı</a>, tüm sistemi duvara monte tek bir ünitede birleştirir: köpük konsantre tankı, %3 AFFF oranlayıcı, hortum makarası ve köpük nozulu.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Makara açıldığında oranlayıcı, köpük konsantresini su akışına %3 oranında karıştırır ve en az 4,5:1 genleşme oranına ve 6 m'den fazla jet erişimine sahip düşük genleşmeli köpük oluşturur. Düşük genleşmeli köpük, yanan sıvının yüzeyini kaplayarak oksijen ve buharları keser; yakıt, kimyasal ve solvent yangınlarında etkilidir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Köpük dolapları için seçim notları:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Köpük tipi.</strong> AFFF (sulu film oluşturucu köpük), karışık hidrokarbon riskleri için standarttır; konsantre sınıfını (polar solventler için AR-AFFF) yangın danışmanıyla doğrulayın.</li>
+				<li><strong>Kapasite.</strong> Tank hacmini beklenen boşaltma süresine göre eşleştirin; anma debisindeki minimum çalışma süresi için yerel standardı kontrol edin.</li>
+				<li><strong>Giriş basıncı.</strong> PSG30, 0,5–0,8 MPa basınçta çalışır; besleme boşaltma sırasında bu basıncı korumalıdır.</li>
+			</ul>
+
+			<h2 id="materials" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Malzemeler ve Korozyon Direnci</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bekleme ekipmanı nemli koridorlarda, kazan dairelerinde ve kıyı tesislerinde yıllarca hizmet verir. Malzeme seçimi, yaşam döngüsü maliyeti kararıdır:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Makara tamburu ve braket.</strong> Korozyon önleyici kırmızı toz boyalı soğuk haddelenmiş karbon çeliği (JPS0.8-19) ekonomik ve standarda uygundur; denizel veya kimyasal ortamlar için paslanmaz çelik belirtin.</li>
+				<li><strong>Hortum.</strong> Çok örgülü polyester takviyeli NBR/PVC karışımları bükülme ve aşınmaya dayanır; makara doğrudan güneş alıyorsa UV dayanımını doğrulayın.</li>
+				<li><strong>Nozul ve oranlayıcı.</strong> Pirinç, korozyon direnci ve hassas oranlama sağlar; PSG30 oranlayıcısı korozyona dayanıklı gövdeli masif pirinçten üretilir.</li>
+				<li><strong>Dolap gövdesi.</strong> Toz boyalı çelik standarttır; mimari açıdan nitelikli giriş hollerinde camlı veya paslanmaz ön yüzler kullanılır. Yerel itfaiyenin tercihine uygun kırılabilir camlı veya anahtarlı erişim tipini mutlaka belirtin.</li>
+			</ul>
+
+			<h2 id="compliance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Standartlar, Testler ve İhracat Notları</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Hortum makarası ve dolap uygunluğu genellikle montajın basınç testi, anma basıncında jet erişimi ve debi testi ile malzeme/kaplama denetimiyle doğrulanır. İlgili standartlar arasında EN 671 (Avrupa), NFPA 14 (Kuzey Amerika, dikey boru ve hortum sistemleri), GB 15090 ve XF180 (Çin) ile Birleşik Krallık uygulamaları için BS 5306 bulunur.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">İhracat kontrol listesi:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Pazarınız için hortum kaplin standardını doğrulayın; HS serisi adaptörler yaygın uluslararası kaplinleri (BS336, NIST, KWS) kapsar ve siparişle birlikte gönderilebilir.</li>
+				<li>Makaralar ve dolaplar için parti basınç test raporunu talep edin.</li>
+				<li>Dolap kapısı erişim tipinin ve işaretlemelerin yerel itfaiyenin beklentileriyle uyumlu olduğunu doğrulayın.</li>
+				<li>Köpük ünitelerinde konsantre tipini ve son kullanma yönetimini doğrulayın; AFFF konsantresinin raf ömrü vardır ve programa göre değiştirilmelidir.</li>
+				<li>Siparişten önce yedek parçaları (nozullar, hortum, contalar, test muslukları) ve teslim süresini netleştirin.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Wanlian Fluid, her makarayı ve dolabı sevkiyattan önce test eder ve basınç test raporları, malzeme sertifikaları ve kullanım talimatlarından oluşan dokümantasyon paketini konteynerle birlikte sağlar.</p>
+
+			<!-- SSS bölümü -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- İletişim çağrısı -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Projeniz için hortum makarası veya yangın dolabı mı gerekiyor?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Kapsama alanını, besleme basıncını ve yangın sınıflarını bize iletin; mühendislerimiz 12 saat içinde makara/dolap yerleşim önerisi ve fiyat teklifiyle yanıt verir.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href={`/tr/contact/?product=${encodeURIComponent('Yangın hortum makaraları ve dolapları seçimi')}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif isteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Merhaba, yangın hortum makaraları ve dolaplarını seçme konusunda yardıma ihtiyacım var')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp'tan yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

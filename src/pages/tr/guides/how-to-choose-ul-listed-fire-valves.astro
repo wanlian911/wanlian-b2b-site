@@ -1,0 +1,223 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const toc = [
+	{ id: 'what-ul-listing-means', label: '1. UL listesinin yangın vanaları için anlamı' },
+	{ id: 'fire-valve-types', label: '2. Projede gerçekten belirtilecek yangın vana tipleri' },
+	{ id: 'key-specifications', label: '3. Karşılaştırılacak temel teknik özellikler' },
+	{ id: 'ul-vs-fm', label: '4. UL veya FM: İhalede hangisi belirtiliyor?' },
+	{ id: 'common-mistakes', label: '5. Yangın vanası tedarikinde sık yapılan hatalar' },
+	{ id: 'procurement-checklist', label: '6. Sipariş öncesi tedarik kontrol listesi' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' }
+];
+
+const faq = [
+	{
+		question: 'Yangın vanaları için UL sertifikası zorunlu mudur?',
+		answer: 'Kuzey Amerika ve birçok uluslararası projede evet — yangın koruma vanalarının NFPA ve yerel yapı mevzuatına uygunluk için UL veya ULC listeli (ya da FM onaylı) olması gerekir. Diğer pazarlarda CE, LPCB veya yerel standartlar geçerli olabilir. Hedef pazarınızın hangi sertifikayı istediğini mutlaka teyit edin.'
+	},
+	{
+		question: 'UL listeli ile FM onaylı arasındaki fark nedir?',
+		answer: 'Her ikisi de yangın koruma ürünleri için bağımsız kuruluşlar tarafından verilen üçüncü taraf sertifikasyonlarıdır. UL listesinde vanalar, yapı ve performans açısından UL/ULC standartlarına göre test edilir; FM onayı ise fabrika denetimi ve kayıp önleme gerekliliklerini de kapsar. Birçok proje her ikisini de kabul eder, ancak bazı şartnameler özellikle birini belirtir — ihale dokümanlarınızı kontrol edin.'
+	},
+	{
+		question: 'Hangi yangın vana tipleri genellikle UL listelidir?',
+		answer: 'Sürgülü vanalar (OS&Y ve NRS), kelebek vanalar, çekvalfler, baskın alarm vanaları, ön tepkili vanalar ve alarm çekvalfleri; sprinkler ve yangın kolon sistemlerinde kullanılan yaygın UL listeli tiplerdir. Bu vanalar genellikle yaklaşık 1½" ile 12" arasındaki ölçülerde bulunur.'
+	},
+	{
+		question: 'Bir tedarikçinin UL sertifikasının gerçek olduğunu nasıl doğrularım?',
+		answer: 'Sertifika numarası ile dosya numarasını isteyin ve ardından bunları resmi UL Product iQ veri tabanında veya sertifikasyon kuruluşunun çevrim içi dizininde aratın. Broşürdeki bir kopya kanıt değildir — liste aktif olmalı ve satın almayı planladığınız tam model ile ölçüyü kapsamalıdır.'
+	},
+	{
+		question: 'Wanlian projem için UL listeli vanalar sağlayabilir mi?',
+		answer: 'Evet. Wanlian Fluid, geçerli olduğu durumlarda UL/ULC ve FM sertifikalı sürgülü, kelebek, çekvalf, baskın alarm ve ön tepkili vanalar üretir. UL yangın vanaları sayfamıza veya sertifikalar sayfamıza göz atın; mühendislerimiz hedef pazarınız için doğru sertifikasyon paketini teyit edecektir.'
+	}
+];
+
+const referencePages = [
+	{
+		slug: 'resilient-seat-flanged-gate-valve-z41x',
+		name: 'Elastomer Yataklı Flanşlı Sürgülü Vana (Z41X)',
+		img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp',
+		desc: 'EPDM kaplı kama, DN50–DN700'
+	},
+	{
+		slug: 'signal-grooved-wafer-butterfly-valve-dn80',
+		name: 'Sinyal İzleme Anahtarlı Yivli Wafer Kelebek Vana',
+		img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
+		desc: 'Durum izlemeli DN80 PN16'
+	},
+	{
+		slug: 'deluge-alarm-valve-zsfm',
+		name: 'Baskın Alarm Vana Grubu (ZSFM)',
+		img: '/assets/products/deluge-alarm-valve-zsfm.webp',
+		desc: 'Diyafram kumandalı, DN50–DN300'
+	},
+	{
+		slug: 'pre-action-alarm-system-zsfy',
+		name: 'Ön Tepkili Alarm Sistemi (ZSFY)',
+		img: '/assets/products/pre-action-alarm-system-zsfy.jpg',
+		desc: 'Çift tetiklemeli arıza emniyetli tasarım'
+	},
+	{
+		slug: 'ul-fm-resilient-seat-osy-gate-valve',
+		name: 'UL-FM Elastomer Yataklı OS&Y Sürgülü Vana',
+		img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
+		desc: 'Yükselen milli, UL/FM listeli OS&Y sürgülü vana; 2–10" yivli uçlar'
+	}
+];
+---
+
+<Layout
+	title="UL Listeli Yangın Vanaları Nasıl Seçilir? | 2026 Rehberi"
+	description="UL listeli yangın vanalarını seçme rehberi: vana tipleri, UL ve FM sertifikaları, teknik özellikler, belge doğrulama ve B2B satın alma kontrol listesi."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Blog', href: '/tr/blog/' }, { name: 'UL Yangın Vanaları Rehberi' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Kırıntı navigasyonu -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Blog</a>
+			<span>/</span>
+			<span class="text-gray-600">UL Yangın Vanaları Rehberi</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Yangın Koruma Vanası Seçim Rehberi</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">UL Listeli Yangın Vanaları Nasıl Seçilir? (2026 Rehberi)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Yangın koruma vanası, yangın çıktığı gün sprinkler sisteminizin çalışıp çalışmayacağını ve öncesinde binanızın denetimden geçip geçmeyeceğini belirleyen bileşendir. UL listesi, Kuzey Amerika’daki ve birçok uluslararası projedeki kabulün temel ölçütüdür. Bu rehberde UL listesinin gerçekte ne anlama geldiğini, hangi vana tiplerinin listeli olduğunu, bir sertifikanın gerçekliğinin nasıl doğrulanacağını ve satın alma siparişi vermeden önce nelere bakılması gerektiğini açıklıyoruz.</p>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="what-ul-listing-means" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. UL listesinin yangın vanaları için anlamı</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">UL (Underwriters Laboratories) listesi, bir vananın yangın koruma hizmetinde basınç sınıfı, akış özellikleri, malzemeler ve dayanıklılığı kapsayan UL/ULC standartlarına göre test edildiğini gösteren üçüncü taraf sertifikasyonudur. Bu bir pazarlama rozeti değildir; yetkili makamların (AHJ'lerin) bir vanayı sprinkler veya yangın kolon sistemine kabul etmesinin belgelenmiş temelidir.</p>
+			<p class="text-gray-700 leading-relaxed">Bir teknik föyde “UL listeli” ifadesi yer alıyorsa üç noktayı kontrol edin: Sertifika <strong>aktif</strong> olmalı (süresi dolmamış olmalı), satın aldığınız <strong>tam model ve ölçüyü</strong> kapsamalı ve <strong>sertifika numarası</strong> resmi UL veri tabanında bulunabilmelidir. Teknik föyde basılı bir logo tek başına hiçbir kanıt oluşturmaz.</p>
+
+			<h2 id="fire-valve-types" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Projede gerçekten belirtilecek yangın vana tipleri</h2>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Sürgülü Vanalar — Sistem İzolasyonu Standardı</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Sürgülü vanalar, bakım için sprinkler sisteminin bölümlerini izole eder. Tamamen EPDM kaplı kamaya sahip <a href="/tr/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X elastomer yataklı sürgülü vana</a> güvenilir bir tercihtir: tam sızdırmazlık, tamamen açıkken düşük basınç kaybı ve DN50’den DN700’e kadar ölçüler sayesinde tali hatlardan ana hatlara kadar her uygulamayı kapsar. OS&Y (yükselen milli) modeller, açık/kapalı durumunu bir bakışta gösterir; bu özellik, bölüm vanalarında yetkili makamların tercih ettiği bir çözümdür.</p>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Kelebek Vanalar — İzlemeli Kompakt Kontrol</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Alan kısıtlı olduğunda kelebek vanalar, sürgülü vananın yüz yüze uzunluğunun çok daha azını kaplar. <a href="/tr/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">sinyal izleme anahtarlı yivli wafer kelebek vana</a>, entegre bir mikroşalter ile donatılmıştır; böylece yangın alarm paneli vananın açık/kapalı durumunu bilir. Bu, modern sistemlerde izlenen bölüm vanaları için bir gerekliliktir.</p>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Baskın ve Ön Tepkili Vanalar — Sistemin Kontrol Merkezi</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Açık sprinkler veya püskürtme nozulları kullanılan baskın sistemlerde <a href="/tr/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM baskın alarm vanası</a>, sistem suyunu diyafram basıncıyla tutar ve elektriksel, pnömatik veya manuel olarak tetiklendiğinde anında açılır. Arşiv, veri merkezi ve müze gibi su hasarından kaçınılması gereken yerlerde <a href="/tr/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">ZSFY ön tepkili sistem</a>, boru tesisatını suyla doldurmadan önce iki bağımsız sinyal ister.</p>
+
+			<h2 id="key-specifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Karşılaştırılacak temel teknik özellikler</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Teknik özellik</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Neden önemlidir?</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Ölçü aralığı</td>
+							<td class="px-4 py-3 text-gray-700">Boru tesisatı planıyla eşleştirin — tipik yangın vanaları DN40–DN300 (1½"–12") aralığındadır</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Basınç sınıfı</td>
+							<td class="px-4 py-3 text-gray-700">PN16 (1,6 MPa) çoğu şebekeyi kapsar; yüksek binalar veya yüksek basınç bölgeleri için PN25 gerekir</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Uç bağlantıları</td>
+							<td class="px-4 py-3 text-gray-700">Ana hatlar için flanşlı, hızlı montaj için yivli, küçük tali hatlar için dişli bağlantı</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Gövde malzemesi</td>
+							<td class="px-4 py-3 text-gray-700">Standart olarak sfero döküm QT450; daha yüksek korozyon direnci gerektiğinde WCB/CF8/CF8M</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sertifikasyon</td>
+							<td class="px-4 py-3 text-gray-700">UL/ULC, FM, CE, LPCB — hedef pazarın mevzuatına uygun olanı seçin</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="ul-vs-fm" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. UL veya FM: İhalede hangisi belirtiliyor?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Her iki sertifikasyon şeması da yangın koruma ekipmanları için kabul edilir, ancak ihaleler çoğunlukla bunlardan birini belirtir. UL listesi ABD’deki ticari yapılarda yaygındır; FM onayı, FM Global tarafından sigortalanan tesisler ve endüstriyel risk alanları için sıklıkla istenir. Bazı projeler her ikisini de kabul eder. Şartnamenizde “UL listeli veya FM onaylı” ifadesi varsa, her iki sertifikaya sahip bir tedarikçi iki seçenek üzerinden de teklif verebilir — teklif hazırlamadan önce belirli model ve ölçünün kapsam dâhilinde olduğunu teyit edin.</p>
+
+			<h2 id="common-mistakes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Yangın vanası tedarikinde sık yapılan hatalar</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>UL listeli yerine “UL uyumlu” ürün almak</strong> — “Uyumlu” bir sertifikasyon değildir. Yalnızca aktif sertifika numarasına sahip listeli ürün geçerlidir.</li>
+				<li><strong>Vana durum izlemeyi göz ardı etmek</strong> — Panelin haberi olmadan kapatılabilen bölüm vanaları, denetimde sık karşılaşılan bir uygunsuzluk nedenidir; izlenen bölümlerde sinyal izleme anahtarlı veya OS&Y vanalar kullanın.</li>
+				<li><strong>Uyumsuz basınç sınıfı seçmek</strong> — PN16 şebekesinde kullanılan PN10 vana hidrostatik testi geçemez.</li>
+				<li><strong>Yanlış vana tipini belirtmek</strong> — sürgülü vana baskın alarm vanasının görevini yerine getiremez ve bunun tersi de geçerlidir. Vanayı sistem işlevine göre eşleştirin.</li>
+				<li><strong>Yedek parça bulunabilirliğini kontrol etmemek</strong> — contalar, miller ve onarım kitleri siparişle birlikte teyit edilmelidir.</li>
+			</ul>
+
+			<h2 id="procurement-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Sipariş öncesi tedarik kontrol listesi</h2>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Hedef pazarınızın istediği sertifikasyonu (UL/ULC, FM, CE, LPCB) teyit edin.</li>
+				<li>Sertifika numarasını isteyin ve resmi UL/FM veri tabanında doğrulayın.</li>
+				<li>DN, PN ve uç bağlantılarını boru tesisatı planınızla eşleştirin.</li>
+				<li>İzlemeli sistemler için sinyal izleme anahtarlı veya OS&Y modelleri belirtin.</li>
+				<li>Yalnızca genel bir sertifika değil, partiye ait hidrostatik test raporunu isteyin.</li>
+				<li>Minimum sipariş miktarı, teslim süresi ve yedek parça bulunabilirliğini tek bir ticari teklifte teyit edin.</li>
+			</ol>
+
+			<!-- Ürün listeleme sayfasına bağlantı -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">UL Listeli Yangın Vana Serimizi İnceleyin</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Sertifikaları yayımlanmış sürgülü, kelebek, çekvalf, baskın alarm ve ön tepkili vanalardan oluşan serinin tamamını <a href="/tr/certificates/" class="text-brand-blue font-semibold hover:underline">sertifikalar sayfamızda</a> ve <a href="/tr/ul-fire-valves/" class="text-brand-blue font-semibold hover:underline">UL yangın vanaları sayfamızda</a> inceleyin.</p>
+			</div>
+
+			<!-- Bu rehberde ele alınan ürünler -->
+			<div class="mt-10">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight mb-4">Bu Rehberde Ele Alınan Ürünler</h2>
+				<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+					{referencePages.map(p => (
+						<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+							<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+							<div class="p-3">
+								<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+								<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
+
+			<!-- İlgili rehber -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">İlgili Rehber: Tedarikçinizi Doğrulama</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Sipariş vermeden önce herhangi bir vana üreticisini doğrulamak için 8 maddelik durum tespiti kontrol listesine mi ihtiyacınız var? <a href="/tr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B Vana Tedarik Kontrol Listesi</a> rehberini okuyun.</p>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">UL listesi, uygunluk değerlendirmesinin yalnızca bir parçasıdır — <a href="/tr/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Yangın Hidrantı, Yangın Hortumu ve Vana Standartları Açıklaması</a> rehberini okuyun; ardından <a href="/tr/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">Çinli Vana ve Yangın Ekipmanı Tedarikçisi Nasıl Doğrulanır?</a> rehberiyle fabrikayı doğrulayın.</p>
+			</div>
+
+			<!-- Sıkça sorulan sorular -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Eylem çağrısı -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Projeniz için UL Listeli Yangın Vanalarına mı İhtiyacınız Var?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Vana tipini, DN/PN değerini ve hedef sertifikasyonu bize gönderin — mühendislerimiz 12 saat içinde eksiksiz bir teknik föy ve fiyat teklifiyle yanıt versin.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=UL%20Yang%C4%B1n%20Vanalar%C4%B1" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İsteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Merhaba, UL listeli yangın vanalarına ihtiyacım var')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp’tan Yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

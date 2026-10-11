@@ -1,0 +1,83 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { productsTr } from '../../utils/products.tr';
+import { guidesTr } from '../../utils/guides.tr';
+import InquiryForm from '../../components/inquiry/InquiryForm.astro';
+import LeadCaptureSection from '../../components/inquiry/LeadCaptureSection.astro';
+import CompanyIntroVideo from '../../components/sections/CompanyIntroVideo.astro';
+import VideoCarousel from '../../components/sections/VideoCarousel.astro';
+
+const faq = [
+  { question: 'Wanlian Fluid hangi ürünleri üretir ve ihraç eder?', answer: 'Wanlian Fluid, Quanzhou merkezli bir üretici ve ihracatçı olarak endüstriyel vanalar, yangın hidrantları, sprinkler ve alarm vanaları, yangın hortumları ve hidrolik kontrol ekipmanları sunar.' },
+  { question: 'Vana veya hidrant fiyatını nasıl alabilirim?', answer: 'Fiyatlandırma talep üzerine yapılır. Model veya standart, ölçü, basınç sınıfı, malzeme, miktar ve teslimat noktasını iletin; ekibimiz 12 saat içinde ayrıntılı teklif hazırlayacaktır.' },
+  { question: 'Ürünler sevkiyattan önce test edilir mi?', answer: 'Evet. Her vana, hidrant ve hortum sevkiyattan önce gövde basıncı ve hava sızdırmazlığı açısından test edilir. Üretim, ISO 9001 kalite yönetim sistemi kapsamında yürütülür.' },
+  { question: 'OEM veya özel marka siparişi kabul ediyor musunuz?', answer: 'Evet. OEM/ODM işaretleme, özel ürün ve ihracat ambalajı standart hizmetlerimizdir. AWWA, TS EN, UL veya FM gibi standartlara uygunluk model bazında teyit edilir.' }
+];
+
+const featuredProducts = productsTr.filter(p => [
+  'resilient-seat-flanged-gate-valve-z41x', 'indoor-fire-hydrant-head-sn65',
+  'wet-alarm-check-valve-zsfz-150', 'signal-grooved-wafer-butterfly-valve-dn80',
+  'spherical-ball-check-valve-hq44x', 'hydraulic-water-level-control-valve-f745x',
+  'telescopic-y-strainer-sgl41h', 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100'
+].includes(p.slug));
+
+const categories = [
+  { name: 'Vanalar ve Parçalar', count: '150+', image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp' },
+  { name: 'Yangın Hidrantları ve Pompa Bağlantıları', count: '80+', image: '/assets/products/indoor-fire-hydrant-head-sn65.jpg' },
+  { name: 'Yangın Sprinkleri ve Alarm Vanaları', count: '120+', image: '/assets/products/wet-alarm-check-valve-zsfz-150.webp' },
+  { name: 'Hidrolik Güvenlik', count: '60+', image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp' },
+  { name: 'Yangın Monitörleri ve Su Topları', count: '40+', image: '/assets/products/manual-fire-water-cannon-ps.webp' },
+  { name: 'Yangın Dolapları ve Bağlantı Elemanları', count: '90+', image: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg' }
+];
+
+const manufacturingSteps = [
+  { step: '01', title: 'Hassas Örgü', desc: 'Dayanıklı yangın hortumu kılıfları için yüksek mukavemetli polyester örgü.' },
+  { step: '02', title: 'Kaplama Yapışması', desc: 'Sızdırmaz kauçuk kaplama için gelişmiş vulkanizasyon prosesi.' },
+  { step: '03', title: 'CNC İşleme', desc: 'Sfero dökme demir vana gövdeleri ve parçalarının hassas işlenmesi.' },
+  { step: '04', title: 'Güvenlik Testleri', desc: 'Her birimde yüzde 100 gövde basıncı ve hava sızdırmazlık testi.' },
+  { step: '05', title: 'Epoksi Kaplama', desc: 'Yüksek korozyon direnci için toksik olmayan epoksi reçine kaplama.' }
+];
+
+const resources = [
+  { href: '/tr/guides/fire-sprinkler-system-valves-guide/', eyebrow: 'Satın Alma Kılavuzu', title: 'Sprinkler Sistemleri için Vana Kılavuzu', desc: 'Islak alarm, baskın ve ön tepkili sistem vanalarını karşılaştırın.' },
+  { href: '/tr/fire-water-cannon/', eyebrow: 'Sistem Genel Bakışı', title: 'Yangın Monitörleri ve Su Topları', desc: 'Büyük hacimli alanlar için manuel PS ve otomatik izlemeli ZDMS monitörleri.' },
+  { href: '/tr/guides/how-to-choose-a-fire-hydrant/', eyebrow: 'Satın Alma Kılavuzu', title: 'Yangın Hidrantı Nasıl Seçilir?', desc: 'Hidrant tipi, basınç sınıfı, bağlantı standardı ve satın alma kontrol listesi.' },
+  { href: '/tr/guides/how-to-choose-ul-listed-fire-valves/', eyebrow: 'Satın Alma Kılavuzu', title: 'UL Listeli Yangın Vanaları Nasıl Seçilir?', desc: 'UL ve FM kapsamını, model doğrulamasını ve sertifika belgelerini inceleyin.' },
+  { href: '/tr/guides/gate-valve-vs-butterfly-valve-fire-protection/', eyebrow: 'Satın Alma Kılavuzu', title: 'Sürgülü Vana ve Kelebek Vana Karşılaştırması', desc: 'Yangın şebekeleri için debi, alan, maliyet ve uygulama karşılaştırması.' },
+  ...guidesTr.map(g => ({ href: g.href, eyebrow: 'Satın Alma Kılavuzu', title: g.title, desc: g.description }))
+];
+
+const industries = [
+  { name: 'Petrol ve Gaz', desc: 'Zorlu endüstriyel koşullarda güvenli akışkan taşınması.' },
+  { name: 'Su Arıtma', desc: 'Belediye su temini, drenaj ve filtrasyon şebekeleri.' },
+  { name: 'Yangından Korunma', desc: 'Sertifikalı hidrantlar, sprinkler vanaları ve söndürme sistemleri.' }
+];
+---
+
+<Layout locale="tr" title="Wanlian Fluid | Endüstriyel Vanalar ve Yangın Güvenliği" description="Quanzhou, Çin merkezli endüstriyel vana ve yangın güvenliği ekipmanı üreticisi. ISO 9001, CNC işleme ve 12 saatte ayrıntılı teklif." faq={faq} breadcrumbs={[{ name: 'Ana Sayfa', href: '/tr/' }]} video={{ name: '50 Saniyede Wanlian Fluid', description: 'Quanzhou tesisinde showroom, üretim, OEM özelleştirme ve kalite kontrol tanıtımı.', thumbnail: '/videos/company-intro-poster.webp', src: '/videos/company-intro.mp4', duration: 'PT49S', uploadDate: '2026-09-18' }}>
+  <section class="relative bg-gray-900 text-white min-h-[78vh] flex items-center overflow-hidden">
+    <div class="absolute inset-0 z-0"><img src="/og-image.jpg" alt="" fetchpriority="high" class="w-full h-full object-cover opacity-80" /><div class="absolute inset-0 bg-gradient-to-r from-gray-950 via-gray-950/75 to-gray-950/10"></div></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24"><div class="max-w-3xl space-y-7">
+      <div class="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full border border-white/20"><span class="h-2 w-2 rounded-full bg-brand-red"></span><span class="text-sm font-bold tracking-widest uppercase">Üretici ve İhracatçı — Vanalar ve Yangın Güvenliği</span></div>
+      <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-tight">Küresel Projeler için <span class="text-brand-red">Vanalar ve Yangın Güvenliği.</span></h1>
+      <p class="text-lg sm:text-xl text-gray-300 max-w-2xl leading-relaxed">Endüstriyel vanalar, yangın hidrantları, sprinkler ve alarm vana sistemleri. Yüzde 100 basınç testi, ISO 9001 ve 12 saat içinde ayrıntılı teklif.</p>
+      <div class="flex flex-wrap gap-4"><a href="/tr/products/" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg">Kataloğu Görüntüle</a><a href="/tr/contact/#inquiry" class="px-8 py-4 bg-white/10 text-white font-bold rounded-lg border border-white/30">Teklif İste</a></div>
+    </div></div>
+  </section>
+  <VideoCarousel locale="tr" />
+  <div class="bg-gray-100 py-8 border-b border-gray-200"><div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-center gap-8 md:gap-16 opacity-60"><span class="font-black">TEKNİK VERİLER</span><span class="font-black">ÜRÜN ÇİZİMLERİ</span><span class="font-black">MALZEME SEÇENEKLERİ</span><span class="font-black">BASINÇ SINIFLARI</span><span class="font-black">OEM / ODM</span><span class="font-black">İHRACAT DESTEĞİ</span></div></div>
+
+  <section class="py-24 bg-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col lg:flex-row items-center gap-16"><div class="flex-1 space-y-7"><h2 class="text-sm font-black tracking-[0.3em] text-brand-red uppercase">Şirket Profili</h2><h3 class="text-4xl sm:text-5xl font-black text-gray-900">Küresel Projeler için <span class="text-brand-blue">Akışkan Kontrol Çözümleri.</span></h3><div class="space-y-5 text-gray-600 text-lg leading-relaxed"><p>Quanzhou Wanlian Fluid Equipment Co., Ltd., Çin'in vana ve boru endüstrisi merkezlerinden Quanzhou, Fujian'da endüstriyel vanalar, hidrolik kontrol ürünleri, hidrant bileşenleri ve yangın güvenliği ekipmanları üretir ve ihraç eder.</p><p>Kendi üretim hatlarımızda CNC işleme, montaj ve test süreçlerini yürütür; seçili ürünlerde nitelikli üretim ortaklarından yararlanırız. Her ürün sevkiyattan önce gövde basıncı ve hava sızdırmazlığı testinden geçirilir.</p></div><div class="grid grid-cols-2 lg:grid-cols-4 gap-4"><div class="p-5 bg-gray-50 rounded-xl"><b class="block text-3xl text-brand-red">{productsTr.length}+</b><span class="text-[11px] font-bold text-gray-500 uppercase">Stok Modeli</span></div><div class="p-5 bg-gray-50 rounded-xl"><b class="block text-3xl text-brand-blue">{categories.length}</b><span class="text-[11px] font-bold text-gray-500 uppercase">Ürün Hattı</span></div><div class="p-5 bg-gray-50 rounded-xl"><b class="block text-3xl text-brand-red">%100</b><span class="text-[11px] font-bold text-gray-500 uppercase">Basınç Testi</span></div><div class="p-5 bg-gray-50 rounded-xl"><b class="block text-3xl text-brand-blue">ISO 9001</b><span class="text-[11px] font-bold text-gray-500 uppercase">Kalite Sistemi</span></div></div><a href="/tr/about/" class="font-bold text-brand-blue hover:underline">Şirket profilinin tamamını okuyun →</a></div><div class="flex-1"><CompanyIntroVideo locale="tr" /></div></div></div></section>
+
+  <section class="py-24 bg-gray-50 border-y border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center max-w-3xl mx-auto mb-14"><h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Neden Wanlian Fluid?</h2><h3 class="text-4xl font-black text-gray-900">Güvenilir Tedarik Ortağı</h3></div><div class="grid md:grid-cols-3 gap-8"><div class="p-8 rounded-2xl border bg-white"><h4 class="text-lg font-black mb-2">Kendi Üretim Hatlarımız</h4><p class="text-gray-600 text-sm leading-relaxed">Quanzhou tesisimizde CNC işleme, montaj, basınç testi ve kaplama süreçleri kontrol edilir.</p></div><div class="p-8 rounded-2xl border bg-white"><h4 class="text-lg font-black mb-2">Test Edilmiş Kalite</h4><p class="text-gray-600 text-sm leading-relaxed">ISO 9001 kalite sistemi ve EN 12266-1 / GB/T 13927 gerekliliklerine göre model bazlı test ve belge desteği.</p></div><div class="p-8 rounded-2xl border bg-white"><h4 class="text-lg font-black mb-2">12 Saatte Teklif</h4><p class="text-gray-600 text-sm leading-relaxed">Çizim, teknik şartname veya ürün fotoğrafını gönderin; mühendislerimiz stok ve teslimat bilgisiyle yanıtlasın.</p></div></div></div></section>
+
+  <section class="py-24 bg-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center max-w-3xl mx-auto mb-16"><h2 class="text-4xl font-black text-gray-900 uppercase">Başlıca Ürün Kategorileri</h2><div class="h-1.5 w-20 bg-brand-red mx-auto my-4"></div><p class="text-gray-500">Dünya genelindeki yangın ve su şebekeleri için yüksek hassasiyetli mühendislik.</p></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">{categories.map(cat => <a href={`/tr/products/#category=${encodeURIComponent(cat.name)}`} class="group bg-white rounded-xl shadow-sm hover:shadow-xl overflow-hidden border"><div class="aspect-[4/3] bg-gray-50 p-6 flex items-center justify-center"><img src={cat.image} alt={cat.name} loading="lazy" class="max-w-full max-h-full object-contain" /></div><div class="p-6 flex justify-between items-center group-hover:bg-brand-red group-hover:text-white"><div><h4 class="font-black text-lg">{cat.name}</h4><p class="text-[10px] font-black uppercase tracking-widest opacity-60">{cat.count} ürün</p></div><span class="text-2xl">→</span></div></a>)}</div></div></section>
+
+  <section class="py-24 bg-gray-50"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col lg:flex-row items-start gap-16"><div class="w-full lg:w-1/2"><h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Üretim Akışı</h2><h3 class="text-4xl font-black text-gray-900 mt-4">Standart Üretim Prosesimiz</h3><p class="text-gray-500 mt-6 max-w-md">Her ürün döküm ve CNC işlemeden yüzde 100 basınç testine ve epoksi kaplamaya kadar kontrollü bir sırayı izler.</p></div><div class="w-full lg:w-1/2 grid sm:grid-cols-2 gap-4">{manufacturingSteps.map(step => <div class="relative bg-white rounded-xl p-6 border"><span class="absolute top-4 right-5 text-2xl font-black text-gray-200">{step.step}</span><h4 class="font-black mb-2">{step.title}</h4><p class="text-sm text-gray-600 leading-relaxed">{step.desc}</p></div>)}</div></div></div></section>
+
+  <section class="py-24 bg-gray-900 text-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col lg:flex-row items-center gap-16"><div class="flex-1"><h2 class="text-4xl font-black">Yüksek Basınçlı <span class="text-brand-blue">Hizmet için Tasarlandı.</span></h2><p class="text-gray-400 mt-5 leading-relaxed">Mühendisliğimiz kritik ve zorlu altyapılarda dayanıklılık, güvenilirlik ve güvenliğe odaklanır.</p><a href="/tr/certificates/" class="inline-block mt-8 px-7 py-3 bg-white/10 border border-white/30 rounded-lg font-bold">Sertifikaları ve Teknik Belgeleri Görün</a></div><div class="flex-1 space-y-4">{industries.map(industry => <div class="p-6 bg-white/5 rounded-2xl border border-white/10"><h4 class="font-black text-lg">{industry.name}</h4><p class="text-sm text-gray-400 mt-1">{industry.desc}</p></div>)}</div></div></div></section>
+
+  <section class="py-24 bg-white" id="inquiry"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col lg:flex-row gap-14"><div class="w-full lg:w-2/5"><h2 class="text-4xl font-black uppercase">Profesyonel Teklif Alın</h2><div class="h-1.5 w-20 bg-brand-red my-5"></div><p class="text-lg text-gray-600 leading-relaxed">Teknik çizimlerinizi veya ürün gereksinimlerinizi gönderin. Uygun ürün ve teklif adımlarını paylaşalım.</p><ul class="mt-6 space-y-3 text-gray-700"><li>• Talep üzerine fiyatlandırma</li><li>• Uygulama ve ürün seçimi desteği</li><li>• İhracat ambalajı koordinasyonu</li><li>• Ürün dokümantasyonu desteği</li></ul></div><div class="w-full lg:w-3/5"><InquiryForm /></div></div></div></section>
+  <section class="py-24 bg-gray-50"><div class="max-w-7xl mx-auto px-4"><div class="text-center max-w-3xl mx-auto mb-12"><h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Teknik Kaynaklar</h2><h3 class="text-4xl font-black text-gray-900">Seçim Kılavuzları ve Sistem Bilgileri</h3></div><div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">{resources.map(item => <a href={item.href} class="bg-white rounded-2xl border p-8 hover:shadow-xl"><span class="text-[10px] font-black tracking-widest uppercase text-brand-blue">{item.eyebrow}</span><h4 class="text-xl font-black text-gray-900 my-3">{item.title}</h4><p class="text-sm text-gray-600 leading-relaxed">{item.desc}</p><span class="inline-block mt-5 font-bold text-brand-red">Kaynağı okuyun →</span></a>)}</div></div></section>
+  <LeadCaptureSection />
+</Layout>

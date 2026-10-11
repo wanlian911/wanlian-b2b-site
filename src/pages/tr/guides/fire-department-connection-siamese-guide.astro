@@ -1,0 +1,179 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+// SSS: Gerçekçi B2B tedarik soruları (FAQPage JSON-LD oluşturur)
+const faq = [
+	{
+		question: 'İtfaiye bağlantı ağzı nedir ve neden iki girişi vardır?',
+		answer: 'İtfaiye bağlantı ağzı (FDC), itfaiye araçlarının bir binanın yangın koruma sistemine — düşey boru hattına veya sprinkler ana hattına — su pompaladığı noktadır. Çift girişli bağlantıda iki giriş tek bir çıkışı besler; böylece iki araç aynı yükselticiyi aynı anda besleyebilir ve sisteme sağlanan debi yaklaşık iki katına çıkar. SQD100-1.6, iki DN65 (2,5 inç) girişi alır ve tek bir DN100 (4 inç) flanşlı çıkış üzerinden bina ana hattına su verir.'
+	},
+	{
+		question: 'Bir itfaiye bağlantı ağzı için hangi giriş kaplini belirtilmelidir?',
+		answer: 'Girişler, yerel itfaiye teşkilatının fiilen kullandığı hortum kaplinleriyle uyumlu olmalıdır; çünkü bağlantı basınç altında bu ekipmanla yapılacaktır. SQD100-1.6, SQS65 / KWS65 tipinde 2 × DN65 giriş ve kapaklarla tedarik edilir. Bir projede Alman standardı Storz bağlantıları kullanılıyorsa, 2,5 inç alüminyum Storz kaplinlerimiz kendinden sızdırmazlık sağlayan kenarlarıyla DN50–DN150 aralığını kapsar. HS serisi adaptörler (DN50/DN65, 1,6 MPa, GB12514) dişli tipleri arasında geçiş sağlar; talebinizde gerekli kaplin tipini belirtiniz.'
+	},
+	{
+		question: 'SQD100 bir kontrol vanası içeriyor mu?',
+		answer: 'Evet. SQD100-1.6, el çarkıyla çalıştırılan entegre bir kontrol vanasına sahiptir; böylece bağlantıdan geçen debi yalnızca kesilip açılmaz, aynı zamanda düzenlenebilir. Her iki giriş, örgülü çelik emniyet kablolarıyla tutturulmuş kapaklarla tedarik edilir. Bu sayede pompalama sırasında çıkarılan kapaklar bağlantı ağzından ayrılmaz.'
+	},
+	{
+		question: 'Boyut, basınç ve malzeme özellikleri nelerdir?',
+		answer: 'Girişler: kapaklı 2 × DN65 (2,5 inç). Çıkış: DN100 (4 inç) flanşlı. Basınç sınıfı: 1,6 MPa. Toplam uzunluk: 120 mm. Gövde: korozyona dayanıklı kırmızı toz boyalı sünek dökme demir / dökme demir; el çarkı mili pirinç veya paslanmaz çeliktir. Kompakt gövde uzunluğu, dar pompa odalarının yanı sıra havaalanı veya belediye yangın koruma noktalarındaki kurulumlara uygundur.'
+	},
+	{
+		question: 'Bir itfaiye bağlantı ağzı nasıl denetlenmelidir?',
+		answer: 'Her iki kapağın yerinde olduğunu, contalarının sağlamlığını ve emniyet kablolarının hasarsız olduğunu kontrol ediniz. Flanşlı çıkışta sızıntı veya korozyon bulunmamalı ve el çarkı rahatça çalışmalıdır. Bağlantı görünür ve işaretlenmiş olmalı; park etmiş araçlar, peyzaj düzenlemeleri veya depolanmış malzemeler tarafından hiçbir zaman engellenmemelidir. Don olaylarının görüldüğü iklimlerde, gövde içinde su birikmemesi için kullanım sonrasında bağlantının doğru şekilde boşaldığını doğrulayınız.'
+	},
+	{
+		question: 'FDC ile yangın hidrantı arasındaki fark nedir?',
+		answer: 'İkisi zıt yönde çalışır. Yangın hidrantı, belediye su şebekesi üzerindeki bir su alma noktasıdır; itfaiye araçları hidrantı bağlayarak suyu dışarı çeker. İtfaiye bağlantı ağzı ise bina tarafındaki bir giriş noktasıdır; araçlar bunun üzerinden binanın düşey boru hattına veya sprinkler sistemine su pompalar. Birçok tesiste her ikisi de gereklidir ve her ikisi de yangın hidrantı seçimi rehberimizde ele alınmaktadır.'
+	}
+];
+
+// İçindekiler: Kimlikler metindeki H2 kimlikleriyle birebir eşleşir
+const toc = [
+	{ id: 'what-is-fdc', label: '1. İtfaiye Bağlantı Ağzı Nedir?' },
+	{ id: 'how-siamese-works', label: '2. İki Giriş, Tek Çıkış' },
+	{ id: 'coupling-standards', label: '3. Giriş Kaplinleri ve Adaptörler' },
+	{ id: 'where-fdc-installed', label: '4. FDC Bağlantıları Nereye Kurulur?' },
+	{ id: 'fdc-comparison', label: '5. Çift Girişli Gövde, Storz Kaplin veya Adaptör?' },
+	{ id: 'fdc-spec-checklist', label: '6. Spesifikasyon ve Kurulum Kontrol Listesi' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' }
+];
+
+// İlgili ürünler (slug değerleri değişmez)
+const referencePages = [
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'SQD100-1.6 İtfaiye Pompa Adaptörü (Çift Girişli)', img: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', desc: '2 × DN65 giriş, DN100 flanşlı çıkış, 1,6 MPa' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: '2,5 inç Alüminyum Storz Kaplin (Alman Standardı)', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'DN50–DN150, 1,6 MPa, kendinden sızdırmaz alüminyum' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'HS Kaplin Adaptörü', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65, GB12514, eloksallı alüminyum' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'İç Saha Yangın Hidrant Başlığı SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'Düşey boru hattı çıkışları için DN65 iç saha hidrant başlığı' }
+];
+---
+
+<Layout
+	title="İtfaiye Bağlantı Ağzı Rehberi: Çift Giriş ve Kaplinler"
+	description="İtfaiye bağlantı ağzı rehberi: çift DN65 giriş, DN100 çıkış, SQS65/KWS65 ve Storz kaplin seçenekleri, kontrol vanası, kurulum ve B2B kontrol listesi."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Rehberler', href: '/tr/blog/' }, { name: 'İtfaiye Bağlantı Ağzı Rehberi' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Rehberler</a>
+			<span>/</span>
+			<span class="text-gray-600">İtfaiye Bağlantı Ağzı Rehberi</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Yangın Koruma Rehberi</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">İtfaiye Bağlantı Ağzı Rehberi: Çift Giriş ve Kaplinler</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kısaca: İtfaiye bağlantı ağzı (FDC), müdahale eden araçların binanın düşey boru hattına veya sprinkler sistemine su pompaladığı giriş noktasıdır. Çift girişli bağlantıda iki giriş tek bir çıkışı besler; böylece iki araç aynı yükselticiyi besleyebilir ve girişler yerel itfaiyenin kullandığı hortum kaplinleriyle uyumlu olmalıdır. Bu rehber SQD100-1.6 bağlantısını, ilgili kaplin seçeneklerini ve sipariş öncesi kontrol edilmesi gerekenleri kapsar.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{referencePages.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-fdc" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. İtfaiye Bağlantı Ağzı Nedir?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">İtfaiye bağlantı ağzı, itfaiye teşkilatının bina tarafındaki bağlantı arayüzüdür. Binanın kendi su beslemesi yetersiz kaldığında veya sprinkler sistemi devre dışı bırakıldığında, gelen araçlar hortumlarını FDC'ye bağlayarak düşey boru hattına ya da sprinkler ana hattına su pompalar. Bu nedenle bağlantı ağzı bir su kaynağı değil, binaya basınçlı su giriş noktasıdır.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Acil durumlarda kullanılacağı için bir FDC üç pratik soruya yanıt vermelidir: İtfaiye teşkilatı taşıdığı kaplinlerle bağlantıyı hızlıca yapabilir mi, içinden yeterli miktarda su iletilebilir mi ve bina dumanla dolup müdahale araçlarıyla çevrildiğinde erişilebilir durumda mıdır? Bu rehberdeki tüm değerlendirmeler bu üç sorudan hareket eder.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Çift girişli</strong> bağlantı, debi ihtiyacını iki girişle karşılar. Gerektiğinde tek bir araç sistemi besleyebilir; ikinci araç geldiğinde her iki giriş kullanılır ve pompaların kendi karakteristik eğrilerinde elverişsiz bir çalışma noktasına zorlanmasına gerek kalmadan yükselticiye giden debi yaklaşık iki katına çıkar.</p>
+
+			<h2 id="how-siamese-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. İki Giriş, Tek Çıkış</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/tr/products/sqd100-1-6-fire-pump-adapter/" class="text-brand-blue font-semibold hover:underline">SQD100-1.6 itfaiye pompa adaptörü</a>, kompakt bir çift girişli gövdedir: bir tarafında kapaklı iki DN65 (2,5 inç) giriş, diğer tarafında ise bina ana hattına cıvatalanan tek bir DN100 (4 inç) flanşlı çıkış bulunur. Çalışma basıncı 1,6 MPa'dır ve gövde yalnızca 120 mm uzunluğundadır. Bu özellik, pompa odalarında ve alanın sınırlı olduğu yer altı vana odalarında önem taşır.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Tedarik açısından iki tasarım ayrıntısı özellikle dikkate alınmalıdır. İlk olarak gövdede el çarkıyla çalıştırılan entegre bir kontrol vanası bulunur; böylece bağlantıdan geçen debi yalnızca kapatılıp açılmaz, düzenlenebilir. İkinci olarak giriş kapakları örgülü çelik emniyet kablolarıyla tutturulmuştur. Bu küçük ayrıntı, gerçek bir olayda pompalama sırasında kenara bırakılan kapakların kaybolması gibi sık görülen bir durumu önler.</p>
+			<p class="text-gray-700 leading-relaxed">Gövde, korozyona dayanıklı kırmızı toz boyalı sünek dökme demir / dökme demirden imal edilir; el çarkı mili pirinç veya paslanmaz çeliktir. İki girişli, tek çıkışlı düzen, çift girişli bağlantıyı sistemi tek bir pompalama aracına sınırlayacak tek girişli bağlantıdan ayırır.</p>
+
+			<h2 id="coupling-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Giriş Kaplin Standartları ve Adaptörler</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bu spesifikasyon noktası, bir FDC'nin olay anında kullanılabilir olup olmayacağını belirler. Hortum kaplinleri bölgesel farklılık gösterir: Bir itfaiye teşkilatının ekipmanına uyan bağlantı, başka bir teşkilat için kullanılamaz olabilir. SQD100-1.6, <strong>SQS65 / KWS65</strong> tipinde iki DN65 giriş ve kapakla tedarik edilir; sipariş verilmeden önce kaplin tipi yerel itfaiye teşkilatına göre doğrulanmalıdır.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Bir projede Alman standardı bağlantılar kullanılıyorsa, <a href="/tr/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">2,5 inç alüminyum Storz kaplin</a>, kendinden sızdırmazlık sağlayan kenarı ve Storz hızlı bağlantı geometrisiyle DN50–DN150 aralığını kapsar. Pirinç veya krom kaplama seçenekleri de sunulur; basınç sınıfı 1,6 MPa'dır. Kaplin, temiz su ve köpük karışımı için uygundur.</p>
+			<p class="text-gray-700 leading-relaxed">Sahada dişliden kapline geçiş için <a href="/tr/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS serisi kaplin adaptörü</a> (DN50 / DN65, 1,6 MPa / 232 PSI), GB12514 veya fabrika standardına uygun standart iç ve dış dişlere sahip eloksallı alüminyum alaşım kullanır. Böylece hortumlar ile hidrant veya FDC çıkışları sızıntı olmadan eşleştirilebilir. Bağlantı sistemleri proje standardıyla belirlenmişse <a href="/tr/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">CE ve EN 12845 uygunluk rehberimiz</a>, Avrupa spesifikasyonlarında Storz, KWS ve dişli sistemlerin nasıl ele alındığını açıklar.</p>
+
+			<h2 id="where-fdc-installed" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. FDC Bağlantıları Nereye Kurulur?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">FDC, koruduğu binanın dış yüzüne; itfaiye teşkilatının sokaktan veya sert zeminli bir araç konuşlanma alanından hortumlarla ulaşabileceği bir noktaya monte edilir. Kapıların açılma alanlarından, peyzaj düzenlemelerinden, tabelalardan ve ileride park alanına dönüşebilecek her türlü engelden uzak tutulmalıdır. Genellikle beslediği sistemi belirten bir levhayla birlikte kurulur; böylece büyük bir tesise gelen ekip hangi yükselticiye basınç uyguladığını bilir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Bina tarafında FDC, düşey boru hattı şebekesini besler: kat yangın musluklarına ve <a href="/tr/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">iç saha hidrant başlıklarına</a> hizmet veren düşey boru sistemi ve/veya sprinkler ana hattı. Bu nedenle FDC, tek başına satın alınacak bir ürün olarak değil, binanın hidrant ve yükseltici ekipmanlarıyla birlikte spesifikasyona dahil edilmelidir.</p>
+			<p class="text-gray-700 leading-relaxed">İki kurulum kuralı arızaların çoğunu önler. Don olaylarında bağlantı içinde su kalmaması için çıkış flanşı ve gövde boşaltılabilir olmalıdır. Ayrıca bağlantı ağzı hiçbir zaman engellenmemelidir. Park etmiş bir teslimat aracının arkasında kalan FDC işlevsel olarak kullanılamaz ve saha kontrollerinde en sık rastlanan kusurdur.</p>
+
+			<h2 id="fdc-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Çift Girişli Gövde, Storz Kaplin veya Adaptör?</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Bileşen</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">İşlev</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Boyut ve basınç sınıfı</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Malzeme / notlar</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">SQD100-1.6 çift girişli gövde</td>
+							<td class="px-4 py-3 text-gray-700">İki araç tek bina ana hattına su pompalar</td>
+							<td class="px-4 py-3 text-gray-700">2 × DN65 giriş, DN100 flanşlı çıkış, 1,6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">Sünek dökme demir, kırmızı toz boya, 120 mm uzunluk, entegre kontrol vanası, emniyet kablolu kapaklı girişler</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">2,5 inç Storz kaplin</td>
+							<td class="px-4 py-3 text-gray-700">Hortum-hortum veya hortum-giriş arasında hızlı bağlantı</td>
+							<td class="px-4 py-3 text-gray-700">DN50–DN150, 1,6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">Alüminyum (pirinç / krom seçenekleri), Alman Storz standardı, kendinden sızdırmaz, su ve köpük için</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">HS kaplin adaptörü</td>
+							<td class="px-4 py-3 text-gray-700">Sahadaki dişli tiplerini hortum kaplinlerine uyarlar</td>
+							<td class="px-4 py-3 text-gray-700">DN50 / DN65, 1,6 MPa (232 PSI)</td>
+							<td class="px-4 py-3 text-gray-700">Eloksallı alüminyum alaşım, GB12514 / fabrika standardı, iç ve dış dişler</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Bu üç ürün farklı sorunları çözer: Çift girişli gövde FDC'nin kendisidir; Storz kaplin, projenin Alman standardını belirlediği bağlantı sistemidir; adaptör ise uyumsuz dişli ve kaplinlerin sahada birlikte çalışmasını sağlayan çözümdür. İyi hazırlanmış bir projede genellikle gövde ile bir kaplin sistemi gerekir; adaptörler planın parçası değil, istisna olmalıdır.</p>
+
+			<h2 id="fdc-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Spesifikasyon ve Kurulum Kontrol Listesi</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Kaplini itfaiye teşkilatıyla doğrulayınız</strong> — siparişten önce giriş tipini yerel araçların fiilen taşıdığı kaplinlerle eşleştiriniz (tedarik edilen SQS65 / KWS65 veya proje gerektiriyorsa Storz).</li>
+				<li><strong>Akış yolunu kontrol ediniz</strong> — 1,6 MPa çalışma basıncında 2 × DN65 girişten DN100 flanşlı çıkışa geçişi doğrulayınız; çıkış flanşının yükseltici bağlantısına uyduğunu uygulama çizimlerinden kontrol ediniz.</li>
+				<li><strong>Vana ve kapak ayrıntılarına karar veriniz</strong> — SQD100-1.6 entegre el çarklı kontrol vanası ile örgülü çelik emniyet kablolu kapaklı girişleri içerir.</li>
+				<li><strong>Konumu planlayınız</strong> — dış yüz, sokaktan hortumla erişilebilir, işaretli ve görünür olmalı; ileride oluşabilecek park veya peyzaj engellerine karşı korunmalıdır. Don olaylarında suyun kalmaması için boşaltılabilir bir gövde belirtiniz.</li>
+				<li><strong>Kaplama ve malzemeyi belirtiniz</strong> — kırmızı toz boyalı sünek dökme demir / dökme demir gövde, pirinç veya paslanmaz çelik el çarkı mili ve dar kurulum alanları için kompakt 120 mm gövde uzunluğu.</li>
+				<li><strong>Dokümantasyon talep ediniz</strong> — montaj için parti bazlı basınç test raporları ve malzeme sertifikalarını isteyiniz. Tedarikçiyi kesinleştirmeden önce <a href="/tr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B vana tedarik kontrol listemizi</a> uygulayınız. Aynı projenin su besleme tarafı için <a href="/tr/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">yangın hidrantı seçimi rehberimize</a> bakınız.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Projeniz için itfaiye bağlantı ağzına mı ihtiyacınız var?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">İtfaiye teşkilatınızın istediği giriş kaplini tipini, çıkış flanşı boyutunu ve proje standardını bize iletiniz. Mühendislerimiz çift girişli bağlantıyı doğrulayarak 12 saat içinde teklif sunar.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=İtfaiye%20Bağlantı%20Ağzı%20(SQD100)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İsteyiniz</a>
+						<a href="https://wa.me/8618684324501?text=%C4%B0tfaiye%20ba%C4%9Flant%C4%B1%20a%C4%9Fz%C4%B1%20%C3%A7ift%20giri%C5%9F%20projesi%20i%C3%A7in%20bilgi%20almak%20istiyorum" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp'tan Yazınız</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

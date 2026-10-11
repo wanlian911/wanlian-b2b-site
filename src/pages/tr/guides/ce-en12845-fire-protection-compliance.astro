@@ -1,0 +1,154 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Wanlian, CE sertifikalı yangın koruma ürünleri tedarik ediyor mu?',
+		answer: 'Sertifikasyon her zaman modele ve hedef pazara özeldir. Sipariş ettiğiniz kesin model ile vana veya hortum konfigürasyonu için geçerli sertifikaları, uygunluk beyanlarını ve parti test raporlarını sunarız; ürün serilerinin tamamı için genel bir sertifika iddiasında bulunmayız. Ürünü ve hedef ülkeyi bildirmeniz hâlinde, üretimden önce hangi dokümantasyon paketinin geçerli olduğunu teyit ederiz.'
+	},
+	{
+		question: 'EN 12845 nedir ve ürünlerinizle nasıl ilişkilidir?',
+		answer: 'EN 12845, sabit yangın söndürme sprinkler sistemlerinin tasarım ve montajına ilişkin Avrupa standardıdır. Pompa emişlerinde girdap oluşumunun önlenmesi dâhil olmak üzere, su besleme düzeninin tamamına yönelik gereklilikleri belirler. Emiş girdap önleyicimiz EN 12845 ve GB50974-2014 standartlarına göre üretilir; su tankında pompa emişine monte edilerek hava sürüklenmesini ve kavitasyonu önler, tank hacminin güvenli şekilde çok düşük seviyelere kadar boşalmasını sağlar.'
+	},
+	{
+		question: 'Yangın söndürücüde ISO 7165, CE işareti ve CCCF arasındaki fark nedir?',
+		answer: 'ISO 7165, taşınabilir yangın söndürücüler için yapı, test ve işaretlemeyi kapsayan uluslararası performans standardıdır. CE işareti, Avrupa pazarına sunulan ürünler için AB uygunluk işaretidir; gereklilikleri ürüne uygulanan direktiflere bağlıdır. CCCF, yangın ürünleri için Çin Zorunlu Sertifikasyonudur ve birimi yalnızca Çin pazarı için uygun kılar; ihracat sertifikası değildir. Her zaman hedef pazarınıza ve kesin modele uygulanan sertifikayı talep edin.'
+	},
+	{
+		question: 'Avrupa yangın sistemlerinde hangi kaplin ve bağlantı standartları kullanılır?',
+		answer: 'Storz hızlı bağlantı kaplinleri Avrupa ve Asya’nın büyük bölümünde en yaygın sistemdir. Alman tipi KWS çıkışları hidrant ve sabit boru bağlantılarında da kullanılır; Birleşik Krallık ve Commonwealth pazarlarında BS336 dişleri yaygındır. 2,5 inç alüminyum Storz kaplinimiz (DN50-DN150, 1,6 MPa) Alman standardındaki bağlantı ailesini kapsar; SSFT100 gibi dış saha hidrantları KWS65 çıkışlarıyla tedarik edilir. Hortum, hidrant ve lans bağlantılarının uyumlu olması için talebinizde pazarınızda kullanılan diş sistemini belirtin.'
+	},
+	{
+		question: 'Vanalar için EN 12266-1’e göre parti test raporları sağlayabilir misiniz?',
+		answer: 'Evet. Ürün grubumuzdaki vanalar, talep üzerine GB/T13927 veya EN 12266-1’e uygun olarak gövde ve yatak basınç testine tabi tutulur; hidrantlar tipik olarak 2,4 MPa hidrostatik teste ve uygulanabilir standarda göre debi testine tabi tutulur. Genel bir şablon yerine, fiilen üretilen partiye ait test raporunu isteyin.'
+	},
+	{
+		question: 'Ürünler belirli AB ülkeleri için etiketlenip dokümante edilebilir mi?',
+		answer: 'Evet. Etiket dili, piktogramlar, talimat dili ve beraberindeki dokümantasyon, OEM kapsamı içinde hedef ülkenize uyarlanabilir. Varıştan sonra yeniden etiketleme maliyetli olduğundan, seri üretimden önce etiket dilini ve dokümantasyon formatını teyit edin.'
+	}
+];
+
+const toc = [
+	{ id: 'european-market', label: '1. Yangın Ekipmanında Avrupa Uygunluğu Neden Önemlidir?' },
+	{ id: 'ce-marking-basics', label: '2. CE İşaretinin Temelleri: Seri Değil, Model Bazında' },
+	{ id: 'en12845-pump-suction', label: '3. EN 12845 ve Yangın Pompası Emiş Grubu' },
+	{ id: 'testing-standards', label: '4. Test Kanıtları: EN 12266-1 ve Parti Raporları' },
+	{ id: 'connections-regional', label: '5. Kaplinler, Arayüzler ve Taşınabilir Ekipman' },
+	{ id: 'european-checklist', label: '6. Avrupalı Alıcılar İçin Teknik Şartname Kontrol Listesi' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' }
+];
+
+const referencePages = [
+	{ slug: 'suction-vortex-preventer-en12845', name: 'Emiş Girdap Önleyici (EN12845)', img: '/assets/products/suction-vortex-preventer-en12845.webp', desc: 'SS304/316, DN50-DN1000, EN12845 ve GB50974-2014' },
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: '2,5 İnç Alüminyum Storz Kaplin', img: '/assets/products/storz-coupling-2-5inch-aluminum.webp', desc: 'Alman standardı hızlı bağlantı, DN50-DN150, 1,6 MPa' },
+	{ slug: 'abc-dry-powder-fire-extinguisher-5kg', name: 'ABC Kuru Kimyevi Tozlu Yangın Söndürücü (5 kg)', img: '/assets/products/abc-dry-powder-fire-extinguisher-5kg.webp', desc: 'A/B/C/E sınıfı yangınlar için ISO 7165 taşınabilir ünite' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Darbeye Karşı Korumalı Dış Saha Hidrantı (SSFT100)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Basınç düzenlemeli, KWS65 çıkışlı, PN16 sfero döküm' }
+];
+---
+
+<Layout
+	title="CE ve EN 12845 Yangın Koruma Uygunluk Kılavuzu"
+	description="Yangın koruma ihracatında CE ve EN 12845 uygunluğu: pompa emişinde girdap önleme, EN 12266-1 vana testleri, Storz kaplinler ve ISO 7165 söndürücüler."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'CE ve EN 12845 Uygunluğu' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">CE ve EN 12845 Uygunluğu</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Sertifikasyon Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">CE ve EN 12845 Uygunluk Kılavuzu: Avrupa Pazarı İçin Yangın Ekipmanları</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Yangın koruma ekipmanlarını Avrupa’ya satmak, ürün tedarikinden önce bir dokümantasyon sürecidir. EN 12845 sprinkler su beslemelerinin nasıl kurulacağını, EN 12266-1 vana testlerinin nasıl yapılacağını, ISO 7165 ise taşınabilir yangın söndürücülerin performansını tanımlar. CE işareti geçerli olduğu durumlarda tüm seriye değil, belirli bir modele izlenebilir olmalıdır. Bu kılavuz, Avrupa’daki alıcının Çinli bir tedarikçiden istemesi gereken çerçeveyi ve kanıtları açıklar.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{referencePages.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="european-market" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Yangın Ekipmanında Avrupa Uygunluğu Neden Önemlidir?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Avrupa, yangın koruma tedarikçileri için niş bir pazar değildir. Bu kılavuzun dayandığı sektör platformu alıcı örnekleminde (Ağustos 2026), Avrupa yangın koruma kategorisinde %20,05 ile en büyük alıcı bölgesiydi; Avrupa ve Güneydoğu Asya birlikte yaklaşık %39’luk paya sahipti. Aynı örneklemde CE, yangın söndürücü ilanlarında %42,35 ile en yaygın sertifikasyon özelliğiydi. Bu durum, Avrupalı alıcıların fiyattan önce belgelenmiş uygunluğu incelediğini gösterir.</p>
+			<p class="text-gray-700 leading-relaxed">Avrupa’daki mühendislik alıcılarının gerçekte kontrol ettiği şey bir belge zinciridir: ürün hangi standarda göre üretilmiş, parti hangi test standardına göre test edilmiş, hangi sertifika kesin modeli kapsıyor ve ekipman hangi kaplin ve diş sistemiyle bağlanıyor? Aşağıdaki tüm bilgiler bu dört sorudan birine karşılık gelir.</p>
+
+			<h2 id="ce-marking-basics" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. CE İşaretinin Temelleri: Seri Değil, Model Bazında</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">CE işareti, Avrupa pazarına sunulan ürünler için uygunluk işaretidir. Hukuki dayanağı ürüne göre değişir; uygulanacak direktifler ve uyumlaştırılmış standartlar ürünün niteliğine bağlıdır. Sorumlu bir tedarikçinin genel ve kapsamı belirsiz bir beyanda bulunmamasının nedeni tam olarak budur.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>İşaret belirli bir modele aittir</strong> — CE işareti ve ilgili Uygunluk Beyanı, özellikleri tanımlanmış belirli bir ürünü kapsar. Vana ölçüsü, malzeme veya konfigürasyon değişirse uygunluk değerlendirmesi de değişir.</li>
+				<li><strong>Seri bazlı iddiaları reddedin</strong> — Model tanımlayıcısı bulunmadan yalnızca markayı veya tüm ürün grubunu adlandıran sertifika, Avrupa tedarikinde risk işaretidir. Satın aldığınız kesin model ve teknik özellikleri belirten belgeyi isteyin.</li>
+				<li><strong>Teknik dosya bekleyin</strong> — Üretici, beyanın dayandığı test raporlarını ve teknik dokümantasyonu gösterebilmelidir. <a href="/tr/certificates/" class="text-brand-blue font-semibold hover:underline">Sertifikalar ve uygunluk</a> sayfamız, yangın koruma ürün grubumuzdaki dokümantasyonun nasıl yönetildiğini açıklar.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Bir teklif “CE sertifikalı mı?” sorusunu “Evet, tüm seri” şeklinde yanıtlıyorsa doğru takip soruları şunlardır: Hangi direktif, hangi standart, hangi model ve Uygunluk Beyanı’nı görebilir miyim?</p>
+
+			<h2 id="en12845-pump-suction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. EN 12845 ve Yangın Pompası Emiş Grubu</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">EN 12845, sabit yangın söndürme sprinkler sistemlerinin tasarım ve montajına ilişkin Avrupa standardıdır. Depolama tanklarını, pompa emişlerini, pompaları, vanaları ve dağıtımı kapsayan tüm su besleme zincirini düzenler. Tekrarlanan gerekliliklerden biri, tanklardan su çeken pompa emişlerinde girdap oluşumunun önlenmesidir. Girdap pompaya hava çeker, kavitasyona neden olur ve sprinkler sisteminin tam debiye ihtiyaç duyduğu anda susuz kalmasına yol açabilir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Ürün grubumuzdaki <a href="/tr/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">emiş girdap önleyicinin</a> görevi budur: tank içinde pompa emişine monte edilen, östenitik paslanmaz çelikten (SS304/316) bir plaka grubudur; EN 12845 ve GB50974-2014 standartlarına göre DN50’den DN1000’e kadar üretilir. Girdabı ortadan kaldırır, tankın çok düşük su seviyelerine (yaklaşık 100 mm) kadar boşalmasını sağlar ve bakım gerektiren hareketli parça içermez.</p>
+			<p class="text-gray-700 leading-relaxed">Emiş ve basma grubunun kalan kısmı aynı mantığı izler: izolasyon için sürgülü veya kelebek vanalar, pompa basma hattında çekvalfler ve yükselen kolonda alarm vanaları. EN 12845 tipi bir sprinkler düzenindeki bileşenlerin tamamı için <a href="/tr/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">yangın sprinkler sistemi vanaları kılavuzumuza</a> bakın.</p>
+
+			<h2 id="testing-standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Test Kanıtları: EN 12266-1 ve Parti Raporları</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Avrupalı alıcılar genel bir “standarda göre test edilmiştir” ifadesini nadiren kabul eder; test standardının adını ve partinin kimliğini görmek ister. Fabrika testlerimizde aşağıdaki esaslar uygulanır:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Vanalar</strong> — Talep üzerine GB/T13927 veya <strong>EN 12266-1</strong> (endüstriyel vana testleri için Avrupa standardı) uyarınca gövde ve yatak için %100 basınç testi yapılır.</li>
+				<li><strong>Hidrantlar</strong> — Hidrostatik basınç testi (tipik olarak 2,4 MPa) ve GB 4452 veya uygulanabilir ihracat standardına göre debi testi yapılır.</li>
+				<li><strong>Yangın söndürücüler</strong> — Tüp üzerindeki model işareti dâhil olmak üzere performans, yapı ve işaretleme ISO 7165’e göre kontrol edilir.</li>
+				<li><strong>Parti kanıtı</strong> — Test raporları başka bir model veya üretim çalışmasına ait şablonu değil, teslim aldığınız gerçek üretim partisini kapsamalıdır.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Talep ettiğiniz test standardını sorgunuzda ve satın alma siparişinizde belirtin. Standardı yazılı olarak taahhüt eden tedarikçi, ilgili raporu sunabilecek tedarikçidir.</p>
+
+			<h2 id="connections-regional" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Kaplinler, Arayüzler ve Taşınabilir Ekipman</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Uygunluk sertifikalarda sona ermez; bağlantılar ve taşınabilir ekipman da bölgesel kurallara tabidir. Avrupa ve Asya’nın büyük bölümünde <strong>Storz hızlı bağlantı kaplinleri</strong> baskın yangın hortumu sistemidir. <a href="/tr/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">2,5 inç alüminyum Storz kaplinimiz</a> kendinden sızdırmaz kenarıyla Alman standardını izler, 1,6 MPa basınca dayanıklıdır ve temiz su ile köpük karışımlarına uygundur. Birleşik Krallık ve Commonwealth pazarlarında BS336 dişleri, hidrant ve sabit boru bağlantılarında ise Alman tipi KWS çıkışları kullanılır. <a href="/tr/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">SSFT100 darbeye karşı korumalı dış saha hidrantımız</a> standart olarak 2 adet KWS65 çıkışı ve bir DN100 çıkışıyla tedarik edilir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Avrupa’ya gönderilecek taşınabilir yangın söndürücülerde sertifika sınırını net tutun: <a href="/tr/products/abc-dry-powder-fire-extinguisher-5kg/" class="text-brand-blue font-semibold hover:underline">5 kg ABC kuru kimyevi tozlu söndürücümüz</a> ISO 7165’e göre üretilir ve CCCF taşır. ISO 7165, taşınabilir söndürücülerin uluslararası performansını kapsar; AB pazarı için CE işareti modele uygulanan direktiflere bağlıdır. CCCF yalnızca Çin’e özgüdür ve Avrupa satışlarına aktarılamaz. Etiket dili, piktogramlar ve talimat dili üretimden önce hedef ülke için teyit edilmelidir.</p>
+			<p class="text-gray-700 leading-relaxed">Alıcı açısından sonuç nettir: Sertifika talebiyle aynı cümlede kaplin sistemini ve yangın söndürücü standardını belirtin; bunlar teknik şartname boyunca birlikte ilerler.</p>
+
+			<h2 id="european-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Avrupalı Alıcılar İçin Teknik Şartname Kontrol Listesi</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Bileşen standardını belirtin</strong> — Sprinkler su besleme düzeni için EN 12845, vana testi için EN 12266-1, taşınabilir söndürücüler için ISO 7165 ve hidrantlar ile kaplinler için uygulanabilir standart.</li>
+				<li><strong>Model bazlı sertifika talep edin</strong> — Geçerli olduğu durumlarda CE Uygunluk Beyanı ve sipariş ettiğiniz kesin model, ölçü ve konfigürasyonu belirten sertifika.</li>
+				<li><strong>Arayüz sistemini teyit edin</strong> — Hortum, hidrant ve lans bağlantıları için Storz, BS336, KWS veya diğer dişler; bunu yazılı olarak belirtin.</li>
+				<li><strong>Dokümantasyon dilini kesinleştirin</strong> — OEM kapsamının bir parçası olarak hedef ülkenin etiket ve talimat dili.</li>
+				<li><strong>Parti test raporlarını isteyin</strong> — Genel bir dosyayı değil, fiilen teslim alacağınız üretim partisinin test kayıtlarını talep edin.</li>
+				<li><strong>Dokümantasyon zincirini birleştirin</strong> — Vana, hidrant ve söndürücüleri tek üreticiden sipariş etmek sertifikaları ve taşımayı tek dosyada tutar. Tedarikçiye karar vermeden önce <a href="/tr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B vana tedarik kontrol listemizi</a> uygulayın.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Avrupa İçin Yangın Koruma Siparişi mi Hazırlıyorsunuz?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Ürünleri, miktarları ve hedef ülkeyi bildirin; ekibimiz 12 saat içinde geçerli standartları, sertifika paketini ve bağlantı sistemini teyit etsin.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=European%20Compliance%20Package" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İste</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Merhaba, AB pazarı için yangın koruma ekipmanına ihtiyacım var')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp’tan Yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

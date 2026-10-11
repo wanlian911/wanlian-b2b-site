@@ -1,0 +1,132 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const faq = [
+	{
+		question: 'Bir HVAC dijital balans vanası ne işe yarar?',
+		answer: 'Balans vanası, su devreli bir HVAC sisteminin her kolundaki tasarım debisini ayarlar ve doğrular. SP45F; Y tipinde küresel vana gövdesi, dijital kilitleme göstergesi ve iki basınç ölçüm noktası kullanır. Böylece mühendis, vanayı ayarlayabilir ve vana yerine ayrı bir debimetre takmadan diferansiyel basıncı ölçebilir.'
+	},
+	{
+		question: 'SP45F dijital balans vanası hangi ölçü aralığında sunulmaktadır?',
+		answer: 'Flanşlı SP45F dijital balans vanası DN50 ile DN300 arasında sunulmaktadır. Gövdesi küresel grafitli dökme demir QT450, basınç ölçüm noktaları paslanmaz çelik ve el çarkı sfero dökme demirdir. Teklif talebinde nominal çapı, flanş standardını ve gerekli akışkanın türünü belirtin.'
+	},
+	{
+		question: 'Hidrolik dengelemede iki basınç ölçüm noktası neden önemlidir?',
+		answer: 'İki ölçüm noktası, devreye alma mühendisinin vananın giriş ve çıkış tarafındaki basıncı ölçmesini sağlar. Diferansiyel basınç; vana ayarı ve üreticinin debi verileriyle birlikte kol debisini doğrulamak ve yetersiz ya da aşırı beslenen devreyi belirlemek için kullanılır.'
+	},
+	{
+		question: 'Balans vanası, basınç düşürücü vananın yerine kullanılabilir mi?',
+		answer: 'Hayır. Balans vanası bir koldaki debiyi düzenler ve doğrular; değişken şebeke koşullarında vana çıkışındaki basıncı sabit tutmak için tasarlanmamıştır. Bu basınç kontrolü işlevini hidrolik 500X basınç düşürücü vana yerine getirir. Vanayı görünüşüne göre değil, kontrol amacına göre seçin.'
+	},
+	{
+		question: 'HVAC dengeleme devresinde pislik tutucu nereye monte edilmelidir?',
+		answer: 'Boru hattında kaynak artıkları veya partikül bulunma ihtimali varsa, hassas kontrol ve balans vanalarının giriş tarafına uygun bir pislik tutucu monte edin. SGL41H teleskopik Y tipi pislik tutucu, filtrasyonu bir kompansasyon manşonuyla birleştirir; SS304 veya SS316 süzgeci ve sökülebilir gövdesi bakımı kolaylaştırır.'
+	},
+	{
+		question: 'Bir HVAC balans vanası RFQ talebine hangi bilgiler eklenmelidir?',
+		answer: 'DN, flanş delik standardı, akışkan, tasarım sıcaklığı, tasarım basıncı, hedef debi, mevcut diferansiyel basınç, gövde malzemesi, ölçüm noktaları, aktüatör veya el çarkı gereksinimi ve gerekli devreye alma dokümantasyonunu ekleyin. Teklif için OEM veya ODM markalamasının gerekip gerekmediğini de belirtin.'
+	}
+];
+
+const toc = [
+	{ id: 'what-is-balancing', label: '1. HVAC balans vanası nedir?' },
+	{ id: 'how-digital-balancing-works', label: '2. SP45F dijital vana nasıl çalışır?' },
+	{ id: 'balancing-vs-pressure-control', label: '3. Balans vanası ve basınç düşürücü vana karşılaştırması' },
+	{ id: 'where-to-install', label: '4. Nereye monte edilmeli ve nasıl korunmalı?' },
+	{ id: 'valve-comparison', label: '5. SP45F ve hidrolik kontrol seçenekleri' },
+	{ id: 'rfq-checklist', label: '6. HVAC balans vanası RFQ kontrol listesi' },
+	{ id: 'faq', label: 'Sık Sorulan Sorular' }
+];
+
+const referencePages = [
+	{ slug: 'sp45f-flange-digital-balancing-valve', name: 'SP45F Dijital Balans Vanası', img: '/assets/products/sp45f-flange-digital-balancing-valve.webp', desc: 'DN50–DN300, QT450 gövde, dijital kilit ve ölçüm noktaları' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'SGL41H Teleskopik Y Tipi Pislik Tutucu', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'DN50–DN600, SS304/316 süzgeç, bakım erişimi' },
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: '500X Basınç Düşürücü Vana', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'DN20–DN600, vana çıkışı için pilot kumandalı basınç kontrolü' },
+	{ slug: 'telescopic-resilient-seat-gate-valve-z41x-t', name: 'Z41X-T Teleskopik Elastomer Yataklı Sürgülü Vana', img: '/assets/products/telescopic-resilient-seat-gate-valve-z41x-t.webp', desc: 'DN50–DN600, EPDM kama ve genleşme kompansasyonu' }
+];
+---
+
+<Layout
+	title="HVAC Dijital Balans Vanası Kılavuzu: SP45F Seçimi"
+	description="HVAC dijital balans vanası SP45F kılavuzu: basınç ölçüm noktaları, dijital kilit, seçim, montaj, hidrolik dengeleme ve RFQ bilgileri. B2B uygulamalar için."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'HVAC Dijital Balans Vanası Kılavuzu' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a><span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a><span>/</span>
+			<span class="text-gray-600">HVAC Dijital Balans Vanası Kılavuzu</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">HVAC Vana Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">HVAC Dijital Balans Vanası Kılavuzu: SP45F Seçimi</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kısaca: HVAC balans vanası, su devreli bir sistemin tasarım performansını sağlaması için kol debisini ayarlar. SP45F; Y tipinde küresel vana gövdesini dijital kilitleme göstergesi ve iki basınç ölçüm noktasıyla birleştirerek devreye alma ekiplerine kol dengesini ayarlamak, ölçmek ve belgelemek için tekrarlanabilir bir yöntem sunar. Bu kılavuz; kontrol amacını, montaj noktalarını ve teklif talebinde belirtilmesi gereken bilgileri açıklar.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{referencePages.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3"><p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p><p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p></div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-balancing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. HVAC balans vanası nedir?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Su devreli HVAC sistemleri, soğutulmuş veya ısıtılmış suyu birden fazla kol üzerinden dağıtır. Dengeleme yapılmadığında pompaya yakın kollar tasarlanandan daha fazla debi alabilirken uzaktaki serpantinlere yetersiz debi ulaşır. Bunun sonucunda oda sıcaklıkları dengesizleşir, kontrol vanaları gürültülü çalışır ve pompa tasarımın gerektirdiğinden daha fazla çalışır.</p>
+			<p class="text-gray-700 leading-relaxed">Balans vanası her kola kontrollü bir direnç ekler. Devreye alma sırasında mühendis vanayı tasarım konumuna ayarlar, basınç farkını ölçer ve oluşan debiyi doğrular. Amaç debi dağılımı ve ölçümdür; izolasyon ya da tüm şebeke basıncının otomatik olarak düşürülmesi değildir.</p>
+
+			<h2 id="how-digital-balancing-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. SP45F dijital vana nasıl çalışır?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/tr/products/sp45f-flange-digital-balancing-valve/" class="text-brand-blue font-semibold hover:underline">SP45F flanşlı dijital balans vanası</a>, küresel grafitli dökme demir QT450 gövdeli Y tipinde bir küresel vana yapısı kullanır. Dijital kilitleme göstergesi vana ayarını kaydeder; iki paslanmaz çelik basınç ölçüm noktası ise devreye alma cihazları için ölçüm bağlantısı sağlar.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Belirtilen ölçü aralığı DN50 ile DN300 arasındadır. Vana seçerken nominal çapı ve flanş delik düzenini kol çizimiyle eşleştirin; ardından tasarım debisini ve mevcut diferansiyel basıncı doğrulayın. Dijital gösterge, ayarın el çarkı konumundan tahmin edilmesi yerine kaydedilmesine olanak tanıdığı için montaj ile sonraki bakım arasındaki tekrarlanabilirliği artırır.</p>
+			<p class="text-gray-700 leading-relaxed">Ürün verilerinde vana; su, yağ ve gaz akışkanları için listelenmiştir. HVAC projesinde, sızdırmazlık malzemelerinin, gövde basınç sınıfının ve test dokümantasyonunun kullanım koşullarına göre incelenebilmesi için teklif talebinde gerçek akışkanı ve sıcaklığı belirtin.</p>
+
+			<h2 id="balancing-vs-pressure-control" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Balans vanası ve basınç düşürücü vana karşılaştırması</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bu vanalar aynı teknik odada bulunabilir; ancak farklı sorunları çözer. Balans vanası kol debisini ayarlar ve ölçümü destekler. Basınç düşürücü vana, giriş basıncı veya debi değiştiğinde çıkış tarafındaki daha düşük basıncı otomatik olarak sabit tutar. Birini diğerinin yerine kullanmak, sistemin kontrol amacına uymayan bir şartname oluşturur.</p>
+			<p class="text-gray-700 leading-relaxed"><a href="/tr/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">500X hidrolik basınç düşürücü vana</a> pilot kumandalı ve kendinden tahriklidir; çıkış basıncı ayar aralığı 0,1 MPa ile 1,6 MPa olarak belirtilmiştir. Şebeke basıncının düşürülmesi ve dengelenmesi gereken yerlerde bunu kullanın. Devreye alma ekibinin kontrollü kol direncine, kaydedilebilir bir ayara ve diferansiyel basınç ölçümüne ihtiyaç duyduğu yerlerde ise SP45F kullanın.</p>
+
+			<h2 id="where-to-install" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Nereye monte edilmeli ve nasıl korunmalı?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Balans vanasını hidrolik tasarımda gösterilen kola, göstergeyi okumaya ve ölçüm problarını bağlamaya yetecek açıklık bırakarak monte edin. Düz boru gereklilikleri için proje çizimlerini izleyin; izolasyon ve tavan kapatıldıktan sonra da ölçüm noktalarına erişilebilmesini sağlayın.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Devreye almadan önce kaynak artıklarını ve inşaat kirlerini temizleyin. <a href="/tr/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">SGL41H teleskopik Y tipi pislik tutucu</a>, Y tipi pislik tutucuyu bir kompansasyon manşonuyla birleştirir ve SS304/SS316 süzgeçlerle DN50–DN600 aralığında sunulur. Uygun şekilde giriş tarafına monte edildiğinde pilot bağlantılarını, ölçüm cihazlarını ve vana yuvalarını partiküllerden korurken bakım erişimi sağlar.</p>
+			<p class="text-gray-700 leading-relaxed">Kolun ayrıca izolasyona ve genleşme kompansasyonuna ihtiyacı varsa, <a href="/tr/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">Z41X-T teleskopik elastomer yataklı sürgülü vana</a>, +/- 25 mm olarak belirtilen teleskopik aralıkla kesme işlevi sağlar. Malzeme listesinde bu izolasyon işlevini balans işlevinden ayrı belirtin.</p>
+
+			<h2 id="valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. SP45F ve hidrolik kontrol seçenekleri</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5"><table class="min-w-full divide-y divide-gray-200 text-sm">
+				<thead class="bg-gray-50"><tr><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Vana / bileşen</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Temel görev</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Belirtilen veriler</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Devreye alma kontrolü</th></tr></thead>
+				<tbody class="bg-white divide-y divide-gray-200">
+					<tr><td class="px-4 py-3 font-bold text-gray-900">SP45F dijital balans vanası</td><td class="px-4 py-3 text-gray-700">Kol debisini ayarlamak ve doğrulamak</td><td class="px-4 py-3 text-gray-700">DN50–DN300, QT450, iki ölçüm noktası</td><td class="px-4 py-3 text-gray-700">Ayarı ve diferansiyel basıncı kaydetmek</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">500X basınç düşürücü vana</td><td class="px-4 py-3 text-gray-700">Çıkış basıncını sabit tutmak</td><td class="px-4 py-3 text-gray-700">DN20–DN600, 0,1–1,6 MPa ayar aralığı</td><td class="px-4 py-3 text-gray-700">Debi değişimlerinde ayar basıncını doğrulamak</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">SGL41H Y tipi pislik tutucu</td><td class="px-4 py-3 text-gray-700">Vanaları ve ölçüm cihazlarını korumak</td><td class="px-4 py-3 text-gray-700">DN50–DN600, 18–30 mesh su süzgeci</td><td class="px-4 py-3 text-gray-700">Süzgeci incelemek ve diferansiyel basıncı gidermek</td></tr>
+				</tbody>
+			</table></div>
+			<p class="text-gray-700 leading-relaxed">Tipik bir kolda bu bileşenlerin birden fazlası kullanılabilir: pislik tutucu devreyi korur, izolasyon vanası bakımı mümkün kılar, balans vanası debiyi ayarlar ve basınç kontrol vanası ayrı bir basınç bölgesini yönetir. Her bileşeni işlevine göre seçin ve toplam basınç kaybının kabul edilebilir sınırlar içinde kaldığını doğrulayın.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. HVAC balans vanası RFQ kontrol listesi</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Tasarım noktasını belirtin</strong> – hedef debiyi, mevcut diferansiyel basıncı ve vananın soğutma suyu, ısıtma suyu veya başka bir akışkan için kullanılıp kullanılmayacağını belirtin.</li>
+				<li><strong>Boyutları doğrulayın</strong> – DN, flanş delik standardı, yüz yüze montaj mesafesi ve izolasyon açıklığı; SP45F aralığı DN50–DN300'dür.</li>
+				<li><strong>Ölçümü tanımlayın</strong> – iki basınç ölçüm noktası, dijital ayar göstergesi ve teslim için gerekli devreye alma veri formunu talep edin.</li>
+				<li><strong>Devreyi koruyun</strong> – giriş tarafı pislik tutucuyu, yıkama prosedürünü ve süzgeç ile vana bakımı için erişimi belirtin.</li>
+				<li><strong>İşlevleri ayırın</strong> – genel bir vana tanımı kullanmak yerine izolasyon, dengeleme, basınç düşürme ve genleşme kompansasyonunu ayrı gereksinimler olarak listeleyin.</li>
+				<li><strong>Kanıtlayıcı belgeleri isteyin</strong> – sipariş onayından önce QT450 ve paslanmaz çelik ölçüm noktaları için malzeme bilgilerini, ölçü çizimlerini, basınç test kayıtlarını ve OEM/ODM markalama gerekliliklerini talep edin.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sık Sorulan Sorular</h2>
+			<div class="space-y-4">{faq.map(item => (<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30"><summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none"><span>{item.question}</span><span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span></summary><p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p></details>))}</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden"><div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+				<h2 class="text-2xl font-black text-white tracking-tight">SP45F HVAC balans vanasına mı ihtiyacınız var?</h2>
+				<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">DN, flanş standardı, hedef debi ve proje akışkanını bize iletin. Mühendislerimiz balans vanası konfigürasyonunu doğrular ve 12 saat içinde teklif sunar.</p>
+				<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4"><a href={`/tr/contact/?product=${uri.EscapeDataString('SP45F Dijital Balans Vanası')}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İsteyin</a><a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Merhaba, SP45F HVAC dijital balans vanasına ihtiyacım var')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp'tan Yazın</a></div>
+			</div></div>
+		</article>
+	</main>
+</Layout>

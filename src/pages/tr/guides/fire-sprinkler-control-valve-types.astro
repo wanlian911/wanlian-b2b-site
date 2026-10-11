@@ -1,0 +1,186 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Yangın sprinkler kontrol vanalarının UL veya FM listeli olması gerekir mi?',
+		answer: 'Kuzey Amerika’daki ve birçok uluslararası projedeki sprinkler kontrol vanası, yangından korunma hizmeti için listelenmiş olmalıdır. Talep üzerine UL/FM listeli sürgülü vana, kelebek vana, çekvalf, baskın (deluge) vana ve ön tepkili (pre-action) vana üretiyoruz. Sipariş vermeden önce proje şartnamesinin ve hedef pazarın gerektirdiği listelemeyi teyit edin.'
+	},
+	{
+		question: 'Sprinkler sistemlerinde OS&Y ile yükselmeyen milli sürgülü vana arasındaki fark nedir?',
+		answer: 'OS&Y (Outside Screw and Yoke) sürgülü vanada yükselen mil bulunur; milin konumu vananın açık veya kapalı olduğunu görsel olarak gösterir. Yükselmeyen milli tasarımlarda mil gövde içinde kalır ve ayrı bir konum göstergesi gerekir. UL/FM listeli OS&Y sürgülü vanamız, yükselen mil göstergesini hızlı mekanik bağlantı için yivli uçlarla birleştirir.'
+	},
+	{
+		question: 'Bir sprinkler bölümü vanasında neden kurcalama anahtarı bulunmalıdır?',
+		answer: 'Kurcalama veya limit anahtarı, vana kapandığında ya da kısmen kapandığında yangın alarm paneline elektrik sinyali gönderir. Böylece sprinkler sistemi yanlışlıkla izole edilmiş durumda bırakılmaz; bu, NFPA-13 esaslı kurulumlarda zorunlu bir güvenlik gerekliliğidir. DN80 yivli wafer modelimiz gibi sinyal izleme anahtarlı kelebek vanalar bu anahtarı standart olarak entegre eder.'
+	},
+	{
+		question: 'Islak alarm çekvalfi nereye monte edilir?',
+		answer: 'ZSFZ ıslak alarm çekvalfi, ıslak sistemin sprinkler yükselticisine monte edilir. Normal koşullarda boru tesisatını basınç altında tutar; bir sprinklere su akışı başladığında klape açılır, hidrolik alarm gongunu çaldırır ve basınç anahtarını tetikler. Entegre geciktirme haznesi, geçici basınç darbelerinden kaynaklanan yanlış alarmları önler.'
+	},
+	{
+		question: 'Wanlian sprinkler kontrol vanaları hangi ölçü aralığını kapsar?',
+		answer: 'UL/FM OS&Y sürgülü vanamız yivli uçlarla 2–10 inç (DN50–DN250) aralığını kapsar; sinyal izleme anahtarlı yivli wafer kelebek vanalar PN16’da DN50–DN300 aralığındadır; ıslak alarm çekvalfleri ise 1,6 MPa basınçta DN100, DN150 ve DN200 ölçülerinde sunulur. Teklif isterken yükseltici ve bölüm ölçülerinizi belirtin.'
+	}
+];
+
+const toc = [
+	{ id: 'what-control-valves-do', label: '1. Yangın Sprinkler Kontrol Vanalarının Görevi' },
+	{ id: 'osy-gate-valves', label: '2. OS&Y Sürgülü Vanalar: İzlenen Ana İzolasyon' },
+	{ id: 'signal-butterfly-valves', label: '3. Bölüm Kontrolü için Sinyal İzleme Anahtarlı Kelebek Vanalar' },
+	{ id: 'check-and-alarm-valves', label: '4. Çekvalfler ve Alarm Vanaları' },
+	{ id: 'control-valve-comparison', label: '5. Kontrol Vanası Karşılaştırma Tablosu' },
+	{ id: 'specification-checklist', label: '6. Teknik Tanımlama: B2B Kontrol Listesi' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' }
+];
+
+const products = [
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM OS&Y Sürgülü Vana (Yivli)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: 'Yükselen milli, UL/FM listeli sürgülü vana; 2–10 inç, yivli uçlar' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Sinyal İzleme Anahtarlı Yivli Wafer Kelebek Vana', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', desc: 'Entegre kurcalama anahtarlı DN80 PN16' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'ZSFZ-150 Islak Alarm Çekvalfi', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Geciktirme hazneli DN100–DN200 alarm çekvalfi' },
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Baskın (Deluge) Alarm Vanası Grubu (ZSFM)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'Diyafram kumandalı sistem kontrol vanası, DN50–DN300' },
+	{ slug: 'pre-action-alarm-system-zsfy', name: 'Ön Tepkili Alarm Sistemi (ZSFY)', img: '/assets/products/pre-action-alarm-system-zsfy.jpg', desc: 'Suya hassas mahaller için çift tetiklemeli emniyet sistemi' }
+];
+
+const referencePages = [
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM OS&Y Sürgülü Vana' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Sinyal İzleme Anahtarlı Yivli Wafer Kelebek Vana' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'ZSFZ-150 Islak Alarm Çekvalfi' },
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'ZSFM Baskın (Deluge) Alarm Vanası Grubu' },
+	{ slug: 'pre-action-alarm-system-zsfy', name: 'ZSFY Ön Tepkili Alarm Sistemi' }
+];
+---
+
+<Layout
+	title="Yangın Sprinkler Kontrol Vanaları: OS&Y, Kelebek ve Çekvalf"
+	description="Yangın sprinkler kontrol vana tiplerini inceleyin: OS&Y sürgülü, sinyalli kelebek ve çekvalfler için UL/FM listeli B2B seçim ve teknik özellikler."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Sprinkler Kontrol Vana Tipleri' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Sprinkler Kontrol Vana Tipleri</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Yangından Korunma Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Yangın Sprinkler Kontrol Vanaları: OS&amp;Y, Kelebek ve Çekvalf</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Bir sprinkler sistemi, yalnızca kontrol vanaları kadar güvenilirdir. Kısaca: ana izolasyon için izlenen bir OS&amp;Y sürgülü vana, bölümler için izlenen kelebek vanalar, alarm vana grubunda çekvalfler ve sistemin yangın sinyaline kadar kuru kalması gereken yerlerde baskın veya ön tepkili vana kullanın. Bu kılavuz, her yangın sprinkler kontrol vana tipini ve doğru teknik tanımlama yöntemini açıklar.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-control-valves-do" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Yangın Sprinkler Kontrol Vanalarının Görevi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Kontrol vanaları, su beslemesi ile sprinkler başlıkları arasında bulunur. Bakım için sistemin bölümlerini izole eder, ihtiyaç duyulana kadar suyu tutar ve en önemlisi, yangından korunmanın yanlışlıkla devre dışı bırakılmaması için <strong>açık/kapalı konumlarını bildirmelidir</strong>. Bu izleme gerekliliği nedeniyle aşağıdaki vana tipleri sıradan endüstriyel vanalarla birbirinin yerine kullanılamaz.</p>
+			<p class="text-gray-700 leading-relaxed">“Yangın sprinkler kontrol vanası” aradığınızda genellikle dört çözümden birini kastedersiniz: ana besleme için OS&amp;Y sürgülü vana, bölüm kontrolü için sinyal izleme anahtarlı kelebek vana, yükselticideki çekvalf/alarm vana grubu veya özel tehlike sistemleri için baskın/ön tepkili vana. Islak, baskın ve ön tepkili vana gruplarına ilişkin kapsamlı açıklama için <a href="/tr/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">yangın sprinkler sistemi vanaları kılavuzumuza</a> bakın.</p>
+
+			<h2 id="osy-gate-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. OS&amp;Y Sürgülü Vanalar: İzlenen Ana İzolasyon</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">OS&amp;Y (Outside Screw and Yoke) sürgülü vana, sprinkler yükselticileri ve yangın ana hatları için klasik ana kontrol vanasıdır. Dişli mil kapak dışında bulunduğundan, vana açılırken mil görünür biçimde yükselir. Yanından geçen herkes vananın açık olup olmadığını görebilir; boyunduruktaki izleme anahtarı da konumu yangın alarm paneline bildirir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Yangından korunma hizmetinde vana, tanınmış bir listelemeye sahip olmalıdır. <a href="/tr/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM listeli elastomer yataklı OS&amp;Y sürgülü vanamız</a>, nodüler dökme demir gövdeyle 2–10 inç (DN50–DN250) aralığında yivli uçlarla sunulur. Yükselen mil göstergesi ve damlatmaz kapanma sağlayan EPDM elastomer yatak içerir. Projede flanşlı bağlantılar belirtilmişse <a href="/tr/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X sünek dökme demir elastomer yataklı sürgülü vana</a>, ana izolasyon için geleneksel tam geçişli alternatiftir.</p>
+			<p class="text-gray-700 leading-relaxed">Pratik kural: Sürgülü vanalar yavaşça, çok turlu olarak açılıp kapanır ve tamamen açıkken basınç kaybı neredeyse sıfırdır. Bu nedenle nadiren çalıştırılan ancak akışı kısıtlamaması gereken vanalar için doğru seçimdir.</p>
+
+			<h2 id="signal-butterfly-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Bölüm Kontrolü için Sinyal İzleme Anahtarlı Kelebek Vanalar</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Vanaların yükseltici odalarında, teknik mahallerde veya vana manifoldlarında sıkışık yerleştirildiği durumlarda alan değerlidir. Kelebek vana, sürgülü vananın yüz yüze boyunun ve ağırlığının çok küçük bir bölümüne sahiptir; çeyrek tur çalışması da kumandayı kolaylaştırır. Ancak sıradan bir kelebek vana konum hakkında görsel veya elektriksel bilgi vermez. Bu nedenle sprinkler bölümü kontrolünde entegre kurcalama/limit anahtarlı <strong>sinyal izleme anahtarlı kelebek vanalar</strong> kullanılır.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/tr/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">DN80 sinyal izleme anahtarlı yivli wafer kelebek vanamız</a> tipik bir örnektir: DN80 PN16, QT450 sünek dökme demir gövde, sonsuz dişli kumanda ve açık/kapalı durumunu alarm paneline bildiren su geçirmez mikro anahtar. Yivli bağlantı, flanş yerine kaplinlerle boru tesisatına bağlanmasını sağlar ve sprinkler branşman hatlarındaki montaj süresini kısaltır.</p>
+			<p class="text-gray-700 leading-relaxed">Bir çizimde “izlenen kelebek vana” belirtiliyorsa kurcalama anahtarı şartnamesi önemlidir. Alarm panelinizle sorunsuz uyum için limit anahtarının tipini ve IP koruma sınıfını isteyin.</p>
+
+			<h2 id="check-and-alarm-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Çekvalfler ve Alarm Vanaları</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Islak sprinkler yükselticisi normalde bir <strong>ıslak alarm çekvalfi</strong> tarafından basınç altında tutulur. <a href="/tr/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ-150 ıslak alarm çekvalfi</a> sistem borularındaki suyu tutar; bir sprinkler açıldığı anda akış klapeyi kaldırır, hidrolik alarm gongunu çaldırır ve basınç anahtarını tetikler. Geciktirme haznesi, normal besleme dalgalanmalarının alarm oluşturmasını önlemek için geçici basınç darbelerini sönümler. ZSFZ modelleri 1,6 MPa basınçta DN100, DN150 ve DN200 ölçülerindedir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Yangın doğrulanana kadar kuru kalması gereken yüksek tehlikeli mahaller ve suya hassas odalar gibi sistemlerde kontrol vanasının kendisi <strong>baskın veya ön tepkili vana</strong> olur. <a href="/tr/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM baskın alarm vanası</a>, diyafram basıncıyla beslemeyi tutar ve algılama sinyali geldiğinde tüm açık nozulları beslemek üzere anında açılır. ZSFY ön tepkili sistem ise boru tesisatını suyla doldurmadan önce iki bağımsız sinyal gerektirir.</p>
+			<p class="text-gray-700 leading-relaxed">Geri akışın önlenmesi gereken pompa ve besleme düzeneklerinde küresel çekvalfler de kullanılır. Yangın ana hattında izolasyon ve çekvalf görevlerinin nasıl bir arada çalıştığını görmek için <a href="/tr/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">sürgülü vana ve kelebek vana karşılaştırmasına</a> bakın.</p>
+
+			<h2 id="control-valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Kontrol Vanası Karşılaştırma Tablosu</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Vana Tipi</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Ana İşlev</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Konum İzleme</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tipik Konum</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">OS&amp;Y sürgülü vana</td>
+							<td class="px-4 py-3 text-gray-700">Ana besleme izolasyonu</td>
+							<td class="px-4 py-3 text-gray-700">Yükselen mil + izleme anahtarı</td>
+							<td class="px-4 py-3 text-gray-700">Yükseltici, yangın ana hattı, pompa çıkışı</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sinyal izleme anahtarlı kelebek vana</td>
+							<td class="px-4 py-3 text-gray-700">Bölüm / kat kontrolü</td>
+							<td class="px-4 py-3 text-gray-700">Entegre kurcalama anahtarı</td>
+							<td class="px-4 py-3 text-gray-700">Branşman hatları, yükseltici odaları, manifoldlar</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Islak alarm çekvalfi</td>
+							<td class="px-4 py-3 text-gray-700">Basıncı koruma, akışta alarm</td>
+							<td class="px-4 py-3 text-gray-700">Klape + gong + basınç anahtarı</td>
+							<td class="px-4 py-3 text-gray-700">Islak sprinkler yükselticisi</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Baskın / ön tepkili vana</td>
+							<td class="px-4 py-3 text-gray-700">Kuru boru bölgeleri için sistem kontrolü</td>
+							<td class="px-4 py-3 text-gray-700">Algılama sinyaliyle kumandalı</td>
+							<td class="px-4 py-3 text-gray-700">Yüksek tehlikeli / suya hassas bölgeler</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Çoğu proje dört kategorinin tamamına ihtiyaç duyar. Bu nedenle soru hiçbir zaman “sürgülü vana mı, kelebek vana mı?” değil, “hangi konumda hangi vana kullanılmalı?” sorusudur.</p>
+
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Teknik Tanımlama: B2B Kontrol Listesi</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Önce listeleme gerekliliğini teyit edin</strong> – Kuzey Amerika’daki projelerin çoğunda UL/ULC veya FM zorunludur. Fiyatları karşılaştırmadan önce sertifikayı hedef pazar ve vana tipiyle eşleştirin.</li>
+				<li><strong>Basınç sınıfını eşleştirin</strong> – PN16 (1,6 MPa) sprinkler kontrol vanaları için standarttır. Şebekenizin maksimum statik basıncını teyit edin ve gerekirse PN25 belirtin.</li>
+				<li><strong>Bağlantı tipini boru planınıza göre seçin</strong> – yivli uçlar çelik borularda montaj süresini kısaltır; flanşlı bağlantılar, projesi flanş esaslı hazırlanmış sistemlere uygundur.</li>
+				<li><strong>Kurcalama anahtarı şartnamesini açıkça belirtin</strong> – anahtar tipi, gerilim ve IP koruma sınıfı yangın alarm panelinizle uyumlu olmalıdır.</li>
+				<li><strong>Parti test raporlarını isteyin</strong> – genel bir şablon yerine, gerçek üretim partisinin gövde ve yatak basınç test sertifikalarını talep edin.</li>
+				<li><strong>Vana paketini tek tedarikte birleştirin</strong> – OS&amp;Y, kelebek ve alarm vanalarını tek üreticiden temin etmek sertifikasyon belgelerini kolaylaştırır. Tedarikçiye karar vermeden önce <a href="/tr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B vana tedarik kontrol listemizi</a> uygulayın.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Sprinkler kontrol vanası paketi mi tanımlıyorsunuz?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Yükseltici ölçülerinizi, bağlantı tipini ve gerekli sertifikasyonu bize gönderin. Mühendislerimiz 12 saat içinde veri sayfaları ve teklif ile yanıt verir.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Yang%C4%B1n%20Sprinkler%20Kontrol%20Vanalar%C4%B1" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İsteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Merhaba, yangın sprinkler kontrol vanalarına ihtiyacım var (OS&Y/kelebek/çekvalf).')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp’tan Yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

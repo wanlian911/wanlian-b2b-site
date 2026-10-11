@@ -1,0 +1,215 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const whatsappText = encodeURIComponent('Merhaba, antifriz veya darbeye dayanıklı yangın hidrantlarına ihtiyacım var');
+
+// SSS: Gerçek satın alma soruları (FAQPage JSON-LD oluşturur)
+const faq = [
+	{
+		question: 'Antifrizli yangın hidrantı kışın donmayı nasıl önler?',
+		answer: 'Antifrizli hidrant, kuru gövdeli tasarıma sahiptir: Ana vana donma çizgisinin altında bulunur ve üzerindeki gövde, vana her kapandığında otomatik olarak boşalır. Kolonda su kalmadığı için donarak gövdeyi çatlatacak bir ortam oluşmaz. SS100/65 yer üstü hidrantı tam olarak bu otomatik don tahliye mekanizmasını kullanır ve yer altı bağlantısı için standart flanşlı tabanla tedarik edilir.'
+	},
+	{
+		question: 'Darbeye dayanıklı bir hidrant araca çarptığında ne olur?',
+		answer: 'SSFT100, kalibre edilmiş kesme cıvatalarıyla bir arada tutulur. Darbe sırasında cıvatalar tasarlanan kuvvette kontrollü biçimde kesilir ve iç vana otomatik olarak kapanır. Böylece tam kesitli su boşalması yerine hidrant kendini sızdırmaz hâle getirir ve su baskını önlenir. Onarım, ana hattı boşaltmadan kesme cıvatalarının değiştirilmesi ve hidrantın yeniden devreye alınmasıyla basınç altında yapılır; bu da bakım maliyetini düşük tutar.'
+	},
+	{
+		question: 'Darbeye dayanıklı hidrantlar soğuk iklimlerde de çalışır mı?',
+		answer: 'Evet. SSFT100 tek gövdede üç işlevi birleştirir: darbe koruması, kademeli ve düzgün boşaltma için dahili basınç düzenleme cihazı ve kışın donmayı önleyen otomatik kendiliğinden boşaltma sistemi. Bu özellikler, hidrantların trafiğe yakın bulunduğu soğuk bölgelerdeki belediye ve sanayi şebekeleri için uygundur.'
+	},
+	{
+		question: 'Yangın hidrantları uzaktan izlenebilir mi?',
+		answer: 'SS100ZN IoT akıllı hidrantı mikro sensörleri bünyesinde barındırır ve NB-IoT, LTE-M veya GPRS hücresel şebekeleri üzerinden veri iletir. Eğim/titreşim, boru hattı su basıncı ve vana durumunu izler; izinsiz su kullanımı, vana açılması veya araç çarpması için uyarı üretir. Enerji, güneş destekli ve 5 yıl kullanım ömrü öngörülen lityum pille sağlanır; modül kapsülü IP68 koruma sınıfındadır. Hidrant gövdesi GB4452-2011 standardına göre üretilir.'
+	},
+	{
+		question: 'Hangi çıkış düzeni ve basınç sınıfını belirtmeliyim?',
+		answer: 'SS100/65 ve SSFT100/65, belediye yer üstü hidrantlarında beklenen düzen olan 2 adet 65 mm çıkış ve 1 adet 100 mm çıkışla tedarik edilir. Çalışma basıncı 1,6 MPa olup SS100, 2,4 MPa basınçta test edilir. Çıkış dişleri proje standardına göre belirlenir. Wanlian Fluid HS serisi alüminyum kaplin adaptörleri (DN50/DN65, 1,6 MPa, GB12514), hidrantları hortum ve lanslara sızdırmaz biçimde bağlar.'
+	},
+	{
+		question: 'İhracat projelerinde yangın hidrantları için hangi standartlar geçerlidir?',
+		answer: 'IoT akıllı hidrant gövdesi GB4452-2011 standardına göre üretilir; mekanik hidrantlar ise GB gerekliliklerine ve fabrika standartlarına göre imal edilir. Proje AWWA, EN veya NFPA referansları gerektiriyorsa model ile test dokümantasyonunun eşleşmesi için bu gereklilik teklif talebinde belirtilmelidir. Yangın hidrantı ve vana standartları kılavuzumuz, sipariş öncesinde bu standart ailelerinin ve test raporlarının nasıl değerlendirileceğini açıklar.'
+	}
+];
+
+// İÇİNDEKİLER: Metindeki H2 id değerleriyle birebir eşleşir
+const toc = [
+	{ id: 'cold-climate-problem', label: '1. Hidrantlar soğuk havada neden arızalanır?' },
+	{ id: 'antifreeze-mechanism', label: '2. Antifrizli (kuru gövdeli) hidrantlar nasıl çalışır?' },
+	{ id: 'anti-collision-mechanism', label: '3. Darbeye dayanıklı hidrantlar nasıl kapanır?' },
+	{ id: 'hydrant-comparison', label: '4. Standart, darbeye dayanıklı veya IoT' },
+	{ id: 'smart-hydrant-monitoring', label: '5. Akıllı hidrant izleme' },
+	{ id: 'hydrant-spec-checklist', label: '6. Teknik şartname kontrol listesi' },
+	{ id: 'faq', label: 'Sık sorulan sorular' }
+];
+
+// İlgili ürünler (slug değerleri products.ts ile aynıdır)
+const products = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Antifrizli Yangın Hidrantı (SS100/65)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'DN100, 1,6 MPa, otomatik don tahliyesi, 2x65 + 1x100' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Darbeye Dayanıklı Hidrant (SSFT100/65)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Kesme cıvatalı kapatma, basınç düzenleme, kendiliğinden boşaltma' },
+	{ slug: 'iot-smart-ground-fire-hydrant-ss100zn', name: 'IoT Akıllı Hidrant (SS100/65-1.6ZN)', img: '/assets/products/iot-smart-ground-fire-hydrant-ss100zn.webp', desc: 'NB-IoT/4G, eğim ve basınç sensörleri, 5 yıllık pil' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Hidrant Kaplin Adaptörü (HS Serisi)', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65, 1,6 MPa, kendinden sızdırmaz alüminyum' }
+];
+---
+
+<Layout
+	title="Antifrizli ve Darbeye Dayanıklı Yangın Hidrantları"
+	description="Antifrizli kuru gövdeli hidrantlar donmayı nasıl önler, darbeye dayanıklı hidrantlar çarpışmada nasıl kapanır? IoT izleme ve B2B seçim rehberi."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Antifrizli ve Darbeye Dayanıklı Hidrantlar' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Antifrizli ve Darbeye Dayanıklı Hidrantlar</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Yangın Hidrantı Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Antifrizli ve Darbeye Dayanıklı Yangın Hidrantları</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Özetle: Standart bir yer üstü hidrantının belediye hizmetindeki iki zayıf noktası vardır: Gövdede kalan su donarak gövdeyi çatlatabilir ve araca çarpan hidrant, tam debili su boşalmasına neden olabilir. Antifrizli (kuru gövdeli) hidrantlar her kullanımdan sonra boşalarak ilk sorunu; darbeye dayanıklı hidrantlar ise kalibre edilmiş kesme cıvataları ve otomatik iç kapatma sistemiyle ikinci sorunu çözer. Bu kılavuz her iki mekanizmayı açıklar, modelleri karşılaştırır ve IoT izlemenin sağladığı katkıyı ele alır.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Ürün şeridi -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Bölüm 1 -->
+			<h2 id="cold-climate-problem" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Hidrantlar soğuk havada neden arızalanır?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Islak gövdeli hidrant, vana üzerindeki kolonda yıl boyunca su bulundurur. Şiddetli donda bu su buza dönüşürken genleşir ve basıncın kaçacağı bir yer kalmaz: Gövde, kapak veya vana gövdesi çatlar. Arıza çoğunlukla çözülmeye kadar fark edilmez. Hidrant açıldığında su, en kritik anda çıkış ağızları yerine çatlamış gövdeden boşalır.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Tersi sorun da aynı ölçüde yaygındır: Hidrant kullanımdan sonra boşaltılmazsa donma çizgisinin üzerinde bir su hacmi kalır. Bu nedenle soğuk iklim şartnameleri yalnızca “daha güçlü” bir hidrant istemez; vana kapalıyken gövdesi boş olan bir hidrant ister.</p>
+			<p class="text-gray-700 leading-relaxed">Diğer arıza türünün hava koşullarıyla ilgisi yoktur: Hidrantlar yol kenarında bulunur ve yol kenarındaki ekipmanlara araç çarpar. Tasarlanmış bir kopma noktası olmadığında araç çarpması gövdeyi keserek ayırır. İzolasyon vanasına ulaşılana kadar şebekenin tam basıncı kırılan kolondan boşalır.</p>
+
+			<!-- Bölüm 2 -->
+			<h2 id="antifreeze-mechanism" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Antifrizli (kuru gövdeli) hidrantlar nasıl çalışır?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Kuru gövdeli hidrantta ana vana donma çizgisinin altına gömülür ve üzerindeki gövde, hidranttan su akışı olmadığı sürece boş kalır. Kumanda mili kapatıldığında vana yuvasına oturur ve kolonda kalan su, tabandaki tahliye cihazından akar. Böylece bir sonraki dondan önce gövde yeniden kuru hâle gelir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/tr/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">SS100/65 yer üstü antifrizli yangın hidrantı</a>, bu prensibi kapanma sonrası otomatik don tahliye mekanizmasıyla uygular. Şartname için temel veriler: DN100, 2,4 MPa test basıncıyla 1,6 MPa çalışma basıncı, 2 adet 65 mm ve 1 adet 100 mm çıkış, ağır hizmet tipi sünek dökme demir QT450 kolon, hava koşullarına dayanıklı kör kapaklı çift pirinç yuvalı çıkış, EPDM kaplı alt vana kafası ve paslanmaz çelik/pirinç tahliye cihazı. Su ve yangın köpüğü karışımıyla çalışır; standart yer altı flanşlı taban montajı kolaylaştırır.</p>
+			<p class="text-gray-700 leading-relaxed">Gövde her çalışmadan sonra boşaldığından donmaya karşı koruma, tek seferlik bir kışa hazırlık işlemi değil, tekrarlanabilir bir işlevdir. Bu özellik, aylar arayla denetlenen şebekeler için önem taşır.</p>
+
+			<!-- Bölüm 3 -->
+			<h2 id="anti-collision-mechanism" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Darbeye dayanıklı hidrantlar nasıl kapanır?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Darbeye dayanıklı hidrant, kontrollü biçimde arızalanacak şekilde tasarlanır. <a href="/tr/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">SSFT100/65 darbeye dayanıklı basınç düzenlemeli hidrant</a>, özel olarak kalibre edilmiş kesme cıvatalarıyla monte edilir. Araç kolona çarptığında cıvatalar tasarlanan kuvvette kesilir ve iç vana otomatik olarak kapanır. Hidrant, ana hattı boşaltmak yerine kendini sızdırmaz hâle getirir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Sonuçlar teorik değil, pratiktir: Su kaybı ve su baskını önlenir, şebeke bölgenin geri kalanında basıncını korur ve onarım basınç altında yapılır. Bunun için emniyet cıvataları değiştirilir ve hidrant yeniden devreye alınır. Kesilmiş gövdenin değiştirilmesi ve bağlantının kazılarak ortaya çıkarılmasıyla karşılaştırıldığında bakım maliyeti çok düşüktür.</p>
+			<p class="text-gray-700 leading-relaxed">Modelde ayrıca dahili bir basınç düzenleme cihazı bulunur. Bu sayede boşaltma, hortum ekibine ani tam basınç darbesi yerine kademeli ve düzgün gerçekleşir. Otomatik kendiliğinden boşaltma sistemi de kışın donmaya karşı koruma sağlar. Teknik veriler: DN100 veya DN150, 1,6 MPa nominal basınç, flanşlı giriş, 2 adet 65 mm (KWS65) ve 1 adet 100 mm çıkış, sünek dökme demir QT450 gövde, EPDM kaplı masif pirinç alaşımlı alt vana yuvası, 304 paslanmaz çelik yaylar ve eloksallı alüminyum alaşım veya pirinç kapaklar.</p>
+
+			<!-- Bölüm 4 -->
+			<h2 id="hydrant-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Standart, darbeye dayanıklı veya IoT</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Özellik</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SS100/65 Antifrizli</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SSFT100 Darbeye Dayanıklı</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">SS100ZN IoT Akıllı</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Donmaya karşı koruma</td>
+							<td class="px-4 py-3 text-gray-700">Kapanma sonrası otomatik don tahliyesi</td>
+							<td class="px-4 py-3 text-gray-700">Otomatik kendiliğinden boşaltma sistemi</td>
+							<td class="px-4 py-3 text-gray-700">Kuru gövdeli yapı, durum izleme</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Araç çarpması</td>
+							<td class="px-4 py-3 text-gray-700">Yalnızca kalın duvarlı QT450 gövde</td>
+							<td class="px-4 py-3 text-gray-700">Kalibre edilmiş kesme cıvataları ve otomatik kapatma</td>
+							<td class="px-4 py-3 text-gray-700">Eğim/titreşim sensörleri çarpışma uyarısı üretir</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Basınç düzenleme</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">Dahili, kademeli boşaltma</td>
+							<td class="px-4 py-3 text-gray-700">Sürekli basınç izleme</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">İzleme</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">—</td>
+							<td class="px-4 py-3 text-gray-700">NB-IoT / LTE-M / GPRS, vana ve hırsızlık uyarıları</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Boyut ve çıkışlar</td>
+							<td class="px-4 py-3 text-gray-700">DN100, 2x65 + 1x100</td>
+							<td class="px-4 py-3 text-gray-700">DN100/DN150, 2xKWS65 + 1x100</td>
+							<td class="px-4 py-3 text-gray-700">DN100 yer üstü gövde (GB4452-2011)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Basınç</td>
+							<td class="px-4 py-3 text-gray-700">1,6 MPa (2,4 MPa ile test edilmiştir)</td>
+							<td class="px-4 py-3 text-gray-700">1,6 MPa nominal</td>
+							<td class="px-4 py-3 text-gray-700">Şebeke basıncı sürekli izlenir</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">En uygun kullanım</td>
+							<td class="px-4 py-3 text-gray-700">Soğuk iklim belediye şebekeleri</td>
+							<td class="px-4 py-3 text-gray-700">Trafiğe açık yol kenarı konumları</td>
+							<td class="px-4 py-3 text-gray-700">Akıllı şehir ve düşük denetimli şebekeler</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Bu üç tasarım birbirinin alternatifi olmaktan çok üç farklı riske yanıt verir: Don, darbe ve izlenmeyen kullanım. Soğuk iklimli ve yoğun trafikli bir şehirde genellikle ilk ikisi birlikte gerekir; ekiplerin her hidrantı planlanan zamanda denetleyemediği yerlerde üçüncü çözüm eklenir.</p>
+
+			<!-- Bölüm 5 -->
+			<h2 id="smart-hydrant-monitoring" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Akıllı hidrant izleme</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/tr/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">SS100ZN IoT akıllı yer üstü hidrantı</a>, standart yer üstü gövdeye bir sensör kapsülü ekler. Dahili mikro sensörler NB-IoT, LTE-M veya GPRS üzerinden veri iletir: Eğim ve titreşim, boru hattı su basıncı ve vana durumu izlenir. Platform; izinsiz su kullanımı, vana açılması, su hırsızlığı veya araç çarpması için uyarı üretir; boru hattı arızalarının olay gerçekleşmeden ortaya çıkması için su basıncı ve debiyi sürekli takip eder.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Varlık sahipleri açısından değer, görünürlüktür. Yetkisiz bir kullanıcı tarafından açılan, devrilen veya basıncı düşen bir hat üzerinde bulunan hidrant, normalde bir sonraki fiziksel denetime kadar fark edilmez. İzlenen hidrant bu olayları bildirime dönüştürür. Enerji, 5 yıl kullanım ömürlü lityum pil ve güneş desteği bulunan ultra düşük güç tüketimli tasarımla sağlanır. IoT modülünün kapsülü, IP68 sızdırmazlığa sahip darbe dayanımlı ABS malzemeden üretilir; kapsülün çarpmaya maruz kalması beklenen bir ekipman üzerinde bulunması nedeniyle bu ayrıntı önemlidir.</p>
+			<p class="text-gray-700 leading-relaxed">Hidrant gövdesi GB4452-2011 standardına uygundur; QT450 sünek dökme demir kolon, 316 paslanmaz çelik su probu ve paslanmaz çelik veya pirinç alt mil ve vana yuvası kullanılır. Proje başka standart aileleri gerektiriyorsa standardı teklif talebinde belirtin ve AWWA, EN, NFPA ve ISO referanslarının test dokümantasyonuyla nasıl eşleştirileceği için <a href="/tr/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">yangın hidrantı ve vana standartları kılavuzumuza</a> başvurun.</p>
+
+			<!-- Bölüm 6 -->
+			<h2 id="hydrant-spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Teknik şartname kontrol listesi</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>İklimden başlayın</strong> — Don görülüyorsa kuru gövdeli antifrizli bir hidrant (SS100/65) veya kendiliğinden boşaltmalı darbeye dayanıklı bir model belirtin; tahliye cihazının tipini ve vana kapandığında gövdenin boşaldığını doğrulayın.</li>
+				<li><strong>Trafik riskini değerlendirin</strong> — Kaldırım kenarlarında, yükleme sahalarında ve sanayi girişlerinde bulunan hidrantlar, bir darbenin ana hattı boşaltmaması için kalibre edilmiş kesme cıvataları ve otomatik iç kapatma sistemiyle (SSFT100/65) donatılmalıdır.</li>
+				<li><strong>Görünürlüğe ihtiyacınız olup olmadığına karar verin</strong> — Akıllı şehir, kampüs veya düşük denetimli şebekelerde SS100ZN ile NB-IoT/LTE-M/GPRS üzerinden eğim, basınç ve vana durumu raporlanabilir.</li>
+				<li><strong>Çıkış düzenini kesinleştirin</strong> — 2 adet 65 mm ve 1 adet 100 mm çıkış, standart yer üstü düzenidir; hortum ve lansların sızdırmaz bağlanması için <a href="/tr/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS serisi kaplin adaptörlerini</a> (DN50/DN65, 1,6 MPa, GB12514) ekleyin.</li>
+				<li><strong>Basıncı ve test kanıtını belirtin</strong> — 1,6 MPa çalışma basıncı standarttır; SS100, 2,4 MPa ile test edilir. Sevkiyattan önce parti basınç test raporlarını ve malzeme sertifikalarını isteyin.</li>
+				<li><strong>Standartları ve tedarikçiyi doğrulayın</strong> — AWWA/EN/NFPA gerekliliklerini baştan belirtin ve üreticiyle anlaşmadan önce <a href="/tr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B vana tedarik kontrol listemizi</a> uygulayın. Daha geniş seçim bağlamı için <a href="/tr/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">yangın hidrantı seçme kılavuzumuza</a> bakın.</li>
+			</ul>
+
+			<!-- SSS bölümü -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sık sorulan sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Çift CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Antifrizli veya darbeye dayanıklı yangın hidrantına mı ihtiyacınız var?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">İklim koşullarınızı, trafik riskini, DN ölçüsünü, çıkış düzenini ve standardı paylaşın; mühendislerimiz uygun hidrantı doğrulayarak 12 saat içinde teklif sunsun.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Antifrizli%20Yang%C4%B1n%20Hidrant%C4%B1%20SS100" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İsteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${whatsappText}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp'ta yazışın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

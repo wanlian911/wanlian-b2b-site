@@ -1,0 +1,200 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'HQ41X kayar küreli çekvalf nasıl çalışır?',
+		answer: 'HQ41X, kapama elemanı olarak kauçuk kaplı çelik küre kullanır. Akış ileri yönde olduğunda küre, iç kılavuzlar üzerinde yukarı doğru yuvarlanır ve tam geçiş açılır; akış durduğunda veya tersine döndüğünde küre yatağına geri yuvarlanarak kabarcık sızdırmaz biçimde kapanır. Küre menteşeye çarpmak yerine yuvarlandığı için vana sessiz kapanır, su darbesi oluşturmaz ve aynı çaptaki klapeli çekvalfe göre daha düşük basınç kaybı sağlar.'
+	},
+	{
+		question: 'HQ41X kayar küreli ve HQ44X küresel çekvalfler arasındaki fark nedir?',
+		answer: 'HQ41X kayar küreli çekvalf, 1,0/1,6 MPa basınçta DN50–DN350 aralığını kapsar; karbon çelik çekirdekli küresi tamamen NBR ile kaplıdır ve entegre sfero döküm kılavuzlar üzerinde yuvarlanır. Kanalizasyon ve drenaj uygulamalarında standart bir tercihtir. HQ44X küresel çekvalf ise PN16 basınçta DN50–DN400 aralığını kapsar; sfero döküm (QT450-10) gövdeye ve EPDM vulkanize dökme demir küreye sahiptir. Tam geçişli, tıkanmayan kanal, düşük ilk hareket debisi ve sessiz, darbesiz kapanma özellikleri yüksek debili hatlara uygundur.'
+	},
+	{
+		question: 'Klapeli çekvalf yerine neden küresel çekvalf seçilmelidir?',
+		answer: 'Küresel çekvalfler tam geçişli bir kanala ve yuvarlanan kauçuk kaplı bir küreye sahiptir. Klapeli çekvalfle karşılaştırıldığında HQ41X yaklaşık %50 daha düşük basınç kaybı sağlayacak şekilde tasarlanmıştır; kauçuk kaplı küre tıkanmayı önler ve su darbesi oluşturmadan sessiz kapanır. Küresel çekvalfler ayrıca yatay veya dikey monte edilebilir; klapeli çekvalflerde bu çoğu zaman mümkün değildir.'
+	},
+	{
+		question: 'Bir çekvalf su darbesini önleyebilir mi?',
+		answer: 'Darbesiz kapanan bir çekvalf, su darbesinin bir nedenini ortadan kaldırır: Klapeli çekvalfin menteşeli diski akış aniden tersine döndüğünde yatağına çarparak hat boyunca bir basınç dalgası gönderebilir. HQ41X ve HQ44X gibi küresel çekvalfler çarpmak yerine sessizce kapanır. Pompa şebekelerinde, kalkış ve devreden çıkma sırasında oluşan darbeyi kontrol etmek için bunları yavaş kapanan hidrolik kontrol vanaları ve pompa emiş hattında EN 12845 standardına uygun girdap önleyici ile birlikte kullanın.'
+	},
+	{
+		question: 'Çekvalfler nereye monte edilmelidir?',
+		answer: 'Tipik montaj yerleri; geri akışı ve pompanın ters yönde dönmesini önlemek için pompa çıkış hatları, kanalizasyon ve belediye drenaj ana hatları, dikey montaj gereken dalgıç pompa yükseltici hatları ve yangın sprinkler şebekeleridir. Sprinkler şebekesinde ZSFZ-150 gibi ıslak alarm çekvalfi aynı zamanda akış alarmı tetikleyicisi olarak görev yapar. İçme suyu çapraz bağlantılarında HS41X kirlilik önleyici geri akış önleyici, geri akış kontrolü için gereken çift çekvalf bariyerini sağlar.'
+	},
+	{
+		question: 'Çekvalf satın alırken hangi test standardı ve belgeler istenmelidir?',
+		answer: 'Partiye uygulanan gövde ve yatak test standardını doğrulayın; HQ44X, GB/T13927 standardına göre test edilir. İlgili partiye ait gövde ve yatak basınç test raporlarını, gövde ve küre çekirdeği için malzeme sertifikalarını talep edin. Teklifin gerçek çalışma koşullarına uygun olması için talebinizde DN, basınç sınıfı, çalışma sıcaklığı ve montaj yönünü belirtin.'
+	}
+];
+
+const toc = [
+	{ id: 'what-is-a-check-valve', label: '1. Çekvalf nedir?' },
+	{ id: 'check-valve-types-overview', label: '2. Çekvalf tiplerine genel bakış' },
+	{ id: 'sliding-ball-vs-swing-check', label: '3. Kayar küreli ve klapeli çekvalf karşılaştırması' },
+	{ id: 'water-hammer-prevention', label: '4. Su darbesi ve darbesiz kapanma tasarımı' },
+	{ id: 'where-check-valves-installed', label: '5. Çekvalflerin montaj yerleri' },
+	{ id: 'check-valve-specification-checklist', label: '6. B2B teknik özellik kontrol listesi' },
+	{ id: 'faq', label: 'Sık sorulan sorular' }
+];
+
+const products = [
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'Küresel çekvalf HQ44X-16', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50–DN400 PN16, sfero döküm, darbesiz kapanma' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Islak alarm çekvalfi ZSFZ 150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'DN100/150/200 sprinkler alarm çekvalfi' },
+	{ slug: 'anti-pollution-backflow-preventer-hs41x', name: 'Kirlilik önleyici geri akış önleyici HS41X-16', img: '/assets/products/anti-pollution-backflow-preventer-hs41x.webp', desc: 'İçme suyu için çift çekvalf ve tahliye' }
+];
+
+const referencePages = [
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'Küresel çekvalf HQ44X' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Islak alarm vanası ZSFZ 150' },
+	{ slug: 'anti-pollution-backflow-preventer-hs41x', name: 'Kirlilik önleyici geri akış önleyici HS41X' }
+];
+---
+
+<Layout
+	title="Çekvalf Tipleri ve Seçim Rehberi | Wanlian Fluid"
+	description="Çekvalf tiplerini karşılaştırın: klapeli, kayar küreli HQ41X ve küresel HQ44X; basınç kaybı, su darbesi, montaj ve B2B seçim rehberi ve uygulama notları."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Çekvalf Tipleri Kılavuzu' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Çekvalf Tipleri Kılavuzu</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Endüstriyel Vana Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Çekvalf Tipleri ve Seçim Rehberi: Kayar Küreli ve Klapeli Çekvalf</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kısaca: çekvalf, suyun tek yönde akmasına izin verir ve akış tersine döndüğünde operatöre veya enerji kaynağına ihtiyaç duymadan otomatik olarak kapanır. Uygulama kanalizasyon, drenaj veya pompa şebekelerini içerdiğinde HQ41X kayar küreli ve HQ44X küresel tasarımlar gibi küresel çekvalfler çarpmadan sessizce kapanır; böylece klapeli çekvalflerin oluşturabileceği su darbesi önlenir. Bu kılavuz yaygın tipleri karşılaştırır ve hangi özellikleri belirtmeniz gerektiğini açıklar.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-a-check-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Çekvalf nedir?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Çekvalf, otomatik çalışan tek yönlü bir vanadır. Akışkanın kendisi kapama elemanını açar; akış durduğunda veya tersine dönmeye çalıştığında eleman yatağına geri döner ve vana kapanır. El çarkı, aktüatör veya elektrik bağlantısı bulunmaz. Çekvalfler pompaları, sayaçları ve şebekeleri geri akıştan korur, duruş sonrasında hatların dolu kalmasını sağlar ve kirleticilerin temiz besleme hattına geri akmasını önler.</p>
+			<p class="text-gray-700 leading-relaxed">İyi bir çekvalfi kötü bir çekvalften ayıran iki unsur <strong>basınç kaybı</strong> (vana açıkken pompalama enerjisinin ne kadarının kaybedildiği) ve <strong>kapanma davranışıdır</strong> (vananın çarpma ve hat içinde su darbesi oluşturma olasılığı veya sessizce kapanması). Her ikisi de kapama mekanizması tarafından belirlenir; bu nedenle tip seçimi önemlidir.</p>
+
+			<h2 id="check-valve-types-overview" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Çekvalf tiplerine genel bakış</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Klapeli çekvalfler</strong>, ileri akışla açılan ve akış durduğunda yatağına geri düşen menteşeli bir disk kullanır. Basit ve ekonomiktir; ancak diskin hareket mesafesi uzundur. Akış aniden tersine döndüğünde disk yatağa çarpabilir; kirli akışkanlarda menteşe sıkışabilir veya disk açık konumda kalabilir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Kaldırmalı çekvalfler</strong>, yataktan yükselen yay yüklü bir piston veya küre kullanır. Daha hızlı kapanır ve temiz, yüksek basınçlı akışkanlara uygundur; ancak kısıtlı akış yolu daha yüksek basınç kaybına neden olur ve kanalizasyon uygulamalarında kolayca tıkanır.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wafer (çift plakalı) çekvalfler</strong> kompakttır ve flanşlar arasına monte edilir; iki yay yüklü plaka kullanır. Yangın ve HVAC hatları için hafif ve ekonomiktir; ancak plakalar basınç kaybını artırır ve yaylar sürekli pompalama hizmetinde yorulabilir.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Küresel çekvalfler</strong>, menteşe veya yayın yerine yuvarlanan kauçuk kaplı bir küre kullanır. İleri akışta küre geçişten yükselir, akış durduğunda yatağına geri yuvarlanır; bu kısa ve kılavuzlu hareket sessiz kapanma sağlar ve tıkanmaya karşı dayanıklıdır. <a href="/tr/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">HQ44X küresel çekvalf</a> (DN50–DN400, sfero döküm, darbesiz kapanma), Wanlian Fluid ürün grubundaki küresel tasarımdır.</p>
+
+			<h2 id="sliding-ball-vs-swing-check" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Kayar küreli ve klapeli çekvalf karşılaştırması</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Karşılaştırma</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Klapeli çekvalf</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">HQ41X kayar küreli</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">HQ44X küresel</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Kapama elemanı</td>
+							<td class="px-4 py-3 text-gray-700">Menteşeli disk</td>
+							<td class="px-4 py-3 text-gray-700">İç kılavuzlar üzerinde kauçuk kaplı küre</td>
+							<td class="px-4 py-3 text-gray-700">Kauçuk kaplı yuvarlanan küre</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Basınç kaybı</td>
+							<td class="px-4 py-3 text-gray-700">Referans değer</td>
+							<td class="px-4 py-3 text-gray-700">Tam geçişli, klapeli tipe göre yaklaşık %50 daha düşük</td>
+							<td class="px-4 py-3 text-gray-700">Tam geçişli, tıkanmayan kanal</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Kapanma davranışı</td>
+							<td class="px-4 py-3 text-gray-700">Hızlı ters akışta disk çarpabilir</td>
+							<td class="px-4 py-3 text-gray-700">Sessiz kapanma, su darbesi yok</td>
+							<td class="px-4 py-3 text-gray-700">Darbesiz sessiz kapanma, düşük ilk hareket debisi</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tıkanma direnci</td>
+							<td class="px-4 py-3 text-gray-700">Menteşe kirli akışkanlarda sıkışabilir</td>
+							<td class="px-4 py-3 text-gray-700">Küre tıkanmayı önler</td>
+							<td class="px-4 py-3 text-gray-700">Tıkanmayan tam geçiş</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Montaj</td>
+							<td class="px-4 py-3 text-gray-700">Genellikle yatay</td>
+							<td class="px-4 py-3 text-gray-700">Yatay veya dikey</td>
+							<td class="px-4 py-3 text-gray-700">Yatay veya dikey</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tipik uygulama</td>
+							<td class="px-4 py-3 text-gray-700">Temiz su hatları</td>
+							<td class="px-4 py-3 text-gray-700">Kanalizasyon, drenaj, dalgıç pompalar</td>
+							<td class="px-4 py-3 text-gray-700">Yüksek debili su, pompa şebekeleri</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Her iki küresel tasarım da kauçuk kaplı metal çekirdek kullanır: HQ41X küresi karbon çelikten imal edilmiş ve tamamen NBR ile kaplanmıştır; HQ44X küresi ise tamamen EPDM vulkanizasyonlu dökme demir çekirdeğe sahiptir. Yatak ve sızdırmazlık kauçukları EPDM veya NBR'dir. Standart ürün grubunda çalışma sıcaklığı 0 °C ile 80 °C arasındadır.</p>
+
+			<h2 id="water-hammer-prevention" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Su darbesi ve darbesiz kapanma tasarımı</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Su darbesi, hareket hâlindeki su sütunu aniden durduğunda meydana gelir; bunun nedeni pompanın devreden çıkması, bir vananın hızla kapanması veya çekvalfin çarparak kapanması olabilir. Suyun kinetik enerjisi, boruları patlatabilecek, pompalara zarar verebilecek ve ölçüm cihazlarının kalibrasyonunu bozabilecek bir basınç artışına dönüşür. Uzun çıkış hatlarında bu artış çalışma basıncının birkaç katına ulaşabilir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Klapeli çekvalf, çarpmanın klasik kaynaklarından biridir: Pompa durduğunda ileri akış çöker ve ağır disk yavaşlayan su sütunu boyunca geri düşerek yatağa çarpar; bunun sonucunda mansap yönüne bir basınç darbesi gönderilir. Küresel çekvalfler menteşeyi tamamen ortadan kaldırır; yuvarlanan küre akışı düzgün biçimde aşağı doğru izler ve darbe olmadan yatağına oturur. Bu nedenle HQ41X ve HQ44X, sessiz kapanan ve su darbesi oluşturmayan çekvalfler olarak tanımlanır.</p>
+			<p class="text-gray-700 leading-relaxed">Pompa şebekelerinde tam darbe kontrolü için çekvalfi yavaş kapanan hidrolik kontrol vanaları ve pompa emişinde EN 12845 standardına uygun girdap önleyici ile birlikte kullanın. Böylece hem ilk çalıştırma hem de devreden çıkma geçişleri güvenli sınırlar içinde kalır.</p>
+
+			<h2 id="where-check-valves-installed" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Çekvalflerin montaj yerleri</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Pompa çıkış hatları.</strong> Her pompanın çıkışında bir çekvalf bulunmalıdır; böylece pompa durduğunda su geri akamaz ve çarkı ters yönde döndüremez. Bu, erken pompa arızasının yaygın bir nedenidir. Düşük basınç kayıplı küresel çekvalfler sürekli pompalama hizmetinde enerji tasarrufu da sağlar.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Kanalizasyon ve drenaj ana hatları.</strong> Ham kanalizasyon katı maddeler içerir; menteşeli bir disk veya yay mekanizması sıkışabilir. HQ41X tam olarak bu hizmet için tasarlanmıştır: Kauçuk kaplı yuvarlanan küre tıkanmayı önler ve kanalizasyon, belediye drenajı ile dalgıç pompa şebekeleri için uygundur.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Yangın sprinkler sistemleri.</strong> Çekvalfler sprinkler şebekelerinde özel bir göreve sahiptir: <a href="/tr/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ ıslak alarm çekvalfi</a> sistem suyunu tutar; bir sprinkler açılıp su aktığında klapeyi kaldırır ve hidrolik alarm gongu ile basınç anahtarını tetikler. Böylece çekvalf aynı zamanda akış alarmı tetikleyicisi olur. Sprinkler sistemlerindeki kontrol vanaları hakkında kapsamlı bilgi için <a href="/tr/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">yangın sprinkler kontrol vanası tipleri kılavuzumuza</a> bakın.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>İçme suyu çapraz bağlantıları.</strong> Depo suyu, sulama suyu veya proses suyunun teorik olarak içme suyu ana hattına geri akabileceği durumlarda tek bir çekvalf yeterli koruma sağlamaz. <a href="/tr/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">HS41X kirlilik önleyici geri akış önleyici</a>, arada otomatik tahliye bulunan seri bağlı iki çekvalf kullanır. Bu, çapraz bağlantı kontrolü için gereken konfigürasyondur ve <a href="/tr/guides/backflow-prevention-guide/" class="text-brand-blue font-semibold hover:underline">geri akış önleme kılavuzumuzda</a> ayrıntılı olarak açıklanmıştır.</p>
+
+			<h2 id="check-valve-specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. B2B teknik özellik kontrol listesi</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Akışkanı tanımlayın</strong> — temiz su, katı madde içeren kanalizasyon veya yangın suyu mu? Katı maddeler ve lifler küresel çekvalfi işaret eder; temiz ve yüksek basınçlı hatlar kaldırmalı veya klapeli tipe uygun olabilir.</li>
+				<li><strong>Çap ve basıncı belirleyin</strong> — HQ41X, 1,0/1,6 MPa basınçta DN50–DN350 aralığını; HQ44X ise PN16 basınçta DN50–DN400 aralığını kapsar. Talebinizde DN ve flanş standardını (GB, ANSI, DIN) belirtin.</li>
+				<li><strong>Montaj yönünü kontrol edin</strong> — uygulamanın yatay veya dikey boru için olduğunu doğrulayın. HQ41X ve HQ44X her iki montaj yönünü de kabul eder; klapeli çekvalflerde bu çoğu zaman mümkün değildir.</li>
+				<li><strong>Küre ve gövde malzemelerini suya uygun seçin</strong> — NBR kaplı karbon çelik küre (HQ41X) veya EPDM vulkanize dökme demir küre (HQ44X); gövde seçenekleri dökme demir (HT200), sfero döküm (QT450) veya küresel grafitli dökme demirdir (QT450-10). Çalışma sıcaklığı aralığı 0 °C ile 80 °C'dir.</li>
+				<li><strong>Kapanma davranışını talep edin</strong> — hat pompa duruşlarına veya hızlı vana kapanmasına maruz kalıyorsa su darbesini önlemek için darbesiz ve sessiz kapanan bir tasarım belirtin.</li>
+				<li><strong>Test kanıtı isteyin</strong> — gerçek partiye ait gövde ve yatak basınç test raporlarını (HQ44X, GB/T13927 standardına göre test edilir), talep hâlinde malzeme sertifikalarını isteyin ve üreticiyle anlaşmadan önce <a href="/tr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B vana tedarik kontrol listemizi</a> uygulayın.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sık sorulan sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Su, kanalizasyon veya yangın hatları için çekvalfe mi ihtiyacınız var?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">DN, basınç sınıfı, akışkan ve montaj yönünü bize bildirin; mühendislerimiz uygun küresel çekvalfi doğrulayarak 12 saat içinde teklif sunar.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Check%20Valve%20HQ41X" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif isteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Merhaba, su veya kanalizasyon hatları için çekvalfe ihtiyacım var.')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp üzerinden yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

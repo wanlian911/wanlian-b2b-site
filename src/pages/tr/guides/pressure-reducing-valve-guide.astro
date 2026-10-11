@@ -1,0 +1,192 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const faq = [
+	{
+		question: 'Hidrolik basınç düşürücü vana elektrik olmadan nasıl çalışır?',
+		answer: 'Kendinden kumandalı hidrolik basınç düşürücü vana, tahrik kuvveti olarak pilot vanayı ve hat basıncını kullanır. Pilot, çıkış basıncını algılar: basınç ayar değerinin üzerine çıktığında pilot kısmen kapanır, diyafram haznesindeki basınç yükselir ve ana vana kısılır; basınç düştüğünde pilot hazneyi tahliye eder ve ana vana daha fazla açılır. Harici bir güç kaynağına ihtiyaç duyulmaz.'
+	},
+	{
+		question: '500X basınç düşürücü vana hangi çıkış basıncı aralığını koruyabilir?',
+		answer: 'Wanlian 500X hidrolik ayarlanabilir basınç düşürücü vana, DN20–DN600 (3/4" ila 24") aralığını kapsar; çıkış basıncı 0,1 MPa ile 1,6 MPa arasında ayarlanabilir. Vana gövdesi 1,0 MPa, 1,6 MPa veya 2,5 MPa nominal basınç için sınıflandırılmıştır. Bu nedenle teklif talebinde giriş basıncınızı ve gerekli ayar basıncını belirtin.'
+	},
+	{
+		question: '500X basınç düşürücü vana ile F745X seviye kontrol vanası arasındaki fark nedir?',
+		answer: '500X basınç düşürücü vana, debi değişimlerinden bağımsız olarak çıkış basıncını sabit tutar. Hidrolik F745X su seviyesi kontrol vanası ise bir şamandıra pilotu kullanarak rezervuar, tank veya su kulesindeki önceden belirlenmiş su seviyesini korur ve seviye değiştikçe ana vanayı açıp kapatır. Her ikisi de harici güç gerektirmeyen kendinden kumandalı hidrolik kontrol vanalarıdır.'
+	},
+	{
+		question: '100X-16P uzaktan kumandalı şamandıra vanası yerine ne zaman F745X seçilmelidir?',
+		answer: 'F745X (DN50–DN400, 1,0/1,6 MPa, sfero döküm QT450-10), büyük rezervuarlar ve su kuleleri için standart tercihtir. 100X-16P uzaktan kumandalı şamandıra vanası (DN40–DN300, 0–1,0 MPa) dökme paslanmaz çelik CF8 gövdeye sahiptir; bu nedenle korozif akışkanlar, yüksek hijyen gereksinimleri veya denize yakın tesisler için uygundur ve şamandıra pilot kontrolüyle uzaktan çalıştırılabilir.'
+	},
+	{
+		question: 'Hidrolik kontrol vanalarının giriş tarafında neden Y tipi pislik tutucu önerilir?',
+		answer: 'Hidrolik kontrol vanaları pilot kumandalıdır ve pilot ağızları ile iğne vanaları partiküllere karşı hassastır. Teleskopik Y tipi pislik tutucu SGL41H, yabancı maddeleri filtrelemek için vana girişine monte edilir ve su uygulamalarında paslanmaz çelik 304/316 elekler (18–30 mesh) kullanır. Entegre teleskopik bağlantısı, boru hattını kesmeden vananın bakım için sökülmesini sağlar.'
+	},
+	{
+		question: 'Yavaş kapanan hidrolik vanalar su darbesini önlemeye yardımcı olur mu?',
+		answer: 'Evet. 500X ve F745X, akış durduğunda vananın ani kapanmamasını sağlayan düzgün ve yavaş kapanma hareketiyle tasarlanmıştır; bu sayede şebekedeki zararlı basınç darbeleri ve su darbesi önlenir. Pompa emiş hatlarında, kavitasyona ve basınç darbelerine yol açabilecek hava girişini önlemek için EN12845 emiş girdap önleyici ekleyin.'
+	}
+];
+
+const toc = [
+	{ id: 'what-is-hydraulic-prv', label: '1. Hidrolik basınç düşürücü vana nedir?' },
+	{ id: 'how-pilot-prv-works', label: '2. Kendinden kumandalı 500X PRV nasıl çalışır?' },
+	{ id: 'hydraulic-control-valve-comparison', label: '3. PRV, seviye kontrolü ve şamandıra vanası karşılaştırması' },
+	{ id: 'typical-applications', label: '4. Her vana için tipik kullanım alanları' },
+	{ id: 'installation-and-protection', label: '5. Montaj ve koruma' },
+	{ id: 'specification-checklist', label: '6. B2B teknik şartname kontrol listesi' },
+	{ id: 'faq', label: 'Sık sorulan sorular' }
+];
+
+const referencePages = [
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: '500X Hidrolik Basınç Düşürücü Vana', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'DN20–DN600, 0,1–1,6 MPa ayarlanabilir çıkış basıncı' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'F745X Hidrolik Su Seviyesi Kontrol Vanası', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'DN50–DN400, tank seviyesi kontrolü için şamandıra pilotu' },
+	{ slug: 'remote-control-float-valve-100x', name: '100X-16P Uzaktan Kumandalı Şamandıra Vanası (CF8)', img: '/assets/products/remote-control-float-valve-100x.webp', desc: 'Paslanmaz çelik, DN40–DN300, 0–1,0 MPa' },
+	{ slug: 'groove-solenoid-control-gate-valve-gkzf1', name: 'GKZF-1 Solenoid Kumandalı Sürgülü Vana', img: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg', desc: 'DN50–DN300, AC220V/DC24V, 300 PSI' }
+];
+---
+
+<Layout
+	title="Basınç Düşürücü Vana 500X: Su Tedariki İçin Kılavuz"
+	description="Hidrolik basınç düşürücü vanaların çalışma prensibini, 500X, F745X ve 100X seçimlerini ve su tedariki için B2B teknik şartname kontrol listesini öğrenin."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Basınç Düşürücü Vana Kılavuzu' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Basınç Düşürücü Vana Kılavuzu</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Hidrolik Kontrol Vanaları Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Basınç Düşürücü Vana Kılavuzu: 500X Hidrolik PRV ve Su Tedariki Kontrol Vanaları</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kısaca: Hidrolik basınç düşürücü vana, yalnızca hat basıncını kullanarak sabit bir çıkış basıncı koruyan, kendinden kumandalı ve pilot kontrollü bir vanadır; elektrik gerekmez. Su tedarik şebekelerinde genellikle 500X basınç düşürücü vana (sabit çıkış basıncı), F745X seviye kontrol vanası (sabit tank seviyesi) ve 100X uzaktan kumandalı şamandıra vanası (kompakt paslanmaz çelik seçeneği) arasından seçim yapılır. Bu kılavuz, her birinin çalışma prensibini ve nasıl teknik olarak tanımlanacağını açıklar.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{referencePages.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-is-hydraulic-prv" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Hidrolik basınç düşürücü vana nedir?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Hidrolik basınç düşürücü vana (PRV), yüksek ve değişken giriş basıncını sabit, daha düşük bir çıkış basıncına indiren kendinden kumandalı bir kontrol vanasıdır. Hidrolik olarak adlandırılmasının nedeni, vananın tamamen pilot sistemi üzerinden boru hattı basıncıyla çalışmasıdır; solenoid, motor veya kontrol panosu bulunmaz. Bu özellik onu su tedarik bölgeleri, hidrofor istasyonları, sulama şebekeleri ve proses suyu hatları için düşük maliyetli ve güvenilir bir yapı elemanı haline getirir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Bunun klasik örneği, dövme pirinç pilotlu sfero döküm (QT450-10) ana vanaya sahip <a href="/tr/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">500X hidrolik ayarlanabilir basınç düşürücü vanadır</a>. Vana DN20–DN600 aralığını kapsar ve çıkış basıncı 0,1 MPa ile 1,6 MPa arasında ayarlanabilir. Ana vana gövdesi 1,0 MPa, 1,6 MPa veya 2,5 MPa nominal basınç seçenekleriyle sunulur; tasarım ANSI, JIS ve GB standartlarına uygundur.</p>
+			<p class="text-gray-700 leading-relaxed">Diyafram grubu naylon takviyeli EPDM'den, iç mil paslanmaz çelik 304'ten üretilir; pilot borulamasında bakır veya paslanmaz çelik kullanılır. Bu malzeme seçimleri, bir PRV'nin yıllarca çalıştıktan sonra ayar değerini koruyup koruyamayacağını belirleyen temel unsurlardır.</p>
+
+			<h2 id="how-pilot-prv-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Kendinden kumandalı 500X PRV nasıl çalışır?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">500X, üstüne ayarlanabilir bir pilot monte edilmiş diyaframlı bir glob vanadır. Pilot, bir algılama hattı üzerinden çıkış basıncını sürekli olarak algılar. Çıkış basıncı ayar değerinin üzerine çıktığında pilot kısılır, diyafram haznesindeki basınç yükselir ve ana vana kapanma yönünde hareket eder. Çıkış basıncı ayar değerinin altına düştüğünde pilot daha fazla açılır, hazne tahliye edilir ve ana vana daha fazla açılır. Böylece vana sürekli modülasyon yaparak debi veya giriş basıncı değişimlerinden bağımsız biçimde ayarlanan basıncı korur.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Vana tamamen kendinden kumandalı olduğu için elektrik kesintisi sırasında da düzenleme yapmayı sürdürür. Bu, basınç kaybının kritik olabileceği yangın suyu ve belediye şebekeleri için önemli bir özelliktir. Düzgün ve yavaş kapanma karakteristiği, akış durduğunda yüksek basınç darbelerini ve su darbesini de önler. Bu nedenle hidrolik kontrol vanaları, büyük ana hatlarda hızlı çalışan elektrikli vanalara kıyasla sıklıkla tercih edilir.</p>
+			<p class="text-gray-700 leading-relaxed">Sürekli modülasyon yerine gerçekten uzaktan elektrikli kontrol gereken projelerde, <a href="/tr/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">GKZF-1 oluklu solenoid kumandalı sürgülü vana</a> (AC220V/DC24V, DN50–DN300, 300 PSI), komutla otomatik açma ve kapama sağlar; PRV ise sabit basınç kontrolünü sürdürür.</p>
+
+			<h2 id="hydraulic-control-valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. PRV, seviye kontrolü ve şamandıra vanası karşılaştırması</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Hidrolik kontrol vanaları aynı kendinden kumandalı pilot prensibini paylaşır, ancak farklı proses değişkenlerini düzenler. Aşağıdaki tablo, su tedarikindeki en yaygın üç görevi karşılaştırır.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Karşılaştırma</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">500X PRV</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">F745X seviye kontrolü</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">100X-16P şamandıra vanası</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Kontrol ettiği değer</td>
+							<td class="px-4 py-3 text-gray-700">Çıkış basıncı</td>
+							<td class="px-4 py-3 text-gray-700">Tank/rezervuardaki su seviyesi</td>
+							<td class="px-4 py-3 text-gray-700">Su seviyesi (uzaktan kumandalı şamandıra pilotu)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Anma çapı aralığı</td>
+							<td class="px-4 py-3 text-gray-700">DN20–DN600</td>
+							<td class="px-4 py-3 text-gray-700">DN50–DN400</td>
+							<td class="px-4 py-3 text-gray-700">DN40–DN300</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Basınç sınıfı</td>
+							<td class="px-4 py-3 text-gray-700">1,0 / 1,6 / 2,5 MPa; ayar 0,1–1,6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">1,0 / 1,6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">0–1,0 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Gövde malzemesi</td>
+							<td class="px-4 py-3 text-gray-700">Sfero döküm QT450-10 / dökme çelik</td>
+							<td class="px-4 py-3 text-gray-700">Sfero döküm QT450-10</td>
+							<td class="px-4 py-3 text-gray-700">Dökme paslanmaz çelik CF8</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tipik görev</td>
+							<td class="px-4 py-3 text-gray-700">Basınç bölgeleri, hidrofor çıkışı</td>
+							<td class="px-4 py-3 text-gray-700">Rezervuarlar, tanklar, su kuleleri</td>
+							<td class="px-4 py-3 text-gray-700">Korozif veya hijyen açısından kritik tanklar</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Bir proje hem basınç düzenlemesine hem de tank dolumuna ihtiyaç duyuyorsa standart mimari, besleme hattında tank girişindeki F745X veya 100X şamandıra vanasını besleyen bir 500X PRV kullanmaktır; her vana tasarlandığı görevi üstlenir.</p>
+
+			<h2 id="typical-applications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Her vana için tipik kullanım alanları</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Basınç düşürme (500X):</strong> yüksek basınçlı bir ana hattın düşük basınçlı bir bölgeyi beslediği her yerde kullanılır: bölgesel ölçümlü alanlar, yüksek binalardaki hidrofor çıkışları, sulama kolektörleri ve proses suyu hatları. Çıkış basıncını bir kez ayarlayın; vana günlük talep eğrisi boyunca bu basıncı korur.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Seviye kontrolü (F745X):</strong> <a href="/tr/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">F745X hidrolik su seviyesi kontrol vanası</a>, bir şamandıra pilotu kullanarak rezervuarlarda, su tanklarında ve su kulelerinde önceden belirlenmiş seviyeyi otomatik olarak korur; taşmayı ve aşırı düşük seviyeleri önler. Tamamen boru hattı basıncıyla çalışır ve yavaş kapanır; bu nedenle ani kapamanın şebekede su darbesi oluşturabileceği büyük depolama tesisleri için uygundur.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Uzaktan kumandalı şamandıra (100X):</strong> <a href="/tr/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">100X-16P uzaktan kumandalı şamandıra vanası</a> aynı görevi dökme paslanmaz çelik (CF8) gövdeyle yerine getirir. DN40–DN300 aralığında 0–1,0 MPa basınçta ve −50 °C ile 100 °C çalışma sıcaklığında kullanılabilir. Bu özellikler korozif veya yüksek saflıkta su bulunan tanklar ya da pasın risk oluşturduğu kıyı tesisleri için uygundur.</p>
+			<p class="text-gray-700 leading-relaxed">İçme suyu şebekesine hizmet veren bu vanaların herhangi birinde, tank içeriğinin içme suyu ana hattına geri akmasını önlemek için bağlantı noktasına bir <a href="/tr/products/anti-pollution-backflow-preventer-hs41x/" class="text-brand-blue font-semibold hover:underline">HS41X kirlilik önleyici geri akış önleyici</a> yerleştirin. Çapraz bağlantı kontrolünün tamamı için <a href="/tr/guides/backflow-prevention-guide/" class="text-brand-blue font-semibold hover:underline">geri akış önleme kılavuzumuza</a> bakın. <a href="/tr/products/sp45f-flange-digital-balancing-valve/" class="text-brand-blue font-semibold hover:underline">SP45F flanşlı dijital balans vanası</a> gibi dijital balans vanaları, devreye alma sonrasında kilitli ayar ve okunabilir test noktalarıyla balans noktasının sabit tutulduğu pompa çıkışlarında ve basıncı sabit hatlarda kullanılır.</p>
+
+			<h2 id="installation-and-protection" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Montaj ve koruma</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Hidrolik kontrol vanaları yalnızca pilot sistemleri kadar güvenilirdir ve pilot ağızları partiküllere karşı hassastır. Vana girişine bir pislik tutucu monte edin: <a href="/tr/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">SGL41H teleskopik Y tipi pislik tutucu</a>, hidrolik su kontrol vanalarını ve hassas makineleri korumak için özel olarak tasarlanmıştır. Pislik tutucuyu ve kompansatörü tek gövdede birleştirerek boru hattını kesmeden vananın bakım için sökülmesini sağlar. Filtre elekleri paslanmaz çelik 304/316'dır; su uygulamalarında 18–30 mesh kullanılır.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Kontrol vanasının giriş ve çıkış tarafına birer izolasyon sürgülü vana takın; böylece ünite şebekeyi boşaltmadan bypass edilebilir ve bakımı yapılabilir. Pompa beslemeli sistemlerde emiş tarafını da koruyun: pompa emişine monte edilen EN12845 emiş girdap önleyici, girdap oluşumunu ve hava girişini ortadan kaldırır; böylece hem pompalara hem de kontrol vanalarına zarar veren kavitasyon ve basınç darbeleri önlenir.</p>
+			<p class="text-gray-700 leading-relaxed">Siparişten önce yönü ve montaj alanını doğrulayın. Flanşlı hidrolik kontrol vanaları, pilot borulamasına düz erişim ve izolasyon vanaları için yeterli alan gerektirir. DN ve uç bağlantısı (ANSI/JIS/GB flanş delik düzeni) veri sayfasında belirtilmelidir.</p>
+
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. B2B teknik şartname kontrol listesi</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Kontrol edilen değişkeni tanımlayın</strong> – çıkış basıncı (500X PRV), tank seviyesi (F745X / 100X) veya elektrikli açma-kapama (GKZF-1 solenoid sürgülü vana). Tek bir hat çoğu zaman iki vanaya ihtiyaç duyar: tanktaki seviye kontrol vanasını besleyen bir PRV.</li>
+				<li><strong>Anma çapını ve basıncı belirtin</strong> – 1,0/1,6/2,5 MPa nominal basınçlı 500X için DN20–DN600; F745X için 1,0/1,6 MPa basınçta DN50–DN400; 100X-16P için 0–1,0 MPa basınçta DN40–DN300. Giriş basıncını ve gerekli ayar basıncını doğrulayın (500X ayarı 0,1–1,6 MPa).</li>
+				<li><strong>Gövde malzemesini akışkana göre seçin</strong> – temiz su için sfero döküm QT450-10; korozif veya hijyen açısından kritik uygulamalar için dökme paslanmaz çelik CF8 (100X-16P).</li>
+				<li><strong>Bağlantı standardını belirleyin</strong> – ANSI, JIS veya GB flanş delik düzeni boru hattınıza uymalıdır; bunu teklif talebinde açıkça belirtin.</li>
+				<li><strong>Koruma aksesuarlarını ekleyin</strong> – girişte SGL41H teleskopik Y tipi pislik tutucu, izolasyon sürgülü vanaları ve içme suyu bağlantılarında HS41X geri akış önleyici; pompa emişlerinde EN12845 emiş girdap önleyiciler.</li>
+				<li><strong>Tedarikçiyi önceden doğrulayın</strong> – pilot kalitesi fotoğraflarda görülemez. Parti bazında gövde ve yatak test raporları ile malzeme sertifikalarını talep edin ve üreticiyle anlaşmadan önce <a href="/tr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B vana tedarik kontrol listemizi</a> uygulayın.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sık sorulan sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Basınç düşürücü veya hidrolik kontrol vanasına mı ihtiyacınız var?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">DN, basınç sınıfı, ayar basıncı ve bağlantı standardını bize iletin; mühendislerimiz pilot konfigürasyonunu doğrulayıp 12 saat içinde teklif sunsun.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href={`/tr/contact/?product=${uri.EscapeDataString('Basınç Düşürücü Vana 500X')}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif isteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Merhaba, su tedariki için basınç düşürücü vanalara ihtiyacım var')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp'tan yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,219 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const toc = [
+	{ id: 'understand-your-requirement', label: '1. Hidrant ihtiyacınızı önce anlayın' },
+	{ id: 'hydrant-types-explained', label: '2. Yangın hidrantı tipleri' },
+	{ id: 'key-specifications', label: '3. Karşılaştırılacak temel özellikler' },
+	{ id: 'certification-compliance', label: '4. Sertifikasyon ve uygunluk' },
+	{ id: 'common-mistakes', label: '5. Hidrant seçiminde yaygın hatalar' },
+	{ id: 'factory-checklist', label: '6. Sipariş öncesi fabrika kontrol listesi' },
+	{ id: 'faq', label: 'Sık sorulan sorular' }
+];
+
+const faq = [
+	{
+		question: 'İç ve dış saha yangın hidrantları arasındaki fark nedir?',
+		answer: 'İç saha hidrantları (SN65 başlık gibi) binaların içindeki dikey kolon ve hortum sistemlerine bağlanarak belirlenmiş kat istasyonlarındaki yangın hortumlarına su iletir. Dış saha hidrantları (SS100 yer üstü hidrantı gibi) belediye veya endüstriyel ana su hatlarına monte edilir ve itfaiye araçları ile dış yangın söndürme operasyonlarına su sağlar. İki tip farklı dağıtım noktalarına hizmet eder ve birbirinin yerine kullanılamaz.'
+	},
+	{
+		question: 'Bir belediye yangın hidrantı hangi basınç sınıfına sahip olmalıdır?',
+		answer: 'Standart belediye hidrantları, kentsel ve endüstriyel su tedarik şebekelerinin çoğunu karşılayan PN16 (1,6 MPa) sınıfındadır. Yüksek binaların bulunduğu bölgeler veya yüksek talep gören endüstriyel alanlar, doğrulanmış debi kapasitesine sahip PN25 hidrantlar gerektirebilir. Basınç sınıfını seçmeden önce tedarik şebekenizin statik ve artık basıncını mutlaka doğrulayın.'
+	},
+	{
+		question: 'Wanlian hidrantları UL veya FM sertifikasıyla sunuluyor mu?',
+		answer: 'Evet. Wanlian Fluid, modele ve hedef pazara bağlı olarak UL, FM, CE, ISO 9001 ve LPCB sertifikalı hidrantlar ve vanalar sunar. Uygun sertifikasyon paketini belirleyebilmemiz için proje şartnamenizi ve hedef bölgenizi satış ekibimize iletin.'
+	},
+	{
+		question: 'İhracat yangın hidrantlarında standart bağlantı tipi hangisidir?',
+		answer: 'Yaygın çıkış bağlantıları arasında BS336 ani bağlantısı (Birleşik Krallık/Commonwealth), NIST dişi (Orta Doğu), KWS (Almanya) ve esnek flanş seçenekleri bulunur. Wanlian, pazarınız için belirtilen bağlantı tipine sahip SS100/65 ve SSFT100/65 hidrantları tedarik edebilir; uygun bağlantı parçaları da aynı sevkiyata eklenebilir.'
+	},
+	{
+		question: 'Toptan hidrant siparişlerinde minimum sipariş miktarı ve teslim süresi nedir?',
+		answer: 'Standart minimum sipariş miktarı, stok ölçülerinde genellikle model başına 20 adettir. Üretim teslim süresi, miktara ve özel uygulamalara bağlı olarak 15–30 gündür. Sevkiyat öncesi test ve onay için numune siparişleri verilebilir. Satış mühendisiniz, sipariş hacminize göre kesin teslim süresini bildirebilir.'
+	}
+];
+
+const referencePages = [
+	{
+		slug: 'indoor-fire-hydrant-head-sn65',
+		name: 'İç Saha Yangın Hidrantı Başlığı SN65',
+		img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg',
+		desc: 'Kolon sistemleri için PN16 sünek dökme demir iç saha hidrantı'
+	},
+	{
+		slug: 'overground-fire-hydrant-ss100',
+		name: 'Antifrizli Yer Üstü Yangın Hidrantı (SS100/65)',
+		img: '/assets/products/overground-fire-hydrant-ss100.webp',
+		desc: 'Soğuk iklim belediye şebekeleri için antifrizli dış saha hidrantı'
+	},
+	{
+		slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100',
+		name: 'Çarpışma Korumalı Basınç Düzenleyici Hidrant (SSFT100/65)',
+		img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp',
+		desc: 'Trafik alanları için basınç düzenlemeli kopmalı gövde'
+	},
+	{
+		slug: 'iot-smart-ground-fire-hydrant-ss100zn',
+		name: 'IoT Akıllı Yer Altı Yangın Hidrantı (SS100/65-1.6ZN)',
+		img: '/assets/products/overground-fire-hydrant-ss100.webp',
+		desc: 'Akıllı belediye şebekeleri için basınç, eğim ve hırsızlık izleme sistemi'
+	}
+];
+---
+
+<Layout
+	title="Belediye ve Endüstriyel Projeler İçin Yangın Hidrantı Seçimi"
+	description="Yangın hidrantı seçim rehberi: iç ve dış tipler, DN/PN özellikleri, bağlantılar, UL/FM/CE sertifikaları ve B2B alıcılar için fabrika kontrol listesi."
+	type="article"
+	locale="tr"
+	faq={faq}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Ekmek kırıntıları -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Hidrant seçimi</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Yangın Koruma Ekipmanları Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Belediye ve endüstriyel projeler için yangın hidrantı seçimi (2026 Kılavuzu)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Yangın hidrantı, şebekenizde 10–20 yıl görev yapan sabit bir ekipmandır ve ancak ihtiyaç duyulduğu gün performansını kanıtlar. Yanlış tip, basınç sınıfı veya bağlantı standardı seçmek, gömülü bir parçayı acil durum koşullarında değiştirmek anlamına gelir; daha da kötüsü, itfaiye geldiğinde hidrant gerekli debiyi sağlayamayabilir. Bu kılavuz, günümüzde sunulan gerçek ürün konfigürasyonlarını temel alarak her satın alma ekibinin vermesi gereken altı kararı açıklar.</p>
+
+			<!-- Ürün şeridi -->
+			<div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+				{referencePages.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="understand-your-requirement" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Hidrant ihtiyacınızı önce anlayın</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Modelleri karşılaştırmadan önce yangın yetkiliniz veya mühendislik danışmanınızla birlikte dört soruyu yanıtlayın:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Hidrant nereye monte edilecek?</strong> Bina içi kolon sistemi, dış saha belediye ana hattı veya endüstriyel tesis alanı; her uygulama farklı bir tip gerektirir.</li>
+				<li><strong>Tasarım debisi ve basıncı nedir?</strong> Yangın söndürme debisi genellikle hidrant başına 15–30 L/s değerinden başlar; şebekenizin sürdürebileceği artık basıncı doğrulayın.</li>
+				<li><strong>Projenizi hangi standart yönetiyor?</strong> NFPA 24/291, BS 750, GB 4452 veya bölgesel belediye yönetmelikleri çıkış ölçüsünü, aralıkları ve test kurallarını belirler.</li>
+				<li><strong>İklim koşulları nasıl?</strong> Don olaylarının görüldüğü kışlar antifrizli veya kuru gövdeli tasarımlar gerektirir.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Bu dört sorunun doğru yanıtlanması, kataloğu açmadan önce aşağıdaki hataların çoğunu ortadan kaldırır.</p>
+
+			<h2 id="hydrant-types-explained" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Yangın hidrantı tipleri</h2>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">İç Saha Hidrantları (Kolon Sistemleri)</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">İç saha hidrantı başlıkları dikey kolon yükselticilerine bağlanır ve her kattaki hortum istasyonlarına su sağlar. <a href="/tr/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">SN65 iç saha yangın hidrantı başlığı</a> standart arayüzdür: PN16 sınıfında sünek dökme demir gövde, yivli veya flanşlı giriş ve hortum bağlantısı için 65&nbsp;mm çıkış sunar. Yüksek binalarda ve endüstriyel yapılarda genellikle yangın hortum makaraları ve pompa sistemleriyle birlikte kullanılır.</p>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Dış Saha Yer Üstü Hidrantları (Belediye ve Endüstriyel)</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Dış saha hidrantları su şebekesinden beslenir ve itfaiye araçlarına su verir. İki konfigürasyon öne çıkar: standart belediye ve endüstriyel sahalar için <a href="/tr/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">SS100/65 yer üstü hidrantı</a> ve çarpışma korumalı versiyon. Hidrantınız araçların çalıştığı bir trafik şeridinde veya depo koridorunda bulunuyorsa <a href="/tr/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">SSFT100 çarpışma korumalı basınç düzenleyici hidrant</a> iki güvenlik mekanizması ekler: darbe anında temiz şekilde ayrılarak yer altı borusunu sağlam tutan kopmalı gövde ve aşağı akıştaki hortumları aşırı basınçtan koruyan basınç düzenlemesi.</p>
+			<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Dijitalleştirilmiş Şebekeler İçin Akıllı Hidrantlar</h3>
+			<p class="text-gray-700 leading-relaxed mb-4">Su şebekesini modernleştiren belediye işletmecileri için <a href="/tr/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">SS100ZN IoT akıllı hidrantı</a>, basınç, eğim ve su hırsızlığı tespiti için sensörleri bünyesinde barındırır ve verileri SCADA platformuna iletir. Mekanik olarak izleme katmanı eklenmiş aynı hidranttır; ihalenizde uzaktan durum görünürlüğü gerektiğinde kullanışlıdır.</p>
+
+			<h2 id="key-specifications" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Karşılaştırılacak temel özellikler</h2>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Özellik</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Kontrol edilecek husus</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">İhracat hidrantlarında tipik değer</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Nominal çap (DN)</td>
+							<td class="px-4 py-3 text-gray-700">Giriş ve çıkış çapları ana hat ile hortuma uygun olmalıdır</td>
+							<td class="px-4 py-3 text-gray-700">DN100/65 (SS100) veya DN65 (SN65)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Basınç sınıfı (PN)</td>
+							<td class="px-4 py-3 text-gray-700">Şebekenin maksimum statik basıncını aşmalıdır</td>
+							<td class="px-4 py-3 text-gray-700">Standart PN16 (1,6 MPa); yüksek basınç bölgeleri için PN25</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Gövde malzemesi</td>
+							<td class="px-4 py-3 text-gray-700">Sünek dökme demir darbeye dayanıklıdır; korozyon koruması için kaplamayı kontrol edin</td>
+							<td class="px-4 py-3 text-gray-700">Epoksi veya toz boya kaplamalı QT450 sünek dökme demir</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Bağlantı tipi</td>
+							<td class="px-4 py-3 text-gray-700">Yerel itfaiyenin bağlantı parçalarıyla uyumlu olmalıdır</td>
+							<td class="px-4 py-3 text-gray-700">BS336, NIST, KWS, yivli veya flanşlı</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Özel işlevler</td>
+							<td class="px-4 py-3 text-gray-700">Antifriz, kopmalı yapı, basınç düzenleme, IoT</td>
+							<td class="px-4 py-3 text-gray-700">Proje gereksinimine göre</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="certification-compliance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Sertifikasyon ve uygunluk</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Hidrantlar can güvenliği ekipmanıdır; çoğu pazarda sertifikasyon isteğe bağlı değildir. Tedarikçinizden varış pazarınıza uygun sertifikayı talep edin: Kuzey Amerika için <strong>UL / FM</strong>, Avrupa için <strong>CE</strong>, Birleşik Krallık/Commonwealth projeleri için <strong>LPCB</strong> ve temel kalite yönetim sistemi olarak <strong>ISO 9001</strong>. Broşürdeki logolarla yetinmeyin, gerçek sertifikaları inceleyin. Wanlian'ın sertifikasyon paketi <a href="/tr/certificates/" class="text-brand-blue font-semibold hover:underline">sertifikalar sayfasında</a> yayımlanır; mühendislerimiz teklif hazırlamadan önce ihaleniz için hangi standardın geçerli olduğunu doğrular.</p>
+
+			<h2 id="common-mistakes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Hidrant seçiminde yaygın hatalar</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Uyumsuz bağlantı standardı</strong> — Yerel itfaiyenin bağlantı parçalarını kabul etmeyen bir hidrant, hiç hidrant olmamasından daha kötüdür. Sipariş vermeden önce bağlantı standardını doğrulayın.</li>
+				<li><strong>Artık basıncı göz ardı etmek</strong> — Statik basınç, üç çıkış aynı anda açıkken hidrantın ne sağlayacağı hakkında bilgi vermez.</li>
+				<li><strong>Don olaylarının görüldüğü iklimlerde antifrizsiz hidrant kurmak</strong> — Buzlanmanın gövdede oluşturduğu hasar, soğuk bölgelerde hidrant arızalarının başlıca nedenlerindendir.</li>
+				<li><strong>Darbe bölgelerinde standart hidrant seçmek</strong> — Kamyon çarpışmaları yer altı millerini eğebilir; kopmalı tasarımlar şebekeyi korur.</li>
+				<li><strong>Yedek parça konusunu atlamak</strong> — Onarım kitlerinin (contalar, miller, bağlantı parçaları) bulunabilirliğini devreye almadan sonra değil, siparişle birlikte teyit edin.</li>
+			</ul>
+
+			<h2 id="factory-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Sipariş öncesi fabrika kontrol listesi</h2>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Pazarınız için geçerli sertifika kopyalarını (UL/FM/CE/ISO) isteyin; yalnızca toplamakla kalmayın, doğrulayın.</li>
+				<li>Genel bir test sertifikası yerine belirli üretim partisinin hidrostatik test raporunu talep edin.</li>
+				<li>Siparişi imzalamadan <em>önce</em> bağlantı standardını yangın yetkilinizle teyit edin.</li>
+				<li>Akıllı hidrantlarda veri arayüzü şartnamesini (Modbus/SCADA) ve entegrasyon testi için bir numune cihazı isteyin.</li>
+				<li>Minimum sipariş miktarını, teslim süresini, deniz taşımacılığına uygun ambalajı ve yedek parça bulunabilirliğini tek bir ticari teklifte netleştirin.</li>
+				<li>Sevkiyat öncesi bir numuneyi kendi testleriniz için ayırın ve test fotoğraflarını arşivleyin.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Güvenilir bir tedarikçi, altı maddenin tamamını bir iş günü içinde yazılı olarak yanıtlamalıdır. Bir teklif sertifikalar veya test raporları konusunda belirsizse bunu uyarı işareti olarak değerlendirin.</p>
+
+			<!-- İlgili kılavuz -->
+			<div class="mt-10 bg-gray-50 rounded-2xl border border-gray-100 p-6 sm:p-8">
+				<h2 class="text-xl font-black text-gray-900 tracking-tight">İlgili kılavuz: Wanlian Fluid ve American AVK karşılaştırması</h2>
+				<p class="mt-2 text-gray-600 text-sm leading-relaxed">Yerleşik bir ABD markası ile Çin merkezli bir üretici arasında mı karar veriyorsunuz? Yan yana karşılaştırmamızı okuyun: <a href="/tr/guides/wanlian-fluid-vs-american-avk/" class="text-brand-blue font-semibold hover:underline">Wanlian Fluid ve American AVK: 2026 projeniz için hangi yangın hidrantı ve vana tedarikçisi uygun?</a></p>
+			</div>
+
+			<!-- Sık sorulan sorular bölümü -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sık sorulan sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Eylem çağrısı -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Projeniz için teknik olarak belirlenmiş bir hidranta mı ihtiyacınız var?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">DN/PN bilgilerinizi, bağlantı standardınızı ve hedef sertifikasyonunuzu bize gönderin; mühendislerimiz 12 saat içinde eksiksiz teknik veri sayfası ve teklif ile yanıt versin.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Yang%C4%B1n%20Hidrant%C4%B1%20Se%C3%A7imi" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif isteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Merhaba, yangın hidrantı seçimi konusunda yardıma ihtiyacım var')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp üzerinden yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

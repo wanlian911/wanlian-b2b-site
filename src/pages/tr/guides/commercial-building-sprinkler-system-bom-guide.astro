@@ -1,0 +1,190 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'one-package', label: '1. Sprinkler paketi neden tek kapsam olarak tedarik edilir?' },
+	{ id: 'alarm-valve-group', label: '2. Alarm vana grubu: Islak sistemin kalbi' },
+	{ id: 'monitored-isolation', label: '3. İzlenen izolasyon: OS&Y ve sinyal izleme anahtarlı kelebek vanalar' },
+	{ id: 'siamese', label: '4. İtfaiye bağlantısı (Siyez bağlantısı)' },
+	{ id: 'sprinkler-heads', label: '5. Sprinkler başlıkları: K faktörü, sıcaklık ve yön' },
+	{ id: 'flow-indicators', label: '6. Akış göstergeleri ve bölge izleme' },
+	{ id: 'bom-table', label: '7. BOM planlama tablosu' },
+	{ id: 'standards', label: '8. Belirtilecek standartlar ve sertifikalar' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' }
+];
+
+const faq = [
+	{
+		question: 'Tek bir üretici eksiksiz bir ıslak sprinkler sistemi paketi tedarik edebilir mi?',
+		answer: 'Evet. Tek bir satın alma siparişi; ZSFZ ıslak alarm vana grubunu, OS&Y ve sinyal izleme anahtarlı kelebek kontrol vanalarını, itfaiye bağlantısını, cam tüplü sprinkler başlıklarını ve su akış göstergelerini kapsayabilir. Her birim için test kayıtları ve tek bir ihracat belge seti sağlanır. Yangın güvenliği kapsamını sorumlu tek bir üreticide birleştirmek, beş ayrı tedarikçinin yol açacağı koordinasyon riskini ortadan kaldırır.'
+	},
+	{
+		question: 'ZSFZ ıslak alarm vana grubunda hangi bileşenler bulunur?',
+		answer: 'ZSFZ grubu; alarm çekvalfi gövdesini (1,6 MPa basınçta DN100/DN150/DN200), su motorlu alarm gongunu, geciktirme haznesini ve basınç anahtarını içerir. Gövdeler dökme demir veya sünek dökme demirden üretilir ve EPDM/NBR contalarla donatılır. Sprinkler akışı başladığında gong çalar; basınç anahtarı ise bina yangın alarm paneline sinyal gönderir.'
+	},
+	{
+		question: 'Projem için sprinkler başlıklarının UL listeli olması gerekiyor mu?',
+		answer: 'Şartnameniz veya yerel makam UL listeli başlıklar gerektiriyorsa bunu açıkça belirtin ve siparişten önce tam model için listeleme sertifikasını isteyin. Wanlian ZST başlıkları GB 5135 ailesine göre üretilir. UL veya FM listeli sprinkler gerektiren projelerde model kapsamını teklif aşamasında yazılı olarak teyit edin.'
+	},
+	{
+		question: 'Her yangın kompartımanı için kaç sprinkler başlığı gerekir?',
+		answer: 'Bu sayı tedarikçiden değil, sprinkler hidrolik tasarımından gelir: başlık adedi; döşeme alanına, tasarım yoğunluğuna ve gerekli çalışma basıncındaki K faktörüne göre belirlenir. Plan yerleşiminizi veya tasarım kabullerini bize gönderin; mühendislerimiz başlık adedini ve buna uygun alarm vana grubu ile itfaiye bağlantısı ölçülerini hesaplasın.'
+	},
+	{
+		question: 'Sprinkler paketi sevkiyatında hangi belgeler bulunmalıdır?',
+		answer: 'Ticari fatura, çeki listesi, menşe şahadetnamesi, seri numaralarıyla eşleştirilmiş birim bazında gövde basınç ve hava sızdırmazlık test kayıtları ve ihalenizin gerektirdiği standarda özgü sertifikalar bulunmalıdır. Başlık çerçevesi üzerinde sıcaklık sınıfı ve K faktörü işaretlenmiş olarak teslim edilir.'
+	}
+];
+
+const productRows = [
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'ZSFZ 150 Islak Alarm Çekvalfi', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Gong + geciktirme haznesi + basınç anahtarı, DN100-DN200' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'OS&Y Sürgülü Vana (Yivli)', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: 'Yangın ana hatları için 2"-10" yükselen milli ana izolasyon' },
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'SQD100 İtfaiye Bağlantısı', img: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', desc: 'İki itfaiye aracından besleme için çift DN65 giriş' }
+];
+
+const referencePages = [
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'ZSFZ Islak Alarm Çekvalfi' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'OS&Y Sürgülü Vana' },
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'SQD100 İtfaiye Bağlantısı' }
+];
+---
+
+<Layout
+	title="Ticari Sprinkler Sistemi BOM Rehberi: Eksiksiz Tedarik"
+	description="Ticari bina sprinkler sistemi için eksiksiz BOM: alarm vana grupları, OS&Y ve sinyal vanaları, itfaiye bağlantısı, sprinkler başlıkları ve akış göstergeleri."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Sprinkler Sistemi BOM' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Sprinkler Sistemi BOM</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Tedarik Kılavuzu · Ticari Binalar</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Ticari sprinkler sistemi mi kuruyorsunuz? Eksiksiz BOM burada</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Sprinkler tedarikindeki sorunların çoğu tek bir bileşenden değil, arayüzlerden kaynaklanır: alarm vanası bir fabrikadan, başlıklar başka bir fabrikadan, itfaiye bağlantısı üçüncü bir fabrikadan gelir; her birinin test kayıtları ve teslim süresi farklıdır, bir parça uymadığında ise yanıt alınamaz. Bu kılavuz, ticari bir ıslak borulu sprinkler sisteminin kapsamını parça parça ele alır; gerçekten belirlemeniz gereken bileşenleri, bunların nasıl bir araya geldiğini ve RFQ talebinize doğrudan aktarabileceğiniz planlama tablosunu sunar.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Kapsam notu:</strong> Bu içerik, standart bir ticari ıslak borulu sistem için planlama referansıdır. Nihai BOM'u hidrolik tasarımınız ve yerel yangın makamının kuralları belirler. Plan yerleşiminizi bize gönderin; kalem bazında miktarları ve uyumlu bileşen ölçülerini iletelim.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="one-package" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Sprinkler paketi neden tek kapsam olarak tedarik edilir?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Islak borulu sprinkler sistemi bir bileşen zinciridir: alarm vana grubu akışı başlatır ve alarmı yükseltir, kontrol vanaları bölümleri izole eder, itfaiye bağlantısı itfaiye aracının beslemesini alır, başlıklar suyu dağıtır ve akış göstergeleri kontrol paneline hangi bölgenin boşaltım yaptığını bildirir. İki tedarikçi arasındaki her arayüzde ölçülerin, standartların ve test kayıtlarının fark edilmeden uyuşmaması riski vardır; bu uyuşmazlık genellikle çelik montajından sonra, sahada ortaya çıkar.</p>
+			<p class="text-gray-700 leading-relaxed">Tüm yangın kapsamını tek bir satın alma siparişinde birleştirmek; size tek bir sorumlu üretici, tek bir çeki listesiyle eşleştirilebilen birim bazlı test kayıtları ve tek bir navlun-gümrük paketi sağlar. Bu nedenle <a href="/tr/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">tedarik kılavuzumuz</a> eksiksiz kiti varsayılan tedarik birimi olarak ele alır; bu BOM da ticari ıslak sistemin tüm temel bileşenlerini tek seferde listeler.</p>
+
+			<h2 id="alarm-valve-group" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Alarm vana grubu: Islak sistemin kalbi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/tr/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ ıslak alarm çekvalfi</a>, sistemin güvenilirliğini belirleyen bileşendir. Boru basıncı altında sistemi basınçlı tutar, sprinkler akışı başladığında otomatik olarak açılır, su motorlu alarm gongunu çalıştırır ve bina yangın alarm paneline bildirim gönderen basınç anahtarı kontağını kapatır. Geciktirme haznesi, geçici basınç dalgalanmalarını filtrelemek için akış ile alarm arasına yerleştirilir; bu hazne olmadan pompanın devreye girmesi yanlış alarm oluşturabilir.</p>
+			<p class="text-gray-700 leading-relaxed">Yalnızca vanayı değil, grubu bir bütün olarak belirtin: gövde ölçüsü (1,6 MPa basınçta DN100 / DN150 / DN200), gong, geciktirme haznesi ve basınç anahtarının yanı sıra yükseltici hattı odanızın izin verdiği montaj yönü. Aynı binadaki yüksek tehlike bölgeleri (raf sistemleri, mutfaklar, boya depoları) için <a href="/tr/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM baskın alarm vanası</a> ve <a href="/tr/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">ZSFY ön tepkili sistem</a>, aynı yaklaşımı anlık ve çift sinyalli boşaltıma taşır.</p>
+
+			<h2 id="monitored-isolation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. İzlenen izolasyon: OS&Y ve sinyal izleme anahtarlı kelebek vanalar</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Her ana hat ve her bölge, konumu kontrol odası tarafından doğrulanabilen bir izolasyon vanasına ihtiyaç duyar. Yangın ana hatlarında standart çözüm, yükselen milli <a href="/tr/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">OS&Y sürgülü vanadır</a>: mil tamamen yukarıdaysa açık, aşağıdaysa kapalıdır; kontrol için vanayı açmanız gerekmez. Sprinkler ana hatlarının bölüm kontrolünde yivli <a href="/tr/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">sinyal izleme anahtarlı kelebek vana</a>, konum vericisi ekler. Böylece kapalı bırakılmış bir vana, yangın başladığında sessizce arızalanmak yerine kendisini arıza sinyali olarak bildirir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Satın alınması gereken eşleşme:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Vana</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Sistemdeki görevi</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tipik konum</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">OS&Y sürgülü vana</td><td class="px-4 py-3 text-gray-700">Ana kapatma, konum mil üzerinden görünür</td><td class="px-4 py-3 text-gray-700">Yükseltici hat odası, sistem beslemesi</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Sinyal izleme anahtarlı kelebek (yivli)</td><td class="px-4 py-3 text-gray-700">İletilen konum bilgisiyle bölüm/bölge kontrolü</td><td class="px-4 py-3 text-gray-700">Branşman ana hatları, her bölge</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Çekvalf (HQ44X)</td><td class="px-4 py-3 text-gray-700">Pompa veya çapraz bağlantı hatlarında geri akış koruması</td><td class="px-4 py-3 text-gray-700">Pompa çıkışı, itfaiye bağlantı hattı</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Hat bir belediye bağlantısına veya pompaya dönüyorsa, <a href="/tr/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">HQ44X küresel çekvalf</a> gibi darbesiz bir çekvalf, uzun ana hatta klapeli çekvalfin oluşturabileceği ani kapanma darbesine yol açmadan geri akışa karşı koruma sağlar.</p>
+
+			<h2 id="siamese" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. İtfaiye bağlantısı (Siyez bağlantısı)</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Siyez bağlantısı, itfaiyenin kendi debisini sisteme eklemesini sağlar. <a href="/tr/products/sqd100-1-6-fire-pump-adapter/" class="text-brand-blue font-semibold hover:underline">SQD100-1.6</a>; yerel itfaiyenizin kaplin standardına uygun SQS65 veya KWS65 olmak üzere iki DN65 girişi, tek bir DN100 flanşlı çıkışa bağlar. Üründe entegre el çarklı kontrol vanası ve kapaklarda örgülü emniyet kabloları bulunur. Çift giriş, iki itfaiye aracının aynı anda besleme yapmasına olanak verir; bina pompasının tek başına pik talebi karşılayamadığı büyük ticari sahalarda bu özellik önemlidir.</p>
+			<p class="text-gray-700 leading-relaxed">Sıklıkla atlanan iki teknik ayrıntı vardır: giriş kaplin standardı itfaiyenizin ekipmanıyla eşleşmelidir (genel bir varsayılan standart kullanılmamalıdır) ve bağlantının konumu yerel mevzuatın erişilebilirlik kurallarını karşılamalıdır. Kapaklar ve adaptörler üretilmeden önce her ikisini de yazılı olarak teyit edin.</p>
+
+			<h2 id="sprinkler-heads" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Sprinkler başlıkları: K faktörü, sıcaklık ve yön</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Başlıklar BOM'daki en yüksek adetli kalemdir ve yanlış belirlenmesi en kolay üründür. Üç parametre belirleyicidir: <strong>K faktörü</strong> (K=80 standart yoğunluk seçeneği, K=115 daha yüksek debi için), <strong>sıcaklık sınıfı</strong> (standart cam tüp renk kodlamasıyla 57 / 68 / 79 / 93 / 141 °C) ve <strong>yön</strong> (tavanlar için aşağı yönlü, açıkta borulama için yukarı yönlü, tamamlanmış iç mekânlar için yan duvar ve gizli tipler).</p>
+			<p class="text-gray-700 leading-relaxed"> <a href="/tr/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">ZST cam tüplü seri</a>, DN15/DN20 ölçülerinde hızlı veya standart tepkili cam tüplerle aşağı yönlü, yukarı yönlü ve yan duvar tiplerini kapsar; <a href="/tr/products/horizontal-sidewall-fire-sprinkler-t-zstbs/" class="text-brand-blue font-semibold hover:underline">T-ZSTBS yatay yan duvar</a> ve <a href="/tr/products/zstdy-concealed-fire-sprinkler/" class="text-brand-blue font-semibold hover:underline">ZSTDY gizli</a> tipleri mimari uygulamalara yöneliktir. Depolama uygulamalarında belirlenen tip <a href="/tr/products/esfr-sprinkler-head/" class="text-brand-blue font-semibold hover:underline">ESFR başlığıdır</a>. Hidrolik tasarımınız her bölge için K faktörünü ve adedi belirler; fabrika ise bunları çerçeve ve test sertifikası üzerinde belirtir.</p>
+
+			<h2 id="flow-indicators" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Akış göstergeleri ve bölge izleme</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Kırk katlı bir binada tek bir başlık boşaltım yaptığında kontrol odası bunun hangi katta olduğunu bilmelidir. <a href="/tr/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">ZSJZ kanatlı tip su akış göstergesi</a>, belirli bir branşmandaki akışı bölge bazında yangın alarm paneline iletilen elektriksel kontağa dönüştürür. İzlenen her branşman için bir adet belirtin, kontak değerini panelinizle eşleştirin ve bölgeleri uygulama sonrası çizimlerinizle tutarlı biçimde etiketleyin; kimsenin yerini belirleyemediği bir akış alarmı, yangına müdahale değil yangın incelemesi başlatır.</p>
+
+			<h2 id="bom-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. BOM planlama tablosu</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bu tabloyu RFQ talebinizin iskeleti olarak kullanın. Miktarlar, hidrolik tasarımınızla değiştirilecek yer tutuculardır. Amaç, teklif istemeden önce her kapsam kaleminin adlandırılması ve gerçek bir modele eşlenmesidir; böylece alacağınız kalem bazlı fiyatları satır satır karşılaştırabilirsiniz.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Kapsam kalemi</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Referans model</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Belirleyen unsur</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Islak alarm vana grubu (gong + geciktirme + anahtar)</td><td class="px-4 py-3 text-gray-700">ZSFZ-150 (DN100/DN150/DN200)</td><td class="px-4 py-3 text-gray-700">Tasarım debisi</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Ana kapatma (OS&Y, yivli)</td><td class="px-4 py-3 text-gray-700">2"–10" OS&Y</td><td class="px-4 py-3 text-gray-700">Ana hat ölçüsü</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Bölge kontrolü (sinyal izleme anahtarlı kelebek)</td><td class="px-4 py-3 text-gray-700">DN80–DN150 sinyal izlemeli yivli</td><td class="px-4 py-3 text-gray-700">Branşman ana hatları</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Çekvalf (pompa / geri akış)</td><td class="px-4 py-3 text-gray-700">HQ44X-16</td><td class="px-4 py-3 text-gray-700">Pompa hattı ölçüsü</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">İtfaiye bağlantısı</td><td class="px-4 py-3 text-gray-700">SQD100-1.6 (SQS65/KWS65)</td><td class="px-4 py-3 text-gray-700">Yerel itfaiye standardı</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Sprinkler başlıkları (aşağı/yukarı/yan duvar)</td><td class="px-4 py-3 text-gray-700">ZST / T-ZSTBS / ZSTDY, K80 veya K115</td><td class="px-4 py-3 text-gray-700">Hidrolik tasarım</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Su akış göstergeleri</td><td class="px-4 py-3 text-gray-700">İzlenen her branşman için ZSJZ</td><td class="px-4 py-3 text-gray-700">Bölge planı</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">İç yangın istasyonları (hortum makaraları + dolaplar)</td><td class="px-4 py-3 text-gray-700">JPS0.8-19 + SN65</td><td class="px-4 py-3 text-gray-700">Kaçış planı</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Son olarak iki kapsam kalemini kontrol edin: iç yangın istasyonları (<a href="/tr/products/fire-hose-reel-jpso8-19/" class="text-brand-blue font-semibold hover:underline">SN65 vanalı JPS0.8-19 hortum makarası</a>, kaçış planınıza göre ölçülendirilir) ve itfaiye bağlantısını besleyen düz yangın hortumu ile <a href="/tr/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">Storz kaplinleri</a>. Alarm grubundan son başlığa kadar her şey tek bir sipariş ve tek bir test kayıt setiyle sevk edilir.</p>
+
+			<h2 id="standards" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. Belirtilecek standartlar ve sertifikalar</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Uygulanacak standartlar varış ülkesine göre değişir: <strong>NFPA 13</strong>, ABD şartnameli projelerde sistem tasarımını yönetir; makamın gerekli gördüğü belirli bileşenler UL/FM listeli olmalıdır. <strong>GB 5135</strong> ailesi, Çin üretim ortamında alarm vanaları ve başlıklar için imalat referansıdır; Avrupa varış noktalarında <strong>EN</strong> standartları uygulanır. <a href="/tr/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Standartlar kılavuzumuzdaki</a> pratik kural şudur: standart, markanın değil ürünün ve varış yerinin bir özelliğidir. Bu nedenle RFQ her kalem için standardı belirtmeli, tedarikçi de ilgili sertifikayla model bazında yanıt vermelidir.</p>
+			<p class="text-gray-700 leading-relaxed">Denetimden geçmesi gereken ticari bir projede dosyayı düzenli tutan belge seti şunlardır: birim bazında basınç ve sızdırmazlık test kayıtları, başlık sıcaklık/K faktörü işaretleri, belirtilen standarda uygun vana sertifikaları ve ihracat belge paketi. <a href="/tr/whitepaper/" class="text-brand-blue font-semibold hover:underline">Sektör teknik incelememiz</a>, yazılı şartnameden doğrulanmış ürüne kadar tüm doğrulama sürecini açıklar.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Plan yerleşiminizi gönderin — kalem bazlı BOM teklifi alın</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Çizimlerinizi yükleyin veya bölgelerinizi listeleyin; 12 saat içinde kalem bazlı miktarları, uyumlu bileşen ölçülerini ve model bazında test yaklaşımını iletelim.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Commercial%20Sprinkler%20System%20BOM" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif isteyin</a>
+						<a href="https://wa.me/8618684324501?text=Merhaba%2C%20ticari%20bir%20sprinkler%20sistemi%20kuruyorum%20ve%20eksiksiz%20bir%20BOM%20teklifine%20ihtiyac%C4%B1m%20var" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp'tan yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

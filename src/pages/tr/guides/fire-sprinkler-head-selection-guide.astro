@@ -1,0 +1,198 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const whatsappText = encodeURIComponent('Merhaba, yangın sprinkler başlıklarına ihtiyacım var (K-faktörü/sıcaklık/tepki)');
+
+const faq = [
+	{
+		question: 'Bir sprinkler başlığının K-faktörü ne anlama gelir?',
+		answer: 'K-faktörü, Q = K × √P formülüyle sprinkler başlığının debisini başlıktaki basınca bağlar (debi L/dak, basınç bar). K=80 başlık 1 bar basınçta yaklaşık 80 L/dak; K=115 başlık aynı basınçta yaklaşık 115 L/dak su verir. Yangına daha hızlı ve daha fazla su ulaştırılması gereken yüksek tehlike sınıfı veya yüksek tavanlı alanlarda daha yüksek K-faktörleri kullanılır. K=80 ise düşük ve olağan tehlikeli alanlar için yaygın standarttır.'
+	},
+	{
+		question: 'Sıcaklık sınıfları ve cam ampul renkleri ne anlama gelir?',
+		answer: 'Cam ampul, belirtilen sıcaklıkta genleşip kırılan ve deflektörü serbest bırakan bir sıvı içerir. Standart sınıflar ve renk kodları 57°C (turuncu), 68°C (kırmızı), 79°C (sarı), 93°C (yeşil) ve 141°C (mavi) şeklindedir. Kırmızı ampullü 68°C başlık çoğu ofis ve depo için varsayılan seçenektir. Başlığın yanlışlıkla çalışmaması için kazan, ısıtıcı ve mutfak gibi ısı kaynaklarının yakınında daha yüksek sınıflar kullanılır.'
+	},
+	{
+		question: 'Hızlı tepkili ve standart tepkili sprinkler başlıkları arasındaki fark nedir?',
+		answer: 'Tepki hızı, algılama elemanının ısıl kütlesiyle belirlenir: hızlı tepkili başlıkta 3 mm cam ampul, standart tepkili başlıkta 5 mm ampul kullanılır. Hızlı tepkili başlıklar daha çabuk devreye girer ve daha erken boşaltım can ve mal güvenliğini artırdığı için düşük ve olağan tehlikeli alanlarda tercih edilir. Standart tepkili başlıklar, biraz daha yavaş ve kontrollü boşaltımın kabul edilebilir olduğu endüstriyel ve depolama alanlarında yaygındır. ZST serimiz her iki tepki tipinde de sunulur.'
+	},
+	{
+		question: 'Wanlian ürün grubunda hangi sprinkler başlıkları UL listelidir?',
+		answer: 'Gizli ZSTDY sprinkler başlığı, 68°C kırmızı ampul ve elektro kaplama krom yüzey ile UL listelidir. ZST cam ampullü seri ve T-ZSTBS yatay yan duvar modeli, GB 5135 serisi gerekliliklerine ve fabrika standartlarına göre üretilir. Kuzey Amerika projelerinde şartnamenizde istenen listelemeyi doğrulayın; sertifikalı modeli eşleştirir veya proje değerlendirmesi düzenleriz. Yalnızca belirli modeller listeliyse tüm seri için listeleme iddiasında bulunmayız.'
+	},
+	{
+		question: 'Aynı alanda farklı sıcaklık sınıflarına sahip sprinkler başlıkları birlikte kullanılabilir mi?',
+		answer: 'Hayır; bu, denetimlerde sık karşılaşılan bir uygunsuzluktur. Aynı tehlike alanını koruyan tüm başlıklar aynı sıcaklık sınıfına sahip olmalıdır. Isı kaynağı yakınındaki düşük sınıflı başlık erken çalışır; normal alandaki yüksek sınıflı başlık ise çok geç tepki verir. Yüksek sıcaklık sınıflarını yalnızca gerçek ısı kaynaklarının bulunduğu yerlere ayırın ve sıcaklık bölgesini uygulama çizimlerinde belirtin.'
+	},
+	{
+		question: 'Sarkık başlık yerine ne zaman gizli sprinkler başlığı seçilmelidir?',
+		answer: 'Ofis, otel ve mağaza uygulamalarında olduğu gibi tavan görünümü önem taşıdığında, yalnızca kapak plakası göründüğü için gizli (kapak plakası arkasına gömülü) başlıkları seçin. Sarkık başlıklar tavandan aşağı uzanır ve püskürtme düzenini engellemeden su dağıtır. Bu nedenle depolarda, endüstriyel tavanlarda ve tavanın kendisinin tehlike yüzeyi olduğu alanlarda standart olmaya devam eder. Her iki tip de ürün grubunda mevcuttur; gizli ZSTDY, UL listeli seçenektir.'
+	}
+];
+
+const toc = [
+	{ id: 'system-type-first', label: '1. Önce sistem tipini, ardından başlığı belirleyin' },
+	{ id: 'k-factor-flow', label: '2. K-faktörü ve debi: Su dağıtımını eşleştirin' },
+	{ id: 'temperature-ratings', label: '3. Sıcaklık sınıfları ve ampul renk kodları' },
+	{ id: 'response-orientation', label: '4. Tepki hızı ve montaj yönü' },
+	{ id: 'us-standards-context', label: '5. ABD projelerinde UL listelemesi ve NFPA 13 bağlamı' },
+	{ id: 'spec-checklist', label: '6. Sprinkler başlığı teknik şartname kontrol listesi' },
+	{ id: 'faq', label: 'Sık sorulan sorular' }
+];
+
+const referencePages = [
+	{ slug: 'glass-bulb-fire-sprinkler-zst', name: 'Cam Ampullü Yangın Sprinkler Başlığı (ZST)', img: '/assets/products/glass-bulb-fire-sprinkler-zst.webp', desc: 'K=80/K=115, 57–141°C, sarkık/dik/yan duvar tipi' },
+	{ slug: 'horizontal-sidewall-fire-sprinkler-t-zstbs', name: 'Yatay Yan Duvar Sprinkler Başlığı (T-ZSTBS)', img: '/assets/products/horizontal-sidewall-fire-sprinkler-t-zstbs.png', desc: '68°C kırmızı ampul, krom yüzey, çevre alanı kapsaması' },
+	{ slug: 'zstdy-concealed-fire-sprinkler', name: 'Gizli Yangın Sprinkler Başlığı (ZSTDY)', img: '/assets/products/zstdy-concealed-fire-sprinkler.webp', desc: 'UL listeli, gömme kapak plakası, 68°C, krom' }
+];
+---
+
+<Layout
+	title="Yangın Sprinkler Başlığı Seçimi: K-Faktörü ve Sıcaklık"
+	description="Yangın sprinkler başlığı seçimi için K-faktörü, debi, sıcaklık sınıfı, montaj yönü ve UL uygunluğunu açıklayan B2B kılavuzu. Teknik teklif alın."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Sprinkler Başlığı Seçimi' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Sprinkler Başlığı Seçimi</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Yangın Koruma Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Yangın Sprinkler Başlığı Seçim Kılavuzu: K-Faktörü, Sıcaklık ve Tepki</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Sprinkler başlığı, suyun ne zaman serbest bırakılacağını ve ne kadarının yangına ulaşacağını belirleyen sistemin tek parçasıdır. Dört parametre tüm seçimi belirler: K-faktörü, sıcaklık sınıfı, tepki hızı ve montaj yönü. Bu kılavuz, ticari, depo ve ABD pazarı projeleri için başlıkların nasıl doğru şartlandırılacağını ve “UL listeli” ifadesinin gerçekte neyi kapsadığını açıklar.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{referencePages.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="system-type-first" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Önce Sistem Tipini, Ardından Başlığı Belirleyin</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Başlıklar tek başına değil, sistem kararının bir parçası olarak şartlandırılır. <strong>Islak sistemde</strong> borulama suyla dolu kalır ve her başlık hemen açılmaya hazır bir boşaltım noktasıdır; <strong>kuru sistemde</strong> borulama basınçlı hava içerir ve su gelmeden önce başlıkların havayı boşaltması gerekir; <strong>baskın ve ön tepkili</strong> düzenlerde ise bölge tasarımına bağlı olarak başlıklar açık nozullar veya kapalı başlıklar olabilir. Bu kararın vana tarafı, <a href="/tr/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">ıslak, kuru ve ön tepkili sistem kılavuzumuzda</a> ve <a href="/tr/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">sprinkler sistemi vanaları kılavuzunda</a> ele alınmaktadır.</p>
+			<p class="text-gray-700 leading-relaxed">Sistem tipi kesinleştirildikten sonra başlık; aşağıdaki dört parametre olan K-faktörü, sıcaklık, tepki ve montaj yönüne göre seçilir. Sistem tipini belirlemeden başlık şartlandırmak, teklif taleplerimizde en sık görülen tedarik hatasıdır.</p>
+
+			<h2 id="k-factor-flow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. K-Faktörü ve Debi: Su Dağıtımını Eşleştirin</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">K-faktörü, başlığın belirli bir basınçta ne kadar su boşaltacağını tanımlar: <strong>Q = K × √P</strong> (debi L/dak, basınç bar). Sistem hidrolik hesabını gerçek başlıkla ilişkilendiren sayıdır.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>K=80 (nominal 80 ±4)</strong> — düşük ve olağan tehlikeli alanlar için uzun süredir kullanılan standarttır; ofisler, perakende alanları ve çoğu ticari mekân için varsayılan seçimdir.</li>
+				<li><strong>K=115 (nominal 115 ±9)</strong> — depolama alanları, yüksek tavanlar ve tasarım yoğunluğunun başlık başına daha fazla su gerektirdiği alanlar için daha yüksek debi sağlar.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Her iki katsayı da <a href="/tr/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">ZST cam ampullü yangın sprinkler serimizde</a> mevcuttur. Seri; sarkık, dik ve yan duvar tiplerinde 57°C ile 141°C arasındaki sıcaklık sınıflarıyla K=80 ve K=115 seçeneklerini kapsar. Hidrolik tasarımcı, tehlike sınıfı için metrekare başına gerekli tasarım yoğunluğunu hesaplar; ardından her başlığın gerçekçi bir basınçta kendi payını sağlaması için K-faktörü seçilir.</p>
+			<p class="text-gray-700 leading-relaxed">Bir teknik föyde yalnızca diş ölçüsü veriliyor, K-faktörü belirtilmiyorsa föy eksik kabul edilmelidir: K-faktörü üzerindeki en önemli sayıdır.</p>
+
+			<h2 id="temperature-ratings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Sıcaklık Sınıfları ve Ampul Renk Kodları</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Cam ampul, ısıya duyarlı bir sıvı içerir; nominal sıcaklığına ulaşıldığında ampul kırılır ve başlık suyu boşaltır. Sınıflar, denetçilerin başlığı zeminden tanıyabilmesi için standart bir renk kodunu izler:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Sıcaklık Sınıfı</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Ampul Rengi</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tipik Kullanım</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">ZST Serisinde</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">57°C (135°F)</td>
+							<td class="px-4 py-3 text-gray-700">Turuncu</td>
+							<td class="px-4 py-3 text-gray-700">Konutlar / düşük ısılı alanlar</td>
+							<td class="px-4 py-3 text-gray-700">Mevcut</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">68°C (155°F)</td>
+							<td class="px-4 py-3 text-gray-700">Kırmızı</td>
+							<td class="px-4 py-3 text-gray-700">Ofisler, depolar — varsayılan sınıf</td>
+							<td class="px-4 py-3 text-gray-700">Mevcut (ayrıca T-ZSTBS, ZSTDY)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">79°C (175°F)</td>
+							<td class="px-4 py-3 text-gray-700">Sarı</td>
+							<td class="px-4 py-3 text-gray-700">Isıtıcı, çatı penceresi ve sıcak çatı yakınları</td>
+							<td class="px-4 py-3 text-gray-700">Mevcut</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">93°C (200°F)</td>
+							<td class="px-4 py-3 text-gray-700">Yeşil</td>
+							<td class="px-4 py-3 text-gray-700">Kazan daireleri, fırınlar, yüksek ısılı alanlar</td>
+							<td class="px-4 py-3 text-gray-700">Mevcut</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">141°C (286°F)</td>
+							<td class="px-4 py-3 text-gray-700">Mavi</td>
+							<td class="px-4 py-3 text-gray-700">Özel endüstriyel ısı kaynakları</td>
+							<td class="px-4 py-3 text-gray-700">Mevcut</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Pratik kural: genel alanlarda kırmızı ampullü 68°C başlıklar kullanın ve sıcaklık sınıfını yalnızca gerçek bir ısı kaynağının erken boşaltımı ciddi bir risk hâline getirdiği yerlerde yükseltin. Yüksek sınıflar gerçek yangında daha geç tepki verir; bu nedenle “güvenlik için” gereğinden yüksek sınıf seçmek hiç güvenli değildir.</p>
+
+			<h2 id="response-orientation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Tepki Hızı ve Montaj Yönü</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Tepki hızı ampulün ısıl kütlesiyle belirlenir: <strong>hızlı tepkili</strong> başlıkta 3 mm ampul bulunur ve başlık daha hızlı devreye girer; <strong>standart tepkili</strong> başlıkta 5 mm ampul kullanılır. İnsanların bulunduğu ve daha erken boşaltımın önemli olduğu yerlerde hızlı tepki tercih edilir; standart tepki ise boşaltımın yangının gelişimine göre tasarlandığı depolama ve endüstriyel alanlara uygundur. ZST serisi her iki seçenekte de mevcuttur.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Montaj yönü tehlike yüzeyine ve tavana göre belirlenir:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Sarkık</strong> — branşman hattının altında asılıdır; açıkta kalan tavanlar için standarttır ve ZST serisinin çoğu bu tipi kapsar.</li>
+				<li><strong>Dik</strong> — branşman hattının üzerinde durur; deflektörün taşıyıcı kiriş engellerinin arasından suyu dağıtması gereken açık çelik kirişli depolarda yaygındır.</li>
+				<li><strong>Yan duvar</strong> — branşman hatlarının döşemeden geçirilmesinin pratik olmadığı odalarda, tavana yakın duvara monte edilir. <a href="/tr/products/horizontal-sidewall-fire-sprinkler-t-zstbs/" class="text-brand-blue font-semibold hover:underline">T-ZSTBS yatay yan duvar başlığı</a> (68°C kırmızı ampul, krom yüzey), ürün grubunda çevre alanı kapsaması sağlayan modeldir.</li>
+				<li><strong>Gizli</strong> — başlık çalıştığında düşen bir kapak plakasının arkasına gömülüdür ve mimari açıdan hassas tavanlar için seçilir. <a href="/tr/products/zstdy-concealed-fire-sprinkler/" class="text-brand-blue font-semibold hover:underline">ZSTDY gizli sprinkler başlığı</a> 68°C kırmızı ampule ve elektro kaplama krom yüzeye sahiptir; ürün grubundaki UL listeli seçenektir.</li>
+			</ul>
+
+			<h2 id="us-standards-context" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. ABD Projelerinde UL Listelemesi ve NFPA 13 Bağlamı</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Kuzey Amerika projeleri, tehlike sınıfları (düşük, olağan ve yüksek) tasarım yoğunluğunu, aralıkları ve buna bağlı olarak başlık şartnamesini belirleyen NFPA 13 tarafından yönlendirilir. Hidrolik parametrelerin yanı sıra ABD şartnameleri neredeyse her zaman belirli modeli kapsayan UL veya eşdeğer bir listelemeye sahip <strong>listeli</strong> başlıklar ister.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Ürün grubumuzda hangi modellerin listelemeye sahip olduğu konusunda kesin olun: <strong>ZSTDY gizli sprinkler başlığı UL listelidir</strong> (68°C kırmızı ampul, paslanmaz çelik yapı, DN15-DN20) ve ABD şartnameli gizli uygulamalar için doğrudan seçenektir. ZST cam ampullü seri ve T-ZSTBS yan duvar modeli GB 5135 serisine ve fabrika standartlarına göre üretilir. Bu modeller için projenizde istenen listeleme doğrulanmalıdır; tüm seri için UL statüsü iddia etmek yerine sertifikalı modeli eşleştirir veya proje değerlendirmesi düzenleriz.</p>
+			<p class="text-gray-700 leading-relaxed">Bu ayrım ABD tedarikinde önemlidir: Listeleme gereken bir hatta sertifikasız ikame kullanılması proje incelemesinin başarısız olmasına ve sistem kabulünün geçersiz kalmasına yol açabilir. Teklifte listelemenin model bazında belirtilmesini isteyin; <a href="/tr/certificates/" class="text-brand-blue font-semibold hover:underline">sertifikalar ve uygunluk</a> sayfamız listeleme belgelerinin nasıl ele alındığını gösterir.</p>
+
+			<h2 id="spec-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Sprinkler Başlıkları İçin Teknik Şartname Kontrol Listesi</h2>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>K-faktörü</strong> — düşük/olağan tehlike için K=80, daha yüksek yoğunluk için K=115; hedef tasarım yoğunluğunu siparişle birlikte belirtin.</li>
+				<li><strong>Sıcaklık sınıfı</strong> — varsayılan 68°C; daha yüksek sınıflar yalnızca gerçek ısı kaynaklarında kullanılmalı; bir tehlike alanında sınıfları asla karıştırmayın.</li>
+				<li><strong>Tepki</strong> — kullanım alanına ve sistem tasarımına göre hızlı tepki (3 mm ampul) veya standart tepki (5 mm ampul).</li>
+				<li><strong>Montaj yönü ve yüzey</strong> — sarkık, dik, yan duvar veya gizli; tavan tipine uygun krom, polisajlı veya özel yüzey.</li>
+				<li><strong>Model bazında listeleme</strong> — gerekli listelemeyi (ör. UL) teklifte belirtin; tam model ve ölçüyü kapsadığını doğrulayın.</li>
+				<li><strong>Parti belgeleri</strong> — üretim partisinin basınç ve hassasiyet test kayıtları; sprinkler tedarikçileri için de geçerli olan fabrika doğrulama rutinini <a href="/tr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B tedarik kontrol listemizde</a> bulabilirsiniz.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sık Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Projeniz için sprinkler başlığı mı şartlandırıyorsunuz?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Tehlike sınıfınızı, K-faktörünüzü, sıcaklık sınıfınızı ve listeleme gerekliliğinizi gönderin; mühendislerimiz 12 saat içinde uygun modeli doğrulasın.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Fire%20Sprinkler%20Heads" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif isteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${whatsappText}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp'tan yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
