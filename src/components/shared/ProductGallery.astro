@@ -1,0 +1,86 @@
+---
+interface Props {
+  mainImage: string;
+  gallery?: string[];
+  alt: string;
+}
+
+const { mainImage, gallery, alt } = Astro.props;
+
+// 合并主图与画廊图列表，并去重
+const allImages = gallery && gallery.length > 0 
+  ? [mainImage, ...gallery.filter(img => img !== mainImage)]
+  : [mainImage];
+---
+
+<div class="product-gallery-container flex flex-col gap-4">
+  <!-- Main Display Window -->
+  <div class="relative overflow-hidden bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center min-h-[320px] sm:min-h-[400px]">
+    <img 
+      id="main-product-image"
+      src={mainImage} 
+      alt={alt} 
+      class="w-full h-auto rounded-xl object-contain aspect-square max-h-[460px] transition-all duration-300"
+      loading="eager"
+    />
+    <!-- Brand Watermark -->
+    <span aria-hidden="true" class="pointer-events-none select-none absolute inset-0 flex items-center justify-center overflow-hidden">
+      <span class="text-7xl font-black tracking-[0.3em] text-brand-blue/[0.05] -rotate-[24deg] whitespace-nowrap">WANLIAN FLUID</span>
+    </span>
+  </div>
+
+  <!-- Thumbnails Row (renders only if multiple images exist) -->
+  {allImages.length > 1 && (
+    <div class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-thin">
+      {allImages.map((img, idx) => (
+        <button
+          type="button"
+          class={`gallery-thumb flex-shrink-0 w-20 h-20 rounded-xl border-2 p-1 bg-white overflow-hidden transition-all duration-200 cursor-pointer ${idx === 0 ? 'border-blue-600 ring-2 ring-blue-100' : 'border-gray-200 hover:border-gray-400 opacity-70 hover:opacity-100'}`}
+          data-src={img}
+          aria-label={`View product image ${idx + 1}`}
+        >
+          <img 
+            src={img} 
+            alt={`${alt} view ${idx + 1}`} 
+            class="w-full h-full object-contain rounded-lg"
+            loading="lazy"
+          />
+        </button>
+      ))}
+    </div>
+  )}
+</div>
+
+<script>
+  function initGallery() {
+    const mainImg = document.getElementById('main-product-image') as HTMLImageElement | null;
+    const thumbs = document.querySelectorAll('.gallery-thumb');
+
+    if (!mainImg || thumbs.length <= 1) return;
+
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        const targetSrc = thumb.getAttribute('data-src');
+        if (targetSrc && mainImg.src !== targetSrc) {
+          mainImg.style.opacity = '0.4';
+          mainImg.src = targetSrc;
+          mainImg.onload = () => {
+            mainImg.style.opacity = '1';
+          };
+
+          thumbs.forEach((t) => {
+            t.classList.remove('border-blue-600', 'ring-2', 'ring-blue-100');
+            t.classList.add('border-gray-200', 'opacity-70');
+          });
+
+          thumb.classList.remove('border-gray-200', 'opacity-70');
+          thumb.classList.add('border-blue-600', 'ring-2', 'ring-blue-100');
+        }
+      });
+    });
+  }
+
+  // Initialize on page load and view transitions
+  initGallery();
+  document.addEventListener('astro:page-load', initGallery);
+</script>

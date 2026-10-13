@@ -12,6 +12,7 @@ export interface Product {
     rows: string[][];
   };
   image: string;
+  gallery?: string[];
   infographic?: string;
   seoTitle: string;
   seoDescription: string;
@@ -172,7 +173,8 @@ export const products: Product[] = [
       'Gear Operator': 'Cast Iron / Spheroidal Iron',
       'Microswitch': 'Highly Conductive Waterproof Microswitch'
     },
-    image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80-overlay.png',
+        gallery: ['/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', '/assets/products/signal-grooved-wafer-butterfly-valve-dn80-infographic.svg', '/assets/products/signal-grooved-wafer-butterfly-valve-dn80-overlay.png'],
+image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80-overlay.png',
     infographic: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80-infographic.svg',
     seoTitle: 'DN80 Signal Wafer Butterfly Valve | PN16 Fire System',
     seoDescription: 'Ductile Iron QT450 Signal Wafer Butterfly Valve. Perfect for firefighting water system control. Integrated monitoring switch, smooth worm gear operation.'
@@ -292,7 +294,8 @@ export const products: Product[] = [
       'Springs': 'Stainless Steel 304',
       'Caps & Interfaces': 'Anodized Aluminum Alloy / Brass'
     },
-    image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100-overlay.png',
+        gallery: ['/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100-infographic.svg', '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100-overlay.png'],
+image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100-overlay.png',
     infographic: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100-infographic.svg',
     seoTitle: 'SSFT100 Anti-Collision Outdoor Fire Hydrant | Pressure Regulating',
     seoDescription: 'SSFT100 anti-collision, pressure-regulating fire hydrant with double safety shut-off for municipal and industrial fire protection. Factory price from Wanlian.',
@@ -397,7 +400,8 @@ export const products: Product[] = [
       'Sensor Enclosure': 'Anti-UV High Strength Engineered ABS IP66',
       'Nozzle Head': 'Stainless Steel 316'
     },
-    image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms-overlay.png',
+        gallery: ['/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp', '/assets/products/auto-tracking-jet-suppression-cannon-zdms-infographic.svg', '/assets/products/auto-tracking-jet-suppression-cannon-zdms-overlay.png'],
+image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms-overlay.png',
     infographic: '/assets/products/auto-tracking-jet-suppression-cannon-zdms-infographic.svg',
     seoTitle: 'ZDMS Automatic Tracking Fire Water Cannon | IR/UV Detection',
     seoDescription: 'Smart auto-tracking fire monitor ZDMS. Multi-band IR/UV flame detection, rapid autonomous suppression. Best choice for large spatial indoor protection.',
@@ -594,7 +598,8 @@ export const products: Product[] = [
       'Locking Knobs': 'Stainless Steel / Brass',
       'Nozzle Tip': 'Precision Hardened Alloy'
     },
-    image: '/assets/products/manual-fire-water-cannon-ps-overlay.png',
+        gallery: ['/assets/products/manual-fire-water-cannon-ps.webp', '/assets/products/manual-fire-water-cannon-ps-infographic.svg', '/assets/products/manual-fire-water-cannon-ps-overlay.png'],
+image: '/assets/products/manual-fire-water-cannon-ps-overlay.png',
     infographic: '/assets/products/manual-fire-water-cannon-ps-infographic.svg',
     seoTitle: 'PS Series Manual Fire Water Monitor | Long Range',
     seoDescription: 'High volume manual fire water cannon PS. Supports water and foam spray. Heavy-duty construction, suitable for industrial storage and petrochemical yards.',
@@ -919,7 +924,8 @@ export const products: Product[] = [
       'Stem & Springs': 'Stainless Steel 304',
       'Seal Gaskets': 'EPDM / NBR'
     },
-    image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
+        gallery: ['/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp', '/assets/products/flanged-signal-gate-valve-xz41x.webp'],
+image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
     seoTitle: 'GKZF-1 Grooved Solenoid Control Gate Valve 300PSI',
     seoDescription: 'GKZF-1 grooved solenoid control gate valve, DN50-DN300, 300 PSI (2.0 MPa), AC220V/DC24V, ductile iron, ideal for municipal and fire water control systems.',
     faqs: [
@@ -1430,7 +1436,8 @@ export const products: Product[] = [
       'Gasket': 'Self-Sealing Rubber',
       'Options': 'Brass / Chrome Plated'
     },
-    image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
+        gallery: ['/assets/products/storz-coupling-2-5inch-aluminum.webp', '/assets/products/storz-coupling-2-5inch-aluminum-infographic.svg', '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png'],
+image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
     infographic: '/assets/products/storz-coupling-2-5inch-aluminum-infographic.svg',
     seoTitle: '2.5" Aluminum Storz Coupling | German Standard',
     seoDescription: 'German standard Storz fire hose coupling 2.5" in aluminum with self-sealing edge for water and foam firefighting. 1.6MPa. Factory price from Wanlian Fluid.',
