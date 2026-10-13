@@ -231,7 +231,7 @@ export const productsFrPart3: Record<string, Product> = {
       'Tige et ressorts': 'Acier inoxydable 304',
       'Joints d\u2019étanchéité': 'EPDM / NBR',
     },
-    image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg',
+    image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
     seoTitle: 'Vanne à Boisseau de Régulation Électromagnétique GKZF-1 300PSI',
     seoDescription:
       'Vanne à boisseau de régulation électromagnétique à gorge GKZF-1, DN50-DN300, 300 PSI (2.0 MPa), AC220V/DC24V, fonte ductile, idéale pour les systèmes de contrôle de l\u2019eau municipale et anti-incendie.',

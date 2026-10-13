@@ -487,7 +487,7 @@ export const productsEsPart2: Record<string, Product> = {
       'Vástago y Resortes': 'Acero inoxidable 304',
       'Empaques de Sello': 'EPDM / NBR'
     },
-    image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg',
+    image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
     seoTitle: 'Válvula de Compuerta de Solenoide GKZF-1 | 300 PSI',
     seoDescription: 'Válvula de compuerta de control por solenoide GKZF-1 (DN50-DN300, 300 PSI (2.0 MPa), AC220V/DC24V) para agua contra incendios. Precio de fábrica Wanlian.',
     faqs: [

@@ -194,7 +194,7 @@ export const productsArPart3: Record<string, Product> = {
       'العمود والزنبركات': 'فولاذ مقاوم للصدأ 304',
       'جوانات الإحكام': 'EPDM / NBR'
     },
-    image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg',
+    image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
     seoTitle: 'صمام بوابة تحكم كهرومغناطيسي بمسار GKZF-1 300PSI',
     seoDescription: 'صمام بوابة تحكم كهرومغناطيسي بمسار GKZF-1، DN50-DN300، 300 PSI (2.0 MPa)، AC220V/DC24V، حديد زهر مطبوع، مثالي لأنظمة التحكم في مياه البلدي والحريق.',
     faqs: [

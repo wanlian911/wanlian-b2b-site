@@ -919,7 +919,7 @@ export const products: Product[] = [
       'Stem & Springs': 'Stainless Steel 304',
       'Seal Gaskets': 'EPDM / NBR'
     },
-    image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg',
+    image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
     seoTitle: 'GKZF-1 Grooved Solenoid Control Gate Valve 300PSI',
     seoDescription: 'GKZF-1 grooved solenoid control gate valve, DN50-DN300, 300 PSI (2.0 MPa), AC220V/DC24V, ductile iron, ideal for municipal and fire water control systems.',
     faqs: [

@@ -487,7 +487,7 @@ export const productsRuPart2: Record<string, Product> = {
       'Шток и пружины': 'Нержавеющая сталь 304',
       'Уплотнительные прокладки': 'EPDM / NBR'
     },
-    image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg',
+    image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
     seoTitle: 'Задвижка с соленоидом GKZF-1 | 300 PSI',
     seoDescription: 'Задвижка управления с соленоидным приводом GKZF-1 (DN50–DN300, 300 PSI, AC220V/DC24V) для водоснабжения и пожарных сетей. Высокопрочный чугун. Заводская цена Wanlian.',
     faqs: [

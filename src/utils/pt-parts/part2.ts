@@ -488,7 +488,7 @@ export const productsPtPart2: Record<string, Product> = {
       'Haste e Molas': 'Stainless Steel 304',
       'Juntas de Vedação': 'EPDM / NBR'
     },
-    image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.jpg',
+    image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
     seoTitle: 'Válvula de Gaveta Solenoide GKZF-1 | 300 PSI',
     seoDescription: 'Válvula de gaveta de controle por solenoide GKZF-1, DN50-DN300, 300 PSI e AC220V/DC24V para água contra incêndio. Fábrica Wanlian Fluid, China.',
     faqs: [
