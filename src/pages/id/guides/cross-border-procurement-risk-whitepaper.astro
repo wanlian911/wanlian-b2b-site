@@ -1,0 +1,255 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'risk-frame', label: '1. Por que as Compras Internacionais Falham: a Estrutura de Risco' },
+	{ id: 'eight-risk-families', label: '2. As Oito Fam铆lias de Risco' },
+	{ id: 'counterparty-risk', label: '3. Risiko dan Keaslian Counterparty' },
+	{ id: 'quality-risk', label: '4. Risiko dan Spesifikasi Mutu' },
+	{ id: 'certification-risk', label: '5. Risiko Sertifikasi dan Kepatuhan' },
+	{ id: 'payment-risk', label: '6. Risco de Pagamento e Financeiro' },
+	{ id: 'logistics-risk', label: '7. Risco Log铆stico, Aduaneiro e de Entrega' },
+	{ id: 'dispute-risk', label: '8. Risiko Sengketa, Garansi dan Kontinuitas' },
+	{ id: 'control-checklist', label: '9. Daftar Periksa menurut Langkah' },
+	{ id: 'red-flags', label: '10. Sinais de Alerta: Pare e Reavalie' },
+	{ id: 'faq', label: 'Pertanyaan yang sering diajukan' }
+];
+
+const faq = [
+	{
+		question: 'Qual 茅 a causa mais comum da falha em compras internacionais de equipamentos?',
+		answer: 'N茫o 茅 o pre莽o, e nem sequer as falsifica莽玫es 鈥?a falha mais comum 茅 uma especifica莽茫o que nunca foi completa o suficiente para responsabilizar o fornecedor. Quando a norma, o tamanho, a classe de press茫o, o material e o teste de aceita莽茫o n茫o s茫o fixados por escrito, "o produto n茫o corresponde" n茫o tem uma defini莽茫o mensur谩vel, e a disputa torna-se irresol煤vel. Fechar a especifica莽茫o por escrito antes da cota莽茫o 茅 o controle risiko leverage yang lebih besar dalam whitepaper ini.'
+	},
+	{
+		question: 'Struktur pembayaran manakah yang paling aman untuk pesanan pertama dengan produsen Cina?',
+		answer: 'Uma estrutura T/T por marcos 茅 a forma defens谩vel padr茫o: um adiantamento contra o pedido (a norma de mercado para pedidos de equipamentos gira em torno de 30%) e o saldo contra os documentos de embarque ou ap贸s uma inspe莽茫o pr茅-embarque aprovada. Para um primeiro pedido de grande porte, uma carta de cr茅dito 脿 vista regida pelo UCP 600 adiciona garantia banco a banco. O que evitar: 100% de adiantamento a uma contraparte n茫o diverifikasi, ditransfer ke akun pribadi di luar entitas kontrak, dan menerima harga secara drastis di bawah kutipan tolok ukur yang Anda kumpulkan 鈥?diskon adalah risiko, bukan perlindungan.'
+	},
+	{
+		question: 'Como me proteger contra certificados UL, FM ou CE falsificados?',
+		answer: 'Perlakukan nomor sertifikat apa pun sebagai klaim, bukan fakta: selesaikan di portal resmi lembaga penerbit, bandingkan model yang tepat dan pabrik yang tepat, sebelum menentukannya. Angka yang belum terpecahkan adalah pemalsuan, terlepas dari apakah PDF terlihat sempurna. Tambahkan langkah verifikasi ke kontrak sebagai syarat penerimaan, memerlukan catatan tes per unit yang sesuai dengan angkade s茅rie do packing list e fa莽a primeiro um pedido de amostra. Nosso guia de detec莽茫o de falsifica莽玫es lista os sinais f铆sicos 鈥?n煤meros de s茅rie clonados, placas copiadas, fundi莽玫es de parede fina.'
+	},
+	{
+		question: 'Qual Incoterm coloca mais risco sobre o comprador?',
+		answer: 'EXW (Ex Works) menempatkan hampir semua hal pada pembeli: Anda mengatur pengambilan pabrik, bea cukai ekspor, transportasi utama, dan asuransi, sehingga setiap kelemahan dalam rantai pasokan lokal Anda menjadi biaya Anda. DDP (Delivered Duty Paid) membalikkan masalah: pemasok memuat semuanya, yang menciptakan opasitas harga 鈥?pembeli tidak dapat mengaudit harga, dankomplikasi dalam mengekspor jatuh pada pemasok saat Anda menunggu. FOB dan CIF adalah jalan tengah bersama, dengan titik transfer risiko yang jelas dan harga yang dapat diaudit; pilih berdasarkan bagian perjalanan mana yang dapat Anda kendalikan dengan baik.'
+	},
+	{
+		question: 'Quais cl谩usulas o contrato deve conter antes da assinatura?',
+		answer: 'No m铆nimo: a especifica莽茫o t茅cnica como anexo (norma, tamanho, classe de press茫o, material, acabamento), crit茅rios de aceita莽茫o escritos atrelados aos registros de teste por unidade, seu direito de inspecionar ou designar um inspetor de terceiros antes do embarque, o cronograma de marcos de pagamento, um Incoterm e porto, for莽a maior, a lei aplic谩vel e o foro da disputa (cl谩usulas arbitrais s茫o execut谩veis entre fronteiras com mais confiabilidade do que tribunais estrangeiros), o prazo de garantia e um compromisso de pe莽as de reposi莽茫o para a vida 煤til do equipamento. Uma cota莽茫o n茫o 茅 um contrato; o contrato assinado com o anexo de especifica莽茫o 茅 o documento de risco.'
+	},
+	{
+		question: 'Bisakah saya menjalankan semua kontrol ini tanpa mengunjungi pabrik?',
+		answer: 'Sim, em forma graduada 鈥?e 茅 o caminho normal para primeiros pedidos. Uma visita 脿 f谩brica por v铆deo em tempo real, o hist贸rico de documenta莽茫o de exporta莽茫o, um pedido de amostra de uma unidade por modelo com v铆deo de teste de press茫o numerado por s茅rie e, em seguida, uma inspe莽茫o pr茅-embarque por uma ag锚ncia independente (SGS, Bureau Veritas ou Intertek) cobre a maior parte da verifica莽茫o que uma visita f铆sica oferece, por sebagian kecil dari biaya. Pesan kunjungan fisik untuk pesanan kedua, atau untuk tingkat nilai di mana biaya inspeksi membulatkan kesalahan. Yang tidak boleh Anda lewatkan, dengan atau tanpa kunjungan: penyelesaian sertifikat di lembaga penerbit dan permintaan sampel.'
+	}
+];
+---
+
+<Layout
+	title="Kontrol Risiko Pengadaan Lintas Batas: Whitepaper B2B 2026"
+	description="Kendalikan risiko pengadaan lintas batas peralatan pemadam dan infrastruktur air: 8 keluarga risiko, pembayaran, inspeksi, dan checklist."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Tab', href: '/id/blog/' }, { name: 'Whitepaper Risiko Pengadaan' }]}
+	locale="id"
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/id/" class="hover:text-blue-600">Homepage</a>
+			<span>/</span>
+			<a href="/id/blog/" class="hover:text-blue-600">Tab</a>
+			<span>/</span>
+			<span class="text-gray-600">Whitepaper Risiko Pengadaan</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Whitepaper Sektoral 路 2026</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Controle de Riscos em Compras Internacionais: Como Controlar Antes de Pagar</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Comprar v谩lvulas, hidrantes e equipamentos de prote莽茫o contra inc锚ndio atrav茅s de uma fronteira 茅 um exerc铆cio de gest茫o de risco que, por acaso, produz equipamentos. As falhas que custam caro ao comprador s茫o raras e dram谩ticas (um fornecedor que some com o adiantamento, um cont锚iner de v谩lvulas falsificadas), mas o dano habitual 茅 mais silencioso: uma especifica莽茫o que nunca fechou, um certificado que nunca se resolveu, um Incoterm que precificou o trecho errado da viagem. Este whitepaper organiza o risco de compras internacionais em oito fam铆lias, atribui a cada uma uma sequ锚ncia de controles e termina com uma lista de controles por etapa e uma tabela de sinais de alerta que voc锚 pode anexar a uma ordem de compra.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Metode</strong>Kami adalah produsen di sisi pemasok dari transaksi ini, dan kami menyatakan ini secara terbuka 鈥?bagian tentang keaslian pihak lawan adalah satu - satunya di mana minat kami dapat dibaca sebagai kepentingan pribadi, sehingga ditulis untuk diterapkan secara simetris ke pemasok mana pun, termasuk kami. Mekanisme yang dikutip (Incoterms 2020, UCP 600, T/T berdasarkan tonggak sejarah, inspeksi pihak ketiga, penyelesaian sertifikat di agensiemissor) s茫o os instrumentos padr茫o que os compradores realmente usam; quando um n煤mero 茅 conven莽茫o de mercado e n茫o fato verificado, ele 茅 rotulado como tal.</p>
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="risk-frame" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Mengapa Pengadaan Internasional Gagal: Kerangka Risiko</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Pembelian nasional memiliki tiga dimensi risiko 鈥?kualitas, harga, pengiriman. Pembelian internasional menambahkan setidaknya empat lagi:<strong>keaslian pihak lawan</strong> (a entidade que voc锚 paga 茅 a mesma que embarca, e ela ainda existir谩 na hora da garantia), <strong>tradu莽茫o regulat贸ria</strong>(standar yang berlaku untuk tujuan Anda harus standar tempat produk diproduksi),<strong>moeda e instrumentos de pagamento</strong> (o dinheiro se move antes das mercadorias), e <strong>executabilidade</strong>(Kontrak yang tidak dapat Anda jalankan adalah dokumen yang sopan.) Jarak adalah intinya: setiap kontrol yang Anda hilangkan dihargai oleh selera risiko pemasok, dan satu - satunya cara untuk menurunkan harga risiko adalah dengan mengurangi risiko secara tertulis.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Dua prinsip mengatur segala sesuatu yang datang berikutnya. Pertama,<strong>o risco 茅 gerenciado na trilha documental, n茫o no relacionamento.</strong>Pemasok yang menolak dokumentasi 鈥?catatan pengujian, resolusi sertifikat, hak pemeriksaan, pembayaran tonggak sejarah 鈥?telah menjawab pertanyaan tentang apa yang terjadi ketika terjadi kesalahan. Kedua,<strong>a sequ锚ncia importa mais do que qualquer controle individual.</strong>Periksa perusahaan sebelum sertifikat, sertifikat sebelum sampel, sampel sebelum volume dan saldo sebelum pengiriman adalah urutan; lakukan secara tidak teratur dan langkah berikutnya mewarisi semua risiko yang seharusnya dihilangkan oleh langkah sebelumnya.</p>
+			<p class="text-gray-700 leading-relaxed">Para o vocabul谩rio que torna o resto preciso 鈥?Incoterms, classe de press茫o, teste de carca莽a, placa de identifica莽茫o, conhecimento de embarque 鈥?nosso <a href="/id/glossary/" class="text-brand-blue font-semibold hover:underline">glosarium sektoral</a> define cada termo, e o <a href="/id/whitepaper/" class="text-brand-blue font-semibold hover:underline">whitepaper spesifikasi dan verifikasi</a>mencakup seperti apa spesifikasi tertulis yang dapat dipertahankan.</p>
+
+			<h2 id="eight-risk-families" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Delapan Keluarga Berisiko</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Toda perda de compras internacionais que j谩 vimos se decomp玫e em uma das oito fam铆lias. A tabela 茅 o mapa; as se莽玫es 3鈥? s茫o as sequ锚ncias de controle de cada fam铆lia. A probabilidade e o impacto s茫o declarados qualitativamente porque dependem do comportamento do fornecedor, que 茅 exatamente o objetivo dos controles.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Fam铆lia de risco</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Como se manifesta</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Controle principal</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">1. Counterparty dan keaslian</td><td class="px-4 py-3 text-gray-700">Meja perdagangan menjual kembali pengecoran sebagai milik sendiri; entitas menambahkan setelah uang muka; situs web dan badan hukum tidak cocok</td><td class="px-4 py-3 text-gray-700">Verifikasi entitas + video/visita ke pabrik + riwayat ekspor (搂3)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">2. Kualitas dan spesifikasi</td><td class="px-4 py-3 text-gray-700">Grau do material rebaixado; unidade falha na norma que o edital assumiu; lote inconsistente</td><td class="px-4 py-3 text-gray-700">Espec escrita fechada + pedido de amostra + registros de teste por unidade (搂4)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">3. Certifica莽茫o e conformidade</td><td class="px-4 py-3 text-gray-700">Sertifikat palsu atau kedaluwarsa; sertifikat per pabrik diterapkan pada persyaratan per model; standar tujuan yang tidak kompatibel</td><td class="px-4 py-3 text-gray-700">Resolusi dalam badan penerbit berdasarkan model + kondisi penerimaan kontrak (搂5)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">4. Harga dan komersial</td><td class="px-4 py-3 text-gray-700">Kutipan harga umpan - dan - tukar; biaya perangkat keras, pengemasan, atau mata uang ditambahkan setelah penandatanganan; "harga terbaik" di bawah kemungkinan fisik</td><td class="px-4 py-3 text-gray-700">Cota莽玫es detalhadas compar谩veis + validade de pre莽o + cl谩usula de resultado real (搂4, 搂6)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">5. Pagamento</td><td class="px-4 py-3 text-gray-700">100% maju ke counterparty tidak terverifikasi; saldo diperlukan sebelum pemeriksaan; pengalihan ke akun pribadi</td><td class="px-4 py-3 text-gray-700">T/T por marcos ou L/C + conta casada 脿 entidade + barreira de inspe莽茫o (搂6)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">6. Logistik dan bea cukai</td><td class="px-4 py-3 text-gray-700">Incoterm precificou o trecho errado; documentos falham na aduana de destino; navio perdido; itens DG mal declarados</td><td class="px-4 py-3 text-gray-700">Escolha de Incoterm + pacote documental + checagem de cont锚iner pr茅-embarque (搂7)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">7. Penyampaian dan kontinuitas</td><td class="px-4 py-3 text-gray-700">Cronograma desloca o programa; sem pe莽as de reposi莽茫o no quinto ano; fornecedor sem atividade na hora da garantia</td><td class="px-4 py-3 text-gray-700">Jadwalkan dengan klausul perbaikan + suku cadang + pemeriksaan umur panjang pemasok (搂8)</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">8. Perselisihan dan hukum</td><td class="px-4 py-3 text-gray-700">Tidak ada hukum yang berlaku; garansi yang tidak dapat diberlakukan; klausul arbitrase yang hilang; catatan yang hilang</td><td class="px-4 py-3 text-gray-700">Anexo contratual + cl谩usula arbitral + registros de teste arquivados (搂8)</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="counterparty-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Risiko dan Keaslian Counterparty</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Esta 茅 a 煤nica fam铆lia em que voc锚 n茫o pode inspecionar o risco depois do fato 鈥?o controle 茅 todo antes do dinheiro se mover. O padr茫o que ela captura 茅 a mesa de trading que se apresenta como fabricante: cota a pre莽os de f谩brica, mostra fotos de f谩brica (feitas numa f谩brica que visita, mas n茫o possui) e embarca fundi莽玫es que um fabricante de verdade rebatizou. Em uma ind煤stria em cluster como a de equipamentos de inc锚ndio da China, centenas de empresas atuam na mesma regi茫o metropolitana, ent茫o "fotos de f谩brica" provam geografia, n茫o propriedade.</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Periksa badan hukumnya, bukan mereknya.</strong>Nama perusahaan, nomor registrasi, alamat terdaftar, tujuan perusahaan, dan modal saham 鈥?dihadapkan dengan lisensi operasi pemasok sendiri, bukan situs webnya. Nama merek di situs web dan badan hukum dalam pengiriman uang bank harus merupakan entitas yang sama.</li>
+				<li><strong>Periksa ruang lingkup sistem mutu.</strong> Um certificado ISO 9001 cobre um escopo nomeado em um endere莽o nomeado. "V谩lvulas e equipamentos de inc锚ndio" no endere莽o da f谩brica 茅 um sinal; "trading" ou outro endere莽o 茅 um sinal diferente.</li>
+				<li><strong>Ikuti tur video real - time di pabrik.</strong> N茫o um tour pr茅-gravado: uma chamada ao vivo em que a c芒mera percorre do port茫o at茅 fundi莽茫o, usinagem, montagem e testes. Um fabricante com algo a esconder oferecer谩 o tour gravado e o panfleto.</li>
+				<li><strong>Confira o hist贸rico de exporta莽茫o.</strong> Anos exportando, pa铆ses de destino e um pedido de refer锚ncia que voc锚 possa contatar de forma independente. No cluster de equipamentos de inc锚ndio, pergunte especificamente: quais destas unidades <em>voc锚</em>diproduksi, dan apa yang diproduksi mitra Anda? Seorang produsen menjawab pertanyaan itu; sebuah meja membelokkannya.</li>
+				<li><strong>Cruze a presen莽a.</strong> Antiguidade do dom铆nio do site, o perfil na Alibaba ou em plataforma de trade confrontado com a entidade legal, e se o contato opera de um dom铆nio corporativo e n茫o de uma caixa pessoal.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">O m茅todo passo a passo 鈥?incluindo as cinco verifica莽玫es e as perguntas que separam uma f谩brica de uma mesa 鈥?est谩 no nosso <a href="/id/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">panduan Verifikasi Pemasok Tiongkok</a>. Daftar periksa uji tuntas 8 poin dari<a href="/id/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">daftar periksa sumber B2B katup</a>ditulis untuk ditempelkan ke email pertama.</p>
+
+			<h2 id="quality-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Risiko dan Spesifikasi Mutu</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Risiko kualitas biasanya ditanam pada saat penawaran, bukan di pabrik. Jika permintaan Anda mengatakan "katup gerbang DN100, disukai AWWA, 200 pcs ", setiap pemasok dapat merespons 鈥?dan setiap pemasok merespons dengan produk yang berbeda. Oleh karena itu, tiga kontrol kualitas nilai tertinggi adalah kontrol spesifikasi, dilakukan sebelum satu unit menyatu:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Feche a especifica莽茫o por escrito.</strong>Standar yang mengatur (AWWA C502/C515, ISO 5208, EN 1074, NFPA 13, atau referensi pemberitahuan), kelas ukuran dan tekanan, grade dan finish bahan, jenis koneksi dan tes wajib per unit. Penawaran terbuka yang tidak ditentukan adalah percakapan, bukan dokumen risiko.<a href="/id/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">panduan standar</a>menempatkan rezim berdampingan.</li>
+				<li><strong>Pe莽a a amostra antes do volume.</strong>Satu unit per model: papan nama, nomor seri, sertifikat bahan (dari pabrik) dan video uji tekanan casing dan kebocoran udara bernomor per seri. Satu<a href="/id/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">v谩lvula de reten莽茫o de alarme do tipo molhado ZSFZ-150</a> ou um <a href="/id/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">hidran kolom SS100ZTK1ZZ</a> 茅 barato o suficiente como amostra para que pular a etapa nunca seja a escolha racional 鈥?a amostra 茅 o seguro mais barato contra falsifica莽茫o e risco de especifica莽茫o dispon铆vel.</li>
+				<li><strong>Memerlukan catatan tes per unit, bukan per batch.</strong>Laporan batch mengatakan "kami menguji beberapa ". Satu catatan per unit dengan seri yang sesuai dengan daftar kemasan mengatakan" kami menguji milik Anda ". Ini juga dokumen yang akan diminta oleh inspektur tujuan Anda setelah diterima.</li>
+				<li><strong>Designe uma inspe莽茫o de terceiros para o volume.</strong> SGS, Bureau Veritas ou Intertek testemunhando o teste e revisando registros antes do embarque converte "o fornecedor diz" em "uma ag锚ncia independente testemunhou". A taxa 茅 erro de arredondamento frente ao custo de um cont锚iner errado.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">No lado pre莽o desta fam铆lia: uma cota莽茫o drasticamente abaixo das cota莽玫es de refer锚ncia que voc锚 coletou n茫o 茅 barganha, 茅 risco precificado 鈥?o desconto tem de vir do grau do material, da espessura da parede, dos testes ou do seu futuro pagamento de saldo. Nosso <a href="/id/cost-calculator/" class="text-brand-blue font-semibold hover:underline">estimador de custo de compras</a>mengukur faktor biaya yang sah (volume, Incoterm, tujuan), sehingga kutipan harga yang rendah dapat diperiksa terhadap fisika pesanan dan bukan terhadap sensasi.</p>
+
+			<h2 id="certification-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Risiko Sertifikasi dan Kepatuhan</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Certifica莽茫o 茅 o documento mais falsificado desta ind煤stria e o mais mal aplicado. Duas falhas distintas: <strong>falsifica莽茫o</strong>(sertifikatnya palsu, atau dikloning dari yang asli) dan<strong>scope drift</strong>(sertifikat itu nyata tetapi mencakup model, pabrik, atau tahun yang berbeda dari asumsi PO Anda). Kontrol untuk keduanya adalah instrumen yang sama:<strong>resolu莽茫o no portal oficial do 贸rg茫o emissor</strong>鈥?direktori UL product-iQ, basis persetujuan FM, LPCB RedBook, daftar sertifikat badan penerbit untuk sertifikasi produk kebakaran Tiongkok. Nomor sertifikat yang tidak diselesaikan untuk entitas vendor Anda dan modelnya adalah pemalsuan, titik, tidak peduli seberapa sempurna tampilan PDFnya.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Kontrol kedua bersifat kontraktual: membuat resolusi sertifikat<em>kondisi penerimaan</em>, n茫o uma descri莽茫o do produto. "UL listed" na coluna de descri莽茫o de uma cota莽茫o n茫o tem peso; "o fornecedor garante que o modelo Z41X-100 est谩 listado sob o certificado UL 262 n煤mero [X], verific谩vel no UL product-iQ na data do embarque, com c贸pia do certificado entregue antes do pagamento do saldo" tem peso. Os sinais f铆sicos de v谩lvulas falsificadas 鈥?n煤meros de s茅rie clonados, placas copiadas, fundi莽玫es de parede fina, cat terlalu tebal pada satu cetakan 鈥?mereka tercakup dalam<a href="/id/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">guia de detec莽茫o de falsifica莽玫es</a>.</p>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Por modelo vs por planta: a distin莽茫o que importa</p>
+				<p class="text-sm text-gray-700 leading-relaxed">Um certificado de sistema (ISO 9001, licen莽a de f谩brica) diz que a <em>Perusahaan</em> opera um processo controlado. Um certificado de produto (listagem UL, aprova莽茫o FM, marca莽茫o CE sob a diretiva aplic谩vel, certifica莽茫o de produto de inc锚ndio) diz que o <em>modelo</em>telah diuji. Inspektur tujuan Anda menerapkan sertifikat produk. Vendor yang menawarkan sertifikat sistem Anda ketika Anda meminta sertifikat produk menjawab pertanyaan yang berbeda dari yang Anda ajukan 鈥?dan pertanyaan yang Anda ajukan adalah pertanyaan yang menentukan apakah wadah Anda akan diterima.</p>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Para o mapeamento espec铆fico do destino 鈥?o que um edital latino-americano quer dizer com UL/FM/AWWA/NOM, o que a UE quer dizer com CE por modelo, o que a NFPA 13 quer dizer para uma <a href="/id/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">v谩lvula de gaveta estilo AWWA</a>鈥?lihat<a href="/id/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">panduan tempat UL</a>O<a href="/id/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">panduan sertifikasi Amerika Latin</a> e o <a href="/id/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">guia de conformidade CE &amp; EN 12845</a>.</p>
+			<h2 id="payment-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Risco de Pagamento e Financeiro</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Dalam perdagangan peralatan internasional, uang bergerak sebelum barang, dan struktur gerakan ini adalah kontrol. Empat instrumen, dalam urutan naik perlindungan pembeli untuk pesanan pertama:</p>
+			<table class="w-full text-sm my-5 border-collapse">
+				<thead>
+					<tr class="bg-gray-50">
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">alat</th>
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">Apa yang Anda lakukan</th>
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider border border-gray-200">Jika berlaku</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-gray-200">
+					<tr><td class="px-4 py-3 font-bold text-gray-900">T/T por marcos</td><td class="px-4 py-3 text-gray-700">Adiantamento contra o pedido; saldo contra documentos de embarque ou ap贸s inspe莽茫o pr茅-embarque aprovada</td><td class="px-4 py-3 text-gray-700">Formulir standar yang dapat dipertahankan untuk pemasok terverifikasi 鈥?standar pasar untuk uang muka pesanan peralatan berkisar pada 30%</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">L/C 脿 vista (UCP 600)</td><td class="px-4 py-3 text-gray-700">O banco paga contra documentos conformes; a garantia banco a banco substitui a confian莽a</td><td class="px-4 py-3 text-gray-700">Pesanan pertama yang besar, atau pesanan apa pun di mana uang muka saja melebihi selera risiko Anda</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Escrow de plataforma</td><td class="px-4 py-3 text-gray-700">A plataforma ret茅m o pagamento contra entrega/inspe莽茫o</td><td class="px-4 py-3 text-gray-700">Pesanan kecil dan pembelian sampel dengan rekanan baru</td></tr>
+					<tr><td class="px-4 py-3 font-bold text-gray-900">Asuransi kredit ekspor</td><td class="px-4 py-3 text-gray-700">Segura o cr茅dito contra calote do fornecedor (China Ex&amp;I / Sinosure no lado da exporta莽茫o; seguradoras de cr茅dito locais no seu)</td><td class="px-4 py-3 text-gray-700">Program dan pesanan berulang ketika counterparty terbukti</td></tr>
+				</tbody>
+			</table>
+			<p class="text-gray-700 leading-relaxed mb-4">Tr锚s regras de pagamento merecem ser declaradas como linhas duras. <strong>Primeira:</strong> adiantamento de 100% s贸 茅 defens谩vel contra uma contraparte que j谩 passou pela verifica莽茫o do 搂3 e tem um hist贸rico que voc锚 contactou de forma independente 鈥?e mesmo assim, contra um contrato que torna o adiantamento reembols谩vel em caso de inspe莽茫o reprovada. <strong>Segunda:</strong> toda remessa vai para a conta banc谩ria da entidade legal do contrato 鈥?um pedido para pagar outra empresa ou conta pessoal 茅, por si s贸, um sinal de fraude, ponto final. <strong>Terceira:</strong> moeda 茅 uma vari谩vel precificada; cote e contrate em uma 煤nica moeda declarada, e trate "pre莽o em USD, pagamento em RMB pela taxa do dia" como uma posi莽茫o cambial aberta que voc锚 acabou de aceitar. Hedging cambial existe por um motivo, e para a maioria dos pedidos de equipamentos o controle mais simples 茅 um contrato em moeda 煤nica.</p>
+
+			<h2 id="logistics-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Risiko Logistik, Bea Cukai, dan Pengiriman</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">O Incoterm 茅 o mapa de risco da viagem, e a maioria das disputas desta fam铆lia s茫o disputas de Incoterm disfar莽adas. Sob Incoterms 2020:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>EXW</strong>鈥?Anda mengambil alih di gerbang pabrik: izin ekspor, transportasi utama, asuransi, semua milik Anda. Kontrol maksimum, beban maksimum; memadai ketika Anda memiliki rantai pengiriman sendiri di Tiongkok.</li>
+				<li><strong>FOB</strong>鈥?pemasok mengirimkan ekspor dan mengeksekusi kargo; transfer risiko pada pengiriman. Istilah yang paling umum untuk peralatan kontainer; Anda mengendalikan kapal dan asuransi di pihak Anda.</li>
+				<li><strong>CIF</strong> 鈥?o fornecedor adiciona transporte e seguro at茅 o seu porto; o risco ainda transfere no embarque na origem. Voc锚 paga por um transportador que n茫o escolheu 鈥?precifique conforme.</li>
+				<li><strong>DDP</strong> 鈥?o fornecedor entrega com direitos pagos na sua porta: controle total, opacidade total. Cada elemento de custo est谩 dentro de um n煤mero que voc锚 n茫o consegue auditar; use apenas com um fornecedor cuja log铆stica voc锚 j谩 viu funcionar.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">O pacote documental 茅 o segundo controle, e funciona tamb茅m como sua prova de qualidade: fatura comercial, packing list, conhecimento de embarque, certificado de origem e os <strong>registros de teste por lote e por unidade reconciliados com os n煤meros de s茅rie do packing list</strong>. Um pacote documental completo e reconcili谩vel 茅, por si, um sinal de qualidade 鈥?e 茅 o que o inspetor do seu destino e sua equipe de manuten莽茫o segurar茫o na aceita莽茫o e no quinto ano. Itens pressurizados (extintores port谩teis) s茫o cargas perigosas e exigem embalagem e declara莽茫o conformes DG; equipamentos 脿 base de 谩gua s茫o carga geral 鈥?a distin莽茫o muda suas op莽玫es de frete e seu seguro, ent茫o declare corretamente na konsultasi, sebagaimana dirinci dalam<a href="/id/guides/fire-extinguisher-selection-guide/" class="text-brand-blue font-semibold hover:underline">panduan alat pemadam kebakaran</a>. Terakhir, sertakan pemeriksaan kontainer pra - pengiriman dalam lingkup pemeriksaan: nomor segel yang difoto, jumlah daftar pengepakan terverifikasi, catatan pengujian dalam folder dokumen kontainer. Biayanya sepele; ini adalah saat terakhir barang terlihat oleh Anda sebelum risikonya melintasi lautan.</p>
+
+			<h2 id="dispute-risk" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. Risco de Disputa, Garantia e Continuidade</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">O papel de um contrato internacional 茅 tornar o pior caso gerenci谩vel. As cl谩usulas que realmente pesam numa compra de equipamentos:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Especifica莽茫o como anexo</strong> 鈥?a especifica莽茫o fechada do 搂4 茅 um anexo do contrato, n茫o uma pe莽a anexa a um e-mail. O contrato a incorpora por refer锚ncia e ela rege a aceita莽茫o.</li>
+				<li><strong>Kriteria penerimaan dengan hak pengujian</strong>鈥?uji tekanan karkas dan kebocoran udara per unit sesuai standar yang disebutkan, hak Anda untuk memeriksa atau menunjuk pihak ketiga sebelum pengiriman, dan perbaikan (ganti, uji ulang, penggantian) yang ditentukan untuk setiap mode kegagalan.</li>
+				<li><strong>Kondisi Resolusi Sertifikat</strong> 鈥?conforme o 搂5: certificado nomeado, modelo nomeado, resol煤vel no 贸rg茫o emissor, c贸pia entregue antes do pagamento do saldo.</li>
+				<li><strong>Marcos de pagamento</strong>鈥?struktur 搂6 yang tertulis dalam kontrak sehingga tidak dapat dinegosiasikan ulang di bawah tekanan waktu.</li>
+				<li><strong>For莽a maior e cronograma</strong>鈥?tanggal pengiriman dengan obat yang ditetapkan untuk penundaan, bukan hanya "upaya maksimal ". Program tertunda karena kontrak membuat penundaan menjadi murah.</li>
+				<li><strong>Hukum yang Mengatur dan Arbitrase</strong>鈥?klausul arbitrase (kursi netral, lembaga arbitrase yang ditunjuk) dapat diberlakukan lintas batas berdasarkan Konvensi New York dengan keandalan yang jauh lebih besar daripada janji untuk menuntut di pengadilan pihak lain. Bagi sebagian besar pembeli, klausul satu kali ini adalah perbedaan antara kerugian yang dapat dipulihkan dan surat yang mahal.</li>
+				<li><strong>Garantia e pe莽as de reposi莽茫o</strong>鈥?masa garansi yang dinyatakan oleh model dan komitmen ketersediaan suku cadang yang disesuaikan dengan umur peralatan. Katup yang tidak dapat dibuat ulang dudukan pada tahun kedelapan menjadi pengganti yang Anda putar agar pemasok tetap memproduksi.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">O risco de continuidade 茅 o silencioso: o fornecedor que embarca seu cont锚iner e some na hora da garantia. A verifica莽茫o 茅 a mesma evid锚ncia do 搂3 鈥?anos de registro, capital, hist贸rico de exporta莽茫o, amplitude da base de clientes 鈥?mais uma estrutural: <strong>nunca projete uma depend锚ncia de fonte 煤nica para um item cr铆tico de seguran莽a sem uma segunda fonte qualificada em arquivo.</strong> N茫o pedimos que voc锚 qualifique um concorrente como cobertura; pedimos que voc锚 mantenha a especifica莽茫o e os registros de teste completos o suficiente para poder faz锚-lo, se um dia for obrigado.</p>
+
+			<h2 id="control-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">9. Daftar Periksa menurut Langkah</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Kontrol bagian 3 -8, diatur dalam urutan berjalan. Cetak, lampirkan ke PO, centang 鈥?urutannya adalah intinya: kontrol setiap langkah menghilangkan risiko bahwa uang dari langkah berikutnya akan berharga sebaliknya.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Etapa</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Controles</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Pintu untuk melewati</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Antes da qualifica莽茫o</td><td class="px-4 py-3 text-gray-700">Spesifikasi tertulis tertutup; 3+ kutipan harga yang sebanding; faktor biaya berskala</td><td class="px-4 py-3 text-gray-700">Spesifikasi lampiran siap; kisaran harga referensi ditetapkan</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Kualifikasi</td><td class="px-4 py-3 text-gray-700">Entidade + escopo ISO + visita em v铆deo ao vivo + refer锚ncias de exporta莽茫o (搂3)</td><td class="px-4 py-3 text-gray-700">Pabrik dikonfirmasi; referensi dihubungi secara independen</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">kontrak</td><td class="px-4 py-3 text-gray-700">Kriteria penerimaan, kondisi sertifikat, milestone, Incoterm, klausul arbitrase (搂6 -8)</td><td class="px-4 py-3 text-gray-700">Kontrak yang ditandatangani dengan lampiran spesifikasi 鈥?bukan kutipan</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Contoh</td><td class="px-4 py-3 text-gray-700">Satu unit per model: papan, seri, sertifikat pabrik, video uji (搂4)</td><td class="px-4 py-3 text-gray-700">Sampel diterima terhadap lampiran; sertifikat diselesaikan pada badan penerbit</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">produksi</td><td class="px-4 py-3 text-gray-700">Cronograma confirmado; marco 1 pago; evid锚ncia fotogr谩fica/v铆deo peri贸dica</td><td class="px-4 py-3 text-gray-700">Progresso contra o cronograma, exce莽玫es sinalizadas por escrito</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Pra - boarding</td><td class="px-4 py-3 text-gray-700">Pemeriksaan saksi pihak ketiga pengujian + peninjauan catatan; pemeriksaan kontainer; dokumen yang dikemas</td><td class="px-4 py-3 text-gray-700">Inspeksi disetujui; paket dokumen lengkap dan direkonsiliasi</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Pembayaran dan pengiriman</td><td class="px-4 py-3 text-gray-700">Saldo liberado contra inspe莽茫o aprovada / documentos de embarque; B/L verificado</td><td class="px-4 py-3 text-gray-700">Risiko yang ditransfer pada pengiriman; dokumen di tangan</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Chegada e al茅m</td><td class="px-4 py-3 text-gray-700">Aceita莽茫o no destino contra registros de teste; registros arquivados para manuten莽茫o; canal de garantia testado</td><td class="px-4 py-3 text-gray-700">Aceita莽茫o registrada; registros arquivados para a vida do equipamento</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+				<p class="font-bold text-gray-900 mb-3">Bagaimana kontrol yang sama bekerja dalam produksi kita sendiri</p>
+				<p class="text-sm text-gray-700 leading-relaxed">Kami adalah produsen, dan cara jujur untuk menggunakan whitepaper ini adalah dengan membiarkan kontrol berlomba melawan kami juga. Bukti proses kami, dinyatakan sebagai apa yang kami lakukan: produksi di bawah sistem ISO 9001: 2015 (sertifikat tersedia untuk verifikasi di lembaga penerbit); tekanan bangkai dan uji kebocoran udara 100% per unit dengan catatan per unit direkonsiliasi dengan daftar kemasan; video uji diberi nomor berdasarkan seritersedia dalam unit sampel; disertifikasi oleh model<a href="/id/certificates/" class="text-brand-blue font-semibold hover:underline">p谩gina de certificados</a>dipasok sesuai permintaan; dokumentasi ekspor dikoordinasikan dengan pengiriman; dan komitmen respons 12 jam untuk spesifikasi lengkap. Setiap pernyataan dalam paragraf ini dapat diverifikasi persis dengan prosedur yang dijelaskan oleh whitepaper ini 鈥?dan itulah tujuan menerbitkannya.</p>
+			</div>
+
+			<h2 id="red-flags" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">10. Sinais de Alerta: Pare e Reavalie</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Dez sinais que param o processo e devolvem voc锚 脿 lista. Qualquer um deles vale uma semana; dois ou mais valem um outro fornecedor.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">#</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Sinal</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Por que importa</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-black text-gray-400">1</td><td class="px-4 py-3 font-bold text-gray-900">Menolak kunjungan pabrik video langsung</td><td class="px-4 py-3 text-gray-700">Pabrikan tidak memiliki apa pun untuk disembunyikan di pabrik itu sendiri; hanya meja yang memiliki</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">2</td><td class="px-4 py-3 font-bold text-gray-900">N煤mero de certificado que n茫o se resolve no 贸rg茫o emissor</td><td class="px-4 py-3 text-gray-700">A falsifica莽茫o fica confirmada, independentemente de o PDF parecer impec谩vel</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">3</td><td class="px-4 py-3 font-bold text-gray-900">Pembayaran yang diminta ke akun pribadi atau entitas yang berbeda</td><td class="px-4 py-3 text-gray-700">A entidade do contrato e o benefici谩rio devem corresponder; isso j谩 茅 um sinal de fraude</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">4</td><td class="px-4 py-3 font-bold text-gray-900">Adiantamento de 100% exigido para um primeiro pedido grande</td><td class="px-4 py-3 text-gray-700">Harga semua risiko yang tersisa pada Anda, tanpa kontrol yang tersisa dalam struktur</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">5</td><td class="px-4 py-3 font-bold text-gray-900">Kutipan jauh di bawah rentang referensi tanpa rekan yang dinyatakan</td><td class="px-4 py-3 text-gray-700">O desconto vem do material, da espessura da parede, dos testes 鈥?ou do seu saldo</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">6</td><td class="px-4 py-3 font-bold text-gray-900">Menolak permintaan sampel</td><td class="px-4 py-3 text-gray-700">Sampel sedikit merugikan pemasok dan terbukti paling banyak; penolakan adalah pernyataan</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">7</td><td class="px-4 py-3 font-bold text-gray-900">"Laporan batch" ditawarkan sebagai pengganti catatan pengujian unit</td><td class="px-4 py-3 text-gray-700">Suas unidades n茫o s茫o "algumas do lote"; o registro reconciliado por s茅rie 茅 o documento de aceita莽茫o</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">8</td><td class="px-4 py-3 font-bold text-gray-900">Model pelat tidak cocok dengan PO</td><td class="px-4 py-3 text-gray-700">A substitui莽茫o j谩 aconteceu; a pergunta 茅 quanto mais difere</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">9</td><td class="px-4 py-3 font-bold text-gray-900">Tidak dapat menyatakan standar apa yang diuji untuk setiap model</td><td class="px-4 py-3 text-gray-700">Um fabricante de equipamentos de seguran莽a conhece suas normas; a vaguidade 茅 outro neg贸cio</td></tr>
+						<tr><td class="px-4 py-3 font-black text-gray-400">10</td><td class="px-4 py-3 font-bold text-gray-900">Resist锚ncia a direitos de inspe莽茫o ou inspe莽茫o de terceiros no contrato</td><td class="px-4 py-3 text-gray-700">Uma f谩brica que passa nos pr贸prios testes n茫o teme uma testemunha independente</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Pertanyaan yang sering diajukan</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>))}</div>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Jalankan Pemeriksaan Risiko Langsung pada Pesanan Anda Berikutnya</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Kirimkan spesifikasi Anda, pemasok yang bekerja sama dengan Anda, dan tujuan Anda 鈥?dalam 12 jam kami akan memeriksa daftar periksa whitepaper ini: menutup spesifikasi, menyelesaikan sertifikat, struktur pembayaran, dan paket dokumenter yang harus dibawa bersama pengiriman.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/id/contact/?product=Procurement%20Risk%20Check" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cota莽茫o</a>
+						<a href="https://wa.me/8618684324501?text=Ol%C3%A1%2C%20gostaria%20de%20uma%20checagem%20de%20riscos%20de%20compra%20para%20o%20meu%20pedido" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Conversar no WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

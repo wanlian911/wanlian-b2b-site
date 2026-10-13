@@ -1,0 +1,325 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'how-they-work', label: '1. Como funcionam: uma compara莽茫o r谩pida' },
+	{ id: 'head-to-head-gate-vs-butterfly', label: '2. Compara莽茫o direta: gaveta vs borboleta' },
+	{ id: 'where-each-valve-belongs', label: '3. Onde cada v谩lvula se encaixa nos sistemas de prote莽茫o contra inc锚ndio' },
+	{ id: 'signal-valves-dn80', label: '4. V谩lvulas de sinal: as especialistas em DN80' },
+	{ id: 'purchasing-considerations', label: '5. Considera莽玫es de compra para compradores B2B' },
+	{ id: 'recommendation-summary', label: '6. Resumo das recomenda莽玫es' },
+	{ id: 'faq', label: 'Pertanyaan yang Sering Diajukan' }
+];
+
+const faq = [
+	{
+		question: 'Devo usar uma v谩lvula de gaveta ou uma v谩lvula borboleta em uma rede principal de inc锚ndio?',
+		answer: 'Para redes principais de inc锚ndio que exigem vaz茫o plena e desobstru铆da, com perda de carga m铆nima, uma v谩lvula de gaveta com assento el谩stico (como a Z41X) 茅 a escolha convencional para isolamento. V谩lvulas borboleta (como a D71X) s茫o preferidas quando o espa莽o 茅 limitado, quando 茅 necess谩ria uma opera莽茫o de um quarto de volta ou quando o peso 茅 importante 鈥?por exemplo, em conjuntos de v谩lvulas e ramais de sistemas de rociadores. Muitos projetos usam as duas: v谩lvulas de gaveta para o isolamento principal e v谩lvulas borboleta para o controle dos ramais.'
+	},
+	{
+		question: 'Qual 茅 mais barata: uma v谩lvula de gaveta ou uma v谩lvula borboleta?',
+		answer: 'Na mesma dimens茫o nominal e classe de press茫o, as v谩lvulas borboleta tipo wafer geralmente custam 20鈥?0% menos que as v谩lvulas de gaveta flangeadas, pois s茫o mais leves, usam menos material e t锚m um corpo mais simples. No entanto, o custo total instalado tamb茅m depende de flanges, atuadores e espa莽o. Para grandes di芒metros (DN200 ou maiores), a vantagem de custo da v谩lvula borboleta aumenta significativamente.'
+	},
+	{
+		question: 'Qual 茅 a finalidade de uma v谩lvula borboleta de sinal em um sistema de rociadores contra inc锚ndio?',
+		answer: 'Uma v谩lvula de sinal (como a v谩lvula borboleta tipo wafer ranurada de sinal DN80) possui um interruptor de supervis茫o/limite que envia um sinal el茅trico ao painel de alarme de inc锚ndio sempre que a v谩lvula 茅 fechada ou parcialmente fechada. Isso garante que o sistema de rociadores nunca fique isolado sem inten莽茫o 鈥?um requisito obrigat贸rio de seguran莽a em instala莽玫es baseadas na NFPA-13.'
+	},
+	{
+		question: 'Qual 茅 a diferen莽a de classe de press茫o entre as v谩lvulas Z41X e D71X?',
+		answer: 'A v谩lvula de gaveta com assento el谩stico em ferro fundido d煤ctil Z41X e a v谩lvula borboleta tipo wafer D71X s茫o normalmente fornecidas em PN16 (1,6 MPa), com variantes PN10 dispon铆veis. Para aplica莽玫es de prote莽茫o contra inc锚ndio, PN16 atende aos sistemas municipais e industriais padr茫o. Confirme sempre a press茫o est谩tica m谩xima da sua rede e especifique PN25 quando necess谩rio.'
+	}
+];
+
+const valveProducts = [
+	{
+		slug: 'resilient-seat-flanged-gate-valve-z41x',
+		name: 'V谩lvula de Gaveta Flangeada com Assento El谩stico em Ferro Fundido D煤ctil (Z41X)',
+		img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp',
+		desc: 'V谩lvula de isolamento de passagem plena com veda莽茫o estanque para redes principais de inc锚ndio'
+	},
+	{
+		slug: 'wafer-type-butterfly-valve-d71x',
+		name: 'V谩lvula Borboleta Tipo Wafer em Ferro Fundido D煤ctil Revestida com Borracha (D71X)',
+		img: '/assets/products/wafer-type-butterfly-valve-d71x.webp',
+		desc: 'V谩lvula compacta de um quarto de volta para espa莽os reduzidos e ramais'
+	},
+	{
+		slug: 'signal-grooved-wafer-butterfly-valve-dn80',
+		name: 'V谩lvula Borboleta Tipo Wafer Ranurada com Sinal (DN80-PN16)',
+		img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
+		desc: 'V谩lvula de sinal ranurada com interruptor de supervis茫o para sistemas de rociadores'
+	},
+	{
+		slug: 'telescopic-resilient-seat-gate-valve-z41x-t',
+		name: 'V谩lvula de Gaveta Telesc贸pica com Assento El谩stico (Z41X-T)',
+		img: '/assets/products/telescopic-resilient-seat-gate-valve-z41x-t.webp',
+		desc: 'V谩lvula de gaveta telesc贸pica compacta para redes de inc锚ndio com compensa莽茫o de expans茫o'
+	}
+];
+---
+
+<Layout
+	title="V谩lvula de Gaveta vs Borboleta para Prote莽茫o contra Inc锚ndio"
+	description="V谩lvula de gaveta vs borboleta para prote莽茫o contra inc锚ndio: compare vaz茫o, perda de carga e custo. Guia B2B do fornecedor chin锚s Wanlian Fluid."
+	type="article"
+	locale="id"
+	faq={faq}
+>
+		<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+
+				<!-- Breadcrumbs -->
+
+				<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+
+						<a href="/id/" class="hover:text-blue-600">Berandapage</a>
+
+						<span>/</span>
+
+						<span class="text-gray-600">Tab</span>
+
+				</nav>
+
+
+				<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+
+						<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Panduan Katup Industri</p>
+
+						<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Katup Gerbang vs Katup Kupu - kupu: mana yang akan digunakan dalam sistem proteksi kebakaran?</h1>
+
+						<p class="mt-5 text-gray-600 leading-relaxed text-lg">QUERY LENGTH LIMIT EXCEEDED. MAX ALLOWED QUERY : 500 CHARS</p>
+
+
+						<!-- Faixa de produtos -->
+
+						<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+				{valveProducts.map(p => (
+										<a href={`/id/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+
+												<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+
+												<div class="p-3">
+
+														<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+
+														<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+
+												</div>
+
+										</a>
+
+				))}
+						</div>
+
+
+						<TableOfContents headings={toc} />
+
+
+						<h2 id="how-they-work" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Cara kerjanya: perbandingan cepat</h2>
+
+						<p class="text-gray-700 leading-relaxed mb-4">Satu <strong>katup gerbang</strong> menggunakan slip yang meluncur tegak lurus terhadap jalur aliran. Ketika sepenuhnya terbuka, baji benar - benar keluar dari saluran air, meninggalkan bukaan saluran penuh dan langsung 鈥?sehingga katup gerbang memiliki kehilangan kepala yang dapat diabaikan. A <strong>katup kupu - kupu</strong> menggunakan disk yang berputar pada poros pusat. Disk tetap berada di lorong bahkan ketika dibuka, menciptakan kehilangan kepala kecil yang dapat diukur, tetapi katup bekerja dengan seperempat putaran sederhana.</p>
+
+						<p class="text-gray-700 leading-relaxed">Perbedaan mekanis tunggal ini menentukan hampir semua perbedaan praktis di antara keduanya.</p>
+
+
+						<h2 id="head-to-head-gate-vs-butterfly" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Perbandingan langsung: katup gerbang vs katup kupu - kupu</h2>
+
+						<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+
+								<table class="min-w-full divide-y divide-gray-200 text-sm">
+
+										<thead class="bg-gray-50">
+
+												<tr>
+
+														<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">kriteria</th>
+
+														<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Katup Gerbang (Z41X)</th>
+
+														<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Katup Kupu - kupu (D71X)</th>
+
+												</tr>
+
+										</thead>
+
+										<tbody class="bg-white divide-y divide-gray-200">
+
+												<tr>
+
+														<td class="px-4 py-3 font-bold text-gray-900">Karakteristik aliran</td>
+
+														<td class="px-4 py-3 text-gray-700">Pass penuh, hampir nol head loss</td>
+
+														<td class="px-4 py-3 text-gray-700">Disk di jalur aliran, head loss kecil</td>
+
+												</tr>
+
+												<tr>
+
+														<td class="px-4 py-3 font-bold text-gray-900">Kecepatan pengoperasian</td>
+
+														<td class="px-4 py-3 text-gray-700">Beberapa belokan (lebih lambat, terutama dalam dimensi besar)</td>
+
+														<td class="px-4 py-3 text-gray-700">Pangkuan perempat (cepat, mudah dipicu)</td>
+
+												</tr>
+
+												<tr>
+
+														<td class="px-4 py-3 font-bold text-gray-900">Ruang dan berat</td>
+
+														<td class="px-4 py-3 text-gray-700">Panjang tatap muka lebih panjang, berat dalam DN besar</td>
+
+														<td class="px-4 py-3 text-gray-700">Bodi wafer kompak, lebih ringan hingga 70%</td>
+
+												</tr>
+
+												<tr>
+
+														<td class="px-4 py-3 font-bold text-gray-900">Biaya (DN/PN) yang sama</td>
+
+														<td class="px-4 py-3 text-gray-700">Biaya material dan permesinan yang lebih tinggi</td>
+
+														<td class="px-4 py-3 text-gray-700">Biasanya 20 -40% lebih rendah</td>
+
+												</tr>
+
+												<tr>
+
+														<td class="px-4 py-3 font-bold text-gray-900">Segel</td>
+
+														<td class="px-4 py-3 text-gray-700">Segel kedap air dengan dudukan elastis</td>
+
+														<td class="px-4 py-3 text-gray-700">Dilapisi karet, kedap air pada tekanan pengenal</td>
+
+												</tr>
+
+												<tr>
+
+														<td class="px-4 py-3 font-bold text-gray-900">Aplikasi yang lebih baik</td>
+
+														<td class="px-4 py-3 text-gray-700">Isolasi utama, bukaan/fechamento dengan aliran penuh</td>
+
+														<td class="px-4 py-3 text-gray-700">Kontrol cabang, regulasi, pengurangan ruang</td>
+
+												</tr>
+
+										</tbody>
+
+								</table>
+
+						</div>
+
+
+						<h2 id="where-each-valve-belongs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Di mana setiap katup masuk ke dalam sistem proteksi kebakaran</h2>
+
+						<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Katup gerbang untuk isolasi utama</h3>
+
+						<p class="text-gray-700 leading-relaxed mb-4">Di jaringan kebakaran utama dan saluran pembuangan pompa, prioritasnya adalah memberikan laju aliran maksimum dengan kehilangan gesekan terendah. A <a href="/id/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">katup gerbang Z41X dengan dudukan elastis pada besi cor ulet</a> adalah katup isolasi standar untuk aplikasi ini: saluran penuh, penutupan dengan segel kedap air dan jalur air datar dan tidak terhalang saat terbuka. Karena katup ini jarang dioperasikan (hanya membuka dan menutup), operasi multi - belokan yang lebih lambat bukanlah kerugian praktis.</p>
+
+						<h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Katup kupu - kupu untuk cabang dan ruang yang berkurang</h3>
+
+						<p class="text-gray-700 leading-relaxed mb-4">Ketika katup terkonsentrasi di ruang bantalan, ruang mesin atau rakitan katup, ruang berarti biaya. <a href="/id/products/wafer-type-butterfly-valve-d71x/" class="text-brand-blue font-semibold hover:underline">katup kupu - kupu tipe wafer D71X</a> dipasang di antara dua flensa, menempati sebagian kecil dari panjang tatap muka dan berat katup gerbang. Tuas seperempat putaran atau roda gigi cacingnya menyederhanakan pengoperasian dan perakitan aktuator. Oleh karena itu, ini adalah pilihan standar untuk kontrol cabang rocker dan isolasi bagian.</p>
+
+						<p class="text-gray-700 leading-relaxed mb-4">Untuk analisis lengkap tentang katup sistem rocker - alarm tipe basah, banjir, dan pra - tindakan 鈥?lihat <a href="/id/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">panduan katup untuk sistem rotator api</a>.</p>
+
+
+						<h2 id="signal-valves-dn80" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Katup sinyal: para ahli di DN80</h2>
+
+						<p class="text-gray-700 leading-relaxed mb-4">Sistem rotator berdasarkan kode tipe NFPA 13 memerlukan katup isolasi yang diawasi: jika seseorang menutup katup suplai, panel alarm kebakaran harus segera tahu. <a href="/id/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">sinyal DN80 slotted wafer butterfly valve</a> mengintegrasikan switch pengawasan/limite ke dalam koneksi slotted. Dengan demikian, ia terhubung ke perpipaan dengan kopling, memberi tahu panel tentang status terbukanya/fechado dan mempertahankan ruang dan keunggulan biaya dari proyek kupu - kupu. Ini adalah katup yang ditunjukkan ketika gambar menentukan 鈥渒atup OS&amp;Y atau kupu - kupu yang diawasi 鈥?</p>
+
+						<p class="text-gray-700 leading-relaxed mb-4">Masih memutuskan antara sistem basah, kering, atau pra - tindakan? Kami <a href="/id/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">perbandingan sistem rotator basah, kering dan pra - aksi</a> menjelaskan sistem mana yang beradaptasi dengan setiap profil risiko bangunan.</p>
+
+
+						<h2 id="purchasing-considerations" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Pertimbangan Pembelian untuk Pembeli B2B</h2>
+
+						<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+
+								<li><strong>Tentukan bahan bodi dan pelapis</strong> 鈥?Besi cor ulet QT450 dengan lapisan epoksi tahan korosi pada sistem kebakaran basah; minta spesifikasi lapisan dalam kutipan.</li>
+
+								<li><strong>Kaitkan kelas tekanan ke jaringan Anda</strong> 鈥?PN16 adalah standar; konfirmasikan tekanan statis sebelum memesan dan gunakan PN25 untuk zona gedung tinggi.</li>
+
+								<li><strong>Jenis koneksi penting</strong> 鈥?flensa untuk gerbang, wafer atau katup beralur untuk katup kupu - kupu; konfirmasikan dengan desain perpipaan (kopling beralur menghemat waktu pemasangan).</li>
+
+								<li><strong>Katup sinyal harus menginformasikan spesifikasi sakelar</strong> 鈥?meminta jenis sakelar batas dan peringkat IP untuk antarmuka dengan panel alarm.</li>
+
+								<li><strong>Minta laporan pengujian</strong> 鈥?sertifikat uji kebocoran hidrostatik dan dudukan yang mengacu pada batch aktual, bukan model generik.</li>
+
+								<li><strong>Konsolidasikan pesanan Anda</strong> 鈥?membeli katup gerbang, kupu - kupu, dan sinyal dari satu produsen bersertifikat menyederhanakan dokumentasi sertifikasi dan manajemen suku cadang. Gunakan <a href="/id/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">daftar periksa akuisisi katup B2B</a> sebelum ditutup dengan pemasok.</li>
+
+						</ul>
+
+
+						<h2 id="recommendation-summary" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Ringkasan rekomendasi</h2>
+
+						<div class="bg-gray-50 rounded-xl border border-gray-200 p-6 my-5">
+
+								<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2">
+
+										<li><strong>Jaringan utama 鈫?katup gerbang pompa pemadam kebakaran / pembuangan (Z41X)</strong>: Aliran penuh, kerugian minimal, isolasi yang andal.</li>
+
+										<li><strong>Cabang / ruang pipa/ rakitan katup 鈫?katup kupu - kupu (D71X)</strong>: Kompak, ringan dan cepat dioperasikan.</li>
+
+										<li><strong>Isolasi yang diawasi dalam sistem rocker 鈫?katup sinyal (DN80)</strong>: Sakelar pengawasan terintegrasi dan koneksi slotted untuk pemasangan cepat.</li>
+
+										<li>Jika ragu, tanyakan kepada perancang sistem 鈥?sebagian besar proyek membutuhkan ketiganya.</li>
+
+								</ul>
+
+						</div>
+
+
+						<!-- Se莽茫o de perguntas frequentes -->
+
+						<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Pertanyaan yang sering diajukan</h2>
+
+						<div class="space-y-4">
+
+				{faq.map(item => (
+										<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+
+												<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+
+														<span>{item.question}</span>
+
+														<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+
+												</summary>
+
+												<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+
+										</details>
+
+				))}
+						</div>
+
+
+						<!-- CTA -->
+
+						<div class="mt-12 rounded-2xl overflow-hidden">
+
+								<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+
+										<h2 class="text-2xl font-black text-white tracking-tight">Merakit paket katup untuk sistem kebakaran?</h2>
+
+										<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Masukkan desain perpipaan dan kelas tekanan Anda 鈥?kami mengutip katup gerbang, kupu - kupu, dan sinyal dalam satu paket bersertifikat dalam waktu 12 jam.</p>
+
+										<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+
+												<a href="/id/contact/?product=Sele%C3%A7%C3%A3o%20de%20v%C3%A1lvulas" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Minta penawaran</a>
+
+												<a href="https://wa.me/8618684324501?text=Ol%C3%A1%2C%20preciso%20de%20ajuda%20para%20selecionar%20v%C3%A1lvulas%20para%20um%20sistema%20de%20inc%C3%AAndio" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Bicara di WhatsApp</a>
+
+										</div>
+
+								</div>
+
+						</div>
+
+				</article>
+
+		</main>
+
+</Layout>
+

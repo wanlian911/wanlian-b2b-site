@@ -1,0 +1,243 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const toc = [
+	{ id: 'why-counterfeits-concentrate', label: '1. Mengapa Pemalsuan Fokus pada Kategori ini' },
+	{ id: 'common-forms-of-fakes', label: '2. Bentuk Pemalsuan yang Paling Umum' },
+	{ id: 'detection-checklist', label: '3. Daftar Periksa Deteksi Tujuh Langkah' },
+	{ id: 'red-flags-table', label: '4. Aut锚ntico vs. Falso de Olho R谩pido: Tabela de Sinais de Alerta' },
+	{ id: 'how-wanlian-operates', label: '5. Bagaimana Wanlian Fluid Beroperasi: Bukti Proses' },
+	{ id: 'pre-order-workflow', label: '6. Fluxo de Verifica莽茫o Antes do Pedido' },
+	{ id: 'faq', label: 'Perguntas Frequentes' },
+	{ id: 'sources', label: 'Font' }
+];
+
+const faq = [
+	{
+		question: 'Uma cota莽茫o muito mais baixa 茅 um sinal confi谩vel de produto falso?',
+		answer: 'Ini sinyal penyaringan, bukan bukti. Menyesuaikan coran besi cor ulet, uji tekanan, dan dokumentasi ekspor memiliki lantai biaya nyata, sehingga harga yang jauh di bawah pasar layak untuk diverifikasi. Tetapi beberapa kutipan hanya cocok dengan spesifikasi yang lebih rendah. Bandingkan persyaratan standar, tingkat bahan, dan uji di setiap kutipan harga sebelum menilai perbedaannya.'
+	},
+	{
+		question: 'Como verifico um certificado UL ou FM antes de encomendar uma v谩lvula contra inc锚ndio?',
+		answer: 'Solicite o n煤mero exato do certificado ou da listagem do modelo cotado e, em seguida, verifique-o de forma independente no portal oficial do organismo emissor. Confirme que o produto listado, o modelo e a f谩brica correspondem ao seu fornecedor. At茅 que voc锚 verifique, trate qualquer imagem de certificado em um e-mail como n茫o verificada.'
+	},
+	{
+		question: 'Apa yang sebenarnya harus berisi catatan pengujian unit?',
+		answer: 'No m铆nimo: o n煤mero de s茅rie da unidade, a data do teste, o resultado do teste de press茫o de casco e o resultado do teste de vazamento de ar, e a identifica莽茫o do operador ou do inspetor. Os n煤meros de s茅rie devem corresponder 脿 lista de embalagem, 脿 plaquete sinal茅tica e aos documentos de exporta莽茫o. Um relat贸rio que cobre apenas um \'lote\' sem identificadores de unidade 茅 um sinal de alerta.'
+	},
+	{
+		question: 'Apakah saya memerlukan peninjauan pihak ketiga atas pesanan pertama saya?',
+		answer: 'Untuk peralatan pemadam kebakaran yang sangat penting untuk keselamatan, kami sangat menyarankan, setidaknya pada pesanan pertama. Badan independen seperti SGS atau Bureau Veritas dapat menyaksikan tes, memeriksa bahan dan meninjau catatan di pabrik. Biaya adalah sebagian kecil dari nilai kontainer dan jauh lebih murah daripada unit yang gagal.'
+	},
+	{
+		question: 'Apa yang dapat dikirim Wanlian sebelum saya membayar?',
+		answer: 'A Wanlian Fluid pode fornecer o certificado ISO 9001 para verifica莽茫o com o organismo emissor, certificados de teste de usina para o grau da fundi莽茫o, um v铆deo de teste de press茫o e de vazamento de ar com n煤mero de s茅rie de uma unidade de amostra, e o conjunto padr茫o de documentos de exporta莽茫o. A conformidade com uma norma espec铆fica (por exemplo, AWWA ou NFPA) 茅 confirmada por modelo, com laudos de teste e certificados, antes do pedido.'
+	},
+	{
+		question: 'Apa yang harus saya lakukan jika saya menemukan unit palsu dalam pengiriman yang masuk?',
+		answer: 'Pare a entrada em opera莽茫o do equipamento afetado, fotografe a unidade com a plaquete e o n煤mero de s茅rie, e preserve todos os registros de teste e a documenta莽茫o. Apresente uma reclama莽茫o formal de n茫o conformidade ao fornecedor, solicite os documentos de rastreabilidade e envolva o seu inspetor de terceiros ou a autoridade contratante. Em sistemas cr铆ticos, isole a se莽茫o afetada at茅 que as unidades de substitui莽茫o sejam verificadas.'
+	}
+];
+
+const productRows = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Katup Gerbang Bergelang, Kursi Elastis (Z41X)', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'Katup gerbang terbuka penuh dengan dudukan elastis untuk pipa pemadam kebakaran dan saluran air' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'String Fire Hydrant (SS100)', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Hidrante de coluna anticongelante para redes municipais contra inc锚ndio' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Mangueira de Inc锚ndio, Forro de Borracha (Modelo 8-65)', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Mangueira desdobr谩vel com capa de poli茅ster e forro de borracha vulcanizada' }
+];
+---
+
+<Layout
+	title="Cara Mendeteksi Katup Palsu & Sertifikat Peralatan Pemadam Palsu 2026"
+	description="Panduan pembeli untuk mendeteksi katup palsu, sertifikat palsu, dan peralatan pemadam tiruan dari China: checklist dan tanda bahaya."
+	type="article"
+	locale="id"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guias', href: '/id/blog/' }, { name: 'Mendeteksi Pemalsuan' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/id/" class="hover:text-blue-600">In铆cio</a>
+			<span>/</span>
+			<a href="/id/blog/" class="hover:text-blue-600">Guias</a>
+			<span>/</span>
+			<span class="text-gray-600">Detectando Falsifica莽玫es</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Panduan Risiko Pembelian</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Cara Mendeteksi Katup Palsu dan Sertifikat Peralatan Pemadam Kebakaran Palsu (Panduan Pembeli 2026)</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Pembeli katup api, hidran, dan selang dari Tiongkok secara teratur menemukan coran palsu, papan nama kloning, dan sertifikat palsu. Unit palsu tidak muncul di foto atau di daftar harga - unit tersebut muncul dengan sendirinya melalui pemeriksaan fisik, catatan pengujian unit, dan dokumentasi yang dapat Anda verifikasi secara independen. Panduan ini menyajikan tanda - tandaexatos, uma checklist de detec莽茫o passo a passo e um fluxo de verifica莽茫o antes do pedido que voc锚 pode anexar a qualquer pedido de compra.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Mengapa panduan ini ada:</strong>peralatan pemadam kebakaran palsu bukanlah risiko hipotetis 鈥?nomor seri yang dikloning, trombosit yang disalin, dan PDF sertifikasi palsu adalah buku pedoman default pemasok yang tidak patuh dalam kategori kritis keselamatan. Halaman ini mengubah risiko itu menjadi proses deteksi tertulis yang dapat Anda terapkan pada pemasok Tiongkok mana pun, termasuk Wanlian Fluid, sebelum Anda membayar.</p>
+			</div>
+
+			<!-- Product strip -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{productRows.map(p => (
+					<a href={`/id/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>))}</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="why-counterfeits-concentrate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Por que as Falsifica莽玫es se Concentram nessa Categoria</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Tiga sifat infrastruktur pemadam kebakaran dan pasokan air menjadikannya target favorit untuk pemalsuan:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Peralatan pemadam kebakaran sangat penting untuk keselamatan.</strong>Katup atau hidran yang sesuai harus tahan terhadap peristiwa tekanan penuh tepat ketika tidak ada waktu untuk menggantinya. Inilah tepatnya yang tidak dapat dilakukan oleh casting yang tidak sesuai.</li>
+				<li><strong>A compra 茅 de alto volume e guiada por especifica莽茫o.</strong>Tender dan pekerjaan kota membeli dalam jumlah besar dengan harga yang kompetitif, dan dokumen 鈥?sertifikat, catatan pengujian 鈥?berjalan dengan pesanan pembelian. Dokumen palsu memungkinkan produk yang tidak sesuai untuk memasuki proses penawaran yang sah.</li>
+				<li><strong>O equipamento s贸 &quot;falha&quot; durante uma emerg锚ncia.</strong> Um corpo de hidrante de parede fina ou uma v谩lvula de gaveta com testes insuficientes pode parecer perfeito no dep贸sito por anos. O defeito aparece sob press茫o, 脿 noite, com vidas e bens em jogo.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Pengemudi sebenarnya adalah selisih harga. Menyesuaikan coran besi cor ulet, enkapsulasi resin atau karet, pengujian tekanan unit, dan dokumentasi ekspor semuanya memiliki lantai biaya aktual. Sertifikat palsu memungkinkan produk yang tidak sesuai untuk memposisikan dirinya di bawahnya, dan pembeli - membandingkan kutipan harga di atas kertas - tidak dapat melihat perbedaannya.</p>
+			<p class="text-gray-700 leading-relaxed">Depois que algu茅m lhe mostrou um certificado falso uma vez, voc锚 n茫o pode mais julgar nenhum fornecedor apenas pelos documentos. A resposta pr谩tica 茅 verificar a unidade f铆sica, seus registros de teste por unidade e a documenta莽茫o verific谩vel de forma independente. As pr贸ximas se莽玫es definem exatamente o que procurar.</p>
+
+			<h2 id="common-forms-of-fakes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Bentuk Pemalsuan yang Paling Umum</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Peralatan pemadam kebakaran palsu dalam kategori ini mengambil daftar pendek bentuk berulang. Pelajari enam hal ini dan Anda akan menangkap sebagian besar risikonya:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>N煤meros de s茅rie clonados.</strong> O mesmo n煤mero em v谩rias unidades, n煤meros que seguem um padr茫o vis铆vel ou n煤meros copiados de imagens de cat谩logos publicados. Um fabricante genu铆no emite n煤meros 煤nicos que batem com os registros de fundi莽茫o e com a lista de embalagem.</li>
+				<li><strong>Plaquetes sinal茅ticas copiadas.</strong>Papan nama bermerek yang sebenarnya tidak Anda beli, nama merek yang sudah punah, atau papan nama yang standar, ukuran, dan kelas tekanannya tidak cocok dengan pesanan pembelian. Dalam menyesuaikan produk, tanda bersifat permanen 鈥?trombosit yang tampak terpaku atau tidak konsisten adalah kegagalan penyaringan.</li>
+				<li><strong>Material n茫o conforme e fundi莽玫es de parede fina.</strong> Liga errada, sucata reciclada ou paredes fundidas abaixo das toler芒ncias dimensionais da norma. Esses corpos passam na inspe莽茫o visual e falham no teste de press茫o de casco 鈥?ou, pior, passam na f谩brica e falham em servi莽o.</li>
+				<li><strong>Catatan tes yang hilang atau generik.</strong>Tidak ada catatan per unit, atau "laporan batch" tunggal yang mencakup ratusan unit tanpa nomor seri, tanggal, atau nilai tes.</li>
+				<li><strong>PDF sertifikasi palsu.</strong> Documentos UL, FM ou AWWA produzidos em um editor de texto: fonte errada, nome gen茅rico de empresa, datas anteriores 脿 linha de produto ou n煤meros de certificado que n茫o existem no organismo emissor.</li>
+				<li><strong>Penggantian selang pemadam kebakaran.</strong> Uma mangueira de ataque genu铆na combina uma capa de poli茅ster de alta resist锚ncia com um forro de borracha vulcanizada com veda莽茫o estanque. As falsifica莽玫es cortam o forro ou a capa, de modo que a mangueira parece correta no dep贸sito, mas vaza ou delamina 脿 press茫o de trabalho.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Tak satu pun dari bentuk ini terlihat dalam foto katalog. Semua terlihat di log tes, sertifikat materi, dan video singkat unit di bangku tes 鈥?jadi daftar periksa di bawah ini membutuhkan item 鈥?item ini dengan tepat.</p>
+
+			<h2 id="detection-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Daftar Periksa Deteksi Tujuh Langkah</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Terapkan tujuh langkah ini ke setiap pemasok yang telah dipilih sebelumnya. Langkah 1 -2 adalah tingkat perusahaan; langkah 3 -7 adalah tingkat unit. Pemasok yang menolak salah satu dari mereka telah menjawab pertanyaan tersebut.</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Periksa perusahaan terlebih dahulu.</strong> Nome legal na licen莽a comercial, conta banc谩ria correspondente e entidade de faturamento. Um tour por v铆deo das 谩reas de produ莽茫o, teste e embalagem mediante solicita莽茫o. Se a &quot;f谩brica&quot; n茫o pode ser mostrada, voc锚 est谩 lidando com um balc茫o comercial 鈥?possivelmente com fundi莽玫es usadas e plaquetes novas.</li>
+				<li><strong>Exija registros de teste por unidade.</strong> Cada v谩lvula e hidrante que voc锚 encomendar deve ter um resultado de teste de press茫o de casco e um resultado de teste de vazamento de ar vinculados ao pr贸prio n煤mero de s茅rie. Pe莽a ao fornecedor para enviar os registros de uma unidade de amostra antes do pagamento 鈥?um fabricante genu铆no os mant茅m; um falsificador n茫o consegue produzi-los.</li>
+				<li><strong>Verifique os certificados no portal oficial do organismo emissor.</strong>Untuk mendapatkan persetujuan UL atau FM, periksa nomor di portal resmi badan penerbit (misalnya direktori produk UL atau pencarian persetujuan FM Global) dan konfirmasikan bahwa model yang tercantum dan pabrik sesuai dengan pemasok Anda. Untuk AWWA, periksa sertifikat atau nomor registrasi dengan AWWA. Jika nomornya tidak terselesaikan, PDF adalah pemalsuan tidak peduli seberapa bersih tampilannya.</li>
+				<li><strong>Pesan sampel terlebih dahulu.</strong> Uma unidade de cada modelo, com n煤mero de s茅rie, foto da plaquete e documenta莽茫o completa. Aplique a checklist inteira na amostra 鈥?marca莽玫es, certificado de material, v铆deo de teste, registros 鈥?antes de se comprometer com o volume. 脡 o seguro contra falsifica莽茫o mais barato dispon铆vel.</li>
+				<li><strong>Pedir certificados de material (certificados de teste de usina).</strong>Nilai casting di MTC harus sesuai dengan nilai gambar Anda. Pemasok yang tidak dapat memproduksi MTC untuk bahan yang tepat yang Anda tentukan tidak memproduksi produk yang Anda beli.</li>
+				<li><strong>Assista ao v铆deo dimensional e de teste de press茫o.</strong> Solicite um curto v铆deo da unidade de amostra espec铆fica no banco de teste de press茫o com o n煤mero de s茅rie vis铆vel. Um fabricante genu铆no grava esses v铆deos como rotina; um fornecedor que n茫o consegue produzi-los n茫o est谩 testando em press茫o as unidades que voc锚 est谩 comprando.</li>
+				<li><strong>Melakukan audit pabrik atau inspeksi pihak ketiga.</strong>Kunjungi jika volume Anda menjaminnya; jika tidak, tunjuk badan independen (SGS, Bureau Veritas, Intertek atau perusahaan lokal terkemuka) untuk menyaksikan tes, periksa pengecoran dan tinjau catatan sebelum pengiriman.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed mb-4">Terapkan daftar periksa ke produk aktual pra 鈥?seleksi Anda 鈥?misalnya,<a href="/id/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">katup gerbang OS&amp;Y kursi elastis UL/FM</a>, o <a href="/id/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">hidran kolom api SS100</a>, a <a href="/id/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">v谩lvula de gaveta flangeada de assento el谩stico Z41X</a> ou a <a href="/id/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">selang pemadam kebakaran lipat 8 -65 dengan lapisan karet</a>鈥?dengan catatan uji berdasarkan model, bukan pernyataan kualitas generik.</p>
+			<p class="text-gray-700 leading-relaxed">Untuk kerangka kualifikasi pemasok yang lebih luas (badan hukum, riwayat ekspor, referensi), lihat<a href="/id/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">periksa panduan dari pemasok katup Cina</a>. Para a lista completa de documenta莽茫o e inspe莽茫o a incluir no seu pedido de compra, veja a <a href="/id/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">checklist de sourcing B2B de v谩lvulas</a>.</p>
+
+			<h2 id="red-flags-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Aut锚ntico vs. Falso de Olho R谩pido: Tabela de Sinais de Alerta</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A mesma solicita莽茫o de verifica莽茫o produz respostas muito diferentes de um fabricante leg铆timo e de um falsificador. A tabela abaixo 茅 a ferramenta de triagem mais r谩pida deste guia:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Sinyal</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">O que um fornecedor genu铆no fornece</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Apa yang diperlihatkan oleh pemalsuan</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Documentos da empresa</td>
+							<td class="px-4 py-3 text-gray-700">Licen莽a comercial, entidade de faturamento e conta banc谩ria tudo correspondente; tour por v铆deo mediante solicita莽茫o</td>
+							<td class="px-4 py-3 text-gray-700">Nama yang berbeda, rekening bank pribadi, penolakan untuk menunjukkan produksi</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Catatan uji per unit</td>
+							<td class="px-4 py-3 text-gray-700">Resultados de press茫o de casco e vazamento de ar com n煤mero de s茅rie, datas e operador</td>
+							<td class="px-4 py-3 text-gray-700">Hanya "laporan batch ", tidak ada nomor seri, tidak ada tanggal atau catatan yang tidak sesuai dengan daftar kemasan</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Certificados UL / FM / AWWA</td>
+							<td class="px-4 py-3 text-gray-700">Certificado resolvido no portal oficial do organismo emissor para o modelo e a f谩brica exatos</td>
+							<td class="px-4 py-3 text-gray-700">PDF que n茫o 茅 resolvido, nome de empresa errado, datas anteriores ao produto, logotipo gen茅rico</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Prova de material</td>
+							<td class="px-4 py-3 text-gray-700">Sertifikat uji tanaman yang sesuai dengan tingkat pengecoran gambar</td>
+							<td class="px-4 py-3 text-gray-700">Sem MTC, ou um MTC de outro grau ou de outra f谩brica</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">V铆deo de teste de press茫o</td>
+							<td class="px-4 py-3 text-gray-700">Unidade com n煤mero de s茅rie no banco de teste, gravada e compartilhada mediante solicita莽茫o</td>
+							<td class="px-4 py-3 text-gray-700">Koleksi atau gambar melingkar, tidak ada nomor yang terlihat, "bangku tes sibuk hari ini"</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Plaquete e marca莽茫o</td>
+							<td class="px-4 py-3 text-gray-700">Nomor standar, ukuran, kelas tekanan, identitas pabrikan, dan nomor seri unik 鈥?permanen dan konsisten</td>
+							<td class="px-4 py-3 text-gray-700">Nama merek disalin, nomor seri diulang, kelas tidak cocok dengan pesanan pembelian</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pedido de amostra</td>
+							<td class="px-4 py-3 text-gray-700">Diterima sebagai rutinitas, dengan dokumentasi lengkap dari unit sampel</td>
+							<td class="px-4 py-3 text-gray-700">Resist锚ncia, cobran莽as extras ou uma amostra que difere dos produtos de produ莽茫o</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Posi莽茫o de pre莽o</td>
+							<td class="px-4 py-3 text-gray-700">No piso de custo ou acima para material conforme e testes de 100%</td>
+							<td class="px-4 py-3 text-gray-700">Muito abaixo do mercado para a mesma norma 鈥?a diferen莽a paga em espessura de parede e testes pulados</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Dua atau lebih jawaban "salah" dari pemasok yang sama harus mengakhiri penilaian. Kesenjangan "otentik" yang diselesaikan pemasok dalam sehari (misalnya, dengan mengirimkan MTC yang hilang) adalah normal; kesenjangan yang menghasilkan alasan adalah putusan.</p>
+
+			<h2 id="how-wanlian-operates" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Como a Wanlian Fluid Opera: Evid锚ncias do Processo</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Se a Wanlian Fluid est谩 na sua pr茅-sele莽茫o, aqui est茫o as evid锚ncias de processo que voc锚 deve esperar de n贸s 鈥?apresentadas como o que fazemos, n茫o como alega莽玫es de certifica莽茫o:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Sistema de gest茫o da qualidade ISO 9001.</strong> Nossa produ莽茫o em Quanzhou, Fujian opera sob um sistema ISO 9001; pe莽a o n煤mero do certificado e verifique-o com o organismo emissor, como faria com qualquer fornecedor.</li>
+				<li><strong>Badan katup mesin CNC secara internal.</strong>Badan katup adalah mesin CNC di pabrik kami sendiri di Quanzhou; item yang dipilih diproduksi oleh mitra manufaktur yang memenuhi syarat, dan lokasi produksi didokumentasikan sesuai pesanan.</li>
+				<li><strong>Teste de press茫o de casco e de vazamento de ar em 100%.</strong> Cada unidade 鈥?cada v谩lvula, hidrante e mangueira 鈥?茅 testada em press茫o de casco e em vazamento de ar antes do embarque. Podemos enviar um v铆deo de teste com n煤mero de s茅rie de uma unidade de amostra, e os registros por unidade viajam com a remessa.</li>
+				<li><strong>Konstruksi selang pemadam kebakaran.</strong> Nossa mangueira de inc锚ndio combina uma capa de poli茅ster de alta resist锚ncia com um forro de borracha vulcanizada, constru铆da com veda莽茫o estanque 鈥?exatamente a constru莽茫o que a se莽茫o de falsifica莽玫es acima tenta imitar.</li>
+				<li><strong>Conformidade com normas, confirmada por modelo.</strong>Kepatuhan terhadap standar tertentu (AWWA, NFPA, daftar UL, persetujuan FM, NOM atau lainnya) dikonfirmasi oleh model, dengan laporan pengujian dan sertifikat, sebelum memesan 鈥?kami tidak meminta Anda untuk mengambil seluruh sertifikat pabrik.</li>
+				<li><strong>Documenta莽茫o de exporta莽茫o.</strong>Faktur komersial, daftar kemasan, bill of lading, sertifikat asal dan laporan uji batch menyertai pengiriman; OEM/ODM, merek khusus dan kemasan ekspor dikoordinasikan dengan pesanan, dengan komitmen untuk menanggapi penawaran dalam waktu 12 jam.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Essa lista tamb茅m 茅 o seu teste: envie-nos a checklist de sete etapas e observe a rapidez com que cada item volta. Se estiver nos comparando a fabricantes ocidentais em qualifica莽茫o, veja <a href="/id/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">bagaimana memilih katup api yang terdaftar UL</a> e <a href="/id/guides/latinamerica-certification-requirements-fire-valves/" class="text-brand-blue font-semibold hover:underline">persyaratan sertifikasi untuk katup api di proyek - proyek Amerika Latin</a>.</p>
+
+			<h2 id="pre-order-workflow" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Fluxo de Verifica莽茫o Antes do Pedido</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Proses deteksi di atas menjadi alur kerja ketika dilampirkan ke pesanan pembelian. Lima tahap, secara berurutan:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-3 mb-4">
+				<li><strong>Defina a norma por escrito.</strong> A norma exigida pelo seu projeto (por exemplo, AWWA C502 para hidrantes de cano seco, AWWA C515 para v谩lvulas de gaveta de assento el谩stico, NFPA 1961 para mangueira de inc锚ndio) e a lista completa de documenta莽茫o 鈥?registros de teste por unidade, MTC, documentos de exporta莽茫o. Coloque ambos no pedido de compra para que a conformidade seja contratual, n茫o apenas solicitada.</li>
+				<li><strong>Prapilih dan verifikasi di tingkat perusahaan.</strong>Badan hukum, lingkup ISO 9001, sertifikat produk diselesaikan di portal badan penerbit. Hilangkan vendor yang gagal dalam langkah verifikasi di sini.</li>
+				<li><strong>Permintaan sampel.</strong> Uma unidade por modelo. Aplique a checklist completa na amostra: plaquete, n煤mero de s茅rie, MTC, v铆deo de teste de press茫o, registros por unidade.</li>
+				<li><strong>Inspe莽茫o de terceiros.</strong> Nomeie um organismo independente para testemunhar os testes e revisar os registros na f谩brica antes do embarque da produ莽茫o. Inclua a cl谩usula de inspe莽茫o no pedido de compra.</li>
+				<li><strong>Paket dokumenter dan kemudian rilis.</strong>Sebelum pembayaran akhir: dokumen ekspor lengkap, catatan pengujian unit dari nomor seri daftar kemasan dan video pengujian unit sampel batch produksi. Baru kemudian lepaskan pesanan.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Alur ini berlaku untuk pemasok mana pun 鈥?termasuk Wanlian Fluid. Diterapkan pada awal penilaian, dibutuhkan waktu berhari - hari, bukan berbulan - bulan, dan merupakan filter palsu yang paling efektif saat membeli peralatan pemadam kebakaran.</p>
+
+			<!-- FAQ Section -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Perguntas Frequentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>))}</div>
+
+			<!-- Sources -->
+			<h2 id="sources" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">Fontes</h2>
+			<ul class="list-disc pl-6 text-sm text-gray-600 leading-relaxed space-y-1.5">
+				<li>UL 鈥?diret贸rio de produtos e verifica莽茫o de listagem: <a href="https://www.ul.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">ul.com</a></li>
+				<li>FM Global 鈥?verifikasi persetujuan:<a href="https://www.fmglobal.com" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">fmglobal.com</a></li>
+				<li>AWWA 鈥?normas de hidrantes e v谩lvulas (ex.: AWWA C502, C515): <a href="https://www.awwa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">awwa.org</a></li>
+				<li>NFPA 鈥?perlindungan kebakaran dan standar selang kebakaran (misalnya NFPA 1961):<a href="https://www.nfpa.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">nfpa.org</a></li>
+				<li>ISO 鈥?standar manajemen kualitas dan katup (ISO 9001, ISO 5208):<a href="https://www.iso.org" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">iso.org</a></li>
+				<li>Wanlian Fluid 鈥?profil perusahaan dan kebijakan pengujian:<a href="https://wanlian911.com/" target="_blank" rel="noopener" class="text-brand-blue font-semibold hover:underline">wanlian911.com</a></li>
+			</ul>
+			<p class="mt-4 text-xs text-gray-400">Persyaratan verifikasi bervariasi menurut pasar tujuan dan spesifikasi proyek 鈥?selalu konfirmasikan standar dan rezim inspeksi yang berlaku dengan otoritas kontrak Anda sebelum melakukan pemesanan. Informasi diperbarui September 2026.</p>
+
+			<!-- CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Memeriksa Peralatan Pemadam Kebakaran dari Pemasok Cina?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Kirimkan spesifikasi dan tujuan Anda kepada kami 鈥?kami menanggapi dengan item penawaran terperinci berdasarkan item dalam waktu 12 jam.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/id/contact/?product=Verificar%20v%C3%A1lvulas%20falsas%20e%20equipamentos%20de%20inc%C3%AAndio%20falsificados" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Minta Penawaran Harga</a>
+						<a href="https://wa.me/8618684324501?text=Ol%C3%A1%2C%20preciso%20verificar%20v%C3%A1lvulas%20contra%20inc%C3%AAndio%20e%20hidrantes%20antes%20de%20encomendar%20%E2%80%94%20por%20favor%2C%20envie%20os%20certificados%2C%20os%20registros%20de%20teste%20por%20unidade%20e%20um%20v%C3%ADdeo%20de%20teste%20de%20press%C3%A3o" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Conversar no WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

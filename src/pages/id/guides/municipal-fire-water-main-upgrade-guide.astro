@@ -1,0 +1,179 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const toc = [
+	{ id: 'scope', label: '1. Apa saja yang sebenarnya termasuk dalam modernisasi jaringan pemadam' },
+	{ id: 'isolation-valves', label: '2. Katup isolasi: Z41X vs. Z41X-T teleskopik' },
+	{ id: 'hydrants-by-climate', label: '3. Pemilihan hidran berdasarkan iklim dan risiko lalu lintas' },
+	{ id: 'hose-couplings', label: '4. Selang dan kopling untuk armada kota' },
+	{ id: 'standards-table', label: '5. Standar berdasarkan pasar tujuan' },
+	{ id: 'one-po', label: '6. Paket dengan satu PO: mengapa konsolidasi mengurangi risiko' },
+	{ id: 'faq', label: 'Pertanyaan yang sering diajukan' }
+];
+
+const faq = [
+	{
+		question: 'Apakah hidran, katup, dan selang pemadam kebakaran dapat dipesan dalam satu paket kota?',
+		answer: 'Sim — um satu pesanan de compra dapat combinar hidran pilar ou subterrâneos, katup isolasi com dudukan karet, selang pemadam kebakaran revestidas de borracha e kopling Storz ou BS336, com marca OEM, embalagem untuk ekspor e um conjunto satu de registros de pengujian conciliados. Licitações municipais que memerlukan dokumentasi por item recebem os dokumen por linha na mesma lista de embalagem.'
+	},
+	{
+		question: 'Que tipo de hidran uma cidade de iklim frio harus especificar?',
+		answer: 'Um hidran antibeku de barril seco: o barril acima da linha de congelamento é drenado automaticamente após setiap uso, mencegahndo o congelamento do corpo. O hidran pilar SS100/65 (1.6 MPa, testado a 2.4 MPa) é nossa unit standar untuk iklims dingin, com variantes antikollision e IoT ketika o lalu lintas viário ou o monitoramento da jaringan fizer parte do ruang lingkup.'
+	},
+	{
+		question: 'Por que usar uma katup gerbang telescópica em uma modernização alih-alih uma katup gerbang standar?',
+		answer: 'A Z41X-T combina fechamento com vedação estanque e compensação de expansão de ±25 mm em uma satu unit. Em uma jaringan que está sendo reinstalada ou conectada a uma tubulação existente, essa tolerância absorve desalinhamento e recalque, e a válvula dapat ser substituída depois sem cortar a linha — ambos são custos recorrentes nas jaringan municipais.'
+	},
+	{
+		question: 'Qual standar de kopling de selang a frota pemadam kebakaran usa no meu pasar?',
+		answer: 'Depende dos caminhões de bombeiros: Storz (standar alemão) é o model de ekspor lebih comum, BS336/BS5912 atende frotas do Reino Unido e da Commonwealth, e NIST atende várias spesifikasi do Oriente Médio. A selang, os kopling e as tampas das saídas do hidran precisam seguir o mesmo standar — especifique-o uma vez untuk todo o pacote.'
+	},
+	{
+		question: 'Como os proyek de modernização standarlmente são programados do pesanan à entrega?',
+		answer: 'Para model standar: spesifikasi e cotação detalhada em poucos dias, uma unit de amenunjukkan untuk verificação e, depois, produksi de 15–30 dias conforme a quantidade e a personalização, com pengujian de tekanan do corpo e de kebocoran de ar per unit antes da embalagem untuk ekspor. Uma inspeção de terceiros na pabrik dapat ser organizada antes do pengiriman.'
+	}
+];
+
+const referencePages = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hidrante de Coluna Anticongelante SS100/65', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'Drenagem de barril seco, 1.6 MPa, saídas 2x65 + 1x100' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Válvula de Gaveta com Assento Elástico Z41X', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50-DN700, PN10/PN16, dokumentasi de reassentamento sob consulta' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Mangueira Plana contra Incêndio Revestida de Borracha', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Modelo 8-65 untuk uso municipal e industrial' }
+];
+---
+
+<Layout
+	title="Modernisasi Jaringan Pemadam Kota: Katup dan Hidran"
+	description="Guia untuk modernização de jaringan municipais pemadam kebakaran: válvulas, hidran antibekus, selang, kopling, standar e pacote satu."
+	type="article"
+	locale="id"
+	faq={faq}
+	breadcrumbs={[{ name: 'Panduan', href: '/id/blog/' }, { name: 'Modernisasi Jaringan Pemadam' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumbs -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/id/" class="hover:text-blue-600">Beranda</a>
+			<span>/</span>
+			<a href="/id/blog/" class="hover:text-blue-600">Panduan</a>
+			<span>/</span>
+			<span class="text-gray-600">Modernisasi Jaringan Pemadam</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Panduan Pengadaan · Infrastruktur Kota</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Modernisasi Jaringan Air Pemadam Kota: Katup, Hidran, dan Selang dalam Satu Paket</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Uma modernização da jaringan pemadam kebakaran raramente envolve um satu produto. É um pacote — katup isolasi em setiap sambungan, hidran nos novos trechos, selang e kopling untuk a frota e uma sambungan de bomba que o serviço de bombeiros possa realmente usar. Este guia menyajikan as quatro linhas do ruang lingkup, as escolhas definidas pelo iklim em setiap uma delas e por que pembelies municipais colocam setiap vez lebih o pacote inteiro dalam satu pesanan de compra.</p>
+
+			<div class="bg-blue-50 border border-blue-100 rounded-xl p-5 my-6">
+				<p class="text-sm text-gray-700 leading-relaxed"><strong class="text-brand-blue">Catatan ruang lingkup:</strong> as quantidades e a densidade de hidran seguem o código municipal e o standar de proyek da concessionária; as seleções de komponen abaixo são as decisões de engenharia que um BOQ de jaringan pemadam kebakaran realmente memerlukan. A cláusula da tender selalu prevalece.</p>
+			</div>
+
+			<!-- Faixa de produtos -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+				{referencePages.map(p => (
+					<a href={`/id/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-32 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<TableOfContents headings={toc} />
+
+			<h2 id="scope" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Apa saja yang sebenarnya termasuk dalam modernisasi jaringan pemadam</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Leia o BOQ da tender e o ruang lingkup pemadam kebakaran se resume a quatro linhas recorrentes: <strong>katup isolasi</strong> nas jaringan, hidran e sambungan de bomba; <strong>hidran</strong> nos trechos substituídos ou ampliados; <strong>selang pemadam kebakaran e kopling</strong> que mantêm a frota compatível com os novos standar de saída; e a <strong>sambungan de bomba/de bombeiros</strong> di mana o serviço pemadam kebakaran faz a ligação. Cada linha tem uma dimensão standartiva (yang kerangka standar o tujuan aplica) e uma dimensão logística (o que é embarcado junto em um contêiner).</p>
+			<p class="text-gray-700 leading-relaxed">O standar de falha que este guia procura mencegah é conhecido: válvulas de um pemasok, hidran de outro, selang de um terceiro — e tampas de saída incompatíveis com os kopling da frota, ou faces de flange das válvulas incompatíveis com a entrada do hidran. O mesmo ruang lingkup, em um satu PO de um satu produsen, elimina essas interfaces problemáticas.</p>
+
+			<h2 id="isolation-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Katup isolasi: Z41X vs. Z41X-T teleskopik</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Toda modernização precisa de pontos de isolamento untuk que seja possível trabalhar em um trecho sem drenar a jaringan. Os dois model principais da nossa linha são a <a href="/id/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">katup gerbang com dudukan karet Z41X</a> standar (DN50–DN700, PN10/PN16, cunha totalmente encapsulada em EPDM; dokumentasi de reassentamento disponível sob consulta) e a <a href="/id/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">versão telescópica Z41X-T</a> (DN50–DN600 com compensação de expansão de ±25 mm integrada).</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Decisão</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Z41X</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Z41X-T telescópica</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Faixa de ukurans</td><td class="px-4 py-3 text-gray-700">DN50–DN700</td><td class="px-4 py-3 text-gray-700">DN50–DN600</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Compensação de expansão</td><td class="px-4 py-3 text-gray-700">Nenhuma (instale uma junta de expansão se necessário)</td><td class="px-4 py-3 text-gray-700">±25 mm integrada</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Substituição sem cortar a tubulação</td><td class="px-4 py-3 text-gray-700">Não</td><td class="px-4 py-3 text-gray-700">Sim</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Ideal untuk</td><td class="px-4 py-3 text-gray-700">Redes novas, grandes diâmetros, instalasi fixas</td><td class="px-4 py-3 text-gray-700">Conexões em tubulações existentes, solo sujeito a recalque, pemeliharaan futura</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">A regra prática do campo: jaringan novas e retas usam a Z41X standar; sambungan, travessias e yangquer ponto que a equipe de pemeliharaan possa querer substituir um dia usam a telescópica. Ambas têm a mesma cunha totalmente encapsulada, portanto o comportamento de vedação em que a concessionária confia não muda.</p>
+
+			<h2 id="hydrants-by-climate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Pemilihan hidran berdasarkan iklim dan risiko lalu lintas</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">O iklim define o barril, e o risiko viário define os recursos adicionais:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Climas dingin:</strong> o <a href="/id/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">hidran pilar antibeku SS100/65</a> — a drenagem automática após o fechamento esvazia o barril acima da linha de congelamento, com tekanan kerja de 1.6 MPa / pengujian a 2.4 MPa e saídas 2×DN65 lebih DN100.</li>
+				<li><strong>Ruas com lalu lintas intenso:</strong> o <a href="/id/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">hidran antikollision SSFT100</a> — os untukfusos de cisalhamento calibrados se rompem no impacto, a válvula interna fecha automaticamente e o reparo consiste em substituir os untukfusos com a linha ainda pressurizada.</li>
+				<li><strong>Programas de cidade inteligente:</strong> o <a href="/id/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">hidran IoT SS100ZN</a> — alarmes de tekanan, vazão, inclinação/colisão e uso indevido por NB-IoT/LTE-M, bateria de cinco anos com apoio solar e corpo GB 4452.</li>
+				<li><strong>Redes subterrâneas:</strong> o <a href="/id/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">hidran bawah tanah SA</a> untuk instalasi enterradas com saídas KWS65.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Os standar de kopling das saídas (KWS65, BS336, Storz, NIST) são uma spesifikasi de setiap pasar — o mesmo corpo de hidran é enviado com as tampas compatíveis com a sua frota. Essa satu linha do BOQ é di mana a maioria dos pesanan internacionais de hidran dá errado e di mana um pemasok de pacote harus identificar o problema untuk você. Nosso <a href="/id/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">guia de hidran antibekus e antikollision</a> menjelaskan em detalhes o comportamento hidráulico de setiap variante.</p>
+
+			<h2 id="hose-couplings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Selang dan kopling untuk armada kota</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A linha de selang da frota precisa correspdi manar às novas saídas dos hidran; caso contrário, a modernização estará incompleta no dia da entrega. A <a href="/id/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">selang plana pemadam kebakaran revestida de borracha (model 8-65)</a> é o standar municipal da nossa linha — 8 polegadas, classificação DN65, desenvolvida untuk uso repetido sob tekanan — com o <a href="/id/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">kopling Storz de alumínio de 2.5 polegadas</a> como sambungan de extremidade standar untuk ekspor; os adaptadores de kopling DN50/DN65 da <a href="/id/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">série HS</a> cobrem a transição ketika standar antigos e novos coexistem na jaringan. Tamanhos, revestimentos e vedação das bordas são menyajikandos no <a href="/id/guides/fire-hose-buying-guide/" class="text-brand-blue font-semibold hover:underline">guia de compra de selang planas pemadam kebakaran</a>.</p>
+
+			<h2 id="standards-table" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Standar berdasarkan pasar tujuan</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">O mesmo hidran e a mesma válvula são especificados sob kerangka standars diferentes conforme o tujuan do proyek. Indique o kerangka standar em setiap item do BOQ:</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Região</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Referências típicas</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Catatan untuk pembeli</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">EUA e grande parte das Américas</td><td class="px-4 py-3 text-gray-700">AWWA C502 (hidran), AWWA C515, ISO 5208 / EN 1074 (válvulas)</td><td class="px-4 py-3 text-gray-700">Confirme a standar e o relatório de pengujian per model</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">América Latina</td><td class="px-4 py-3 text-gray-700">AWWA (tender com spesifikasi dos EUA), NOM do México, ABNT do Brasil</td><td class="px-4 py-3 text-gray-700">A cláusula da tender prevalece; verifikasikan per model</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Europa</td><td class="px-4 py-3 text-gray-700">EN 14384 (hidran), EN 1074, EN 12266-1 (pengujian de válvulas), CE</td><td class="px-4 py-3 text-gray-700">CE e pengujian são definidos per model e diretiva</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Oriente Médio e África</td><td class="px-4 py-3 text-gray-700">Frequentemente AWWA ou BS 750; saídas NIST são comuns</td><td class="px-4 py-3 text-gray-700">Confirme o standar de kopling da saída no BOQ</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">A comuntukção lado a lado das famílias de standar está no <a href="/id/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">guia de standar untuk hidran, selang e válvulas</a> — mencakupndo como comuntukr uma standar com um relatório de pengujian antes do pagamento.</p>
+
+			<h2 id="one-po" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Paket dengan satu PO: mengapa konsolidasi mengurangi risiko</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Um pesanan de pacote municipal a um satu produsen menawarkan três coisas que um BOQ com vários pemasok não consegue: <strong>interfaces compatíveis por proyek</strong> (tampas de saída, flanges de válvulas e kopling de selang especificados em uma satu revisão de desenho), <strong>um satu conjunto de registros de pengujian</strong> conciliado com uma lista de embalagem untuk o dossiê de aceitação e <strong>um satu plano logístico</strong> — hidran e selang compartilham bem o espaço do contêiner, e um satu Incoterm mantém clara a divisão de risikos do portão da pabrik ao local da obra. A sequência passo a passo — spesifikasi, verificação do pemasok, amenunjukkangem, QC, dokumentasi e logística — está no <a href="/id/sourcing-guide/" class="text-brand-blue font-semibold hover:underline">guia de pengadaan</a>; a disciplina de verificação per model está no <a href="/id/whitepaper/" class="text-brand-blue font-semibold hover:underline">whitepaper do setor</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Para o contexto regional de como esses ruang lingkups são licitados, o <a href="/id/guides/municipal-water-fire-infrastructure-latinamerica/" class="text-brand-blue font-semibold hover:underline">guia de infraestrutura municipal da América Latina</a> membahas em detalhes os kerangka standars standartivos regionais e a prática de um satu PO.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Pertanyaan yang sering diajukan</h2>>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- CTA duplo -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Wujudkan BOQ jaringan pemadam Anda</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envie os itens, a standar de tujuan e a densidade de hidran — retornaremos dalam 12 jam com uma cotação detalhada, a membahasgem de pengujian per model e um plano logístico consolidado.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href={`/id/contact/?product=${uri.EscapeDataString('Pacote municipal para rede de incêndio')}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Minta penawaran</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Olá, temos uma modernização de rede municipal de incêndio (válvulas + hidrantes + mangueiras) e precisamos de uma cotação detalhada')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat di WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
+

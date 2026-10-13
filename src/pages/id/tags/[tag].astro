@@ -1,0 +1,22 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { tags, type Tag } from '../../../utils/tags';
+import { tagsId } from '../../../utils/tags.id';
+import { guidesId } from '../../../utils/guides.id';
+import { productsId } from '../../../utils/products.id';
+export function getStaticPaths() { return tags.map(tag => ({ params: { tag: tag.slug }, props: { tag } })); }
+const { tag } = Astro.props as { tag: Tag };
+const tagId = tagsId[tag.slug] ?? { name: 'Topik industri', seoTitle: 'Topik industri | Wanlian Fluid Equipment', description: 'Informasi teknis dan solusi pengadaan untuk proyek industri.' };
+const tagGuides = guidesId.filter(g => tag.guideHrefs.some(h => g.href === `/id${h}` || g.href === h));
+const tagProducts = productsId.filter(p => tag.productSlugs.includes(p.slug));
+const relatedTags = tags.filter(t => tag.relatedTags.includes(t.slug));
+---
+<Layout title={tagId.seoTitle} description={tagId.description} type="website" locale="id" breadcrumbs={[{ name: 'Topik', href: '/id/tags/' }, { name: tagId.name }]}>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mb-20"><nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-8 flex gap-2"><a href="/id/">Beranda</a><span>/</span><a href="/id/tags/">Topik</a><span>/</span><span class="text-gray-600">{tagId.name}</span></nav>
+    <div class="max-w-3xl mb-14 space-y-4"><span class="text-xs font-bold tracking-widest text-brand-red uppercase">Topik</span><h1 class="text-4xl font-black text-gray-900 tracking-tight">{tagId.name}</h1><p class="text-lg text-gray-500 leading-relaxed">{tagId.description}</p></div>
+    <div class="flex flex-wrap gap-2 mb-14"><span class="text-xs font-bold text-gray-400 uppercase tracking-wider self-center mr-1">Topik terkait:</span>{relatedTags.map(rel => <a href={`/id/tags/${rel.slug}/`} class="px-3 py-1.5 bg-gray-100 text-gray-600 text-xs font-bold rounded-full">{tagsId[rel.slug]?.name ?? 'Topik terkait'}</a>)}</div>
+    {tagGuides.length > 0 && <section class="mb-16"><h2 class="text-2xl font-black text-gray-900 mb-8">Panduan dan artikel</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-6">{tagGuides.map(guide => <a href={guide.href} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition p-8"><span class="text-xs text-gray-400">{guide.date} · {guide.readTime}</span><h3 class="text-lg font-black text-gray-900 group-hover:text-brand-blue transition leading-snug my-3">{guide.title}</h3><p class="text-sm text-gray-500 leading-relaxed">{guide.description}</p><span class="mt-6 inline-flex text-brand-red font-bold text-sm">Baca panduan →</span></a>)}</div></section>}
+    {tagProducts.length > 0 && <section class="mb-16"><h2 class="text-2xl font-black text-gray-900 mb-8">Produk terkait</h2><div class="grid grid-cols-2 lg:grid-cols-4 gap-6">{tagProducts.map(product => <a href={`/id/products/${product.slug}/`} class="group bg-white rounded-2xl border border-gray-100 shadow-sm p-6"><img src={product.image} alt={product.name} loading="lazy" class="w-full h-36 object-contain rounded-lg bg-gray-50 p-2 mb-4"/><span class="text-[10px] font-bold text-brand-blue uppercase tracking-wider">{product.category}</span><h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-red transition leading-snug mt-2">{product.name}</h3></a>)}</div></section>}
+    <div class="mt-20 p-10 bg-gray-900 rounded-3xl text-white text-center space-y-4"><h2 class="text-2xl font-black">Memerlukan bantuan terkait topik ini?</h2><p class="text-gray-400 max-w-xl mx-auto">Insinyur kami membantu memilih produk yang sesuai untuk proyek Anda.</p><a href="/id/contact/" class="inline-block px-8 py-4 bg-brand-red text-white font-bold rounded-xl">Hubungi insinyur</a></div>
+  </main>
+</Layout>
