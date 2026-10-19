@@ -138,8 +138,8 @@ export const products: Product[] = [
       'Fittings & Pipes': 'Galvanized Steel / Brass'
     },
     image: '/assets/products/wet-alarm-check-valve-zsfz-150.webp',
-    seoTitle: 'ZSFZ-150 Wet Alarm Check Valve | Sprinkler System',
-    seoDescription: 'ZSFZ-150 wet alarm check valve for automatic fire sprinkler systems: durable ductile iron, fast alarm response, high reliability. Factory direct from China.',
+    seoTitle: 'ZSFZ Wet Alarm Check Valve (DN100-DN200 PN16) | Sprinkler System',
+    seoDescription: 'ZSFZ wet alarm check valve assembly for automatic fire sprinkler systems. Ductile iron body, water motor gong, delay chamber & pressure switch. Factory direct quote.',
     faqs: [
       { question: 'How does the ZSFZ wet alarm valve sound the alarm?', answer: 'When sprinkler flow opens the clapper, the water motor alarm gong is driven continuously, the retard chamber filters out transient surges to prevent false alarms, and the pressure switch closes an electrical contact to the fire alarm control panel.' },
       { question: 'Does the ZSFZ need electrical power to operate?', answer: 'No. The valve itself is fully hydraulic; only the pressure switch contact provides the alarm signal to the building fire alarm panel.' },
@@ -438,8 +438,8 @@ image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms-overlay.png',
       'Pipes & Trims': 'Stainless Steel / Brass'
     },
     image: '/assets/products/deluge-alarm-valve-zsfm.webp',
-    seoTitle: 'ZSFM Deluge Alarm Valve DN50-DN300 PN16',
-    seoDescription: 'ZSFM diaphragm deluge alarm valve, DN50-DN300 PN16, DC24V solenoid. Ductile iron body with alarm gong and pressure switch. Factory quotation on request.',
+    seoTitle: 'ZSFM Deluge Alarm Valve Group (DN50-DN300 PN16) | Diaphragm Type',
+    seoDescription: 'ZSFM diaphragm deluge alarm valve group for fire sprinkler systems. DN50-DN300 PN16, DC24V solenoid with hydraulic alarm gong & pressure switch. Factory direct quote.',
     faqs: [
       { question: 'How does the ZSFM deluge alarm valve keep the system closed until a fire is detected?', answer: 'The ZSFM is a diaphragm-type valve that stays closed under system pressure through diaphragm pressure balance. When a fire detection network sends a signal, the diaphragm chamber pressure is released and the valve opens instantly, flooding every open nozzle in the deluge zone.' },
       { question: 'What size range and pressure ratings does the ZSFM cover?', answer: 'The ZSFM deluge alarm valve group covers DN50 to DN300 with a working pressure of 1.6 MPa and a testing pressure of 3.2 MPa (shell test 6.4 MPa). Flanged and grooved connections are both available.' },
@@ -506,8 +506,8 @@ image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms-overlay.png',
       'Fasteners & Bolts': 'Stainless Steel 304'
     },
     image: '/assets/products/suction-vortex-preventer-en12845.webp',
-    seoTitle: 'EN12845 Suction Vortex Preventer | SS304/SS316',
-    seoDescription: 'High efficiency SS304/SS316 Suction Vortex Preventer EN12845. Eliminates vortexes, protects water pumps from cavitation, increases tank capacity utilization.'
+    seoTitle: 'EN12845 Suction Vortex Preventer (SS304/SS316) | Anti-Vortex Plate',
+    seoDescription: 'High efficiency SS304/SS316 Suction Vortex Preventer EN12845 & GB50974. Eliminates vortexes, protects fire pumps from cavitation, maximizes tank capacity.'
   },
   {
     id: '16',

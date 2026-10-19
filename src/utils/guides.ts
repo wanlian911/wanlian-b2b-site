@@ -43,7 +43,7 @@ export const guides: Guide[] = [
     tags: ['fire-water-cannon', 'fire-protection']
   },
   {
-    title: 'Fire Sprinkler System Valves: A Complete Guide (Wet, Deluge & Pre-action)',
+    title: 'Fire Sprinkler System Valves: Selection & Engineering Guide (2026)',
     description: 'How ZSFZ wet alarm, ZSFM deluge, ZSFY pre-action valves and ZSJZ flow indicators work — and when to specify each for your sprinkler system.',
     href: '/guides/fire-sprinkler-system-valves-guide/',
     tocPreview: ["1. Wet-Pipe Systems: The ZSFZ Wet Alarm Valve","2. Deluge Systems: The ZSFM Deluge Valve","3. Pre-Action Systems: The ZSFY Dual-Trigger Valve"],
@@ -63,7 +63,7 @@ export const guides: Guide[] = [
     tags: ['procurement', 'certification', 'industrial-valves']
   },
   {
-    title: 'How to Choose UL Listed Fire Valves for Your Project (2026 Guide)',
+    title: 'How to Choose UL Listed Fire Valves: Complete 2026 B2B Sourcing Guide',
     description: 'What UL listing really means, UL vs FM, which valve types are listed, how to verify genuine certificates and a procurement checklist for B2B buyers.',
     href: '/guides/how-to-choose-ul-listed-fire-valves/',
     tocPreview: ["1. What UL Listing Means for Fire Valves","2. Fire Valve Types You Will Actually Specify","3. Key Specifications to Compare"],
