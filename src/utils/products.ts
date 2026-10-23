@@ -46,7 +46,32 @@ export const products: Product[] = [
       'Applicable Medium': 'Water, Non-corrosive Liquids, Air',
       'Body Material': 'Ductile Iron (QT450-10)'
     },
+    materials: {
+      'Body & Bonnet': 'Ductile Iron (QT450)',
+      'Wedge/Disc': 'Ductile Iron + EPDM Fully Encapsulated',
+      'Stem': 'Stainless Steel (2Cr13 / 304)',
+      'Stem Nut': 'Bronze Alloy',
+      'O-Rings': 'NBR / EPDM Self-tightening'
+    },
+    dimensions: {
+      headers: ['DN (mm)', 'L (mm)', 'D (mm)', 'D1 (mm)', 'D2 (mm)', 'z-Φd (Holes)'],
+      rows: [
+        ['50', '180', '160', '125', '100', '4-Φ18'],
+        ['80', '210', '195', '160', '135', '4-Φ18'],
+        ['100', '230', '215', '180', '155', '8-Φ18'],
+        ['150', '280', '280', '240', '210', '8-Φ23'],
+        ['200', '330', '335', '295', '265', '8-Φ23'],
+        ['300', '420', '440', '400', '368', '12-Φ23']
+      ]
+    },
+    image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp',
     seoTitle: 'Resilient Seated Gate Valve Z41X | Ductile Iron PN10/PN16',
     seoDescription: 'Z41X resilient seated gate valve, ductile iron QT450, EPDM encapsulated wedge, PN10/PN16, DN50-DN700. 100% pressure tested. Get factory direct quote.',
+    faqs: [
+      { question: 'What sizes are available for the Z41X resilient seat gate valve?', answer: 'DN50 to DN700 (2 inch to 28 inch) at PN10 or PN16, covering branch lines up to large transmission mains in water supply, sewage, industrial and HVAC service.' },
+      { question: 'How does the Z41X achieve a bubble-tight seal?', answer: 'The wedge is fully encapsulated in high-grade EPDM rubber, so sealing does not depend on metal-to-metal contact like a traditional gate valve. The flat-bottom design also prevents sediment buildup at the seat.' },
+      { question: 'Can the Z41X seal be replaced without draining the line?', answer: 'The sealing replacement procedure, applicable conditions and safety limits are documented for this valve type; we can provide the technical documentation on request.' },
+      { question: 'What media and temperatures can the Z41X handle?', answer: 'Water, non-corrosive liquids and air from 0°C to 80°C, with a non-toxic epoxy resin coating inside and out for corrosion resistance in potable and industrial networks.' }
+    ]
   },
 ];
