@@ -6,7 +6,22 @@ export default defineConfig({
   site: 'https://wanlian911.com',
   integrations: [
     tailwind(),
-    sitemap()
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en',
+          es: 'es',
+          ru: 'ru',
+          fr: 'fr',
+          ar: 'ar',
+          pt: 'pt',
+          de: 'de',
+          tr: 'tr',
+          id: 'id'
+        }
+      }
+    })
   ],
   output: 'static',
   trailingSlash: 'always',
