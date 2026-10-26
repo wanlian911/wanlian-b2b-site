@@ -1,0 +1,207 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: '¿Una brida PN16 es igual a una brida Class 150?',
+		answer: 'No. Ambas son comunes para servicio de agua DN50 a DN200 y se denominan informalmente "16 bar", pero son sistemas dimensionales distintos. El círculo de pernos, el espesor de la brida, la cara y la rosca se especifican en normas diferentes, por lo que una válvula Class 150 no necesariamente se atornilla a una brida de tubería PN16. Indique la norma, la clase y la rosca en el pedido.'
+	},
+	{
+		question: '¿Puedo usar la misma junta para una brida ANSI y una DIN del mismo tamaño?',
+		answer: 'Solo si la junta está dimensionada para ambas. Una junta para cara realzada ASME tiene diámetro exterior y espesor distintos de una para cara realzada EN, y una brida de hierro fundido de cara plana necesita una junta de cara completa, no una de cara realzada. Haga coincidir el tipo de cara y la norma de la junta, no solo el tamaño nominal.'
+	},
+	{
+		question: '¿Por qué JIS 10K parece PN16 pero no encaja?',
+		answer: 'JIS B2220 usa sus propias tablas de círculo de pernos, tamaño de pernos y espesor, dimensionadas en milímetros según un patrón que no sigue EN 1092 ni ASME. En algunos tamaños coincide el número de pernos con PN16, lo que facilita el error: los orificios parecen alinearse, pero el círculo o el diámetro del perno son incorrectos. JIS 10K es habitual en Japón, Corea, Taiwán y gran parte del trabajo marino y de plantas del Sudeste Asiático.'
+	},
+	{
+		question: '¿DN y NPS son intercambiables?',
+		answer: 'En los tamaños comunes los diámetros nominales corresponden — DN50 es NPS 2 y DN100 es NPS 4 —, pero DN es una designación métrica redondeada, por lo que el diámetro interior y el espesor real dependen de la serie o schedule, no de la etiqueta. El riesgo práctico no es DN frente a NPS, sino suponer que el taladrado de la brida se deriva solo del tamaño nominal. No es así.'
+	},
+	{
+		question: '¿Qué hago si los orificios de los pernos casi coinciden en obra?',
+		answer: 'No los escarie, ranure ni taladre. Agrandar un orificio reduce la sección de la brida, cambia el área de apoyo bajo la tuerca y constituye una no conformidad con todas las normas de bridas. Las respuestas correctas son una pieza spool taladrada correctamente, una brida adaptadora o un par de bridas pedido según la norma adecuada. Un proveedor que ofrece "abrir un poco los orificios" está revelando algo sobre todo el pedido.'
+	},
+	{
+		question: '¿Qué norma de brida debo especificar para un proyecto de exportación?',
+		answer: 'Siga la norma con la que se diseñó la tubería: ASME B16.5 para Norteamérica y gran parte de Medio Oriente y América Latina, EN 1092 para Europa y diseños influenciados por la CEI, JIS B2220 para plantas y trabajos marinos de influencia japonesa, y GB/T para proyectos chinos. El diseñador y la especificación del cliente deciden; el proveedor debe coincidir con el plano, no convertirlo.'
+	}
+];
+
+const toc = [
+	{ id: 'why-flange-mismatch', label: '1. Por Qué una Brida Incompatible Detiene los Proyectos' },
+	{ id: 'three-families', label: '2. Las Tres Familias de Bridas' },
+	{ id: 'pressure-class-myths', label: '3. Mitos sobre la Equivalencia de Clases de Presión' },
+	{ id: 'what-differs', label: '4. Qué Diferencias Existen Realmente' },
+	{ id: 'gaskets-and-bolting', label: '5. Juntas y Pernos' },
+	{ id: 'rfq-and-inspection', label: '6. La Cláusula de la RFQ y la Inspección de Recepción' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+const products = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Válvula de Compuerta con Brida, Asiento Elástico, Hierro Dúctil (Z41X)', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50-DN700, PN10 / PN16, con brida' },
+	{ slug: 'flange-manual-bellows-gate-valve', name: 'Válvula de Compuerta Manual con Brida y Sello de Fuelle', img: '/assets/products/flange-manual-bellows-gate-valve.webp', desc: 'DN15-DN300, Class 150/300, vapor' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'Colador en Y Telescópico SGL41H', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'DN50-DN600, malla SS304/316' },
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: 'Válvula Reductora de Presión Ajustable Hidráulica (500X)', img: '/assets/products/pressure-reducing-valve-500x-dn50.webp', desc: 'DN20-DN600, taladrado ANSI / JIS / GB' }
+];
+---
+
+<Layout
+	title="Normas de Bridas: ANSI, DIN, JIS y PN16"
+	description="Compare ANSI, DIN y JIS: diferencias de taladrado y clases de presión para especificar bridas de válvulas en RFQ y evitar incompatibilidades en obra."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Comparación de Normas de Bridas' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Comparación de Normas de Bridas</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Normas de Bridas</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Normas de Bridas para Válvulas: ANSI, DIN, JIS y GB</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En resumen: «DN100 PN16» indica un tamaño nominal y una presión, pero no describe una brida. El círculo, la cantidad y el diámetro de pernos, el espesor y la cara dependen de si la planta se diseñó según ASME B16.5, EN 1092 o JIS B2220. Esta guía explica las diferencias reales, por qué las clases de presión no son intercambiables y cómo redactar el requisito para que la válvula encaje al recibirla.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-flange-mismatch" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Por Qué una Brida Incompatible Detiene los Proyectos</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Una válvula es el componente de una tubería que debe coincidir simultáneamente con dos elementos: la tubería donde se instala y las bridas a las que se atornilla. Todo lo demás puede resolverse en obra; una brida no. Cuando los orificios no coinciden, las opciones son una pieza spool nueva, un par de bridas adaptadoras o volver a pedir la válvula, y las tres llegan después del programa original.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La falla suele estar entre dos documentos. La hoja técnica dice «DN100, PN16, con brida»; los planos de tubería son ASME B16.5 Class 150; el almacén de obra tiene espárragos en pulgadas. Nada de la hoja técnica está mal y la válvula recibida es exactamente la pedida. Aun así no encaja, y como cumple la orden de compra, el costo recae en el comprador.</p>
+			<p class="text-gray-700 leading-relaxed">Volver a taladrar en obra es peor que el retraso: agrandar un orificio reduce la sección de la brida, cambia el área de apoyo bajo la tuerca y crea una no conformidad que ningún inspector aprobará. La solución cuesta una línea en la RFQ, escrita antes del pedido.</p>
+
+			<h2 id="three-families" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Las Tres Familias de Bridas</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La adquisición internacional trabaja con tres familias vigentes y dos heredadas. La tabla es deliberadamente cualitativa: su función es ubicar el proyecto en el sistema correcto, no sustituir las tablas dimensionales.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Familia</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Designaciones de presión</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Características del patrón de pernos</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Dónde es práctica estándar</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">ASME B16.5 (acero, aleación)</td>
+							<td class="px-4 py-3 text-gray-700">Class 150 a 2500</td>
+							<td class="px-4 py-3 text-gray-700">Pernos en pulgadas, círculo y espesor según clase</td>
+							<td class="px-4 py-3 text-gray-700">Norteamérica, petróleo y gas de Medio Oriente, América Latina</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">ASME B16.1 (hierro fundido)</td>
+							<td class="px-4 py-3 text-gray-700">Class 25, 125, 250</td>
+							<td class="px-4 py-3 text-gray-700">Tablas de bridas de hierro; no es una clase B16.5</td>
+							<td class="px-4 py-3 text-gray-700">Tuberías heredadas de hierro para agua y HVAC en Norteamérica</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">EN 1092-1 / 1092-2</td>
+							<td class="px-4 py-3 text-gray-700">PN6 a PN40</td>
+							<td class="px-4 py-3 text-gray-700">Pernos métricos, tablas basadas en PN y caras definidas</td>
+							<td class="px-4 py-3 text-gray-700">Europa, proyectos influenciados por la CEI y licitaciones internacionales de agua</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">JIS B2220</td>
+							<td class="px-4 py-3 text-gray-700">5K, 10K, 16K, 20K, 30K</td>
+							<td class="px-4 py-3 text-gray-700">Pernos métricos según patrón japonés</td>
+							<td class="px-4 py-3 text-gray-700">Japón, Corea, Taiwán y trabajo marino del Sudeste Asiático</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Serie GB/T</td>
+							<td class="px-4 py-3 text-gray-700">PN2.5 a PN40 en servicio común de agua</td>
+							<td class="px-4 py-3 text-gray-700">Pernos métricos, sistema PN con detalle nacional</td>
+							<td class="px-4 py-3 text-gray-700">Proyectos nacionales chinos y plantas diseñadas en China en el extranjero</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">BS 4504 / BS 10 (heredada)</td>
+							<td class="px-4 py-3 text-gray-700">Designaciones PN; letras de tabla</td>
+							<td class="px-4 py-3 text-gray-700">Patrones sustituidos que aún aparecen en planos antiguos</td>
+							<td class="px-4 py-3 text-gray-700">Plantas existentes y renovación, no diseño nuevo</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Dos aclaraciones son útiles en una reunión. Class 125 es una designación de hierro fundido ASME B16.1, no una clase de presión B16.5: en tamaños pequeños, una brida de hierro Class 125 puede compartir el patrón de pernos con una brida de acero Class 150, pero el espesor, la cara y los límites del material provienen de tablas diferentes. Además, EN 1092 se divide por material: EN 1092-1 para acero y EN 1092-2 para hierro fundido; por ello, el cuerpo de una válvula de hierro dúctil se dimensiona según la parte de hierro fundido.</p>
+			<p class="text-gray-700 leading-relaxed">ISO 7005 está detrás de gran parte de esto, y las normas nacionales derivadas suelen ser compatibles, pero no idénticas. Las afirmaciones de compatibilidad siempre requieren la tabla, nunca solo el nombre de la familia.</p>
+
+			<h2 id="pressure-class-myths" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Mitos sobre la Equivalencia de Clases de Presión</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El mito más perjudicial en la compra de válvulas es la tabla que dice que Class 150 equivale a PN16 y Class 300 a PN40. Persiste porque es aproximadamente cierto en el único punto que se comprueba — agua a temperatura ambiente — y es incorrecto en cualquier otro.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Los dos sistemas no miden lo mismo. Una clase ASME es una designación de referencia cuya presión admisible se obtiene de una tabla específica del material y disminuye al subir la temperatura. Un número PN es una presión nominal con sus propios grupos de materiales y curva de reducción. Una brida de acero al carbono Class 150 soporta algo menos de 20 bar a 38°C; una brida PN16 soporta 16 bar en su condición de referencia. Son valores cercanos para confundirse, pero no se transfieren.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">De ello se derivan dos consecuencias. Una válvula no se convierte de un sistema al otro cambiando la marca: la fundición se mecaniza para un taladrado y eso es lo que se envía. Y las tablas de conversión comercial expresan capacidad de presión, nunca dimensiones.</p>
+			<p class="text-gray-700 leading-relaxed">El taladrado es una opción de fabricación, no algo posterior: nuestra <a href="/es/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">válvula reductora de presión 500X</a> se ofrece con taladrado ANSI, JIS o GB, y la <a href="/es/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">válvula de compuerta con brida Z41X</a> se fabrica en PN10 o PN16. En cualquier caso, la opción debe figurar en el pedido; el embalaje no puede recuperar un taladrado que nunca se especificó.</p>
+
+			<h2 id="what-differs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Qué Diferencias Existen Realmente</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Cinco características deciden si dos bridas se acoplan. Son las preguntas que debe formular al comparar una hoja técnica con un plano de tuberías.</p>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Círculo de pernos (PCD).</strong> Es el diámetro que pasa por los centros de los orificios y la dimensión que más se supone común. Nuestra tabla publicada de Z41X lo indica como columna D1: DN100 muestra 180 mm con ocho orificios de 18 mm. Compare con una tabla de ese tipo, no con una tabla de conversión.</li>
+				<li><strong>Cantidad de pernos.</strong> DN100 usa ocho pernos tanto en ASME Class 150 como en EN 1092-2 PN16, precisamente por eso el error es frecuente: la cantidad coincide y la brida parece correcta hasta que se introduce un espárrago.</li>
+				<li><strong>Diámetro y rosca del perno.</strong> Espárragos en pulgadas en ASME y métricos en EN, JIS y GB. Un espárrago de 5/8" no pasará por un orificio de 16 mm con el esfuerzo de apoyo previsto.</li>
+				<li><strong>Espesor y diámetro exterior.</strong> Aunque el taladrado coincida, el espesor de la placa cambia y controla cómo llega la carga del perno a la junta.</li>
+				<li><strong>Tipo de cara.</strong> Cara realzada, cara plana o junta tipo anillo, con altura y ancho de asiento definidos por separado en cada norma.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">La inspección se desprende de esa lista: cuente los orificios, mida su diámetro, el círculo entre orificios opuestos, el diámetro exterior, el espesor y la altura de la cara, y compare con la tabla correspondiente a la marca de la brida. Mejor aún, pruebe una válvula contra una pieza spool de obra. La marca es la otra mitad de la verificación: norma, clase o PN, tamaño, material y número de colada. Si está pintada, no puede vincularse al certificado.</p>
+
+			<h2 id="gaskets-and-bolting" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Juntas y Pernos</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La brida es la mitad de una unión. La otra mitad se elige para ella, y las dos fallas comunes — una filtración en la prueba hidrostática y una junta que se extruye después de un ciclo térmico — suelen deberse a una decisión de junta o pernos tomada por separado.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Para bridas de acero con cara realzada, una junta espiralada con anillos interior y exterior es la opción predeterminada en muchas especificaciones de planta, dimensionada según la norma de juntas que corresponde a la serie de bridas. Las bridas de hierro fundido con cara plana requieren una junta de cara completa cuyos orificios coincidan con el patrón; debe pedirse según la misma norma que la válvula. Las válvulas wafer revestidas sellan sobre el revestimiento, pero necesitan caras limpias y planas, sin salpicaduras de soldadura. Las juntas tipo anillo requieren una ranura compatible, que no puede improvisarse en obra.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Los pernos siguen la misma lógica: espárragos de acero al carbono con tuercas hexagonales pesadas para bridas de acero, e inoxidables cuando lo exige la corrosión o el cliente. En el montaje importan la secuencia y el control: patrón cruzado y apriete por etapas, con el torque tomado de la tabla del fabricante de la junta para ese tamaño y material, usando un lubricante definido. Un torque genérico de otra junta es peor que no tenerlo, porque parece autorizado. Los pernos no se reutilizan después de abrir una unión a presión.</p>
+			<p class="text-gray-700 leading-relaxed">Dos detalles causan problemas desproporcionados. El recubrimiento en la cara de una brida cambia el asiento de la junta, por lo que las caras deben enmascararse al pintar; por eso también conviene preguntar si la válvula se pintó después de probarla. Y los tapones protectores deben retirarse: uno dentro de una brida se convierte en una obstrucción aguas abajo y, en una red contra incendios, en un montante bloqueado.</p>
+
+			<h2 id="rfq-and-inspection" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. La Cláusula de la RFQ y la Inspección de Recepción</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un requisito de brida que sobreviva a fábrica, transportista y almacén de obra debe ser breve y específico. Todo lo demás deja la interpretación al proveedor, quien escogerá el taladrado que fabrica con mayor frecuencia.</p>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Norma y edición.</strong> ASME B16.5, EN 1092-2 o JIS B2220, con el año cuando el documento del proyecto lo indique.</li>
+				<li><strong>Clase, no conversión.</strong> Class 150 o PN16; nunca «equivalente 150 lb / PN16».</li>
+				<li><strong>Tamaño en ambos sistemas.</strong> DN100 (NPS 4), para que nadie tenga que adivinar la correspondencia.</li>
+				<li><strong>Tipo de cara.</strong> Cara realzada, cara plana o junta tipo anillo, con tolerancia de altura si el proyecto la exige.</li>
+				<li><strong>Pernos.</strong> En pulgadas o métricos, y grado del espárrago cuando se especifique.</li>
+				<li><strong>Prohibiciones.</strong> No agrandar ni ranurar orificios, no volver a taladrar en campo y enmascarar las caras durante el recubrimiento.</li>
+				<li><strong>Evidencia.</strong> Registro dimensional por tamaño, certificado de material y fotografía de la marca en una muestra.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">La inspección de recepción tendrá entonces una lista de verificación, no una decisión subjetiva, y las medidas quedarán registradas para comparar un pedido repetido. Dos guías amplían las decisiones relacionadas: la <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de compra B2B de válvulas</a> cubre el paquete documental del envío, y la <a href="/es/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">guía de normas de válvulas de hidrante</a> explica cómo las normas de acople de mangueras vuelven a diferir del taladrado de tuberías. Los equipos auxiliares con brida siguen la misma decisión: el <a href="/es/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">colador en Y telescópico SGL41H</a> y la <a href="/es/products/sp45f-flange-digital-balancing-valve/" class="text-brand-blue font-semibold hover:underline">válvula de equilibrado SP45F</a> deben pedirse según la misma norma que las válvulas vecinas.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita Válvulas con el Taladrado de su Norma?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíe la norma de brida, clase, tamaño y rosca de los planos de tubería; confirmaremos el taladrado, la interfaz de junta y el registro dimensional antes de fabricar.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=V%C3%A1lvula%20con%20Taladrado%20ANSI%20EN%20JIS" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20v%C3%A1lvulas%20con%20una%20norma%20de%20brida%20espec%C3%ADfica" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

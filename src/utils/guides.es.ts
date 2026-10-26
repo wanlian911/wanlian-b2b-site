@@ -7,6 +7,16 @@ const readTime = (min: string) => `${min} min de lectura`;
 
 export const guidesEs: Guide[] = [
   {
+    title: 'Normas de Bridas: ANSI, DIN, JIS y PN16',
+    description: 'Compare ANSI, DIN y JIS: diferencias de taladrado y clases de presión para especificar bridas de válvulas en RFQ y evitar incompatibilidades en obra.',
+    href: '/es/guides/flange-standard-guide-ansi-din-jis/',
+    tocPreview: ["1. Por Qué una Brida Incompatible Detiene los Proyectos","2. Las Tres Familias de Bridas","3. Mitos sobre la Equivalencia de Clases de Presión"],
+    date: '2026-10',
+    category: 'Válvulas',
+    readTime: readTime('9'),
+    tags: ['industrial-valves', 'procurement']
+  },
+  {
     title: 'Prevención de Reflujo en Redes Contra Incendios y Agua Potable (2026)',
     description: 'Por qué los dispositivos anti-retorno son obligatorios en redes de doble uso, cómo funcionan las dobles retenciones HS41X, control de conexiones cruzadas y lista de selección para compradores B2B.',
     href: '/es/guides/backflow-prevention-guide/',

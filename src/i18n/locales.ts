@@ -301,33 +301,28 @@ export function activeLocales(): Locale[] {
 }
 
 /**
- * 仅英文已上线、译文尚未发布的页面。
- * TRANSLATED_PREFIXES 是按路径前缀判断的，/guides/ 整体已翻译，
- * 因此新增的英文单语页必须在此登记，否则会向不存在的语言版本输出 hreflang。
- * 译文补齐后从本列表移除即可。
+ * 新增页面按语言的译文发布状态（路径 -> 尚无该语言版本）。
+ * TRANSLATED_PREFIXES 只能按前缀判断，而 /guides/ 整体已翻译，
+ * 因此“某些语言还没有这一页”必须逐条登记，否则会向不存在的语言版本输出 hreflang。
+ * 某语言补齐该页译文后，把对应路径从该语言的数组里删掉即可。
  */
-export const EN_ONLY_PATHS: string[] = [
-  '/guides/esfr-sprinkler-system-guide/',
-  '/guides/fire-pump-room-valves-guide/',
-  '/guides/osy-gate-valve-guide/',
-  '/guides/fire-hose-coupling-standards-guide/',
-  '/guides/api-598-valve-pressure-test-guide/',
-  '/guides/flange-standard-guide-ansi-din-jis/',
-  '/guides/valve-body-material-selection-guide/',
-  '/guides/water-flow-indicator-guide/',
-  '/guides/foam-proportioning-system-guide/',
-  '/guides/nfpa-fire-protection-standards-guide/',
-  '/esfr-sprinklers/',
-  '/fire-pump-connections/',
-  '/fire-hose-couplings/'
-];
+export const PENDING_TRANSLATIONS: Partial<Record<Locale, string[]>> = {
+  es: ['/guides/esfr-sprinkler-system-guide/', '/guides/fire-pump-room-valves-guide/', '/guides/osy-gate-valve-guide/', '/guides/fire-hose-coupling-standards-guide/', '/guides/api-598-valve-pressure-test-guide/', '/guides/valve-body-material-selection-guide/', '/guides/water-flow-indicator-guide/', '/guides/foam-proportioning-system-guide/', '/guides/nfpa-fire-protection-standards-guide/', '/esfr-sprinklers/', '/fire-pump-connections/', '/fire-hose-couplings/'],
+  ru: ['/guides/esfr-sprinkler-system-guide/', '/guides/fire-pump-room-valves-guide/', '/guides/osy-gate-valve-guide/', '/guides/fire-hose-coupling-standards-guide/', '/guides/api-598-valve-pressure-test-guide/', '/guides/flange-standard-guide-ansi-din-jis/', '/guides/valve-body-material-selection-guide/', '/guides/water-flow-indicator-guide/', '/guides/foam-proportioning-system-guide/', '/guides/nfpa-fire-protection-standards-guide/', '/esfr-sprinklers/', '/fire-pump-connections/', '/fire-hose-couplings/'],
+  fr: ['/guides/esfr-sprinkler-system-guide/', '/guides/fire-pump-room-valves-guide/', '/guides/osy-gate-valve-guide/', '/guides/fire-hose-coupling-standards-guide/', '/guides/api-598-valve-pressure-test-guide/', '/guides/flange-standard-guide-ansi-din-jis/', '/guides/valve-body-material-selection-guide/', '/guides/water-flow-indicator-guide/', '/guides/foam-proportioning-system-guide/', '/guides/nfpa-fire-protection-standards-guide/', '/esfr-sprinklers/', '/fire-pump-connections/', '/fire-hose-couplings/'],
+  ar: ['/guides/esfr-sprinkler-system-guide/', '/guides/fire-pump-room-valves-guide/', '/guides/osy-gate-valve-guide/', '/guides/fire-hose-coupling-standards-guide/', '/guides/api-598-valve-pressure-test-guide/', '/guides/flange-standard-guide-ansi-din-jis/', '/guides/valve-body-material-selection-guide/', '/guides/water-flow-indicator-guide/', '/guides/foam-proportioning-system-guide/', '/guides/nfpa-fire-protection-standards-guide/', '/esfr-sprinklers/', '/fire-pump-connections/', '/fire-hose-couplings/'],
+  pt: ['/guides/esfr-sprinkler-system-guide/', '/guides/fire-pump-room-valves-guide/', '/guides/osy-gate-valve-guide/', '/guides/fire-hose-coupling-standards-guide/', '/guides/api-598-valve-pressure-test-guide/', '/guides/flange-standard-guide-ansi-din-jis/', '/guides/valve-body-material-selection-guide/', '/guides/water-flow-indicator-guide/', '/guides/foam-proportioning-system-guide/', '/guides/nfpa-fire-protection-standards-guide/', '/esfr-sprinklers/', '/fire-pump-connections/', '/fire-hose-couplings/'],
+  de: ['/guides/esfr-sprinkler-system-guide/', '/guides/fire-pump-room-valves-guide/', '/guides/osy-gate-valve-guide/', '/guides/fire-hose-coupling-standards-guide/', '/guides/api-598-valve-pressure-test-guide/', '/guides/flange-standard-guide-ansi-din-jis/', '/guides/valve-body-material-selection-guide/', '/guides/water-flow-indicator-guide/', '/guides/foam-proportioning-system-guide/', '/guides/nfpa-fire-protection-standards-guide/', '/esfr-sprinklers/', '/fire-pump-connections/', '/fire-hose-couplings/'],
+  tr: ['/guides/esfr-sprinkler-system-guide/', '/guides/fire-pump-room-valves-guide/', '/guides/osy-gate-valve-guide/', '/guides/fire-hose-coupling-standards-guide/', '/guides/api-598-valve-pressure-test-guide/', '/guides/flange-standard-guide-ansi-din-jis/', '/guides/valve-body-material-selection-guide/', '/guides/water-flow-indicator-guide/', '/guides/foam-proportioning-system-guide/', '/guides/nfpa-fire-protection-standards-guide/', '/esfr-sprinklers/', '/fire-pump-connections/', '/fire-hose-couplings/'],
+  id: ['/guides/esfr-sprinkler-system-guide/', '/guides/fire-pump-room-valves-guide/', '/guides/osy-gate-valve-guide/', '/guides/fire-hose-coupling-standards-guide/', '/guides/api-598-valve-pressure-test-guide/', '/guides/flange-standard-guide-ansi-din-jis/', '/guides/valve-body-material-selection-guide/', '/guides/water-flow-indicator-guide/', '/guides/foam-proportioning-system-guide/', '/guides/nfpa-fire-protection-standards-guide/', '/esfr-sprinklers/', '/fire-pump-connections/', '/fire-hose-couplings/']
+};
 
 /** 目标路径在该语言下是否已有真实页面（默认语言恒真；容忍无尾斜杠与 hash/query）。 */
 export function isTranslated(pathname: string, locale: Locale): boolean {
   if (locale === DEFAULT_LOCALE) return true;
   const clean = pathname.split(/[?#]/)[0];
   const norm = clean.endsWith('/') ? clean : `${clean}/`;
-  if (EN_ONLY_PATHS.includes(norm)) return false;
+  if (PENDING_TRANSLATIONS[locale]?.includes(norm)) return false;
   const prefixes = TRANSLATED_PREFIXES[locale] ?? [];
   if (norm === '/') return prefixes.includes('/');
   return prefixes.some(prefix => prefix !== '/' && norm.startsWith(prefix));
