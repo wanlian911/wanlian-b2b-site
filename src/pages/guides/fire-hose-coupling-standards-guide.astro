@@ -1,0 +1,202 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Is a 2.5 inch coupling the same everywhere?',
+		answer: 'No, and this is the single most expensive misunderstanding in hose procurement. The size describes the nominal bore of the hose or the coupling, not the way it locks. A 2.5 in (65 mm) Storz coupling, a 2.5 in John Morris coupling and a 2.5 in NST coupling all fit 65 mm hose and none of them will connect to each other without an adapter.'
+	},
+	{
+		question: 'Can I use adapters instead of matching the standard?',
+		answer: 'Adapters are a legitimate solution for one or two interface points — a hydrant outlet that does not match the site hose, for example. They are a poor solution as a system-wide strategy, because every adapter is an extra joint, an extra gasket, an extra item to lose and an extra pressure loss. If your project will use many hoses, specify the couplings to the local standard and use adapters only at the boundary.'
+	},
+	{
+		question: 'Why do couplings leak at the joint even when they are tight?',
+		answer: 'Almost always the gasket. It may be missing, hardened, swollen by the wrong medium, or the wrong profile for that coupling type — Storz couplings seat on a gasket inside the coupling half, while threaded patterns seal on a washer in the female swivel. A thread that is tight but dry will still leak, and a damaged or missing gasket is the first thing to check on any wet joint.'
+	},
+	{
+		question: 'What pressure rating should the couplings and hose carry?',
+		answer: 'Rate the whole line, not just the pump. The coupling, the hose, the nozzle and the hydrant valve should all be rated for the maximum pressure the system can produce, which on a boosted installation is the pump churn pressure rather than the rated pressure. Our standard aluminum couplings and hydrant valves are rated 1.6 MPa (232 PSI); if your system is tested above that, say so at inquiry stage.'
+	},
+	{
+		question: 'Aluminum or brass couplings for an export project?',
+		answer: 'Aluminum is lighter and cheaper, which matters on long hose lays and in high-volume cabinets, and anodized aluminum is the usual choice for Storz and instantaneous types. Brass resists galvanic corrosion better in marine and coastal service and survives rougher handling at the threads. A mixed aluminum-to-brass joint in salt air is the combination to avoid, because the aluminum side corrodes first.'
+	},
+	{
+		question: 'What should be in a coupling submittal?',
+		answer: 'The pattern and standard by name, the nominal size, the material and finish, the working pressure, the gasket material, and the hose-tail or thread configuration at each end. Add a physical sample for approval on any project where the fire department will use the equipment, because a sample settles in one minute what a drawing description cannot.'
+	}
+];
+
+const toc = [
+	{ id: 'why-standards-matter', label: '1. Why Coupling Standards Decide Compatibility' },
+	{ id: 'storz', label: '2. Storz: Symmetric and Quarter-Turn' },
+	{ id: 'threaded-patterns', label: '3. Threaded Patterns Compared' },
+	{ id: 'matching', label: '4. Matching Couplings to Hydrants and Nozzles' },
+	{ id: 'common-mistakes', label: '5. Common Project Mistakes' },
+	{ id: 'specification-checklist', label: '6. Specification Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const products = [
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: 'Aluminum Storz Fire Coupling 2.5"', img: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png', desc: 'German standard, quarter-turn, 1.6 MPa, barbed' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'HS Hydrant Hose Coupling Adapter', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65, anodized aluminum, 1.6 MPa' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'PVC Rubber Lining Layflat Hose 8-65', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: '65 mm standard coupling size, 19-400 mm bore' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'Adjustable Pistol Grip Nozzle', img: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg', desc: '1.5"/2"/2.5" inlet, 150-500 LPM, fog to stream' }
+];
+---
+
+<Layout
+	title="Fire Hose Coupling Standards: Storz, John Morris &amp; Nakajima"
+	description="Fire hose coupling standards for export buyers: how Storz, John Morris, Nakajima, Machino and instantaneous threads differ, and how to avoid mismatches."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Fire Hose Coupling Standards' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Fire Hose Coupling Standards</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Export Buyer Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Fire Hose Coupling Standards: Storz, John Morris, Nakajima and Machino</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a hose coupling is a compatibility decision before it is a product decision. Two couplings of the same nominal size, made to different national patterns, will not connect — and on site that failure is discovered at the worst possible moment. This guide explains the coupling families you will meet in international tender documents, how each one locks, which markets use which, and how to specify a hose line that actually fits the hydrant, the pump and the nozzle at the other end.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-standards-matter" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Why Coupling Standards Decide Compatibility</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Fire hose is a commodity. Couplings are not. A length of 65 mm layflat hose is broadly the same product whether it was woven in Asia or Europe, but the coupling pressed onto its end belongs to a national tradition of firefighting practice, and those traditions do not interoperate. Each pattern was standardized by a country's fire service for the appliances it had at the time, and the standards were never harmonized.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The result is a compatibility matrix that a procurement engineer has to navigate by hand. Nominal size is the trap: 2.5 in, 65 mm, DN65 and "C size" all describe roughly the same bore, and every one of them can be executed as a Storz coupling, a John Morris coupling, a Nakajima claw coupling, a Machino thread or an NST thread. None of these will mate with any of the others. The size tells you the flow capacity; the pattern tells you whether the line can be connected at all.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">For an export project, that means three parties have to agree before the purchase order is released: the consultant who wrote the specification, the fire department that will respond to the building, and the maintenance team that will test the system. If the specification says "2.5 inch instantaneous" and the local brigade carries Storz, you will deliver equipment that is technically compliant and operationally useless. Ask for a photograph or a sample of the hydrant outlet the brigade uses — not a description.</p>
+			<p class="text-gray-700 leading-relaxed">Two interface components decide most of these questions: the hydrant outlet and the hose cabinet valve. The <a href="/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">SN65 indoor fire hydrant head</a> is a DN65 (2.5 in) wall-mounted valve rated 1.6 MPa (232 PSI) and tested to 2.4 MPa, available with grooved or flanged connections and an anodized aluminum or brass coupling interface — so the coupling pattern can be fixed at order time. Wider hydrant practice, including underground and pillar types, is covered in the <a href="/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">fire hydrant valve standards guide</a>.</p>
+
+			<h2 id="storz" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Storz: Symmetric and Quarter-Turn</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Storz is the most widely exported coupling family, and its defining feature is that it has no male and no female. The two halves are identical: each carries internal lugs or hooks around its rim, and pushing the halves together and turning a quarter turn engages them. A gasket seated in the coupling face does the sealing, so the joint does not depend on thread torque. The result is a connection that one person can make in a second, in the dark, with gloves on.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Because there is no direction, hoses can be joined in any order and a damaged end can be replaced with the same part as the other end — an inventory advantage on a large site. The absence of a thread also means there is nothing to cross-thread, which is why Storz survives hard use in marine and industrial service better than threaded patterns. The trade-off is that the lugs are exposed and can be deformed by impact, and a deformed lug will not seat; the coupling also relies entirely on its gasket, so a missing or hardened gasket leaks immediately.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Size steps are nominal and follow the hose: DN50, DN65, DN80, DN100 and DN150 (2 in to 6 in), with larger sizes carrying more lugs. Each size only mates with the same size, so a DN65 hose cannot be connected to a DN80 outlet without a reducing coupling. Our <a href="/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">2.5 in aluminum Storz coupling</a> follows the German standard in aluminum with optional brass or chrome plating, rated 1.6 MPa for clear water and foam mixture, barbed for layflat hose and supplied factory-fitted or loose.</p>
+			<p class="text-gray-700 leading-relaxed">One point worth clearing up in the submittal: Storz is the hose-to-hose and hose-to-appliance interface, not the hydrant outlet thread. A hydrant with a John Morris or NST outlet needs a Storz adapter on that outlet — the role of the HS series adapter described below.</p>
+
+			<h2 id="threaded-patterns" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Threaded Patterns Compared</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Threaded and claw patterns are where most project mismatches occur, because the names travel in tender documents without their dimensions. The four you will meet most often outside North America are John Morris, Nakajima, Machino and the British instantaneous type; NST is the North American equivalent and appears in most US-influenced specifications.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>John Morris</strong> is a British-origin threaded pattern with a male and a female half, sealed by a washer in the female swivel. The thread is coarse and rounded so it can be made up quickly by hand, and the coupling is standard across the UK and much of the Middle East and Southeast Asia. It is robust and repairable, but it is slower than a quarter-turn coupling and the thread must be kept clean.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Nakajima</strong> is a Japanese instantaneous pattern: two external levers on one half hook over a groove on the other, and squeezing the levers locks the joint. It is fast, needs no rotation, and is the normal hose coupling in Japan. <strong>Machino</strong> is the Japanese threaded pattern, used where a screw connection is wanted — typically on hydrant outlets and appliances rather than on the hose itself. The two coexist in Japanese practice, which is why Japanese-market specifications usually name both.</p>
+			<p class="text-gray-700 leading-relaxed">The <strong>instantaneous</strong> type (often written "Inst") is the British claw coupling: two levers grab a groove, similar in principle to Nakajima but built to a different standard and not interchangeable with it. Together with Storz, these are the patterns most often confused at the "2.5 inch" level, and telling them apart requires the standard name, not the size. The table below is a starting reference for the submittal review.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Pattern</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Locking method</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical market</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Storz (symmetric)</td>
+							<td class="px-4 py-3 text-gray-700">Quarter turn, internal lugs, face gasket; sexless halves</td>
+							<td class="px-4 py-3 text-gray-700">Germany and Central Europe, Middle East, marine and industrial export</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">John Morris</td>
+							<td class="px-4 py-3 text-gray-700">Coarse male/female thread with washer seal</td>
+							<td class="px-4 py-3 text-gray-700">UK, Middle East, Singapore, Malaysia, Hong Kong</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Nakajima</td>
+							<td class="px-4 py-3 text-gray-700">Twin lever claw over a groove, instantaneous</td>
+							<td class="px-4 py-3 text-gray-700">Japan, and Japanese-specified projects in Asia</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Machino</td>
+							<td class="px-4 py-3 text-gray-700">Threaded male/female, screw connection</td>
+							<td class="px-4 py-3 text-gray-700">Japan, Korea, Taiwan</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Instantaneous (Inst)</td>
+							<td class="px-4 py-3 text-gray-700">Twin lever claw, British claw pattern</td>
+							<td class="px-4 py-3 text-gray-700">UK, Commonwealth markets, institutional buildings</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">NST / NH (ANSI)</td>
+							<td class="px-4 py-3 text-gray-700">Coarse V-thread, male/female, washer seal</td>
+							<td class="px-4 py-3 text-gray-700">United States, Canada, US-specified projects</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="matching" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Matching Couplings to Hydrants and Nozzles</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A hose line has at least three joints: hydrant or cabinet valve to hose, hose to hose, and hose to nozzle. Each can be a different pattern, and each one is a place where the line fails. The practical approach is to fix the pattern at the hydrant, because that is the interface you cannot change — it is set by the local fire department — and then carry that pattern through the hose and into the nozzle.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Where the hydrant outlet and the hose differ, an adapter bridges them. The <a href="/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS series hydrant hose coupling adapter</a> is machined from T6 hard-anodized aluminum in DN50 and DN65 (2 in to 2.5 in), with a self-sealing EPDM internal thread seal and a 1.6 MPa (232 PSI) rating, so a Storz or other quick-connect hose can be taken onto a threaded hydrant outlet without a second joint. Keep the adapter count low: every additional joint is another gasket to lose.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The hose end is the second decision. A <a href="/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">PVC rubber-lined layflat hose</a> in the Model 8-65 (65 mm) configuration takes a standard 65 mm coupling, and the same hose is available from 19 mm to 400 mm bore for other duties, with standard aluminum or brass couplings and the thread system matched to the market on request. Confirm whether the coupling is supplied factory-fitted or loose: factory fitting gives a tested assembly, while loose couplings let the contractor match an existing inventory — both are legitimate, but they are different orders.</p>
+			<p class="text-gray-700 leading-relaxed">At the far end, the nozzle inlet pattern has to match the hose coupling. The <a href="/products/adjustable-pistol-grip-fire-nozzle/" class="text-brand-blue font-semibold hover:underline">adjustable pistol grip nozzle</a> is available with 1.5 in, 2 in and 2.5 in inlets and delivers 150 to 500 LPM with patterns from straight stream to wide fog, so the 2.5 in version is the one that mates with a 65 mm line — directly, if the coupling is threaded, or through the matching adapter if the line is Storz. Settle the coupling pattern before the nozzle is ordered.</p>
+
+			<h2 id="common-mistakes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Common Project Mistakes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The same failures recur across projects, and all of them are avoidable at specification stage.</p>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Mixed standards in one building.</strong> A tender that specifies Storz hoses, John Morris hydrants and NST nozzles is buying three adapters per line. Audit the whole line — hydrant, hose, nozzle, and any pump connection — against one pattern.</li>
+				<li><strong>"2.5 inch" written without a pattern.</strong> The size is a bore, not a connection. Every coupling line in the schedule should name the standard, not just the diameter.</li>
+				<li><strong>Gasket loss and wrong gaskets.</strong> Gaskets fall out during handling and are rarely in the spares box. Specify spare gaskets in the order and state the material: EPDM for water and foam, and a material suited to any other medium.</li>
+				<li><strong>Rating taken from the hose alone.</strong> The coupling, hose and nozzle must be rated for the maximum pressure the system can produce, which on a boosted installation is the pump churn pressure. A hose assembly is only as strong as its weakest joint.</li>
+				<li><strong>Damaged threads on delivery.</strong> Exposed threads and claws are easily deformed in transit. Specify protective caps and inspect on receipt; a cross-threaded coupling on a fire line is a leak that cannot be fixed on site.</li>
+				<li><strong>Galvanic mismatch.</strong> Aluminum coupled to brass in coastal or marine air corrodes at the joint. Decide the material combination deliberately, not by availability.</li>
+				<li><strong>No approval sample.</strong> Where the fire department will operate the equipment, approve a physical sample before production.</li>
+			</ul>
+
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Specification Checklist</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Name the pattern and the standard.</strong> Storz (state the national standard, for example German), John Morris, Nakajima, Machino, instantaneous or NST — plus the nominal size, for example DN65 / 2.5 in.</li>
+				<li><strong>State the joint configuration at each end.</strong> Barbed for layflat hose, male thread, female swivel or quick-connect, so both ends of every item are defined.</li>
+				<li><strong>Set the pressure rating and the test pressure.</strong> Working pressure plus the test pressure the assembly will see at commissioning; 1.6 MPa (232 PSI) is our standard aluminum coupling and hydrant valve rating.</li>
+				<li><strong>Specify material and finish.</strong> Anodized aluminum for weight, brass for corrosion resistance in marine service, chrome plating where wear resistance matters.</li>
+				<li><strong>State the gasket material and order spares.</strong> EPDM self-sealing for water and foam; add spare gaskets and caps to the order line, not to a separate requisition later.</li>
+				<li><strong>Define the hose.</strong> Bore, length, lining, coupling size and whether couplings are factory-fitted and pressure tested or supplied loose. Our <a href="/guides/fire-hose-buying-guide/" class="text-brand-blue font-semibold hover:underline">fire hose buying guide</a> covers the hose side of that decision.</li>
+				<li><strong>Include the accessories.</strong> Spanner or wrench, blank caps with retaining chains, and any adapter needed at the hydrant boundary.</li>
+				<li><strong>Request documents and a sample.</strong> Material certificates, pressure test records for hose assemblies and an approval sample where the fire department will operate the equipment — the same document discipline as any fastening or valve order.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">If the equipment is being bought as part of a wider package, the <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> sets out the inspection and documentation points that apply to couplings, valves and cabinets alike.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need Couplings Matched to Your Standard?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the coupling pattern, size, material and quantity, or a photo of the hydrant outlet you have to connect to — our engineers confirm the matching parts and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Fire%20Hose%20Couplings" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20fire%20hose%20couplings%20matched%20to%20a%20specific%20standard" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

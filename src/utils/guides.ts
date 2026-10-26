@@ -13,6 +13,76 @@ export interface Guide {
 // 内容工厂单一数据源:新增指南只需在此追加一条
 export const guides: Guide[] = [
   {
+    title: 'API 598 Valve Testing Guide: Shell Test, Seat Test & FAT',
+    description: 'What API 598 shell and seat tests prove, the pressure multiples, holding times by size, leakage limits by seat type, and what a test report must show.',
+    href: '/guides/api-598-valve-pressure-test-guide/',
+    tocPreview: ["Why Buyers Ask for Test Reports", "Shell, Seat and Backseat Tests", "Pressure, Duration and Leakage Limits"],
+    date: '2026-10',
+    category: 'Valve Engineering',
+    readTime: '9 min read',
+    tags: ['industrial-valves', 'certification', 'procurement']
+  },
+  {
+    title: 'ESFR Sprinkler System Guide: K-Factor, Storage Height & Design (2026)',
+    description: 'How ESFR sprinklers suppress high-pile storage fires without in-rack sprinklers: K-factor selection, design pressure, ceiling and storage limits, and the valves a warehouse system needs.',
+    href: '/guides/esfr-sprinkler-system-guide/',
+    tocPreview: ["What an ESFR System Actually Does", "ESFR vs Standard Sprinklers", "K-Factor, Pressure and Storage Height"],
+    date: '2026-10',
+    category: 'Fire Protection',
+    readTime: '9 min read',
+    tags: ['sprinkler-systems', 'fire-protection']
+  },
+  {
+    title: 'Fire Hose Coupling Standards: Storz, John Morris & Nakajima',
+    description: 'Fire hose coupling standards for export buyers: how Storz, John Morris, Nakajima, Machino and instantaneous threads differ, and how to avoid mismatches.',
+    href: '/guides/fire-hose-coupling-standards-guide/',
+    tocPreview: ["Why Coupling Standards Decide Compatibility", "Storz: Symmetric and Quarter-Turn", "Threaded Patterns Compared"],
+    date: '2026-10',
+    category: 'Fire Protection',
+    readTime: '9 min read',
+    tags: ['fire-hose-reel', 'fire-protection', 'procurement']
+  },
+  {
+    title: 'Fire Pump Room Valves: Suction, Discharge & Test Header Guide',
+    description: 'Fire pump room valve guide for buyers: suction and discharge isolation, OS&Y gate valves, check and relief valves, flow metering and siamese selection.',
+    href: '/guides/fire-pump-room-valves-guide/',
+    tocPreview: ["What the Pump Room Must Do", "The Suction Side", "The Discharge Side"],
+    date: '2026-10',
+    category: 'Fire Protection',
+    readTime: '9 min read',
+    tags: ['fire-protection', 'industrial-valves']
+  },
+  {
+    title: 'Flange Standard Comparison: ANSI 150 vs PN16 vs JIS 10K',
+    description: 'Why DN100 PN16 is not a complete specification: how ASME B16.5, EN 1092-2 and JIS B2220 flange drilling differ, and how to specify flanges on an RFQ.',
+    href: '/guides/flange-standard-guide-ansi-din-jis/',
+    tocPreview: ["Why Flange Mismatch Stops Projects", "The Three Flange Families", "Pressure Class Equivalence Myths"],
+    date: '2026-10',
+    category: 'Valve Engineering',
+    readTime: '9 min read',
+    tags: ['industrial-valves', 'procurement']
+  },
+  {
+    title: 'OS&Y Gate Valve Guide: Rising Stem vs NRS for Fire Mains',
+    description: 'OS&Y gate valve guide for fire protection buyers: how the outside screw and yoke works, why inspectors require it over NRS, UL/FM listing and end connections.',
+    href: '/guides/osy-gate-valve-guide/',
+    tocPreview: ["What OS&Y Means and How the Stem Works", "OS&Y vs NRS Gate Valves", "Where Each Type Is Required"],
+    date: '2026-10',
+    category: 'Valve Engineering',
+    readTime: '9 min read',
+    tags: ['industrial-valves', 'fire-protection']
+  },
+  {
+    title: 'Valve Body Material Selection Guide for Water & Fire Service',
+    description: 'Choosing valve body material for water and fire service: cast iron vs ductile iron QT450-10, WCB, CF8/CF8M and brass, plus seat, trim and coating selection.',
+    href: '/guides/valve-body-material-selection-guide/',
+    tocPreview: ["Why Body Material Decides Service Life", "The Five Body Materials", "Seat and Trim Materials"],
+    date: '2026-10',
+    category: 'Valve Engineering',
+    readTime: '9 min read',
+    tags: ['industrial-valves', 'procurement']
+  },
+  {
     title: 'Backflow Prevention in Fire Protection & Potable Water Networks (2026 Guide)',
     description: 'Why backflow preventers are mandatory in dual-purpose water networks, how HS41X double check valves work, cross-connection control and a selection checklist for B2B buyers.',
     href: '/guides/backflow-prevention-guide/',

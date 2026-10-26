@@ -1,0 +1,205 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Is ductile iron the same as cast iron?',
+		answer: 'No, and the difference is structural. Gray cast iron contains flake graphite, which acts as a stress raiser and makes the material brittle in tension. Ductile iron is treated so the graphite forms nodules, which is why it carries strength and elongation together: the QT450-10 grade in our water valves specifies 450 MPa minimum tensile strength and 10% minimum elongation.'
+	},
+	{
+		question: 'Can I use a ductile iron valve on seawater?',
+		answer: 'Not unlined, and not as a first choice. Iron corrodes in seawater at a rate that turns wall loss into a maintenance item. CF8M (316) stainless is the usual minimum for brackish water and light seawater duty, with PTFE or a metal seat; continuous seawater at higher velocity usually needs a higher-alloy stainless or a rubber-lined body. The piping designer decides, not the catalogue.'
+	},
+	{
+		question: 'WCB or CF8M for a steam line?',
+		answer: 'For dry saturated or superheated steam the usual choice is cast carbon steel such as WCB with a metal seat, which is what our flanged bellows seal gate valve is built for across its -29°C to 425°C range. Austenitic stainless expands more and is vulnerable to chloride stress corrosion cracking, so it is not an automatic upgrade. On wet or corrosive steam the trim and bellows alloy usually matter more than the body grade.'
+	},
+	{
+		question: 'Is EPDM suitable for hot water?',
+		answer: 'Within limits. The EPDM wedge in our Z41X gate valve is rated for media from 0°C to 80°C, which covers domestic hot water, HVAC and most fire protection work but not steam or high-temperature process water. Above that, the choice moves to PTFE or a metal seat, and EPDM should not be used with oils or hydrocarbon solvents at all.'
+	},
+	{
+		question: 'Does the internal coating matter for potable water?',
+		answer: 'It matters more than the body material in many approvals. A potable water contact coating must be approved under the scheme the project is built to, applied at the specified dry film thickness, holiday tested, and masked at seat and flange faces so sealing dimensions are not altered. Ask for the coating data sheet and approval reference; an unapproved epoxy will be rejected at commissioning.'
+	},
+	{
+		question: 'Why not specify stainless steel everywhere?',
+		answer: 'Cost and lead time are the obvious reasons, but not the only ones. Austenitic stainless costs more per kilogram, machines more slowly, is less available above DN300, and brings its own risks: chloride stress corrosion cracking in hot water, galvanic attack where it couples to carbon steel, and galling on threaded joints. Matching the material to the medium usually produces a cheaper valve that lasts longer.'
+	}
+];
+
+const toc = [
+	{ id: 'why-body-material', label: '1. Why Body Material Decides Service Life' },
+	{ id: 'body-materials', label: '2. The Five Body Materials' },
+	{ id: 'seat-and-trim', label: '3. Seat and Trim Materials' },
+	{ id: 'coatings-and-linings', label: '4. Coatings and Linings' },
+	{ id: 'media-matching', label: '5. Matching Material to Media' },
+	{ id: 'cost-and-checklist', label: '6. Cost, Lead Time and the Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const products = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Z41X Ductile Iron Gate Valve', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'QT450-10 body, EPDM wedge, PN10 / PN16' },
+	{ slug: 'z85x-stainless-steel-grooved-gate-valve', name: 'Z85X Stainless Grooved Gate Valve', img: '/assets/products/z85x-stainless-steel-grooved-gate-valve.webp', desc: 'CF8M body, DN40-DN300, grooved' },
+	{ slug: 'brass-gate-valve-z15w-16t', name: 'Z15W-16T Forged Brass Gate Valve', img: '/assets/products/brass-gate-valve-z15w-16t.webp', desc: 'DN15-DN100, 200 WOG, NPT ends' },
+	{ slug: 'remote-control-float-valve-100x', name: '100X-16P Float Control Valve', img: '/assets/products/remote-control-float-valve-100x.webp', desc: 'CF8 body, DN40-DN300, -50°C to 100°C' }
+];
+---
+
+<Layout
+	title="Valve Body Material Selection Guide for Water & Fire Service"
+	description="Choosing valve body material for water and fire service: cast iron vs ductile iron QT450-10, WCB, CF8/CF8M and brass, plus seat, trim and coating selection."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Valve Body Material Selection' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Valve Body Material Selection</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Material Selection Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Valve Body Material Selection for Water and Fire Protection</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: the body material sets what a valve can survive and the seat material sets whether it will still seal after a few hundred cycles. Getting both right costs less than upgrading everything. This guide covers cast iron, ductile iron, cast steel, stainless and brass, the elastomer and metal seat options, how coatings behave, and how to match a material set to the medium in the pipe.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-body-material" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Why Body Material Decides Service Life</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A valve fails in one of two ways: the seal stops sealing, which is a wear problem, or the body stops containing the fluid, which is a safety problem. The second is what the body material decides, and it is why selection is a design decision rather than a purchasing preference.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Water is a mild medium and a patient one. Corrosion rarely bursts a valve in the first year; it thins a wall, pits a casting and produces a pinhole at the worst moment. Mechanical damage is faster — water hammer from a fast-closing valve, a pump start with a slamming check valve, ground settlement on a buried main. A brittle body survives none of those gracefully; a ductile one deforms and stays in one piece.</p>
+			<p class="text-gray-700 leading-relaxed">Fire protection leaves less margin. A valve on a riser is operated rarely, sits for years and must work first time, so material choices tuned for continuous duty are not automatically right. That is why fire valves are built in nodular iron with resilient seats and carry a listing — and why the <a href="/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X resilient seat gate valve</a> keeps the same QT450-10 body and EPDM wedge across DN50 to DN700 rather than changing material at a size threshold.</p>
+
+			<h2 id="body-materials" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. The Five Body Materials</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Gray cast iron.</strong> Cheap, easy to cast and adequate for static low-pressure water in heating and HVAC circuits. Flake graphite gives it almost no elongation, so it cracks rather than bends under shock, thermal cycling or uneven bolt load. Right for a heated plant room, wrong for a fire main, a buried line, or anything that sees surge.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Ductile iron, QT450-10.</strong> The default for water and fire valves in the sizes most projects use. The grade designation is the guarantee: minimum 450 MPa tensile strength and 10% elongation, which lets a body absorb surge and handling without cracking. It machines well, takes an epoxy lining cleanly and holds its pressure class comfortably. Our <a href="/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">SGL41H telescopic Y-strainer</a> uses the same QT450-10 casting with an epoxy finish, which is typical of how a water package is built from one body family.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Cast carbon steel, WCB.</strong> Stronger and tougher than iron and, critically, able to take temperature: the flanged bellows seal gate valve we build in WCB or forged A105 is rated -29°C to 425°C for steam, thermal oil and high-temperature water. It is not an ordinary water-valve material — unprotected carbon steel rusts — so it belongs on dry, hot, non-aggressive service where temperature is the reason it was chosen.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Cast stainless, CF8 and CF8M.</strong> CF8 is the cast 304 equivalent; CF8M is cast 316 with molybdenum for chloride resistance. Both appear where the medium attacks iron: demineralized water, chemical process water, food duty, brackish and light seawater. Our <a href="/products/z85x-stainless-steel-grooved-gate-valve/" class="text-brand-blue font-semibold hover:underline">Z85X grooved gate valve</a> in CF8M and the <a href="/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">100X-16P float valve</a> in CF8 are chosen for the medium rather than for pressure. Stainless is not automatically better: it suffers chloride stress corrosion cracking in hot water, galls on threads and couples badly with carbon steel in a wet environment.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Forged brass.</strong> For small-bore water, oil and gas lines up to DN100, a forged brass body such as the <a href="/products/brass-gate-valve-z15w-16t/" class="text-brand-blue font-semibold hover:underline">Z15W-16T</a> is compact, stable and easy to thread, rated 1.6 MPa (200 WOG) with NPT ends. Two caveats decide suitability: dezincification in aggressive or high-chloride water, which needs a dezincification-resistant grade, and lead content, which is restricted for potable water in many markets.</p>
+
+			<h2 id="seat-and-trim" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Seat and Trim Materials</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The body contains pressure; the seat decides whether the valve does its job. This is where most specification errors land, because "resilient seat" on a datasheet has told you very little.</p>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>EPDM.</strong> The workhorse for water: good compression set, wide tolerance, bubble-tight closure against a machined seat at modest torque. Not for oils or hydrocarbon solvents, and its ceiling in these products is around 80°C.</li>
+				<li><strong>NBR.</strong> Chosen for oils, fuels and greases, where EPDM would swell. A poorer choice for hot water, and it ages badly under ozone.</li>
+				<li><strong>PTFE.</strong> Chemically inert across a wide range and usable above elastomer temperatures, so it suits aggressive media and seats that must not stick. Its weaknesses are creep under sustained load and a higher seating force.</li>
+				<li><strong>Metal seats.</strong> Stellite or hardened stainless faces where neither elastomer nor PTFE survives: steam, thermal oil, abrasion. A metal seat does not conform, so a small leakage rate is normal and should be agreed at order stage.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Trim follows one level down. Stems and stem nuts are the parts that corrode quietly inside a valve nobody opens: our ductile iron water valves use a 2Cr13 or 304 stem with a bronze stem nut, while the bellows seal valve uses a 304 or 316Ti bellows with a Stellite or 304 hard-faced disc. On a hot line the bellows alloy and its weld matter more than the body grade, because a bellows failure is a fugitive emission rather than a drip.</p>
+
+			<h2 id="coatings-and-linings" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Coatings and Linings</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">On an iron valve the coating is part of the corrosion protection, not decoration. A liquid or fusion-bonded <strong>epoxy</strong> lining gives a smooth waterway, limits tuberculation and protects the casting inside; on the outside it resists plant-room humidity. For potable water the coating must be approved under the scheme the project is built to, and the dry film thickness and holiday test must be recorded — a coating specification without a measured thickness is a promise.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">A polyester <strong>powder coat</strong> is the practical choice for external protection and color coding, which is why fire equipment is normally red. It is harder and more UV-stable than thin liquid paint, but also thicker, so it must not build up on flange faces or across a seat edge.</p>
+			<p class="text-gray-700 leading-relaxed">Two details separate a good coating job from a bad. Coating must be masked at flange faces, gasket surfaces and the seat, because a few tenths of a millimetre changes the joint and the sealing dimension. And the test report should post-date the coating, so a weep is not painted over. For genuinely aggressive media — seawater, brine, some chemicals — a coating is not enough; a rubber-lined or stainless body is the correct answer, because paint does not restore the corrosion resistance of the metal under it once the film is damaged.</p>
+
+			<h2 id="media-matching" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Matching Material to Media</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The table is a starting point for a specification discussion, not a substitute for one. The final choice belongs to the piping designer with the water analysis, and to the authority having jurisdiction on fire systems.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Medium</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical body</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Seat / trim</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What to watch</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Potable water</td>
+							<td class="px-4 py-3 text-gray-700">Ductile iron with approved epoxy; CF8/CF8M; low-lead brass in small sizes</td>
+							<td class="px-4 py-3 text-gray-700">EPDM seat, stainless stem</td>
+							<td class="px-4 py-3 text-gray-700">Coating approval, lead in brass, stagnation and biofilm</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Fire water (wet)</td>
+							<td class="px-4 py-3 text-gray-700">Nodular iron, listed for fire service</td>
+							<td class="px-4 py-3 text-gray-700">EPDM resilient seat, rising stem</td>
+							<td class="px-4 py-3 text-gray-700">Listing must cover the exact model; grooved vs flanged ends</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Seawater / brackish</td>
+							<td class="px-4 py-3 text-gray-700">CF8M minimum; rubber-lined iron in larger sizes</td>
+							<td class="px-4 py-3 text-gray-700">PTFE or EPDM, non-metallic trim where possible</td>
+							<td class="px-4 py-3 text-gray-700">Chlorides, velocity, crevice corrosion, galvanic couple</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Steam / thermal oil</td>
+							<td class="px-4 py-3 text-gray-700">WCB or forged A105, bellows seal</td>
+							<td class="px-4 py-3 text-gray-700">Metal seat, Stellite or hardened stainless; SS bellows</td>
+							<td class="px-4 py-3 text-gray-700">Temperature rating, condensate corrosion, fugitive emission</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">HVAC hot and chilled</td>
+							<td class="px-4 py-3 text-gray-700">Ductile iron; cast iron in low-pressure closed loops</td>
+							<td class="px-4 py-3 text-gray-700">EPDM lining or seat</td>
+							<td class="px-4 py-3 text-gray-700">Glycol concentration, cycling, insulation hiding a leak</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sewage / slurry</td>
+							<td class="px-4 py-3 text-gray-700">Ductile iron, flat-bottom or non-clogging design</td>
+							<td class="px-4 py-3 text-gray-700">EPDM or NBR, abrasion resistant</td>
+							<td class="px-4 py-3 text-gray-700">Solids trapping, elastomer abrasion, sediment at the seat</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">On the fire water row, material and listing travel together. A ductile iron gate valve in the right grade but without a fire-service listing is not a substitute for a listed valve, and an authority having jurisdiction will treat it as unapproved. The <a href="/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">guide to choosing UL listed fire valves</a> sets out what the listing covers.</p>
+
+			<h2 id="cost-and-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Cost, Lead Time and the Checklist</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Material cost ranks as you would expect: gray iron lowest, ductile iron next, forged brass and cast steel in the middle, cast stainless highest. What surprises buyers is how much of the total is driven by machining and availability rather than the metal. Stainless machines more slowly, wears tooling faster and is produced in a narrower size range, so the lead-time penalty can matter more than the price difference.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Two trade-offs matter. Upgrading the body rarely fixes a seat problem: if the valve leaks because the elastomer is wrong for the temperature, a stainless body will leak just as well. And going far beyond the requirement creates sourcing risk — a DN500 stainless gate valve is a different procurement problem from a DN500 ductile iron one. Specify what the medium needs and put the money into the parts that fail.</p>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Medium and analysis.</strong> Not "water" but potable, raw, brackish or seawater, with chloride level and pH where known.</li>
+				<li><strong>Temperature and cycling.</strong> Minimum, maximum, and how often the line swings between them.</li>
+				<li><strong>Pressure and surge.</strong> Working pressure, plus whether water hammer is credible on the line.</li>
+				<li><strong>Body grade by designation.</strong> QT450-10, WCB, CF8, CF8M — not "cast iron" or "stainless".</li>
+				<li><strong>Seat, trim and temperature together.</strong> EPDM, NBR, PTFE or metal, plus the stem grade.</li>
+				<li><strong>Coating and approval.</strong> Lining type, dry film thickness, potable water approval reference.</li>
+				<li><strong>Standard and documentation.</strong> Design standard, fire listing where relevant, and the certificate package described in our <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a>.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">For steam or thermal oil rather than water, the <a href="/guides/bellows-seal-gate-valve-guide/" class="text-brand-blue font-semibold hover:underline">bellows seal gate valve guide</a> explains why that design replaces a packed gland, and the <a href="/guides/check-valve-types-guide/" class="text-brand-blue font-semibold hover:underline">check valve types guide</a> shows how closure design changes the material question on a pump discharge.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need Help Matching Material to the Medium?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the medium, chloride level, temperature range and pressure class — we confirm the body, seat and coating combination.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Valve%20Body%20Material%20Selection" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20help%20choosing%20valve%20body%20and%20seat%20materials" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

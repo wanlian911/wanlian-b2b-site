@@ -1,0 +1,206 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Is a PN16 flange the same as a Class 150 flange?',
+		answer: 'No. Both are common for DN50 to DN200 water service and both are loosely called "16 bar", but they are separate dimensional systems. Bolt circle, flange thickness, facing detail and bolting thread are specified in different standards, so a Class 150 valve will not necessarily bolt to a PN16 pipe flange. Quote the standard, the class and the thread on the order.'
+	},
+	{
+		question: 'Can I use the same gasket for an ANSI and a DIN flange of the same size?',
+		answer: 'Only if the gasket is dimensioned for both. A gasket sized for an ASME raised face has a different outside diameter and thickness from one sized for an EN raised face, and a flat-face cast iron flange needs a full-face gasket rather than a raised-face type. Match facing type and gasket standard, not just nominal size.'
+	},
+	{
+		question: 'Why does JIS 10K look similar to PN16 but not fit?',
+		answer: 'JIS B2220 uses its own bolt circle, bolt size and thickness tables, sized in millimetres on a pattern that follows neither EN 1092 nor ASME. In some sizes the bolt count matches a PN16 flange, which is what makes the error easy: the holes line up by eye but the circle or the bolt diameter is wrong. JIS 10K is routine in Japan, Korea, Taiwan and much of Southeast Asian marine and plant work.'
+	},
+	{
+		question: 'Are DN and NPS interchangeable?',
+		answer: 'For the common sizes the nominal bores correspond — DN50 is NPS 2, DN100 is NPS 4 — but DN is a rounded metric designation, so the actual bore and wall follow the schedule or series rather than the label. The practical risk is not DN versus NPS; it is assuming the flange drilling follows from the nominal size alone. It does not.'
+	},
+	{
+		question: 'What if the bolt holes almost line up on site?',
+		answer: 'Do not ream, slot or drill them out. Enlarging a hole reduces the flange section, changes the bearing area under the nut and is a non-conformance against every flange standard. The correct answers are a correctly drilled spool piece, a companion flange, or a pair of flanges ordered to the right standard. A supplier offering to "open the holes a little" is telling you something about the whole order.'
+	},
+	{
+		question: 'Which flange standard should I specify for an export project?',
+		answer: 'Follow the standard the piping was engineered to: ASME B16.5 for North American work and much of the Middle East and Latin America, EN 1092 for Europe and CIS-influenced designs, JIS B2220 for Japanese-influenced plants and marine work, GB/T for Chinese projects. The designer and client specification decide; a supplier should match the drawing, not convert it.'
+	}
+];
+
+const toc = [
+	{ id: 'why-flange-mismatch', label: '1. Why Flange Mismatch Stops Projects' },
+	{ id: 'three-families', label: '2. The Three Flange Families' },
+	{ id: 'pressure-class-myths', label: '3. Pressure Class Equivalence Myths' },
+	{ id: 'what-differs', label: '4. What Actually Differs' },
+	{ id: 'gaskets-and-bolting', label: '5. Gaskets and Bolting' },
+	{ id: 'rfq-and-inspection', label: '6. The RFQ Clause and Receiving Inspection' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const products = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Z41X Flanged Gate Valve', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50-DN700, PN10 / PN16, flanged' },
+	{ slug: 'flange-manual-bellows-gate-valve', name: 'Bellows Seal Gate Valve', img: '/assets/products/flange-manual-bellows-gate-valve.webp', desc: 'DN15-DN300, Class 150/300, steam' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'SGL41H Telescopic Y-Strainer', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'DN50-DN600, SS304/316 screen' },
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: '500X Pressure Reducing Valve', img: '/assets/products/pressure-reducing-valve-500x-dn50.webp', desc: 'DN20-DN600, ANSI / JIS / GB drilling' }
+];
+---
+
+<Layout
+	title="Flange Standard Comparison: ANSI 150 vs PN16 vs JIS 10K"
+	description="Why DN100 PN16 is not a complete specification: how ASME B16.5, EN 1092-2 and JIS B2220 flange drilling differ, and how to specify flanges on an RFQ."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Flange Standard Comparison' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Flange Standard Comparison</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Flange Standard Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Flange Standards for Valve Buyers: ANSI, DIN, JIS and GB Compared</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: "DN100 PN16" describes a nominal size and a pressure. It does not describe a flange. Bolt circle, bolt count, bolt diameter, flange thickness and facing are each specified in a different table depending on whether the plant was engineered to ASME B16.5, EN 1092 or JIS B2220. This guide explains what actually differs, why pressure classes are not interchangeable, and how to write the flange requirement so the valve bolts up on delivery.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-flange-mismatch" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Why Flange Mismatch Stops Projects</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A valve is the one component in a pipe run that has to match two things at once: the pipe it sits in and the flanges it bolts to. Everything else can be worked around at site. A flange cannot. When the holes do not line up the options are a new spool piece, a pair of adaptor flanges or a valve reordered, and all three arrive after the original schedule.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The failure usually sits between two documents. The datasheet says "DN100, PN16, flanged"; the piping drawings are to ASME B16.5 Class 150; the site store holds inch studs. Nothing on the datasheet is wrong and the valve that arrives is exactly what was ordered. It still will not fit, and the goods conformed to the purchase order, so the cost lands on the buyer.</p>
+			<p class="text-gray-700 leading-relaxed">Re-drilling on site is worse than the delay: enlarging a bolt hole reduces the flange section, changes the bearing area under the nut and creates a non-conformance no inspector will sign off. The fix costs one line on an RFQ, written before the order.</p>
+
+			<h2 id="three-families" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. The Three Flange Families</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">International procurement deals with three live families and two legacy ones. The table is deliberately qualitative: its job is to place a project in the right system, not to replace the dimensional tables.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Family</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Pressure designations</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Bolt pattern character</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Where it is standard practice</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">ASME B16.5 (steel, alloy)</td>
+							<td class="px-4 py-3 text-gray-700">Class 150 to 2500</td>
+							<td class="px-4 py-3 text-gray-700">Inch bolting, class-based circle and thickness</td>
+							<td class="px-4 py-3 text-gray-700">North America, Middle East oil and gas, Latin America</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">ASME B16.1 (cast iron)</td>
+							<td class="px-4 py-3 text-gray-700">Class 25, 125, 250</td>
+							<td class="px-4 py-3 text-gray-700">Iron flange tables; not a B16.5 class</td>
+							<td class="px-4 py-3 text-gray-700">Legacy North American water and HVAC iron piping</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">EN 1092-1 / 1092-2</td>
+							<td class="px-4 py-3 text-gray-700">PN6 to PN40</td>
+							<td class="px-4 py-3 text-gray-700">Metric bolting, PN-based tables, defined facing types</td>
+							<td class="px-4 py-3 text-gray-700">Europe, CIS-influenced projects, international water tenders</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">JIS B2220</td>
+							<td class="px-4 py-3 text-gray-700">5K, 10K, 16K, 20K, 30K</td>
+							<td class="px-4 py-3 text-gray-700">Metric bolting on a Japanese pattern</td>
+							<td class="px-4 py-3 text-gray-700">Japan, Korea, Taiwan, Southeast Asian marine work</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">GB/T series</td>
+							<td class="px-4 py-3 text-gray-700">PN2.5 to PN40 in common water duty</td>
+							<td class="px-4 py-3 text-gray-700">Metric bolting, PN system with national detail</td>
+							<td class="px-4 py-3 text-gray-700">Chinese domestic projects and Chinese-designed plants abroad</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">BS 4504 / BS 10 (legacy)</td>
+							<td class="px-4 py-3 text-gray-700">PN designations; table letters</td>
+							<td class="px-4 py-3 text-gray-700">Superseded patterns still on old drawings</td>
+							<td class="px-4 py-3 text-gray-700">Existing plants and refurbishment, not new design</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Two clarifications worth carrying into a meeting. Class 125 is an ASME B16.1 cast iron designation, not a B16.5 pressure class: in small sizes a Class 125 iron flange can share a bolt pattern with a Class 150 steel flange, but thickness, facing and material limits come from different tables. And EN 1092 is split by material — EN 1092-1 for steel, EN 1092-2 for cast iron — so a ductile iron valve body is dimensioned to the cast iron part.</p>
+			<p class="text-gray-700 leading-relaxed">ISO 7005 sits behind much of this, and national standards that derive from it are usually compatible but not identical. Compatibility claims always need the table, never the family name.</p>
+
+			<h2 id="pressure-class-myths" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Pressure Class Equivalence Myths</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The most damaging piece of folklore in valve procurement is the table that says Class 150 equals PN16 and Class 300 equals PN40. It survives because it is roughly true in the one place people check it — ambient-temperature water — and wrong everywhere else.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The two systems do not measure the same thing. An ASME class is a reference designation whose allowable pressure is read from a material-specific rating table and falls as temperature rises. A PN number is a nominal pressure with its own material groups and derating curve. A Class 150 carbon steel flange is rated a little under 20 bar at 38°C; a PN16 flange is rated 16 bar at its reference condition. Close enough to be confused, different enough that the numbers do not transfer.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Two consequences follow. A valve cannot be converted from one system to the other by changing the marking — the casting is machined to one drilling and that is what ships. And conversion tables in sales literature are a statement about pressure capability, never about dimensions.</p>
+			<p class="text-gray-700 leading-relaxed">Drilling is a build option on the product, not an afterthought: our <a href="/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">500X pressure reducing valve</a> is offered to ANSI, JIS or GB drilling, and the <a href="/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X flanged gate valve</a> is built at PN10 or PN16. Either way the option has to be on the order; nothing at the packing stage recovers a drilling that was never specified.</p>
+
+			<h2 id="what-differs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. What Actually Differs</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Five features decide whether two flanges mate. They are the questions to ask when comparing a datasheet against a piping drawing.</p>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Bolt circle (PCD).</strong> The diameter through the hole centres, and the dimension most often assumed to be common. Our published Z41X table lists it as the D1 column: DN100 shows 180 mm with eight 18 mm holes. Compare against that kind of table, not a conversion chart.</li>
+				<li><strong>Bolt count.</strong> DN100 uses eight bolts in both ASME Class 150 and EN 1092-2 PN16, which is exactly why the error is common — the count matches, so the flange looks right until a stud is offered to the hole.</li>
+				<li><strong>Bolt diameter and thread.</strong> Inch studs in the ASME series, metric in EN, JIS and GB. A 5/8" stud will not pass a 16 mm hole at the intended bearing stress.</li>
+				<li><strong>Thickness and outside diameter.</strong> Even where drilling coincides, plate thickness differs, and thickness controls how bolt load reaches the gasket.</li>
+				<li><strong>Facing.</strong> Raised face, flat face or ring joint, with the height and seating width defined separately in each standard.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Inspection follows from that list: count the holes, measure hole diameter, bolt circle across opposite holes, outside diameter, thickness and facing height, then compare with the table for the marking on the flange. Better still, trial-fit one valve to a mating spool from site stock. Marking is the other half of the check — standard, class or PN, size, material and heat number. If the marking is painted over, the item cannot be tied to its certificate.</p>
+
+			<h2 id="gaskets-and-bolting" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Gaskets and Bolting</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The flange is half a joint. The other half is chosen to suit it, and the two common site failures — a weep at hydrotest and a gasket that extrudes after a thermal cycle — usually trace to a gasket or bolting decision made separately from the flange decision.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">For raised-face steel flanges, a spiral-wound gasket with inner and outer rings is the default in most plant specifications, dimensioned to the gasket standard that matches the flange series. Flat-face cast iron flanges take a full-face gasket whose bolt holes must align with the pattern, so the gasket has to be ordered for the same standard as the valve. Rubber-lined wafer valves seal on the liner, but still need clean, flat faces free of weld spatter. Ring-joint gaskets need a matching groove, and a groove cannot be improvised on site.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Bolting follows the same logic: carbon steel studs with heavy hex nuts for steel flanges, stainless where corrosion or the client specification requires it. What matters at assembly is sequence and control — cross pattern, staged, to a torque taken from the gasket manufacturer's table for that size and material, with a defined lubricant. A generic torque figure from a chart for a different gasket is worse than no figure, because it looks authoritative. Bolts are not reused after a pressure joint is broken.</p>
+			<p class="text-gray-700 leading-relaxed">Two details cause disproportionate trouble. Coating on a flange face changes the gasket seating condition, so faces should be masked during painting — which is also why a valve painted after testing is worth a question. And protection caps must actually be removed: one left inside a flange becomes a downstream obstruction, and on a fire main a blocked riser.</p>
+
+			<h2 id="rfq-and-inspection" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. The RFQ Clause and Receiving Inspection</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A flange requirement that survives a factory, a forwarder and a site store is short and specific. Anything less leaves the supplier to interpret, and a supplier interpreting a gap will choose the drilling it makes most often.</p>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Standard and edition.</strong> ASME B16.5, EN 1092-2 or JIS B2220, with the year where the project document names one.</li>
+				<li><strong>Class, not a conversion.</strong> Class 150 or PN16 — never "150 lb / PN16 equivalent".</li>
+				<li><strong>Size in both systems.</strong> DN100 (NPS 4), so nobody has to guess the mapping.</li>
+				<li><strong>Facing.</strong> Raised face, flat face or ring joint, with a height tolerance if the project has one.</li>
+				<li><strong>Bolting.</strong> Inch or metric, and the stud grade where specified.</li>
+				<li><strong>Prohibitions.</strong> No enlargement or slotting of bolt holes, no field re-drilling, faces masked during coating.</li>
+				<li><strong>Evidence.</strong> Dimensional record per size, material certificate, and a photograph of the marking on a sample.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Receiving inspection then has a checklist rather than a judgement call, and the measurements are recorded so a repeat order can be compared against them. Two guides go further on the surrounding decisions: the <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> covers the document package for a shipment, and the <a href="/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">fire hydrant valve standards guide</a> explains how hose connection standards differ again from pipeline drilling. Flanged ancillaries carry the same decision — the <a href="/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">SGL41H telescopic Y-strainer</a> and the <a href="/products/sp45f-flange-digital-balancing-valve/" class="text-brand-blue font-semibold hover:underline">SP45F balancing valve</a> must be ordered to the same standard as the valves beside them.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need Valves Drilled to Your Flange Standard?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the flange standard, class, size and bolting thread from your piping drawings — we confirm the drilling, the gasket interface and the dimensional record before production.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Flanged%20Valve%20ASME%20EN%20JIS%20Drilling" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20flanged%20valves%20to%20a%20specific%20flange%20standard" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

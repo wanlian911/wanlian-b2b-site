@@ -1,0 +1,197 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Do you supply the fire pump itself?',
+		answer: 'No. We manufacture the valves and connection equipment that sit around the pump — suction and discharge isolation valves, check valves, pressure relief, flow metering and the siamese connection. The pump is specified by the pump supplier to NFPA 20 or the local code, and its rated flow and head are the starting data we need from you, not something we size.'
+	},
+	{
+		question: 'Should the suction isolation valve be a gate valve or a butterfly valve?',
+		answer: 'A gate valve is the usual choice on the suction side because the open gate leaves a straight, full-bore passage with very little disturbance at the pump inlet. Butterfly valves are accepted in some jurisdictions, but the disc stays in the flow path even when fully open. Whichever type is used, the suction valve is a lock-open valve: it is never throttled to regulate pump output.'
+	},
+	{
+		question: 'Where exactly does the check valve go?',
+		answer: 'On the discharge side, between the pump and the discharge isolation valve, so it protects the pump from system backflow and stops one pump in a multi-pump set from circulating water through an idle neighbour. It should be at least the same nominal size as the discharge pipe, and a non-slam design avoids the pressure spike a heavy clapper produces on shutdown.'
+	},
+	{
+		question: 'Is a flow meters a substitute for the test header?',
+		answer: 'No. The test header exists so the commissioning engineer and the annual inspector can flow the pump at defined points and read the result against the certified curve, and most codes still require it. A meters is a permanent instrument that lets the site trend performance between tests and detect degradation early. The two serve different purposes and are normally installed together.'
+	},
+	{
+		question: 'What size siamese connection do I need for the pump?',
+		answer: 'The common configuration for a mid-size pump is two DN65 (2.5 in) inlets feeding one DN100 (4 in) flanged outlet, which our SQD100-1.6 provides at a 1.6 MPa rating. The inlet thread pattern must match what the local fire department actually carries — SQS65 and KWS65 are different standards, and a mismatched inlet makes the connection useless at the moment it is needed.'
+	},
+	{
+		question: 'Can a listed butterfly valve replace the OS&Y discharge valve?',
+		answer: 'Some codes accept a listed, supervised butterfly valve on the discharge, and it is common in tight rooms where a rising stem will not fit. The OS&Y gate valve remains the default where the authority having jurisdiction wants visible stem travel, because a raised stem is proof of position that needs no instrument. Confirm the preference before you release the valve schedule.'
+	}
+];
+
+const toc = [
+	{ id: 'pump-room-duty', label: '1. What the Pump Room Must Do' },
+	{ id: 'suction-side', label: '2. The Suction Side' },
+	{ id: 'discharge-side', label: '3. The Discharge Side' },
+	{ id: 'check-and-relief', label: '4. Check Valves and Pressure Relief' },
+	{ id: 'flow-measurement', label: '5. Flow Measurement and the Test Header' },
+	{ id: 'specification-checklist', label: '6. Specification Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const products = [
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM Resilient Seated OS&Y Gate Valve', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10", grooved ends, rising stem, UL/FM listed' },
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'HQ44X Spherical Ball Check Valve', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50-DN400, PN16, non-slam EPDM ball' },
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'SQD100-1.6 Siamese Connection', img: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', desc: 'Twin DN65 inlets, DN100 flanged outlet, 1.6 MPa' },
+	{ slug: 'smart-electromagnetic-flow-meters', name: 'Smart Electromagnetic Flow meters', img: '/assets/products/smart-electromagnetic-flow-meters.webp', desc: 'DN10-DN2000, 0.5% class, 4-20 mA / Modbus' }
+];
+---
+
+<Layout
+	title="Fire Pump Room Valves: Suction, Discharge &amp; Test Header Guide"
+	description="Fire pump room valve guide for buyers: suction and discharge isolation, OS&amp;Y gate valves, check and relief valves, flow metering and siamese selection."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Fire Pump Room Valves Guide' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Fire Pump Room Valves Guide</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Pump Room Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Fire Pump Room Valves: Suction, Discharge, Relief and Siamese Connections</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: the pump is the machine, but the valves around it decide whether that machine can be isolated for service, protected from backflow, kept inside its pressure limits, tested against its certified curve and fed by the fire department. This guide covers the suction side, the discharge side, the check and relief valves, the flow measurement and test header, and the siamese interface — the five decisions that make up a pump room valve schedule.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="pump-room-duty" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. What the Pump Room Must Do</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A fire pump room is a hydraulic interface between a water source and a distribution network that is normally closed. In service it may sit for years without moving water, then be asked to deliver its rated flow within seconds of a call. Every valve in the room exists to make that possible: to isolate a pump for maintenance without draining the building, to stop water running backwards through a standby unit, to keep churn pressure below the rating of the weakest component downstream, to prove performance on demand, and to accept water from a fire engine when the on-site supply is not enough.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">We do not build fire pumps, and a valve supplier should not pretend to. The pump — its rated flow, rated head, churn pressure, driver and controller — is specified by the pump supplier against NFPA 20 or the local code, and approved as a package by the authority having jurisdiction. What we supply is the valve and connection equipment that surrounds it. That distinction matters commercially: the pump curve is the input document for the valve schedule, and the pump supplier's certified curve is what the fittings have to survive.</p>
+			<p class="text-gray-700 leading-relaxed">The table below is the short version of the room.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Component</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Duty in the room</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical standard reference</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Suction isolation valve</td>
+							<td class="px-4 py-3 text-gray-700">Isolate the pump from the source; full bore, lock open, never throttled</td>
+							<td class="px-4 py-3 text-gray-700">NFPA 20 equipment practice; gate valve listing standards</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Discharge isolation valve</td>
+							<td class="px-4 py-3 text-gray-700">Isolate the pump from the network for service; supervised open</td>
+							<td class="px-4 py-3 text-gray-700">NFPA 20; UL 262 / FM 1120-1130 (gate valves)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Check valve</td>
+							<td class="px-4 py-3 text-gray-700">Prevent backflow through the pump and circulation through a standby unit</td>
+							<td class="px-4 py-3 text-gray-700">Listed for fire service; GB/T 13927 pressure test</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pressure relief valve</td>
+							<td class="px-4 py-3 text-gray-700">Limit churn overpressure to the rating of downstream components</td>
+							<td class="px-4 py-3 text-gray-700">NFPA 20 relief requirements; system component rating</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Circulation relief</td>
+							<td class="px-4 py-3 text-gray-700">Maintain cooling flow through the pump at low or no system demand</td>
+							<td class="px-4 py-3 text-gray-700">Pump supplier's instruction; engine driver requirements</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Test header</td>
+							<td class="px-4 py-3 text-gray-700">Flow the pump at defined points for acceptance and annual tests</td>
+							<td class="px-4 py-3 text-gray-700">NFPA 20 field acceptance test practice</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Siamese connection</td>
+							<td class="px-4 py-3 text-gray-700">Allow fire engines to supplement the pump into the discharge header</td>
+							<td class="px-4 py-3 text-gray-700">Local fire department coupling standard</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="suction-side" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. The Suction Side</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The suction side is where pump rooms are most often wrong, because it is the side with the least tolerance. A centrifugal fire pump has a net positive suction head requirement, and anything upstream that adds loss or turbulence eats into it: an undersized valve, a reducer bolted straight to the flange, two elbows in the same plane, a strainer nobody has cleaned since commissioning. The isolation valve should be the same nominal size as the suction pipe, with no reduction at the valve body, and installed so that the open gate presents a clean bore to the flow.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">That is the argument for a gate valve rather than a butterfly on suction. A fully open gate retracts completely out of the flow path; a butterfly disc does not, and close to the pump inlet the resulting disturbance is exactly what the pump supplier asked you to avoid. Our <a href="/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM resilient-seat OS&amp;Y gate valve</a> covers 2 in to 10 in (DN50-DN250) with grooved ends for fast assembly; on larger municipal connections where the specification follows a water-standard rather than a fire listing, the <a href="/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X flanged resilient-seat gate valve</a> runs from DN50 to DN700 (2 in to 28 in) at PN10/PN16 with an EPDM-encapsulated wedge.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Three practical points belong in the submittal. First, the suction valve is a lock-open valve: it is opened fully at commissioning, locked or supervised in that position, and never used to regulate flow — pump output is regulated at the discharge or by the relief valve. Second, a compound gauge on the suction flange is not optional equipment; it is the only way an inspector can see that the pump is being starved. Third, if the water source can carry debris, the strainer goes upstream of the pump with a differential pressure indicator, because a clogged strainer is indistinguishable from a collapsed water main until someone reads the gauge.</p>
+
+			<h2 id="discharge-side" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. The Discharge Side</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The discharge isolation valve has a different job from the suction valve: it isolates the pump from a network that may be at full static pressure, which means it has to close against pressure and open against pressure. That is why an outside screw and yoke design is the conventional choice. The rising stem tells anyone standing in the room whether the valve is open, without a gauge, a switch or a walk to the panel — the single most useful piece of information in a pump room.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Discharge valves are supervised open. In a monitored system the valve carries a tamper switch wired to the fire panel, so closing it for maintenance raises a supervisory signal rather than silently disarming the pump. If your valve schedule does not state the switch, the installer will supply whatever is on the van, and the commissioning engineer will be the one who finds out. Specify the switch, specify the voltage, and specify which panel it reports to.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Pressure gauges belong on both sides of the check valve, and on a multi-pump installation each pump needs its own discharge valve so one unit can be serviced while the other carries the load. Where the room is tight and the code accepts a listed, supervised butterfly valve on the discharge, a DN80 signal wafer valve at PN16 is the compact alternative — but the OS&amp;Y remains the default wherever the inspector wants visible stem travel.</p>
+
+			<h2 id="check-and-relief" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Check Valves and Pressure Relief</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The check valve sits between the pump and the discharge isolation valve and does three jobs at once. It stops network water running backwards through an idle pump. It stops a running pump from circulating water through a standby pump instead of into the system. And on shutdown it takes the reverse-flow transient that would otherwise reach the impeller. Size it to the discharge pipe, not to a nominal "equivalent" — an undersized check valve is a head loss and a noise source.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Type selection follows the water. A swing check is cheap and familiar but its clapper lands hard; on a pump discharge that produces water hammer and, over years, a cracked seat. A <a href="/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">spherical ball check valve</a> such as the HQ44X, DN50-DN400 (2 in to 16 in) at PN16, uses an EPDM-encapsulated rolling ball that follows the flow and settles progressively onto the seat, giving low head loss, low start-up flow and a silent non-slam closure. It is also difficult to block, which matters on raw-water and drainage-connected sources. Wafer dual-plate checks are the space-saving option where the pipe run is short.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Pressure relief is a separate function and is frequently left off the schedule by mistake. A fire pump is allowed to run at churn, with no system demand, and at that point it produces its maximum pressure — higher than the pressure any component downstream is rated for. Where the churn pressure exceeds the rating of the system components, a pressure relief valve discharges that excess, normally back to the suction side or to a drain. It is set to protect the weakest component, not to trim the pump, and it must be sized for the relief flow at that setting. A circulation relief valve is a separate device that maintains cooling flow through the pump when the system is closed.</p>
+
+			<h2 id="flow-measurement" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Flow Measurement and the Test Header</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A fire pump is accepted on measured performance, not on a nameplate. The test header — a manifold of hose valves, commonly 2.5 in (65 mm), piped off the discharge — lets the commissioning engineer flow the pump at several points up to its maximum and plot the result against the certified curve. The header needs to be sized and located so that each outlet can be read and the discharge measured, and a route for the test water that will not flood the room. Decide that path now; retrofitting it after the pump is set is expensive.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">A permanent flow meters is complementary. A <a href="/products/smart-electromagnetic-flow-meters/" class="text-brand-blue font-semibold hover:underline">smart electromagnetic flow meters</a> in the discharge header has no obstruction in the measuring tube, so it adds no pressure loss, and its 0.5% or 1.0% accuracy class is enough to trend a pump against its curve year over year. Pulse and 4-20 mA outputs, plus RS485/Modbus, let the reading reach the BMS so a slow loss of performance shows up as a trend instead of as a failed annual test. Available from DN10 to DN2000, it is normally specified in the same size as the discharge pipe.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The last element on the discharge side is the fire department connection. The <a href="/products/sqd100-1-6-fire-pump-adapter/" class="text-brand-blue font-semibold hover:underline">SQD100-1.6 siamese connection</a> takes two DN65 (2.5 in) inlets with caps and combines them into one DN100 (4 in) flanged outlet at a 1.6 MPa rating, in a body only 120 mm long with an integrated handwheel control valve and braided steel safety cables on the caps. Twin inlets are the point: two engines can feed the header at once, which is what makes the connection useful on a large pump. Pipe it into the discharge header downstream of the check valve so engine pressure supplements the pump instead of fighting it.</p>
+			<p class="text-gray-700 leading-relaxed">Do not leave the inlet pattern to chance. The same siamese is offered with SQS65 or KWS65 caps because those are different national coupling standards, and an engine that cannot mate with your inlet provides nothing. Confirm the pattern with the fire department that will respond to the site — the same discipline that governs hydrant outlets, covered in our <a href="/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">fire hydrant valve standards guide</a>.</p>
+
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Specification Checklist</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Start from the pump curve.</strong> Rated flow, rated head, churn pressure and the driver type. Every downstream rating is checked against the churn figure, not the rated figure.</li>
+				<li><strong>State the code and the edition.</strong> NFPA 20 or the local equivalent, and whether listed valves are mandatory. That single line decides whether you buy a listed OS&amp;Y or a standard waterworks gate valve.</li>
+				<li><strong>Give sizes and end types.</strong> Suction and discharge nominal sizes, flange drilling standard, or grooved. Mismatched end types are the most common cause of a second shipment.</li>
+				<li><strong>Specify supervision.</strong> Tamper switches on both isolation valves, wired to the fire panel, with the voltage and contact type stated.</li>
+				<li><strong>Include the relief valve and its setting.</strong> Relief capacity, set pressure, and where the discharge goes — suction side or drain. Do not leave it to the contractor to size.</li>
+				<li><strong>Plan test provisions.</strong> Test header outlets, test water route, and a metering point with the straight-run length the meters needs.</li>
+				<li><strong>Fix the siamese pattern.</strong> Two DN65 inlets into DN100, SQS65 or KWS65 caps to match the responding fire department, plus the height and orientation of the inlet from finished floor.</li>
+				<li><strong>Ask for the documents.</strong> Material certificates, pressure test records, listing references and the O&amp;M data — the same package described in the <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a>.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Two related guides are worth reading alongside this one: <a href="/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">gate valve vs butterfly valve in fire protection</a> for the isolation-valve decision, and <a href="/guides/check-valve-types-guide/" class="text-brand-blue font-semibold hover:underline">check valve types</a> for the non-return selection in more detail.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need Valves for a Fire Pump Room?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the pump rated flow and head, the suction and discharge sizes, and the code you are working to — our engineers confirm the valve schedule, relief setting and siamese pattern within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Fire%20Pump%20Room%20Valves" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20valves%20for%20a%20fire%20pump%20room" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

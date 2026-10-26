@@ -1,0 +1,229 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Is an API 598 test the same as a hydrostatic test?',
+		answer: 'A hydrostatic test is any test using water under pressure; API 598 is the standard that defines how a new valve is tested, at what pressure, for how long and with what leakage accepted. An API 598 shell test is a hydrostatic test, but the reverse is not true — a factory testing to its own rule produces a report that will not satisfy API 598.'
+	},
+	{
+		question: 'Why is the test pressure higher than the pressure on the nameplate?',
+		answer: 'The nameplate states the rating the valve may see in service. API 598 tests above it on purpose: normally 1.5 times the 38°C rating for the shell and 1.1 times for the seat. For a PN16 valve that is about 2.4 MPa and 1.76 MPa. The multiplication is done on the rating at 38°C, not on the class number.'
+	},
+	{
+		question: 'My supplier reports zero leakage on a metal-seated valve. Should I accept it?',
+		answer: 'Zero is possible but unusual, and a report claiming it for every size in a large batch deserves a question. Check whether a measured value is recorded or "nil" is pre-printed, whether both seats were tested, and whether the gauge was in calibration. A genuine zero is fine; an unmeasured zero is a paperwork gap.'
+	},
+	{
+		question: 'Do I have to witness the test myself?',
+		answer: 'Not for every unit. Most buyers make the first article a witness point and rely on reports plus photographs for the balance. If the contract names an inspection agency, its release note replaces your signature — but give the inspector the acceptance criteria in writing, because an inspector without a limit will sign anything that does not visibly pour.'
+	},
+	{
+		question: 'What pressure test does a PN16 ductile iron gate valve need?',
+		answer: 'At PN16 (1.6 MPa) the shell test is about 2.4 MPa and the seat test about 1.76 MPa, with hold times set by the size band. PN10 works out at about 1.5 MPa and 1.1 MPa. Confirm these against the edition named in your contract.'
+	},
+	{
+		question: 'Can a valve be re-tested after a repair?',
+		answer: 'Yes, and it must be, but the report has to show it: what failed, what was replaced, and a full repeat of the shell and seat sequence afterwards. What is not acceptable is a pressure-retaining casting defect closed up without a documented disposition approved by the buyer rather than only by the foundry.'
+	}
+];
+
+const toc = [
+	{ id: 'why-test-reports', label: '1. Why Buyers Ask for Test Reports' },
+	{ id: 'shell-seat-backseat', label: '2. Shell, Seat and Backseat Tests' },
+	{ id: 'pressure-duration-leakage', label: '3. Pressure, Duration and Leakage Limits' },
+	{ id: 'test-report-contents', label: '4. What a Test Report Must Contain' },
+	{ id: 'witnessing-fat', label: '5. Witnessing the FAT and Common Failures' },
+	{ id: 'specification-checklist', label: '6. Specification Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const products = [
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM OS&Y Gate Valve', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10", nodular iron, grooved ends' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Z41X Resilient Seat Gate Valve', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50-DN700, PN10 / PN16, EPDM wedge' },
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'HQ44X Ball Check Valve', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50-DN400, PN16, non-slam closure' },
+	{ slug: 'wafer-type-butterfly-valve-d71x', name: 'D71X Wafer Butterfly Valve', img: '/assets/products/wafer-type-butterfly-valve-d71x.webp', desc: 'DN50-DN200, EPDM lined, lever operated' }
+];
+---
+
+<Layout
+	title="API 598 Valve Testing Guide: Shell Test, Seat Test & FAT"
+	description="What API 598 shell and seat tests prove, the pressure multiples, holding times by size, leakage limits by seat type, and what a test report must show."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'API 598 Valve Testing' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">API 598 Valve Testing</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Valve Testing Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">API 598 Pressure Testing: Shell, Seat &amp; Test Reports</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a pressure test report is the only evidence a buyer holds that a valve will seal once the line is full. API 598 sets out how a new valve is shell-tested, seat-tested and, where the design has a backseat, backseat-tested — at pressures derived from the valve rating, with leakage limits that depend on seat type. This guide covers the pressure multiples, the holding times, the acceptance criteria and the paperwork worth asking for.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-test-reports" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Why Buyers Ask for Test Reports</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Two documents decide whether a batch is accepted: the material certificate, which says what the valve is made of, and the pressure test report, which says it holds. Most buyers chase the first and file the second, which is why leaks turn up at commissioning rather than at the factory gate.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">A valve can be dimensionally perfect and still weep at the bonnet joint, the packing gland or the seat. None of that shows in a dimensional check. It shows when the line is filled, on site, with the insulation already on. A strip-down and re-test in the factory costs an afternoon; the same leak on site costs a shutdown and a replacement.</p>
+			<p class="text-gray-700 leading-relaxed">API 598 covers examination and pressure testing of new gate, globe, plug, ball, butterfly and check valves in iron, steel and alloy materials. It is a per-valve standard: each valve is tested, not a sample. If a supplier offers a sampling plan instead, the reports describe only the valves that were tested. Where leakage must be expressed as a class rather than a drop count, ISO 5208 is the reference usually named alongside it.</p>
+
+			<h2 id="shell-seat-backseat" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Shell, Seat and Backseat Tests</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Shell (body) test.</strong> The body cavity is pressurized with the ends blanked and the closure not required to seal, so the pressure acts on the body wall, the bonnet joint and the packing gland. It proves casting soundness and joint integrity, and it says nothing about the seat: a valve with a scored disc passes a shell test every time. This is the test that finds porosity, a bad core, or a gasket fitted dry and pinched.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Seat (closure) test.</strong> The valve is closed, pressure is applied to one side and the other side is left open to atmosphere so leakage can be seen and measured. On a bidirectional valve both seats are tested, one side at a time — a report showing a single seat result for a double-seated valve has tested half the product. On a check valve the test runs in the reverse direction, the only direction in which the closure has to hold.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Backseat test.</strong> This exists only where the design has a backseat. With the valve fully open and the stem drawn back, pressure confirms the secondary seal that allows the packing to be renewed with the line under pressure — the practical reason an <a href="/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">OS&amp;Y gate valve</a> is the default isolation valve on a sprinkler riser. Ball, butterfly and check valves have no backseat, so a backseat result printed against a wafer butterfly valve is a template, not a test.</p>
+			<p class="text-gray-700 leading-relaxed">The sequence matters: shell, then seat, then backseat — a seat test run first can mask a body leak behind the rig.</p>
+
+			<h2 id="pressure-duration-leakage" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Pressure, Duration and Leakage Limits</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Test pressures are multiples of the valve rating, not of the class number. API 598 normally uses 1.5 times the 38°C rating for the shell test and 1.1 times for the seat test, with the rating taken from the applicable rating standard — ASME B16.34 for steel valves. A Class 150 carbon steel valve rated at about 19.6 bar at 38°C is therefore shell-tested near 29 bar, while a PN16 ductile iron valve rated at 16 bar is shell-tested near 24 bar.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Test</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Purpose</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Pressure basis</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Acceptance</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Shell / body</td>
+							<td class="px-4 py-3 text-gray-700">Body wall, casting soundness, bonnet joint, packing gland, body bolting</td>
+							<td class="px-4 py-3 text-gray-700">Normally 1.5 &times; the 38°C rating</td>
+							<td class="px-4 py-3 text-gray-700">No leakage, seepage or permanent deformation</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Seat / closure</td>
+							<td class="px-4 py-3 text-gray-700">Tightness of the closed closure, per seat, from each direction</td>
+							<td class="px-4 py-3 text-gray-700">Normally 1.1 &times; the 38°C rating</td>
+							<td class="px-4 py-3 text-gray-700">Zero visible leakage on resilient seats; a small measured rate on metal seats</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Backseat</td>
+							<td class="px-4 py-3 text-gray-700">Stem-to-bonnet seal with the valve open, permitting packing renewal under pressure</td>
+							<td class="px-4 py-3 text-gray-700">Normally 1.1 &times; the 38°C rating</td>
+							<td class="px-4 py-3 text-gray-700">No leakage past the backseat</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pneumatic shell (by agreement)</td>
+							<td class="px-4 py-3 text-gray-700">Where water is impractical for the valve or the bench</td>
+							<td class="px-4 py-3 text-gray-700">Agreed with the buyer and written into the test plan</td>
+							<td class="px-4 py-3 text-gray-700">No bubble formation, no deformation; stored energy makes it a weaker proof</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Holding time rises with size: a large body takes longer to fill, stabilize and reveal a weep at the far end of the casting. The bands change between editions, so quote the edition and read the table for your size.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Size band</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical minimum hold</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Why the band changes</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Up to about DN50 (2")</td>
+							<td class="px-4 py-3 text-gray-700">About 15 s</td>
+							<td class="px-4 py-3 text-gray-700">Small cavity fills and stabilizes quickly</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Roughly DN65-DN150 (2.5"-6")</td>
+							<td class="px-4 py-3 text-gray-700">About 60 s</td>
+							<td class="px-4 py-3 text-gray-700">Longer water path, slower stabilization</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">DN200 (8") and above</td>
+							<td class="px-4 py-3 text-gray-700">About 120 s, longer at the top of the range</td>
+							<td class="px-4 py-3 text-gray-700">Large casting volume, more joint length to observe</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Acceptance splits on seat type, not on valve type. A resilient or soft-seated valve — the EPDM-encapsulated wedge of a <a href="/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X resilient seat gate valve</a>, the liner of a <a href="/products/wafer-type-butterfly-valve-d71x/" class="text-brand-blue font-semibold hover:underline">D71X wafer butterfly valve</a>, the rubber-covered ball of an <a href="/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">HQ44X ball check valve</a> — is expected to show no visible leakage. The elastomer conforms to the seat, so there is no engineering reason to accept a drip.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">A metal-seated valve is different: metal on metal cannot conform, so the standard allows a small rate, stated in drops or bubbles per minute and falling as size rises. That allowance exists because a metal seat is chosen for temperature or abrasion where an elastomer would fail, not as a license to leak in service. If the project needs a metal seat to be drip-tight, the closure must be lapped and the requirement written into the order, because the standard will not deliver it by default.</p>
+
+			<h2 id="test-report-contents" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. What a Test Report Must Contain</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A report becomes evidence when it can be tied to a specific valve. This is the minimum that survives an audit or a claim.</p>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Header and traceability.</strong> Manufacturer, report number, purchase order, delivery reference and the date of test, not of printing.</li>
+				<li><strong>Unique identification.</strong> Model, size in DN and NPS, class or PN, body material with heat number, and a serial or lot number that appears on the valve or its tag.</li>
+				<li><strong>Standard and edition.</strong> API 598 with the year, plus any product standard: a listing reference for fire valves, GB/T 13927 for general valves.</li>
+				<li><strong>Test conditions.</strong> Fluid and temperature, shell and seat pressures, hold times, and the gauge identification with range and calibration due date.</li>
+				<li><strong>Results as measurements.</strong> Pass or fail per test, with leakage in drops or bubbles per minute where any is allowed. A column reading "nil" for every size is a template, not a measurement.</li>
+				<li><strong>Signatures.</strong> Tester, inspector and quality stamp, plus the witness name and date if witnessed.</li>
+				<li><strong>Attachments.</strong> Material certificates to EN 10204 3.1 or project equivalent, dimensional and visual records, coating thickness if specified, and any non-conformance with its disposition.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">The gaps are predictable: a container covered by one page, no gauge calibration record, identical leakage figures across unrelated sizes, a pressure stated as "PN16 tested" with no number, and a test date before final painting. Paint over a weep hides it, so the test should be the last pressure operation before packing. Our <a href="/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">guide to spotting counterfeit fire equipment</a> covers the surrounding document checks.</p>
+
+			<h2 id="witnessing-fat" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Witnessing the FAT and Common Failures</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Point at the valve.</strong> Ask for a unit from the finished-goods stack, not the one waiting on the bench, and match its tag to the report.</li>
+				<li><strong>Watch the gauge.</strong> Note the range and calibration sticker, and confirm the reading sits in the band the standard requires for that rating.</li>
+				<li><strong>Confirm the closure is stroked.</strong> A seat test on a valve that has never been cycled proves little.</li>
+				<li><strong>Insist on both seats.</strong> On a double-seated valve, watch both directions. This is the commonest shortcut in the industry.</li>
+				<li><strong>Check the flange faces afterwards.</strong> Clamp marks or a damaged raised face are transport defects even if the pressure held.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Failures cluster. A weep at the bonnet gasket usually means a dry or over-compressed gasket, or uneven torque. A seat that keeps leaking is normally debris, an elastomer damaged by over-tightening, or a seat face machined off-center. On a <a href="/products/flange-manual-bellows-gate-valve/" class="text-brand-blue font-semibold hover:underline">bellows seal gate valve</a> in steam or thermal oil service the bellows weld is the critical item: a leak there is a fugitive-emission failure and cannot be fixed by tightening the gland.</p>
+			<p class="text-gray-700 leading-relaxed">Where the valve carries a fire-protection listing, check that the listing covers the exact model and size being tested. A report for a similar model in the same family does not transfer, and an authority having jurisdiction will not accept it.</p>
+
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Specification Checklist</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Name the standard and edition.</strong> "Tested to API 598" is not enough; the tables change between editions.</li>
+				<li><strong>State the tests required.</strong> Shell and seat as a minimum; add backseat only where the design has one, and say what to do if it does not.</li>
+				<li><strong>State the acceptance criteria.</strong> Zero visible leakage for resilient seats, a stated rate for metal seats, no deformation after the shell test.</li>
+				<li><strong>State the medium and post-test treatment.</strong> Water by default; drained, dried and capped on delivery.</li>
+				<li><strong>Decide unit or sample.</strong> Per-valve testing is the default; if you accept sampling, record which valves the reports describe.</li>
+				<li><strong>Set the hold point.</strong> First article witnessed, reports for the balance, photographs where travel is not justified.</li>
+				<li><strong>Ask for one document package.</strong> Test report, material certificates, dimensional record and listing reference — the discipline described in our <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a>.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Buyers comparing isolation valves for a fire main should also read the <a href="/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">gate valve vs butterfly valve comparison</a>, since a butterfly valve has no backseat to report on.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need Valves With Test Reports You Can Audit?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the sizes, pressure class and acceptance criteria your project requires — we confirm the test regime and the report format with the quotation.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=API%20598%20Pressure%20Tested%20Valves" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20valves%20with%20API%20598%20test%20reports" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
