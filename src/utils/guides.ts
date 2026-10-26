@@ -13,6 +13,36 @@ export interface Guide {
 // 内容工厂单一数据源:新增指南只需在此追加一条
 export const guides: Guide[] = [
   {
+    title: 'Water Flow Indicator Guide: Wet Sprinkler Flow Switches',
+    description: 'Specify a water flow indicator for wet sprinkler systems: vane construction, branch and riser mounting, delay settings, panel wiring, testing and RFQ data.',
+    href: '/guides/water-flow-indicator-guide/',
+    tocPreview: ['1. Why Flow Detection Is Separate from the Alarm Valve', '2. How a Vane-Type Indicator Works', '3. Indicator, Flow Switch and Pressure Switch Compared'],
+    date: '2026-10',
+    category: 'Fire Protection',
+    readTime: '7 min read',
+    tags: ['fire-protection', 'sprinkler-systems']
+  },
+  {
+    title: 'Foam Proportioning System Guide: 3% AFFF for Class B Risks',
+    description: 'Understand low-expansion foam proportioning for Class B hazards: 3% AFFF, premix versus concentrate, PSG30 cabinet specs, hose and monitor integration.',
+    href: '/guides/foam-proportioning-system-guide/',
+    tocPreview: ['1. What Foam Does That Water Cannot', '2. How a 3% Proportioning System Works', '3. Expansion Ratio: Low, Medium and High'],
+    date: '2026-10',
+    category: 'Fire Protection',
+    readTime: '7 min read',
+    tags: ['fire-protection', 'fire-hose-reel']
+  },
+  {
+    title: 'NFPA Fire Protection Standards Guide: 13, 14, 20, 25',
+    description: 'A buyer\'s map of NFPA 13, 14, 20, 24 and 25 for fire-water systems, with EN 12845, GB and AHJ adoption explained in plain language for sourcing.',
+    href: '/guides/nfpa-fire-protection-standards-guide/',
+    tocPreview: ['1. Why the Standard Set Decides What You Buy', '2. The Six Documents and What Each Governs', '3. How the Documents Interact on One Project'],
+    date: '2026-10',
+    category: 'Standards & Compliance',
+    readTime: '7 min read',
+    tags: ['certification', 'procurement']
+  },
+  {
     title: 'API 598 Valve Testing Guide: Shell Test, Seat Test & FAT',
     description: 'What API 598 shell and seat tests prove, the pressure multiples, holding times by size, leakage limits by seat type, and what a test report must show.',
     href: '/guides/api-598-valve-pressure-test-guide/',

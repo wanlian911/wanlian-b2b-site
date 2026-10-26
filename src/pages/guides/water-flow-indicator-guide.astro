@@ -1,0 +1,163 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'What is a water flow indicator in a wet sprinkler system?',
+		answer: 'A water flow indicator is a vane or paddle device that detects water moving through a sprinkler pipe and changes that movement into an electrical alarm signal. The ZSJZ series uses a flexible vane and dry-contact output; it does not replace the wet alarm check valve or the system control valve.'
+	},
+	{
+		question: 'Where should a vane type flow switch be installed?',
+		answer: 'It is commonly installed on a branch or zone supply pipe where flow from an operating sprinkler can be identified. A riser assembly may also use a flow switch where the project design requires one signal for a larger zone. The designer must confirm the pipe size, direction, access and alarm zoning.'
+	},
+	{
+		question: 'What does the adjustable delay do?',
+		answer: 'The delay prevents a brief pressure surge, water hammer event or valve movement from being reported as a confirmed sprinkler discharge. Set the delay only within the device range and commissioning procedure; it must not hide genuine flow or be used as a substitute for correct pipe support and valve operation.'
+	},
+	{
+		question: 'Does the flow switch connect directly to the fire alarm panel?',
+		answer: 'The ZSJZ provides SPDT dry contacts specified at DC24V / 3A in the product data. The final circuit, end-of-line supervision, cable type and panel programming are set by the fire alarm designer and the authority having jurisdiction.'
+	},
+	{
+		question: 'How is a sprinkler flow switch tested?',
+		answer: 'Use the approved inspector test connection or test-and-drain arrangement to create controlled flow, verify the delay, confirm the alarm at the panel and restore the valve to its normal supervised position. Record the result and inspect the vane, enclosure, wiring and seals during scheduled maintenance.'
+	},
+	{
+		question: 'What information should be included in an RFQ?',
+		answer: 'State the pipe size, connection method, system pressure, mounting location, flow alarm threshold, delay requirement, contact arrangement, panel interface, supervision method, enclosure needs and documentation required. Ask the supplier to confirm suitability for the actual pipe and approved system design.'
+	}
+];
+
+const toc = [
+	{ id: 'separate-flow-detection', label: '1. Why Flow Detection Is Separate from the Alarm Valve' },
+	{ id: 'how-vane-indicator-works', label: '2. How a Vane-Type Indicator Works' },
+	{ id: 'indicator-switch-pressure', label: '3. Indicator, Flow Switch and Pressure Switch Compared' },
+	{ id: 'installation-orientation', label: '4. Installation Position, Orientation and Pipe Runs' },
+	{ id: 'delay-false-alarms', label: '5. Delay Setting, Testing and Maintenance' },
+	{ id: 'rfq-specification', label: '6. What to Specify on an RFQ' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const products = [
+	{ slug: 'water-flow-indicator-zsjz', name: 'ZSJZ Vane Type Water Flow Indicator', img: '/assets/products/water-flow-indicator-zsjz.png', desc: 'DN50-DN200, adjustable delay and dry contacts' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'ZSFZ-150 Wet Alarm Check Valve', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'Alarm valve with retard chamber and pressure switch' },
+	{ slug: 'glass-bulb-fire-sprinkler-zst', name: 'ZST Glass Bulb Fire Sprinkler', img: '/assets/products/glass-bulb-fire-sprinkler-zst.webp', desc: 'Automatic sprinkler head for wet systems' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Signal Grooved Wafer Butterfly Valve', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80-overlay.png', desc: 'Monitored valve position with DN50-DN300 range' }
+];
+---
+
+<Layout
+	title="Water Flow Indicator Guide: Wet Sprinkler Flow Switches"
+	description="Specify a water flow indicator for wet sprinkler systems: vane construction, branch and riser mounting, delay settings, panel wiring, testing and RFQ data."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Water Flow Indicator Guide' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Water Flow Indicator Guide</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Wet Sprinkler System Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Water Flow Indicators and Sprinkler Flow Switches</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a water flow indicator is the device that tells the fire alarm panel that water is moving in a sprinkler zone. It complements, rather than replaces, the wet alarm check valve. The vane, installation position, adjustable time delay, dry-contact wiring and test method all have to match the hydraulic design and the panel logic.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="separate-flow-detection" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Why Flow Detection Is Separate from the Alarm Valve</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A wet sprinkler system has several different jobs that are easy to confuse in a purchase order. The control valve isolates the water supply. The wet alarm check valve holds the system filled and uses hydraulic flow to operate an alarm assembly. A water flow indicator, usually called a sprinkler flow switch, identifies movement in a pipe section and reports it electrically to the fire alarm panel.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">These functions overlap during a real discharge but they are not interchangeable. A riser alarm valve may provide a local hydraulic alarm and a pressure-switch contact, while branch-line indicators divide a building into alarm zones. A <a href="/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ wet alarm check valve</a> is therefore specified for the riser assembly; a <a href="/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">ZSJZ water flow indicator</a> is specified where the engineer needs a flow signal from a branch or zone.</p>
+			<p class="text-gray-700 leading-relaxed">That distinction matters to overseas buyers because the alarm panel drawing, hydraulic zoning and maintenance access may be prepared by different contractors. Confirm whether the tender means a vane-type device, a pressure switch, a water motor alarm or a complete alarm valve trim. The <a href="/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">fire sprinkler system valves guide</a> explains how these assemblies sit together.</p>
+
+			<h2 id="how-vane-indicator-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. How a Vane-Type Indicator Works</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A vane-type flow switch places a flexible paddle inside the waterway. At rest, the paddle is aligned with the pipe and the electrical switch remains in its normal state. When water moves in the designed direction, the paddle deflects. A mechanical linkage then changes the contact state, allowing the fire alarm circuit to recognize sustained flow.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The ZSJZ product data lists DN50-DN200 sizing, working pressure options of 1.2 MPa / 1.6 MPa, and a switch sensitivity of 15 &lt; Q &lt; 37.5 L/min. It lists DC24V / 3A SPDT dry contacts, an engineered ABS IP54 electrical box, a ductile iron QT450-10 saddle housing, and a flexible polymer / stainless steel vane. Those are procurement facts for this model, not assumptions to apply to every flow switch.</p>
+			<p class="text-gray-700 leading-relaxed">The device is intended to sense flow without materially blocking the main passage. Its mounting style may be saddle, threaded or flanged/grooved according to the selected configuration. The pipe must be compatible with the ordered body and the vane must be long enough for that internal diameter. Do not cut a vane to make an incorrectly sized switch fit: request the correct configuration against the pipe drawing.</p>
+
+			<h2 id="indicator-switch-pressure" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Indicator, Flow Switch and Pressure Switch Compared</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">“Water flow indicator,” “flow switch” and “sprinkler flow switch” are often used for the same vane-based product, but a pressure switch is a different sensing method. Use this comparison when reviewing a bill of materials.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Device</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What it senses</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical duty</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Vane water flow indicator</td><td class="px-4 py-3 text-gray-700">Water movement in a pipe</td><td class="px-4 py-3 text-gray-700">Zone or branch flow alarm with adjustable delay</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Wet alarm valve</td><td class="px-4 py-3 text-gray-700">Flow opening the clapper</td><td class="px-4 py-3 text-gray-700">Riser check function, hydraulic alarm and pressure signal</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Pressure switch</td><td class="px-4 py-3 text-gray-700">Pressure change at a connection</td><td class="px-4 py-3 text-gray-700">Electrical alarm or supervisory signal where the design provides a pressure point</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">A pressure switch can respond to a pressure event without placing a vane in the pipe, but it does not automatically provide the same zone-level flow confirmation. Select the sensing device from the approved schematic, not from a keyword search alone.</p>
+
+			<h2 id="installation-orientation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Installation Position, Orientation and Pipe Runs</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Branch-line mounting gives the panel a localized alarm: the contractor can identify which floor, wing or protected zone has flow. Riser mounting gives a broader alarm and may be chosen when the riser assembly already defines the alarm boundary. The correct point is the one shown on the hydraulic and fire alarm drawings.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Follow the arrow on the housing and install the vane in the intended flow direction. Keep the switch accessible for inspection, protect the electrical box from impact and leave enough clearance to remove the cover. Avoid placing it immediately beside a turbulent elbow, pump discharge, reducing fitting or partially closed valve unless the manufacturer and designer approve that arrangement.</p>
+			<p class="text-gray-700 leading-relaxed">Straight-pipe requirements are model- and project-specific. Because the product file gives connection options and size range rather than a universal upstream/downstream distance, the RFQ should ask for the installation drawing. Coordinate the switch with the <a href="/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">signal grooved wafer butterfly valve</a> so the monitored isolation point remains accessible and the supervised valve status cannot be confused with a flow alarm.</p>
+
+			<h2 id="delay-false-alarms" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Delay Setting, Testing and Maintenance</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The ZSJZ delay circuit is adjustable from 2 to 60 seconds according to the product data. The purpose is to reject short disturbances, not to delay a real alarm unnecessarily. A long delay can make the panel slow to identify a developing incident; a short delay can make normal pressure fluctuations troublesome. Commission the value with the actual pipework, alarm panel and inspector test arrangement.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">During a functional test, open the approved test connection gradually, note the start of flow, verify the switch operates after the selected delay, confirm the correct zone text at the panel and check any remote notification path. Then close the test valve, allow the system to stabilize and confirm that the alarm resets as designed. Never test by randomly opening a drain or by leaving a control valve in an unknown position.</p>
+			<p class="text-gray-700 leading-relaxed">Maintenance should include a visual check of the cover, cable gland, conduit, vane area and mounting joint. Verify the panel sees a normal supervised circuit when the system is idle. Water hammer, damaged paddles, loose covers and altered panel resistors are common reasons for nuisance or missed alarms. Keep records by zone and by device so a repeat fault can be traced.</p>
+
+			<h2 id="rfq-specification" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. What to Specify on an RFQ</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Pipe and connection:</strong> nominal diameter, material, saddle/threaded/flanged or grooved connection, and flow direction.</li>
+				<li><strong>Hydraulic duty:</strong> system working pressure, expected flow condition and the approved minimum flow threshold concept. Do not ask a supplier to invent a threshold outside the design.</li>
+				<li><strong>Alarm circuit:</strong> SPDT or another required contact arrangement, panel voltage, current, end-of-line supervision and cable entry details.</li>
+				<li><strong>Delay:</strong> required adjustable range and commissioning method. The ZSJZ range is 2-60 seconds; confirm the selected setting at site.</li>
+				<li><strong>Environment:</strong> indoor or outdoor location, enclosure and access requirements, temperature exposure and corrosion conditions.</li>
+				<li><strong>Documents:</strong> product datasheet, installation drawing, wiring diagram, test record and identification of the exact model supplied.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">For a complete wet-system purchase, align the flow indicator with the sprinkler head schedule and alarm valve trim. Our <a href="/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">wet, dry and pre-action sprinkler guide</a> covers the system choice, while the <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> helps procurement teams request a document package that can be reviewed before shipment.</p>
+			<p class="text-gray-700 leading-relaxed">For distributors, it is useful to keep the commercial description and the engineering description separate. “Sprinkler flow switch” may be the search term, but a project buyer will need the actual nominal size, mounting method, contact rating and wiring diagram. Put those fields on the quotation so a replacement device can be matched later without relying on a photograph or a translated name.</p>
+			<p class="text-gray-700 leading-relaxed">For contractors, coordinate the switch with the pipe installation sequence. A device that is ordered after the branch line is complete may force an unsuitable connection or inaccessible orientation. Confirm the approved shop drawing before fabrication, and leave room for the inspector to operate the test connection and read the device label without removing finished building elements.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need Water Flow Indicators and Alarm Valves?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send your pipe sizes, alarm zoning, panel interface and installation drawing — our engineers can confirm the flow switch configuration and valve package.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Water%20Flow%20Indicator%20System" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20water%20flow%20indicators%20for%20a%20sprinkler%20project" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

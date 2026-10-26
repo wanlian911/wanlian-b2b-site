@@ -300,11 +300,31 @@ export function activeLocales(): Locale[] {
   return SUPPORTED_LOCALES.filter(isLocaleActive);
 }
 
+/**
+ * 仅英文已上线、译文尚未发布的页面。
+ * TRANSLATED_PREFIXES 是按路径前缀判断的，/guides/ 整体已翻译，
+ * 因此新增的英文单语页必须在此登记，否则会向不存在的语言版本输出 hreflang。
+ * 译文补齐后从本列表移除即可。
+ */
+export const EN_ONLY_PATHS: string[] = [
+  '/guides/esfr-sprinkler-system-guide/',
+  '/guides/fire-pump-room-valves-guide/',
+  '/guides/osy-gate-valve-guide/',
+  '/guides/fire-hose-coupling-standards-guide/',
+  '/guides/api-598-valve-pressure-test-guide/',
+  '/guides/flange-standard-guide-ansi-din-jis/',
+  '/guides/valve-body-material-selection-guide/',
+  '/guides/water-flow-indicator-guide/',
+  '/guides/foam-proportioning-system-guide/',
+  '/guides/nfpa-fire-protection-standards-guide/'
+];
+
 /** 目标路径在该语言下是否已有真实页面（默认语言恒真；容忍无尾斜杠与 hash/query）。 */
 export function isTranslated(pathname: string, locale: Locale): boolean {
   if (locale === DEFAULT_LOCALE) return true;
   const clean = pathname.split(/[?#]/)[0];
   const norm = clean.endsWith('/') ? clean : `${clean}/`;
+  if (EN_ONLY_PATHS.includes(norm)) return false;
   const prefixes = TRANSLATED_PREFIXES[locale] ?? [];
   if (norm === '/') return prefixes.includes('/');
   return prefixes.some(prefix => prefix !== '/' && norm.startsWith(prefix));
