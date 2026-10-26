@@ -1,0 +1,208 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: '¿Qué diferencia hay entre un rociador ESFR y uno estándar?',
+		answer: 'Un rociador estándar está diseñado para controlar el incendio hasta que llega el cuerpo de bomberos. Un rociador ESFR (Early Suppression Fast Response) está diseñado para extinguirlo: usa un factor K alto y un bulbo de respuesta rápida para descargar un volumen de agua mucho mayor directamente sobre la mercancía ardiendo durante el primer minuto o dos. Por eso los sistemas ESFR suelen proteger almacenamiento en altura sin rociadores en estantería, algo que los rociadores estándar no logran.'
+	},
+	{
+		question: '¿Los rociadores ESFR pueden sustituir a los rociadores en estantería en una bodega?',
+		answer: 'En muchas disposiciones de almacenamiento en altura, sí; ese es el principal argumento comercial del ESFR. NFPA 13 admite la protección ESFR de disposiciones de almacenamiento definidas sin rociadores en estantería, pero solo dentro de los límites de altura de almacenamiento y de techo para el factor K y la presión de diseño concretos. Si la estantería, el ancho del pasillo o la clasificación de la mercancía quedan fuera de esos límites, los rociadores en estantería siguen siendo obligatorios. La decisión final corresponde al diseñador y a la autoridad competente (AHJ).'
+	},
+	{
+		question: '¿Qué factor K debo especificar?',
+		answer: 'El factor K depende de la altura de almacenamiento, la altura del techo y la presión de diseño. Nuestra gama ESFR cubre modelos equivalentes a K14,0 (ESFR-202), K16,8 (ESFR-242) y K25,2 (ESFR-363), todos a 74 °C (165 °F). Los factores K mayores permiten mayores alturas de almacenamiento y menores presiones en el rociador más desfavorable, pero exigen más agua de la alimentación, de modo que la bomba y el tanque se dimensionan para el factor K elegido, y no al revés.'
+	},
+	{
+		question: '¿Por qué la temperatura nominal queda fijada en 74 °C en ESFR?',
+		answer: 'ESFR depende de una respuesta térmica rápida y 74 °C (165 °F) es la clasificación estándar para entornos de almacenamiento e industriales con temperaturas ambientales moderadas. Los rociadores ESFR no se ofrecen normalmente en las clasificaciones de temperatura más altas de los rociadores ordinarios, porque un enlace más lento anularía la intención de diseño de supresión temprana. Si su sitio es caluroso — cerca de hornos, secadores o cubiertas acristaladas — indíquenos la temperatura ambiental antes de pedir.'
+	},
+	{
+		question: '¿Se puede instalar ESFR en un sistema seco o de preacción?',
+		answer: 'ESFR es fundamentalmente una tecnología de sistema húmedo: el diseño supone que el agua está en el rociador y llega de inmediato. NFPA 13 restringe ESFR en sistemas secos, y cualquier disposición que introduzca retardo en la descarga del agua socava todo el concepto. Para bodegas sin climatización, la solución normal es un sistema húmedo con calefacción, un diseño de preacción revisado por la autoridad competente o un esquema no ESFR; decida esto en la etapa conceptual, no después de instalar la tubería.'
+	},
+	{
+		question: '¿Qué se suministra normalmente con un pedido de rociadores ESFR?',
+		answer: 'Los rociadores se suministran colgantes (PY) o verticales (UY) con rosca NPT R1/2" o R3/4", en cajas de 50 piezas, y enviamos la llave de montaje y el gabinete de rociadores de repuesto correspondientes cuando se solicitan. Las cantidades de proyecto se cotizan contra un listado de rociadores; envíe la distribución y confirmaremos orientaciones, tipo de rosca y cantidad por caja antes de fabricar.'
+	}
+];
+
+const toc = [
+	{ id: 'what-esfr-does', label: '1. Qué Hace Realmente un Sistema ESFR' },
+	{ id: 'esfr-vs-standard', label: '2. ESFR frente a Rociadores Estándar' },
+	{ id: 'k-factor-and-pressure', label: '3. Factor K, Presión y Altura de Almacenamiento' },
+	{ id: 'system-components', label: '4. Qué Más Necesita el Sistema' },
+	{ id: 'design-limits', label: '5. Límites de Diseño y Errores Frecuentes' },
+	{ id: 'specification-checklist', label: '6. Lista de Verificación de Especificación' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+const products = [
+	{ slug: 'esfr-sprinkler-head', name: 'Rociador ESFR de Supresión Temprana', img: '/assets/products/esfr-sprinkler-head.webp', desc: 'K202 / K242 / K363, 74 °C, colgante y vertical' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Válvula de Retención con Alarma Húmeda ZSFZ-150', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'DN100-DN200, puerto de alarma + cámara de retardo' },
+	{ slug: 'water-flow-indicator-zsjz', name: 'Indicador de Flujo de Paletas ZSJZ', img: '/assets/products/water-flow-indicator-zsjz.png', desc: 'DN50-DN200, retardo ajustable de 2-60 s' },
+	{ slug: 'glass-bulb-fire-sprinkler-zst', name: 'Rociador de Bulbo de Vidrio ZST', img: '/assets/products/glass-bulb-fire-sprinkler-zst.webp', desc: 'Rociadores de respuesta estándar en modo control' }
+];
+---
+
+<Layout
+	title="Guía del Sistema ESFR: K-Factor y Límites de Almacenaje"
+	description="Cómo los rociadores ESFR extinguen incendios en almacenamiento en altura sin rociadores en estantería: factor K, presión de diseño y válvulas del sistema."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Guía del Sistema de Rociadores ESFR' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Guía del Sistema ESFR</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Sistemas de Rociadores</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Sistemas de Rociadores ESFR: Factor K, Altura de Almacenamiento y Diseño</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En resumen: un sistema ESFR se especifica cuando el edificio almacena mercancía en altura y el propietario no quiere rociadores dentro de la estantería. El rociador tiene que abatir el incendio por sí solo, así que usa un factor K grande, un bulbo rápido de 74 °C y una presión de diseño alta. Esta guía cubre qué hace ESFR, cómo elegir el factor K y qué debe aportar el resto del sistema.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-esfr-does" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Qué Hace Realmente un Sistema ESFR</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Todo rociador se diseña contra un escenario de incendio, y el escenario decide el hardware. Un rociador convencional de modo control supone que el incendio crecerá hasta que llegue el cuerpo de bomberos y termine el trabajo; la tarea del rociador es evitar que el fuego se propague y que la estructura colapse. Al rociador ESFR, en cambio, se le pide apagar el incendio — o al menos mantenerlo en un tamaño que el edificio pueda soportar — usando solo el agua que puede descargar desde el techo.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Esa exigencia nace del propio almacenamiento. En una bodega con estanterías de tres o cuatro niveles, un fuego que empieza en la parte baja de la estantería queda protegido del techo por la mercancía superior. El agua del techo tiene que penetrar esa obstrucción, enfriar los canales de aireación y mojar la mercancía antes de que el fuego tenga energía suficiente para saltar de pasillo. Los rociadores estándar, a densidades ordinarias, normalmente no pueden descargar suficiente agua tan rápido; por eso la protección convencional de almacenamiento en altura ha dependido históricamente de los rociadores en estantería.</p>
+			<p class="text-gray-700 leading-relaxed">ESFR cambia la economía del edificio. Combina una tasa de descarga muy alta con un elemento de respuesta rápida, de modo que los primeros rociadores en accionar lanzan una columna de agua potente sobre el fuego cuando aún es pequeño. Cuando la disposición se ajusta a la norma, los rociadores de estantería desaparecen del plano: menos accesorios, menos tubería en la estantería, ningún daño por golpe de montacargas contra un poste, y una adaptación posterior mucho más económica. Consulte el <a href="/es/products/esfr-sprinkler-head/" class="text-brand-blue font-semibold hover:underline">rociador ESFR</a> para ver los modelos que fabricamos.</p>
+
+			<h2 id="esfr-vs-standard" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. ESFR frente a Rociadores Estándar</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Las dos familias responden a preguntas distintas, y confundirlas es el error de especificación más frecuente que vemos. La tabla siguiente es la versión corta que un comprador puede usar en una reunión.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Comparación</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">ESFR</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Control estándar</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Intención de diseño</td>
+							<td class="px-4 py-3 text-gray-700">Extinguir el incendio solo con los rociadores del techo</td>
+							<td class="px-4 py-3 text-gray-700">Controlar el incendio hasta que llegue el cuerpo de bomberos</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Respuesta</td>
+							<td class="px-4 py-3 text-gray-700">Respuesta rápida, bulbo de 74 °C (165 °F)</td>
+							<td class="px-4 py-3 text-gray-700">Respuesta estándar o rápida, rango de 57-141 °C</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Factor K</td>
+							<td class="px-4 py-3 text-gray-700">Alto: nuestra gama abarca K202, K242 y K363 métricos</td>
+							<td class="px-4 py-3 text-gray-700">Normalmente K80-K115 métrico</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Presión de operación</td>
+							<td class="px-4 py-3 text-gray-700">Alta; la fija el diseño, a menudo varios bar en el rociador</td>
+							<td class="px-4 py-3 text-gray-700">Baja; gobernada por la densidad, habitualmente menos de 1 bar</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Altura de almacenamiento</td>
+							<td class="px-4 py-3 text-gray-700">En altura, con límites fijados por el factor K y la presión</td>
+							<td class="px-4 py-3 text-gray-700">Limitada; suele necesitar rociadores en estantería por encima de 3,7 m</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Demanda de agua</td>
+							<td class="px-4 py-3 text-gray-700">Pocos rociadores, caudal por rociador muy alto</td>
+							<td class="px-4 py-3 text-gray-700">Más rociadores, caudal por rociador moderado</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Mejor ajuste</td>
+							<td class="px-4 py-3 text-gray-700">Almacenamiento en estantería y palletizado, cámaras frigoríficas, centros de distribución</td>
+							<td class="px-4 py-3 text-gray-700">Oficinas, riesgo ligero, manufactura de baja altura</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Una consecuencia práctica: un sistema ESFR no es una mejora directa sobre un sistema de bodega existente. Hay que revisar diámetros de tubería, curva de bomba y alimentación de agua, porque el mismo edificio que cumplía un diseño de modo control rara vez cumple uno ESFR sin cambios en la alimentación.</p>
+
+			<h2 id="k-factor-and-pressure" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Factor K, Presión y Altura de Almacenamiento</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El factor K es el coeficiente de descarga del rociador: el caudal varía con la raíz cuadrada de la presión, así que un K mayor entrega más agua a la misma presión, o la misma agua a menor presión. Esa relación es la razón por la que un factor K 25 unidades mayor cambia toda la selección de bomba.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">En nuestra gama ESFR, los modelos se corresponden con los factores K imperiales que usan la mayoría de las licitaciones internacionales:</p>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>ESFR-202 (K202 métrico, aproximadamente K14,0)</strong> — el caballo de batalla para alturas de almacenamiento moderadas; la menor demanda de agua de los tres.</li>
+				<li><strong>ESFR-242 (K242 métrico, aproximadamente K16,8)</strong> — la opción intermedia, usada cuando el almacenamiento o la altura del techo superan los límites del K14.</li>
+				<li><strong>ESFR-363 (K363 métrico, aproximadamente K25,2)</strong> — el mayor, para el almacenamiento más alto y las disposiciones más exigentes, y el que más exige de la alimentación de agua.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Altura de almacenamiento, altura de techo y presión requerida en el rociador más desfavorable se compensan entre sí en las tablas de diseño de NFPA 13 — y de GB 50084 para proyectos chinos —. Una altura de almacenamiento mayor con un factor K fijo significa una presión de diseño más alta; si la presión sube más allá de lo que la bomba puede entregar, la respuesta es un factor K mayor, no un margen de seguridad menor.</p>
+			<p class="text-gray-700 leading-relaxed">Diseñe siempre hacia atrás desde la alimentación de agua. Confirme el caudal y la presión disponibles en el montante y elija después el factor K que quepa en la disposición de almacenamiento dentro de ese límite. Elegir primero el rociador y esperar que la bomba siga es la forma en que las bodegas acaban con un sistema que no pasa la prueba de aceptación.</p>
+
+			<h2 id="system-components" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Qué Más Necesita el Sistema</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El rociador es la parte visible; las válvulas deciden si funciona. Un sistema ESFR de bodega normalmente necesita cuatro elementos además de los propios rociadores.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>La válvula de alarma.</strong> Un sistema ESFR de tubería húmeda usa una válvula de retención con alarma húmeda como la <a href="/es/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ-150</a>, que mantiene la presión del sistema, abre al paso de flujo y envía la alarma a través de una cámara de retardo para que una pequeña fluctuación de presión no dispare una falsa señal.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Detección de flujo.</strong> Un <a href="/es/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">indicador de flujo de paletas ZSJZ</a> en cada derivación confirma que el agua se mueve realmente, con un retardo ajustable de 2 a 60 segundos que filtra los picos de golpe de ariete. Su salida de contacto seco se conecta al panel de incendios y, en sitios grandes, al sistema de gestión del edificio.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Válvulas de control y conexiones de prueba.</strong> Las válvulas de compuerta OS&amp;Y en el montante dan una indicación visible de abierta/cerrada para el inspector; un drenaje principal y una conexión de prueba de caudal permiten al contratista demostrar la presión en el rociador más desfavorable durante la puesta en marcha. Nuestra <a href="/es/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">válvula de compuerta OS&amp;Y UL/FM</a> cubre 2"-10" con extremos ranurados para un montaje mecánico rápido.</p>
+			<p class="text-gray-700 leading-relaxed">Si está planeando un paquete de protección de bodega y no un producto suelto, la <a href="/es/guides/commercial-building-sprinkler-system-bom-guide/" class="text-brand-blue font-semibold hover:underline">guía de lista de materiales del sistema de rociadores</a> relaciona los componentes por tipo de sistema, lo que es una forma más rápida de armar la lista de compras que trabajar válvula por válvula.</p>
+
+			<h2 id="design-limits" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Límites de Diseño y Errores Frecuentes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">ESFR es potente pero estrecho. Los puntos siguientes causan la mayoría de los problemas de obra que nos piden ayudar a resolver.</p>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Distancia libre de obstrucciones.</strong> El deflector necesita el despeje que su listado exige por debajo. Una estantería elevada después de la puesta en marcha, o una iluminación instalada bajo los rociadores, puede invalidar el diseño sin avisar.</li>
+				<li><strong>Pasillos y canales de aireación.</strong> ESFR depende de que el agua llegue a los canales entre pallets. Las bandejas de fondo sólido, o los pallets apilados en doble altura que cierran el canal, lo anulan — y ningún rociador lo compensa.</li>
+				<li><strong>Clasificación de la mercancía.</strong> Los plásticos en particular cambian el cálculo. Una carga de plástico grupo A no es el mismo problema de diseño que mercancía de papel en cajas, y el diseño debe decir cuál cubre.</li>
+				<li><strong>Sistemas secos y anticongelante.</strong> ESFR supone agua en el rociador. Las disposiciones secas o con anticongelante que retrasan la descarga están restringidas por buena razón; planee calefacción o un esquema distinto.</li>
+				<li><strong>Sin rociadores en estantería "porque es ESFR".</strong> La exención de estantería solo se sostiene dentro de los límites de la disposición. Cuando la estantería o la altura de almacenamiento quedan fuera, los rociadores en estantería vuelven al diseño.</li>
+				<li><strong>Mezclar marcas de rociadores.</strong> No se deben mezclar en un mismo sistema rociadores de listados distintos. Mantenga un modelo por sistema y guarde en el gabinete rociadores de repuesto del mismo modelo.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Nada de esto es una razón para evitar ESFR; es una razón para fijar la disposición de almacenamiento en los documentos de diseño y para que el equipo de operaciones entienda que la altura de la estantería es un parámetro protegido, no una variable libre.</p>
+
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Lista de Verificación de Especificación</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Indique la base de diseño.</strong> NFPA 13, GB 50084 o el código local del proyecto, y la edición. Las tablas cambian entre ediciones.</li>
+				<li><strong>Dé alturas de almacenamiento y de techo.</strong> Ambas, en metros, más la clase de mercancía. Sin esos datos no se puede elegir el factor K con responsabilidad.</li>
+				<li><strong>Confirme la alimentación de agua.</strong> Caudal y presión disponibles en el montante, curva de bomba, volumen del tanque. Los fallos de ESFR son normalmente fallos de alimentación.</li>
+				<li><strong>Elija orientación y rosca.</strong> Colgante (PY) o vertical (UY); NPT R1/2" o R3/4". Los rociadores verticales son habituales cuando el deflector debe quedar por encima de la tubería.</li>
+				<li><strong>Planifique las válvulas junto con los rociadores.</strong> Válvula de alarma, válvula de control OS&amp;Y, indicador de flujo y conexiones de prueba deben pedirse como un solo paquete para que los tamaños coincidan.</li>
+				<li><strong>Pida los documentos que le van a exigir.</strong> Certificados de material, registros de ensayo por lote y las referencias de listado del modelo suministrado — la misma diligencia descrita en nuestra <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de compra B2B de válvulas</a>.</li>
+			</ul>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita Rociadores ESFR y Válvulas de Sistema?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíe la altura de almacenamiento, la altura del techo, la clase de mercancía y los datos de la alimentación de agua; nuestros ingenieros confirman el factor K y cotizan el paquete completo de válvulas en 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Sistema%20de%20Rociadores%20ESFR" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20rociadores%20ESFR%20para%20un%20proyecto%20de%20bodega" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

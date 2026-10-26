@@ -1,0 +1,230 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: '¿Una prueba API 598 es lo mismo que una prueba hidrostática?',
+		answer: 'Una prueba hidrostática es cualquier ensayo con agua a presión; API 598 es la norma que define cómo se prueba una válvula nueva, a qué presión, durante cuánto tiempo y con qué fuga se acepta. Una prueba de cuerpo según API 598 es una prueba hidrostática, pero no al revés: una fábrica que prueba según su propio criterio produce un informe que no satisface API 598.'
+	},
+	{
+		question: '¿Por qué la presión de ensayo es mayor que la de la placa de características?',
+		answer: 'La placa indica la clasificación que la válvula puede ver en servicio. API 598 prueba por encima deliberadamente: normalmente 1,5 veces la clasificación a 38 °C para el cuerpo y 1,1 veces para el asiento. Para una válvula PN16 son unos 2,4 MPa y 1,76 MPa. La multiplicación se hace sobre la clasificación a 38 °C, no sobre el número de clase.'
+	},
+	{
+		question: 'Mi proveedor reporta fuga cero en una válvula de asiento metálico. ¿Debo aceptarlo?',
+		answer: 'El cero es posible pero inusual, y un informe que lo afirma para todos los tamaños de un lote grande merece una pregunta. Verifique si se registra un valor medido o si el «nil» viene preimpreso, si se probaron ambos asientos y si el manómetro estaba calibrado. Un cero genuino está bien; un cero no medido es un hueco documental.'
+	},
+	{
+		question: '¿Tengo que presenciar yo la prueba?',
+		answer: 'No en cada unidad. La mayoría de los compradores hacen de la primera pieza un punto de testigo y confían en informes y fotografías para el resto. Si el contrato nombra una entidad de inspección, su nota de liberación sustituye su firma, pero dé al inspector los criterios de aceptación por escrito, porque un inspector sin un límite firma todo lo que no derrame a simple vista.'
+	},
+	{
+		question: '¿Qué prueba de presión necesita una válvula de compuerta PN16 en hierro dúctil?',
+		answer: 'En PN16 (1,6 MPa) la prueba de cuerpo es de unos 2,4 MPa y la de asiento de unos 1,76 MPa, con tiempos de retención fijados por la banda de tamaño. PN10 resulta en unos 1,5 MPa y 1,1 MPa. Confirme estas cifras contra la edición nombrada en su contrato.'
+	},
+	{
+		question: '¿Se puede volver a probar una válvula tras una reparación?',
+		answer: 'Sí, y debe hacerse, pero el informe tiene que mostrarlo: qué falló, qué se reemplazó y una repetición completa de la secuencia de cuerpo y asiento después. Lo inaceptable es un defecto de fundición que retiene presión y se sella sin una disposición documentada aprobada por el comprador, y no solo por la fundición.'
+	}
+];
+
+const toc = [
+	{ id: 'why-test-reports', label: '1. Por Qué los Compradores Piden Informes de Ensayo' },
+	{ id: 'shell-seat-backseat', label: '2. Pruebas de Cuerpo, Asiento y Contrasiento' },
+	{ id: 'pressure-duration-leakage', label: '3. Presión, Duración y Límites de Fuga' },
+	{ id: 'test-report-contents', label: '4. Qué Debe Contener un Informe de Ensayo' },
+	{ id: 'witnessing-fat', label: '5. Presenciar la FAT y Fallos Frecuentes' },
+	{ id: 'specification-checklist', label: '6. Lista de Verificación de Especificación' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+const products = [
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Válvula de Compuerta OS&Y UL/FM', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10", hierro nodular, extremos ranurados' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Válvula de Compuerta Z41X con Asiento Elástico', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50-DN700, PN10 / PN16, cuña EPDM' },
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'Válvula de Retención de Bola HQ44X', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50-DN400, PN16, cierre sin golpe' },
+	{ slug: 'wafer-type-butterfly-valve-d71x', name: 'Válvula de Mariposa Entrebridas D71X', img: '/assets/products/wafer-type-butterfly-valve-d71x.webp', desc: 'DN50-DN200, revestimiento EPDM, palanca' }
+];
+---
+
+<Layout
+	title="Guía de Ensayo API 598: Prueba de Cuerpo, Asiento y FAT"
+	description="Qué demuestran las pruebas de cuerpo y asiento de API 598: múltiplos de presión, tiempos de retención por tamaño, fugas admisibles y contenido del informe."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Ensayo de Válvulas API 598' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Ensayo de Válvulas API 598</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Ensayo de Válvulas</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">API 598: Pruebas de Presión de Cuerpo, Asiento e Informes</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En resumen: un informe de prueba de presión es la única evidencia que tiene el comprador de que una válvula sellará cuando la tubería se llene. API 598 establece cómo se prueba el cuerpo de una válvula nueva, su asiento y — cuando el diseño tiene contrasiento — el contrasiento, a presiones derivadas de la clasificación de la válvula y con límites de fuga que dependen del tipo de asiento. Esta guía cubre los múltiplos de presión, los tiempos de retención, los criterios de aceptación y la documentación que conviene pedir.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-test-reports" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Por Qué los Compradores Piden Informes de Ensayo</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Dos documentos deciden si se acepta un lote: el certificado de material, que dice de qué está hecha la válvula, y el informe de prueba de presión, que dice que aguanta. La mayoría persigue el primero y archiva el segundo, y por eso las fugas aparecen en la puesta en marcha y no en la puerta de la fábrica.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Una válvula puede ser dimensionalmente perfecta y aun así rezumar por la junta de la tapa, la prensaestopa o el asiento. Nada de eso se ve en una comprobación dimensional. Se ve cuando la línea se llena, en obra, con el aislamiento ya colocado. Desmontar y volver a probar en fábrica cuesta una tarde; la misma fuga en obra cuesta una parada y un reemplazo.</p>
+			<p class="text-gray-700 leading-relaxed">API 598 cubre el examen y la prueba de presión de válvulas de compuerta, globo, macho, bola, mariposa y retención nuevas, en materiales de hierro, acero y aleación. Es una norma por válvula: se prueba cada válvula, no una muestra. Si un proveedor ofrece un plan de muestreo, los informes describen solo las válvulas que se probaron. Cuando la fuga debe expresarse como clase y no como conteo de gotas, la referencia que se cita junto a API 598 es ISO 5208.</p>
+
+			<h2 id="shell-seat-backseat" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Pruebas de Cuerpo, Asiento y Contrasiento</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Prueba de cuerpo.</strong> La cavidad del cuerpo se presuriza con los extremos cegados y sin exigir que el obturador selle, de modo que la presión actúa sobre la pared del cuerpo, la junta de la tapa y la prensaestopa. Demuestra la homogeneidad de la fundición y la integridad de las uniones, y no dice nada del asiento: una válvula con el disco rayado pasa la prueba de cuerpo siempre. Es la prueba que encuentra porosidad, un mal núcleo o una junta montada seca y pellizcada.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Prueba de asiento.</strong> La válvula se cierra, se aplica presión a un lado y el otro queda abierto a atmósfera para que la fuga se vea y se mida. En una válvula bidireccional se prueban ambos asientos, un lado a la vez — un informe que muestra un solo resultado de asiento para una válvula de doble asiento ha probado la mitad del producto. En una válvula de retención la prueba va en sentido inverso, el único en el que el cierre tiene que aguantar.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Prueba de contrasiento.</strong> Solo existe donde el diseño lo tiene. Con la válvula totalmente abierta y el vástago retraído, la presión confirma el sello secundario que permite renovar la prensaestopa con la línea en carga — la razón práctica por la que una <a href="/es/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">válvula de compuerta OS&amp;Y</a> es la válvula de aislamiento por defecto en un montante de rociadores. Las válvulas de bola, mariposa y retención no tienen contrasiento, así que un resultado de contrasiento impreso junto a una válvula de mariposa entrebridas es una plantilla, no una prueba.</p>
+			<p class="text-gray-700 leading-relaxed">La secuencia importa: cuerpo, luego asiento, luego contrasiento — una prueba de asiento hecha primero puede enmascarar una fuga del cuerpo detrás del banco.</p>
+
+			<h2 id="pressure-duration-leakage" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Presión, Duración y Límites de Fuga</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Las presiones de ensayo son múltiplos de la clasificación de la válvula, no del número de clase. API 598 usa normalmente 1,5 veces la clasificación a 38 °C para la prueba de cuerpo y 1,1 veces para la de asiento, tomando la clasificación de la norma aplicable — ASME B16.34 para válvulas de acero. Una válvula de acero al carbono Class 150 clasificada en unos 19,6 bar a 38 °C se prueba de cuerpo cerca de 29 bar, mientras que una válvula de hierro dúctil PN16 clasificada en 16 bar se prueba de cuerpo cerca de 24 bar.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Prueba</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Propósito</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Base de presión</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Aceptación</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Cuerpo</td>
+							<td class="px-4 py-3 text-gray-700">Pared del cuerpo, homogeneidad de la fundición, junta de tapa, prensaestopa, pernos del cuerpo</td>
+							<td class="px-4 py-3 text-gray-700">Normalmente 1,5 &times; la clasificación a 38 °C</td>
+							<td class="px-4 py-3 text-gray-700">Sin fugas, exudaciones ni deformación permanente</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Asiento</td>
+							<td class="px-4 py-3 text-gray-700">Estanqueidad del cierre en posición cerrada, por asiento y desde cada dirección</td>
+							<td class="px-4 py-3 text-gray-700">Normalmente 1,1 &times; la clasificación a 38 °C</td>
+							<td class="px-4 py-3 text-gray-700">Cero fuga visible en asientos elásticos; una tasa medida pequeña en asientos metálicos</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Contrasiento</td>
+							<td class="px-4 py-3 text-gray-700">Sello vástago-tapa con la válvula abierta, que permite renovar la prensaestopa en carga</td>
+							<td class="px-4 py-3 text-gray-700">Normalmente 1,1 &times; la clasificación a 38 °C</td>
+							<td class="px-4 py-3 text-gray-700">Sin fugas más allá del contrasiento</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Neumática de cuerpo (por acuerdo)</td>
+							<td class="px-4 py-3 text-gray-700">Cuando el agua no es práctica para la válvula o el banco</td>
+							<td class="px-4 py-3 text-gray-700">Acordada con el comprador y escrita en el plan de ensayo</td>
+							<td class="px-4 py-3 text-gray-700">Sin formación de burbujas ni deformación; la energía acumulada la hace una prueba más débil</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">El tiempo de retención crece con el tamaño: un cuerpo grande tarda más en llenarse, estabilizarse y dejar ver un rezumado en el extremo opuesto de la fundición. Las bandas cambian entre ediciones, así que cite la edición y lea la tabla para su tamaño.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Banda de tamaño</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Retención mínima típica</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Por qué cambia la banda</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hasta unos DN50 (2")</td>
+							<td class="px-4 py-3 text-gray-700">Unos 15 s</td>
+							<td class="px-4 py-3 text-gray-700">La cavidad pequeña se llena y estabiliza rápido</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Aproximadamente DN65-DN150 (2,5"-6")</td>
+							<td class="px-4 py-3 text-gray-700">Unos 60 s</td>
+							<td class="px-4 py-3 text-gray-700">Recorrido de agua más largo, estabilización más lenta</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">DN200 (8") y superiores</td>
+							<td class="px-4 py-3 text-gray-700">Unos 120 s, más en la parte alta del rango</td>
+							<td class="px-4 py-3 text-gray-700">Volumen de fundición grande, más longitud de junta que observar</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">La aceptación se divide por tipo de asiento, no por tipo de válvula. Una válvula elástica o de asiento blando — la cuña recubierta de EPDM de una <a href="/es/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">válvula de compuerta Z41X</a>, el revestimiento de una <a href="/es/products/wafer-type-butterfly-valve-d71x/" class="text-brand-blue font-semibold hover:underline">válvula de mariposa D71X entrebridas</a>, la bola recubierta de caucho de una <a href="/es/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">retención de bola HQ44X</a> — no debe mostrar fuga visible. El elastómero se adapta al asiento, así que no hay razón de ingeniería para aceptar una gota.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Una válvula de asiento metálico es distinta: metal sobre metal no se adapta, por lo que la norma admite una tasa pequeña, expresada en gotas o burbujas por minuto y que baja al subir el tamaño. Ese permiso existe porque el asiento metálico se elige por temperatura o abrasión donde un elastómero fallaría, no como licencia para gotear en servicio. Si el proyecto necesita que un asiento metálico sea estanco, el cierre debe esmerilarse y el requisito debe escribirse en la orden, porque la norma no lo entrega por defecto.</p>
+
+			<h2 id="test-report-contents" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Qué Debe Contener un Informe de Ensayo</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un informe se convierte en evidencia cuando se puede atar a una válvula concreta. Este es el mínimo que sobrevive a una auditoría o a un reclamo.</p>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Cabecera y trazabilidad.</strong> Fabricante, número de informe, orden de compra, referencia de entrega y fecha de la prueba, no de impresión.</li>
+				<li><strong>Identificación única.</strong> Modelo, tamaño en DN y NPS, clase o PN, material del cuerpo con número de colada, y un número de serie o lote que aparezca en la válvula o en su etiqueta.</li>
+				<li><strong>Norma y edición.</strong> API 598 con el año, más cualquier norma de producto: referencia de listado para válvulas contraincendios, GB/T 13927 para válvulas generales.</li>
+				<li><strong>Condiciones de ensayo.</strong> Fluido y temperatura, presiones de cuerpo y asiento, tiempos de retención, e identificación del manómetro con rango y fecha de vencimiento de la calibración.</li>
+				<li><strong>Resultados como mediciones.</strong> Aprobado o rechazado por prueba, con la fuga en gotas o burbujas por minuto donde se permita. Una columna que dice «nil» en todos los tamaños es una plantilla, no una medición.</li>
+				<li><strong>Firmas.</strong> Operador, inspector y sello de calidad, más nombre y fecha del testigo si lo hubo.</li>
+				<li><strong>Adjuntos.</strong> Certificados de material según EN 10204 3.1 o equivalente de proyecto, registros dimensionales y visuales, espesor de recubrimiento si se especifica, y cualquier no conformidad con su disposición.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Los huecos son predecibles: un contenedor cubierto por una sola hoja, sin registro de calibración del manómetro, cifras de fuga idénticas en tamaños sin relación, una presión indicada como «probado a PN16» sin número, y una fecha de ensayo anterior al pintado final. La pintura sobre un rezumado lo oculta, así que la prueba debería ser la última operación de presión antes del embalaje. Nuestra <a href="/es/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">guía para detectar equipos contraincendios falsificados</a> cubre las comprobaciones documentales del entorno.</p>
+
+			<h2 id="witnessing-fat" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Presenciar la FAT y Fallos Frecuentes</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Señale la válvula.</strong> Pida una unidad del apilado de producto terminado, no la que espera en el banco, y coteje su etiqueta con el informe.</li>
+				<li><strong>Observe el manómetro.</strong> Anote el rango y la etiqueta de calibración, y confirme que la lectura cae en la banda que la norma exige para esa clasificación.</li>
+				<li><strong>Confirme que el cierre se acciona.</strong> Una prueba de asiento sobre una válvula que nunca se ha maniobrado prueba poco.</li>
+				<li><strong>Exija ambos asientos.</strong> En una válvula de doble asiento, observe los dos sentidos. Es el atajo más común de la industria.</li>
+				<li><strong>Revise las caras de brida después.</strong> Marcas de sujeción o una cara elevada dañada son defectos de transporte aunque la presión haya aguantado.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Los fallos se agrupan. Un rezumado por la junta de la tapa suele significar una junta seca o sobrecomprimida, o un par de apriete desigual. Un asiento que sigue fugando normalmente tiene residuos, un elastómero dañado por apriete excesivo, o una cara de asiento maquinada descentrada. En una <a href="/es/products/flange-manual-bellows-gate-valve/" class="text-brand-blue font-semibold hover:underline">válvula de compuerta con sello de fuelle</a> en servicio de vapor o aceite térmico, la soldadura del fuelle es el elemento crítico: una fuga ahí es un fallo de emisión fugitiva y no se arregla apretando la prensaestopa.</p>
+			<p class="text-gray-700 leading-relaxed">Cuando la válvula lleve un listado de protección contra incendios, compruebe que el listado cubre el modelo y el tamaño exactos que se prueban. Un informe de un modelo parecido de la misma familia no se transfiere, y la autoridad competente no lo aceptará.</p>
+
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Lista de Verificación de Especificación</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Nombre la norma y la edición.</strong> «Probada según API 598» no basta; las tablas cambian entre ediciones.</li>
+				<li><strong>Indique las pruebas requeridas.</strong> Cuerpo y asiento como mínimo; añada contrasiento solo donde el diseño lo tenga, y diga qué hacer si no lo tiene.</li>
+				<li><strong>Indique los criterios de aceptación.</strong> Cero fuga visible en asientos elásticos, una tasa declarada en asientos metálicos, sin deformación tras la prueba de cuerpo.</li>
+				<li><strong>Indique el medio y el tratamiento posterior.</strong> Agua por defecto; drenada, secada y con tapones en la entrega.</li>
+				<li><strong>Decida por unidad o por muestra.</strong> La prueba por válvula es lo que exige la norma por defecto; si acepta muestreo, registre qué válvulas describen los informes.</li>
+				<li><strong>Fije el punto de retención.</strong> Primera pieza testificada, informes para el resto, fotografías cuando el viaje no se justifica.</li>
+				<li><strong>Pida un solo paquete documental.</strong> Informe de ensayo, certificados de material, registro dimensional y referencia de listado — la disciplina descrita en nuestra <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de compra B2B de válvulas</a>.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Los compradores que comparen válvulas de aislamiento para una red contraincendios deberían leer también la <a href="/es/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">comparación entre válvula de compuerta y de mariposa</a>, ya que una válvula de mariposa no tiene contrasiento que reportar.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita Válvulas con Informes de Ensayo Auditable?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíe los tamaños, la clase de presión y los criterios de aceptación que exige su proyecto; confirmamos el régimen de ensayo y el formato del informe junto con la cotización.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=V%C3%A1lvulas%20Probadas%20seg%C3%BAn%20API%20598" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20v%C3%A1lvulas%20con%20informes%20de%20ensayo%20API%20598" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

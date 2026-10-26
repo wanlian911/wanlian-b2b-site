@@ -396,4 +396,54 @@ export const guidesEs: Guide[] = [
     readTime: readTime('9'),
     tags: ['procurement', 'fire-protection', 'fire-water-cannon']
   },
+  {
+    title: 'Normas NFPA de Protección Contra Incendios: 13, 14, 20, 25',
+    description: 'Mapa de compra de NFPA 13, 14, 20, 24 y 25 para redes de agua contra incendios, con EN 12845, GB y la adopción de la autoridad competente.',
+    href: '/es/guides/nfpa-fire-protection-standards-guide/',
+    tocPreview: ['1. Por Qué el Juego de Normas Decide Qué Compra', '2. Los Seis Documentos y Qué Rige Cada Uno', '3. Cómo Interactúan en un Mismo Proyecto'],
+    date: '2026-10',
+    category: 'Protección Contra Incendios',
+    readTime: readTime('7'),
+    tags: ['certification', 'procurement']
+  },
+  {
+    title: 'Guía de Ensayo API 598: Prueba de Cuerpo, Asiento y FAT',
+    description: 'Qué demuestran las pruebas de cuerpo y asiento de API 598: múltiplos de presión, tiempos de retención por tamaño, fugas admisibles y contenido del informe.',
+    href: '/es/guides/api-598-valve-pressure-test-guide/',
+    tocPreview: ['1. Por Qué los Compradores Piden Informes de Ensayo', '2. Pruebas de Cuerpo, Asiento y Contrasiento', '3. Presión, Duración y Límites de Fuga'],
+    date: '2026-10',
+    category: 'Válvulas',
+    readTime: readTime('9'),
+    tags: ['industrial-valves', 'certification', 'procurement']
+  },
+  {
+    title: 'Guía del Sistema ESFR: K-Factor y Límites de Almacenaje',
+    description: 'Cómo los rociadores ESFR extinguen incendios en almacenamiento en altura sin rociadores en estantería: factor K, presión de diseño y válvulas del sistema.',
+    href: '/es/guides/esfr-sprinkler-system-guide/',
+    tocPreview: ['1. Qué Hace Realmente un Sistema ESFR', '2. ESFR frente a Rociadores Estándar', '3. Factor K, Presión y Altura de Almacenamiento'],
+    date: '2026-10',
+    category: 'Protección Contra Incendios',
+    readTime: readTime('9'),
+    tags: ['sprinkler-systems', 'fire-protection']
+  },
+  {
+    title: 'Válvula OS&Y: Vástago Ascendente vs NRS para Incendios',
+    description: 'Guía OS&Y para protección contra incendios: cómo funciona el vástago exterior, por qué la exigen los inspectores y qué extremos elegir.',
+    href: '/es/guides/osy-gate-valve-guide/',
+    tocPreview: ['1. Qué Significa OS&Y y Cómo Funciona el Vástago', '2. Compuertas OS&Y frente a NRS', '3. Dónde Exige Cada Tipo el Código'],
+    date: '2026-10',
+    category: 'Válvulas',
+    readTime: readTime('9'),
+    tags: ['industrial-valves', 'procurement']
+  },
+  {
+    title: 'Cuerpo de Válvula: Materiales para Agua e Incendios',
+    description: 'Elija el material del cuerpo de la válvula para agua y contra incendios: hierro dúctil QT450-10, WCB, CF8/CF8M y latón, más asientos y recubrimientos.',
+    href: '/es/guides/valve-body-material-selection-guide/',
+    tocPreview: ['1. Por Qué el Material del Cuerpo Decide la Vida Útil', '2. Los Cinco Materiales de Cuerpo', '3. Materiales de Asiento e Internos'],
+    date: '2026-10',
+    category: 'Válvulas',
+    readTime: readTime('9'),
+    tags: ['industrial-valves', 'procurement']
+  },
 ];
