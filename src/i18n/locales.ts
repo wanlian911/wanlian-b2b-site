@@ -316,7 +316,10 @@ export const EN_ONLY_PATHS: string[] = [
   '/guides/valve-body-material-selection-guide/',
   '/guides/water-flow-indicator-guide/',
   '/guides/foam-proportioning-system-guide/',
-  '/guides/nfpa-fire-protection-standards-guide/'
+  '/guides/nfpa-fire-protection-standards-guide/',
+  '/esfr-sprinklers/',
+  '/fire-pump-connections/',
+  '/fire-hose-couplings/'
 ];
 
 /** 目标路径在该语言下是否已有真实页面（默认语言恒真；容忍无尾斜杠与 hash/query）。 */
