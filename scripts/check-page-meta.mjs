@@ -7,7 +7,13 @@
 //
 // Usage: node scripts/check-page-meta.mjs [--root=src] [--update]
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, sep } from 'node:path';
+
+// Baseline keys must be identical on Windows and on the Linux CI runner, so
+// every recorded path is normalised to forward slashes. Without this the
+// baseline generated locally never matches the paths computed in CI and every
+// grandfathered violation is reported as new.
+const toPosix = (p) => p.split(sep).join('/');
 
 const LIMITS = { title: 60, description: 155 };
 const BASELINE = 'scripts/page-meta-baseline.json';
@@ -61,16 +67,17 @@ let layoutPages = 0;
 let expressionTitles = 0;
 for (const f of files) {
   const props = layoutProps(readFileSync(f, 'utf8'));
+  const rel = toPosix(f);
   if (!props) continue;
   layoutPages++;
   for (const key of ['title', 'description']) {
     const v = props[key];
     if (v === null) {
-      violations.push(`${f}|missing-${key}`);
+      violations.push(`${rel}|missing-${key}`);
     } else if (v.expression) {
       if (key === 'title') expressionTitles++;
     } else if (v.literal.length > LIMITS[key]) {
-      violations.push(`${f}|${key}=${v.literal.length}`);
+      violations.push(`${rel}|${key}=${v.literal.length}`);
     }
   }
 }
@@ -94,7 +101,7 @@ if (!existsSync(BASELINE)) {
   process.exit(2);
 }
 const baseline = JSON.parse(readFileSync(BASELINE, 'utf8'));
-const tolerated = new Set(Object.keys(baseline).flatMap((f) => (baseline[f] || []).map((k) => f + '|' + k)));
+const tolerated = new Set(Object.keys(baseline).flatMap((f) => (baseline[f] || []).map((k) => toPosix(f) + '|' + k)));
 
 const fresh = violationKeys.filter((k) => !tolerated.has(k));
 const fixed = [...tolerated].filter((k) => !violationKeys.includes(k));

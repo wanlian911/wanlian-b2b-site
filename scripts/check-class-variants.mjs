@@ -5,7 +5,9 @@
 //
 // Usage: node scripts/check-class-variants.mjs [--root=src] [--quiet]
 import { readFileSync, readdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, sep } from 'node:path';
+
+const toPosix = (p) => p.split(sep).join('/');
 
 const rootArg = process.argv.find((a) => a.startsWith('--root='));
 const root = rootArg ? rootArg.slice(7) : 'src';
@@ -90,10 +92,10 @@ let attrCount = 0;
 const bad = [];
 for (const f of files) {
   const src = readFileSync(f, 'utf8');
-  if (src.charCodeAt(0) === 0xfeff) bad.push(`${f}: UTF-8 BOM (breaks frontmatter parsing)`);
+  if (src.charCodeAt(0) === 0xfeff) bad.push(`${toPosix(f)}: UTF-8 BOM (breaks frontmatter parsing)`);
   for (const value of classValues(src)) {
     attrCount++;
-    for (const token of badTokensIn(value)) bad.push(`${f}: ${token}`);
+    for (const token of badTokensIn(value)) bad.push(`${toPosix(f)}: ${token}`);
   }
 }
 
