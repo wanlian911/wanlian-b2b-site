@@ -4,6 +4,15 @@
 
 export type Locale = 'en' | 'es' | 'ru' | 'fr' | 'ar' | 'pt' | 'de' | 'tr' | 'id';
 
+import { productsArBySlug } from '../utils/products.ar';
+import { productsDeBySlug } from '../utils/products.de';
+import { productsEsBySlug } from '../utils/products.es';
+import { productsFrBySlug } from '../utils/products.fr';
+import { productsIdBySlug } from '../utils/products.id';
+import { productsPtBySlug } from '../utils/products.pt';
+import { productsRuBySlug } from '../utils/products.ru';
+import { productsTrBySlug } from '../utils/products.tr';
+
 export const DEFAULT_LOCALE: Locale = 'en';
 
 export const SUPPORTED_LOCALES: Locale[] = ['en', 'es', 'ru', 'fr', 'ar', 'pt', 'de', 'tr', 'id'];
@@ -324,10 +333,34 @@ export const PENDING_TRANSLATIONS: Partial<Record<Locale, string[]>> = {
 };
 
 /** 目标路径在该语言下是否已有真实页面（默认语言恒真；容忍无尾斜杠与 hash/query）。 */
+const PRODUCT_SLUGS_BY_LOCALE: Partial<Record<Locale, string[]>> = {
+  es: Object.keys(productsEsBySlug),
+  ru: Object.keys(productsRuBySlug),
+  fr: Object.keys(productsFrBySlug),
+  ar: Object.keys(productsArBySlug),
+  pt: Object.keys(productsPtBySlug),
+  de: Object.keys(productsDeBySlug),
+  tr: Object.keys(productsTrBySlug),
+  id: Object.keys(productsIdBySlug)
+};
+
 export function isTranslated(pathname: string, locale: Locale): boolean {
   if (locale === DEFAULT_LOCALE) return true;
   const clean = pathname.split(/[?#]/)[0];
   const norm = clean.endsWith('/') ? clean : `${clean}/`;
+  // Localised product pages are rendered from each locale's own catalogue file,
+  // so the prefix table cannot answer this question: a slug that only exists in
+  // products.ts has no /es/products/<slug>/ page, and advertising one creates a
+  // dead hreflang target and a dead language-switcher link. Deriving from the
+  // same maps the routes use keeps this correct automatically.
+  if (norm.startsWith('/products/') && norm !== '/products/') {
+    const slugs = PRODUCT_SLUGS_BY_LOCALE[locale];
+    if (slugs) {
+      let slug = norm.slice('/products/'.length);
+      while (slug.endsWith('/')) slug = slug.slice(0, slug.length - 1);
+      return slugs.includes(slug);
+    }
+  }
   if (PENDING_TRANSLATIONS[locale]?.includes(norm)) return false;
   const prefixes = TRANSLATED_PREFIXES[locale] ?? [];
   if (norm === '/') return prefixes.includes('/');
