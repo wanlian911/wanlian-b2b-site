@@ -406,4 +406,14 @@ export const guidesRu: Guide[] = [
     readTime: readTime('7'),
     tags: ['certification', 'procurement']
   },
+  {
+    title: 'Обвязка пожарного насоса: всас, нагнетание, испытания',
+    description: 'Обвязка пожарного насоса для закупщика: арматура всаса и нагнетания, обратные и предохранительные клапаны, линейка испытаний и сиамский адаптер.',
+    href: '/ru/guides/fire-pump-room-valves-guide/',
+    tocPreview: ['1. Что обязана обеспечивать насосная', '2. Линия всаса', '3. Линия нагнетания'],
+    date: '2026-10',
+    category: 'Противопожарная защита',
+    readTime: readTime('9'),
+    tags: ['fire-protection', 'industrial-valves']
+  },
 ];
