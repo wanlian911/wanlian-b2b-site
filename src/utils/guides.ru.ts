@@ -416,4 +416,14 @@ export const guidesRu: Guide[] = [
     readTime: readTime('9'),
     tags: ['fire-protection', 'industrial-valves']
   },
+  {
+    title: 'Задвижка OS&Y: выдвижной или невдвижной шпиндель',
+    description: 'Задвижка OS&Y для противопожарных систем: как работает выносной винт и вилка, чем отличается от NRS, где нужен листинг UL/FM и как выбрать концы.',
+    href: '/ru/guides/osy-gate-valve-guide/',
+    tocPreview: ['1. Что такое OS&Y и как работает шпиндель', '2. OS&Y против задвижек с невдвижным шпинделем', '3. Где какой тип требуется'],
+    date: '2026-10',
+    category: 'Противопожарная защита',
+    readTime: readTime('9'),
+    tags: ['industrial-valves', 'fire-protection']
+  },
 ];
