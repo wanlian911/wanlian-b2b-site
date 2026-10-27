@@ -13,6 +13,14 @@ const warnings = [];
 
 if (!raw.trim()) errors.push('file is empty');
 
+// Truncation guard (2026-10-27 incident: 676753d committed a 77-line products.ts).
+const minLinesArg = process.argv.find((a) => a.startsWith('--min-lines='));
+const minLines = minLinesArg ? Number(minLinesArg.split('=')[1]) : 1500;
+const lineCount = raw.split(/\r?\n/).length;
+if (lineCount < minLines) {
+  errors.push(`file truncated: ${lineCount} lines < ${minLines} minimum - restore products.ts from git history before committing`);
+}
+
 // Strip the TypeScript interface block and the type annotation on the export.
 let js = raw.replace(/export\s+interface\s+Product\s*\{[\s\S]*?\n\}/, '');
 js = js.replace(/export\s+const\s+products\s*:\s*Product\[\]\s*=/, 'const products =');
