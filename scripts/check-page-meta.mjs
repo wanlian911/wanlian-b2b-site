@@ -3,7 +3,21 @@
 // Google truncates around 60 / 155 characters, so over-long values are a real
 // (if soft) SEO defect. Existing pages are grandfathered in
 // scripts/page-meta-baseline.json: the gate fails only on NEW offenders, so it
-// can be switched on without breaking every deploy. Shrink the baseline over time.
+// can be switched on without breaking every deploy.
+//
+// DECISION (owner-approved 2026-10-27): do NOT bulk-clean the grandfathered
+// entries. Reasons, in order of weight:
+//   1. 43% of them exceed the limit by 1-5 characters. Truncation happens by
+//      pixel width, not by character count, so most of those render fine.
+//   2. Shortening a title deletes keywords, which is the one change here that
+//      can lose rankings. Description length is not a ranking factor at all.
+//   3. The set spans 9 locales, so a bulk edit multiplies both effort and the
+//      chance of introducing a defect, and desynchronises metadata if only one
+//      language gets edited.
+// The ratchet already stops the backlog from growing at zero cost. Touch an
+// entry only while editing that page for another reason, or from a data-driven
+// shortlist (impressions x low CTR x over-long title). Fix the deep offenders
+// first: 114 entries exceed the limit by more than 20 characters.
 //
 // Usage: node scripts/check-page-meta.mjs [--root=src] [--update]
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
