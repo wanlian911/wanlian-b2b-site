@@ -386,4 +386,14 @@ export const guidesRu: Guide[] = [
     readTime: readTime('9'),
     tags: ['procurement', 'fire-protection', 'fire-water-cannon']
   },
+  {
+    title: 'Система оросителей ESFR: коэффициент K и высота склада',
+    description: 'Как оросители ESFR подавляют пожар при высотном складировании без внутрестеллажных оросителей: выбор коэффициента K, расчётное давление и клапаны системы.',
+    href: '/ru/guides/esfr-sprinkler-system-guide/',
+    tocPreview: ['1. Что на самом деле делает система ESFR', '2. ESFR и стандартные оросители', '3. Коэффициент K, давление и высота складирования'],
+    date: '2026-10',
+    category: 'Противопожарная защита',
+    readTime: readTime('9'),
+    tags: ['sprinkler-systems', 'fire-protection']
+  },
 ];
