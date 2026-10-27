@@ -1,0 +1,192 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Can a US project buy an EN 14461 hydrant?',
+		answer: 'It can be purchased, but purchase is not the same as acceptance. A US project normally starts with the authority having jurisdiction, the fire department connection pattern and the contract standard. An EN 14461 hydrant may be considered only when the engineer and AHJ accept its pressure class, outlets, coupling interfaces, testing documents and installation details. If the tender invokes AWWA C509, offer an AWWA-configured hydrant rather than assuming an EN product is equivalent.'
+	},
+	{
+		question: 'Can an AWWA C509 hydrant be used on an EN project?',
+		answer: 'Only with documented project approval. An AWWA C509 hydrant and an EN 14461 hydrant can differ in barrel arrangement, pressure designation, outlet pattern, threads and type-test evidence. The designer must confirm that the AWWA configuration meets the required European interface and performance specification. Do not substitute by nominal size alone; submit the proposed standard, drawings, materials and test records for review before release.'
+	},
+	{
+		question: 'How do I choose between a dry-barrel and wet-barrel hydrant?',
+		answer: 'Use the climate, installation arrangement and local standard as the starting point. A dry-barrel arrangement keeps the upper barrel drained after shutdown and is suited to locations where freezing is a design concern, while a wet-barrel arrangement keeps the body charged and is generally used where freezing is not expected. The final choice belongs in the project specification and must match the selected standard, drain arrangement and maintenance practice.'
+	},
+	{
+		question: 'Does an IoT monitoring hydrant change its standard compliance?',
+		answer: 'Not by itself. A monitoring module is an accessory or instrumentation layer; it does not replace the hydrant body, pressure, outlet, material or test requirements. The base hydrant still needs to comply with the standard invoked by the tender, and the monitoring installation must not obstruct operation, drainage, inspection or traffic safety. Ask for the base product documents and the monitoring datasheet separately.'
+	},
+	{
+		question: 'What happens if the hydrant coupling thread does not match?',
+		answer: 'The hose, cap or fire appliance may not connect, even when the nominal outlet size looks correct. A thread or coupling mismatch can delay water delivery, prevent cap removal or require an unapproved adapter. Confirm the outlet type, thread designation, coupling standard and local fire-department practice on the approved drawing. Where a transition is necessary, identify and approve the adapter before shipment.'
+	},
+	{
+		question: 'Which test reports should I request before delivery?',
+		answer: 'Request the pressure test record, flow or performance test evidence applicable to the specified edition, material and coating documentation, dimensional and outlet inspection records, and the final inspection report. For a traffic-safe model, request the shear-bolt and automatic shutoff description. Ask the supplier to identify the exact standard edition used, because the tender edition controls what evidence is relevant.'
+	}
+];
+
+const toc = [
+	{ id: 'which-standard', label: '1. Which Standard Your Specification Actually Invokes' },
+	{ id: 'pressure-classes', label: '2. Rated Pressure and Working Depth' },
+	{ id: 'outlets', label: '3. Outlet Arrangement and Coupling Patterns' },
+	{ id: 'materials', label: '4. Materials, Coatings and Traffic Safety' },
+	{ id: 'testing', label: '5. Type Tests and Production Tests' },
+	{ id: 'mixing', label: '6. When Mixing Standards Is Acceptable' },
+	{ id: 'rfq-checklist', label: '7. Hydrant RFQ Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const products = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Overground Antifreeze Fire Hydrant (SS100/65)', img: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp', desc: 'GB 4452 ductile iron, DN100/65, 1.6 MPa, freeze-proof drain' },
+	{ slug: 'underground-fire-hydrant-sa', name: 'Underground Fire Hydrant (SA Series)', img: '/assets/products/underground-fire-hydrant-sa.webp', desc: 'Frost-free underground hydrant for cold municipal streets' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Anti-Collision Pressure-Regulating Hydrant (SSFT100)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Shear-bolt traffic protection with regulating device' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Indoor Fire Hydrant Head SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'SN65 ductile iron valve, 1.6 MPa, grooved or flanged' }
+];
+---
+
+<Layout
+	title="AWWA C509 vs EN 14461 Fire Hydrants Compared (2026)"
+	description="AWWA C509 vs EN 14461 fire hydrants: pressure classes, outlet patterns, materials, type tests and how to spec a hydrant that passes the AHJ."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'AWWA vs EN Fire Hydrants' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">AWWA vs EN Fire Hydrants</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Fire Hydrant Standards Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">AWWA C509 vs EN 14461 Fire Hydrants: A Practical Specification and Sourcing Comparison</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: AWWA C509 and EN 14461 are not interchangeable labels for the same hydrant. AWWA C509 is a North American product standard with its own barrel, outlet and thread conventions; EN 14461 is a European above-ground hydrant standard built around PN classes, DN inlet options, outlet arrangements, interfaces and performance requirements. A successful RFQ names the governing edition, local fire-service connection, pressure duty, materials, traffic protection and test records rather than asking for a generic “international” hydrant.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="which-standard" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Which Standard Your Specification Actually Invokes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The first question is not “Which hydrant is better?” It is “Which document governs acceptance?” AWWA C509 is used for resilient-seated gate valves and fire hydrant configurations in North American waterworks practice, including wet-barrel and dry-barrel arrangements. The specification is read alongside the project drawings, the utility standard and the authority having jurisdiction. EN 14461 addresses above-ground fire hydrants in the European framework, where the engineer normally states the pressure designation, nominal inlet size, outlet arrangement, connection interface and required performance evidence.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">GB 4452 is the relevant reference for the common Chinese above-ground SS100/65 product family. It is not a shortcut for either AWWA or EN acceptance. The Wanlian SS100/65 overground hydrant is supplied as a GB 4452 configuration, with a nominal pressure of 1.6 MPa and a static pressure test of 2.4 MPa. That information is useful for a China-market tender, but an export project still needs its own governing standard, outlet pattern and document list.</p>
+			<p class="text-gray-700 leading-relaxed">Use the comparison below as a screening tool, then verify the exact tender edition and project amendments before approving a substitute.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Specification point</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">AWWA C509</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">EN 14461</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">GB 4452</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Product scope</td>
+							<td class="px-4 py-3 text-gray-700">North American fire hydrant product standard; wet or dry barrel configurations</td>
+							<td class="px-4 py-3 text-gray-700">European above-ground fire hydrants with stated PN and performance requirements</td>
+							<td class="px-4 py-3 text-gray-700">Chinese above-ground hydrants, including the SS100/65 family</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pressure language</td>
+							<td class="px-4 py-3 text-gray-700">Use the rated class and project schedule; do not infer an unlisted value</td>
+							<td class="px-4 py-3 text-gray-700">PN class is stated in the specification and checked against the installation</td>
+							<td class="px-4 py-3 text-gray-700">SS100/65 commonly specified at 1.6 MPa; static test 2.4 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Outlets and interfaces</td>
+							<td class="px-4 py-3 text-gray-700">2.5 in main outlet and 65 mm side outlet; threads follow the stated AWWA interface</td>
+							<td class="px-4 py-3 text-gray-700">Common 2 x DN65 plus DN100 arrangement; interface can follow EN 14384 and related coupling requirements</td>
+							<td class="px-4 py-3 text-gray-700">SS100/65 outlet naming follows the Chinese product and connection convention</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Materials and safety</td>
+							<td class="px-4 py-3 text-gray-700">Ductile iron practice includes ASTM A536 material reference and dry-barrel drainage where applicable</td>
+							<td class="px-4 py-3 text-gray-700">Material, coating, flow performance and vehicle-impact safety are specified and tested per the edition</td>
+							<td class="px-4 py-3 text-gray-700">Ductile iron product configuration with the GB 4452 material and test requirements</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="pressure-classes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Rated Pressure and Working Depth</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Pressure terminology is a common source of false equivalence. EN documents typically make the PN designation visible, while an AWWA schedule may state a rated pressure class or utility requirement. GB 4452 SS100/65 products are commonly identified at 1.6 MPa, with 2.4 MPa static pressure testing for the stated configuration. These labels describe different standard systems; they should not be converted by a sales person using nominal size alone.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Ask for the pressure class at the complete hydrant assembly, not only at the body. The bonnet, stem, seat, nozzle, cap, drain and flange or threaded connection all have to remain suitable for the duty. State the required working depth, bury arrangement and finished-grade dimension from the civil drawing. Any minimum flow value, bury depth or other edition-dependent number should be specified per the standard edition in the tender.</p>
+			<p class="text-gray-700 leading-relaxed">A cold municipal street may require a dry-barrel or underground arrangement, while a warm climate may permit a wet-barrel design. For a below-grade installation, review the <a href="/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">SA Series underground fire hydrant</a> against the project drainage and access details. The pressure decision and the freeze decision are related, but they are not the same decision.</p>
+
+			<h2 id="outlets" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Outlet Arrangement and Coupling Patterns</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">An outlet that cannot mate with the local hose is a failed hydrant. AWWA C509 practice identifies a 2.5 in main outlet and a 65 mm side outlet, with threads following the applicable AWWA C505 interface. EN 14461 projects commonly show DN80, DN100 or DN150 inlets and an outlet arrangement such as 2 x DN65 plus DN100, but the exact coupling interface belongs in the project schedule. A drawing that says only “DN65 outlet” is incomplete unless it also identifies thread or coupling type.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Confirm whether the fire service uses threaded hose connections, a Storz pattern, a national coupling or a project-specific adapter. Wanlian can review the hydrant nozzle schedule together with a <a href="/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">fire hydrant hose coupling adapter</a> or a <a href="/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">2.5 inch aluminum Storz coupling</a> when the connection is part of the RFQ. The adapter should be named and approved; it should not be discovered after the container arrives.</p>
+			<p class="text-gray-700 leading-relaxed">If a US fire department will operate the valve, ask it to confirm the thread before ordering an EN or GB configuration. If the project is European, identify the connection reference used by the utility and show it on the approved general arrangement. The <a href="/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">fire hydrant valve standards guide</a> explains why outlet geometry, cap clearance and operating direction belong in the same review.</p>
+
+			<h2 id="materials" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Materials, Coatings and Traffic Safety</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">AWWA configurations commonly identify ductile iron to ASTM A536 and use a dry-barrel drainage arrangement where freezing protection is required. EN projects still need the material grade, internal and external coating system, fastener material and elastomer selection written into the submittal. GB 4452 products use the defined Chinese product configuration. Do not compare paint colour or a catalogue photograph as proof of coating compliance; request the material and coating records required by the tender edition.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Traffic protection is a separate functional requirement. On the SSFT100 anti-collision pressure-regulating hydrant, a collision causes the shear bolts to break and the internal valve to close automatically, stopping the water flow. Replacing the shear bolts restores the hydrant. Detailed technical data can be provided on request. This description does not mean that every AWWA, EN or GB hydrant has the same safety mechanism, so the traffic-safety requirement must be explicitly stated.</p>
+			<p class="text-gray-700 leading-relaxed">For a site with frequent vehicle movement, compare the <a href="/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">SSFT100 anti-collision hydrant</a> with the civil protection around the hydrant. The <a href="/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">antifreeze and anti-collision hydrant guide</a> is useful when the specification combines freezing risk, impact exposure and operating access.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Type Tests and Production Tests</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A certificate with the right product name is not automatically evidence for the right standard. Ask which edition was used, which configuration was tested and whether the report covers the supplied outlet pattern. Type tests demonstrate the design, while production tests demonstrate that the shipment was inspected and pressure-tested. The two documents answer different buyer questions and should be listed separately in the purchase order.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">For an AWWA C509 submission, request the applicable pressure, operation, drainage and material evidence for the wet-barrel or dry-barrel arrangement. For EN 14461, request the PN, flow-performance, outlet, vehicle-impact and interface evidence applicable to the selected configuration. For GB 4452, request the 1.6 MPa product record and 2.4 MPa static pressure test record where that is the specified SS100/65 basis. Flow-test details should follow the applicable standard method and edition; do not accept an invented universal flow number.</p>
+			<p class="text-gray-700 leading-relaxed">The <a href="/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">IoT smart ground hydrant SS100ZN</a> can add monitoring to the asset, but the base hydrant still needs its own compliance package. Check that the sensor, battery and communications equipment do not interfere with valve travel, drainage, inspection or the traffic-safety function.</p>
+
+			<h2 id="mixing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. When Mixing Standards Is Acceptable</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Mixing standards can be acceptable when it is deliberate, documented and approved. For example, a project may use a hydrant body manufactured to one product standard and a separately specified adapter to match the local hose. That does not make the body compliant with the adapter standard. The submittal should identify each component, its governing document, pressure compatibility, thread or coupling interface and responsibility for final acceptance.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Do not mix standards silently by changing only the flange or nozzle after quotation. The outlet drilling, cap clearance, operating key, drain behaviour and test evidence can all change. If a contractor requests an AWWA body for an EN project, ask the engineer to mark the deviation on the approved submittal. If an EN hydrant is proposed for a US project, obtain written AHJ acceptance before manufacturing.</p>
+			<p class="text-gray-700 leading-relaxed">Wanlian supports project review through its own production line plus qualified cooperative capacity, allowing the RFQ to be matched to the required body, outlet and document package. The buyer remains responsible for naming the project standard and AHJ; the supplier should not make an unsupported certification claim.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Hydrant RFQ Checklist</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Name the governing standard and edition.</strong> State AWWA C509, EN 14461, GB 4452 or another required document, together with project amendments and AHJ requirements.</li>
+				<li><strong>Define the barrel and installation.</strong> Wet barrel or dry barrel, above ground or underground, finished-grade dimension, drain arrangement and freeze exposure.</li>
+				<li><strong>State pressure and flow duty.</strong> Give the rated pressure or PN class and require any edition-dependent flow value to be specified per the standard edition in the tender.</li>
+				<li><strong>Draw every connection.</strong> Inlet DN or nominal size, flange drilling, outlet count, outlet size, thread or coupling pattern, cap and operating-key details.</li>
+				<li><strong>List materials and protection.</strong> Ductile iron grade, elastomers, fasteners, coating system, traffic safety device and replacement shear-bolt requirement where applicable.</li>
+				<li><strong>Request the evidence package.</strong> Type-test reports, production pressure tests, flow or performance records, material certificates, dimensional inspection and final release documents.</li>
+				<li><strong>Confirm accessories.</strong> Hose adapters, Storz couplings, caps, drain components, monitoring equipment and spare shear bolts must be listed rather than assumed.</li>
+				<li><strong>Put acceptance in writing.</strong> Ask the engineer or AHJ to approve any cross-standard substitution before production, and attach the approved drawing to the purchase order.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">For selection context, read <a href="/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">how to choose a fire hydrant</a> and the <a href="/guides/fire-hose-coupling-standards-guide/" class="text-brand-blue font-semibold hover:underline">fire hose coupling standards guide</a>. For system-level planning, see <a href="/fire-hydrant-systems/" class="text-brand-blue font-semibold hover:underline">fire hydrant systems</a> before finalising the valve schedule.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need a Hydrant Configured for Your Project Standard?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the project location, standard edition, inlet and outlet pattern, pressure duty and installation conditions. We will confirm an export or interface configuration for the applicable standard and provide the relevant test reports for review.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Outdoor%20Fire%20Hydrants%20%28AWWA%20C509%20vs%20EN%2014461%29" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20outdoor%20fire%20hydrants%20for%20an%20AWWA%20C509%20or%20EN%2014461%20project" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

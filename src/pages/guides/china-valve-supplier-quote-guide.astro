@@ -1,0 +1,215 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'A quote for the same valve is about 30% apart. What is usually different?',
+		answer: 'A gap of around 30% usually reflects a different commercial and technical basis rather than a simple factory margin. Check the valve body and trim materials, seat compound, end standard, coating, pressure-test scope, certificates, packing, delivery term and whether tooling or inspection is excluded. Reissue a line-by-line clarification before comparing the totals.'
+	},
+	{
+		question: 'Why is looking only at the FOB figure a mistake?',
+		answer: 'FOB covers the agreed export handover point, not your full landed cost. Inland transport, export declaration, ocean freight, duties, port charges and customs brokerage can change the delivered result. Compare EXW, FOB, CIF and DDP on one destination-based cost sheet, while confirming which charges remain your responsibility.'
+	},
+	{
+		question: 'Should we ask for LFO third-party inspection?',
+		answer: 'Ask for an independent pre-shipment inspection or FAT witness when the order is safety-critical, the supplier is new, the specification is complex or the documents need independent confirmation. Clarify the inspection hold point, sampling, test records and who pays. SGS- or BV-type inspection bodies can witness the agreed scope, but they do not replace your technical acceptance criteria.'
+	},
+	{
+		question: 'How should we negotiate the sample policy?',
+		answer: 'Define whether the sample is an actual production valve, a cutaway or a prototype, and state who pays for the sample, tooling, freight and test reports. Agree what happens to an approved sample when the pilot order is released, and record any dimensional, coating or marking deviations before approval.'
+	},
+	{
+		question: 'How should payment milestones be set?',
+		answer: 'T/T 30/70 and L/C at sight are common structures, but the release trigger should be specific. Tie the balance to completed inspection, approved documents and agreed packing rather than an informal promise. Confirm the beneficiary name, bank details, order entity and any change-of-account procedure through a known channel.'
+	},
+	{
+		question: 'How soon after receiving a quote should we request the FAT plan?',
+		answer: 'Request the FAT plan during technical clarification and before award, not after production is complete. The plan should identify the shell and seat test basis, sampling, gauges, acceptance records, material certificates, marking, packing and witness notice. This gives both sides time to reserve a test slot and resolve an exception before shipment.'
+	}
+];
+
+const toc = [
+	{ id: 'why-quotes-differ', label: '1. Why Two Quotes for the Same Valve Differ' },
+	{ id: 'write-rfq', label: '2. Writing an RFQ That Gets Accurate Quotes' },
+	{ id: 'read-quote', label: '3. Reading the Quote Line by Line' },
+	{ id: 'hidden-costs', label: '4. The Costs That Appear After Award' },
+	{ id: 'appraisal', label: '5. Building a Side-by-Side Appraisal' },
+	{ id: 'verification', label: '6. Verification Before Payment' },
+	{ id: 'pilot-order', label: '7. Pilot Orders and Scaling Up' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const products = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Z41X Resilient Seat Flanged Gate Valve', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50-DN700 PN10/16 EPDM encapsulated wedge' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM Resilient Seated OS&amp;Y Gate Valve', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10", grooved ends, rising stem, UL/FM listed' },
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'HQ44X Spherical Ball Check Valve', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50-DN400 PN16, non-slam EPDM ball' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Overground Antifreeze Fire Hydrant (SS100/65)', img: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp', desc: 'GB 4452 ductile iron, 1.6 MPa, freeze-proof drain' }
+];
+---
+
+<Layout
+	title="How to Compare Chinese Valve Supplier Quotes (2026)"
+	description="A procurement playbook for RFQs to Chinese valve factories: what to specify, how quotes differ, hidden costs, scoring and checks before you award."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Valve Quote Comparison Guide' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Valve Quote Comparison Guide</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Valve Procurement Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">How to Compare Quotes from Chinese Valve Suppliers Without Losing the Deal Later</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a valve quote is only comparable when the technical scope, delivery term, documents, testing and payment trigger are comparable. This guide shows buyers how to write an RFQ, read each line, expose landed-cost gaps, score suppliers and verify a Chinese valve factory before awarding a purchase order. Wanlian quotes to your RFQ rather than displaying a price list, so the useful starting point is a complete BOM and specification.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-quotes-differ" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Why Two Quotes for the Same Valve Differ</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">“The same valve” is often only the same name. One factory may quote a ductile-iron body with stainless trim, another may use a different trim grade or seat compound. One may include a shell and seat test, material traceability and a signed data book; another may include only a routine factory inspection. Flange drilling can follow ANSI, DIN, EN or JIS, and a face-to-face dimension can vary with the design. Paint system, marking, packing and palletisation also affect what arrives at site.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Commercial scope creates a second gap. MOQ, dedicated tooling, pattern modification, sample testing, 3.1 material certificates, third-party FAT witnessing and special packaging may appear as separate lines or be omitted until clarification. EXW, FOB, CIF and DDP are not interchangeable price labels: they transfer cost and risk at different points. Before asking why a quote is high, ask whether both suppliers priced the same deliverable.</p>
+			<p class="text-gray-700 leading-relaxed">Build a single comparison sheet before negotiation. Put the model, nominal size, pressure class, end connection, materials, standard, inspection, documents, quantity, destination and required date in fixed columns. The <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> is a useful companion for making that scope explicit.</p>
+
+			<h2 id="write-rfq" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Writing an RFQ That Gets Accurate Quotes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">An RFQ should let a factory answer without guessing. Attach the valve schedule or BOM, drawings, service medium, operating temperature and pressure, quantity by size, destination port, required delivery window and applicable code. State whether the valve is for fire protection, waterworks, process service or a replacement. Add end-standard details such as ANSI Class or DIN/EN/JIS drilling instead of writing only “flanged.”</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Make the document request part of the line item. Ask for body and trim material designations, seat material, pressure-test records, 3.1 certificates where required, coating data, nameplate artwork, packing photos and an inspection and test plan. If a third party will witness FAT, name the hold point and the acceptance records. For fire equipment, request evidence that can be checked against the exact model; never accept “equivalent to a famous brand” as a substitute for a verifiable listing or certificate.</p>
+			<p class="text-gray-700 leading-relaxed">Ask every bidder to identify exclusions and deviations in a separate column. A blank deviation column is not confirmation. Require the supplier to state the currency, validity period, production lead time, MOQ, warranty basis, payment structure, Incoterm and destination assumptions. Wanlian operates with its own production lines plus qualified collaborative capacity, and quotes on the RFQ scope so the production route can be matched to the required valve and documentation.</p>
+
+			<h2 id="read-quote" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Reading the Quote Line by Line</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Read the quote as a technical offer, not a single number. Start with the exact product code and revision, then check the pressure class, nominal size range, end connection, face-to-face standard and material schedule. Confirm whether the quoted <a href="/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X resilient-seat flanged gate valve</a> is the requested configuration, rather than a visually similar gate valve with a different wedge or drilling.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Quote field</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What to confirm</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Why it changes the decision</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Valve and materials</td>
+							<td class="px-4 py-3 text-gray-700">Body, bonnet, stem, trim, wedge or ball, seat and gasket</td>
+							<td class="px-4 py-3 text-gray-700">Service life, corrosion resistance and approval scope</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Connection</td>
+							<td class="px-4 py-3 text-gray-700">ANSI, DIN, EN or JIS drilling; grooved or threaded ends</td>
+							<td class="px-4 py-3 text-gray-700">Fit at site and risk of an expensive second shipment</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Testing and documents</td>
+							<td class="px-4 py-3 text-gray-700">Shell/seat test per API 598, certificates, FAT and data book</td>
+							<td class="px-4 py-3 text-gray-700">Acceptance evidence and traceability after delivery</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Delivery basis</td>
+							<td class="px-4 py-3 text-gray-700">EXW, FOB, CIF or DDP, named place and included charges</td>
+							<td class="px-4 py-3 text-gray-700">Landed cost, risk transfer and import workload</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Payment and release</td>
+							<td class="px-4 py-3 text-gray-700">T/T 30/70 or L/C at sight, inspection and document triggers</td>
+							<td class="px-4 py-3 text-gray-700">Cash exposure and control before shipment</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Then inspect the fine print. “Standard packing” may not mean export packing, and “test certificate” may not mean a report tied to your serial numbers. Confirm whether ISPM-15 pallets, labels, spare seals, manuals and photos are included. For fire-service applications, compare the exact listing, marking and inspection evidence, not just a familiar product description. See the <a href="/guides/api-598-valve-pressure-test-guide/" class="text-brand-blue font-semibold hover:underline">API 598 pressure-test guide</a> when the test language is unclear.</p>
+
+			<h2 id="hidden-costs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. The Costs That Appear After Award</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The delivered cost starts with the quoted valve but does not end there. Under EXW, you may arrange factory pickup and the inland leg. Under FOB, the supplier normally handles export formalities to the named loading point, while the buyer carries the ocean freight and onward costs. CIF includes freight and insurance to the named port, but not necessarily destination terminal work, duty or customs brokerage. DDP can be simpler for a buyer, yet the exact tax, importer-of-record and delivery scope must be written down.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Map the full chain: inland transport, export declaration, ocean freight, insurance, duties, port and terminal charges, customs clearance agent, final delivery and any inspection or storage. Add the commercial extras that are easy to miss: MOQ, mould or tooling charges, sample and test fees, 3.1 certificates, third-party FAT, special coating, nameplate translation, export cartons and ISPM-15 treatment. Ask for a validity period because freight and surcharges can move between award and shipment.</p>
+			<p class="text-gray-700 leading-relaxed">Do not let an apparent low quote hide a technical omission. A missing seat material, wrong flange drilling or absent test record may create rework, delay and approval risk that outweighs the initial difference. The <a href="/guides/flange-standard-guide-ansi-din-jis/" class="text-brand-blue font-semibold hover:underline">ANSI, DIN and JIS flange guide</a> helps resolve one of the most common scope gaps before the purchase order.</p>
+
+			<h2 id="appraisal" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Building a Side-by-Side Appraisal</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Use a weighted appraisal rather than choosing the lowest line. A practical scorecard gives the technical fit and compliance evidence the largest share of attention, followed by landed-cost clarity, quality controls, lead time, communication and payment risk. The exact weighting should reflect the consequence of failure: a replacement valve for a non-critical utility can be assessed differently from a valve in a fire protection package.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Scoring dimension</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Evidence to request</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Red flag</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Technical fit</td>
+							<td class="px-4 py-3 text-gray-700">Drawings, datasheet, materials, end standards and deviations</td>
+							<td class="px-4 py-3 text-gray-700">“Equivalent” stated without model-level proof</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Quality and traceability</td>
+							<td class="px-4 py-3 text-gray-700">ITP, serial records, test logs, 3.1 certificates and audit access</td>
+							<td class="px-4 py-3 text-gray-700">Certificate issuer or scope cannot be checked</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Commercial clarity</td>
+							<td class="px-4 py-3 text-gray-700">Incoterm, destination, exclusions, validity and landed-cost sheet</td>
+							<td class="px-4 py-3 text-gray-700">Freight, duty or tooling appears only after award</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Execution risk</td>
+							<td class="px-4 py-3 text-gray-700">Factory video, capacity plan, references and communication record</td>
+							<td class="px-4 py-3 text-gray-700">Refuses an audit or changes the receiving account</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Record unanswered questions as deductions, not assumptions. A responsive supplier that identifies a deviation is safer than one that says yes to everything and changes the scope later. Keep the quote revision, clarifications and approved drawing attached to the appraisal so the award decision remains auditable.</p>
+
+			<h2 id="verification" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Verification Before Payment</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Before releasing an advance, verify the legal entity, factory address, production capability, bank beneficiary and document issuer. Ask for a live video walk-through of machining, assembly, pressure testing, painting, warehouse identification and packing. A video is not a substitute for an audit, but refusal to show the operation is a clear warning. If the supplier uses qualified collaborative capacity, identify which process is outsourced and who owns final inspection.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Check that certificates name the correct manufacturer and model, and that the receiving account matches the contracting entity. A certificate holder and payment account with unexplained name differences require clarification before payment. Treat “same as a major brand” as marketing language until the model, listing, material and test evidence can be independently verified. For a structured process, follow our <a href="/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">Chinese valve supplier verification guide</a> and review the <a href="/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">counterfeit fire-equipment checks</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Agree the FAT plan before production reaches its final stage. Define shell and seat tests per API 598 where applicable, gauge calibration, sample selection, coating and marking checks, document review, witness notice and non-conformance handling. A third-party witness from an SGS- or BV-type organisation can add independence, but the purchase order must still define acceptance.</p>
+
+			<h2 id="pilot-order" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Pilot Orders and Scaling Up</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A pilot order turns assumptions into evidence. Use it to check the actual valve against the approved drawing, dimensions, flange drilling, operation torque, coating, nameplate, packing and document pack. For a fire-water application, verify the <a href="/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM resilient seated OS&amp;Y gate valve</a> configuration and the <a href="/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">HQ44X spherical ball check valve</a> against the approved scope, rather than relying on a catalogue photograph.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Start small because the cost of discovering a mismatch is lower before the product is rolled across a project. A pilot also tests communication, change control, packing quality, export documents and how quickly a non-conformance is corrected. Release the next batch only after the pilot report is closed and the supplier confirms that the approved revision is locked for production.</p>
+			<p class="text-gray-700 leading-relaxed">Scaling should preserve the same inspection gates, traceability and payment triggers. Wanlian can quote RFQ-based packages using its own production lines plus qualified collaborative capacity; send the valve schedule, destination and required documents so we can separate standard supply from project-specific checks. For broader risk planning, read the <a href="/guides/cross-border-procurement-risk-whitepaper/" class="text-brand-blue font-semibold hover:underline">cross-border procurement risk whitepaper</a> before finalising the sourcing route.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Ready to Compare a Valve RFQ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send your BOM or inquiry sheet, destination, standards and document requirements. Wanlian quotes to the RFQ, confirms the technical scope and separates production, inspection and delivery assumptions before you award.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Valve%20RFQ%20Package" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Valve RFQ</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20valve%20quotes%20for%20my%20BOM" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

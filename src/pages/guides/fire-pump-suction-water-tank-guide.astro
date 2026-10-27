@@ -1,0 +1,181 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'What tank material and corrosion protection should we specify?',
+		answer: 'Specify the tank material, lining, coating and water-quality provisions with the tank manufacturer and the project engineer. Steel, sectional steel and concrete tanks each have different corrosion-control details, and the correct choice depends on the stored water, climate and local requirements. Ask for coating data, inspection access and maintenance instructions rather than assuming that a general-purpose lining is suitable for fire water.'
+	},
+	{
+		question: 'Does a suction vortex preventer need a fire-service certification?',
+		answer: 'The need for a listing, approval or project-specific acceptance depends on the applicable standard edition, authority having jurisdiction and the complete tank assembly. An anti-vortex plate is a hydraulic protection component, not automatically a listed fire valve. Confirm the required evidence for the project and submit its material, dimensions and installation detail with the tank documentation.'
+	},
+	{
+		question: 'What happens when the tank submergence depth is too small?',
+		answer: 'The suction can draw air, form a visible vortex or become noisy and unstable. The pump may show fluctuating suction pressure, loss of delivered flow, vibration or cavitation-like symptoms. Check the water level, inlet geometry, approach flow and vortex-prevention detail against the applicable standard edition and pump manufacturer data before changing the pump.'
+	},
+	{
+		question: 'Can one tank serve both domestic and fire-water duties?',
+		answer: 'It can be possible, but only when the arrangement preserves the required fire reserve, maintains the required separation or draw-off level, and is accepted by the authority having jurisdiction. A domestic outlet or level-control setting must not allow normal consumption to use the protected fire volume. Confirm the hydraulic arrangement, monitoring and refill controls against the applicable code.'
+	},
+	{
+		question: 'Why is a gate valve normally preferred on the pump suction?',
+		answer: 'A fully open gate valve provides a full-bore passage with little disturbance close to the pump inlet and can be locked or supervised open. The suction isolation valve is not a throttling device. A listed alternative may be accepted in some projects, but the pump supplier, design engineer and authority having jurisdiction should confirm the selection before release.'
+	},
+	{
+		question: 'How should a suction tank be protected in a cold climate?',
+		answer: 'Keep the tank, suction pipe, valves and level-control equipment above the project freeze-risk or provide engineered insulation, heat tracing and drainage. The exact method depends on the climate, tank construction and applicable standard edition. Protecting only the tank shell is not enough if an exposed valve, pilot line or low point can freeze and interrupt the fire-water supply.'
+	}
+];
+
+const toc = [
+	{ id: 'water-source', label: '1. Where the Fire Water Volume Comes From' },
+	{ id: 'tank-sizing', label: '2. Sizing the Fire Water Reserve' },
+	{ id: 'two-suction', label: '3. The Two-Suction Rule and Tank Penetrations' },
+	{ id: 'vortex', label: '4. Vortex Prevention and Suction Pipe Layout' },
+	{ id: 'level-control', label: '5. Keeping the Tank Full: Level Control' },
+	{ id: 'priming-testing', label: '6. Priming, Gauges and Test Provisions' },
+	{ id: 'checklist', label: '7. Suction Arrangement Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const products = [
+	{ slug: 'suction-vortex-preventer-en12845', name: 'Suction Vortex Preventer (EN 12845)', img: '/assets/products/suction-vortex-preventer-en12845.webp', desc: 'Austenitic stainless, anti-vortex plate assembly' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'Hydraulic Water Level Control Valve (F745X)', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'Pilot-operated level maintenance, smooth closing' },
+	{ slug: 'remote-control-float-valve-100x', name: 'Remote Control Float Valve (100X-16P)', img: '/assets/products/remote-control-float-valve-100x.webp', desc: 'Stainless float pilot valve for tank refill' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'Telescopic Y-Strainer (SGL41H)', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'Suction-line debris protection, cleanable inline' }
+];
+---
+
+<Layout
+	title="Fire Pump Suction and Water Tank Arrangement (2026)"
+	description="Fire water tank sizing, two-suction rules, vortex preventers, priming and level control valves - how to arrange a compliant fire pump suction."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Fire Pump Suction Guide' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Fire Pump Suction Guide</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Fire Water Tank Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Fire Pump Suction and Fire Water Tank Arrangement</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a fire pump can only deliver its certified performance when the tank provides the right reserve, the suction inlets stay submerged, air and vortex formation are controlled, and refill equipment cannot consume the protected volume. This guide explains the source, tank sizing, two-suction arrangements, anti-vortex details, level control, priming and the information to put on a suction-side schedule.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="water-source" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Where the Fire Water Volume Comes From</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The suction arrangement starts with the water source, not with a valve catalogue. A fire pump may draw from an open atmospheric tank, a dedicated sectional tank, a concrete reservoir, a pressure vessel or a municipal main. Each source changes the available suction head, the way the pump is primed, the protection needed at the inlet and the evidence required at acceptance. The pump and controller are supplied by a pump manufacturer to NFPA 20 or the local code; Wanlian supplies the suction-side valves and accessories around that package, not the fire pump itself.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">An open fire-water tank is usually the most predictable source because its operating level is visible and its pressure is atmospheric. The pump engineer still has to account for the lowest usable level, inlet elevation, pipe losses and the pump manufacturer's suction requirements. A closed pressure tank has a different pressure and volume relationship, while a municipal connection depends on a reliable public supply and the restrictions imposed by the water authority. Do not transfer a tank arrangement to a direct connection without recalculating the suction conditions.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Source</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Suction-side meaning</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Design question</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Open fire-water tank</td>
+							<td class="px-4 py-3 text-gray-700">Static water level, submerged inlet, anti-vortex detail and drainable pipework</td>
+							<td class="px-4 py-3 text-gray-700">Is the lowest operating level adequate for the pump inlet?</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Closed pressure tank</td>
+							<td class="px-4 py-3 text-gray-700">Tank pressure, usable volume, isolation and safe maintenance provisions</td>
+							<td class="px-4 py-3 text-gray-700">Does pressure remain available through the required duty?</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Municipal direct connection</td>
+							<td class="px-4 py-3 text-gray-700">Public-main pressure, flow reliability, backflow control and authority approval</td>
+							<td class="px-4 py-3 text-gray-700">Can the main provide the required suction condition at all times?</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">For a broader view of the room-side valve sequence, see the <a href="/guides/fire-pump-room-valves-guide/" class="text-brand-blue font-semibold hover:underline">fire pump room valves guide</a>. It is useful to settle the pump curve and isolation philosophy before freezing the tank penetrations.</p>
+
+			<h2 id="tank-sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Sizing the Fire Water Reserve</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The fire-water reserve is determined by the project hazard classification, design discharge and required duration under the applicable design standard. There is no responsible universal tank volume to copy from one building to another. The hydraulic calculation identifies the demand, and the applicable standard edition defines how long the reserve must support the protected systems. Record the basis, the required usable volume and the low-level datum on the tank and pump schedules.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Separate total volume from usable fire volume. Tank geometry, high and low level settings, sediment allowance, overflow and the position of every outlet affect what the pump can actually draw. If a domestic outlet shares the tank, its draw-off must be arranged so normal consumption cannot use the protected fire reserve. The refill valve should maintain the normal level without closing violently, while a monitored low-level signal should reach the fire alarm or building management system as required.</p>
+			<p class="text-gray-700 leading-relaxed">For code context, compare the design team's calculations with the <a href="/guides/nfpa-fire-protection-standards-guide/" class="text-brand-blue font-semibold hover:underline">NFPA fire protection standards guide</a>. Use that overview to identify questions, then confirm every volume, duration and level requirement against the applicable standard edition and the authority having jurisdiction.</p>
+
+			<h2 id="two-suction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. The Two-Suction Rule and Tank Penetrations</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Large fire-water tanks need more than a single point of dependence. NFPA 20 provisions for large storage tanks require more than one suction outlet or suction main and limit reliance on one suction line, but the exact threshold and configuration depend on the applicable standard edition. Confirm the edition before drawing the tank wall, and show whether each pump has an independent route, how the routes are isolated and how maintenance can be completed without removing the required fire capacity.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">A tank penetration is a system detail, not merely a hole with a flange. Coordinate sleeve position, reinforcement, gasket material, external isolation, internal anti-vortex plates and access for inspection. Keep the valve outside the tank where it can be operated and maintained, and make sure the spool can be drained or removed without compromising the other suction. The <a href="/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM resilient-seat OS&amp;Y gate valve</a> is commonly considered where a listed, full-bore and visibly open isolation valve is required; selection remains subject to the project specification.</p>
+			<p class="text-gray-700 leading-relaxed">Two suction routes do not mean two decorative branches joined immediately into one bottleneck. Trace each route to the pump arrangement, check the available flow area and identify which valves must remain locked or supervised open. Where a second pump or compartment is present, the designer should demonstrate that a single component failure does not remove the required suction capacity.</p>
+
+			<h2 id="vortex" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Vortex Prevention and Suction Pipe Layout</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The tank inlet must remain submerged by the minimum depth required by the applicable standard and the pump arrangement. If the water level falls too close to the opening, a vortex can draw air into the suction even while the tank still appears to contain water. Air ingestion reduces delivered flow, causes unstable suction pressure and can damage the impeller. An anti-vortex plate or <a href="/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">EN 12845 suction vortex preventer</a> helps break the rotating flow pattern; it does not replace the required submergence depth or correct pipe sizing.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Keep the approach to the pump as simple as the room allows. Use the suction pipe size and straight-run length given by the pump manufacturer, avoid unnecessary elbows close to the suction flange, and install an eccentric reducer with its flat side on top so air cannot collect at the pump inlet. Support the pipe independently so its weight and thermal movement do not load the pump casing. The suction valve is for isolation, never for throttling.</p>
+			<p class="text-gray-700 leading-relaxed">If debris is a credible risk, a cleanable <a href="/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">SGL41H telescopic Y-strainer</a> may protect the suction line where the approved design permits it, but any screen adds loss and maintenance. Confirm mesh, access, pressure drop and fire-service acceptance before installation. A blocked strainer can look like an undersized tank when the real symptom is a falling suction gauge.</p>
+
+			<h2 id="level-control" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Keeping the Tank Full: Level Control</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A tank that was full at handover is not necessarily a reliable fire source. Refill equipment has to maintain the normal level, close smoothly, tolerate the available inlet pressure and give a clear signal if the level falls. The design goal is to keep domestic demand, evaporation, testing and small leaks from consuming the protected reserve, while preventing an uncontrolled refill from overflowing the tank.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The <a href="/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">F745X hydraulic water level control valve</a> uses a pilot-operated arrangement for level maintenance and smooth closing. Where the project calls for a float-operated remote arrangement, the <a href="/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">100X-16P remote control float valve</a> provides a stainless float pilot for tank refill. Neither product decides the fire reserve by itself: set points, bypasses, upstream pressure and alarms must follow the approved hydraulic design.</p>
+			<p class="text-gray-700 leading-relaxed">Show the high, normal, low and emergency levels on the control diagram. Include an accessible upstream isolation valve, a drain or test provision where required, and a way to prove the pilot or float action without emptying the tank. If the tank is shared, interlock the level signal with domestic controls so a failed refill valve cannot silently reduce the fire reserve.</p>
+
+			<h2 id="priming-testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Priming, Gauges and Test Provisions</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Before a centrifugal fire pump can perform, its casing and suction must be correctly filled and the suction side must remain flooded as designed. The final arrangement depends on the pump type and source elevation, so follow the pump supplier's priming instructions rather than improvising a foot valve or an extra check valve. A suction gauge at the pump flange shows whether the source is actually available; compare it with the discharge gauge and the certified pump curve during acceptance.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Provide isolation and drain points that allow the suction spool, valve and instruments to be inspected without draining the entire tank. Protect gauges from accidental impact and make their ranges suitable for the expected static and running conditions. During commissioning, verify valve position, low-level alarm, refill action, anti-vortex installation, pipe supports and the absence of air leaks before recording pump performance.</p>
+			<p class="text-gray-700 leading-relaxed">Testing should prove both hydraulic capacity and the fail-safe intent. Simulate a low-level condition where permitted, exercise the refill valve, inspect the tank penetration and confirm that the required suction remains available with the planned isolation state. For the outside connection and discharge-side interface, the <a href="/guides/fire-department-connection-siamese-guide/" class="text-brand-blue font-semibold hover:underline">fire department connection Siamese guide</a> explains how the responding department's connection should be coordinated with the rest of the pump room.</p>
+
+			<h2 id="checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Suction Arrangement Checklist</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Identify the source.</strong> State open tank, pressure tank or municipal connection, lowest operating level, available pressure and the pump supplier's required suction condition.</li>
+				<li><strong>Document the reserve.</strong> Show the required fire volume and duration from the project calculation, with all level datums and any protected volume shared with domestic use.</li>
+				<li><strong>Coordinate the outlets.</strong> Confirm the applicable NFPA 20 edition, the two-suction requirement for the tank size and the independence of each route.</li>
+				<li><strong>Prevent air entry.</strong> Verify submergence, anti-vortex geometry, eccentric reducer orientation, straight-run length and independent pipe supports.</li>
+				<li><strong>Protect the water.</strong> Specify the external isolation valve, cleanable strainer only where approved, gauges, drains and access for maintenance.</li>
+				<li><strong>Control the level.</strong> Select F745X or 100X pilot equipment to suit the inlet pressure, set normal and low levels, and wire the required alarms.</li>
+				<li><strong>Plan acceptance.</strong> Include priming instructions, suction and discharge gauges, refill testing, low-level simulation and records for materials, pressure tests and O&amp;M.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">For a complete valve schedule, connect this work with the <a href="/guides/municipal-fire-water-main-upgrade-guide/" class="text-brand-blue font-semibold hover:underline">municipal fire water main upgrade guide</a> and confirm the local water authority's conditions. Wanlian can review the tank outlet drawing, pump curve, pipe sizes and required standard edition before quoting the suction valves and accessories.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need Fire Pump Suction Valves?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the tank outlet drawing, pump rated flow and head, suction sizes, water levels and applicable standard edition. Wanlian will confirm the anti-vortex, level-control, isolation and testing arrangement for your project.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Fire%20Pump%20Suction%20Valves" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20fire%20pump%20suction%20valves" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

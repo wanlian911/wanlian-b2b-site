@@ -13,6 +13,56 @@ export interface Guide {
 // 内容工厂单一数据源:新增指南只需在此追加一条
 export const guides: Guide[] = [
   {
+    title: 'Deluge Valve Sizing and Selection Guide (2026)',
+    description: 'How a ZSFM deluge valve works, how to size it for flow and trip time, actuation options, open-head and monitor layouts, testing and RFQ data.',
+    href: '/guides/deluge-valve-selection-guide/',
+    tocPreview: ["1. When a System Needs Deluge Protection", "2. How the ZSFM Deluge Valve Group Works", "3. Choosing the Actuation Method"],
+    date: '2026-10',
+    category: 'Fire Protection',
+    readTime: '9 min read',
+    tags: ['sprinkler-systems', 'fire-protection']
+  },
+  {
+    title: 'AWWA C509 vs EN 14461 Fire Hydrants Compared (2026)',
+    description: 'AWWA C509 vs EN 14461 fire hydrants: pressure classes, outlet patterns, materials, type tests and how to spec a hydrant that passes the AHJ.',
+    href: '/guides/awwa-c509-vs-en-14461-fire-hydrants/',
+    tocPreview: ["1. Which Standard Your Specification Actually Invokes", "2. Rated Pressure and Working Depth", "3. Outlet Arrangement and Coupling Patterns"],
+    date: '2026-10',
+    category: 'Standards & Compliance',
+    readTime: '9 min read',
+    tags: ['fire-hydrant', 'procurement']
+  },
+  {
+    title: 'Fire Pump Suction and Water Tank Arrangement (2026)',
+    description: 'Fire water tank sizing, two-suction rules, vortex preventers, priming and level control valves - how to arrange a compliant fire pump suction.',
+    href: '/guides/fire-pump-suction-water-tank-guide/',
+    tocPreview: ["1. Where the Fire Water Volume Comes From", "2. Sizing the Fire Water Reserve", "3. The Two-Suction Rule and Tank Penetrations"],
+    date: '2026-10',
+    category: 'Fire Protection',
+    readTime: '9 min read',
+    tags: ['fire-protection', 'industrial-valves']
+  },
+  {
+    title: 'How to Compare Chinese Valve Supplier Quotes (2026)',
+    description: 'A procurement playbook for RFQs to Chinese valve factories: what to specify, how quotes differ, hidden costs, scoring and checks before you award.',
+    href: '/guides/china-valve-supplier-quote-guide/',
+    tocPreview: ["1. Why Two Quotes for the Same Valve Differ", "2. Writing an RFQ That Gets Accurate Quotes", "3. Reading the Quote Line by Line"],
+    date: '2026-10',
+    category: 'Procurement',
+    readTime: '9 min read',
+    tags: ['procurement', 'certification']
+  },
+  {
+    title: 'Foam Deluge and Foam-Water Spray Systems Guide (2026)',
+    description: 'Foam deluge and foam-water spray systems for Class B risks: deluge valve, proportioning options, concentrates, discharge devices and field testing.',
+    href: '/guides/foam-deluge-system-guide/',
+    tocPreview: ["1. When Foam Beats Water", "2. Anatomy of a Foam Deluge System", "3. Proportioning Options Compared"],
+    date: '2026-10',
+    category: 'Fire Protection',
+    readTime: '9 min read',
+    tags: ['fire-protection', 'sprinkler-systems']
+  },
+  {
     title: 'Water Flow Indicator Guide: Wet Sprinkler Flow Switches',
     description: 'Specify a water flow indicator for wet sprinkler systems: vane construction, branch and riser mounting, delay settings, panel wiring, testing and RFQ data.',
     href: '/guides/water-flow-indicator-guide/',
