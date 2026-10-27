@@ -69,7 +69,11 @@ for (const locale of LOCALES) {
   orphans += orphan.length;
   backlogTotal += missing.length;
   const flag = orphan.length ? 'ORPHAN' : 'ok';
-  console.log(`products-${locale}: catalogued=${set.size} masterOnly=${missing.length} localeOnly=${orphan.length} [${flag}]`);
+  // Counts here are a floor, not a census: locale catalogues are authored in two
+  // shapes (a `slug: '...'` field, or the slug used as an object key), and only
+  // the first is visible to this scanner. Treat masterOnly as "at least N" and
+  // never quote it as the exact number of untranslated products.
+  console.log(`products-${locale}: scannedFloor=${set.size} masterOnlyAtLeast=${missing.length} localeOnly=${orphan.length} [${flag}]`);
   if (orphan.length) orphan.slice(0, 10).forEach((s) => console.error(`    locale-only slug with no master entry: ${s}`));
   if (missing.length && process.argv.includes('--verbose')) missing.forEach((s) => console.log(`    not catalogued in ${locale}: ${s}`));
 }
