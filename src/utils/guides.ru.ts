@@ -426,4 +426,14 @@ export const guidesRu: Guide[] = [
     readTime: readTime('9'),
     tags: ['industrial-valves', 'fire-protection']
   },
+  {
+    title: 'Сигнализатор потока ZSJZ: датчики протока',
+    description: 'Как задать сигнализатор потока ZSJZ для мокрой спринклерной системы: лопасть, установка на отводе и стояке, задержка 2-60 с, сухие контакты, проверка.',
+    href: '/ru/guides/water-flow-indicator-guide/',
+    tocPreview: ['1. Почему поток фиксируют отдельно от сигнального клапана', '2. Как работает лопастной сигнализатор', '3. Сигнализатор потока и прессостат: отличия'],
+    date: '2026-10',
+    category: 'Противопожарная защита',
+    readTime: readTime('7'),
+    tags: ['fire-protection', 'sprinkler-systems']
+  },
 ];
