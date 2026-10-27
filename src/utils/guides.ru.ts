@@ -396,4 +396,14 @@ export const guidesRu: Guide[] = [
     readTime: readTime('9'),
     tags: ['sprinkler-systems', 'fire-protection']
   },
+  {
+    title: 'Стандарты NFPA 13, 14, 20, 25: руководство для закупщика',
+    description: 'Карта для закупщика по NFPA 13, 14, 20, 24 и 25: что регулирует каждый документ, как соотносить его с EN 12845 и GB и что требовать от поставщика.',
+    href: '/ru/guides/nfpa-fire-protection-standards-guide/',
+    tocPreview: ['1. Почему набор стандартов решает, что вы покупаете', '2. Шесть документов и что регулирует каждый', '3. Как документы взаимодействуют в одном проекте'],
+    date: '2026-10',
+    category: 'Противопожарная защита',
+    readTime: readTime('7'),
+    tags: ['certification', 'procurement']
+  },
 ];
