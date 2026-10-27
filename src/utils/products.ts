@@ -174,7 +174,7 @@ export const products: Product[] = [
       'Microswitch': 'Highly Conductive Waterproof Microswitch'
     },
         gallery: ['/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', '/assets/products/signal-grooved-wafer-butterfly-valve-dn80-infographic.svg', '/assets/products/signal-grooved-wafer-butterfly-valve-dn80-overlay.png'],
-image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80-overlay.png',
+image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
     infographic: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80-infographic.svg',
     seoTitle: 'Signal Wafer Butterfly Valve with Position Switch DN50-DN300 PN16 Fire Sprinkler System',
     seoDescription: 'Signal wafer butterfly valve with microswitch position indicator, DN50-DN300 PN16. Ductile iron QT450 body, for fire sprinkler system supervision. UL/FM available. Factory price.'
@@ -295,7 +295,7 @@ image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80-overlay.png',
       'Caps & Interfaces': 'Anodized Aluminum Alloy / Brass'
     },
         gallery: ['/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100-infographic.svg', '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100-overlay.png'],
-image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100-overlay.png',
+image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp',
     infographic: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100-infographic.svg',
     seoTitle: 'SSFT100 Anti-Collision Outdoor Fire Hydrant | Pressure Regulating',
     seoDescription: 'SSFT100 anti-collision, pressure-regulating fire hydrant with double safety shut-off for municipal and industrial fire protection. Factory price from Wanlian.',
@@ -401,7 +401,7 @@ image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft
       'Nozzle Head': 'Stainless Steel 316'
     },
         gallery: ['/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp', '/assets/products/auto-tracking-jet-suppression-cannon-zdms-infographic.svg', '/assets/products/auto-tracking-jet-suppression-cannon-zdms-overlay.png'],
-image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms-overlay.png',
+image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp',
     infographic: '/assets/products/auto-tracking-jet-suppression-cannon-zdms-infographic.svg',
     seoTitle: 'ZDMS Automatic Tracking Fire Water Cannon | IR/UV Detection',
     seoDescription: 'Smart auto-tracking fire monitor ZDMS. Multi-band IR/UV flame detection, rapid autonomous suppression. Best choice for large spatial indoor protection.',
@@ -599,7 +599,7 @@ image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms-overlay.png',
       'Nozzle Tip': 'Precision Hardened Alloy'
     },
         gallery: ['/assets/products/manual-fire-water-cannon-ps.webp', '/assets/products/manual-fire-water-cannon-ps-infographic.svg', '/assets/products/manual-fire-water-cannon-ps-overlay.png'],
-image: '/assets/products/manual-fire-water-cannon-ps-overlay.png',
+image: '/assets/products/manual-fire-water-cannon-ps.webp',
     infographic: '/assets/products/manual-fire-water-cannon-ps-infographic.svg',
     seoTitle: 'PS Series Manual Fire Water Monitor | Long Range',
     seoDescription: 'High volume manual fire water cannon PS. Supports water and foam spray. Heavy-duty construction, suitable for industrial storage and petrochemical yards.',
@@ -1437,7 +1437,7 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'Options': 'Brass / Chrome Plated'
     },
         gallery: ['/assets/products/storz-coupling-2-5inch-aluminum.webp', '/assets/products/storz-coupling-2-5inch-aluminum-infographic.svg', '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png'],
-image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
+image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
     infographic: '/assets/products/storz-coupling-2-5inch-aluminum-infographic.svg',
     seoTitle: '2.5" Aluminum Storz Coupling | German Standard',
     seoDescription: 'German standard Storz fire hose coupling 2.5" in aluminum with self-sealing edge for water and foam firefighting. 1.6MPa. Factory price from Wanlian Fluid.',
@@ -1582,7 +1582,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
       'Lining': 'Natural Rubber / EPDM',
       'Couplings': 'Aluminum Alloy / Brass'
     },
-    image: 'https://s.alicdn.com/@sc04/kf/H1a0bad644f6a4422a2ba338cc44cfd8de/Excellent-Rubber-Fire-Sealing-Threaded-Water-Composite.jpg?hasNWGrade=1',
+    image: '/assets/products/rubber-fire-hose.webp',
     seoTitle: 'Rubber Lined Fire Hose DN25-DN80 | High Pressure Fire Fighting Hose',
     seoDescription: 'Rubber lined fire hose DN25 to DN80, 8/10/13 bar working pressure. Synthetic jacket with EPDM lining for industrial fire fighting. Factory price from Wanlian China.',
     faqs: [
@@ -1615,7 +1615,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
       'Lining': 'PVC / TPU',
       'Couplings': 'Aluminum Alloy'
     },
-    image: 'https://s.alicdn.com/@sc04/kf/Hc37d2b3c27cb4b4288809ce8ce0b575aR/High-end-PVC-Polyester-Filament-Hose-Temperature.jpg?hasNWGrade=1',
+    image: '/assets/products/pvc-fire-hose.webp',
     seoTitle: 'PVC Lined Fire Hose DN25-DN65 | Lightweight Fire Fighting Hose',
     seoDescription: 'PVC lined fire hose DN25 to DN65, lightweight and flexible. Cost-effective solution for commercial fire protection. Factory direct from Wanlian Fluid.',
     faqs: [
@@ -1647,7 +1647,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
       'Hose': 'PVC / Rubber lined',
       'Nozzle': 'Brass / Aluminum'
     },
-    image: 'https://s.alicdn.com/@sc04/kf/Hc35baae1407e497c878a656df156e682s/Wanlian-Manual-Swing-Fire-Hose-Reel-19mm.png?hasNWGrade=1',
+    image: '/assets/products/fire-hose-reel.webp',
     seoTitle: 'Fixed Fire Hose Reel 19mm 25mm | Indoor Fire Protection System',
     seoDescription: 'Fixed fire hose reel with 19mm or 25mm hose, 20-30m length. Complete set for commercial building fire protection. EN 671 compliant. Factory price.',
     faqs: [
@@ -1679,7 +1679,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
       'Seal': 'EPDM / NBR Rubber',
       'Pin / Latch': 'Stainless Steel'
     },
-    image: 'https://s.alicdn.com/@sc04/kf/H754d9d675dd04e55b9a8486659b63474q/DN50-DN65-Custom-Cover-Head-Aluminum-Fire.jpg?hasNWGrade=1',
+    image: '/assets/products/gost-fire-hose-coupling.webp',
     seoTitle: 'GOST Fire Hose Coupling DN50 DN65 | Russian Standard Fire Fitting',
     seoDescription: 'GOST fire hose couplings DN50 RK-50 and DN65 RK-70, aluminum alloy or brass. Russian standard fire fittings for CIS market. Factory price from Wanlian.',
     faqs: [
@@ -1711,7 +1711,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
       'Gasket': 'EPDM / NBR',
       'Coating': 'Epoxy Powder Coated'
     },
-    image: 'https://s.alicdn.com/@sc04/kf/H9107b34929ea4ef097f085958aede48aM/For-Certified-FM-Ductile-Iron-Molding-Fittings.jpg?hasNWGrade=1',
+    image: '/assets/products/groove-pipe-fitting-elbow.webp',
     seoTitle: 'Grooved 90° Elbow Ductile Iron | FM UL Listed Pipe Fitting',
     seoDescription: 'Grooved 90° elbow ductile iron, DN25 to DN300. FM / UL listed for fire protection systems. Quick installation grooved fittings. Factory price.',
     faqs: [

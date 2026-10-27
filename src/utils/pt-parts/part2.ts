@@ -103,7 +103,7 @@ export const productsPtPart2: Record<string, Product> = {
       'Volantes de Fixação': 'Stainless Steel / Brass',
       'Ponta do Bocal': 'Precision Hardened Alloy'
     },
-    image: '/assets/products/manual-fire-water-cannon-ps-overlay.png',
+    image: '/assets/products/manual-fire-water-cannon-ps.webp',
     infographic: '/assets/products/manual-fire-water-cannon-ps-infographic.svg',
     seoTitle: 'Canhão Monitora de Água Manual PS | Longo Alcance',
     seoDescription: 'Canhão monitora de água manual PS de alto fluxo para água e espuma, construção pesada para áreas petroquímicas e armazéns. Preço de fábrica Wanlian.',
