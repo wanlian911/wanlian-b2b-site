@@ -466,4 +466,24 @@ export const guidesEs: Guide[] = [
     readTime: readTime('9'),
     tags: ['fire-hose-reel', 'fire-protection', 'procurement']
   },
+  {
+    title: 'Indicador de Flujo de Agua: Guía para Rociadores Húmedos',
+    description: 'Especifique el indicador de flujo para rociadores húmedos: paleta, montaje en derivación o montante, demora, cableado al panel, pruebas y datos de RFQ.',
+    href: '/es/guides/water-flow-indicator-guide/',
+    tocPreview: ['1. Por Qué la Detección de Flujo Va Aparte de la Válvula de Alarma', '2. Cómo Funciona un Indicador de Paleta', '3. Indicador, Interruptor de Flujo y Presostato'],
+    date: '2026-10',
+    category: 'Protección Contra Incendios',
+    readTime: readTime('7'),
+    tags: ['fire-protection', 'sprinkler-systems']
+  },
+  {
+    title: 'Dosificación de Espuma: AFFF 3 % para Riesgos Clase B',
+    description: 'Espuma de baja expansión para riesgos clase B: AFFF 3 %, mezcla previa frente a concentrado, especificaciones del gabinete PSG30 e interfaces de manguera.',
+    href: '/es/guides/foam-proportioning-system-guide/',
+    tocPreview: ['1. Qué Hace la Espuma que el Agua No Puede', '2. Cómo Funciona un Sistema de Dosificación al 3 %', '3. Relación de Expansión: Baja, Media y Alta'],
+    date: '2026-10',
+    category: 'Protección Contra Incendios',
+    readTime: readTime('7'),
+    tags: ['fire-protection', 'fire-hose-reel']
+  },
 ];
