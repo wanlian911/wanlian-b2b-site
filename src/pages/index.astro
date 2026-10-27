@@ -2,14 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import { products } from '../utils/products';
 import InquiryForm from '../components/inquiry/InquiryForm.astro';
-import LeadCaptureSection from '../components/inquiry/LeadCaptureSection.astro';
 import CompanyIntroVideo from '../components/sections/CompanyIntroVideo.astro';
 import VideoCarousel from '../components/sections/VideoCarousel.astro';
 
 const faq = [
   {
     question: 'What does Wanlian Fluid manufacture and export?',
-    answer: 'Wanlian Fluid is a Quanzhou-based manufacturer and exporter of industrial valves and fire protection equipment: resilient and metal-seated gate valves, butterfly and check valves, fire hydrants and hydrant components, sprinkler and alarm valves, and rubber-lined fire hose — six product lines with 43+ in-stock models.'
+    answer: 'Wanlian Fluid is a Quanzhou-based manufacturer and exporter of industrial valves and fire protection equipment: resilient and metal-seated gate valves, butterfly and check valves, fire hydrants and hydrant components, sprinkler and alarm valves, and rubber-lined fire hose — the full range being documented model by model against pressure class, connection standard, body and trim material, and application.'
   },
   {
     question: 'How do I get a price for a valve or hydrant?',
@@ -37,14 +36,31 @@ const featuredProducts = products.filter(p => [
   'anti-collision-pressure-regulating-outdoor-hydrant-ssft100'
 ].includes(p.slug));
 
-const categories = [
-  { name: 'Valves & Parts', count: '150+', image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp' },
-  { name: 'Hydrants & Pump Connections', count: '80+', image: '/assets/products/indoor-fire-hydrant-head-sn65.jpg' },
-  { name: 'Sprinklers & Alarm Valves', count: '120+', image: '/assets/products/wet-alarm-check-valve-zsfz-150.webp' },
-  { name: 'Hydraulic Safety', count: '60+', image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp' },
-  { name: 'Extinguishing Water Cannons', count: '40+', image: '/assets/products/manual-fire-water-cannon-ps.webp' },
-  { name: 'Fire Cabinets & Interfaces', count: '90+', image: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg' }
-];
+// Category grid and the grouped catalog index are both derived from products.ts, so the set of
+// product lines, their counts and their card photography cannot drift from the live catalog.
+// CATEGORY_LEAD only chooses which existing product photo represents a line.
+const CATEGORY_LEAD: Record<string, string> = {
+  'Valves & Parts': 'resilient-seat-flanged-gate-valve-z41x',
+  'Hydrants & Pump Connections': 'indoor-fire-hydrant-head-sn65',
+  'Sprinklers & Alarm Valves': 'wet-alarm-check-valve-zsfz-150',
+  'Hydraulic Safety': 'hydraulic-water-level-control-valve-f745x',
+  'Extinguishing Water Cannons': 'manual-fire-water-cannon-ps',
+  'Fire Cabinets & Interfaces': 'foam-fire-hydrant-cabinet-psg30',
+  'Fire Hose & Reels': 'pvc-fire-hose'
+};
+
+const categoryNames: string[] = [...new Set(products.map(p => p.category))];
+
+const categories = categoryNames.map(name => {
+  const inCategory = products.filter(p => p.category === name);
+  const lead = inCategory.find(p => p.slug === CATEGORY_LEAD[name]) ?? inCategory[0];
+  return { name, count: inCategory.length, image: lead.image };
+});
+
+const catalogByCategory = categories.map(cat => ({
+  name: cat.name,
+  items: products.filter(p => p.category === cat.name)
+}));
 
 const productionSteps = [
   { step: '01', title: 'Precision Weaving', desc: 'High-strength polyester weaving for durable fire hose jackets.', icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10' },
@@ -53,6 +69,29 @@ const productionSteps = [
   { step: '04', title: 'Safety Testing', desc: '100% shell pressure and air leakage testing for every unit.', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
   { step: '05', title: 'Epoxy Coating', desc: 'Non-toxic epoxy resin coating for superior corrosion resistance.', icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4' }
 ];
+
+// Hose jacketing and valve/hydrant machining are separate processes that converge on shared
+// testing and finishing, so each step states which line it belongs to.
+const stepLines: Record<string, string> = {
+  '01': 'Fire hose',
+  '02': 'Fire hose',
+  '03': 'Valves & hydrants',
+  '04': 'All lines',
+  '05': 'Valves & hydrants'
+};
+
+// Marks mirror /certificates/ one-for-one. Scope there is stated per model, so the strip must
+// not read as an unconditional claim to every standard.
+const certifications = [
+  { name: 'UL Listed', code: 'UL 262 / UL 1091' },
+  { name: 'FM Approved', code: 'Class 1120 / 1130' },
+  { name: 'CE Certified', code: 'EN 12266-1' },
+  { name: 'ISO 9001:2015', code: 'Quality Management' },
+  { name: 'LPCB', code: 'RedBook Listing' },
+  { name: 'GB Standard', code: 'GB 5135 / GB 4452' }
+];
+
+const waCallbackHref = `https://wa.me/8618684324501?text=${encodeURIComponent('Hi, I would like a callback about valves or fire protection equipment from wanlian911.com.')}`;
 
 // 指南与系统页资源入口(首页权重导向内容页)
 const resources = [
@@ -126,19 +165,93 @@ const industries = [
 
   <VideoCarousel locale="en" />
 
-  <!-- Certification Wall -->
-  <div class="bg-gray-100 py-8 border-b border-gray-200">
+  <!-- Certification strip: the six marks documented on /certificates/, stated with the
+       per-model scope qualifier the certificates page itself uses -->
+  <section class="py-10 bg-white border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition duration-500">
-        <span class="text-gray-900 font-black text-xl tracking-tighter">TECHNICAL DATA</span>
-        <span class="text-gray-900 font-black text-xl tracking-tighter">PRODUCT DRAWINGS</span>
-        <span class="text-gray-900 font-black text-xl tracking-tighter">MATERIAL OPTIONS</span>
-        <span class="text-gray-900 font-black text-xl tracking-tighter">PRESSURE RATINGS</span>
-        <span class="text-gray-900 font-black text-xl tracking-tighter">OEM / ODM</span>
-        <span class="text-gray-900 font-black text-xl tracking-tighter">EXPORT SUPPORT</span>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-gray-200 border border-gray-200 rounded-xl overflow-hidden">
+        {certifications.map(cert => (
+          <div class="bg-white px-4 py-5 text-center">
+            <p class="text-sm font-black text-gray-900 tracking-tight leading-tight">{cert.name}</p>
+            <p class="mt-1 text-[11px] font-bold text-brand-blue uppercase tracking-widest">{cert.code}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+        <p class="text-xs text-gray-500 leading-relaxed max-w-2xl">
+          Listing and approval scope is granted per model. Certificate copies and the exact listed model are confirmed against your specification before order.
+        </p>
+        <a href="/certificates/" class="inline-flex items-center gap-2 text-sm font-bold text-brand-blue hover:underline shrink-0">
+          Certificates &amp; scope <span aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Product Classification Grid: 首页第一层分流。分类集合与数量取自 products.ts,
+       卡片图取自该分类下真实产品的 image 字段,不新增未核实的路径 -->
+  <section id="categories" class="py-20 bg-gray-50 border-b border-gray-200 scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-12">
+        <div class="space-y-4">
+          <h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Browse by Product Line</h2>
+          <h3 class="text-4xl font-black text-gray-900 tracking-tight">Core Product <span class="text-brand-red">Categories</span></h3>
+        </div>
+        <p class="text-gray-500 max-w-md hidden md:block">Each card opens a live filter on the catalog. Counts are the models currently documented on this site.</p>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        {categories.map(cat => (
+          <a href={`/products/#category=${encodeURIComponent(cat.name)}`} class="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 flex flex-col">
+            <div class="aspect-[4/3] overflow-hidden bg-white p-5 flex items-center justify-center">
+              <img src={cat.image} alt={cat.name} loading="lazy" class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="px-5 py-4 border-t border-gray-100 flex items-center justify-between gap-2">
+              <div class="min-w-0">
+                <h4 class="font-black text-sm leading-tight text-gray-900 group-hover:text-brand-red transition-colors">{cat.name}</h4>
+                <p class="mt-1 text-[11px] font-bold uppercase tracking-widest text-gray-400 tabular-nums">{cat.count} models</p>
+              </div>
+              <span class="text-brand-blue opacity-0 group-hover:opacity-100 transition-opacity shrink-0">→</span>
+            </div>
+          </a>
+        ))}
+        <a href="/products/" class="group bg-brand-blue rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden p-5 flex flex-col justify-between text-white">
+          <div>
+            <p class="text-[11px] font-black uppercase tracking-widest text-white/70">Full catalog</p>
+            <p class="mt-3 text-2xl font-black leading-tight tabular-nums">{products.length} models</p>
+            <p class="mt-2 text-sm text-white/80 leading-relaxed">Filter by line, size and pressure class — or send us a drawing.</p>
+          </div>
+          <span class="mt-6 inline-flex items-center gap-2 text-sm font-bold">Open catalog <span aria-hidden="true" class="group-hover:translate-x-1 transition-transform">→</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industry Scenarios: 由页尾前移,作为按应用分流;详情指向 /applications/ -->
+  <section class="py-16 bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+        <div class="space-y-4">
+          <h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Where They Are Used</h2>
+          <h3 class="text-3xl font-black text-gray-900 tracking-tight leading-tight">Built for High-Pressure Duty.</h3>
+          <div>
+            <a href="/applications/" class="inline-flex items-center gap-2 text-sm font-bold text-brand-red hover:underline">Application guide <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {industries.map(ind => (
+            <a href="/applications/" class="group p-6 bg-gray-50 border border-gray-200 rounded-xl hover:border-brand-blue transition-colors">
+              <div class="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue mb-4">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={ind.icon}/></svg>
+              </div>
+              <h4 class="font-black text-gray-900 uppercase tracking-wide">{ind.name}</h4>
+              <p class="mt-2 text-xs text-gray-500 leading-relaxed">{ind.desc}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- About Section: Factory Strength -->
   <section class="py-24 bg-white overflow-hidden">
@@ -167,8 +280,8 @@ const industries = [
           <!-- Metric Cards: 数字大字报(数据均为站内可查的真实数据) -->
           <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
             <div class="p-5 bg-gray-50 rounded-xl border border-gray-100">
-              <span class="block text-3xl font-black text-brand-red tabular-nums">{products.length}+</span>
-              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">In-Stock Models</span>
+              <span class="block text-3xl font-black text-brand-red tabular-nums">{products.length}</span>
+              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Catalogued Models</span>
             </div>
             <div class="p-5 bg-gray-50 rounded-xl border border-gray-100">
               <span class="block text-3xl font-black text-brand-blue tabular-nums">{categories.length}</span>
@@ -228,7 +341,7 @@ const industries = [
             </svg>
           </div>
           <h4 class="text-lg font-black text-gray-900 mb-2">Certified, Tested Every Batch</h4>
-          <p class="text-gray-600 text-sm leading-relaxed">ISO 9001:2015 quality system, UL Listed / Recognized products, and 100% shell and seat pressure testing per GB/T13927 / EN 12266-1 before packing.</p>
+          <p class="text-gray-600 text-sm leading-relaxed">ISO 9001:2015 quality system with 100% shell and seat pressure testing per GB/T13927 / EN 12266-1 before packing. UL 262 / UL 1091 listing and FM Class 1120/1130 approval apply per listed model — coverage is confirmed against the certificate before order.</p>
         </div>
         <div class="p-8 rounded-2xl border border-gray-200 bg-gray-50 hover:shadow-lg transition-shadow duration-300">
           <div class="w-12 h-12 rounded-lg bg-brand-red/10 flex items-center justify-center mb-5">
@@ -243,35 +356,7 @@ const industries = [
     </div>
   </section>
 
-  <!-- Product Classification Grid -->
-  <section class="py-24 bg-gray-50 border-y border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <h2 class="text-4xl font-black text-gray-900 tracking-tight uppercase">Core Product Categories</h2>
-        <div class="h-1.5 w-20 bg-brand-red mx-auto"></div>
-        <p class="text-gray-500 font-medium italic">High-precision engineering for global fire and water networks.</p>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {categories.map(cat => (
-          <a href={`/products/#category=${encodeURIComponent(cat.name)}`} class="group relative bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200">
-            <div class="aspect-[4/3] overflow-hidden bg-gray-50 p-6 flex items-center justify-center">
-              <img src={cat.image} alt={cat.name} loading="lazy" class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" />
-            </div>
-            <div class="absolute bottom-0 left-0 right-0 p-6 bg-white/95 backdrop-blur-sm flex justify-between items-center group-hover:bg-brand-red group-hover:text-white transition-colors">
-              <div>
-                <h4 class="font-black text-lg">{cat.name}</h4>
-                <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Browse product range</p>
-              </div>
-              <span class="text-2xl font-light">→</span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Production Excellence -->
+  <!-- Production Excellence: 每个工序标注所属产线;step.icon 此前只存在于数据中、从未被渲染 -->
   <section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
@@ -279,20 +364,26 @@ const industries = [
           <h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Production Workflow</h2>
           <h3 class="text-4xl font-black text-gray-900 tracking-tight">Our Manufacturing Process</h3>
         </div>
-        <p class="text-gray-500 max-w-md text-right hidden md:block">Every unit follows the same controlled sequence — from casting and CNC machining through to 100% pressure testing and epoxy coating.</p>
+        <p class="text-gray-500 max-w-md text-right hidden md:block">Two lines, one finishing discipline: hose jackets are woven and lined in-house, valve and hydrant bodies are CNC-machined, and every unit is pressure tested before coating and packing.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
         {productionSteps.map((step, idx) => (
           <div class="relative group">
-            <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 space-y-4 h-full group-hover:bg-blue-50 transition-colors">
-              <div class="text-4xl font-black text-gray-200 group-hover:text-brand-blue/20 transition-colors">{step.step}</div>
-              <h4 class="font-bold text-gray-900">{step.title}</h4>
+            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 space-y-4 h-full group-hover:bg-blue-50 transition-colors">
+              <div class="flex items-center justify-between gap-2">
+                <div class="w-10 h-10 rounded-lg bg-brand-blue/10 text-brand-blue flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={step.icon}/></svg>
+                </div>
+                <span class="text-3xl font-black text-gray-200 group-hover:text-brand-blue/20 transition-colors tabular-nums">{step.step}</span>
+              </div>
+              <h4 class="font-bold text-gray-900 leading-tight">{step.title}</h4>
               <p class="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+              <p class="pt-3 border-t border-gray-200 text-[10px] font-black uppercase tracking-widest text-gray-400">{stepLines[step.step]}</p>
             </div>
             {idx < productionSteps.length - 1 && (
-              <div class="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
-                <svg class="w-8 h-8 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div class="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
+                <svg class="w-6 h-6 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
               </div>
@@ -383,19 +474,36 @@ const industries = [
     </div>
   </section>
 
-  <!-- Complete Product Line: 全量产品内链，向所有产品页传递权重 -->
+  <!-- Complete Product Line: 全量产品内链改为按产品线分组。52 条产品页链接一条不减,
+       但去掉 line-clamp-1 造成的品名截断,避免锚文本在页面上被省略号切断 -->
   <section class="py-24 bg-white border-t border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-end mb-12 gap-4">
-        <h2 class="text-4xl font-black text-gray-900 tracking-tight">Complete <span class="text-brand-blue">Product Line</span></h2>
-        <a href="/products/" class="text-brand-red font-bold hover:underline shrink-0">All Products →</a>
+      <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-12">
+        <div class="space-y-4">
+          <h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Full Model Index</h2>
+          <h3 class="text-4xl font-black text-gray-900 tracking-tight">Complete <span class="text-brand-red">Product Line</span></h3>
+        </div>
+        <a href="/products/" class="text-brand-red font-bold hover:underline shrink-0">All products &amp; filters →</a>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-1">
-        {products.map(product => (
-          <a href={`/products/${product.slug}/`} class="group flex items-center justify-between py-3 border-b border-gray-100 hover:border-brand-red transition-colors">
-            <span class="text-sm font-semibold text-gray-700 group-hover:text-brand-red transition-colors line-clamp-1 pr-3">{product.name}</span>
-            <span class="text-brand-blue opacity-0 group-hover:opacity-100 transition-opacity shrink-0">→</span>
-          </a>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-12">
+        {catalogByCategory.map(group => (
+          <div>
+            <div class="flex items-baseline justify-between gap-3 pb-3 mb-1 border-b-2 border-brand-blue/30">
+              <a href={`/products/#category=${encodeURIComponent(group.name)}`} class="font-black text-gray-900 hover:text-brand-red transition-colors leading-tight">{group.name}</a>
+              <span class="text-[11px] font-bold text-gray-400 uppercase tracking-widest tabular-nums shrink-0">{group.items.length}</span>
+            </div>
+            <ul>
+              {group.items.map(product => (
+                <li>
+                  <a href={`/products/${product.slug}/`} class="group flex items-start justify-between gap-3 py-2 border-b border-gray-100 hover:border-brand-red transition-colors">
+                    <span class="text-sm font-semibold text-gray-700 group-hover:text-brand-red transition-colors leading-snug">{product.name}</span>
+                    <span class="text-brand-blue opacity-0 group-hover:opacity-100 transition-opacity shrink-0">→</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
       </div>
     </div>
@@ -429,34 +537,6 @@ const industries = [
     </div>
   </section>
 
-  <!-- Industry Scenarios -->
-  <section class="py-24 bg-gray-900 text-white relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 items-center">
-        <div class="space-y-6">
-          <h2 class="text-4xl font-black tracking-tight leading-tight">Built for <br/><span class="text-brand-blue">High-Pressure Duty.</span></h2>
-          <p class="text-gray-400">Our engineering focuses on durability and reliability in hazardous and critical infrastructures.</p>
-          <div class="pt-4">
-            <a href="/certificates/" class="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-lg font-bold hover:bg-white/10 transition">
-              View Certifications & Specs
-            </a>
-          </div>
-        </div>
-        <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {industries.map(ind => (
-            <div class="p-8 bg-white/5 border border-white/10 rounded-2xl hover:border-brand-blue/50 transition-colors">
-               <div class="w-12 h-12 bg-brand-blue/20 rounded-lg flex items-center justify-center text-brand-blue mb-6">
-                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={ind.icon}/></svg>
-               </div>
-               <h4 class="font-bold mb-2 uppercase tracking-wide">{ind.name}</h4>
-               <p class="text-xs text-gray-400 leading-relaxed">{ind.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Quick Inquiry Section -->
   <section id="inquiry" class="py-24 bg-white scroll-mt-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -483,8 +563,36 @@ const industries = [
     </div>
   </section>
   
-  <!-- Lead Capture -->
-  <LeadCaptureSection />
+  <!-- 轻量留资:完整询盘表单已在上方,轻量表单复用 Layout 中全站渲染的悬浮留资弹窗
+       (leadSource=Floating Lead Button),首页结尾不再连续堆叠两个表单 -->
+  <section class="py-16 bg-gray-50 border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white border border-gray-200 rounded-2xl p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div class="max-w-xl">
+          <h3 class="text-xl font-black text-gray-900 tracking-tight">Not ready to send a full inquiry?</h3>
+          <p class="mt-2 text-sm text-gray-600 leading-relaxed">Leave a name and a phone number or e-mail, and our sales team follows up with product information, documentation and a quotation. Reply within 12 hours, 7 days a week — your details are used only for this follow-up.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 shrink-0">
+          <button type="button" data-open-lead-form class="px-6 py-3 bg-brand-red hover:opacity-90 text-white font-bold rounded-lg transition text-center">Leave My Contact Info</button>
+          <a href={waCallbackHref} target="_blank" rel="noopener noreferrer" class="px-6 py-3 border border-gray-300 text-gray-800 font-bold rounded-lg hover:border-brand-blue hover:text-brand-blue transition text-center">Chat on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // 打开 Layout 中的全站悬浮留资弹窗;若该组件未渲染则退回联系页表单,不留死按钮
+    document.querySelectorAll('[data-open-lead-form]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const floatBtn = document.getElementById('floatingLeadBtn');
+        if (floatBtn) {
+          floatBtn.click();
+          return;
+        }
+        window.location.href = '/contact/#inquiry';
+      });
+    });
+  </script>
 
   <style is:global>
     @keyframes hero-kenburns { from { transform: scale(1); } to { transform: scale(1.07); } }
