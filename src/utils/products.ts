@@ -357,7 +357,7 @@ image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft
       'Flow Coefficient': 'K=80 ±4 / K=115 ±9',
       'Response Types': 'Standard Response (5mm bulb) / Quick Response (3mm bulb)',
       'Temp Ratings': '57°C / 68°C / 79°C / 93°C / 141°C',
-      'Types Available': 'Pendent (下垂), Upright (直立), Sidewall (边墙)'
+      'Types Available': 'Pendent, Upright, Sidewall'
     },
     materials: {
       'Body Frame': 'Precision Forged Brass (H59-1)',
