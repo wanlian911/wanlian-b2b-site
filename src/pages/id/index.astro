@@ -38,14 +38,25 @@ const featuredProducts = productsId.filter(p => [
   'anti-collision-pressure-regulating-outdoor-hydrant-ssft100'
 ].includes(p.slug));
 
-const categories = [
-  { name: 'Válvulas e Peças', count: '150+', image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp' },
-  { name: 'Hidrantes e Conexões de Bomba', count: '80+', image: '/assets/products/indoor-fire-hydrant-head-sn65.jpg' },
-  { name: 'Sprinkler dan Katup Alarm', count: '120+', image: '/assets/products/wet-alarm-check-valve-zsfz-150.webp' },
-  { name: 'Segurança Hidráulica', count: '60+', image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp' },
-  { name: 'Monitor Air Kebakaran de Incêndio', count: '40+', image: '/assets/products/manual-fire-water-cannon-ps.webp' },
-  { name: 'Armários de Incêndio e Interfaces', count: '90+', image: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg' }
+// 分类名与数量取自本语种产品数据本身。此前这里硬编码了一套与数据不一致的名称
+// （id 残留葡语标签），使 /id/products/#category= 深链筛不到任何产品，
+// 且 count 为无依据的估算值。字段形状保持 { name, count, image } 不变，模板无需改动。
+// 卡片配图用全站统一 slug 反查，不新增未核实的图片路径。
+const CARD_LEAD_SLUGS = [
+  'resilient-seat-flanged-gate-valve-z41x',
+  'indoor-fire-hydrant-head-sn65',
+  'wet-alarm-check-valve-zsfz-150',
+  'hydraulic-water-level-control-valve-f745x',
+  'manual-fire-water-cannon-ps',
+  'foam-fire-hydrant-cabinet-psg30',
+  'pvc-fire-hose',
 ];
+const categoryNames: string[] = [...new Set(productsId.map((p) => p.category))];
+const categories = categoryNames.map((name) => {
+  const inCategory = productsId.filter((p) => p.category === name);
+  const lead = inCategory.find((p) => CARD_LEAD_SLUGS.includes(p.slug)) ?? inCategory[0];
+  return { name, count: String(inCategory.length), image: lead.image };
+});
 
 const productionSteps = [
   { step: '01', title: 'Trançado de Precisão', desc: 'Trançado de poliéster de tinggi resistência untuk capas de selang kebakaran duráveis.', icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10' },
