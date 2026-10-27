@@ -357,7 +357,7 @@ image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft
       'Flow Coefficient': 'K=80 ±4 / K=115 ±9',
       'Response Types': 'Standard Response (5mm bulb) / Quick Response (3mm bulb)',
       'Temp Ratings': '57°C / 68°C / 79°C / 93°C / 141°C',
-      'Types Available': 'Pendent, Upright, Sidewall'
+      'Types Available': 'Pendent (下垂), Upright (直立), Sidewall (边墙)'
     },
     materials: {
       'Body Frame': 'Precision Forged Brass (H59-1)',
@@ -1556,6 +1556,233 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
       { question: 'What temperature rating does this ESFR use?', answer: 'All the ESFR models in this range use a 74°C (165°F) fast-response glass bulb, the standard rating for storage and industrial environments.' },
       { question: 'Are the ESFR sprinklers available in pendent and upright orientations?', answer: 'Yes. The series is offered in pendent (PY, hanging down) and upright (UY, facing up) orientations so it can be matched to open-spray storage layouts and rack environments.' },
       { question: 'What are ESFR sprinklers used for?', answer: 'ESFR sprinklers protect high-pile storage, warehouses, distribution centers and large industrial facilities, and are the go-to head type where NFPA 13 / GB 50084 storage-protection criteria apply.' }
+    ]
+  },
+  {
+    id: '46',
+    slug: 'rubber-fire-hose',
+    name: 'Rubber Lined Fire Hose',
+    category: 'Fire Hose & Reels',
+    description: 'Wanlian rubber lined fire hose is designed for high-pressure fire fighting applications. Synthetic jacket with natural rubber lining provides excellent abrasion resistance and flexibility in extreme temperatures.',
+    features: [
+      'Synthetic polyester jacket with natural rubber lining',
+      'Working pressure 8 bar / 10 bar / 13 bar options',
+      'Abrasion resistant and UV stabilized outer jacket',
+      'Available with aluminum or brass couplings'
+    ],
+    specs: {
+      'Nominal Diameter': 'DN25 / DN40 / DN50 / DN65 / DN80',
+      'Working Pressure': '0.8 MPa / 1.0 MPa / 1.3 MPa',
+      'Burst Pressure': '3x Working Pressure',
+      'Length': '20m / 25m / 30m per roll',
+      'Temperature Range': '-20°C to +60°C'
+    },
+    materials: {
+      'Jacket': 'Synthetic Polyester Yarn',
+      'Lining': 'Natural Rubber / EPDM',
+      'Couplings': 'Aluminum Alloy / Brass'
+    },
+    image: 'https://s.alicdn.com/@sc04/kf/H1a0bad644f6a4422a2ba338cc44cfd8de/Excellent-Rubber-Fire-Sealing-Threaded-Water-Composite.jpg?hasNWGrade=1',
+    seoTitle: 'Rubber Lined Fire Hose DN25-DN80 | High Pressure Fire Fighting Hose',
+    seoDescription: 'Rubber lined fire hose DN25 to DN80, 8/10/13 bar working pressure. Synthetic jacket with EPDM lining for industrial fire fighting. Factory price from Wanlian China.',
+    faqs: [
+      { question: 'What sizes are available for rubber fire hoses?', answer: 'We offer DN25 (1"), DN40 (1.5"), DN50 (2"), DN65 (2.5") and DN80 (3") diameters, in standard lengths of 20m, 25m or 30m per roll.' },
+      { question: 'What pressure rating do these fire hoses have?', answer: 'Standard working pressure is 8 bar, 10 bar or 13 bar depending on the model, with burst pressure at three times the working pressure.' },
+      { question: 'Can you supply fire hoses with GOST couplings for Russian market?', answer: 'Yes. We can fit GOST, Storz, instantaneous or NPT couplings as required, including Russian GOST standard fittings for CIS market projects.' }
+    ]
+  },
+  {
+    id: '47',
+    slug: 'pvc-fire-hose',
+    name: 'PVC Lined Fire Hose',
+    category: 'Fire Hose & Reels',
+    description: 'Wanlian PVC lined fire hose is a cost-effective solution for general fire protection applications. Lightweight, flexible and easy to handle, ideal for residential, commercial and light industrial use.',
+    features: [
+      'Lightweight and flexible for easy handling',
+      'PVC lining with synthetic polyester jacket',
+      'Cost-effective option for standard fire protection',
+      'Available with quick-coupling fittings'
+    ],
+    specs: {
+      'Nominal Diameter': 'DN25 / DN40 / DN50 / DN65',
+      'Working Pressure': '0.8 MPa / 1.0 MPa',
+      'Burst Pressure': '3x Working Pressure',
+      'Length': '20m / 25m per roll',
+      'Temperature Range': '0°C to +50°C'
+    },
+    materials: {
+      'Jacket': 'Polyester Filament Yarn',
+      'Lining': 'PVC / TPU',
+      'Couplings': 'Aluminum Alloy'
+    },
+    image: 'https://s.alicdn.com/@sc04/kf/Hc37d2b3c27cb4b4288809ce8ce0b575aR/High-end-PVC-Polyester-Filament-Hose-Temperature.jpg?hasNWGrade=1',
+    seoTitle: 'PVC Lined Fire Hose DN25-DN65 | Lightweight Fire Fighting Hose',
+    seoDescription: 'PVC lined fire hose DN25 to DN65, lightweight and flexible. Cost-effective solution for commercial fire protection. Factory direct from Wanlian Fluid.',
+    faqs: [
+      { question: 'What is the difference between PVC and rubber fire hoses?', answer: 'PVC hoses are lighter and more cost-effective for general use, while rubber lined hoses offer better abrasion resistance and wider temperature range for heavy-duty industrial applications.' },
+      { question: 'Are PVC fire hoses suitable for outdoor use?', answer: 'Yes, but they perform best in mild temperature environments. For extreme cold or heavy industrial use, we recommend rubber or EPDM lined hoses.' }
+    ]
+  },
+  {
+    id: '48',
+    slug: 'fire-hose-reel',
+    name: 'Fixed Fire Hose Reel',
+    category: 'Fire Hose & Reels',
+    description: 'Wanlian fixed fire hose reel is designed for indoor fire protection in commercial buildings, hotels, offices and factories. Complete with 19mm or 25mm hose, nozzle and mounting bracket.',
+    features: [
+      'Complete set with hose, nozzle and mounting bracket',
+      'Swivel joint for 360° hose deployment',
+      'Manual or automatic swing-out options',
+      'Compliant with EN 671 / GB 14561 standards'
+    ],
+    specs: {
+      'Hose Diameter': 'DN19 (3/4") / DN25 (1")',
+      'Hose Length': '20m / 25m / 30m',
+      'Working Pressure': '0.8 MPa / 1.0 MPa',
+      'Inlet Connection': '1" BSP / NPT / GOST',
+      'Nozzle': 'Adjustable spray / jet nozzle'
+    },
+    materials: {
+      'Frame': 'Steel with red epoxy coating',
+      'Hose': 'PVC / Rubber lined',
+      'Nozzle': 'Brass / Aluminum'
+    },
+    image: 'https://sc02.alicdn.com/kf/H83d117dc01294078a43ffa5725b59d811.jpg',
+    seoTitle: 'Fixed Fire Hose Reel 19mm 25mm | Indoor Fire Protection System',
+    seoDescription: 'Fixed fire hose reel with 19mm or 25mm hose, 20-30m length. Complete set for commercial building fire protection. EN 671 compliant. Factory price.',
+    faqs: [
+      { question: 'What is a fire hose reel used for?', answer: 'Fire hose reels provide immediate fire fighting capability for building occupants before the fire brigade arrives. They are required in commercial buildings, hotels, offices and factories per fire code.' },
+      { question: 'Can you supply GOST standard hose reels for Russian market?', answer: 'Yes. We can supply hose reels with GOST inlet connections and fittings for CIS market projects, along with the required certification documentation.' }
+    ]
+  },
+  {
+    id: '49',
+    slug: 'gost-fire-hose-coupling',
+    name: 'GOST Fire Hose Coupling',
+    category: 'Fire Hose & Reels',
+    description: 'Wanlian GOST fire hose couplings are manufactured to Russian GOST standards for fire fighting equipment. Available in aluminum alloy or brass, compatible with GOST fire hydrants and hose connections.',
+    features: [
+      'Manufactured to GOST standards',
+      'Aluminum alloy or brass construction',
+      'Compatible with Russian fire hydrant systems',
+      'Precision machined for leak-proof connection'
+    ],
+    specs: {
+      'Nominal Diameter': 'DN50 (RK-50) / DN65 (RK-70)',
+      'Standard': 'GOST 22695 / GOST 25813',
+      'Working Pressure': '1.0 MPa / 1.6 MPa',
+      'Type': 'Head / Tail / Adapter / Coupling',
+      'Connection': 'Threaded / Quick-connect'
+    },
+    materials: {
+      'Body': 'Aluminum Alloy (AK6) / Brass',
+      'Seal': 'EPDM / NBR Rubber',
+      'Pin / Latch': 'Stainless Steel'
+    },
+    image: 'https://s.alicdn.com/@sc04/kf/H754d9d675dd04e55b9a8486659b63474q/DN50-DN65-Custom-Cover-Head-Aluminum-Fire.jpg?hasNWGrade=1',
+    seoTitle: 'GOST Fire Hose Coupling DN50 DN65 | Russian Standard Fire Fitting',
+    seoDescription: 'GOST fire hose couplings DN50 RK-50 and DN65 RK-70, aluminum alloy or brass. Russian standard fire fittings for CIS market. Factory price from Wanlian.',
+    faqs: [
+      { question: 'What GOST standards do your fire couplings meet?', answer: 'Our GOST couplings are manufactured per GOST 22695 and GOST 25813 standards, covering RK-50 (DN50) and RK-70 (DN65) sizes commonly used in Russian fire fighting systems.' },
+      { question: 'Can you supply complete GOST fire hydrant sets?', answer: 'Yes. We can supply complete indoor fire hydrant sets (PC) including valve, coupling, hose and nozzle, all to GOST standards for Russian and CIS market projects.' }
+    ]
+  },
+  {
+    id: '50',
+    slug: 'groove-pipe-fitting-elbow',
+    name: 'Grooved Pipe Fitting - 90° Elbow',
+    category: 'Valves & Parts',
+    description: 'Wanlian ductile iron grooved 90° elbow is designed for quick and reliable grooved pipe connections in fire protection, HVAC and water supply systems. FM / UL listed options available.',
+    features: [
+      'Ductile iron construction with epoxy coating',
+      'Grooved ends for quick installation',
+      'FM / UL listed options available',
+      'Compatible with standard grooved couplings'
+    ],
+    specs: {
+      'Nominal Diameter': 'DN25 - DN300 (1" - 12")',
+      'Working Pressure': '1.6 MPa / 2.5 MPa',
+      'End Connection': 'Grooved (Victaulic style)',
+      'Standard': 'AWWA C606 / FM / UL',
+      'Coating': 'Red epoxy / Orange powder coat'
+    },
+    materials: {
+      'Body': 'Ductile Iron (QT450)',
+      'Gasket': 'EPDM / NBR',
+      'Coating': 'Epoxy Powder Coated'
+    },
+    image: 'https://s.alicdn.com/@sc04/kf/H9107b34929ea4ef097f085958aede48aM/For-Certified-FM-Ductile-Iron-Molding-Fittings.jpg?hasNWGrade=1',
+    seoTitle: 'Grooved 90° Elbow Ductile Iron | FM UL Listed Pipe Fitting',
+    seoDescription: 'Grooved 90° elbow ductile iron, DN25 to DN300. FM / UL listed for fire protection systems. Quick installation grooved fittings. Factory price.',
+    faqs: [
+      { question: 'What sizes of grooved fittings do you offer?', answer: 'We stock grooved fittings from DN25 (1") to DN300 (12"), including elbows, tees, reducers, flanges and caps, all compatible with standard Victaulic-style grooved couplings.' },
+      { question: 'Are your grooved fittings FM / UL listed?', answer: 'Yes. We can supply FM / UL listed grooved fittings for fire protection projects that require global certification, along with the test reports and documentation.' }
+    ]
+  },
+  {
+    id: '51',
+    slug: 'brass-ball-valve-threaded',
+    name: 'Brass Threaded Ball Valve',
+    category: 'Valves & Parts',
+    description: 'Wanlian brass threaded ball valve is designed for water, oil and gas applications. Full port design with brass body and stainless steel ball, ideal for plumbing, HVAC and industrial systems.',
+    features: [
+      'Forged brass body for durability',
+      'Full port design for low flow resistance',
+      'PTFE seat for tight shutoff',
+      'Red lever handle for easy operation'
+    ],
+    specs: {
+      'Nominal Diameter': 'DN8 - DN50 (1/4" - 2")',
+      'Working Pressure': '1.6 MPa (PN16)',
+      'End Connection': 'BSP / NPT Threaded',
+      'Temperature Range': '-20°C to +120°C',
+      'Media': 'Water, Oil, Gas'
+    },
+    materials: {
+      'Body': 'Forged Brass (H59)',
+      'Ball': 'Stainless Steel (Chrome Plated)',
+      'Stem': 'Brass / Stainless Steel',
+      'Seat': 'PTFE',
+      'Handle': 'Steel with Red Coating'
+    },
+    image: 'https://s.alicdn.com/@sc04/kf/H5ee845aaa41c491597bb790b931161bbd/Wanlian-Customized-High-Temperature-Manual-Red-Handle.png?hasNWGrade=1',
+    seoTitle: 'Brass Threaded Ball Valve 1/4" - 2" | BSP NPT Water Oil Gas Valve',
+    seoDescription: 'Brass threaded ball valve DN8 to DN50, BSP or NPT ends. Full port PTFE seat for water, oil and gas. Factory price from Wanlian Fluid.',
+    faqs: [
+      { question: 'What thread standards are available?', answer: 'We supply BSP (British Standard Pipe) and NPT (National Pipe Thread) ends as standard, with custom thread options available on request.' },
+      { question: 'Can these ball valves be used for gas?', answer: 'Yes. Our brass ball valves are suitable for water, oil and non-corrosive gas applications, with PTFE seats providing reliable shutoff at PN16 pressure.' }
+    ]
+  },
+  {
+    id: '52',
+    slug: 'fire-hydrant-cabinet',
+    name: 'Indoor Fire Hydrant Cabinet',
+    category: 'Fire Cabinets & Interfaces',
+    description: 'Wanlian indoor fire hydrant cabinet is designed to house fire hydrant valves, hoses and nozzles in commercial buildings. Steel construction with glass door, available in standard or custom sizes.',
+    features: [
+      'Cold-rolled steel construction with red coating',
+      'Tempered glass door with lock',
+      'Can be surface-mounted or recessed',
+      'Custom sizes and configurations available'
+    ],
+    specs: {
+      'Standard Size': '800 x 650 x 240 mm',
+      'Material': 'Cold-rolled Steel (1.0 - 1.5 mm)',
+      'Coating': 'Red epoxy powder coat',
+      'Door': 'Tempered Glass with Steel Frame',
+      'Installation': 'Surface / Recessed'
+    },
+    materials: {
+      'Cabinet': 'Cold-rolled Steel Plate',
+      'Door': 'Tempered Glass + Steel Frame',
+      'Hardware': 'Steel / Zinc Plated'
+    },
+    image: 'https://s.alicdn.com/@sc04/kf/Hf41826ce4742455886be29c0fc3770a8E/Customized-Metal-Fire-Extinguisher-Box-with-Fire.png?hasNWGrade=1',
+    seoTitle: 'Indoor Fire Hydrant Cabinet | Steel Fire Box with Glass Door',
+    seoDescription: 'Indoor fire hydrant cabinet, steel construction with tempered glass door. Surface or recessed mounted for commercial buildings. Custom sizes available. Factory price.',
+    faqs: [
+      { question: 'What sizes of fire cabinets do you offer?', answer: 'Standard size is 800 x 650 x 240 mm for single hydrant, with larger sizes available for double hose or combined extinguisher cabinets. Custom dimensions can be manufactured on request.' },
+      { question: 'Can you supply complete fire cabinet sets with hydrant and hose?', answer: 'Yes. We can supply complete indoor fire hydrant sets including cabinet, valve, hose, nozzle and couplings, ready for installation in commercial building projects.' }
     ]
   }
 ];
