@@ -1559,7 +1559,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
     ]
   },
   {
-    id: '46',
+    id: '47',
     slug: 'rubber-fire-hose',
     name: 'Rubber Lined Fire Hose',
     category: 'Fire Hose & Reels',
@@ -1592,7 +1592,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
     ]
   },
   {
-    id: '47',
+    id: '48',
     slug: 'pvc-fire-hose',
     name: 'PVC Lined Fire Hose',
     category: 'Fire Hose & Reels',
@@ -1624,7 +1624,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
     ]
   },
   {
-    id: '48',
+    id: '49',
     slug: 'fire-hose-reel',
     name: 'Fixed Fire Hose Reel',
     category: 'Fire Hose & Reels',
@@ -1656,7 +1656,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
     ]
   },
   {
-    id: '49',
+    id: '50',
     slug: 'gost-fire-hose-coupling',
     name: 'GOST Fire Hose Coupling',
     category: 'Fire Hose & Reels',
@@ -1688,7 +1688,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
     ]
   },
   {
-    id: '50',
+    id: '51',
     slug: 'groove-pipe-fitting-elbow',
     name: 'Grooved Pipe Fitting - 90° Elbow',
     category: 'Valves & Parts',
@@ -1720,7 +1720,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
     ]
   },
   {
-    id: '51',
+    id: '52',
     slug: 'brass-ball-valve-threaded',
     name: 'Brass Threaded Ball Valve',
     category: 'Valves & Parts',
@@ -1754,7 +1754,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
     ]
   },
   {
-    id: '52',
+    id: '53',
     slug: 'fire-hydrant-cabinet',
     name: 'Indoor Fire Hydrant Cabinet',
     category: 'Fire Cabinets & Interfaces',
