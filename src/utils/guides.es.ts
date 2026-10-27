@@ -446,4 +446,24 @@ export const guidesEs: Guide[] = [
     readTime: readTime('9'),
     tags: ['industrial-valves', 'procurement']
   },
+  {
+    title: 'Válvulas de Sala de Bombas: Aspiración, Impulsión y Prueba',
+    description: 'Aislamiento de aspiración e impulsión, compuertas OS&Y, retención y alivio, medición de caudal y conexión siamesa para la sala de bombas contraincendios.',
+    href: '/es/guides/fire-pump-room-valves-guide/',
+    tocPreview: ['1. Qué Debe Hacer la Sala de Bombas', '2. El Lado de Aspiración', '3. El Lado de Impulsión'],
+    date: '2026-10',
+    category: 'Protección Contra Incendios',
+    readTime: readTime('9'),
+    tags: ['fire-protection', 'industrial-valves']
+  },
+  {
+    title: 'Acoples de Manguera Contra Incendios: Normas y Patrones',
+    description: 'Normas de acoples de manguera para compradores de exportación: cómo difieren Storz, John Morris, Nakajima, Machino e instantáneo, y cómo evitar errores.',
+    href: '/es/guides/fire-hose-coupling-standards-guide/',
+    tocPreview: ['1. Por Qué la Norma del Acople Decide la Compatibilidad', '2. Storz: Simétrico y de Cuarto de Vuelta', '3. Comparación de Patrones Roscados'],
+    date: '2026-10',
+    category: 'Protección Contra Incendios',
+    readTime: readTime('9'),
+    tags: ['fire-hose-reel', 'fire-protection', 'procurement']
+  },
 ];

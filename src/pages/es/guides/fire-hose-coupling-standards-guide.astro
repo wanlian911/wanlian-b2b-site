@@ -1,0 +1,203 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: '¿Un acople de 2,5 pulgadas es igual en todas partes?',
+		answer: 'No, y este es el malentendido más caro de toda la compra de mangueras. El tamaño describe el paso nominal de la manguera o del acople, no la forma de enganchar. Un acople Storz de 2,5 in (65 mm), un John Morris de 2,5 in y un NST de 2,5 in caben todos en manguera de 65 mm y ninguno se conecta con los otros sin un adaptador.'
+	},
+	{
+		question: '¿Puedo usar adaptadores en lugar de seguir la norma?',
+		answer: 'Los adaptadores son una solución legítima para una o dos interfaces — por ejemplo una salida de hidrante que no coincide con la manguera del sitio. Son mala solución como estrategia de sistema completo, porque cada adaptador es una junta extra, una junta de sellado extra, un elemento que se puede perder y una pérdida de carga extra. Si su proyecto usará muchas mangueras, especifique los acoples conforme a la norma local y use adaptadores solo en la frontera.'
+	},
+	{
+		question: '¿Por qué un acople fuga por la unión aunque esté apretado?',
+		answer: 'Casi siempre es la junta de sellado. Puede faltar, estar endurecida, haberse hinchado por un medio inadecuado o ser el perfil equivocado para ese tipo de acople: los acoples Storz sellan por una junta alojada dentro de la mitad del acople, mientras que los patrones roscados sellan por una arandela en la tuerca giratoria hembra. Una rosca apretada pero seca igualmente fuga, y una junta dañada o ausente es lo primero que se comprueba en cualquier unión húmeda.'
+	},
+	{
+		question: '¿Qué clasificación de presión deben tener los acoples y la manguera?',
+		answer: 'Clasifique la línea completa, no solo la bomba. El acople, la manguera, la lanza y la válvula del hidrante deben estar clasificados para la presión máxima que el sistema puede producir, que en una instalación con bomba es la presión con válvula cerrada de la bomba y no la presión nominal. Nuestros acoples y válvulas de hidrante estándar en aluminio están clasificados a 1,6 MPa (232 PSI); si su sistema se prueba por encima, dígalo en la etapa de consulta.'
+	},
+	{
+		question: '¿Acoples de aluminio o de latón para un proyecto de exportación?',
+		answer: 'El aluminio es más ligero y más barato, lo que importa en tendidos largos y en gabinetes de gran volumen, y el aluminio anodizado es la opción habitual para los tipos Storz e instantáneo. El latón resiste mejor la corrosión galvánica en servicio marino y costero y soporta un trato más brusco en la rosca. Una unión aluminio con latón en aire salino es la combinación a evitar, porque el lado de aluminio se corroe primero.'
+	},
+	{
+		question: 'Qué debe contener un submittal de acoples?',
+		answer: 'El patrón y la norma por su nombre, el tamaño nominal, el material y el acabado, la presión de trabajo, el material de la junta de sellado y la configuración de rabal o rosca en cada extremo. Añada una muestra física para aprobación en todo proyecto donde el cuerpo de bomberos use el equipo, porque una muestra resuelve en un minuto lo que una descripción en plano no resuelve.'
+	}
+];
+
+const toc = [
+	{ id: 'why-standards-matter', label: '1. Por Qué la Norma del Acople Decide la Compatibilidad' },
+	{ id: 'storz', label: '2. Storz: Simétrico y de Cuarto de Vuelta' },
+	{ id: 'threaded-patterns', label: '3. Comparación de Patrones Roscados' },
+	{ id: 'matching', label: '4. Casar Acoples con Hidrantes y Lanzas' },
+	{ id: 'common-mistakes', label: '5. Errores Frecuentes de Proyecto' },
+	{ id: 'specification-checklist', label: '6. Lista de Verificación de Especificación' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+const products = [
+	{ slug: 'storz-coupling-2-5inch-aluminum', name: 'Acople Storz de Aluminio 2.5"', img: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png', desc: 'Norma alemana, cuarto de vuelta, 1,6 MPa, con púas' },
+	{ slug: 'fire-hydrant-hose-coupling-adapter-hs', name: 'Adaptador de Hidrante HS', img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg', desc: 'DN50/DN65, aluminio anodizado, 1,6 MPa' },
+	{ slug: 'fire-hose-pvc-rubber-lining-8-65', name: 'Manguera Plana PVC 8-65', img: '/assets/products/fire-hose-pvc-rubber-lining-8-65.jpg', desc: 'Acople estándar 65 mm, paso 19-400 mm' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'Lanza Ajustable de Empuñadura', img: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg', desc: 'Entrada 1.5"/2"/2.5", 150-500 LPM, neblina a chorro' }
+];
+---
+
+<Layout
+	title="Acoples de Manguera Contra Incendios: Normas y Patrones"
+	description="Normas de acoples de manguera para compradores de exportación: cómo difieren Storz, John Morris, Nakajima, Machino e instantáneo, y cómo evitar errores."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Normas de Acoples de Manguera' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Normas de Acoples de Manguera</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía para Compradores de Exportación</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Normas de Acoples de Manguera Contra Incendios: Storz, John Morris, Nakajima y Machino</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En resumen: un acople de manguera es una decisión de compatibilidad antes de ser una decisión de producto. Dos acoples del mismo tamaño nominal, fabricados según patrones nacionales distintos, no conectan — y en obra ese fallo se descubre en el peor momento posible. Esta guía explica las familias de acoples que encontrará en pliegos internacionales, cómo engancha cada una, qué mercados usan cual y cómo especificar una línea de manguera que realmente encaje con el hidrante, la bomba y la lanza del otro extremo.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-standards-matter" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Por Qué la Norma del Acople Decide la Compatibilidad</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La manguera contraincendios es un producto genérico; los acoples no. Un tramo de manguera plana de 65 mm es esencialmente el mismo producto se teja en Asia o en Europa, pero el acople prensado en su extremo pertenece a una tradición nacional de prácticas de bomberos, y esas tradiciones no interoperan. Cada patrón lo normalizó el cuerpo de bomberos de un país para los aparatos que tenía en su momento, y las normas nunca se armonizaron.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">El resultado es una matriz de compatibilidad que un ingeniero de compras debe recorrer a mano. El tamaño nominal es la trampa: 2,5 in, 65 mm, DN65 y «tamaño C» describen aproximadamente el mismo paso, y todos ellos pueden ejecutarse como acople Storz, John Morris, garra Nakajima, rosca Machino o rosca NST. Ninguno de esos encaja con los demás. El tamaño le dice la capacidad de flujo; el patrón le dice si la línea se puede conectar siquiera.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">En un proyecto de exportación eso significa que tres partes deben coincidir antes de liberar la orden de compra: el consultor que escribió la especificación, el cuerpo de bomberos que acudirá al edificio y el equipo de mantenimiento que probará el sistema. Si la especificación dice «instantáneo de 2,5 pulgadas» y la brigada local usa Storz, entregará equipo técnicamente conforme e inútil en operación. Pida una fotografía o una muestra de la salida de hidrante que usa la brigada, no una descripción.</p>
+			<p class="text-gray-700 leading-relaxed">Dos componentes de interfaz resuelven la mayoría de estas preguntas: la salida del hidrante y la válvula del gabinete de manguera. La <a href="/es/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">válvula de hidrante interior SN65</a> es una válvula mural DN65 (2,5 in) clasificada a 1,6 MPa (232 PSI) y probada a 2,4 MPa, disponible con conexión ranurada o bridadada e interfaz de acople en aluminio anodizado o latón, de modo que el patrón del acople puede fijarse en el momento del pedido. La práctica más amplia de hidrantes, incluidos los enterrados y los de columna, se trata en la <a href="/es/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">guía de normas de válvulas de hidrante</a>.</p>
+
+			<h2 id="storz" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Storz: Simétrico y de Cuarto de Vuelta</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Storz es la familia de acoples más exportada, y su rasgo definitorio es que no tiene macho ni hembra. Las dos mitades son idénticas: cada una lleva pestañas o garras internas alrededor del borde, y al juntar las mitades y girar un cuarto de vuelta se enganchan. Una junta alojada en la cara del acople hace el sellado, así que la unión no depende del par de rosca. El resultado es una conexión que una sola persona puede hacer en un segundo, a oscuras y con guantes.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Como no hay dirección, las mangueras se unen en cualquier orden y un extremo dañado se repone con la misma pieza que el otro extremo: una ventaja de inventario en una obra grande. La ausencia de rosca también significa que no hay nada a roscar en cruz, y por eso Storz sobrevive mejor que los patrones roscados el uso duro en servicio marino e industrial. La contrapartida es que las pestañas quedan expuestas y un golpe puede deformarlas, y una pestaña deformada no asienta; además el acople depende por completo de su junta, así que una junta ausente o endurecida fuga de inmediato.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Los escalones de tamaño son nominales y siguen a la manguera: DN50, DN65, DN80, DN100 y DN150 (2 in a 6 in), con más pestañas en los tamaños mayores. Cada tamaño solo encaja con el mismo tamaño, de modo que una manguera DN65 no se conecta a una salida DN80 sin un acople reductor. Nuestro <a href="/es/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">acople Storz de aluminio de 2,5 in</a> sigue la norma alemana en aluminio con opción en latón o cromado, clasificado a 1,6 MPa para agua limpia y mezcla de espuma, con púas para manguera plana y suministro montado de fábrica o suelto.</p>
+			<p class="text-gray-700 leading-relaxed">Un punto que conviene aclarar en el submittal: Storz es la interfaz manguera-a-manguera y manguera-a-aparato, no la rosca de la salida del hidrante. Un hidrante con salida John Morris o NST necesita un adaptador Storz en esa salida — el papel del adaptador serie HS descrito más abajo.</p>
+
+			<h2 id="threaded-patterns" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Comparación de Patrones Roscados</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Los patrones roscados y de garra son donde ocurre la mayoría de los incompatibilidades de proyecto, porque los nombres viajan por los pliegos sin sus dimensiones. Los cuatro que más encontrará fuera de Norteamérica son John Morris, Nakajima, Machino y el tipo instantáneo británico; NST es el equivalente norteamericano y aparece en la mayoría de las especificaciones de influencia estadounidense.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>John Morris</strong> es un patrón roscado de origen británico con mitad macho y mitad hembra, sellado por una arandela en la tuerca giratoria hembra. La rosca es gruesa y redondeada para poder apretarse a mano deprisa, y el acople es estándar en el Reino Unido y gran parte de Oriente Medio y el Sudeste Asiático. Es robusto y reparable, pero más lento que un acople de cuarto de vuelta y hay que mantener la rosca limpia.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Nakajima</strong> es un patrón instantáneo japonés: dos palancas exteriores de una mitad enganchan sobre una garganta de la otra, y al apretar las palancas la unión queda bloqueada. Es rápido, no necesita giro y es el acople de manguera normal en Japón. <strong>Machino</strong> es el patrón roscado japonés, usado cuando se quiere una conexión a rosca — normalmente en salidas de hidrante y aparatos más que en la propia manguera. Los dos conviven en la práctica japonesa, y por eso las especificaciones del mercado japonés suelen nombrar ambos.</p>
+			<p class="text-gray-700 leading-relaxed">El tipo <strong>instantáneo</strong> (a menudo escrito «Inst») es el acople británico de garra: dos palancas agarran una garganta, parecido en principio a Nakajima pero fabricado según otra norma y no intercambiable con él. Junto con Storz, son los patrones más confundidos en el nivel «2,5 pulgadas», y distinguirlos exige el nombre de la norma, no el tamaño. La tabla siguiente es una referencia inicial para la revisión del submittal.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Patrón</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Método de enganche</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Mercado habitual</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Storz (simétrico)</td>
+							<td class="px-4 py-3 text-gray-700">Cuarto de vuelta, pestañas internas, junta en cara; mitades sin sexo</td>
+							<td class="px-4 py-3 text-gray-700">Alemania y Europa Central, Oriente Medio, exportación marina e industrial</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">John Morris</td>
+							<td class="px-4 py-3 text-gray-700">Rosca gruesa macho/hembra con sello de arandela</td>
+							<td class="px-4 py-3 text-gray-700">Reino Unido, Oriente Medio, Singapur, Malasia, Hong Kong</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Nakajima</td>
+							<td class="px-4 py-3 text-gray-700">Doble palanca de garra sobre garganta, instantáneo</td>
+							<td class="px-4 py-3 text-gray-700">Japón y proyectos de especificación japonesa en Asia</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Machino</td>
+							<td class="px-4 py-3 text-gray-700">Rosca macho/hembra, conexión a tornillo</td>
+							<td class="px-4 py-3 text-gray-700">Japón, Corea, Taiwán</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Instantáneo (Inst)</td>
+							<td class="px-4 py-3 text-gray-700">Doble palanca de garra, patrón británico de garra</td>
+							<td class="px-4 py-3 text-gray-700">Reino Unido, mercados de la Commonwealth, edificios institucionales</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">NST / NH (ANSI)</td>
+							<td class="px-4 py-3 text-gray-700">Rosca gruesa en V, macho/hembra, sello de arandela</td>
+							<td class="px-4 py-3 text-gray-700">Estados Unidos, Canadá, proyectos de especificación estadounidense</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="matching" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Casar Acoples con Hidrantes y Lanzas</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Una línea de manguera tiene al menos tres uniones: hidrante o válvula de gabinete a manguera, manguera a manguera, y manguera a lanza. Cada una puede ser de un patrón distinto, y cada una es un sitio donde la línea falla. El enfoque práctico es fijar el patrón en el hidrante, porque esa es la interfaz que no se puede cambiar — la define el cuerpo de bomberos local — y después llevar ese patrón por la manguera hasta la lanza.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Donde la salida del hidrante y la manguera difieren, un adaptador las une. El <a href="/es/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">adaptador de acople de hidrante serie HS</a> se mecaniza en aluminio anodizado duro T6 en DN50 y DN65 (2 in a 2,5 in), con sello interior roscado de EPDM de sellado automático y clasificación de 1,6 MPa (232 PSI), de modo que una manguera Storz u otra conexión rápida puede llevarse a una salida de hidrante roscada sin una segunda unión. Mantenga bajo el número de adaptadores: cada unión extra es otra junta que perder.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">El extremo de la manguera es la segunda decisión. Una <a href="/es/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">manguera plana con revestimiento de caucho PVC</a> en configuración modelo 8-65 (65 mm) acepta un acople estándar de 65 mm, y la misma manguera está disponible de 19 mm a 400 mm de paso para otros usos, con acoples estándar en aluminio o latón y el sistema de rosca ajustado al mercado bajo pedido. Confirme si el acople se suministra montado de fábrica o suelto: el montaje de fábrica da un conjunto probado, mientras que los acoples sueltos dejan al contratador casar un inventario existente — ambas son legítimas, pero son pedidos distintos.</p>
+			<p class="text-gray-700 leading-relaxed">En el extremo lejano, el patrón de entrada de la lanza debe casar con el acople de la manguera. La <a href="/es/products/adjustable-pistol-grip-fire-nozzle/" class="text-brand-blue font-semibold hover:underline">lanza ajustable de empuñadura de pistola</a> está disponible con entradas de 1,5 in, 2 in y 2,5 in y entrega de 150 a 500 LPM con patrones de chorro recto a neblina amplia, así que la versión de 2,5 in es la que encaja con una línea de 65 mm — directamente si el acople es roscado, o mediante el adaptador correspondiente si la línea es Storz. Resuelva el patrón del acople antes de pedir la lanza.</p>
+
+			<h2 id="common-mistakes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Errores Frecuentes de Proyecto</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Los mismos fallos se repiten en todos los proyectos, y todos son evitables en la etapa de especificación.</p>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Normas mezcladas en un mismo edificio.</strong> Un pliego que especifica mangueras Storz, hidrantes John Morris y lanzas NST está comprando tres adaptadores por línea. Audite la línea completa — hidrante, manguera, lanza y cualquier conexión de bomba — contra un solo patrón.</li>
+				<li><strong>«2,5 pulgadas» escrito sin patrón.</strong> El tamaño es un paso, no una conexión. Cada línea de acople de la tabla debe nombrar la norma, no solo el diámetro.</li>
+				<li><strong>Pérdida de juntas y juntas equivocadas.</strong> Las juntas se caen durante la manipulación y rara vez están en la caja de repuestos. Especifique juntas de repuesto en el pedido y declare el material: EPDM para agua y espuma, y un material adecuado para cualquier otro medio.</li>
+				<li><strong>Clasificación tomada solo de la manguera.</strong> El acople, la manguera y la lanza deben estar clasificados para la presión máxima que el sistema puede producir, que en una instalación con bomba es la presión con válvula cerrada. Un conjunto de manguera es tan fuerte como su unión más débil.</li>
+				<li><strong>Roscas dañadas a la entrega.</strong> Las roscas y garras expuestas se deforman con facilidad en el transporte. Especifique tapones protectores e inspeccione a la recepción; un acople rosca-do en cruz en una línea contraincendios es una fuga que no se arregla en obra.</li>
+				<li><strong>Incompatibilidad galvánica.</strong> Aluminio unido a latón en aire costero o marino se corroe en la unión. Decida la combinación de materiales deliberadamente, no por disponibilidad.</li>
+				<li><strong>Sin muestra de aprobación.</strong> Donde el cuerpo de bomberos vaya a operar el equipo, apruebe una muestra física antes de fabricar.</li>
+			</ul>
+
+			<h2 id="specification-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Lista de Verificación de Especificación</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Nombre el patrón y la norma.</strong> Storz (declare la norma nacional, por ejemplo alemana), John Morris, Nakajima, Machino, instantáneo o NST, más el tamaño nominal, por ejemplo DN65 / 2,5 in.</li>
+				<li><strong>Declare la configuración de unión de cada extremo.</strong> Con púas para manguera plana, rosca macho, tuerca giratoria hembra o conexión rápida, de modo que ambos extremos de cada artículo queden definidos.</li>
+				<li><strong>Fije la presión de trabajo y la presión de prueba.</strong> Presión de trabajo más la presión de prueba que verá el conjunto en la puesta en marcha; 1,6 MPa (232 PSI) es nuestra clasificación estándar de acople de aluminio y válvula de hidrante.</li>
+				<li><strong>Especifique material y acabado.</strong> Aluminio anodizado por peso, latón por resistencia a la corrosión en servicio marino y cromado donde importa la resistencia al desgaste.</li>
+				<li><strong>Declare el material de la junta y pida repuestos.</strong> EPDM de sellado automático para agua y espuma; añada juntas y tapones de repuesto a la línea del pedido, no a una requisición separada más tarde.</li>
+				<li><strong>Defina la manguera.</strong> Paso, longitud, revestimiento, tamaño del acople y si los acoples van montados de fábrica y probados a presión o se suministran sueltos. Nuestra <a href="/es/guides/fire-hose-buying-guide/" class="text-brand-blue font-semibold hover:underline">guía de compra de mangueras contraincendios</a> cubre el lado de la manguera de esa decisión.</li>
+				<li><strong>Incluya los accesorios.</strong> Llave de acoples, tapones ciegos con cadena de retención y cualquier adaptador necesario en la frontera del hidrante.</li>
+				<li><strong>Pida documentos y muestra.</strong> Certificados de material, registros de prueba de presión de los conjuntos de manguera y una muestra de aprobación donde el cuerpo de bomberos vaya a operar el equipo — la misma disciplina documental que en cualquier pedido de válvulas.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Si el equipo se compra como parte de un paquete más amplio, la <a href="/es/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">lista de compra B2B de válvulas</a> expone los puntos de inspección y documentación que aplican igual a acoples, válvulas y gabinetes.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita Acoples Casados con Su Norma?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíe el patrón, tamaño, material y cantidad del acople, o una foto de la salida del hidrante a la que debe conectar; nuestros ingenieros confirman las piezas compatibles y cotizan en 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Acoples%20de%20Manguera%20Contra%20Incendios" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20acoples%20de%20manguera%20casados%20con%20una%20norma%20concreta" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

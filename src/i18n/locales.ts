@@ -108,6 +108,9 @@ const TRANSLATED_PREFIXES: Record<Locale, string[]> = {
     '/fire-sprinkler-systems/',
     '/fire-water-cannon/',
     '/ul-fire-valves/',
+    '/esfr-sprinklers/',
+    '/fire-pump-connections/',
+    '/fire-hose-couplings/',
     '/guides/',
     '/blog/',
     '/tags/',
@@ -307,7 +310,7 @@ export function activeLocales(): Locale[] {
  * 某语言补齐该页译文后，把对应路径从该语言的数组里删掉即可。
  */
 export const PENDING_TRANSLATIONS: Partial<Record<Locale, string[]>> = {
-  es: ['/guides/fire-pump-room-valves-guide/', '/guides/fire-hose-coupling-standards-guide/', '/guides/water-flow-indicator-guide/', '/guides/foam-proportioning-system-guide/', '/esfr-sprinklers/', '/fire-pump-connections/', '/fire-hose-couplings/'],
+  es: ['/guides/water-flow-indicator-guide/', '/guides/foam-proportioning-system-guide/'],
   ru: ['/guides/esfr-sprinkler-system-guide/', '/guides/fire-pump-room-valves-guide/', '/guides/osy-gate-valve-guide/', '/guides/fire-hose-coupling-standards-guide/', '/guides/api-598-valve-pressure-test-guide/', '/guides/flange-standard-guide-ansi-din-jis/', '/guides/valve-body-material-selection-guide/', '/guides/water-flow-indicator-guide/', '/guides/foam-proportioning-system-guide/', '/guides/nfpa-fire-protection-standards-guide/', '/esfr-sprinklers/', '/fire-pump-connections/', '/fire-hose-couplings/'],
   fr: ['/guides/esfr-sprinkler-system-guide/', '/guides/fire-pump-room-valves-guide/', '/guides/osy-gate-valve-guide/', '/guides/fire-hose-coupling-standards-guide/', '/guides/api-598-valve-pressure-test-guide/', '/guides/flange-standard-guide-ansi-din-jis/', '/guides/valve-body-material-selection-guide/', '/guides/water-flow-indicator-guide/', '/guides/foam-proportioning-system-guide/', '/guides/nfpa-fire-protection-standards-guide/', '/esfr-sprinklers/', '/fire-pump-connections/', '/fire-hose-couplings/'],
   ar: ['/guides/esfr-sprinkler-system-guide/', '/guides/fire-pump-room-valves-guide/', '/guides/osy-gate-valve-guide/', '/guides/fire-hose-coupling-standards-guide/', '/guides/api-598-valve-pressure-test-guide/', '/guides/flange-standard-guide-ansi-din-jis/', '/guides/valve-body-material-selection-guide/', '/guides/water-flow-indicator-guide/', '/guides/foam-proportioning-system-guide/', '/guides/nfpa-fire-protection-standards-guide/', '/esfr-sprinklers/', '/fire-pump-connections/', '/fire-hose-couplings/'],
