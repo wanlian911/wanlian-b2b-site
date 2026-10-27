@@ -1,11 +1,11 @@
 // Static validation for src/utils/products.ts (no build required).
-// Usage: node validate-products.mjs <path-to-products.ts> [--min=45]
+// Usage: node validate-products.mjs <path-to-products.ts> [--min=52]
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 
 const file = process.argv[2];
 const minArg = process.argv.find((a) => a.startsWith('--min='));
-const minCount = minArg ? Number(minArg.split('=')[1]) : 45;
+const minCount = minArg ? Number(minArg.split('=')[1]) : 52;
 
 const raw = readFileSync(file, 'utf8');
 const errors = [];
