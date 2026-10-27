@@ -66,7 +66,7 @@ export const products: Product[] = [
       ]
     },
     image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp',
-    seoTitle: 'Z41X Resilient Seat Gate Valve | UL Listed Ductile Iron',
+    seoTitle: 'Z41X Resilient Seat Gate Valve | EPDM Lined Ductile Iron',
     seoDescription: 'Ductile iron resilient seat gate valve Z41X: low pressure drop, bubble-tight seal for industrial fluid systems. Factory price from Quanzhou Wanlian Fluid.',
     faqs: [
       { question: 'What sizes are available for the Z41X resilient seat gate valve?', answer: 'DN50 to DN700 (2 inch to 28 inch) at PN10 or PN16, covering branch lines up to large transmission mains in water supply, sewage, industrial and HVAC service.' },
@@ -795,7 +795,7 @@ image: '/assets/products/manual-fire-water-cannon-ps-overlay.png',
       'Blank Caps': 'Cast Iron / Aluminum with chain'
     },
     image: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp',
-    seoTitle: 'SS100 Overground Fire Hydrant | Antifreeze UL Listed',
+    seoTitle: 'SS100 Overground Fire Hydrant | Dry Barrel Antifreeze',
     seoDescription: 'High-pressure overground fire hydrant SS100 with frost-drainage. Heavy duty ductile iron body. Approved for municipal water supply and forest safety.',
     faqs: [
       { question: 'How does the SS100 hydrant prevent freezing in cold climates?', answer: 'The SS100 uses an automatic post-closing drainage mechanism: after the operating stem is closed, the barrel above the frost line drains by gravity, so the body does not trap water that could freeze and rupture the column. It is the standard choice for outdoor municipal and yard hydrants in cold regions.' },
