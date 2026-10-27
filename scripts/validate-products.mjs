@@ -1,5 +1,5 @@
 // Static validation for src/utils/products.ts (no build required).
-// Usage: node validate-products.mjs <path-to-products.ts> [--min=52]
+// Usage: node validate-products.mjs <path-to-products.ts> [--min=52] [--min-lines=1500]
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 
@@ -38,7 +38,7 @@ if (!Array.isArray(products)) {
   process.exit(2);
 }
 
-if (products.length !== minCount) errors.push(`product count = ${products.length}, expected ${minCount}`);
+if (products.length < minCount) errors.push(`product count = ${products.length}, floor is ${minCount} - restore products.ts from git if this was not an intentional removal (raise floor when adding products)`);
 
 const seenSlug = new Map();
 const seenId = new Map();

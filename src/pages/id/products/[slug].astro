@@ -12,83 +12,83 @@ export async function getStaticPaths() {
 
 const { product } = Astro.props;
 
-// FAQ genéricos de compra por categoria
+// FAQ umum per kategori (kunci harus identik dengan nilai category di src/utils/id-parts)
 const faqByCategory: Record<string, { question: string; answer: string }[]> = {
-  'Katup e Peças': [
-    { question: 'Apa saja normas e tipos de conexão estão tersedia para as katup Wanlian?', answer: 'As katup Wanlian são memproduksidas sob pedido sesuai as normas GB, ANSI, DIN e JIS. Sambungan flangeadas, ranuradas, tipo wafer e roscadas estão tersedia sesuai o modelo. Informe a kami engenheiros o DN/PN e o tipo de conexão na consulta, e confirmaremos a configuração adequada.' },
-    { question: 'Apa saja materiais são usados no corpo e na vedação da válvula?', answer: 'Os corpos são tipicamente de ferro fundido dúctil (QT450), ferro fundido cinzento ou aço fundido/forjado, sesuai o modelo. Os elementos de vedação usam borracha EPDM ou NBR, e as hastes são de aço inox (2Cr13/304). As opções de material podem ser personalizadas para meios e faixas de temperatura específicos.' },
-    { question: 'Apa o MOQ e o prazo de entrega?', answer: 'O MOQ padrão é tipicamente de 20 unidades por modelo para tamanhos em estoque, com prazos de produção de 15 a 30 dias sesuai a quantidade e a personalização. Pedidos de amostra estão tersedia para testes antes do envio.' },
-    { question: 'Como as katup são testadas antes do envio?', answer: 'Cada válvula passa por 100% de teste de tekanan do corpo e do assento, sesuai a norma aplicável (p. ex., GB/T13927, EN 12266-1). Laudos de teste e inspeção de terceiros podem ser organizados mediante solicitação.' }
+  'Katup Industri & Saringan (Strainer)': [
+    { question: 'Standar dan jenis koneksi apa saja yang tersedia untuk katup Wanlian?', answer: 'Katup Wanlian diproduksi sesuai pesanan mengikuti standar GB, ANSI, DIN, dan JIS. Koneksi flens, alur (grooved), tipe wafer, dan ulir tersedia sesuai model. Sampaikan DN/PN dan jenis koneksi kepada tim teknis kami saat menanyakan harga, dan kami akan mengonfirmasi konfigurasi yang tepat.' },
+    { question: 'Material apa saja yang digunakan untuk badan katup dan dudukan (seat)?', answer: 'Badan katup umumnya dari besi cor ulet (QT450), besi cor kelabu, atau baja cor/tempa sesuai model. Elemen penyekat menggunakan karet EPDM atau NBR, dan batang katup dari baja tahan karat (2Cr13/304). Pilihan material dapat disesuaikan untuk media dan rentang suhu tertentu.' },
+    { question: 'Berapa MOQ dan waktu pengirimannya?', answer: 'MOQ standar umumnya 20 unit per model untuk ukuran yang tersedia di gudang, dengan waktu produksi 15 hingga 30 hari sesuai kuantitas dan tingkat kustomisasi. Pesanan sampel tersedia untuk pengujian sebelum pengiriman massal.' },
+    { question: 'Bagaimana katup diuji sebelum dikirim?', answer: 'Setiap katup menjalani uji tekanan badan dan dudukan 100% sesuai standar yang berlaku (misalnya GB/T13927, EN 12266-1). Laporan pengujian dan inspeksi pihak ketiga dapat diselenggarakan atas permintaan.' }
   ],
-  'Hidran e Sambungan de Bomba': [
-    { question: 'Apa saja normas de conexão de saída estão tersedia para hidran de exportação?', answer: 'As conexões de saída comuns incluem BS336 (Reino Unido/Commonwealth), NIST (Oriente Médio), KWS (Alemanha) e opções de flange flexível. Podemos fornecer hidran com o tipo de conexão especificado para o Anda mercado.' },
-    { question: 'Apa classe de tekanan um hidrante municipal deve ter?', answer: 'Hidran municipais padrão são classificados em PN16 (1.6 MPa), cobrindo a maioria das redes de abastecimento de air urbanas e industriais. Zonas industriais de grande altura ou alta demanda podem exigir hidran PN25.' },
-    { question: 'Os hidran Wanlian estão tersedia com sertifikasi UL ou FM?', answer: 'Ya, sesuai o modelo e o mercado de destino. Entre em contato com kami equipe comercial com a especificação do Anda projeto e a região de destino para que possamos selecionar o pacote de sertifikasi adequado.' },
-    { question: 'Os hidran de exterior têm proteção anticongelante?', answer: 'Models como o hidrante de coluna SS100 possuem mecanismo de dreno anticongelante otomatis para climas frios. As variantes anti-colisão (SSFT100) e inteligentes IoT (SS100ZN) também estão tersedia.' }
+  'Hidran Pemadam & Adaptor Pompa': [
+    { question: 'Standar koneksi keluaran apa saja yang tersedia untuk hidran ekspor?', answer: 'Koneksi keluaran umum meliputi BS336 (Inggris Raya/Persemakmuran), NIST (Timur Tengah), KWS (Jerman), dan opsi flensa fleksibel. Kami dapat menyediakan hidran dengan jenis koneksi yang ditentukan untuk pasar Anda.' },
+    { question: 'Kelas tekanan berapa yang seharusnya dimiliki hidran kota?', answer: 'Hidran kota standar diklasifikasikan pada PN16 (1,6 MPa), mencakup sebagian besar jaringan pasokan air perkotaan dan industri. Kawasan industri bertekanan tinggi atau berkebutuhan besar mungkin memerlukan hidran PN25.' },
+    { question: 'Apakah hidran Wanlian tersedia dengan sertifikasi UL atau FM?', answer: 'Ya, sesuai model dan pasar tujuan. Hubungi tim penjualan kami dengan spesifikasi proyek dan wilayah tujuan Anda agar kami dapat memilih paket sertifikasi yang tepat.' },
+    { question: 'Apakah hidran luar ruangan memiliki perlindungan anti-beku?', answer: 'Model seperti hidran pilar SS100 memiliki mekanisme pembuangan anti-beku otomatis untuk iklim dingin. Varian anti-tabrakan (SSFT100) dan hidran pintar IoT (SS100ZN) juga tersedia.' }
   ],
-  'Sprinkler e Katup de Alarme': [
-    { question: 'Apa a diferença entre a válvula de alarme do tipo molhada e a válvula de dilúvio?', answer: 'A válvula de alarme do tipo molhada (ZSFZ) mantém as tubulações de sprinkler cheias de air e aciona o alarme no fluxo de air. A válvula de dilúvio (ZSFM) permanece fechada sob tekanan de ar ou air e inunda o sistem apenas quando um sinal de detecção de incêndio a abre — usada em áreas de alto risco que exigem descarga imediata de grande volume de air.' },
-    { question: 'A quais normas os componentes do sistem de sprinkler se conformam?', answer: 'Os componentes são memproduksidos e testados sesuai a série GB 5135 e, sob pedido, outras normas internacionais. Confirme a norma aplicável ao Anda projeto com kami engenheiros.' },
-    { question: 'Apa a tekanan de trabalho das katup de alarme?', answer: 'A tekanan de trabalho padrão é de 1.6 MPa, com tekanan de teste de 3.2 MPa. As faixas de dimensões cobrem geralmente DN50 a DN300, sesuai o modelo.' },
-    { question: 'Os conjuntos de katup de alarme podem ser integrados a sistems de detecção de incêndio existentes?', answer: 'Ya. Katup de dilúvio e de pré-ação suportam acionamentos jarak jauhs mecânicos, pneumáticos ou elétricos (eletroválvula DC24V) e podem ser integrados à maioria dos painéis de controle de alarme de incêndio.' }
+  'Sprinkler Pemadam & Katup Alarm': [
+    { question: 'Apa perbedaan antara katup alarm basah dan katup deluge?', answer: 'Katup alarm basah (ZSFZ) menjaga pipa sprinkler selalu terisi air dan memicu alarm saat terjadi aliran air. Katup deluge (ZSFM) tetap tertutup menahan tekanan udara atau air, dan menggenangi sistem hanya ketika sinyal deteksi kebakaran membukanya — digunakan di area berisiko tinggi yang membutuhkan pembuangan air volume besar seketika.' },
+    { question: 'Komponen sistem sprinkler ini sesuai standar apa?', answer: 'Komponen diproduksi dan diuji sesuai seri GB 5135, serta atas permintaan dapat mengikuti standar internasional lainnya. Konfirmasikan standar yang berlaku untuk proyek Anda bersama tim teknis kami.' },
+    { question: 'Berapa tekanan kerja katup alarm?', answer: 'Tekanan kerja standar adalah 1,6 MPa, dengan tekanan uji 3,2 MPa. Rentang ukuran umumnya mencakup DN50 hingga DN300, sesuai model.' },
+    { question: 'Apakah set katup alarm dapat diintegrasikan dengan sistem deteksi kebakaran yang sudah ada?', answer: 'Ya. Katup deluge dan pra-aksi (pre-action) mendukung penggerak mekanis, pneumatik, atau listrik jarak jauh (katup solenoida DC24V) dan dapat diintegrasikan ke sebagian besar panel kontrol alarm kebakaran.' }
   ],
-  'Segurança Hidráulica': [
-    { question: 'As katup de controle hidráulico necessitam de alimentação elétrica?', answer: 'A maioria das katup de controle hidráulico (p. ex., válvula de level F745X, redutora 500X) é totalmente autopilotada pela tekanan da tubulação e não requer alimentação externa. Models com controle por solenoide, como o GKZF-1, usam AC220V ou DC24V.' },
-    { question: 'Apa a faixa de ajuste de tekanan da válvula 500X?', answer: 'A válvula redutora de tekanan 500X ajusta a tekanan a jusante de 0.1 MPa a 1.6 MPa e funciona com pressões de entrada até a classe nominal (PN10/PN16/PN25).' },
-    { question: 'Apa saja materiais são usados em aplicações de air minum?', answer: 'Para redes de air de consumo, modelos como o dispositivo anti-retorno HS41X usam corpos de ferro fundido dúctil com vedação EPDM e componentes internos de aço inox, sesuais aos requisitos sanitários GB/T17219.' },
-    { question: "Como o martelo d'air é evitado nas katup hidráulicas?", answer: 'As katup de controle pilotado fecham de forma Andave e lenta, evitando sobrepressões bruscas. As katup de agulha permitem ajustar a velocidade de fechamento sesuai as condições específicas da tubulação.' }
+  'Katup Kontrol Hidrolik': [
+    { question: 'Apakah katup kontrol hidrolik membutuhkan pasokan listrik?', answer: 'Sebagian besar katup kontrol hidrolik (misalnya katup pengatur level F745X, katup pengurang tekanan 500X) sepenuhnya bertenaga tekanan pipa itu sendiri dan tidak memerlukan pasokan listrik eksternal. Model dengan kontrol solenoida, seperti GKZF-1, menggunakan AC220V atau DC24V.' },
+    { question: 'Berapa rentang pengaturan tekanan katup 500X?', answer: 'Katup pengurang tekanan 500X mengatur tekanan hilir dari 0,1 MPa hingga 1,6 MPa dan beroperasi dengan tekanan masuk hingga kelas nominalnya (PN10/PN16/PN25).' },
+    { question: 'Material apa saja yang digunakan untuk aplikasi air minum?', answer: 'Untuk jaringan air minum, model seperti perangkat anti-balik HS41X menggunakan badan besi cor ulet dengan penyekat EPDM dan komponen internal baja tahan karat, memenuhi persyaratan sanitasi GB/T17219.' },
+    { question: 'Bagaimana palu air (water hammer) dihindari pada katup hidrolik?', answer: 'Katup kontrol berpilot menutup secara halus dan lambat sehingga menghindari lonjakan tekanan mendadak. Katup jarum memungkinkan penyesuaian kecepatan penutupan sesuai kondisi spesifik jaringan pipa.' }
   ],
-  'Monitor Pemadam de Kebakaran': [
-    { question: 'Apa saja vazões e alcances de jato estão tersedia para os monitor pemadam proteksi kebakaran?', answer: 'Os canhões manuais (série PS) cobrem 20 a 200 L/s, com alcance do jato de 50 a 110 metros. Os canhões de rastreamento otomatis (série ZDMS) oferecem 5 a 30 L/s (sob medida até 150 L/s), com raio de monitoramento de 40 a 65 m.' },
-    { question: 'Como o canhão de rastreamento otomatis detecta incêndios?', answer: 'O canhão ZDMS combina sensores infravermelhos e ultravioleta para detectar e acompanhar chamas, e então mira e dispara air automaticamente. Suporta acionamento jarak jauh manual via PC/aplicativo móvel ou um armário central.' },
-    { question: 'Há versões à prova de explosão tersedia?', answer: 'Ya, opções à prova de explosão (p. ex., Exde II BT4 Gb) estão tersedia para ambientes petroquímicos e de risco.' },
-    { question: 'Apa a tekanan de trabalho dos canhões?', answer: 'Os canhões manuais operam a 0.8–1.2 MPa e os canhões de rastreamento otomatis a 0.6–0.8 MPa. Confirme a dimensão da flange de entrada (DN100/DN150/DN200) para o Anda sistem.' }
+  'Monitor Pemadam & Meriam Air': [
+    { question: 'Debit dan jangkauan semburan apa saja yang tersedia untuk monitor pemadam?', answer: 'Meriam air manual (seri PS) mencakup 20 hingga 200 L/s dengan jangkauan semburan 50 hingga 110 meter. Meriam air pelacak otomatis (seri ZDMS) menyediakan 5 hingga 30 L/s (khusus hingga 150 L/s) dengan radius pemantauan 40 hingga 65 m.' },
+    { question: 'Bagaimana meriam air pelacak otomatis mendeteksi kebakaran?', answer: 'Meriam ZDMS menggabungkan sensor inframerah dan ultraviolet untuk mendeteksi serta melacak api, lalu mengarahkan dan menyemprotkan air secara otomatis. Didukung pengoperasian manual jarak jauh melalui PC/aplikasi ponsel atau kabinet pusat.' },
+    { question: 'Apakah tersedia versi tahan ledakan (explosion-proof)?', answer: 'Ya, opsi tahan ledakan (misalnya Exde II BT4 Gb) tersedia untuk lingkungan petrokimia dan kawasan berbahaya.' },
+    { question: 'Berapa tekanan kerja meriam air?', answer: 'Meriam manual beroperasi pada 0,8–1,2 MPa dan meriam pelacak otomatis pada 0,6–0,8 MPa. Konfirmasikan ukuran flensa masuk (DN100/DN150/DN200) untuk sistem Anda.' }
   ],
-  'Armários de Kebakaran e Interfaces': [
-    { question: 'Apa está incluído em um conjunto de carrete de mangueira proteksi kebakaran?', answer: 'O conjunto da série JPS inclui um carrete de montagem pivotante em aço carbono, mangueira plana flexível de PVC (20/25/30 m) e um bocal de pulverização em latão/liga que suporta os modos de jato direto e neblina.' },
-    { question: 'Há armários de espuma tersedia para incêndios químicos?', answer: 'Ya. O armário de espuma PSG30 reúne tanque de concentrado de espuma, dosificador, carrete de mangueira e bocal de espuma em uma única unidade de parede — eficaz proteksi kebakarans de combustíveis, químicos e solventes (classe B).' },
-    { question: 'A quais normas de conexão os adaptadores de acoplamento de mangueira se conformam?', answer: 'Os adaptadores da série HS estão tersedia em DN50/DN65, com roscas internas compatíveis com acoplamentos internacionais proteksi kebakaran, memproduksidos segundo GB12514 ou as normas de fábrica.' },
-    { question: 'Apa saja materiais são usados nos armários e carretéis?', answer: 'Os armários e carretéis usam aço carbono laminado a frio com revestimento em pó vermelho anticorrosivo. Os bocais e dosificadores são de latão ou liga de alumínio anodizado.' }
+  'Gulungan Selang & Lemari Hidran': [
+    { question: 'Apa saja yang termasuk dalam set gulungan selang kebakaran?', answer: 'Set seri JPS mencakup gulungan dengan dudukan pivot baja karbon, selang layflat PVC fleksibel (20/25/30 m), dan moncong semprot dari kuningan/alo yang mendukung mode semburan lurus dan kabut.' },
+    { question: 'Apakah tersedia lemari busa untuk kebakaran bahan kimia?', answer: 'Ya. Lemari busa PSG30 mengumpulkan tangki konsentrat busa, pencampur takar (proportioner), gulungan selang, dan moncong busa dalam satu unit dinding — efektif untuk kebakaran bahan bakar, bahan kimia, dan pelarut (kelas B).' },
+    { question: 'Adaptor kopling selang ini sesuai standar koneksi apa?', answer: 'Adaptor seri HS tersedia dalam DN50/DN65 dengan ulir dalam yang kompatibel dengan kopling kebakaran internasional, diproduksi menurut GB12514 atau standar pabrik.' },
+    { question: 'Material apa yang digunakan untuk lemari dan gulungan?', answer: 'Lemari dan gulungan menggunakan baja karbon roll dingin dengan lapisan bubuk (powder coating) merah anti-korosi. Moncong dan pencampur takar terbuat dari kuningan atau alo aluminium anodized.' }
   ]
 };
 
-// Aplikasi e normas de teste por categoria
+// Aplikasi dan standar pengujian per kategori
 const categoryInfo: Record<string, { applications: string[]; testing: string }> = {
-  'Katup e Peças': {
-    applications: ['Abastecimento e distribuição de air', 'Redes de esgoto e airs residuárias', 'Tubulações de processo industrial', 'Sistem de HVAC'],
-    testing: 'Teste de tekanan do corpo e do assento a 100% sesuai GB/T13927 ou EN 12266-1; revestimento em resina epóxi testado para resistência à corrosão.'
+  'Katup Industri & Saringan (Strainer)': {
+    applications: ['Pasokan dan distribusi air', 'Jaringan limbah dan air buangan', 'Pipa proses industri', 'Sistem HVAC'],
+    testing: 'Uji tekanan badan dan dudukan 100% sesuai GB/T13927 atau EN 12266-1; lapisan resin epoksi diuji untuk ketahanan korosi.'
   },
-  'Hidran e Sambungan de Bomba': {
-    applications: ['Redes de proteção proteksi kebakaran municipal', 'Áreas industriais e pátios de armazéns', 'Sistem de coluna internos', 'Instalações de exterior em clima frio'],
-    testing: 'Teste de tekanan hidrostática (2.4 MPa típico) e teste de aliran sesuai GB 4452 ou as normas de exportação aplicáveis.'
+  'Hidran Pemadam & Adaptor Pompa': {
+    applications: ['Jaringan pemadam kebakaran kota', 'Kawasan industri dan halaman gudang', 'Sistem hidran dalam ruangan', 'Instalasi luar ruangan beriklim dingin'],
+    testing: 'Uji tekanan hidrostatis (umumnya 2,4 MPa) dan uji aliran sesuai GB 4452 atau standar ekspor yang berlaku.'
   },
-  'Sprinkler e Katup de Alarme': {
-    applications: ['Sistem otomatiss de sprinkler', 'Prédios comerciais e residenciais', 'Armazéns industriais', 'Sistem de dilúvio e de pré-ação de alto risco'],
-    testing: 'Pengujian de tekanan e estanqueidade sesuai a série GB 5135; sensibilidade de alarme verificada com interruptores de aliran e campainhas de alarme.'
+  'Sprinkler Pemadam & Katup Alarm': {
+    applications: ['Sistem sprinkler otomatis', 'Gedung komersial dan residensial', 'Gudang industri', 'Sistem deluge dan pra-aksi risiko tinggi'],
+    testing: 'Pengujian tekanan dan kekedapan sesuai seri GB 5135; sensitivitas alarm diverifikasi dengan sakelar aliran dan bel alarm.'
   },
-  'Segurança Hidráulica': {
-    applications: ['Controle de level de reservatórios', 'Gestão de tekanan em redes de air', 'Proteção contra reflujo de air minum', 'Proteção da sucção de bombas'],
-    testing: 'Pengujian de funcionamento e tekanan sesuai as normas aplicáveis; conjuntos de diafragma e vedações testados para durabilidade.'
+  'Katup Kontrol Hidrolik': {
+    applications: ['Pengaturan level tangki', 'Manajemen tekanan jaringan air', 'Perlindungan anti-balik air minum', 'Perlindungan isapan pompa'],
+    testing: 'Pengujian fungsi dan tekanan sesuai standar yang berlaku; set diafragma dan penyekat diuji untuk ketahanan.'
   },
-  'Monitor Pemadam de Kebakaran': {
-    applications: ['Usinas petroquímicas e fazendas de tanques', 'Aeroportos e centros de exposição', 'Armazéns de grande porte', 'Caminhões bombeiro e combate a incêndio marítimo'],
-    testing: 'Pengujian de aliran, alcance do jato e rotação; modelos à prova de explosão verificados sesuai as normas Ex (opcional).'
+  'Monitor Pemadam & Meriam Air': {
+    applications: ['Pabrik petrokimia dan tangki timbunan', 'Bandara dan pusat pameran', 'Gudang berukuran besar', 'Mobil pemadam dan pemadaman kapal'],
+    testing: 'Pengujian aliran, jangkauan semburan, dan rotasi; model tahan ledakan diverifikasi sesuai standar Ex (opsional).'
   },
-  'Armários de Kebakaran e Interfaces': {
-    applications: ['Postos de combate a incêndio internos', 'Áreas de armazenamento de produtos químicos e combustíveis', 'Sistem de mangueira proteksi kebakaran de edifícios', 'Instalações marítimas e offshore'],
-    testing: 'Pengujian de tekanan e funcionamento dos carretéis, bocais e dosificadores; razão de expansão da espuma verificada por modelo.'
+  'Gulungan Selang & Lemari Hidran': {
+    applications: ['Pos pemadam dalam ruangan', 'Area penyimpanan bahan kimia dan bahan bakar', 'Sistem selang kebakaran gedung', 'Instalasi maritim dan lepas pantai'],
+    testing: 'Pengujian tekanan dan fungsi gulungan, moncong, dan pencampur takar; rasio pengembangan busa diverifikasi per model.'
   }
 };
 
-// FAQ do produto tem prioridade; caso contrário, FAQ genérico por categoria
+// FAQ produk lebih diutamakan; jika tidak ada, pakai FAQ umum per kategori
 const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
 const info = categoryInfo[product.category];
 
 // Vídeo do produto (opcional): renderizado + JSON-LD VideoObject quando os dados configuram
 const videoData = product.video
   ? {
-      name: `${product.name} — Visão Geral em Vídeo`,
-      description: product.video.description ?? `Visão geral em vídeo do ${product.name}: construção, dimensões principais e pontos de instalação.`,
+      name: `${product.name} — Gambaran Umum Video`,
+      description: product.video.description ?? `Gambaran video ${product.name}: konstruksi, dimensi utama, dan poin-poin instalasi.`,
       thumbnail: product.video.poster ?? product.image,
       src: product.video.src,
       duration: product.video.duration ?? 'PT2M0S',
@@ -103,31 +103,31 @@ const relatedProducts = familySlugs.length
   : productsId.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 4);
 const catAnchor = encodeURIComponent(product.category);
 
-// Links para guias de compra por categoria
+// Tautan panduan pembelian per kategori
 const guideByCategory: Record<string, { href: string; title: string; description: string }[]> = {
-  'Katup e Peças': [
-    { href: '/id/guides/gate-valve-vs-butterfly-valve-fire-protection/', title: 'Válvula de Gaveta vs. Válvula Borboleta para Proteção Proteksi Kebakaran', description: 'Vedação, aliran, perda de carga e custo comparados para escolher a válvula de isolamento correta para ramais de incêndio e redes de air.' },
-    { href: '/id/guides/check-valve-types-guide/', title: 'Jeniss de Katup de Retenção e Guia de Seleção', description: 'Retenção de esfera deslizante vs. clapeta oscilante — perda de carga, comportamento no fechamento e as aplicações ideais de cada tipo.' }
+  'Katup Industri & Saringan (Strainer)': [
+    { href: '/id/guides/gate-valve-vs-butterfly-valve-fire-protection/', title: 'Katup Gerbang vs. Katup Kupu untuk Proteksi Kebakaran', description: 'Perbandingan penyekatan, aliran, kehilangan tekanan, dan biaya untuk memilih katup isolasi yang tepat pada jaringan kebakaran dan perpipaan air.' },
+    { href: '/id/guides/check-valve-types-guide/', title: 'Jenis-Jenis Katup Cek dan Panduan Pemilihannya', description: 'Cek bola apung vs. kupu-kupu terayun (clapper) — kehilangan tekanan, perilaku penutupan, dan aplikasi ideal masing-masing tipe.' }
   ],
-  'Hidran e Sambungan de Bomba': [
-    { href: '/id/guides/how-to-choose-a-fire-hydrant/', title: 'Como Escolher um Hidrante Proteksi Kebakaran', description: 'Interno vs. exterior, coluna seca vs. molhada, normas de saída e classes de tekanan para projetos municipais e industriais.' },
-    { href: '/id/guides/fire-hydrant-valve-standards-guide/', title: 'Normas de Hidran, Mangueiras e Katup Explicadas', description: 'AWWA C502, NFPA 1961, EN 14384, BS 750 — qual norma se aplica ao Anda pedido e como verificar a conformidade.' }
+  'Hidran Pemadam & Adaptor Pompa': [
+    { href: '/id/guides/how-to-choose-a-fire-hydrant/', title: 'Cara Memilih Hidran Pemadam Kebakaran', description: 'Dalam vs. luar ruangan, pilar kering vs. basah, standar sambungan keluar, dan kelas tekanan untuk proyek kota dan industri.' },
+    { href: '/id/guides/fire-hydrant-valve-standards-guide/', title: 'Penjelasan Standar Hidran, Selang, dan Katup', description: 'AWWA C502, NFPA 1961, EN 14384, BS 750 — standar mana yang berlaku untuk pesanan Anda dan cara memverifikasi kepantauhan.' }
   ],
-  'Sprinkler e Katup de Alarme': [
-    { href: '/id/guides/fire-sprinkler-control-valve-types/', title: 'Jeniss de Katup de Controle de Redes de Sprinkler: OS&Y, Borboleta e Retenção', description: 'O papel de cada válvula de controle em uma rede de sprinkler e como as katup OS&Y, borboleta e de retenção trabalham juntas.' },
-    { href: '/id/guides/fire-sprinkler-system-wet-dry-preaction/', title: 'Sistem de Sprinkler: Molhado, Seco ou de Pré-Ação?', description: 'Compare as configurações de sistems de sprinkler molhado, seco e de pré-ação sesuai a classe de risco do Anda prédio.' }
+  'Sprinkler Pemadam & Katup Alarm': [
+    { href: '/id/guides/fire-sprinkler-control-valve-types/', title: 'Jenis Katup Kontrol Jaringan Sprinkler: OS&Y, Kupu, dan Cek', description: 'Peran tiap katup kontrol pada jaringan sprinkler dan bagaimana katup OS&Y, kupu, serta cek bekerja bersamaan.' },
+    { href: '/id/guides/fire-sprinkler-system-wet-dry-preaction/', title: 'Sistem Sprinkler: Basah, Kering, atau Pra-Aksi?', description: 'Bandingkan konfigurasi sistem sprinkler basah, kering, dan pra-aksi sesuai kelas risiko gedung Anda.' }
   ],
-  'Segurança Hidráulica': [
-    { href: '/id/guides/pressure-reducing-valve-guide/', title: 'Guia de Katup Redutoras de Tekanan: PRV Hidráulico 500X', description: "Como as redutoras pilotadas protegem equipamentos a jusante, regulam a tekanan e evitam o martelo d'air." },
-    { href: '/id/guides/backflow-prevention-guide/', title: 'Guia de Pencegahan Aliran Balik', description: 'Quando as redes de air minum precisam de conjuntos de dupla retenção e como o HS41X protege contra o reflujo.' }
+  'Katup Kontrol Hidrolik': [
+    { href: '/id/guides/pressure-reducing-valve-guide/', title: 'Panduan Katup Pengurang Tekanan: PRV Hidrolik 500X', description: 'Bagaimana katup pengurang berpilot melindungi peralatan hilir, mengatur tekanan, dan mencegah palu air.' },
+    { href: '/id/guides/backflow-prevention-guide/', title: 'Panduan Pencegahan Aliran Balik', description: 'Kapan jaringan air minum membutuhkan set dual check dan bagaimana HS41X melindungi dari aliran balik.' }
   ],
-  'Monitor Pemadam de Kebakaran': [
-    { href: '/id/guides/fire-water-monitor-selection-guide/', title: 'Seleção de Monitor Pemadam: Manual vs. Rastreamento Otomatis', description: 'Monitores manuais PS vs. canhões de rastreamento otomatis ZDMS — aliran, alcance, controle e opções à prova de explosão.' },
-    { href: '/id/guides/fire-water-cannon-buying-guide/', title: 'Panduan Pembelian de Monitor Pemadam Proteksi Kebakaran', description: 'Fixo, jarak jauh ou inteligente? Jangkauan do jato, aliran e fatores de instalação para sutekanan de incêndio em grandes espaços.' }
+  'Monitor Pemadam & Meriam Air': [
+    { href: '/id/guides/fire-water-monitor-selection-guide/', title: 'Pemilihan Monitor Pemadam: Manual vs. Pelacak Otomatis', description: 'Monitor manual PS vs. meriam pelacak otomatis ZDMS — aliran, jangkauan, pengendalian, dan opsi tahan ledakan.' },
+    { href: '/id/guides/fire-water-cannon-buying-guide/', title: 'Panduan Pembelian Meriam Air Pemadam Kebakaran', description: 'Statis, jarak jauh, atau cerdas? Jangkauan semburan, aliran, dan faktor pemasangan untuk pemadaman api di ruang luas.' }
   ],
-  'Armários de Kebakaran e Interfaces': [
-    { href: '/id/guides/fire-hose-reel-cabinet-guide/', title: 'Guia de Seleção de Carretéis de Mangueira e Armários Proteksi Kebakaran', description: 'Carretéis JPS0.8-19, armários de espuma PSG30 e katup de hidrante SN65 — o que um posto de combate a incêndio interno lengkap precisa.' },
-    { href: '/id/guides/fire-extinguisher-selection-guide/', title: 'Panduan Pembelian de Extintores: Pó Químico ABC', description: 'Cobertura das classes A/B/C/E, classificações ISO 7165 e embalagem de exportação B2B para extintores portáteis.' }
+  'Gulungan Selang & Lemari Hidran': [
+    { href: '/id/guides/fire-hose-reel-cabinet-guide/', title: 'Panduan Pemilihan Gulungan Selang dan Lemari Hidran', description: 'Gulungan JPS0.8-19, lemari busa PSG30, dan katup hidran SN65 — kebutuhan lengkap pos pemadam dalam ruangan.' },
+    { href: '/id/guides/fire-extinguisher-selection-guide/', title: 'Panduan Pembelian Alat Pemadam Ringan: Serbuk Kimia ABC', description: 'Cakupan kelas A/B/C/E, klasifikasi ISO 7165, dan pengemasan ekspor B2B untuk APAR portabel.' }
   ]
 };
 
@@ -272,7 +272,7 @@ const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
               </ul>
             </div>
             <div class="bg-gray-50 p-6 rounded-xl border border-gray-200/60">
-              <h2 class="text-xl font-bold text-gray-900 mb-3">Apaidade e Pengujian</h2>
+              <h2 class="text-xl font-bold text-gray-900 mb-3">Aplikasi dan Pengujian</h2>
               <p class="text-sm text-gray-700 leading-relaxed">{info.testing}</p>
             </div>
           </div>
@@ -286,7 +286,7 @@ const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
             Minta Penawaran
           </a>
           <a
-            href={`/id/contact/?product=${encodeURIComponent('Solicitar Catálogo PDF')}`}
+            href={`/id/contact/?product=${encodeURIComponent('Minta Katalog PDF')}`}
             class="flex-1 text-center py-4 bg-white text-blue-600 font-bold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition"
           >
             Minta Dokumentasi Produk
@@ -340,7 +340,7 @@ const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
     <!-- Related Products -->
     {relatedProducts.length > 0 && (
       <section class="mt-20">
-        <h2 class="text-3xl font-black text-gray-900 mb-8">Produk Relacionados</h2>
+        <h2 class="text-3xl font-black text-gray-900 mb-8">Produk Terkait</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {relatedProducts.map(related => (
             <a href={`/id/products/${related.slug}/`} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-blue/30 transition p-6 flex flex-col">
