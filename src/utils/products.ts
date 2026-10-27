@@ -1647,7 +1647,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum-overlay.png',
       'Hose': 'PVC / Rubber lined',
       'Nozzle': 'Brass / Aluminum'
     },
-    image: 'https://sc02.alicdn.com/kf/H83d117dc01294078a43ffa5725b59d811.jpg',
+    image: 'https://s.alicdn.com/@sc04/kf/Hc35baae1407e497c878a656df156e682s/Wanlian-Manual-Swing-Fire-Hose-Reel-19mm.png?hasNWGrade=1',
     seoTitle: 'Fixed Fire Hose Reel 19mm 25mm | Indoor Fire Protection System',
     seoDescription: 'Fixed fire hose reel with 19mm or 25mm hose, 20-30m length. Complete set for commercial building fire protection. EN 671 compliant. Factory price.',
     faqs: [
