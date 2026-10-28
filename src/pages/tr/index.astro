@@ -21,14 +21,25 @@ const featuredProducts = productsTr.filter(p => [
   'telescopic-y-strainer-sgl41h', 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100'
 ].includes(p.slug));
 
-const categories = [
-  { name: 'Vanalar ve Parçalar', count: '150+', image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp' },
-  { name: 'Yangın Hidrantları ve Pompa Bağlantıları', count: '80+', image: '/assets/products/indoor-fire-hydrant-head-sn65.jpg' },
-  { name: 'Yangın Sprinkleri ve Alarm Vanaları', count: '120+', image: '/assets/products/wet-alarm-check-valve-zsfz-150.webp' },
-  { name: 'Hidrolik Güvenlik', count: '60+', image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp' },
-  { name: 'Yangın Monitörleri ve Su Topları', count: '40+', image: '/assets/products/manual-fire-water-cannon-ps.webp' },
-  { name: 'Yangın Dolapları ve Bağlantı Elemanları', count: '90+', image: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg' }
+// 分类名与数量取自本语种产品数据本身。此前这里硬编码了一套与数据不一致的名称
+// （id 残留葡语标签），使 /tr/products/#category= 深链筛不到任何产品，
+// 且 count 为无依据的估算值。字段形状保持 { name, count, image } 不变，模板无需改动。
+// 卡片配图用全站统一 slug 反查，不新增未核实的图片路径。
+const CARD_LEAD_SLUGS = [
+  'resilient-seat-flanged-gate-valve-z41x',
+  'indoor-fire-hydrant-head-sn65',
+  'wet-alarm-check-valve-zsfz-150',
+  'hydraulic-water-level-control-valve-f745x',
+  'manual-fire-water-cannon-ps',
+  'foam-fire-hydrant-cabinet-psg30',
+  'pvc-fire-hose',
 ];
+const categoryNames: string[] = [...new Set(productsTr.map((p) => p.category))];
+const categories = categoryNames.map((name) => {
+  const inCategory = productsTr.filter((p) => p.category === name);
+  const lead = inCategory.find((p) => CARD_LEAD_SLUGS.includes(p.slug)) ?? inCategory[0];
+  return { name, count: String(inCategory.length), image: lead.image };
+});
 
 const manufacturingSteps = [
   { step: '01', title: 'Hassas Örgü', desc: 'Dayanıklı yangın hortumu kılıfları için yüksek mukavemetli polyester örgü.' },

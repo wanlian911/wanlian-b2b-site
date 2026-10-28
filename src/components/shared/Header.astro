@@ -6,6 +6,10 @@ import { productsEs } from '../../utils/products.es';
 import { productsRu } from '../../utils/products.ru';
 import { productsFr } from '../../utils/products.fr';
 import { productsAr } from '../../utils/products.ar';
+import { productsPt } from '../../utils/products.pt';
+import { productsDe } from '../../utils/products.de';
+import { productsTr } from '../../utils/products.tr';
+import { productsId } from '../../utils/products.id';
 
 interface Props {
   locale?: Locale;
@@ -33,7 +37,8 @@ const navItems = dict.nav.map(item => ({
 }));
 
 // 导航「Products」下拉菜单：数据源与各语言产品页同源（fr 为 42 条，其余 45 条）
-const catalog: Product[] = ({ en: products, es: productsEs, ru: productsRu, fr: productsFr, ar: productsAr } as Record<Locale, Product[]>)[locale] ?? products;
+// 导航「Products」下拉菜单：数据源必须与当前语言的产品页同源，否则 #category= 深链落到本语言产品页时匹配不到任何 data-category 标签，点击后筛选静默失效。
+const catalog: Product[] = ({ en: products, es: productsEs, ru: productsRu, fr: productsFr, ar: productsAr, pt: productsPt, de: productsDe, tr: productsTr, id: productsId } as Record<Locale, Product[]>)[locale] ?? products;
 const productsHref = safeHref('/products/', locale);
 // 分类按首现顺序排列，#category= 深链与页脚 Product Series 同源；safeHref 会保留 hash
 const categoryLinks = [...new Set(catalog.map(p => p.category))].map(name => ({
