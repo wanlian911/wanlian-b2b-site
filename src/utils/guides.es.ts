@@ -7,6 +7,56 @@ const readTime = (min: string) => `${min} min de lectura`;
 
 export const guidesEs: Guide[] = [
   {
+    title: 'Guía de Selección y Dimensionado de Válvulas Diluvio',
+    description: 'Cómo funciona una válvula diluvio ZSFM, cómo dimensionarla, elegir su accionamiento, configurar descargas, probarla y preparar una RFQ.',
+    href: '/es/guides/deluge-valve-selection-guide/',
+    tocPreview: ["1. Cuándo un Sistema Necesita Protección Diluvio", "2. Cómo Funciona el Grupo de Válvula Diluvio ZSFM", "3. Cómo Elegir el Método de Accionamiento"],
+    date: '2026-10',
+    category: 'Protección Contra Incendios',
+    readTime: readTime('9'),
+    tags: ['sprinkler-systems', 'fire-protection']
+  },
+  {
+    title: 'AWWA C509 vs EN 14461: Hidrantes Comparados',
+    description: 'Compare hidrantes AWWA C509 y EN 14461: presión, salidas, materiales, ensayos de tipo y cómo especificar un hidrante aceptable.',
+    href: '/es/guides/awwa-c509-vs-en-14461-fire-hydrants/',
+    tocPreview: ["1. Qué Norma Invoca Realmente su Especificación", "2. Presión Nominal y Profundidad de Trabajo", "3. Disposición de Salidas y Patrones de Acople"],
+    date: '2026-10',
+    category: 'Protección Contra Incendios',
+    readTime: readTime('9'),
+    tags: ['fire-hydrant', 'procurement']
+  },
+  {
+    title: 'Aspiración de Bomba y Tanque Contra Incendios (2026)',
+    description: 'Dimensionamiento del tanque contra incendios, dos aspiraciones, prevención de vórtices, cebado y control de nivel para una aspiración conforme.',
+    href: '/es/guides/fire-pump-suction-water-tank-guide/',
+    tocPreview: ["1. De Dónde Proviene el Volumen de Agua Contra Incendios", "2. Dimensionamiento de la Reserva de Agua Contra Incendios", "3. Regla de las Dos Aspiraciones y Pasos por el Tanque"],
+    date: '2026-10',
+    category: 'Protección Contra Incendios',
+    readTime: readTime('9'),
+    tags: ['fire-protection', 'industrial-valves']
+  },
+  {
+    title: 'Cómo comparar cotizaciones de válvulas chinas',
+    description: 'Guía B2B para cotizar válvulas chinas: especifique el RFQ, compare alcances, detecte costos ocultos y verifique al proveedor antes de adjudicar.',
+    href: '/es/guides/china-valve-supplier-quote-guide/',
+    tocPreview: ["1. Por Qué Difieren Dos Cotizaciones para la Misma Válvula", "2. Cómo Redactar un RFQ que Obtenga Cotizaciones Precisas", "3. Cómo Leer la Cotización Partida por Partida"],
+    date: '2026-10',
+    category: 'Compras B2B',
+    readTime: readTime('9'),
+    tags: ['procurement', 'certification']
+  },
+  {
+    title: 'Guía de Sistemas de Diluvio con Espuma (2026)',
+    description: 'Sistemas de diluvio con espuma y agua-espuma para riesgos clase B: válvula de diluvio, dosificación, concentrados, descarga y pruebas en campo.',
+    href: '/es/guides/foam-deluge-system-guide/',
+    tocPreview: ["1. Cuándo la Espuma Supera al Agua", "2. Anatomía de un Sistema de Diluvio con Espuma", "3. Comparación de Opciones de Dosificación"],
+    date: '2026-10',
+    category: 'Protección Contra Incendios',
+    readTime: readTime('9'),
+    tags: ['fire-protection', 'sprinkler-systems']
+  },
+  {
     title: 'Normas de Bridas: ANSI, DIN, JIS y PN16',
     description: 'Compare ANSI, DIN y JIS: diferencias de taladrado y clases de presión para especificar bridas de válvulas en RFQ y evitar incompatibilidades en obra.',
     href: '/es/guides/flange-standard-guide-ansi-din-jis/',

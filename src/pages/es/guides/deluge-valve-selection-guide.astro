@@ -1,0 +1,188 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: '¿Cuál es la diferencia principal entre una válvula diluvio y una válvula de preacción?',
+		answer: 'Un sistema diluvio tiene rociadores o boquillas abiertas, por lo que al abrirse la válvula diluvio el agua llega a todos los puntos de descarga a la vez. Un sistema de preacción normalmente tiene rociadores cerrados y usa la detección para abrir una válvula de control antes de que un rociador libere agua. El diluvio se elige para una cobertura rápida y simultánea; la preacción, cuando debe limitarse una descarga accidental de agua. Confirme el enclavamiento y la secuencia normativa exigida según la edición vigente.'
+	},
+	{
+		question: '¿La válvula diluvio debe usar disparo eléctrico o hidráulico?',
+		answer: 'Elija el método de disparo según el diseño de detección, los requisitos del área peligrosa, la energía disponible y la secuencia de seguridad requerida. El disparo eléctrico es práctico cuando ya se han especificado el panel de alarma de incendios y un circuito de solenoide supervisado. El disparo hidráulico o neumático puede adaptarse a instalaciones donde se prefiere una línea de presión dedicada o un detector neumático. Wanlian suministra el grupo de válvula y los accesorios compatibles; el diseñador del sistema debe confirmar la secuencia del panel de control de detección.'
+	},
+	{
+		question: '¿Cómo debe protegerse un sistema diluvio en un clima frío?',
+		answer: 'Mantenga el conjunto de la válvula diluvio y sus internos en un espacio calefactado y accesible siempre que sea posible, y evite dejar tubería expuesta llena de agua donde pueda congelarse. Instale recogida y drenaje de condensado para los internos de detección, aísle las secciones vulnerables y use una disposición seca o neumática aprobada cuando el diseño lo exija. No sustituya el anticongelante ni modifique los internos sin la autorización de la autoridad competente. Confirme el método de protección contra congelación según la edición vigente.'
+	},
+	{
+		question: '¿Cómo puede protegerse la línea de detección contra un disparo accidental?',
+		answer: 'Separe la línea de detección de los controles de servicio ordinarios, supervise su presión o estado del circuito, proteja los dispositivos expuestos contra impactos y use la secuencia del panel de disparo exigida para el riesgo. El disparo manual debe estar protegido, pero ser accesible, y las conexiones de prueba deben estar claramente identificadas y restablecerse después de la prueba. La detección hidráulica, neumática y eléctrica necesita su propia supervisión de alarma y avería. La matriz final de causa y efecto debe aprobarse antes de la puesta en servicio.'
+	},
+	{
+		question: '¿Qué información debe incluir una solicitud de cotización (RFQ) de válvula diluvio?',
+		answer: 'Envíe la descripción del riesgo, el área protegida, el caudal y la presión de diseño, el diámetro nominal y la conexión final de la válvula, la disposición de rociadores abiertos o monitores, el método de detección, la secuencia de accionamiento requerida, la temperatura ambiente, el sistema de drenaje y la edición normativa aplicable. Solicite también planos de los internos, datos de materiales, registros de pruebas de presión, información de repuestos e instrucciones de operación. Si se requiere una certificación o aprobación, indíquelo expresamente y pida al proveedor que confirme la documentación vigente.'
+	},
+	{
+		question: '¿Wanlian suministra el panel de control de detección diluvio?',
+		answer: 'Wanlian suministra grupos de válvulas diluvio, válvulas asociadas y accesorios de monitoreo, incluido el conjunto ZSFM y componentes adecuados de aislamiento o control. No presentamos un panel de control de detección como parte del paquete estándar de válvulas cuando no lo suministramos. El panel de disparo, los detectores y la programación de causa y efecto deben especificarse con el contratista de alarma de incendios o de detección especializada, y después comprobarse contra los internos de la válvula y la secuencia del sitio.'
+	}
+];
+
+const toc = [
+	{ id: 'when-deluge', label: '1. Cuándo un Sistema Necesita Protección Diluvio' },
+	{ id: 'how-it-works', label: '2. Cómo Funciona el Grupo de Válvula Diluvio ZSFM' },
+	{ id: 'actuation', label: '3. Cómo Elegir el Método de Accionamiento' },
+	{ id: 'sizing', label: '4. Dimensionar la Válvula para Caudal y Tiempo de Disparo' },
+	{ id: 'discharge', label: '5. Rociadores Abiertos, Monitores y Disposición de Descarga' },
+	{ id: 'testing', label: '6. Puesta en Servicio y Pruebas Periódicas' },
+	{ id: 'rfq-checklist', label: '7. Lista para la Solicitud de Cotización de una Válvula Diluvio' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+const products = [
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Grupo de Válvula de Alarma Diluvio (Serie ZSFM)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'Grupo de válvula diluvio de fondo húmedo para sistemas de rociadores abiertos y monitores' },
+	{ slug: 'pre-action-alarm-system-zsfy', name: 'Sistema de Alarma Diluvio de Preacción (Serie ZSFY)', img: '/assets/products/pre-action-alarm-system-zsfy.jpg', desc: 'Conjuntos de preacción de enclavamiento simple y doble' },
+	{ slug: 'manual-fire-water-cannon-ps', name: 'Monitor Manual de Agua Contra Incendios (Serie PS)', img: '/assets/products/manual-fire-water-cannon-ps.webp', desc: 'Monitor fijo para servicio de descarga diluvio y de monitores' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Válvula de Compuerta OS&amp;Y de Asiento Resiliente UL/FM', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10", extremos ranurados, vástago ascendente, listado UL/FM' }
+];
+---
+
+<Layout
+	title="Guía de Selección y Dimensionado de Válvulas Diluvio"
+	description="Cómo funciona una válvula diluvio ZSFM, cómo dimensionarla, elegir su accionamiento, configurar descargas, probarla y preparar una RFQ."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Guía de Selección de Válvulas Diluvio' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Guía de Selección de Válvulas Diluvio</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Válvulas Diluvio</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Selección y Dimensionado de Válvulas Diluvio: Rociadores Abiertos y Monitores</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En resumen: una válvula diluvio es la compuerta controlada entre un suministro de agua presurizado y una red de rociadores, boquillas o monitores abiertos. La línea de detección actúa primero; después, la válvula deja pasar agua a todos los puntos de descarga abiertos simultáneamente. Una buena selección comienza con el riesgo y el caudal de diseño, y después comprueba la capacidad Kv o Cv, la pérdida de presión, el tiempo de disparo, el método de accionamiento, el drenaje y el acceso de prueba. Esta guía explica el grupo ZSFM, su comparación con sistemas húmedos, secos y de preacción, y la información que el comprador debe incluir en una RFQ.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="when-deluge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Cuándo un Sistema Necesita Protección Diluvio</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La protección diluvio es adecuada cuando un incendio puede crecer rápidamente, cuando todo el riesgo debe mojarse a la vez o cuando un monitor direccional debe recibir agua inmediatamente después de la detección. Entre los ejemplos habituales están los decorados de escenarios y los espacios superiores de teatros, hangares de aeronaves, transformadores, cintas transportadoras, zonas de vehículos y aplicaciones de preacción con agua y espuma. La característica que lo define es que los rociadores o las boquillas están abiertos. El agua no espera a que actúe el bulbo de un rociador individual; una secuencia de disparo envía agua por toda la red abierta.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La contrapartida es una demanda de agua deliberadamente alta. El diseñador de un sistema diluvio debe considerar cada punto de descarga abierto que pueda operar al mismo tiempo, el suministro disponible en la entrada de la válvula, la fricción de la tubería y la presión necesaria en la salida hidráulicamente más remota. EN 12845 y NFPA 13 exigen que la válvula diluvio suministre agua a todas las salidas abiertas rápidamente después de la detección, normalmente expresado como unos 60 segundos, pero la edición normativa aplicable y el riesgo del proyecto determinan la base exacta de diseño. Confirme siempre el requisito según la edición vigente.</p>
+			<p class="text-gray-700 leading-relaxed">La decisión no consiste simplemente en elegir la válvula más grande disponible. Una válvula de alarma húmeda con retención, como la <a href="/es/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">válvula de retención con alarma húmeda ZSFZ</a>, pertenece a una disposición distinta con rociadores normalmente cerrados. Para un sistema de cabezas abiertas, el <a href="/es/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">grupo de válvula de alarma diluvio ZSFM</a> es el punto de partida adecuado, sujeto al cálculo hidráulico y a los requisitos de aprobación.</p>
+
+			<h2 id="how-it-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Cómo Funciona el Grupo de Válvula Diluvio ZSFM</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Una válvula diluvio se mantiene cerrada mediante un sistema de cebado mientras el lado de suministro permanece presurizado. Un circuito de detección independiente identifica el riesgo y libera los internos mediante una secuencia hidráulica, neumática o eléctrica. Cuando se elimina la presión de retención o actúa el dispositivo de disparo, el diafragma principal o la clapeta se desplaza y el agua de suministro entra en la tubería diluvio. El agua llega entonces a todos los rociadores, boquillas o monitores abiertos, en lugar de esperar la activación térmica de cada salida.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">El grupo ZSFM debe revisarse como un conjunto, no solo como un cuerpo. La RFQ debe identificar el tamaño de la válvula, las conexiones de entrada y salida, los internos de cebado, la disposición de drenaje y prueba, la salida de alarma, los presostatos y el disparo manual de emergencia. La vía de alarma puede accionar una alarma motriz de agua o transmitir presión a un panel monitorizado, según los internos especificados. Una válvula de aislamiento supervisada aguas arriba y una disposición de prueba controlada aguas abajo facilitan el mantenimiento del conjunto sin ocultar una válvula cerrada.</p>
+			<p class="text-gray-700 leading-relaxed">Wanlian suministra grupos de válvulas diluvio con válvulas asociadas y accesorios de monitoreo mediante líneas de producción propias + capacidad colaborativa calificada. El panel de detección, los detectores y la lógica programada de causa y efecto no se incluyen silenciosamente cuando los suministra otro especialista. Ese límite debe figurar en la lista de equipos para que el instalador sepa quién es responsable del circuito de disparo, la notificación de alarma y la secuencia de restablecimiento.</p>
+
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tipo de sistema</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Condición de descarga</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Lógica de selección habitual</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Diluvio</td>
+							<td class="px-4 py-3 text-gray-700">Todas las salidas abiertas descargan después del disparo de la válvula</td>
+							<td class="px-4 py-3 text-gray-700">Mojado rápido y simultáneo de un área de alto riesgo</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tubería húmeda</td>
+							<td class="px-4 py-3 text-gray-700">Solo descargan los rociadores accionados por calor</td>
+							<td class="px-4 py-3 text-gray-700">Espacios calefactados con rociadores cerrados</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tubería seca</td>
+							<td class="px-4 py-3 text-gray-700">El aire se libera antes de que el agua entre en la red seca</td>
+							<td class="px-4 py-3 text-gray-700">Áreas donde la congelación impide un sistema húmedo</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Preacción</td>
+							<td class="px-4 py-3 text-gray-700">La detección abre la válvula; los rociadores cerrados aún controlan la descarga</td>
+							<td class="px-4 py-3 text-gray-700">Espacios sensibles al agua que necesitan una condición adicional de disparo</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="actuation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Cómo Elegir el Método de Accionamiento</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La línea de detección está separada de la tubería de distribución de agua y actúa antes que la válvula diluvio. Una línea de detección hidráulica llena de líquido puede liberar el sistema mediante un dispositivo piloto; una línea neumática puede usar presión de aire y una disposición de piloto seco; un disparo eléctrico utiliza un solenoide supervisado y un panel de disparo. La elección depende del entorno del sitio, los servicios disponibles, el tendido de cables, la filosofía de supervisión y la secuencia requerida para el disparo manual, la alarma y el restablecimiento.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">El disparo eléctrico suele ser práctico cuando ya existen detectores, un panel de alarma de incendios y puntos de estado remoto. Puede preferirse el disparo hidráulico o neumático cuando la filosofía de control es local o cuando la línea de detección debe mantenerse independiente de un circuito eléctrico largo. La <a href="/es/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">válvula de control solenoide ranurada GKZF1</a> puede adaptarse a una disposición de válvula controlada eléctricamente, pero el diseñador del sistema aún debe confirmar la salida del panel de disparo, la tensión, la supervisión y el método de restablecimiento.</p>
+			<p class="text-gray-700 leading-relaxed">Como alternativa de preacción, el <a href="/es/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">sistema de alarma de preacción ZSFY</a> ofrece una comparación útil porque las secuencias de enclavamiento simple y doble imponen condiciones de disparo diferentes. No elija solo por la palabra «eléctrico»: documente qué ocurre ante la pérdida de energía, la pérdida de presión piloto, la alarma del detector, el disparo manual, la alarma de flujo de agua y el restablecimiento. La matriz final debe probarse como una secuencia operativa, no solo revisarse como un diagrama de cableado.</p>
+
+			<h2 id="sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Dimensionar la Válvula para Caudal y Tiempo de Disparo</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Dimensione la válvula a partir de la demanda calculada, no solo del diámetro de la tubería de derivación. Establezca el caudal de diseño con todas las cabezas abiertas, monitores o boquillas que el riesgo requiera operar, y después compruebe la presión de entrada disponible y la presión en la salida remota. La válvula seleccionada debe dejar pasar el caudal requerido con una pérdida aceptable mientras los internos y la vía de alarma permanecen dentro de su rango de operación. Kv o Cv es el valor útil para comparar, pero debe leerse con la caída de presión pertinente y no copiarse de una condición de prueba no relacionada.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">El tiempo de disparo es un resultado del sistema. Incluye la respuesta de detección, la caída de presión de la línea piloto o el disparo eléctrico, la apertura de la válvula, la respuesta de los internos, el llenado de la tubería y la llegada del agua a las salidas remotas. EN 12845 y NFPA 13 utilizan expectativas de suministro rápido para servicio diluvio, a menudo unos 60 segundos para alimentar las salidas abiertas después de la detección. Confirme el requisito exacto del proyecto según la edición vigente y después valídelo con la derivación más larga y con mayor desventaja hidráulica, no con la conexión de prueba más corta.</p>
+			<p class="text-gray-700 leading-relaxed">La línea de detección necesita su propio cálculo. Su recorrido piloto más largo o remoto puede regir la caída de presión, el volumen de aire, el desplazamiento de agua o la supervisión eléctrica. Incluya la elevación, los accesorios, los puntos de condensado y el dispositivo de disparo real. Si las condiciones frías o húmedas pueden generar condensación, instale un colector de condensado y un drenaje en un punto bajo adecuado. Estos detalles se omiten fácilmente en una cotización solo de válvula y suelen ser la razón por la que una prueba de disparo en el sitio no coincide con el plano.</p>
+
+			<h2 id="discharge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Rociadores Abiertos, Monitores y Disposición de Descarga</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Los rociadores y las boquillas abiertos se distribuyen para cubrir el riesgo como un conjunto. Su orificio, ángulo de pulverización, separación y elevación afectan la demanda hidráulica, mientras que las obstrucciones y el viento pueden afectar la cobertura real. Una disposición con monitores añade consideraciones de alcance, orientación y reacción; un <a href="/es/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">monitor manual de agua contra incendios PS</a> fijo puede formar parte del servicio de descarga diluvio o de monitores, pero el suministro de agua debe comprobarse para el caudal del monitor junto con las cabezas abiertas simultáneas.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Instale una disposición de aislamiento aguas abajo solo cuando el diseño aprobado lo permita y supervise cualquier válvula que pueda desactivar parte del riesgo. El drenaje diluvio y la conexión de prueba deben descargar de forma segura, sin inundar la sala de válvulas ni enviar agua contaminada a un drenaje inadecuado. Mantenga la salida de alarma visible y accesible, y marque el disparo manual para que un operador pueda identificarlo durante una emergencia sin confundirlo con la válvula de prueba o de drenaje.</p>
+			<p class="text-gray-700 leading-relaxed">Para el contexto del sistema, compare las hipótesis hidráulicas con la <a href="/es/guides/esfr-sprinkler-system-guide/" class="text-brand-blue font-semibold hover:underline">guía del sistema de rociadores ESFR</a> y la <a href="/es/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">guía de sistemas húmedos, secos y de preacción</a>. Cuando se añade espuma, revise la <a href="/es/guides/foam-proportioning-system-guide/" class="text-brand-blue font-semibold hover:underline">guía de sistemas de dosificación de espuma</a> para tratar la válvula diluvio, el equipo de concentrado y los dispositivos de descarga como una sola secuencia hidráulica y de control.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Puesta en Servicio y Pruebas Periódicas</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La puesta en servicio debe demostrar tanto la vía de agua como la vía de disparo. Confirme que la válvula de suministro aguas arriba y las válvulas de aislamiento de los internos están en las posiciones previstas, que la presión de cebado es estable, que el drenaje está despejado y que la salida de alarma está conectada. Accione el disparo manual y la secuencia normal de detección por separado cuando el procedimiento aprobado lo permita; después registre el tiempo desde el disparo hasta la operación de la válvula, la señal de alarma y la llegada del agua a la salida remota representativa.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Pruebe el bypass y el drenaje sin dejar abierta una vía oculta. Compruebe la alarma motriz de agua o el presostato, la transmisión de alarma, los contactos de supervisión y el restablecimiento. Un interruptor o indicador de flujo aguas abajo puede apoyar el monitoreo del estado; la <a href="/es/guides/water-flow-indicator-guide/" class="text-brand-blue font-semibold hover:underline">guía del indicador de flujo de agua</a> ofrece un contexto más amplio para elegir y supervisar esa señal. Antes de la temporada de lluvias u otro periodo de operación de alto riesgo, realice la prueba de disparo planificada con el propietario, el contratista de alarmas y los requisitos de la autoridad coordinados.</p>
+			<p class="text-gray-700 leading-relaxed">El mantenimiento periódico debe seguir NFPA 25 o el código local de mantenimiento aplicable y las instrucciones del fabricante de la válvula. Inspeccione los internos en busca de corrosión, confirme que los drenajes y colectores de condensado no estén obstruidos y registre las lecturas de presión en lugar de confiar en la memoria. La prueba debe controlarse para que el área de descarga sea segura y el sistema se restablezca rápidamente. Si la edición vigente cambia un intervalo, un criterio de aceptación o un requisito documental, confírmelo según la edición vigente en lugar de reutilizar una lista antigua.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Lista para la Solicitud de Cotización de una Válvula Diluvio</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Describa el riesgo.</strong> Indique la sala o el proceso, la carga combustible, la superficie protegida y si las salidas son rociadores abiertos, boquillas, monitores o dispositivos de agua y espuma.</li>
+				<li><strong>Proporcione los datos hidráulicos.</strong> Incluya el caudal de diseño, la presión remota requerida, la presión de suministro disponible, el tamaño de tubería, la elevación y las hipótesis del cálculo hidráulico aplicable.</li>
+				<li><strong>Defina el grupo de válvula.</strong> Indique el tamaño nominal, la conexión final, los materiales del cuerpo y de los internos, el tamaño del drenaje, la salida de alarma, la disposición de prueba y cualquier válvula de aislamiento supervisada.</li>
+				<li><strong>Especifique el disparo.</strong> Identifique la detección hidráulica, neumática o eléctrica, la longitud de la línea piloto, el disparo manual, los datos del solenoide, la interfaz del panel y la secuencia de disparo requerida.</li>
+				<li><strong>Describa el entorno.</strong> Indique la temperatura ambiente mínima y máxima, la ubicación interior o exterior, el riesgo de condensación, la ruta de drenaje y la exposición a la corrosión.</li>
+				<li><strong>Solicite los documentos.</strong> Pida un plano del conjunto, el esquema de los internos, las instrucciones de instalación y mantenimiento, el registro de prueba de presión, la información de materiales y los documentos vigentes de aprobación o certificación cuando el proyecto los requiera.</li>
+				<li><strong>Fije la prueba de aceptación.</strong> Defina el tiempo de disparo objetivo, las señales de alarma, la observación de la salida remota, el procedimiento de restablecimiento y los registros exigidos después de la prueba de disparo.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Para un marco de compras más amplio, utilice la <a href="/es/fire-sprinkler-systems/" class="text-brand-blue font-semibold hover:underline">vista general de sistemas de rociadores contra incendios</a> junto con las guías relacionadas anteriores. Una RFQ completa permite a Wanlian confirmar el grupo de válvula sin pretender diseñar la disposición de detectores ni todo el panel de alarma de incendios. El resultado es una división más clara del suministro, una comprobación hidráulica más fiable y menos cambios durante la puesta en servicio.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita un Grupo de Válvula Diluvio para su Sistema?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíe el caudal y la presión del sistema, el tamaño de la válvula, el tipo de riesgo y el método de detección; nuestros ingenieros pueden confirmar la configuración del grupo de válvula diluvio en un plazo de 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=V%C3%A1lvula%20de%20Alarma%20Diluvio%20%28ZSFM%29" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20un%20grupo%20de%20v%C3%A1lvula%20diluvio%20para%20un%20sistema%20de%20rociadores%20abiertos%20o%20monitores" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

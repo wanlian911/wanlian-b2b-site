@@ -1,0 +1,187 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: '¿Dónde está la diferencia de costo entre un sistema de diluvio con espuma y un sistema de diluvio normal con agua?',
+		answer: 'Un sistema de diluvio con espuma añade un suministro de concentrado, un dosificador, dispositivos de descarga compatibles y pruebas de puesta en marcha a la válvula de diluvio y la red de agua. El concentrado, la disposición de almacenamiento, las provisiones de lavado y la eliminación de la solución de prueba también afectan el costo del ciclo de vida. Un sistema normal de diluvio con agua puede ser suficiente para un riesgo clase A, pero el agua sola no sustituye a la espuma sobre una superficie de líquido inflamable en combustión.'
+	},
+	{
+		question: '¿Cómo elijo entre un tanque de vejiga y un eyector en línea?',
+		answer: 'Un tanque de vejiga es una opción práctica cuando se requiere una reserva dedicada de concentrado y un rango de dosificación predecible sin una bomba eléctrica dosificadora. Un eyector en línea es compacto y utiliza la corriente de agua para aspirar el concentrado, pero su rango de caudal y presión de operación debe coincidir con la demanda del riesgo. Confirme el rango hidráulico, el espacio disponible, el método de recarga y la mezcla requerida de 3 % o 6 % con el diseñador de protección contra incendios.'
+	},
+	{
+		question: '¿Qué debe reemplazarse cuando un sistema AFFF antiguo se convierte a F3?',
+		answer: 'No suponga que es seguro cambiar solo el tambor. El concentrado, el dosificador, los materiales del tanque o la vejiga, las juntas, los dispositivos de espuma, la disposición del agua de lavado y el procedimiento de prueba deben revisarse como un conjunto compatible. La tubería existente puede reutilizarse después de limpiarla, pero los residuos de AFFF y los concentrados mezclados pueden cambiar el rendimiento. Obtenga la declaración de compatibilidad del fabricante de F3 y haga que la autoridad competente acepte la conversión.'
+	},
+	{
+		question: '¿Cómo se puede verificar en campo la proporción de la mezcla de espuma?',
+		answer: 'Durante una prueba de descarga controlada, mida el caudal de agua y de concentrado o use el método aprobado de muestreo y análisis especificado para el dosificador y el concentrado suministrados. Compare el resultado medido con la proporción de diseño, normalmente 3 % o 6 %, en el rango de caudal de operación correspondiente. Registre la calidad del agua, la presión, la temperatura, los puntos de muestreo y el lote de concentrado; una manta de espuma visible por sí sola no demuestra la precisión de la dosificación.'
+	},
+	{
+		question: '¿Puedo cambiar los concentrados de espuma y cuál es el riesgo de compatibilidad?',
+		answer: 'Trate el cambio de concentrado como una modificación de ingeniería, no como una compra de reemplazo sencilla. Los concentrados AFFF, AR-AFFF, FFFP y sin flúor pueden tener diferentes requisitos de viscosidad, expansión, drenaje y compatibilidad de materiales. No mezcle productos en un tanque o dosificador salvo que ambos fabricantes lo aprueben. Lave, inspeccione y vuelva a verificar el sistema completo antes de poner el nuevo concentrado en servicio.'
+	},
+	{
+		question: '¿Cómo debe protegerse un sistema de diluvio con espuma en un ambiente frío?',
+		answer: 'Proteja la tubería llena de agua, las válvulas y el equipo de concentrado contra la congelación según el clima del sitio y el diseño aprobado. Las opciones pueden incluir una sección seca o de preacción, trazado eléctrico, envolventes aisladas, disposiciones con anticongelante listado cuando estén permitidas y un concentrado con una clasificación adecuada para baja temperatura. Confirme la temperatura de almacenamiento del concentrado y la disposición de disparo de la válvula de diluvio con el diseñador del sistema; no diluya el concentrado con anticongelante no aprobado.'
+	}
+];
+
+const toc = [
+	{ id: 'why-foam', label: '1. Cuándo la Espuma Supera al Agua' },
+	{ id: 'anatomy', label: '2. Anatomía de un Sistema de Diluvio con Espuma' },
+	{ id: 'proportioning', label: '3. Comparación de Opciones de Dosificación' },
+	{ id: 'concentrate', label: '4. Cómo Elegir el Concentrado de Espuma' },
+	{ id: 'discharge', label: '5. Dispositivos de Descarga: Rociadores, Monitores y Gabinetes' },
+	{ id: 'testing', label: '6. Puesta en Marcha y Pruebas en Campo' },
+	{ id: 'rfq-checklist', label: '7. Lista de RFQ para Sistemas de Espuma' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+const products = [
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Grupo de Válvula de Alarma de Diluvio (Serie ZSFM)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'Válvula de diluvio de apertura rápida antes de los dispositivos de descarga de espuma' },
+	{ slug: 'foam-fire-hydrant-cabinet-psg30', name: 'Gabinete de Hidrante contra Incendios con Espuma (Serie PSG30)', img: '/assets/products/foam-fire-hydrant-cabinet-psg30.webp', desc: 'Estación de espuma premezclada al 3 % con interfaz para manguera y monitor' },
+	{ slug: 'manual-fire-water-cannon-ps', name: 'Monitor Manual de Agua contra Incendios (Serie PS)', img: '/assets/products/manual-fire-water-cannon-ps.webp', desc: 'Monitor fijo, boquilla de chorro/neblina compatible con espuma' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'Lanza contra Incendios Ajustable con Empuñadura de Pistola', img: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg', desc: 'Lanza para línea de manguera y aplicación manual de espuma' }
+];
+---
+
+<Layout
+	title="Guía de Sistemas de Diluvio con Espuma (2026)"
+	description="Sistemas de diluvio con espuma y agua-espuma para riesgos clase B: válvula de diluvio, dosificación, concentrados, descarga y pruebas en campo."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Guía de Sistemas de Diluvio con Espuma' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Guía de Sistemas de Diluvio con Espuma</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Sistemas de Espuma</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Sistemas de Diluvio con Espuma y Agua-Espuma: Guía de Selección y Dimensionamiento</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En resumen: el diluvio con espuma protege un riesgo de líquido clase B al abrir una válvula de diluvio, dosificar concentrado de espuma en el caudal de agua contra incendios y enviar la solución terminada a rociadores abiertos, monitores o estaciones de manguera. El diseño correcto comienza con el combustible, el área de aplicación requerida y el concentrado aprobado; después verifica el dosificador, el conjunto de la válvula, el patrón de descarga, el drenaje y el plan de pruebas en campo como un solo sistema.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-foam" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Cuándo la Espuma Supera al Agua</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La espuma se selecciona cuando el combustible es un líquido inflamable y el objetivo de diseño es controlar tanto la liberación de vapores como las llamas. Las ubicaciones típicas de clase B incluyen parques de tanques, almacenamiento de combustibles, hangares de aeronaves, talleres de pintura, áreas de solventes y espacios de procesos químicos. El agua aplicada sola puede hundirse debajo de un líquido en combustión o extenderlo, y un chorro de alta velocidad puede salpicar el combustible más allá del derrame original. Una manta de espuma de baja expansión correctamente seleccionada separa la superficie del líquido del aire y ayuda a suprimir la liberación de vapores.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Un sistema de agua-espuma no es simplemente un sistema de diluvio con agua y un tambor de espuma cercano. La demanda de agua, el dispositivo de aplicación, el porcentaje de concentrado, el drenaje y la duración de la descarga deben coordinarse. El sistema de detección normalmente inicia la secuencia: la detección libera el conjunto de control, la válvula de diluvio abre, el agua llega a los dispositivos de descarga abiertos y la dosificación introduce el concentrado. La solución terminada cubre entonces el riesgo con el patrón y la densidad especificados.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Clase de incendio</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Combustibles típicos</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Agentes más eficaces</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Aplicación del diluvio con espuma</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Clase A</td><td class="px-4 py-3 text-gray-700">Madera, papel, textiles, plásticos</td><td class="px-4 py-3 text-gray-700">Agua, espuma, polvo ABC</td><td class="px-4 py-3 text-gray-700">Normalmente primero agua</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Clase B</td><td class="px-4 py-3 text-gray-700">Gasolina, aceites, solventes, pinturas</td><td class="px-4 py-3 text-gray-700">Polvo ABC, espuma, CO2</td><td class="px-4 py-3 text-gray-700">Uso principal en sistemas fijos</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Clase C</td><td class="px-4 py-3 text-gray-700">Propano, butano, metano, GLP</td><td class="px-4 py-3 text-gray-700">Polvo ABC (cierre primero del suministro)</td><td class="px-4 py-3 text-gray-700">No sustituye el aislamiento del gas</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Clase E</td><td class="px-4 py-3 text-gray-700">Equipos eléctricos energizados</td><td class="px-4 py-3 text-gray-700">CO2, polvo ABC (no conductor)</td><td class="px-4 py-3 text-gray-700">Confirme la estrategia eléctrica</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Clase F</td><td class="px-4 py-3 text-gray-700">Aceites y grasas de cocina</td><td class="px-4 py-3 text-gray-700">Químico húmedo</td><td class="px-4 py-3 text-gray-700">No recomendado</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Clase D</td><td class="px-4 py-3 text-gray-700">Metales combustibles (Mg, Na)</td><td class="px-4 py-3 text-gray-700">Polvo especial para metales</td><td class="px-4 py-3 text-gray-700">No adecuado</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="anatomy" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Anatomía de un Sistema de Diluvio con Espuma</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">El conjunto principal tiene cinco zonas coordinadas. La primera es el suministro de agua y el conjunto de control, incluido el <a href="/es/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">grupo de válvula de alarma de diluvio ZSFM</a>, el conjunto de control, el drenaje y los puntos de supervisión. La segunda es la detección y liberación: una disposición de detección térmica, de llama, de humo o lineal envía la señal de liberación, que abre la válvula antes de que descarguen los rociadores abiertos. La tercera es el almacenamiento de concentrado, que puede ser un tanque de vejiga u otro recipiente aprobado. La cuarta es el dosificador y sus válvulas de aislamiento, retención y prueba. La quinta es la red abierta de descarga, incluidos rociadores, monitores y gabinetes de manguera.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La válvula de diluvio normalmente está cerrada del lado del agua y la tubería aguas abajo normalmente está seca o se mantiene en la disposición especificada para el proyecto. Cuando opera el conjunto de liberación, la válvula abre rápidamente y envía agua a todos los dispositivos abiertos de la zona protegida. Puede considerarse un <a href="/es/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">sistema de alarma de preacción ZSFY</a> cuando el proyecto requiere una secuencia de liberación supervisada y menor riesgo de descarga accidental, pero el diseñador debe confirmar si su secuencia de operación se ajusta al objetivo de aplicación de espuma.</p>
+			<p class="text-gray-700 leading-relaxed">Mantenga claro el límite del sistema en la RFQ. Wanlian suministra grupos de válvulas de diluvio, válvulas para paquetes de dosificación de espuma, gabinetes de espuma, monitores y lanzas. El concentrado de espuma puede gestionarse mediante canales de suministro, pero Wanlian no lo fabrica internamente; indique por separado la marca del concentrado, el certificado y la responsabilidad de compatibilidad.</p>
+
+			<h2 id="proportioning" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Comparación de Opciones de Dosificación</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La dosificación es el punto de control que determina si el agua se convierte en la solución de espuma especificada. Las proporciones de diseño habituales son 3 % y 6 %, pero la proporción correcta la establecen la aprobación del concentrado y el diseño del riesgo, no la preferencia del comprador. La tabla siguiente compara las tres disposiciones más discutidas durante la compra.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50"><tr><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Opción</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Cómo funciona</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Aplicación ideal y precauciones</th></tr></thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Tanque de vejiga</td><td class="px-4 py-3 text-gray-700">La presión del agua comprime una vejiga flexible de concentrado y lo impulsa al dosificador.</td><td class="px-4 py-3 text-gray-700">Reserva dedicada y amplia familiaridad en proyectos; requiere espacio, planificación de recarga y compatibilidad verificada entre tanque y concentrado.</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Eyector en línea</td><td class="px-4 py-3 text-gray-700">Un venturi accionado por agua aspira el concentrado de un recipiente mientras el agua pasa por el eyector.</td><td class="px-4 py-3 text-gray-700">Compacto y sencillo para un rango de caudal definido; la pérdida de presión y el caudal mínimo de operación pueden limitar la selección.</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Dosificador alrededor de la bomba</td><td class="px-4 py-3 text-gray-700">Un circuito de bomba dedicado y una disposición de alivio o retorno dosifican el concentrado alrededor de la bomba de agua.</td><td class="px-4 py-3 text-gray-700">Útil para sistemas grandes o de caudal variable; requiere controles de bomba, lógica de alivio y mayor coordinación de puesta en marcha.</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Para conocer más antecedentes hidráulicos, compare el proyecto con nuestra <a href="/es/guides/foam-proportioning-system-guide/" class="text-brand-blue font-semibold hover:underline">guía de sistemas de dosificación de espuma</a> antes de seleccionar un tanque o eyector. Solicite el caudal mínimo y máximo, la presión de entrada, la viscosidad prevista del concentrado, la temperatura de operación y la conexión de prueba. Estos datos son más útiles que un diámetro nominal de tubería por sí solo.</p>
+
+			<h2 id="concentrate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Cómo Elegir el Concentrado de Espuma</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Comience con la química del combustible. El AFFF tiene una acción rápida de formación de película sobre muchos combustibles de hidrocarburos, pero contiene PFAS. Muchas jurisdicciones restringen o revisan los concentrados con PFAS de tipo AFFF; confirme las reglas locales y considere alternativas sin flúor (F3). El AR-AFFF está diseñado para solventes polares, donde se necesita una manta resistente al alcohol. El FFFP y otras formulaciones tienen sus propias evidencias de aplicación, expansión y drenaje. No elija solo por las siglas: solicite la ficha técnica vigente, el alcance de aprobación y las instrucciones de mezcla.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La vida de almacenamiento del concentrado es la que indique el certificado del fabricante para las condiciones de almacenamiento especificadas. Evite incluir en la orden de compra un período de caducidad inventado. Registre el número de lote, la fecha de fabricación, la temperatura de almacenamiento y el método de inspección, y asegúrese de que el tanque, la vejiga, las juntas, el dosificador y los dispositivos de descarga estén aprobados para el producto elegido. Un concentrado químicamente correcto pero incompatible con el equipo no es un diseño conforme.</p>
+			<p class="text-gray-700 leading-relaxed">La conversión a F3 merece una revisión de ingeniería documentada. La tubería existente puede conservarse después de la limpieza y la inspección, pero deben confirmarse los residuos de AFFF, la compatibilidad de elastómeros, la calibración del dosificador y el rendimiento de los dispositivos de espuma. El proveedor de espuma, el diseñador del sistema y la autoridad competente deben acordar el cambio antes de drenar el concentrado antiguo.</p>
+
+			<h2 id="discharge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Dispositivos de Descarga: Rociadores, Monitores y Gabinetes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Los rociadores abiertos de espuma se seleccionan por cobertura, distribución de gotas, obstrucciones y densidad de aplicación. Son adecuados para una zona fija de diluvio donde se conoce la geometría del riesgo. Los monitores aportan alcance y control direccional para cubetos de tanques, áreas de carga y grandes riesgos abiertos; el <a href="/es/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">monitor manual de agua contra incendios serie PS</a> puede especificarse con una boquilla de chorro o neblina compatible con espuma después de que el proyecto confirme los requisitos de caudal y alcance.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Una estación de manguera permite la intervención manual y la aplicación complementaria, pero no debe tratarse como sustituto de la cobertura automática cuando la evaluación del riesgo exige protección fija. El <a href="/es/products/foam-fire-hydrant-cabinet-psg30/" class="text-brand-blue font-semibold hover:underline">gabinete de hidrante contra incendios con espuma PSG30</a> integra una estación de espuma premezclada al 3 % con interfaz para manguera y monitor. Para líneas manuales, una <a href="/es/products/adjustable-pistol-grip-fire-nozzle/" class="text-brand-blue font-semibold hover:underline">lanza contra incendios ajustable con empuñadura de pistola</a> permite seleccionar la aplicación al final de la manguera; verifique que sus juntas y rango de caudal sean adecuados para la solución de espuma terminada.</p>
+			<p class="text-gray-700 leading-relaxed">Use la <a href="/es/guides/fire-water-monitor-selection-guide/" class="text-brand-blue font-semibold hover:underline">guía independiente de selección de monitores de agua contra incendios</a> para las cuestiones de alcance del monitor, patrón de boquilla y montaje. Coordine también la <a href="/es/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">guía de selección de válvulas de diluvio</a> con el paquete de espuma: el conjunto de la válvula, la presión de liberación, la salida de alarma y las disposiciones de drenaje deben funcionar juntas. El drenaje es especialmente importante porque una prueba o una descarga real puede producir un gran volumen de solución de espuma que no puede entrar simplemente en un drenaje pluvial.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Puesta en Marcha y Pruebas en Campo</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La puesta en marcha demuestra la cadena completa, desde la detección hasta la descarga. Lave la tubería de agua y de concentrado según el procedimiento aprobado, retire los residuos de construcción, verifique la orientación del conjunto de control de la válvula y confirme que cada dispositivo abierto sea el modelo y orificio previstos. Una prueba de disparo de la válvula de diluvio debe verificar la detección o liberación manual, la apertura de la válvula, la alarma de motor hidráulico o la señal eléctrica, la presión aguas abajo y el restablecimiento. Use el marco de NFPA 11 y EN 12845 cuando corresponda, junto con los requisitos de la autoridad local y las instrucciones del fabricante del concentrado.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Mida la proporción de la mezcla.</strong> Pruebe la solución terminada en el rango de caudal aprobado y confirme el resultado frente al valor de diseño de 3 % o 6 %.</li>
+				<li><strong>Compruebe la calidad de la espuma.</strong> Mida la expansión y el tiempo de drenaje al 25 % usando el método de prueba requerido para el concentrado suministrado y su aprobación; no invente límites de aceptación de otro producto.</li>
+				<li><strong>Demuestre la secuencia de disparo.</strong> Registre la entrada de detección, el tiempo de apertura de la válvula de diluvio, las alarmas, las lecturas de presión y el procedimiento de restablecimiento.</li>
+				<li><strong>Inspeccione el patrón de descarga.</strong> Confirme la cobertura de los rociadores, el movimiento del monitor, el estado de la manguera del gabinete y el patrón de la boquilla sin exponer al personal a un riesgo no controlado.</li>
+				<li><strong>Documente el resultado.</strong> Conserve la calidad del agua, el lote de concentrado, la temperatura, el caudal, la presión, las muestras, las fotografías y las acciones correctivas con el expediente de O&amp;M.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Una prueba funcional de disparo sin verificar la mezcla puede pasar por alto una válvula de concentrado cerrada, un tanque vacío, un eyector obstruido o un concentrado incompatible. Planifique la recolección y eliminación del agua de prueba antes de que llegue el contratista. Repita las inspecciones con el intervalo requerido por los documentos del proyecto y el certificado del concentrado.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Lista de RFQ para Sistemas de Espuma</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Una RFQ útil proporciona al proveedor información suficiente para revisar la hidráulica en lugar de adivinar a partir del nombre de un producto. Incluya lo siguiente en un plano marcado o en una lista de equipos:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Riesgo y combustible:</strong> hidrocarburo o solvente polar, altura de almacenamiento, geometría del cubeto, escenario de derrame y si las exposiciones adyacentes requieren enfriamiento.</li>
+				<li><strong>Demanda de diseño:</strong> área protegida, densidad de aplicación, duración de diseño, zonas simultáneas, caudal de agua y presión disponible en la entrada del dosificador.</li>
+				<li><strong>Concentrado:</strong> fabricante, formulación, proporción de 3 % o 6 %, documentos de aprobación, temperatura de almacenamiento, información del lote y si implica una conversión a F3.</li>
+				<li><strong>Alcance del equipo:</strong> grupo de válvula de diluvio ZSFM, tipo de dosificador, volumen del tanque, válvulas de aislamiento y prueba, rociadores abiertos, monitor, gabinete, lanza e interfaz de detección.</li>
+				<li><strong>Materiales e interfaces:</strong> tamaños de tubería, norma de bridas, materiales en contacto con el fluido, elastómeros, voltaje eléctrico, contactos de alarma y requisitos de áreas peligrosas.</li>
+				<li><strong>Pruebas y documentos:</strong> plan de lavado, prueba de disparo, método de proporción de mezcla, prueba de expansión y drenaje, certificados, planos, juntas de repuesto e instrucciones de O&amp;M.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Para proyectos europeos, revise la <a href="/es/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">guía relacionada de cumplimiento de protección contra incendios CE y EN 12845</a>, y confirme siempre la norma específica de espuma y los requisitos de la autoridad para el riesgo. Si el alcance incluye un monitor de agua independiente, la <a href="/es/fire-water-cannon/" class="text-brand-blue font-semibold hover:underline">gama de cañones de agua contra incendios</a> puede considerarse junto con el diseño de rociadores fijos. Wanlian puede cotizar la parte de válvulas y equipos de descarga a partir de la lista e identificar qué elementos de concentrado necesitan un socio de canal aprobado.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita una Cotización de un Sistema de Diluvio con Espuma?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíe el tipo de combustible, el área protegida, el caudal y la presión de diseño, la proporción de concentrado, la preferencia de dosificación y los dispositivos de descarga. Wanlian puede revisar el alcance de la válvula de diluvio, el paquete de espuma, el monitor, el gabinete y la lanza para su proyecto.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Sistema%20de%20Diluvio%20con%20Espuma" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20una%20cotizaci%C3%B3n%20de%20un%20sistema%20de%20diluvio%20con%20espuma" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

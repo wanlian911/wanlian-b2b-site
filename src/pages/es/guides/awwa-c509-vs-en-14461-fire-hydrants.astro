@@ -1,0 +1,192 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: '¿Puede un proyecto de EE. UU. comprar un hidrante EN 14461?',
+		answer: 'Se puede comprar, pero comprar no equivale a obtener aceptación. Un proyecto de EE. UU. normalmente comienza con la autoridad competente, el patrón de conexión del cuerpo de bomberos y la norma contractual. Un hidrante EN 14461 solo puede considerarse cuando el ingeniero y la autoridad competente aceptan su clase de presión, salidas, interfaces de acople, documentos de ensayo y detalles de instalación. Si la licitación invoca AWWA C509, ofrezca un hidrante configurado según AWWA en lugar de asumir que un producto EN es equivalente.'
+	},
+	{
+		question: '¿Puede usarse un hidrante AWWA C509 en un proyecto EN?',
+		answer: 'Solo con la aprobación documentada del proyecto. Un hidrante AWWA C509 y un hidrante EN 14461 pueden diferir en la disposición del cuerpo, la designación de presión, el patrón de salidas, las roscas y la evidencia de ensayo de tipo. El diseñador debe confirmar que la configuración AWWA cumple la interfaz europea y la especificación de desempeño requeridas. No sustituya solo por tamaño nominal; presente la norma propuesta, los planos, los materiales y los registros de ensayo para revisión antes de liberar el pedido.'
+	},
+	{
+		question: '¿Cómo elijo entre un hidrante de columna seca y uno de columna húmeda?',
+		answer: 'Use el clima, la disposición de instalación y la norma local como punto de partida. Una disposición de columna seca mantiene drenada la columna superior después del cierre y es adecuada para lugares donde la congelación es una preocupación de diseño, mientras que una disposición de columna húmeda mantiene el cuerpo cargado y generalmente se usa donde no se espera congelación. La elección final debe figurar en la especificación del proyecto y coincidir con la norma seleccionada, la disposición de drenaje y la práctica de mantenimiento.'
+	},
+	{
+		question: '¿Un hidrante con monitoreo IoT cambia su cumplimiento normativo?',
+		answer: 'No por sí mismo. Un módulo de monitoreo es un accesorio o una capa de instrumentación; no sustituye los requisitos del cuerpo del hidrante, la presión, las salidas, el material o los ensayos. El hidrante base aún debe cumplir la norma invocada por la licitación, y la instalación de monitoreo no debe obstruir la operación, el drenaje, la inspección ni la seguridad vial. Solicite por separado los documentos del producto base y la ficha técnica del monitoreo.'
+	},
+	{
+		question: '¿Qué ocurre si la rosca del acople del hidrante no coincide?',
+		answer: 'La manguera, la tapa o el equipo contra incendios pueden no conectarse, aunque el tamaño nominal de la salida parezca correcto. Una incompatibilidad de rosca o acople puede retrasar la entrega de agua, impedir retirar la tapa o exigir un adaptador no aprobado. Confirme el tipo de salida, la designación de rosca, la norma del acople y la práctica local del cuerpo de bomberos en el plano aprobado. Cuando sea necesaria una transición, identifique y apruebe el adaptador antes del despacho.'
+	},
+	{
+		question: '¿Qué informes de ensayo debo solicitar antes de la entrega?',
+		answer: 'Solicite el registro de ensayo de presión, la evidencia del ensayo de caudal o desempeño aplicable a la edición especificada, la documentación de material y recubrimiento, los registros de inspección dimensional y de salidas, y el informe de inspección final. Para un modelo con seguridad vial, solicite la descripción de los pernos de corte y del cierre automático. Pida al proveedor que identifique la edición exacta de la norma utilizada, porque la edición de la licitación determina qué evidencia es pertinente.'
+	}
+];
+
+const toc = [
+	{ id: 'which-standard', label: '1. Qué Norma Invoca Realmente su Especificación' },
+	{ id: 'pressure-classes', label: '2. Presión Nominal y Profundidad de Trabajo' },
+	{ id: 'outlets', label: '3. Disposición de Salidas y Patrones de Acople' },
+	{ id: 'materials', label: '4. Materiales, Recubrimientos y Seguridad Vial' },
+	{ id: 'testing', label: '5. Ensayos de Tipo y Ensayos de Producción' },
+	{ id: 'mixing', label: '6. Cuándo es Aceptable Mezclar Normas' },
+	{ id: 'rfq-checklist', label: '7. Lista de Verificación para la RFQ de Hidrantes' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+const products = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hidrante Contra Incendios Exterior Anticongelante (SS100/65)', img: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp', desc: 'Hierro dúctil GB 4452, DN100/65, 1.6 MPa, drenaje anticongelante' },
+	{ slug: 'underground-fire-hydrant-sa', name: 'Hidrante Contra Incendios Subterráneo (Serie SA)', img: '/assets/products/underground-fire-hydrant-sa.webp', desc: 'Hidrante subterráneo sin riesgo de congelación para calles municipales frías' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Hidrante Exterior Anticolisión y Regulador de Presión (SSFT100)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Protección vial con pernos de corte y dispositivo regulador' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Cabezal de Hidrante Contra Incendios Interior SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'Válvula de hierro dúctil SN65, 1.6 MPa, ranurada o bridada' }
+];
+---
+
+<Layout
+	title="AWWA C509 vs EN 14461: Hidrantes Comparados"
+	description="Compare hidrantes AWWA C509 y EN 14461: presión, salidas, materiales, ensayos de tipo y cómo especificar un hidrante aceptable."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Hidrantes AWWA vs EN' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Hidrantes AWWA vs EN</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Normas para Hidrantes Contra Incendios</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Hidrantes AWWA C509 vs EN 14461: Comparación Práctica para Especificación y Compra</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En resumen: AWWA C509 y EN 14461 no son etiquetas intercambiables para el mismo hidrante. AWWA C509 es una norma norteamericana de producto con sus propias convenciones para cuerpo, salidas y roscas; EN 14461 es una norma europea para hidrantes sobre rasante, basada en clases PN, opciones de entrada DN, disposiciones de salidas, interfaces y requisitos de desempeño. Una RFQ eficaz nombra la edición rectora, la conexión local del cuerpo de bomberos, el servicio de presión, los materiales, la protección vial y los registros de ensayo, en lugar de pedir un hidrante genérico “internacional”.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="which-standard" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Qué Norma Invoca Realmente su Especificación</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La primera pregunta no es “¿Qué hidrante es mejor?”, sino “¿Qué documento rige la aceptación?”. AWWA C509 se utiliza para válvulas de compuerta de asiento elástico y configuraciones de hidrantes contra incendios en la práctica de abastecimiento de agua de Norteamérica, incluidas las disposiciones de columna húmeda y columna seca. La especificación se lee junto con los planos del proyecto, la norma de la empresa de servicios y los requisitos de la autoridad competente. EN 14461 aborda los hidrantes contra incendios sobre rasante en el marco europeo, donde el ingeniero normalmente indica la designación de presión, el tamaño nominal de entrada, la disposición de salidas, la interfaz de conexión y la evidencia de desempeño requerida.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">GB 4452 es la referencia pertinente para la familia común china de productos sobre rasante SS100/65. No es un atajo para la aceptación AWWA ni EN. El hidrante exterior Wanlian SS100/65 se suministra como configuración GB 4452, con una presión nominal de 1.6 MPa y un ensayo de presión estática de 2.4 MPa. Esta información es útil para una licitación del mercado chino, pero un proyecto de exportación aún necesita su norma rectora, patrón de salidas y lista documental propios.</p>
+			<p class="text-gray-700 leading-relaxed">Use la comparación siguiente como herramienta de evaluación inicial y luego verifique la edición exacta de la licitación y las modificaciones del proyecto antes de aprobar un sustituto.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Punto de especificación</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">AWWA C509</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">EN 14461</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">GB 4452</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Alcance del producto</td>
+							<td class="px-4 py-3 text-gray-700">Norma norteamericana de producto para hidrantes; configuraciones de columna húmeda o seca</td>
+							<td class="px-4 py-3 text-gray-700">Hidrantes europeos sobre rasante con requisitos indicados de PN y desempeño</td>
+							<td class="px-4 py-3 text-gray-700">Hidrantes chinos sobre rasante, incluida la familia SS100/65</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Terminología de presión</td>
+							<td class="px-4 py-3 text-gray-700">Use la clase nominal y el cuadro del proyecto; no infiera un valor no indicado</td>
+							<td class="px-4 py-3 text-gray-700">La clase PN se indica en la especificación y se comprueba contra la instalación</td>
+							<td class="px-4 py-3 text-gray-700">SS100/65 se especifica habitualmente a 1.6 MPa; ensayo estático de 2.4 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Salidas e interfaces</td>
+							<td class="px-4 py-3 text-gray-700">Salida principal de 2.5 in y salida lateral de 65 mm; las roscas siguen la interfaz AWWA indicada</td>
+							<td class="px-4 py-3 text-gray-700">Disposición habitual de 2 x DN65 más DN100; la interfaz puede seguir EN 14384 y requisitos relacionados de acople</td>
+							<td class="px-4 py-3 text-gray-700">La denominación de salida SS100/65 sigue la convención china de producto y conexión</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Materiales y seguridad</td>
+							<td class="px-4 py-3 text-gray-700">La práctica de hierro dúctil incluye la referencia de material ASTM A536 y drenaje de columna seca cuando corresponde</td>
+							<td class="px-4 py-3 text-gray-700">El material, el recubrimiento, el desempeño de caudal y la seguridad ante impacto vehicular se especifican y ensayan según la edición</td>
+							<td class="px-4 py-3 text-gray-700">Configuración de producto de hierro dúctil con los requisitos de material y ensayo de GB 4452</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="pressure-classes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Presión Nominal y Profundidad de Trabajo</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La terminología de presión es una fuente frecuente de equivalencias falsas. Los documentos EN suelen hacer visible la designación PN, mientras que un cuadro AWWA puede indicar una clase de presión nominal o un requisito de la empresa de servicios. Los productos SS100/65 de GB 4452 suelen identificarse a 1.6 MPa, con ensayo de presión estática de 2.4 MPa para la configuración indicada. Estas etiquetas describen sistemas normativos diferentes; no deben convertirse usando solo el tamaño nominal.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Solicite la clase de presión del conjunto completo del hidrante, no solo del cuerpo. El bonete, el vástago, el asiento, la boquilla, la tapa, el drenaje y la conexión bridada o roscada deben seguir siendo adecuados para el servicio. Indique la profundidad de trabajo, la disposición enterrada y la cota de acabado desde el plano civil. Todo valor mínimo de caudal, profundidad de enterramiento u otro número dependiente de la edición debe especificarse según la edición de la norma en la licitación.</p>
+			<p class="text-gray-700 leading-relaxed">Una calle municipal fría puede requerir una disposición de columna seca o subterránea, mientras que un clima cálido puede permitir un diseño de columna húmeda. Para una instalación bajo rasante, revise el <a href="/es/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">hidrante contra incendios subterráneo Serie SA</a> junto con los detalles de drenaje y acceso del proyecto. La decisión de presión y la decisión sobre congelación están relacionadas, pero no son la misma decisión.</p>
+
+			<h2 id="outlets" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Disposición de Salidas y Patrones de Acople</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Una salida que no puede acoplarse con la manguera local significa un hidrante fallido. La práctica AWWA C509 identifica una salida principal de 2.5 in y una salida lateral de 65 mm, con roscas que siguen la interfaz AWWA C505 aplicable. Los proyectos EN 14461 suelen mostrar entradas DN80, DN100 o DN150 y una disposición de salidas como 2 x DN65 más DN100, pero la interfaz exacta del acople debe figurar en el cuadro del proyecto. Un plano que solo dice “salida DN65” está incompleto si no identifica también el tipo de rosca o acople.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Confirme si el cuerpo de bomberos utiliza conexiones de manguera roscadas, un patrón Storz, un acople nacional o un adaptador específico del proyecto. Wanlian puede revisar el cuadro de boquillas del hidrante junto con un <a href="/es/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">adaptador de acople de manguera para hidrante</a> o un <a href="/es/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">acople Storz de aluminio de 2.5 pulgadas</a> cuando la conexión forme parte de la RFQ. El adaptador debe nombrarse y aprobarse; no debe descubrirse después de que llegue el contenedor.</p>
+			<p class="text-gray-700 leading-relaxed">Si un cuerpo de bomberos de EE. UU. operará la válvula, pídale que confirme la rosca antes de pedir una configuración EN o GB. Si el proyecto es europeo, identifique la referencia de conexión utilizada por la empresa de servicios y muéstrela en el plano general aprobado. La <a href="/es/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">guía de normas para válvulas de hidrantes</a> explica por qué la geometría de la salida, el espacio libre de la tapa y el sentido de operación deben revisarse juntos.</p>
+
+			<h2 id="materials" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Materiales, Recubrimientos y Seguridad Vial</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Las configuraciones AWWA suelen identificar hierro dúctil conforme a ASTM A536 y utilizar una disposición de drenaje de columna seca cuando se requiere protección contra congelación. Los proyectos EN aún necesitan que el grado del material, el sistema de recubrimiento interior y exterior, el material de los sujetadores y la selección de elastómeros figuren en la documentación de entrega. Los productos GB 4452 utilizan la configuración china de producto definida. No compare el color de la pintura ni una fotografía de catálogo como prueba de cumplimiento del recubrimiento; solicite los registros de material y recubrimiento exigidos por la edición de la licitación.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La protección vial es un requisito funcional independiente. En el hidrante anticolisión y regulador de presión SSFT100, un impacto hace que se rompan los pernos de corte y que la válvula interna se cierre automáticamente, deteniendo el flujo de agua. La sustitución de los pernos de corte restablece el hidrante. Se pueden proporcionar datos técnicos detallados a solicitud. Esta descripción no significa que todos los hidrantes AWWA, EN o GB tengan el mismo mecanismo de seguridad, por lo que el requisito de seguridad vial debe indicarse explícitamente.</p>
+			<p class="text-gray-700 leading-relaxed">Para un sitio con movimiento frecuente de vehículos, compare el <a href="/es/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">hidrante anticolisión SSFT100</a> con la protección civil alrededor del hidrante. La <a href="/es/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">guía de hidrantes anticongelantes y anticolisión</a> es útil cuando la especificación combina riesgo de congelación, exposición a impactos y acceso operativo.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Ensayos de Tipo y Ensayos de Producción</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un certificado con el nombre correcto del producto no es automáticamente evidencia de la norma correcta. Pregunte qué edición se utilizó, qué configuración se ensayó y si el informe cubre el patrón de salidas suministrado. Los ensayos de tipo demuestran el diseño, mientras que los ensayos de producción demuestran que el envío fue inspeccionado y sometido a prueba de presión. Los dos documentos responden a preguntas diferentes del comprador y deben figurar por separado en la orden de compra.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Para una entrega AWWA C509, solicite la evidencia aplicable de presión, operación, drenaje y materiales para la disposición de columna húmeda o seca. Para EN 14461, solicite la evidencia de PN, desempeño de caudal, salidas, impacto vehicular e interfaz aplicable a la configuración seleccionada. Para GB 4452, solicite el registro de producto de 1.6 MPa y el registro de ensayo de presión estática de 2.4 MPa cuando esa sea la base especificada para SS100/65. Los detalles del ensayo de caudal deben seguir el método y la edición de la norma aplicable; no acepte un número universal de caudal inventado.</p>
+			<p class="text-gray-700 leading-relaxed">El <a href="/es/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">hidrante inteligente sobre rasante IoT SS100ZN</a> puede añadir monitoreo al activo, pero el hidrante base aún necesita su propio paquete de cumplimiento. Compruebe que el sensor, la batería y los equipos de comunicación no interfieran con el recorrido de la válvula, el drenaje, la inspección ni la función de seguridad vial.</p>
+
+			<h2 id="mixing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Cuándo es Aceptable Mezclar Normas</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Mezclar normas puede ser aceptable cuando se hace deliberadamente, queda documentado y es aprobado. Por ejemplo, un proyecto puede utilizar un cuerpo de hidrante fabricado conforme a una norma de producto y un adaptador especificado por separado para coincidir con la manguera local. Eso no hace que el cuerpo cumpla la norma del adaptador. La documentación de entrega debe identificar cada componente, su documento rector, la compatibilidad de presión, la interfaz de rosca o acople y la responsabilidad de la aceptación final.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">No mezcle normas en silencio cambiando solo la brida o la boquilla después de la cotización. El taladrado de la salida, el espacio libre de la tapa, la llave de operación, el comportamiento del drenaje y la evidencia de ensayo pueden cambiar. Si un contratista solicita un cuerpo AWWA para un proyecto EN, pida al ingeniero que marque la desviación en la documentación aprobada. Si se propone un hidrante EN para un proyecto de EE. UU., obtenga la aceptación escrita de la autoridad competente antes de fabricar.</p>
+			<p class="text-gray-700 leading-relaxed">Wanlian apoya la revisión de proyectos mediante su propia línea de producción y capacidad cooperativa cualificada, lo que permite adaptar la RFQ al cuerpo, las salidas y el paquete documental requeridos. El comprador sigue siendo responsable de nombrar la norma del proyecto y la autoridad competente; el proveedor no debe hacer una afirmación de certificación sin respaldo.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Lista de Verificación para la RFQ de Hidrantes</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Nombre la norma rectora y la edición.</strong> Indique AWWA C509, EN 14461, GB 4452 u otro documento requerido, junto con las modificaciones del proyecto y los requisitos de la autoridad competente.</li>
+				<li><strong>Defina el cuerpo y la instalación.</strong> Columna húmeda o seca, sobre rasante o subterráneo, cota de acabado, disposición de drenaje y exposición a congelación.</li>
+				<li><strong>Indique el servicio de presión y caudal.</strong> Proporcione la presión nominal o la clase PN y exija que todo valor de caudal dependiente de la edición se especifique según la edición de la norma en la licitación.</li>
+				<li><strong>Dibuje cada conexión.</strong> DN de entrada o tamaño nominal, taladrado de brida, cantidad de salidas, tamaño de salidas, patrón de rosca o acople, tapa y detalles de la llave de operación.</li>
+				<li><strong>Enumere materiales y protección.</strong> Grado de hierro dúctil, elastómeros, sujetadores, sistema de recubrimiento, dispositivo de seguridad vial y requisito de sustitución de pernos de corte cuando corresponda.</li>
+				<li><strong>Solicite el paquete de evidencia.</strong> Informes de ensayos de tipo, ensayos de presión de producción, registros de caudal o desempeño, certificados de material, inspección dimensional y documentos de liberación final.</li>
+				<li><strong>Confirme los accesorios.</strong> Adaptadores de manguera, acoples Storz, tapas, componentes de drenaje, equipos de monitoreo y pernos de corte de repuesto deben listarse y no suponerse.</li>
+				<li><strong>Deje la aceptación por escrito.</strong> Pida al ingeniero o a la autoridad competente que apruebe cualquier sustitución entre normas antes de la producción y adjunte el plano aprobado a la orden de compra.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Para contexto de selección, lea <a href="/es/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">cómo elegir un hidrante contra incendios</a> y la <a href="/es/guides/fire-hose-coupling-standards-guide/" class="text-brand-blue font-semibold hover:underline">guía de normas para acoples de manguera contra incendios</a>. Para la planificación a nivel de sistema, consulte <a href="/es/fire-hydrant-systems/" class="text-brand-blue font-semibold hover:underline">sistemas de hidrantes contra incendios</a> antes de finalizar el cuadro de válvulas.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita un Hidrante Configurado para la Norma de su Proyecto?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíe la ubicación del proyecto, la edición de la norma, el patrón de entrada y salidas, el servicio de presión y las condiciones de instalación. Confirmaremos una configuración de exportación o de interfaz para la norma aplicable y proporcionaremos los informes de ensayo pertinentes para su revisión.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=Hidrantes%20exteriores%20%28AWWA%20C509%20vs%20EN%2014461%29" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20hidrantes%20exteriores%20para%20un%20proyecto%20AWWA%20C509%20o%20EN%2014461" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

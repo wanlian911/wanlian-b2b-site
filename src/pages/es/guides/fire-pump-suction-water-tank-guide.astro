@@ -1,0 +1,182 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: '¿Qué material y protección contra la corrosión debemos especificar para el tanque?',
+		answer: 'Especifique el material del tanque, el revestimiento, el recubrimiento y las disposiciones de calidad del agua con el fabricante del tanque y el ingeniero del proyecto. Los tanques de acero, acero seccional y concreto tienen detalles de control de corrosión diferentes, y la elección correcta depende del agua almacenada, el clima y los requisitos locales. Solicite los datos del recubrimiento, el acceso para inspección y las instrucciones de mantenimiento en lugar de asumir que un revestimiento de uso general es adecuado para agua contra incendios.'
+	},
+	{
+		question: '¿Un preventor de vórtice de succión necesita certificación para servicio contra incendios?',
+		answer: 'La necesidad de un listado, una aprobación o una aceptación específica del proyecto depende de la edición de la norma aplicable, la autoridad competente y el conjunto completo del tanque. Una placa antivórtice es un componente de protección hidráulica, no una válvula contra incendios listada automáticamente. Confirme las evidencias requeridas para el proyecto y presente su material, dimensiones y detalle de instalación con la documentación del tanque.'
+	},
+	{
+		question: '¿Qué ocurre cuando la profundidad de sumersión del tanque es demasiado pequeña?',
+		answer: 'La aspiración puede captar aire, formar un vórtice visible o volverse ruidosa e inestable. La bomba puede mostrar presión de aspiración fluctuante, pérdida de caudal suministrado, vibración o síntomas parecidos a la cavitación. Compruebe el nivel de agua, la geometría de entrada, el flujo de aproximación y el detalle de prevención de vórtices contra la edición de la norma aplicable y los datos del fabricante de la bomba antes de cambiar la bomba.'
+	},
+	{
+		question: '¿Un tanque puede servir para agua doméstica y agua contra incendios?',
+		answer: 'Puede ser posible, pero solo cuando la disposición conserva la reserva contra incendios requerida, mantiene la separación o el nivel de extracción exigido y es aceptada por la autoridad competente. Una salida doméstica o un ajuste de control de nivel no debe permitir que el consumo normal utilice el volumen protegido contra incendios. Confirme la disposición hidráulica, la supervisión y los controles de llenado conforme al código aplicable.'
+	},
+	{
+		question: '¿Por qué normalmente se prefiere una válvula compuerta en la aspiración de la bomba?',
+		answer: 'Una válvula compuerta completamente abierta proporciona un paso de sección completa, con poca perturbación cerca de la entrada de la bomba, y puede bloquearse o mantenerse supervisada en posición abierta. La válvula de aislamiento de aspiración no es un dispositivo de estrangulación. En algunos proyectos puede aceptarse una alternativa listada, pero el proveedor de la bomba, el ingeniero de diseño y la autoridad competente deben confirmar la selección antes de liberarla.'
+	},
+	{
+		question: '¿Cómo se debe proteger un tanque de aspiración en un clima frío?',
+		answer: 'Mantenga el tanque, la tubería de aspiración, las válvulas y los equipos de control de nivel por encima del riesgo de congelación del proyecto, o proporcione aislamiento diseñado, trazado eléctrico de calor y drenaje. El método exacto depende del clima, la construcción del tanque y la edición de la norma aplicable. Proteger solo la envolvente del tanque no es suficiente si una válvula expuesta, una línea piloto o un punto bajo puede congelarse e interrumpir el suministro de agua contra incendios.'
+	}
+];
+
+const toc = [
+	{ id: 'water-source', label: '1. De Dónde Proviene el Volumen de Agua Contra Incendios' },
+	{ id: 'tank-sizing', label: '2. Dimensionamiento de la Reserva de Agua Contra Incendios' },
+	{ id: 'two-suction', label: '3. Regla de las Dos Aspiraciones y Pasos por el Tanque' },
+	{ id: 'vortex', label: '4. Prevención de Vórtices y Trazado de la Tubería de Aspiración' },
+	{ id: 'level-control', label: '5. Cómo Mantener Lleno el Tanque: Control de Nivel' },
+	{ id: 'priming-testing', label: '6. Cebado, Manómetros y Disposiciones de Prueba' },
+	{ id: 'checklist', label: '7. Lista de Comprobación de la Disposición de Aspiración' },
+	{ id: 'faq', label: 'Preguntas Frecuentes' }
+];
+
+const products = [
+	{ slug: 'suction-vortex-preventer-en12845', name: 'Preventor de Vórtice de Succión (EN 12845)', img: '/assets/products/suction-vortex-preventer-en12845.webp', desc: 'Conjunto de placa antivórtice de acero inoxidable austenítico' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'Válvula Hidráulica de Control de Nivel de Agua (F745X)', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'Mantenimiento de nivel pilotado, cierre suave' },
+	{ slug: 'remote-control-float-valve-100x', name: 'Válvula de Flotador de Control Remoto (100X-16P)', img: '/assets/products/remote-control-float-valve-100x.webp', desc: 'Válvula piloto de flotador inoxidable para rellenar el tanque' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'Colador en Y Telescópico (SGL41H)', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'Protección contra residuos en la línea de aspiración, limpiable en línea' }
+];
+---
+
+<Layout
+	title="Aspiración de Bomba y Tanque Contra Incendios (2026)"
+	description="Dimensionamiento del tanque contra incendios, dos aspiraciones, prevención de vórtices, cebado y control de nivel para una aspiración conforme."
+	type="article"
+	locale="es"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guías', href: '/es/blog/' }, { name: 'Guía de Aspiración de Bomba Contra Incendios' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/es/" class="hover:text-blue-600">Inicio</a>
+			<span>/</span>
+			<a href="/es/blog/" class="hover:text-blue-600">Guías</a>
+			<span>/</span>
+			<span class="text-gray-600">Guía de Aspiración de Bomba Contra Incendios</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guía de Tanques de Agua Contra Incendios</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Disposición de Aspiración de Bomba y Tanque Contra Incendios</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En resumen: una bomba contra incendios solo puede entregar su rendimiento certificado cuando el tanque proporciona la reserva correcta, las entradas de aspiración permanecen sumergidas, se controlan el aire y la formación de vórtices y los equipos de llenado no pueden consumir el volumen protegido. Esta guía explica la fuente, el dimensionamiento del tanque, las disposiciones de dos aspiraciones, los detalles antivórtice, el control de nivel, el cebado y la información que debe incluirse en una tabla del lado de aspiración.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/es/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="water-source" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. De Dónde Proviene el Volumen de Agua Contra Incendios</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La disposición de aspiración comienza con la fuente de agua, no con un catálogo de válvulas. Una bomba contra incendios puede extraer agua de un tanque atmosférico abierto, un tanque seccional dedicado, un depósito de concreto, un recipiente a presión o una red municipal. Cada fuente cambia la altura de aspiración disponible, la forma de cebar la bomba, la protección necesaria en la entrada y las evidencias requeridas en la aceptación. El fabricante de bombas suministra la bomba y el controlador conforme a NFPA 20 o al código local; Wanlian suministra las válvulas y accesorios del lado de aspiración alrededor de ese conjunto, no la propia bomba contra incendios.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Un tanque abierto de agua contra incendios suele ser la fuente más predecible porque su nivel de operación es visible y su presión es atmosférica. Aun así, el ingeniero de la bomba debe considerar el nivel utilizable más bajo, la elevación de entrada, las pérdidas de tubería y los requisitos de aspiración del fabricante de la bomba. Un tanque cerrado a presión tiene una relación diferente entre presión y volumen, mientras que una conexión municipal depende de un suministro público confiable y de las restricciones impuestas por la autoridad del agua. No transfiera una disposición de tanque a una conexión directa sin recalcular las condiciones de aspiración.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Fuente</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Significado en el lado de aspiración</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Pregunta de diseño</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tanque abierto de agua contra incendios</td>
+							<td class="px-4 py-3 text-gray-700">Nivel estático de agua, entrada sumergida, detalle antivórtice y tubería drenable</td>
+							<td class="px-4 py-3 text-gray-700">¿El nivel operativo más bajo es suficiente para la entrada de la bomba?</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tanque cerrado a presión</td>
+							<td class="px-4 py-3 text-gray-700">Presión del tanque, volumen utilizable, aislamiento y disposiciones de mantenimiento seguro</td>
+							<td class="px-4 py-3 text-gray-700">¿La presión permanece disponible durante el servicio requerido?</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Conexión municipal directa</td>
+							<td class="px-4 py-3 text-gray-700">Presión de la red pública, confiabilidad del caudal, control de reflujo y aprobación de la autoridad</td>
+							<td class="px-4 py-3 text-gray-700">¿La red puede proporcionar la condición de aspiración requerida en todo momento?</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Para una visión más amplia de la secuencia de válvulas del lado de la sala, consulte la <a href="/es/guides/fire-pump-room-valves-guide/" class="text-brand-blue font-semibold hover:underline">guía de válvulas de sala de bombas contra incendios</a>. Es útil definir la curva de la bomba y la filosofía de aislamiento antes de fijar los pasos por el tanque.</p>
+
+			<h2 id="tank-sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Dimensionamiento de la Reserva de Agua Contra Incendios</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La reserva de agua contra incendios se determina mediante la clasificación de riesgo del proyecto, el caudal de diseño y la duración requerida según la norma de diseño aplicable. No existe un volumen universal de tanque responsable de copiar de un edificio a otro. El cálculo hidráulico identifica la demanda y la edición de la norma aplicable define durante cuánto tiempo debe sostener la reserva a los sistemas protegidos. Registre la base de cálculo, el volumen utilizable requerido y la referencia de nivel bajo en las tablas del tanque y de la bomba.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Separe el volumen total del volumen utilizable contra incendios. La geometría del tanque, los ajustes de nivel alto y bajo, la reserva para sedimentos, el rebosadero y la posición de cada salida afectan lo que la bomba puede extraer realmente. Si una salida doméstica comparte el tanque, su extracción debe disponerse de forma que el consumo normal no pueda utilizar la reserva protegida contra incendios. La válvula de llenado debe mantener el nivel normal sin cerrar violentamente, mientras que una señal supervisada de nivel bajo debe llegar a la alarma contra incendios o al sistema de gestión del edificio según se requiera.</p>
+			<p class="text-gray-700 leading-relaxed">Para el contexto normativo, compare los cálculos del equipo de diseño con la <a href="/es/guides/nfpa-fire-protection-standards-guide/" class="text-brand-blue font-semibold hover:underline">guía de normas NFPA de protección contra incendios</a>. Use esa visión general para identificar preguntas y después confirme cada requisito de volumen, duración y nivel contra la edición de la norma aplicable y la autoridad competente.</p>
+
+			<h2 id="two-suction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Regla de las Dos Aspiraciones y Pasos por el Tanque</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Los tanques grandes de agua contra incendios necesitan más que un único punto de dependencia. Las disposiciones de NFPA 20 para tanques grandes de almacenamiento exigen más de una salida o colector de aspiración y limitan la dependencia de una sola línea de aspiración, pero el umbral y la configuración exactos dependen de la edición de la norma aplicable. Confirme la edición antes de dibujar la pared del tanque y muestre si cada bomba tiene una ruta independiente, cómo se aíslan las rutas y cómo puede realizarse el mantenimiento sin retirar la capacidad contra incendios requerida.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Un paso por el tanque es un detalle del sistema, no simplemente un orificio con brida. Coordine la posición de la camisa, el refuerzo, el material de la junta, el aislamiento exterior, las placas antivórtice interiores y el acceso para inspección. Mantenga la válvula fuera del tanque, donde pueda operarse y mantenerse, y asegúrese de que el carrete pueda drenarse o retirarse sin comprometer la otra aspiración. La <a href="/es/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">válvula compuerta OS&amp;Y de asiento resiliente UL/FM</a> suele considerarse cuando se requiere una válvula de aislamiento listada, de sección completa y visiblemente abierta; la selección queda sujeta a la especificación del proyecto.</p>
+			<p class="text-gray-700 leading-relaxed">Dos rutas de aspiración no significan dos ramales decorativos unidos de inmediato en un único cuello de botella. Trace cada ruta hasta la disposición de la bomba, compruebe el área de paso disponible e identifique qué válvulas deben permanecer bloqueadas o supervisadas en posición abierta. Cuando haya una segunda bomba o un compartimento, el diseñador debe demostrar que la falla de un solo componente no elimina la capacidad de aspiración requerida.</p>
+
+			<h2 id="vortex" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Prevención de Vórtices y Trazado de la Tubería de Aspiración</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La entrada del tanque debe permanecer sumergida a la profundidad mínima exigida por la norma aplicable y la disposición de la bomba. Si el nivel de agua cae demasiado cerca de la abertura, un vórtice puede introducir aire en la aspiración aunque el tanque todavía parezca contener agua. La entrada de aire reduce el caudal suministrado, provoca una presión de aspiración inestable y puede dañar el impulsor. Una placa antivórtice o un <a href="/es/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">preventor de vórtice de succión EN 12845</a> ayuda a romper el patrón de flujo giratorio; no reemplaza la profundidad de sumersión requerida ni corrige un dimensionamiento incorrecto de la tubería.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Mantenga el tramo hacia la bomba tan sencillo como permita la sala. Use el tamaño de tubería de aspiración y la longitud de tramo recto indicados por el fabricante de la bomba, evite codos innecesarios cerca de la brida de aspiración e instale un reductor excéntrico con el lado plano arriba para que el aire no se acumule en la entrada de la bomba. Sostenga la tubería de forma independiente para que su peso y movimiento térmico no carguen la carcasa de la bomba. La válvula de aspiración es para aislamiento, nunca para estrangulación.</p>
+			<p class="text-gray-700 leading-relaxed">Si los residuos representan un riesgo real, un <a href="/es/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">colador en Y telescópico SGL41H</a> limpiable puede proteger la línea de aspiración cuando el diseño aprobado lo permita, pero cualquier malla añade pérdida y mantenimiento. Confirme la malla, el acceso, la caída de presión y la aceptación para servicio contra incendios antes de instalarlo. Un colador obstruido puede parecer un tanque subdimensionado cuando el síntoma real es una caída en el manómetro de aspiración.</p>
+
+			<h2 id="level-control" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Cómo Mantener Lleno el Tanque: Control de Nivel</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un tanque que estaba lleno en la entrega no es necesariamente una fuente confiable contra incendios. El equipo de llenado debe mantener el nivel normal, cerrar suavemente, tolerar la presión de entrada disponible y emitir una señal clara si el nivel desciende. El objetivo del diseño es evitar que la demanda doméstica, la evaporación, las pruebas y las pequeñas fugas consuman la reserva protegida, y al mismo tiempo impedir que un llenado incontrolado desborde el tanque.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La <a href="/es/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">válvula hidráulica de control de nivel de agua F745X</a> utiliza una disposición pilotada para mantener el nivel y cerrar suavemente. Cuando el proyecto requiere una disposición remota accionada por flotador, la <a href="/es/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">válvula de flotador de control remoto 100X-16P</a> proporciona un piloto de flotador inoxidable para rellenar el tanque. Ningún producto decide por sí solo la reserva contra incendios: los puntos de ajuste, bypasses, la presión aguas arriba y las alarmas deben seguir el diseño hidráulico aprobado.</p>
+			<p class="text-gray-700 leading-relaxed">Muestre los niveles alto, normal, bajo y de emergencia en el diagrama de control. Incluya una válvula de aislamiento aguas arriba accesible, un drenaje o disposición de prueba cuando se requiera y un medio para comprobar la acción del piloto o del flotador sin vaciar el tanque. Si el tanque es compartido, interbloquee la señal de nivel con los controles domésticos para que una válvula de llenado averiada no reduzca silenciosamente la reserva contra incendios.</p>
+
+			<h2 id="priming-testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Cebado, Manómetros y Disposiciones de Prueba</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Antes de que una bomba centrífuga contra incendios pueda funcionar, su carcasa y su aspiración deben llenarse correctamente, y el lado de aspiración debe permanecer inundado según el diseño. La disposición final depende del tipo de bomba y de la elevación de la fuente, por lo que debe seguir las instrucciones de cebado del proveedor de la bomba en lugar de improvisar una válvula de pie o una válvula de retención adicional. Un manómetro de aspiración en la brida de la bomba muestra si la fuente está realmente disponible; compárelo con el manómetro de impulsión y la curva certificada de la bomba durante la aceptación.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Proporcione puntos de aislamiento y drenaje que permitan inspeccionar el carrete de aspiración, la válvula y los instrumentos sin vaciar todo el tanque. Proteja los manómetros contra impactos accidentales y asegúrese de que sus rangos sean adecuados para las condiciones estáticas y de operación previstas. Durante la puesta en marcha, verifique la posición de las válvulas, la alarma de nivel bajo, la acción de llenado, la instalación antivórtice, los soportes de tubería y la ausencia de fugas de aire antes de registrar el rendimiento de la bomba.</p>
+			<p class="text-gray-700 leading-relaxed">Las pruebas deben demostrar tanto la capacidad hidráulica como la intención de seguridad ante fallas. Simule una condición de nivel bajo cuando esté permitido, accione la válvula de llenado, inspeccione el paso por el tanque y confirme que la aspiración requerida permanece disponible con el estado de aislamiento previsto. Para la conexión exterior y la interfaz del lado de impulsión, la <a href="/es/guides/fire-department-connection-siamese-guide/" class="text-brand-blue font-semibold hover:underline">guía de la conexión siamesa para bomberos</a> explica cómo debe coordinarse la conexión del cuerpo de bomberos con el resto de la sala de bombas.</p>
+
+			<h2 id="checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Lista de Comprobación de la Disposición de Aspiración</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Identifique la fuente.</strong> Indique tanque abierto, tanque a presión o conexión municipal, nivel operativo más bajo, presión disponible y condición de aspiración requerida por el proveedor de la bomba.</li>
+				<li><strong>Documente la reserva.</strong> Muestre el volumen y la duración contra incendios requeridos según el cálculo del proyecto, con todas las referencias de nivel y cualquier volumen protegido compartido con uso doméstico.</li>
+				<li><strong>Coordine las salidas.</strong> Confirme la edición aplicable de NFPA 20, el requisito de dos aspiraciones para el tamaño del tanque y la independencia de cada ruta.</li>
+				<li><strong>Evite la entrada de aire.</strong> Verifique la sumersión, la geometría antivórtice, la orientación del reductor excéntrico, la longitud del tramo recto y los soportes independientes de la tubería.</li>
+				<li><strong>Proteja el agua.</strong> Especifique la válvula de aislamiento exterior, el colador limpiable solo cuando esté aprobado, los manómetros, los drenajes y el acceso para mantenimiento.</li>
+				<li><strong>Controle el nivel.</strong> Seleccione equipos piloto F745X o 100X según la presión de entrada, establezca los niveles normal y bajo y cablee las alarmas requeridas.</li>
+				<li><strong>Planifique la aceptación.</strong> Incluya instrucciones de cebado, manómetros de aspiración e impulsión, pruebas de llenado, simulación de nivel bajo y registros de materiales, pruebas de presión y O&amp;M.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Para una tabla de válvulas completa, conecte este trabajo con la <a href="/es/guides/municipal-fire-water-main-upgrade-guide/" class="text-brand-blue font-semibold hover:underline">guía de actualización de redes municipales de agua contra incendios</a> y confirme las condiciones de la autoridad local del agua. Wanlian puede revisar el plano de salida del tanque, la curva de la bomba, los tamaños de tubería y la edición de norma requerida antes de cotizar las válvulas y accesorios de aspiración.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Preguntas Frecuentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">¿Necesita Válvulas de Aspiración para Bombas Contra Incendios?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envíe el plano de salida del tanque, el caudal y la altura nominales de la bomba, los tamaños de aspiración, los niveles de agua y la edición de norma aplicable. Wanlian confirmará la disposición antivórtice, de control de nivel, aislamiento y pruebas para su proyecto.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/es/contact/?product=V%C3%A1lvulas%20de%20Aspiraci%C3%B3n%20para%20Bombas%20Contra%20Incendios" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar Cotización</a>
+						<a href="https://wa.me/8618684324501?text=Hola%2C%20necesito%20v%C3%A1lvulas%20de%20aspiraci%C3%B3n%20para%20bombas%20contra%20incendios" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chatear por WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
