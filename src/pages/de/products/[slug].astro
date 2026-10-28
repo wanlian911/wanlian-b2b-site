@@ -81,22 +81,22 @@ const categoryInfo: Record<string, { applications: string[]; testing: string }> 
   }
 };
 
-// FAQ do produto tem prioridade; caso contrário, FAQ genérico por categoria
+// Product-level FAQ takes priority; falls back to the category FAQ
 const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
 const info = categoryInfo[product.category];
 
-// Vídeo do produto (opcional): renderizado + JSON-LD VideoObject quando os dados configuram
+// Optional product video: rendered plus VideoObject JSON-LD when the data provides one
 const videoData = product.video
   ? {
-      name: `${product.name} — Visão Geral em Vídeo`,
-      description: product.video.description ?? `Visão geral em vídeo do ${product.name}: construção, dimensões wichtigste e pontos de Installation.`,
+      name: `${product.name} | Videoüberblick`,
+      description: product.video.description ?? `Videoüberblick zu ${product.name}: Aufbau, wichtigste Abmessungen und Einbauorte.`,
       thumbnail: product.video.poster ?? product.image,
       src: product.video.src,
       duration: product.video.duration ?? 'PT2M0S',
       uploadDate: product.video.uploadDate ?? '2026-09-21'
     }
   : undefined;
-// Related em fechamento por família de produtos; produtos sem família usam interlinking por categoria
+// Related guides per product family; products without a family fall back to category interlinking
 const bySlug = new Map(productsDe.map(p => [p.slug, p]));
 const familySlugs = PRODUCT_FAMILY_RELATED[product.slug] ?? [];
 const relatedProducts = familySlugs.length
@@ -165,12 +165,12 @@ const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
         alt={product.name} 
       />
 
-      <!-- Vídeo do produto (apenas quando os dados configuram product.video) -->
+      <!-- Product video (only when the data provides product.video) -->
       {product.video && (
         <div class="mt-4 rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-gray-900">
           <video class="w-full h-auto" controls playsinline preload="metadata" poster={product.video.poster}>
             <source src={product.video.src} type="video/mp4" />
-            Seu navegador não suporta vídeo incorporado.
+              Ihr Browser unterstützt kein eingebettetes Video.
           </video>
         </div>
       )}
