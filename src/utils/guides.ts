@@ -1,6 +1,9 @@
 export interface Guide {
   title: string;
   description: string;
+  // 产品页 related-guides 卡片专用短文案；缺省时回落 title/description
+  cardTitle?: string;
+  cardDescription?: string;
   href: string;
   date: string;
   category: string;
@@ -165,6 +168,8 @@ export const guides: Guide[] = [
   {
     title: 'Backflow Prevention in Fire Protection & Potable Water Networks (2026 Guide)',
     description: 'Why backflow preventers are mandatory in dual-purpose water networks, how HS41X double check valves work, cross-connection control and a selection checklist for B2B buyers.',
+cardTitle: 'Backflow Prevention Guide',
+cardDescription: 'When potable water networks need double check assemblies and how HS41X protects against backflow.',
     href: '/guides/backflow-prevention-guide/',
     tocPreview: ["Why Backflow Prevention Matters","Hazard Classes and Device Types","How the HS41X Double Check Assembly Works"],
     date: '2026-08',
@@ -175,6 +180,8 @@ export const guides: Guide[] = [
   {
     title: 'Fire Hose Reel & Fire Cabinet Selection Guide (2026)',
     description: 'How to specify indoor fire hose reels, wall cabinets and foam units: hose length and diameter, nozzle modes, cabinet materials, foam type selection and compliance for Class A/B fires.',
+cardTitle: 'Fire Hose Reel & Fire Cabinet Selection Guide',
+cardDescription: 'JPS0.8-19 reels, PSG30 foam cabinets and SN65 hydrant valves — what a complete indoor fire station needs.',
     href: '/guides/fire-hose-reel-cabinet-guide/',
     tocPreview: ["The Role of Hose Reels and Cabinets","Hose Reel vs Fire Cabinet: Definitions","Hose Length, Diameter and Pressure"],
     date: '2026-08',
@@ -185,6 +192,8 @@ export const guides: Guide[] = [
   {
     title: 'Fire Water Monitor Selection: Manual vs Auto-Tracking (ZDMS) Guide',
     description: 'Manual PS monitors vs auto-tracking ZDMS cannons — range, flow, detection, response time and cost comparison for industrial and large-space protection.',
+cardTitle: 'Fire Water Monitor Selection: Manual vs Auto-Tracking',
+cardDescription: 'Manual PS monitors vs ZDMS auto-tracking cannons — flow, range, control and explosion-proof options.',
     href: '/guides/fire-water-monitor-selection-guide/',
     tocPreview: ["1. Manual Monitors (PS Series): Operator Control","2. Auto-Tracking Monitors (ZDMS): Autonomous Response","3. Head-to-Head Comparison"],
     date: '2026',
@@ -225,6 +234,8 @@ export const guides: Guide[] = [
   {
     title: 'Fire Water Cannon Buying Guide: Fixed, Remote or Smart? (2026)',
     description: 'When you need a water cannon, fixed vs remote vs auto-tracking, sizing flow and range, control integration and a site-based procurement checklist.',
+cardTitle: 'Fire Water Cannon Buying Guide',
+cardDescription: 'Fixed, remote or smart? Jet range, flow rate and installation factors for large-space fire suppression.',
     href: '/guides/fire-water-cannon-buying-guide/',
     tocPreview: ["1. Do You Actually Need a Water Cannon?","2. Fixed, Remote or Auto-Tracking?","3. Sizing Flow and Range"],
     date: '2026',
@@ -235,6 +246,8 @@ export const guides: Guide[] = [
   {
     title: 'Fire Sprinkler Systems: Wet, Dry or Pre-action? (2026 Guide)',
     description: 'A practical comparison of wet, dry and pre-action systems, how to select sprinkler heads (K-factor, temperature, response) and the components your BOM needs.',
+cardTitle: 'Fire Sprinkler Systems: Wet, Dry or Pre-action?',
+cardDescription: 'Compare wet, dry and pre-action sprinkler configurations to match the hazard class of your building.',
     href: '/guides/fire-sprinkler-system-wet-dry-preaction/',
     tocPreview: ["1. The Three System Types Compared","2. Choosing Sprinkler Heads","3. The Components Your BOM Needs"],
     date: '2026',
@@ -245,6 +258,8 @@ export const guides: Guide[] = [
   {
     title: 'How to Choose a Fire Hydrant for Municipal & Industrial Projects (2026 Guide)',
     description: 'A step-by-step procurement guide covering hydrant types, pressure classes, connection standards, certification requirements and the factory checklist before you order.',
+cardTitle: 'How to Choose a Fire Hydrant',
+cardDescription: 'Indoor vs outdoor, dry vs wet barrel, outlet standards and pressure ratings for municipal and industrial projects.',
     href: '/guides/how-to-choose-a-fire-hydrant/',
     tocPreview: ["1. Understand Your Hydrant Requirement First","2. Fire Hydrant Types Explained","3. Key Specifications to Compare"],
     date: '2026',
@@ -255,6 +270,8 @@ export const guides: Guide[] = [
   {
     title: 'Gate Valve vs Butterfly Valve for Fire Protection',
     description: 'Compare shut-off performance, installation space, pressure loss, maintenance and project selection criteria for fire protection pipelines.',
+cardTitle: 'Gate Valve vs Butterfly Valve for Fire Protection Systems',
+cardDescription: 'Sealing, flow, pressure loss and cost compared so you can pick the right isolation valve for fire mains and water networks.',
     href: '/guides/gate-valve-vs-butterfly-valve-fire-protection/',
     tocPreview: ["1. How They Work: A Quick Comparison","2. Head-to-Head: Gate vs Butterfly","3. Where Each Valve Belongs in Fire Protection Systems"],
     date: '2026',
@@ -265,6 +282,8 @@ export const guides: Guide[] = [
   {
     title: 'Fire Sprinkler Control Valve Types: OS&Y, Butterfly & Check Valves',
     description: 'OS&Y gate, signal butterfly and check valve duties in sprinkler systems, plus a control valve comparison table and a UL/FM specification checklist for B2B buyers.',
+cardTitle: 'Fire Sprinkler Control Valve Types: OS&Y, Butterfly & Check Valves',
+cardDescription: 'The role of each control valve in a sprinkler system and how OS&Y, butterfly and check valves work together.',
     href: '/guides/fire-sprinkler-control-valve-types/',
     tocPreview: ["1. What Fire Sprinkler Control Valves Do","2. OS&Y Gate Valves: Monitored Main Isolation","3. Signal Butterfly Valves for Section Control"],
     date: '2026-09',
@@ -285,6 +304,8 @@ export const guides: Guide[] = [
   {
     title: 'Pressure Reducing Valve Guide: 500X Hydraulic PRV & Water Supply Valves (2026)',
     description: 'How self-operated hydraulic pressure reducing valves work, 500X PRV vs F745X level control vs 100X remote float valve, installation and a B2B specification checklist for water supply networks.',
+cardTitle: 'Pressure Reducing Valve Guide: 500X Hydraulic PRV',
+cardDescription: 'How pilot-operated PRVs protect downstream equipment, adjust set pressure and prevent water hammer.',
     href: '/guides/pressure-reducing-valve-guide/',
     tocPreview: ["1. What Is a Hydraulic Pressure Reducing Valve?","2. How a Self-Operated 500X PRV Works","3. PRV vs Level Control vs Float Valve"],
     date: '2026-09',
@@ -295,6 +316,8 @@ export const guides: Guide[] = [
   {
     title: 'Check Valve Types & Selection Guide: Sliding Ball vs Swing Check (2026)',
     description: 'Check valve types compared — swing vs HQ41X sliding ball vs HQ44X spherical ball: head loss, water hammer, non-slam closing, installation orientation and a B2B specification checklist.',
+cardTitle: 'Check Valve Types & Selection Guide',
+cardDescription: 'Sliding ball vs swing check — head loss, slam behaviour and the applications each type fits best.',
     href: '/guides/check-valve-types-guide/',
     tocPreview: ["1. What Is a Check Valve?","2. Check Valve Types at a Glance","3. Sliding Ball vs Swing Check"],
     date: '2026-09',
@@ -305,6 +328,8 @@ export const guides: Guide[] = [
   {
     title: 'Fire Extinguisher Selection Guide: ABC Dry Powder for B2B Buyers (2026)',
     description: 'How to choose portable fire extinguishers for export projects: fire classes vs extinguishing agents, ABC dry powder specifications, ISO 7165 and CCCF certification, applications and a factory buying checklist covering OEM, MOQ and dangerous-goods packaging.',
+cardTitle: 'Fire Extinguisher Buying Guide: ABC Dry Powder',
+cardDescription: 'Class A/B/C/E coverage, ISO 7165 ratings and B2B export packaging for portable extinguishers.',
     href: '/guides/fire-extinguisher-selection-guide/',
     tocPreview: ["1. Why Fire Extinguishers Lead Fire-Protection Sourcing","2. Fire Classes and Extinguishing Agents","3. ABC Dry Powder Specifications Explained"],
     date: '2026-09',
@@ -345,6 +370,8 @@ export const guides: Guide[] = [
   {
     title: 'Fire Hydrant, Fire Hose & Valve Standards Explained: AWWA, NFPA, EN & ISO',
     description: 'Standards guide for fire hydrant, fire hose and valve buyers: AWWA C502/C515, NFPA 1961, EN 14384, BS 750, EN 1074 and ISO 5208 — with a 5-check process for buying compliant equipment from China.',
+cardTitle: 'Fire Hydrant, Fire Hose & Valve Standards Explained',
+cardDescription: 'AWWA C502, NFPA 1961, EN 14384, BS 750 — which standard applies to your order and how to verify compliance.',
     href: '/guides/fire-hydrant-valve-standards-guide/',
     tocPreview: ["1. The Five Standards Families You Will Actually Meet","2. How to Read a Standard Against a Test Report","3. What Pressure Ratings & Classes Mean in Practice"],
     date: '2026-09',

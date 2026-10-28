@@ -79,6 +79,8 @@ export const guidesEs: Guide[] = [
   {
     title: 'Guía de Carretes y Gabinetes Contra Incendios (2026)',
     description: 'Cómo especificar carretes de manguera interiores, gabinetes de pared y unidades de espuma: largo y diámetro de manguera, modos de boquilla, materiales y cumplimiento para fuegos Clase A/B.',
+    cardTitle: 'Guía de Prevención de Reflujo',
+    cardDescription: 'Cuándo las redes de agua potable necesitan dobles retenciones y cómo HS41X protege contra el reflujo.',
     href: '/es/guides/fire-hose-reel-cabinet-guide/',
     tocPreview: ["1. El Papel de los Carretes de Manguera y los Gabinetes Contra Incendios","2. Carrete de Manguera vs Gabinete Contra Incendios: Definiciones","3. Largo de Manguera, Diámetro y Presión"],
     date: '2026-08',
@@ -89,6 +91,8 @@ export const guidesEs: Guide[] = [
   {
     title: 'Selección de Cañón Monitor: Manual vs Automático (ZDMS)',
     description: 'Monitores manuales PS vs cañones ZDMS de seguimiento automático: alcance, caudal, detección, tiempo de respuesta y comparación de costos para protección industrial y de grandes espacios.',
+    cardTitle: 'Guía de Carretes y Gabinetes Contra Incendios',
+    cardDescription: 'Carretes JPS0.8-19, gabinetes de espuma PSG30 y válvulas SN65 — lo que necesita una estación interior completa.',
     href: '/es/guides/fire-water-monitor-selection-guide/',
     tocPreview: ["1. Monitores Manuales (Serie PS): Control del Operador","2. Monitores de Seguimiento Automático (ZDMS): Respuesta Autónoma","3. Comparación Directa"],
     date: '2026',
@@ -99,6 +103,8 @@ export const guidesEs: Guide[] = [
   {
     title: 'Válvulas para Sistemas de Rociadores: Guía Completa (Húmedo, Diluvio y Preacción)',
     description: 'Cómo funcionan las válvulas de alarma tipo húmedo ZSFZ, de diluvio ZSFM, de preacción ZSFY y los indicadores de flujo ZSJZ — y cuándo especificar cada una para su sistema de rociadores.',
+    cardTitle: 'Selección de Cañón Monitor: Manual vs Seguimiento Automático',
+    cardDescription: 'Monitores manuales PS vs cañones ZDMS automáticos: caudal, alcance, control y opciones a prueba de explosión.',
     href: '/es/guides/fire-sprinkler-system-valves-guide/',
     tocPreview: ["1. Sistemas de Tubería Húmeda: La Válvula de Alarma Tipo Húmedo ZSFZ","2. Sistemas de Diluvio: La Válvula de Diluvio ZSFM","3. Sistemas de Preacción: La Válvula de Doble Disparo ZSFY"],
     date: '2026',
@@ -139,6 +145,8 @@ export const guidesEs: Guide[] = [
   {
     title: 'Sistemas de Rociadores: ¿Húmedo, Seco o de Preacción? (Guía 2026)',
     description: 'Comparación práctica de sistemas húmedos, secos y de preacción; cómo seleccionar rociadores (factor K, temperatura, respuesta) y los componentes que necesita su lista de materiales.',
+    cardTitle: 'Guía de Compra de Cañones de Agua',
+    cardDescription: '¿Fijo, remoto o inteligente? Alcance de chorro, caudal e instalación para supresión en grandes espacios.',
     href: '/es/guides/fire-sprinkler-system-wet-dry-preaction/',
     tocPreview: ["1. Los tres tipos de sistema comparados","2. Cómo elegir los cabezales de rociador","3. Los componentes que necesita su BOM"],
     date: '2026',
@@ -149,6 +157,8 @@ export const guidesEs: Guide[] = [
   {
     title: 'Cómo Elegir un Hidrante Contra Incendios para Proyectos Municipales e Industriales (2026)',
     description: 'Guía de compra paso a paso: tipos de hidrante, clases de presión, normas de conexión, requisitos de certificación y la lista de verificación de fábrica antes de ordenar.',
+    cardTitle: 'Sistemas de Rociadores: ¿Húmedo, Seco o de Preacción?',
+    cardDescription: 'Compare configuraciones húmedas, secas y de preacción para alinear la clase de riesgo de su edificio.',
     href: '/es/guides/how-to-choose-a-fire-hydrant/',
     tocPreview: ["1. Comprenda Primero el Requisito de su Hidrante","2. Tipos de Hidrantes Contra Incendios Explicados","3. Especificaciones Clave para Comparar"],
     date: '2026',
@@ -159,6 +169,8 @@ export const guidesEs: Guide[] = [
   {
     title: 'Válvula de Compuerta vs Válvula de Mariposa para Protección Contra Incendios',
     description: 'Compare rendimiento de cierre, espacio de instalación, pérdida de presión, mantenimiento y criterios de selección para tuberías de protección contra incendios.',
+    cardTitle: 'Cómo Elegir un Hidrante Contra Incendios',
+    cardDescription: 'Interior vs exterior, barril seco vs húmedo, normas de salida y clases de presión para proyectos municipales e industriales.',
     href: '/es/guides/gate-valve-vs-butterfly-valve-fire-protection/',
     tocPreview: ["1. Cómo Funcionan: Una Comparación Rápida","2. Cara a Cara: Compuerta vs Mariposa","3. Dónde Va Cada Válvula en los Sistemas de Protección Contra Incendios"],
     date: '2026',
@@ -169,6 +181,8 @@ export const guidesEs: Guide[] = [
   {
     title: 'Tipos de Válvulas de Control para Rociadores: OS&Y, Mariposa y Retención',
     description: 'Compuertas OS&Y, mariposas señalizadoras y retenciones en sistemas de rociadores, más una tabla comparativa y lista de especificación UL/FM para compradores B2B.',
+    cardTitle: 'Válvula de Compuerta vs Mariposa para Protección Contra Incendios',
+    cardDescription: 'Sellado, caudal, pérdida de presión y costo comparados para elegir la válvula de aislamiento correcta en redes de incendio y agua.',
     href: '/es/guides/fire-sprinkler-control-valve-types/',
     tocPreview: ["1. Qué Hacen las Válvulas de Control para Rociadores","2. Válvulas de Compuerta OS&Y: Aislamiento Principal Supervisado","3. Mariposas Señalizadoras para el Control de Sección"],
     date: '2026-09',
@@ -179,6 +193,8 @@ export const guidesEs: Guide[] = [
   {
     title: 'Guía de Válvulas de Compuerta con Sello de Fuelle: Tipos con Brida ANSI para Vapor y Aceite Térmico',
     description: 'Cómo funciona el doble sello con fuelle soldado, dónde se especifican, normas ANSI/GB y lista de especificación B2B para servicios de vapor y aceite térmico.',
+    cardTitle: 'Tipos de Válvulas de Control para Rociadores: OS&Y, Mariposa y Retención',
+    cardDescription: 'El rol de cada válvula de control en un sistema de rociadores y cómo trabajan juntas OS&Y, mariposa y retención.',
     href: '/es/guides/bellows-seal-gate-valve-guide/',
     tocPreview: ["1. ¿Qué Es una Válvula de Compuerta de Sello de Fuelle?","2. Cómo Funciona el Doble Sello","3. Dónde Se Especifican las Válvulas de Fuelle"],
     date: '2026-09',
@@ -199,6 +215,8 @@ export const guidesEs: Guide[] = [
   {
     title: 'Tipos de Válvulas de Retención y Selección: Bola Deslizante vs Clapeta (2026)',
     description: 'Tipos comparados: oscilante vs HQ41X de bola deslizante vs HQ44X de bola esférica: pérdida de carga, golpe de ariete, cierre sin golpe, orientación de instalación y lista B2B.',
+    cardTitle: 'Guía de Válvulas Reductoras de Presión: 500X PRV Hidráulica',
+    cardDescription: 'Cómo las PRV piloto-operadas protegen equipos aguas abajo, ajustan la presión y previenen el golpe de ariete.',
     href: '/es/guides/check-valve-types-guide/',
     tocPreview: ["1. ¿Qué Es una Válvula de Retención?","2. Tipos de Válvulas de Retención de un Vistazo","3. Bola Deslizante vs Clapeta"],
     date: '2026-09',
@@ -209,6 +227,8 @@ export const guidesEs: Guide[] = [
   {
     title: 'Guía de Selección de Extintores: Polvo Químico Seco ABC para Compradores B2B (2026)',
     description: 'Cómo elegir extintores portátiles para exportación: clases de fuego vs agentes, especificaciones ABC, ISO 7165 y CCCF, aplicaciones y lista de compra de fábrica (OEM, MOQ, mercancía peligrosa).',
+    cardTitle: 'Tipos de Válvulas de Retención y Selección',
+    cardDescription: 'Bola deslizante vs clapeta: pérdida de carga, comportamiento de cierre y las aplicaciones que mejor se ajustan a cada tipo.',
     href: '/es/guides/fire-extinguisher-selection-guide/',
     tocPreview: ["1. Por Qué los Extintores Lideran el Abastecimiento de Protección Contra Incendios","2. Clases de Fuego y Agentes Extintores","3. Especificaciones del Polvo Químico Seco ABC Explicadas"],
     date: '2026-09',
@@ -219,6 +239,8 @@ export const guidesEs: Guide[] = [
   {
     title: 'Guía de Compra de Manguera Plana Contra Incendios: Tamaños, Revestimientos y Acoples (2026)',
     description: 'Cómo comprar manguera plana para bomberos y transferencia industrial: construcción y sellado de bordes, dimensionamiento de diámetro y largo, normas Storz/BS336/NIST y lista OEM.',
+    cardTitle: 'Guía de Compra de Extintores: Polvo ABC',
+    cardDescription: 'Cobertura Clase A/B/C/E, clasificaciones ISO 7165 y empaque de exportación B2B para extintores portátiles.',
     href: '/es/guides/fire-hose-buying-guide/',
     tocPreview: ["1. Manguera Plana Contra Incendios vs Carrete de Manguera","2. Construcción de la Manguera: Cubierta, Forro y Sellado de Bordes","3. Dimensionamiento: Diámetro, Largo y Aplicaciones"],
     date: '2026-09',
@@ -259,6 +281,8 @@ export const guidesEs: Guide[] = [
   {
     title: 'Guía de Cumplimiento CE y EN 12845: Equipos Contra Incendios para el Mercado Europeo (2026)',
     description: 'Cumplimiento europeo explicado para compradores B2B: succión de bombas EN 12845, marcado CE por modelo, ensayos EN 12266-1, acoples Storz/BS336/KWS y límites ISO 7165 vs CCCF.',
+    cardTitle: 'Normas de Hidrantes y Mangueras Explicadas',
+    cardDescription: 'AWWA C502, NFPA 1961, EN 14384, BS 750 — qué norma aplica a su pedido y cómo verificar el cumplimiento.',
     href: '/es/guides/ce-en12845-fire-protection-compliance/',
     tocPreview: ["1. Por Qué el Cumplimiento Europeo Importa en Equipos Contra Incendios","2. Fundamentos del Marcado CE: A Nivel de Modelo, Nunca de Serie","3. EN 12845 y el Paquete de Succión de Bombas Contra Incendios"],
     date: '2026-09',

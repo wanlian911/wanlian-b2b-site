@@ -4,6 +4,9 @@
 export interface GuideFr {
   title: string;
   description: string;
+  // 产品页 related-guides 卡片专用短文案；缺省时回落 title/description
+  cardTitle?: string;
+  cardDescription?: string;
   href: string;
   date: string;
   category: string;
@@ -75,6 +78,8 @@ export const guidesFr: GuideFr[] = [
   {
     title: 'Guide de Sélection des Enrouleurs de Flexible & Armoires Anti-Incendie (2026)',
     description: 'Comment spécifier les enrouleurs de flexible intérieurs, les armoires murales et les unités à mousse : longueur et diamètre du flexible, modes de buse, matériaux d’armoire, choix du type de mousse et conformité pour les feux de classe A/B.',
+    cardTitle: 'Guide de la Prévention du Reflux',
+    cardDescription: 'Quand les réseaux d’eau potable nécessitent des ensembles à double clapet et comment le HS41X protège contre le reflux.',
     href: '/fr/guides/fire-hose-reel-cabinet-guide/',
     tocPreview: ["Le rôle des enrouleurs et des armoires","Enrouleur vs armoire : définitions","Longueur, diamètre et pression du flexible"],
     date: '2026-08',
@@ -85,6 +90,8 @@ export const guidesFr: GuideFr[] = [
   {
     title: 'Sélection de Moniteur d’Eau : Manuel vs Suivi Automatique (ZDMS) — Guide',
     description: 'Moniteurs manuels PS vs canons à suivi automatique ZDMS — portée, débit, détection, temps de réponse et comparaison de coût pour la protection industrielle et des grands espaces.',
+    cardTitle: 'Guide de Sélection des Enrouleurs de Flexible et Armoires Anti-Incendie',
+    cardDescription: 'Enrouleurs JPS0.8-19, armoires à mousse PSG30 et vannes d’hydrant SN65 — ce dont un poste de lutte incendie intérieur complet a besoin.',
     href: '/fr/guides/fire-water-monitor-selection-guide/',
     tocPreview: ["1. Moniteurs Manuels (Série PS) : Contrôle par Opérateur","2. Moniteurs à Suivi Automatique (ZDMS) : Réponse Autonome","3. Comparaison Directe"],
     date: '2026',
@@ -95,6 +102,8 @@ export const guidesFr: GuideFr[] = [
   {
     title: 'Vannes pour Réseaux de Gicleurs : un Guide Complet (Mouillé, Déluge & Pré-action)',
     description: 'Comment fonctionnent les vannes d’alarme à mouillé ZSFZ, à déluge ZSFM, à pré-action ZSFY et les signalisateurs de débit ZSJZ — et quand spécifier chacune pour votre réseau de gicleurs.',
+    cardTitle: 'Sélection de Moniteur d’Eau : Manuel vs Suivi Automatique',
+    cardDescription: 'Moniteurs manuels PS vs canons à suivi automatique ZDMS — débit, portée, contrôle et options anti-explosion.',
     href: '/fr/guides/fire-sprinkler-system-valves-guide/',
     tocPreview: ["1. Systèmes à Mouillé : la Vanne d’Alarme ZSFZ","2. Systèmes à Déluge : la Vanne ZSFM","3. Systèmes à Pré-action : la Vanne ZSFY à Double Déclenchement"],
     date: '2026',
@@ -135,6 +144,8 @@ export const guidesFr: GuideFr[] = [
   {
     title: 'Systèmes de Gicleurs : à Mouillé, à Sec ou à Pré-action ? (Guide 2026)',
     description: 'Une comparaison pratique des systèmes à mouillé, à sec et à pré-action, comment sélectionner les têtes de gicleurs (coefficient K, température, réponse) et les composants dont votre nomenclature a besoin.',
+    cardTitle: 'Guide d’Achat des Canons d’Eau Anti-Incendie',
+    cardDescription: 'Fixe, télécommandé ou intelligent ? Portée, débit et facteurs d’installation pour l’extinction des grands espaces.',
     href: '/fr/guides/fire-sprinkler-system-wet-dry-preaction/',
     tocPreview: ["1. Les trois types de systèmes comparés","2. Choisir les têtes de gicleurs","3. Les composants dont votre nomenclature a besoin"],
     date: '2026',
@@ -145,6 +156,8 @@ export const guidesFr: GuideFr[] = [
   {
     title: 'Comment Choisir un Hydrant pour des Projets Municipaux & Industriels (Guide 2026)',
     description: 'Un guide d’approvisionnement pas à pas couvrant les types d’hydrants, les classes de pression, les normes de raccordement, les exigences de certification et la checklist d’usine avant de commander.',
+    cardTitle: 'Systèmes de Gicleurs : à Mouillé, à Sec ou à Pré-action ?',
+    cardDescription: 'Comparez les configurations de systèmes de gicleurs à mouillé, à sec et à pré-action selon la classe de risque de votre bâtiment.',
     href: '/fr/guides/how-to-choose-a-fire-hydrant/',
     tocPreview: ["1. Comprendre d'abord votre besoin en hydrants","2. Les types d’hydrants expliqués","3. Les spécifications clés à comparer"],
     date: '2026',
@@ -155,6 +168,8 @@ export const guidesFr: GuideFr[] = [
   {
     title: 'Vanne à Boisseau vs Vanne à Papillon pour la Protection Incendie',
     description: 'Comparez les performances d’isolement, l’espace d’installation, la perte de charge, la maintenance et les critères de sélection de projet pour les conduites de protection incendie.',
+    cardTitle: 'Comment Choisir un Hydrant',
+    cardDescription: 'Intérieur vs extérieur, barillet sec vs mouillé, normes de sortie et classes de pression pour les projets municipaux et industriels.',
     href: '/fr/guides/gate-valve-vs-butterfly-valve-fire-protection/',
     tocPreview: ["1. Comment elles fonctionnent : une comparaison rapide","2. Face à face : vanne à boisseau vs vanne à papillon","3. Où chaque vanne a sa place dans les systèmes anti-incendie"],
     date: '2026',
@@ -165,6 +180,8 @@ export const guidesFr: GuideFr[] = [
   {
     title: 'Types de Vannes de Contrôle des Gicleurs : OS&Y, Papillon & Anti-Retour',
     description: 'Les services des vannes à boisseau OS&Y, à papillon à signal et anti-retour dans les réseaux de gicleurs, plus un tableau comparatif des vannes de contrôle et une checklist de spécification UL/FM pour les acheteurs B2B.',
+    cardTitle: 'Vanne à Boisseau vs Vanne à Papillon pour la Protection Incendie',
+    cardDescription: 'Étanchéité, débit, perte de charge et coût comparés pour choisir la bonne vanne d’isolement pour les conduites incendie et les réseaux d’eau.',
     href: '/fr/guides/fire-sprinkler-control-valve-types/',
     tocPreview: ["1. Ce que font les vannes de contrôle des gicleurs","2. Vannes à Boisseau OS&Y : Isolation Principale Surveillée","3. Vannes à Papillon à Signal pour le Contrôle de Section"],
     date: '2026-09',
@@ -175,6 +192,8 @@ export const guidesFr: GuideFr[] = [
   {
     title: 'Guide des Vannes à Boisseau à Joint Membrane : Types à Bride ANSI pour Vapeur & Huile Thermique',
     description: 'Comment fonctionne la double étanchéité à joint membrane soudé, où les vannes à boisseau à joint membrane sont spécifiées, les normes ANSI/GB et une checklist de spécification B2B pour le service vapeur et huile thermique.',
+    cardTitle: 'Types de Vannes de Régulation des Réseaux de Gicleurs : OS&Y, Papillon et Anti-Retour',
+    cardDescription: 'Le rôle de chaque vanne de régulation dans un réseau de gicleurs et comment les vannes OS&Y, à papillon et anti-retour fonctionnent ensemble.',
     href: '/fr/guides/bellows-seal-gate-valve-guide/',
     tocPreview: ["1. Qu'est-ce qu'une vanne à boisseau à joint membrane ?","2. Comment fonctionne la double étanchéité","3. Où les vannes membrane sont spécifiées"],
     date: '2026-09',
@@ -195,6 +214,8 @@ export const guidesFr: GuideFr[] = [
   {
     title: 'Types de Clapets Anti-Retour & Guide de Sélection : Bille Glissante vs Battant (2026)',
     description: 'Comparaison des types de clapets anti-retour — battant vs bille glissante HQ41X vs bille sphérique HQ44X : perte de charge, coup de bélier, fermeture sans choc, orientation d’installation et une checklist de spécification B2B.',
+    cardTitle: 'Guide des Réducteurs de Pression : PRV Hydraulique 500X',
+    cardDescription: 'Comment les réducteurs pilotés protègent les équipements aval, règlent la pression et préviennent le coup de bélier.',
     href: '/fr/guides/check-valve-types-guide/',
     tocPreview: ["1. Qu’est-ce qu’un clapet anti-retour ?","2. Les types de clapets anti-retour en un coup d’œil","3. Bille glissante vs battant"],
     date: '2026-09',
@@ -205,6 +226,8 @@ export const guidesFr: GuideFr[] = [
   {
     title: 'Guide de Sélection des Extincteurs : Poudre Sèche ABC pour Acheteurs B2B (2026)',
     description: 'Comment choisir les extincteurs portatifs pour les projets d’export : classes de feux vs agents extincteurs, spécifications de la poudre sèche ABC, certification ISO 7165 et CCCF, applications et une checklist d’achat usine couvrant OEM, MOQ et emballage de marchandises dangereuses.',
+    cardTitle: 'Types de Clapets Anti-Retour et Guide de Sélection',
+    cardDescription: 'Bille glissante vs clapet oscillant — perte de charge, comportement à la fermeture et les applications où chaque type convient le mieux.',
     href: '/fr/guides/fire-extinguisher-selection-guide/',
     tocPreview: ["1. Pourquoi les extincteurs dominent l'approvisionnement anti-incendie","2. Classes de feux et agents extincteurs","3. Spécifications de la poudre sèche ABC expliquées"],
     date: '2026-09',
@@ -215,6 +238,8 @@ export const guidesFr: GuideFr[] = [
   {
     title: 'Guide d’Achat des Flexibles Anti-Incendie Plat : Tailles, Doublures & Raccords (2026)',
     description: 'Comment acheter du flexible anti-incendie plat pour la lutte incendie et le transfert d’eau industriel : construction du flexible et étanchéité des bords, dimensionnement en diamètre et longueur, normes de raccord Storz/BS336/NIST, buses et une checklist d’usine OEM.',
+    cardTitle: 'Guide d’Achat des Extincteurs : Poudre Sèche ABC',
+    cardDescription: 'Couverture des classes A/B/C/E, classifications ISO 7165 et emballage export B2B pour les extincteurs portatifs.',
     href: '/fr/guides/fire-hose-buying-guide/',
     tocPreview: ["1. Flexible plat vs enrouleur de flexible","2. Construction du flexible : gaine, doublure et étanchéité des bords","3. Dimensionnement : diamètre, longueur et applications"],
     date: '2026-09',
@@ -255,6 +280,8 @@ export const guidesFr: GuideFr[] = [
   {
     title: 'Guide de Conformité CE & EN 12845 : Équipements Incendie pour le Marché Européen (2026)',
     description: 'La conformité européenne de protection incendie expliquée pour les acheteurs B2B : exigences d’aspiration de pompe de gicleurs EN 12845, marquage CE au niveau du modèle, essais de vannes EN 12266-1, systèmes de raccordement Storz/BS336/KWS et la frontière ISO 7165 vs CCCF pour les extincteurs.',
+    cardTitle: 'Normes des Hydrants, Flexibles et Vannes : Explications',
+    cardDescription: 'AWWA C502, NFPA 1961, EN 14384, BS 750 — quelle norme s’applique à votre commande et comment vérifier la conformité.',
     href: '/fr/guides/ce-en12845-fire-protection-compliance/',
     tocPreview: ["1. Pourquoi la conformité européenne compte pour l'équipement incendie","2. Bases du marquage CE : par modèle, jamais par série","3. EN 12845 et le package d'aspiration de pompe incendie"],
     date: '2026-09',

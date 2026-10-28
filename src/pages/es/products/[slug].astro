@@ -3,6 +3,8 @@ import ProductGallery from '../../../components/shared/ProductGallery.astro';
 import Layout from '../../../layouts/Layout.astro';
 import { productsEsBySlug, productsEs } from '../../../utils/products.es';
 import { PRODUCT_FAMILY_RELATED } from '../../../utils/product-families';
+import { guides as guidesEn } from '../../../utils/guides';
+import { guidesEs } from '../../../utils/guides.es';
 
 export async function getStaticPaths() {
   return Object.values(productsEsBySlug).map((product) => ({
@@ -105,31 +107,21 @@ const relatedProducts = familySlugs.length
 const catAnchor = encodeURIComponent(product.category);
 
 // Guías de compra relacionadas por categoría (backlinks GEO hacia /es/guides/)
+const guidesByHref: Record<string, { title: string; description: string; cardTitle?: string; cardDescription?: string }> = {};
+for (const g of guidesEn) guidesByHref[g.href] = g;
+for (const g of guidesEs) guidesByHref[g.href] = g;
+const guideCard = (href: string) => {
+  const g = guidesByHref[href];
+  if (!g) throw new Error('related-guide href missing from guides data: ' + href);
+  return { href: href, title: g.cardTitle ?? g.title, description: g.cardDescription ?? g.description };
+};
 const guideByCategory: Record<string, { href: string; title: string; description: string }[]> = {
-  'Válvulas y Piezas': [
-    { href: '/es/guides/gate-valve-vs-butterfly-valve-fire-protection/', title: 'Válvula de Compuerta vs Mariposa para Protección Contra Incendios', description: 'Sellado, caudal, pérdida de presión y costo comparados para elegir la válvula de aislamiento correcta en redes de incendio y agua.' },
-    { href: '/es/guides/check-valve-types-guide/', title: 'Tipos de Válvulas de Retención y Selección', description: 'Bola deslizante vs clapeta: pérdida de carga, comportamiento de cierre y las aplicaciones que mejor se ajustan a cada tipo.' }
-  ],
-  'Hidrantes y Conexiones de Bomba': [
-    { href: '/es/guides/how-to-choose-a-fire-hydrant/', title: 'Cómo Elegir un Hidrante Contra Incendios', description: 'Interior vs exterior, barril seco vs húmedo, normas de salida y clases de presión para proyectos municipales e industriales.' },
-    { href: '/es/guides/fire-hydrant-valve-standards-guide/', title: 'Normas de Hidrantes y Mangueras Explicadas', description: 'AWWA C502, NFPA 1961, EN 14384, BS 750 — qué norma aplica a su pedido y cómo verificar el cumplimiento.' }
-  ],
-  'Rociadores y Válvulas de Alarma': [
-    { href: '/es/guides/fire-sprinkler-control-valve-types/', title: 'Tipos de Válvulas de Control para Rociadores: OS&Y, Mariposa y Retención', description: 'El rol de cada válvula de control en un sistema de rociadores y cómo trabajan juntas OS&Y, mariposa y retención.' },
-    { href: '/es/guides/fire-sprinkler-system-wet-dry-preaction/', title: 'Sistemas de Rociadores: ¿Húmedo, Seco o de Preacción?', description: 'Compare configuraciones húmedas, secas y de preacción para alinear la clase de riesgo de su edificio.' }
-  ],
-  'Seguridad Hidráulica': [
-    { href: '/es/guides/pressure-reducing-valve-guide/', title: 'Guía de Válvulas Reductoras de Presión: 500X PRV Hidráulica', description: 'Cómo las PRV piloto-operadas protegen equipos aguas abajo, ajustan la presión y previenen el golpe de ariete.' },
-    { href: '/es/guides/backflow-prevention-guide/', title: 'Guía de Prevención de Reflujo', description: 'Cuándo las redes de agua potable necesitan dobles retenciones y cómo HS41X protege contra el reflujo.' }
-  ],
-  'Cañones de Agua Extintores': [
-    { href: '/es/guides/fire-water-monitor-selection-guide/', title: 'Selección de Cañón Monitor: Manual vs Seguimiento Automático', description: 'Monitores manuales PS vs cañones ZDMS automáticos: caudal, alcance, control y opciones a prueba de explosión.' },
-    { href: '/es/guides/fire-water-cannon-buying-guide/', title: 'Guía de Compra de Cañones de Agua', description: '¿Fijo, remoto o inteligente? Alcance de chorro, caudal e instalación para supresión en grandes espacios.' }
-  ],
-  'Gabinetes Contra Incendios e Interfaces': [
-    { href: '/es/guides/fire-hose-reel-cabinet-guide/', title: 'Guía de Carretes y Gabinetes Contra Incendios', description: 'Carretes JPS0.8-19, gabinetes de espuma PSG30 y válvulas SN65 — lo que necesita una estación interior completa.' },
-    { href: '/es/guides/fire-extinguisher-selection-guide/', title: 'Guía de Compra de Extintores: Polvo ABC', description: 'Cobertura Clase A/B/C/E, clasificaciones ISO 7165 y empaque de exportación B2B para extintores portátiles.' }
-  ]
+  'Válvulas y Piezas': [guideCard('/es/guides/gate-valve-vs-butterfly-valve-fire-protection/'), guideCard('/es/guides/check-valve-types-guide/')],
+  'Hidrantes y Conexiones de Bomba': [guideCard('/es/guides/how-to-choose-a-fire-hydrant/'), guideCard('/es/guides/fire-hydrant-valve-standards-guide/')],
+  'Rociadores y Válvulas de Alarma': [guideCard('/es/guides/fire-sprinkler-control-valve-types/'), guideCard('/es/guides/fire-sprinkler-system-wet-dry-preaction/')],
+  'Seguridad Hidráulica': [guideCard('/es/guides/pressure-reducing-valve-guide/'), guideCard('/es/guides/backflow-prevention-guide/')],
+  'Cañones de Agua Extintores': [guideCard('/es/guides/fire-water-monitor-selection-guide/'), guideCard('/es/guides/fire-water-cannon-buying-guide/')],
+  'Gabinetes Contra Incendios e Interfaces': [guideCard('/es/guides/fire-hose-reel-cabinet-guide/'), guideCard('/es/guides/fire-extinguisher-selection-guide/')]
 };
 
 const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
