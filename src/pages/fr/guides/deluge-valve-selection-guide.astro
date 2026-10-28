@@ -1,0 +1,188 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Quelle est la principale différence entre une vanne à déluge et une vanne à pré-action ?',
+		answer: 'Un système à déluge utilise des gicleurs ou buses ouverts : l’ouverture de la vanne à déluge envoie donc l’eau vers tous les points de décharge simultanément. Un système à pré-action possède normalement des gicleurs fermés et utilise la détection pour ouvrir une vanne de contrôle avant qu’un gicleur ne libère l’eau. Le déluge est choisi pour une couverture rapide et simultanée ; la pré-action lorsque toute décharge d’eau accidentelle doit être limitée. Confirmez l’interverrouillage et la séquence réglementaire selon l’édition en vigueur.'
+	},
+	{
+		question: 'La vanne à déluge doit-elle utiliser un déclenchement électrique ou hydraulique ?',
+		answer: 'Choisissez le mode de déclenchement d’après la conception de détection, les exigences de la zone dangereuse, l’alimentation disponible et la séquence de sécurité requise. Le déclenchement électrique est pratique lorsque la centrale d’alarme incendie et le circuit de solénoïde surveillé sont déjà spécifiés. Le déclenchement hydraulique ou pneumatique convient aux sites disposant d’une ligne de pression dédiée ou préférant un détecteur pneumatique. Wanlian fournit le groupe de vannes et les accessoires compatibles ; la séquence de la centrale de détection doit être confirmée par le concepteur du système.'
+	},
+	{
+		question: 'Comment protéger un système à déluge dans un climat froid ?',
+		answer: 'Installez autant que possible le groupe de vannes à déluge et son trim dans un local chauffé et accessible, et évitez les conduites exposées remplies d’eau lorsque le gel est possible. Prévoyez la collecte et l’évacuation des condensats du trim de détection, isolez les sections vulnérables et utilisez une configuration sèche ou pneumatique homologuée lorsque la conception l’exige. Ne remplacez pas le liquide antigel et ne modifiez pas le trim sans l’accord de l’autorité compétente. Confirmez la méthode de protection contre le gel selon l’édition en vigueur.'
+	},
+	{
+		question: 'Comment protéger la ligne de détection contre un déclenchement accidentel ?',
+		answer: 'Séparez la ligne de détection des commandes de service ordinaires, surveillez sa pression ou l’état de son circuit, protégez les dispositifs exposés contre les chocs et utilisez la séquence de la centrale de déclenchement prévue pour le danger. Un déclenchement manuel doit être protégé tout en restant accessible ; les raccords d’essai doivent être clairement identifiés et remis en service après l’essai. Les détections hydraulique, pneumatique et électrique nécessitent chacune leur propre surveillance d’alarme et de défaut. La matrice finale des causes et effets doit être approuvée avant la mise en service.'
+	},
+	{
+		question: 'Quelles informations inclure dans une demande de prix pour une vanne à déluge ?',
+		answer: 'Envoyez la description du danger, la zone protégée, le débit et la pression de conception, le diamètre nominal et le raccordement d’extrémité, la disposition des têtes ouvertes ou des moniteurs, le mode de détection, la séquence de déclenchement requise, la température ambiante, le dispositif d’évacuation et l’édition du code applicable. Demandez également les plans du trim, les données matière, les procès-verbaux d’essai de pression, les informations sur les pièces de rechange et les instructions d’utilisation. Si une certification ou homologation est requise, indiquez-le explicitement et demandez au fournisseur de confirmer la documentation en vigueur.'
+	},
+	{
+		question: 'Wanlian fournit-elle la centrale de contrôle de détection du déluge ?',
+		answer: 'Wanlian fournit des groupes de vannes à déluge ainsi que les vannes et accessoires de surveillance associés, notamment le groupe ZSFM et les composants d’isolement ou de contrôle adaptés. Nous ne présentons pas une centrale de contrôle de détection comme faisant partie du package standard de vannes lorsqu’elle n’est pas fournie. La centrale de déclenchement, les détecteurs et la programmation des causes et effets doivent être spécifiés avec l’entreprise d’alarme incendie ou le spécialiste de la détection, puis vérifiés par rapport au trim de la vanne et à la séquence du site.'
+	}
+];
+
+const toc = [
+	{ id: 'when-deluge', label: '1. Quand un système nécessite une protection à déluge' },
+	{ id: 'how-it-works', label: '2. Fonctionnement du groupe de vannes à déluge ZSFM' },
+	{ id: 'actuation', label: '3. Choisir le mode de déclenchement' },
+	{ id: 'sizing', label: '4. Dimensionner la vanne selon le débit et le temps de déclenchement' },
+	{ id: 'discharge', label: '5. Gicleurs ouverts, moniteurs et disposition de décharge' },
+	{ id: 'testing', label: '6. Mise en service et essais périodiques' },
+	{ id: 'rfq-checklist', label: '7. Checklist de demande de prix pour vanne à déluge' },
+	{ id: 'faq', label: 'Questions fréquentes' }
+];
+
+const products = [
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Groupe de vannes à déluge (série ZSFM)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'Groupe à déluge à fond humide pour systèmes à têtes ouvertes et moniteurs' },
+	{ slug: 'pre-action-alarm-system-zsfy', name: 'Système d’alarme à pré-action (série ZSFY)', img: '/assets/products/pre-action-alarm-system-zsfy.jpg', desc: 'Ensembles à pré-action à simple et double interverrouillage' },
+	{ slug: 'manual-fire-water-cannon-ps', name: 'Moniteur manuel d’incendie (série PS)', img: '/assets/products/manual-fire-water-cannon-ps.webp', desc: 'Moniteur fixe pour décharge à déluge et par moniteur' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Vanne-vanne OS&amp;Y à siège résilient UL/FM', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"–10", extrémités rainurées, tige montante, homologuée UL/FM' }
+];
+---
+
+<Layout
+	title="Guide de sélection des vannes à déluge (2026)"
+	description="Fonctionnement, dimensionnement, déclenchement, implantation, essais et données de demande de prix du groupe de vannes à déluge ZSFM."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Guide de sélection des vannes à déluge' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Guide de sélection des vannes à déluge</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide des vannes à déluge</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Dimensionnement et sélection d’une vanne à déluge : systèmes à gicleurs ouverts et à moniteurs</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En bref : une vanne à déluge est la barrière contrôlée entre une alimentation en eau sous pression et un réseau de gicleurs, buses ou moniteurs ouverts. La ligne de détection agit en premier ; la vanne admet ensuite l’eau vers tous les points de décharge ouverts simultanément. Une bonne sélection commence par le danger et le débit de conception, puis vérifie la capacité Kv ou Cv, la perte de pression, le temps de déclenchement, le mode de commande, l’évacuation et l’accès aux essais. Ce guide présente le groupe ZSFM, le compare aux systèmes à mouillé, à sec et à pré-action, et précise les informations qu’un acheteur doit fournir dans une demande de prix.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="when-deluge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Quand un système nécessite une protection à déluge</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La protection à déluge convient lorsqu’un incendie peut se développer rapidement, lorsque tout le danger doit être mouillé ensemble ou lorsqu’un moniteur directionnel doit recevoir de l’eau immédiatement après la détection. Les applications typiques comprennent les décors de scène et cintres de théâtre, les hangars d’aéronefs, les transformateurs, les convoyeurs, les zones de véhicules et les applications à pré-action eau-mousse. La caractéristique déterminante est que les gicleurs ou buses sont ouverts. L’eau n’attend pas le fonctionnement d’une ampoule individuelle ; une seule séquence de déclenchement envoie l’eau dans tout le réseau ouvert.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La contrepartie est une demande d’eau volontairement élevée. Le concepteur d’un système à déluge doit prendre en compte chaque point de décharge ouvert pouvant fonctionner simultanément, l’alimentation disponible à l’entrée de la vanne, le frottement dans les conduites et la pression nécessaire au point de sortie hydrauliquement le plus éloigné. EN 12845 et NFPA 13 exigent que la vanne à déluge alimente rapidement toutes les sorties ouvertes après la détection, souvent dans un délai d’environ 60 secondes, mais l’édition applicable et le danger du projet déterminent la base exacte de conception. Confirmez toujours l’exigence selon l’édition en vigueur.</p>
+			<p class="text-gray-700 leading-relaxed">La décision ne consiste pas simplement à choisir « la plus grande vanne disponible ». Un clapet anti-retour à alarme à mouillé tel que le <a href="/fr/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">clapet anti-retour à alarme à mouillé ZSFZ</a> appartient à une configuration différente, normalement fermée. Pour un système à têtes ouvertes, le <a href="/fr/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">groupe de vannes à déluge ZSFM</a> constitue le point de départ pertinent, sous réserve du calcul hydraulique et des exigences d’homologation.</p>
+
+			<h2 id="how-it-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Fonctionnement du groupe de vannes à déluge ZSFM</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Une vanne à déluge reste fermée grâce à un dispositif d’amorçage tandis que le côté alimentation demeure sous pression. Un circuit de détection indépendant détecte le danger et libère le trim par une séquence hydraulique, pneumatique ou électrique. Lorsque la pression de maintien disparaît ou que le dispositif de déclenchement agit, le diaphragme ou clapet principal se déplace et l’eau d’alimentation entre dans la tuyauterie du déluge. L’eau atteint alors tous les gicleurs, buses ou moniteurs ouverts au lieu d’attendre l’activation thermique de chaque sortie.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Le groupe ZSFM doit être examiné comme un ensemble, et pas uniquement comme un corps de vanne. La demande de prix doit préciser le diamètre de la vanne, les raccordements d’entrée et de sortie, le trim d’amorçage, l’évacuation et le dispositif d’essai, la sortie d’alarme, les pressostats et le déclenchement manuel d’urgence. La voie d’alarme peut actionner une cloche hydraulique ou transmettre la pression à une centrale surveillée, selon le trim spécifié. Une vanne d’isolement surveillée en amont et un dispositif d’essai contrôlé en aval rendent l’ensemble maintenable sans dissimuler une vanne fermée.</p>
+			<p class="text-gray-700 leading-relaxed">Wanlian fournit des groupes de vannes à déluge avec les vannes et accessoires de surveillance associés. La centrale de détection, les détecteurs et la logique programmée des causes et effets ne sont pas inclus implicitement lorsqu’ils sont fournis par un autre spécialiste. Cette limite doit apparaître dans la nomenclature afin que l’installateur sache qui est responsable du circuit de déclenchement, de la notification d’alarme et de la séquence de réarmement.</p>
+
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Type de système</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Condition de décharge</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Logique de sélection typique</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Déluge</td>
+							<td class="px-4 py-3 text-gray-700">Toutes les sorties ouvertes débitent après le déclenchement de la vanne</td>
+							<td class="px-4 py-3 text-gray-700">Mouillage rapide et simultané d’une zone à haut danger</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">À mouillé</td>
+							<td class="px-4 py-3 text-gray-700">Seuls les gicleurs actionnés par la chaleur débitent</td>
+							<td class="px-4 py-3 text-gray-700">Locaux chauffés avec gicleurs fermés</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">À sec</td>
+							<td class="px-4 py-3 text-gray-700">L’air s’échappe avant l’entrée de l’eau dans le réseau sec</td>
+							<td class="px-4 py-3 text-gray-700">Zones où le gel exclut un système à mouillé</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pré-action</td>
+							<td class="px-4 py-3 text-gray-700">La détection ouvre la vanne ; les gicleurs fermés contrôlent encore la décharge</td>
+							<td class="px-4 py-3 text-gray-700">Locaux sensibles à l’eau nécessitant une condition de déclenchement supplémentaire</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="actuation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Choisir le mode de déclenchement</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La ligne de détection est séparée de la tuyauterie de distribution d’eau et agit avant la vanne à déluge. Une ligne de détection hydraulique remplie de liquide peut déclencher par un dispositif pilote ; une ligne pneumatique utilise la pression d’air et un pilote sec ; un déclenchement électrique utilise un solénoïde surveillé et une centrale de déclenchement. Le choix dépend de l’environnement du site, des utilités disponibles, du cheminement des câbles, de la philosophie de surveillance et de la séquence requise pour le déclenchement manuel, l’alarme et le réarmement.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Le déclenchement électrique est souvent pratique lorsque des détecteurs, une centrale d’alarme incendie et des points d’état distants existent déjà. Le déclenchement hydraulique ou pneumatique peut être préféré lorsque la commande est locale ou lorsque la ligne de détection doit rester indépendante d’un long circuit électrique. La <a href="/fr/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">vanne de contrôle à solénoïde rainurée GKZF1</a> peut convenir à une configuration de vanne commandée électriquement, mais la sortie de la centrale, la tension, la surveillance et le mode de réarmement doivent encore être confirmés par le concepteur du système.</p>
+			<p class="text-gray-700 leading-relaxed">Pour une solution à pré-action, le <a href="/fr/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">système d’alarme à pré-action ZSFY</a> offre une comparaison utile, car les séquences à simple et double interverrouillage imposent des conditions de déclenchement différentes. Ne choisissez pas sur le seul mot « électrique » : documentez le comportement en cas de perte d’alimentation, de perte de pression pilote, d’alarme détecteur, de déclenchement manuel, d’alarme de débit et de remise en service. La matrice finale doit être testée comme une séquence de fonctionnement, et pas seulement vérifiée comme un schéma de câblage.</p>
+
+			<h2 id="sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Dimensionner la vanne selon le débit et le temps de déclenchement</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Dimensionnez la vanne à partir de la demande calculée, et pas seulement du diamètre de la conduite secondaire. Établissez le débit de conception à partir de tous les gicleurs, moniteurs ou buses ouverts que le danger doit faire fonctionner, puis vérifiez la pression disponible à l’entrée et la pression à la sortie éloignée. La vanne choisie doit laisser passer le débit requis avec une perte acceptable, tandis que le trim et la voie d’alarme restent dans leur plage de fonctionnement. Kv ou Cv est une valeur de comparaison utile, mais elle doit être lue pour la perte de pression concernée et non copiée d’une condition d’essai sans rapport.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Le temps de déclenchement est un résultat du système. Il comprend la réponse de la détection, la chute de pression de la ligne pilote ou le déclenchement électrique, l’ouverture de la vanne, la réponse du trim, le remplissage des conduites et l’arrivée de l’eau aux sorties éloignées. EN 12845 et NFPA 13 prévoient une livraison rapide pour le service à déluge, souvent autour de 60 secondes pour alimenter les sorties ouvertes après détection. Confirmez l’exigence exacte du projet selon l’édition en vigueur, puis validez-la avec la branche la plus longue et hydrauliquement la plus défavorable, plutôt qu’avec le raccord d’essai le plus court.</p>
+			<p class="text-gray-700 leading-relaxed">La ligne de détection nécessite son propre calcul. Son trajet pilote le plus long ou le plus éloigné peut déterminer la chute de pression, le volume d’air, le déplacement de l’eau ou la surveillance électrique. Intégrez les différences de niveau, les raccords, les points de condensation et le dispositif de déclenchement réel. Si le froid ou l’humidité peuvent créer de la condensation, prévoyez un collecteur de condensats et une évacuation à un point bas approprié. Ces détails sont faciles à omettre dans une offre limitée à la vanne et expliquent souvent pourquoi l’essai de déclenchement sur site ne correspond pas au plan.</p>
+
+			<h2 id="discharge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Gicleurs ouverts, moniteurs et disposition de décharge</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les gicleurs et buses ouverts sont implantés pour couvrir le danger comme un ensemble. Leur orifice, leur angle de pulvérisation, leur espacement et leur altitude influencent la demande hydraulique, tandis que les obstacles et le vent peuvent modifier la couverture réelle. Une configuration avec moniteur ajoute des considérations de portée, de visée et de réaction ; un <a href="/fr/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">moniteur manuel d’incendie PS</a> fixe peut faire partie d’un service de décharge à déluge ou par moniteur, mais l’alimentation en eau doit être vérifiée pour le débit du moniteur avec les éventuelles têtes ouvertes simultanées.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Ne prévoyez un dispositif d’isolement en aval que lorsque la conception approuvée l’autorise, et surveillez toute vanne qui pourrait neutraliser une partie du danger. L’évacuation et le raccord d’essai du déluge doivent rejeter l’eau en sécurité, sans inonder le local des vannes ni envoyer de l’eau contaminée vers un drain inadapté. Gardez la sortie d’alarme visible et accessible, et repérez le déclenchement manuel afin qu’un opérateur puisse l’identifier en urgence sans le confondre avec la vanne d’essai ou d’évacuation.</p>
+			<p class="text-gray-700 leading-relaxed">Pour le contexte système, comparez les hypothèses hydrauliques avec le guide des systèmes de gicleurs ESFR et le <a href="/fr/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">guide des systèmes à mouillé, à sec et à pré-action</a>. Lorsqu’une mousse est ajoutée, consultez le <a href="/fr/guides/foam-deluge-system-guide/" class="text-brand-blue font-semibold hover:underline">guide des systèmes à déluge mousse</a> afin de traiter la vanne à déluge, l’équipement de dosage du concentré et les dispositifs de décharge comme une seule séquence hydraulique et de commande.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Mise en service et essais périodiques</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La mise en service doit démontrer à la fois le cheminement de l’eau et le cheminement du déclenchement. Vérifiez que la vanne d’alimentation amont et les vannes d’isolement du trim sont dans leurs positions prévues, que la pression d’amorçage est stable, que l’évacuation est libre et que la sortie d’alarme est raccordée. Actionnez séparément le déclenchement manuel et la séquence normale de détection lorsque la procédure approuvée l’autorise, puis notez le temps entre le déclenchement et l’action de la vanne, le signal d’alarme et l’arrivée de l’eau à la sortie éloignée représentative.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Testez le bypass et l’évacuation sans laisser de voie cachée ouverte. Vérifiez la cloche hydraulique ou le pressostat, la transmission d’alarme, les contacts de surveillance et le réarmement. Un signalisateur de débit en aval peut aider à surveiller l’état ; le guide des signalisateurs de débit fournit un contexte plus large pour choisir et surveiller ce signal. Avant la saison des pluies ou toute autre période d’exploitation à haut risque, réalisez l’essai de déclenchement prévu en alignant le propriétaire, l’entreprise d’alarme et les exigences de l’autorité.</p>
+			<p class="text-gray-700 leading-relaxed">La maintenance périodique doit suivre NFPA 25, le code local applicable et les instructions du fabricant de la vanne. Inspectez le trim pour détecter la corrosion, vérifiez que les évacuations et collecteurs de condensats ne sont pas obstrués, et consignez les pressions plutôt que de vous fier à la mémoire. L’essai doit être contrôlé afin que la zone de décharge soit sûre et que le système soit rapidement remis en service. Si l’édition en vigueur modifie un intervalle, un critère d’acceptation ou une exigence documentaire, vérifiez-la selon cette édition au lieu de réutiliser une ancienne checklist.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Checklist de demande de prix pour vanne à déluge</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Décrire le danger.</strong> Précisez le local ou le procédé, la charge combustible, l’emprise protégée et indiquez si les sorties sont des gicleurs ouverts, des buses, des moniteurs ou des dispositifs eau-mousse.</li>
+				<li><strong>Fournir les données hydrauliques.</strong> Indiquez le débit de conception, la pression requise au point éloigné, la pression disponible, le diamètre de conduite, l’altitude et les hypothèses du calcul hydraulique applicable.</li>
+				<li><strong>Définir le groupe de vannes.</strong> Précisez le diamètre nominal, le raccordement d’extrémité, les matériaux du corps et du trim, le diamètre d’évacuation, la sortie d’alarme, le dispositif d’essai et toute vanne d’isolement surveillée.</li>
+				<li><strong>Spécifier le déclenchement.</strong> Identifiez la détection hydraulique, pneumatique ou électrique, la longueur de la ligne pilote, le déclenchement manuel, les détails du solénoïde, l’interface de la centrale et la séquence requise.</li>
+				<li><strong>Préciser l’environnement.</strong> Indiquez les températures ambiantes minimale et maximale, l’emplacement intérieur ou extérieur, le risque de condensation, le chemin d’évacuation et l’exposition à la corrosion.</li>
+				<li><strong>Demander les documents.</strong> Demandez un plan d’ensemble, un schéma du trim, les instructions d’installation et de maintenance, le procès-verbal d’essai de pression, les informations matière et les documents d’homologation ou de certification en vigueur lorsque le projet l’exige.</li>
+				<li><strong>Fixer l’essai d’acceptation.</strong> Définissez le temps de déclenchement cible, les signaux d’alarme, l’observation de la sortie éloignée, la procédure de remise en service et les enregistrements requis après l’essai.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Pour un cadre d’achat plus large, utilisez la <a href="/fr/fire-sprinkler-systems/" class="text-brand-blue font-semibold hover:underline">présentation des systèmes de gicleurs incendie</a> avec les guides associés ci-dessus. Une demande de prix complète permet à Wanlian de confirmer la configuration du groupe de vannes sans prétendre concevoir l’implantation des détecteurs ou l’ensemble de la centrale d’alarme incendie. Le résultat est une répartition plus claire des fournitures, une vérification hydraulique plus fiable et moins de modifications lors de la mise en service.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Besoin d’un groupe de vannes à déluge pour votre système ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez le débit et la pression du système, le diamètre de la vanne, le type de danger et le mode de détection : nos ingénieurs peuvent confirmer la configuration du groupe de vannes à déluge sous 12 heures.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Vanne%20d%E2%80%99alarme%20%C3%A0%20d%C3%A9luge%20(ZSFM)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20j%E2%80%99ai%20besoin%20d%E2%80%99un%20groupe%20de%20vannes%20%C3%A0%20d%C3%A9luge%20pour%20un%20syst%C3%A8me%20%C3%A0%20t%C3%AAtes%20ouvertes%20ou%20%C3%A0%20moniteurs" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

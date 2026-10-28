@@ -1,0 +1,216 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'يتباعد عرضا سعر للصمام نفسه بنحو 30%. ما الذي يختلف عادةً؟',
+		answer: 'تعكس فجوة بنحو 30% عادةً أساسًا تجاريًا وتقنيًا مختلفًا، لا هامش مصنع مختلفًا فحسب. افحص مواد جسم الصمام والأجزاء الداخلية، ومركّب المقعد، ومعيار الأطراف، والطلاء، ونطاق اختبار الضغط، والشهادات، والتعبئة، وشرط التسليم، وما إذا كانت القوالب أو الفحص مستثناة. أعد طلب توضيح بندًا بندًا قبل مقارنة الإجماليات.'
+	},
+	{
+		question: 'لماذا يُعد النظر إلى رقم FOB فقط خطأً؟',
+		answer: 'يغطي FOB (التسليم على ظهر السفينة) نقطة التسليم المتفق عليها للتصدير، وليس كامل تكلفة وصول الشحنة إليك. قد يغيّر النقل الداخلي، والتصريح بالتصدير، والشحن البحري، والرسوم، ومصاريف الميناء والتخليص الجمركي النتيجة المسلّمة. قارن EXW (التسليم من المصنع)، وFOB، وCIF (التكلفة والتأمين والشحن)، وDDP (التسليم مع الرسوم مدفوعة) في ورقة تكلفة واحدة حسب الوجهة، مع تأكيد الرسوم التي تبقى مسؤوليتك.'
+	},
+	{
+		question: 'هل ينبغي أن نطلب فحص طرف ثالث أو حضور FAT؟',
+		answer: 'اطلب فحصًا مستقلًا قبل الشحن أو حضور FAT (اختبار القبول في المصنع) عندما يكون الطلب حرجًا للسلامة، أو يكون المورد جديدًا، أو تكون المواصفة معقدة، أو تحتاج المستندات إلى تأكيد مستقل. وضّح نقطة إيقاف الفحص، وأخذ العينات، وسجلات الاختبار، ومن يدفع. يمكن لجهات فحص من نمط SGS أو BV حضور النطاق المتفق عليه، لكنها لا تستبدل معايير القبول الفنية لديك.'
+	},
+	{
+		question: 'كيف نتفاوض بشأن سياسة العينة؟',
+		answer: 'حدّد ما إذا كانت العينة صمام إنتاج فعليًا، أو نموذجًا مقطوعًا، أو نموذجًا أوليًا، واذكر من يدفع ثمن العينة والقوالب والشحن وتقارير الاختبار. اتفق على مصير العينة المعتمدة عند إصدار الطلب التجريبي، وسجّل أي انحرافات في الأبعاد أو الطلاء أو الوسم قبل الاعتماد.'
+	},
+	{
+		question: 'كيف ينبغي تحديد مراحل الدفع؟',
+		answer: 'تُعد هياكل T/T 30/70 (تحويل مصرفي) وL/C عند الاطلاع (اعتماد مستندي) شائعة، لكن يجب أن يكون شرط الإفراج محددًا. اربط الرصيد بإتمام الفحص واعتماد المستندات والتعبئة المتفق عليها، لا بوعد غير رسمي. أكّد اسم المستفيد والبيانات المصرفية والكيان صاحب الطلب وإجراء تغيير الحساب عبر قناة معروفة.'
+	},
+	{
+		question: 'متى نطلب خطة FAT بعد استلام عرض السعر؟',
+		answer: 'اطلب خطة FAT أثناء التوضيح الفني وقبل الترسية، لا بعد اكتمال الإنتاج. ينبغي أن تحدد الخطة أساس اختبار الجسم والمقعد، وأخذ العينات، وأجهزة القياس، وسجلات القبول، وشهادات المواد، والوسم، والتعبئة، وإشعار الحضور. يمنح ذلك الطرفين وقتًا لحجز موعد الاختبار وحل أي استثناء قبل الشحن.'
+	}
+];
+
+const toc = [
+	{ id: 'why-quotes-differ', label: '1. لماذا يختلف عرضان للصمام نفسه؟' },
+	{ id: 'write-rfq', label: '2. كتابة RFQ للحصول على عروض دقيقة' },
+	{ id: 'read-quote', label: '3. قراءة عرض السعر بندًا بندًا' },
+	{ id: 'hidden-costs', label: '4. التكاليف التي تظهر بعد الترسية' },
+	{ id: 'appraisal', label: '5. إعداد تقييم مقارن' },
+	{ id: 'verification', label: '6. التحقق قبل الدفع' },
+	{ id: 'pilot-order', label: '7. الطلبات التجريبية والتوسع' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const products = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'صمام بوابة Z41X ذو مقعد مرن وشفة', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50-DN700 PN10/16 إسفين مغلف بـ EPDM' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'صمام بوابة UL/FM ذو مقعد مرن OS&amp;Y', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10"، أطراف محززة، ساق صاعد، مدرج UL/FM' },
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'صمام فحص كروي HQ44X', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50-DN400 PN16، كرة EPDM غير صادمة' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'خلاط حريق فوق الأرض مانع للتجمد (SS100/65)', img: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp', desc: 'حديد دكتايل GB 4452، 1.6 MPa، تصريف مقاوم للتجمد' }
+];
+---
+
+<Layout
+	title="مقارنة عروض موردي الصمامات الصينيين | دليل B2B"
+	description="دليل مشتريات لطلبات RFQ إلى مصانع الصمامات الصينية: المواصفات، اختلاف العروض، التكاليف الخفية، التقييم والتحقق قبل الترسية."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'الأدلة', href: '/ar/blog/' }, { name: 'دليل مقارنة عروض الصمامات' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">دليل مقارنة عروض الصمامات</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل شراء الصمامات</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">كيف تقارن عروض موردي الصمامات الصينيين دون خسارة الصفقة لاحقًا</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">باختصار: لا يمكن مقارنة عرضي سعر للصمامات إلا عندما يكون النطاق الفني وشرط التسليم والمستندات والاختبارات وشرط الدفع متماثلًا. يوضح هذا الدليل للمشترين كيفية كتابة RFQ (طلب عرض سعر)، وقراءة كل بند، وكشف فروق التكلفة الواصلة، وتقييم الموردين، والتحقق من مصنع صمامات صيني قبل ترسية أمر الشراء. تسعّر Wanlian وفق RFQ لا بعرض قائمة أسعار، لذا فإن نقطة البداية المفيدة هي BOM (قائمة المواد) والمواصفة الكاملان.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-quotes-differ" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. لماذا يختلف عرضان للصمام نفسه؟</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">غالبًا ما يكون «الصمام نفسه» الاسم نفسه فقط. قد يقدّم مصنع جسمًا من الحديد الدكتايل مع أجزاء داخلية من الفولاذ المقاوم للصدأ، بينما يستخدم مصنع آخر درجة مختلفة للأجزاء الداخلية أو مركّب مقعد مختلفًا. وقد يشمل أحدهما اختبار الجسم والمقعد، وتتبع المواد، وكتاب بيانات موقّعًا، بينما لا يشمل الآخر سوى فحص مصنع روتيني. قد يتبع تثقيب الشفة ANSI أو DIN أو EN أو JIS، وقد يختلف البعد وجهًا لوجه حسب التصميم. كما يؤثر نظام الطلاء والوسم والتعبئة والتوضيب على ما يصل إلى الموقع.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">ينشئ النطاق التجاري فجوة ثانية. قد يظهر الحد الأدنى للطلب، والقوالب المخصصة، وتعديل النموذج، واختبار العينة، وشهادات المواد 3.1، وحضور FAT من طرف ثالث، والتعبئة الخاصة كبنود منفصلة أو تُحذف حتى التوضيح. ليست EXW وFOB وCIF وDDP مسميات سعر قابلة للتبادل؛ فهي تنقل التكلفة والمخاطر في نقاط مختلفة. قبل السؤال عن ارتفاع السعر، اسأل هل سعّر الموردان نفس التسليم.</p>
+			<p class="text-gray-700 leading-relaxed">أنشئ ورقة مقارنة واحدة قبل التفاوض. ضع الطراز، والمقاس الاسمي، وفئة الضغط، ووصلة النهاية، والمواد، والمعيار، والفحص، والمستندات، والكمية، والوجهة، والتاريخ المطلوب في أعمدة ثابتة. تُعد <a href="/ar/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">قائمة تحقق توريد الصمامات B2B</a> رفيقًا مفيدًا لجعل هذا النطاق واضحًا.</p>
+
+			<h2 id="write-rfq" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. كتابة RFQ للحصول على عروض دقيقة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يجب أن يتيح RFQ للمصنع الإجابة دون تخمين. أرفق جدول الصمامات أو BOM، والرسومات، ووسط الخدمة، ودرجة حرارة التشغيل وضغطه، والكمية حسب المقاس، وميناء الوجهة، ونافذة التسليم المطلوبة، والكود المطبق. اذكر ما إذا كان الصمام مخصصًا للحماية من الحريق أو شبكات المياه أو خدمة المعالجة أو الاستبدال. أضف تفاصيل معيار النهاية مثل فئة ANSI أو تثقيب DIN/EN/JIS بدل كتابة «ذو شفة» فقط.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">اجعل طلب المستندات جزءًا من بند السعر. اطلب تعيينات مواد الجسم والأجزاء الداخلية، ومواد المقعد، وسجلات اختبار الضغط، وشهادات 3.1 عند الحاجة، وبيانات الطلاء، وتصميم لوحة الاسم، وصور التعبئة، وخطة الفحص والاختبار. إذا كان طرف ثالث سيحضر FAT، فاذكر نقطة الإيقاف وسجلات القبول. لمعدات الحريق، اطلب أدلة يمكن مطابقتها مع الطراز الدقيق؛ ولا تقبل «يعادل علامة مشهورة» بديلًا عن إدراج أو شهادة قابلة للتحقق.</p>
+			<p class="text-gray-700 leading-relaxed">اطلب من كل مقدم عرض تحديد الاستثناءات والانحرافات في عمود منفصل. العمود الفارغ لا يعني التأكيد. ألزِم المورد بذكر العملة، ومدة صلاحية العرض، ومدة الإنتاج، والحد الأدنى للطلب، وأساس الضمان، وهيكل الدفع، وشرط التجارة، وافتراضات الوجهة. تعمل Wanlian بخطوط إنتاجها الخاصة إلى جانب طاقة تعاونية مؤهلة، وتقدّم السعر وفق نطاق RFQ حتى يمكن مواءمة مسار الإنتاج مع الصمام والمستندات المطلوبة.</p>
+
+			<h2 id="read-quote" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. قراءة عرض السعر بندًا بندًا</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">اقرأ عرض السعر باعتباره عرضًا فنيًا لا رقمًا واحدًا. ابدأ برمز المنتج الدقيق وإصداره، ثم افحص فئة الضغط، ونطاق المقاس الاسمي، ووصلة النهاية، ومعيار البعد وجهًا لوجه، وجدول المواد. أكّد أن <a href="/ar/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">صمام البوابة Z41X ذو المقعد المرن والشفة</a> المسعّر هو التكوين المطلوب، وليس صمام بوابة مشابهًا بصريًا ذي إسفين أو تثقيب مختلف.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">حقل العرض</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">ما يجب تأكيده</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">سبب تأثيره في القرار</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الصمام والمواد</td>
+							<td class="px-4 py-3 text-gray-700">الجسم، والغطاء، والساق، والأجزاء الداخلية، والإسفين أو الكرة، والمقعد والحشية</td>
+							<td class="px-4 py-3 text-gray-700">العمر التشغيلي، ومقاومة التآكل، ونطاق الاعتماد</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الوصلة</td>
+							<td class="px-4 py-3 text-gray-700">تثقيب ANSI أو DIN أو EN أو JIS؛ أطراف محززة أو ملولبة</td>
+							<td class="px-4 py-3 text-gray-700">الملاءمة في الموقع وخطر شحنة ثانية مكلفة</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الاختبار والمستندات</td>
+							<td class="px-4 py-3 text-gray-700">اختبار الجسم والمقعد وفق API 598، والشهادات، وFAT، وكتاب البيانات</td>
+							<td class="px-4 py-3 text-gray-700">دليل القبول وإمكانية التتبع بعد التسليم</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">أساس التسليم</td>
+							<td class="px-4 py-3 text-gray-700">EXW أو FOB أو CIF أو DDP، والمكان المحدد والرسوم المشمولة</td>
+							<td class="px-4 py-3 text-gray-700">التكلفة الواصلة، وانتقال المخاطر، وأعباء الاستيراد</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الدفع والإفراج</td>
+							<td class="px-4 py-3 text-gray-700">T/T 30/70 أو L/C عند الاطلاع، ومحفزات الفحص والمستندات</td>
+							<td class="px-4 py-3 text-gray-700">التعرض النقدي والسيطرة قبل الشحن</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">ثم افحص الشروط الدقيقة. قد لا تعني «التعبئة القياسية» تعبئة تصدير، وقد لا يعني «شهادة اختبار» تقريرًا مرتبطًا بأرقامك التسلسلية. أكّد ما إذا كانت منصات ISPM-15 والملصقات والأختام الاحتياطية والكتيبات والصور مشمولة. في تطبيقات خدمة الحريق، قارن الإدراج والوسم وأدلة الفحص الدقيقة، لا وصف المنتج المألوف فقط. عند غموض لغة الاختبار، راجع <span class="text-brand-blue font-semibold">دليل اختبار الضغط API 598</span>.</p>
+
+			<h2 id="hidden-costs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. التكاليف التي تظهر بعد الترسية</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تبدأ التكلفة المسلّمة بالصمام المسعّر لكنها لا تنتهي عنده. في EXW قد ترتب استلام المصنع والجزء الداخلي من النقل. وفي FOB يتولى المورد عادةً إجراءات التصدير حتى نقطة التحميل المحددة، بينما يتحمل المشتري الشحن البحري والتكاليف اللاحقة. يشمل CIF الشحن والتأمين إلى الميناء المحدد، لكنه لا يشمل بالضرورة أعمال محطة الوصول أو الرسوم أو التخليص الجمركي. قد يكون DDP أبسط للمشتري، لكن يجب تدوين نطاق الضريبة والمستورد المسجل والتسليم بدقة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">ارسم السلسلة كاملة: النقل الداخلي، والتصريح بالتصدير، والشحن البحري، والتأمين، والرسوم، ومصاريف الميناء والمحطة، ووكيل التخليص الجمركي، والتسليم النهائي، وأي فحص أو تخزين. أضف الإضافات التجارية التي يسهل نسيانها: الحد الأدنى للطلب، ورسوم القوالب أو الأدوات، ورسوم العينة والاختبار، وشهادات 3.1، وFAT من طرف ثالث، والطلاء الخاص، وترجمة لوحة الاسم، وكراتين التصدير، ومعالجة ISPM-15. اطلب مدة صلاحية لأن الشحن والرسوم الإضافية قد تتغير بين الترسية والشحن.</p>
+			<p class="text-gray-700 leading-relaxed">لا تسمح لعرض منخفض ظاهريًا بإخفاء نقص فني. قد يؤدي غياب مادة المقعد، أو تثقيب الشفة الخطأ، أو سجل الاختبار المفقود إلى إعادة عمل وتأخير ومخاطر اعتماد تتجاوز الفارق الأولي. ولحل إحدى أكثر فجوات النطاق شيوعًا قبل أمر الشراء، راجع <span class="text-brand-blue font-semibold">دليل شفة ANSI وDIN وJIS</span>.</p>
+
+			<h2 id="appraisal" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. إعداد تقييم مقارن</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">استخدم تقييمًا موزونًا بدل اختيار أقل بند سعر. تمنح بطاقة نقاط عملية أكبر قدر من الاهتمام للملاءمة الفنية وأدلة الامتثال، ثم وضوح التكلفة الواصلة، وضوابط الجودة، ومدة التوريد، والتواصل، ومخاطر الدفع. ينبغي أن يعكس الوزن الدقيق عاقبة الفشل: يمكن تقييم صمام بديل لمرفق غير حرج بطريقة مختلفة عن صمام في حزمة حماية من الحريق.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">بُعد التقييم</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">الأدلة المطلوبة</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">علامة تحذيرية</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الملاءمة الفنية</td>
+							<td class="px-4 py-3 text-gray-700">الرسومات، وورقة البيانات، والمواد، ومعايير النهايات والانحرافات</td>
+							<td class="px-4 py-3 text-gray-700">ذكر «مكافئ» دون إثبات على مستوى الطراز</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الجودة وإمكانية التتبع</td>
+							<td class="px-4 py-3 text-gray-700">ITP، وسجلات التسلسل، وسجلات الاختبار، وشهادات 3.1، وإمكانية التدقيق</td>
+							<td class="px-4 py-3 text-gray-700">تعذر التحقق من جهة إصدار الشهادة أو نطاقها</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">الوضوح التجاري</td>
+							<td class="px-4 py-3 text-gray-700">شرط التجارة، والوجهة، والاستثناءات، والصلاحية، وورقة التكلفة الواصلة</td>
+							<td class="px-4 py-3 text-gray-700">لا يظهر الشحن أو الرسم أو الأدوات إلا بعد الترسية</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">مخاطر التنفيذ</td>
+							<td class="px-4 py-3 text-gray-700">فيديو المصنع، وخطة الطاقة، والمراجع، وسجل التواصل</td>
+							<td class="px-4 py-3 text-gray-700">رفض التدقيق أو تغيير الحساب المستلم</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">سجّل الأسئلة التي لم تُجب كخصومات، لا كافتراضات. المورد المتجاوب الذي يحدد انحرافًا أكثر أمانًا من مورد يقول نعم لكل شيء ثم يغير النطاق لاحقًا. احتفظ بإصدار عرض السعر والتوضيحات والرسم المعتمد مرفقة بالتقييم حتى يبقى قرار الترسية قابلًا للتدقيق.</p>
+
+			<h2 id="verification" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. التحقق قبل الدفع</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">قبل الإفراج عن دفعة مقدمة، تحقق من الكيان القانوني، وعنوان المصنع، وقدرة الإنتاج، والمستفيد المصرفي، وجهة إصدار المستندات. اطلب جولة فيديو مباشرة للتشغيل الآلي، والتجميع، واختبار الضغط، والطلاء، وتحديد المستودع، والتعبئة. الفيديو ليس بديلًا عن التدقيق، لكن رفض إظهار موقع التشغيل تحذير واضح. إذا استخدم المورد طاقة تعاونية مؤهلة، فحدد العملية التي تتم خارجيًا ومن يملك الفحص النهائي.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">تحقق من أن الشهادات تذكر المصنّع والطراز الصحيحين، وأن الحساب المستلم يطابق الكيان المتعاقد. يتطلب اختلاف اسم حامل الشهادة والحساب المدفوع إليه دون تفسير توضيحًا قبل الدفع. تعامل مع عبارة «نفس العلامة الكبرى» كعبارة تسويقية إلى أن يمكن التحقق مستقلًا من الطراز والإدراج والمواد وأدلة الاختبار. لعملية منظمة، اتبع <a href="/ar/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">دليل التحقق من مورد صمامات صيني</a> وراجع <a href="/ar/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">فحوص الصمامات ومعدات الحريق المقلدة</a>.</p>
+			<p class="text-gray-700 leading-relaxed">اتفق على خطة FAT قبل وصول الإنتاج إلى مرحلته النهائية. حدد اختبارات الجسم والمقعد وفق API 598 عند انطباقها، ومعايرة أجهزة القياس، واختيار العينات، وفحوص الطلاء والوسم، ومراجعة المستندات، وإشعار الحضور، ومعالجة حالات عدم المطابقة. يمكن لشاهد طرف ثالث من مؤسسة بنمط SGS أو BV أن يضيف استقلالية، لكن يجب أن يحدد أمر الشراء القبول أيضًا.</p>
+
+			<h2 id="pilot-order" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. الطلبات التجريبية والتوسع</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يحوّل الطلب التجريبي الافتراضات إلى أدلة. استخدمه لفحص الصمام الفعلي مقابل الرسم المعتمد، والأبعاد، وتثقيب الشفة، وعزم التشغيل، والطلاء، ولوحة الاسم، والتعبئة، وحزمة المستندات. في تطبيق مياه الحريق، تحقق من تكوين <a href="/ar/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">صمام البوابة UL/FM ذي المقعد المرن OS&amp;Y</a> و<a href="/ar/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">صمام الفحص الكروي HQ44X</a> مقابل النطاق المعتمد، لا بالاعتماد على صورة كتالوج.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">ابدأ على نطاق صغير لأن تكلفة اكتشاف عدم التطابق أقل قبل تعميم المنتج على المشروع. يختبر الطلب التجريبي أيضًا التواصل، وضبط التغييرات، وجودة التعبئة، ومستندات التصدير، وسرعة تصحيح عدم المطابقة. لا تُفرج عن الدفعة التالية إلا بعد إغلاق تقرير التجربة وتأكيد المورد أن الإصدار المعتمد مقفل للإنتاج.</p>
+			<p class="text-gray-700 leading-relaxed">يجب أن يحافظ التوسع على بوابات الفحص نفسها، وإمكانية التتبع، ومحفزات الدفع. تستطيع Wanlian تسعير حزم مبنية على RFQ باستخدام خطوط إنتاجها الخاصة وطاقة تعاونية مؤهلة؛ أرسل جدول الصمامات والوجهة والمستندات المطلوبة حتى نفصل بين التوريد القياسي والفحوص الخاصة بالمشروع. وللتخطيط الأوسع للمخاطر، اقرأ <a href="/ar/guides/cross-border-procurement-risk-whitepaper/" class="text-brand-blue font-semibold hover:underline">الورقة البيضاء لمخاطر التوريد عبر الحدود</a> قبل اعتماد مسار التوريد النهائي.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">هل أنت مستعد لمقارنة RFQ لصمام؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل BOM أو ورقة الاستفسار، والوجهة، والمعايير، ومتطلبات المستندات. تسعّر Wanlian وفق RFQ، وتؤكد النطاق الفني، وتفصل افتراضات الإنتاج والفحص والتسليم قبل الترسية.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Valve%20RFQ%20Package" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب RFQ لصمام</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20valve%20quotes%20for%20my%20BOM" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

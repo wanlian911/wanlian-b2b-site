@@ -1,0 +1,193 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'هل يمكن لمشروع أمريكي شراء خلاط حريق EN 14461؟',
+		answer: 'يمكن شراؤه، لكن الشراء لا يعني القبول. يبدأ المشروع الأمريكي عادةً من الجهة المختصة، ونمط وصلة إدارة الإطفاء، ومعيار العقد. ولا يُنظر في خلاط EN 14461 إلا بعد أن يقبل المهندس والجهة المختصة فئة ضغطه، ومخارجه، وواجهات الوصل، ووثائق الاختبار، وتفاصيل التركيب. إذا نصّ العطاء على AWWA C509، فاعرض خلاطًا مهيأً وفق AWWA بدل افتراض أن منتج EN مكافئ له.'
+	},
+	{
+		question: 'هل يمكن استخدام خلاط AWWA C509 في مشروع EN؟',
+		answer: 'فقط بعد الحصول على موافقة موثقة للمشروع. قد يختلف خلاط AWWA C509 عن خلاط EN 14461 في ترتيب البرميل، وتعيين الضغط، ونمط المخارج، والقلاوظ، وأدلة اختبار النوع. يجب على المصمم تأكيد أن تكوين AWWA يفي بواجهة الأداء الأوروبية المطلوبة. لا تستبدل المنتج اعتمادًا على المقاس الاسمي وحده؛ قدّم المعيار المقترح والرسومات والمواد وسجلات الاختبار للمراجعة قبل الإصدار.'
+	},
+	{
+		question: 'كيف أختار بين خلاط حريق ببرميل جاف وآخر ببرميل مبلل؟',
+		answer: 'ابدأ بالمناخ وترتيب التركيب والمعيار المحلي. يحافظ ترتيب البرميل الجاف على تصريف البرميل العلوي بعد الإغلاق، ويناسب المواقع التي يمثل فيها التجمد مصدر قلق تصميمي، بينما يبقى البرميل المبلل ممتلئًا بالماء ويُستخدم عمومًا حيث لا يُتوقع التجمد. يجب أن يرد الاختيار النهائي في مواصفة المشروع وأن يطابق المعيار المختار وترتيب التصريف وممارسة الصيانة.'
+	},
+	{
+		question: 'هل يغيّر خلاط الحريق المزود بمراقبة IoT امتثاله للمعيار؟',
+		answer: 'ليس بحد ذاته. وحدة المراقبة طبقة ملحقة أو طبقة أجهزة قياس، ولا تستبدل جسم الخلاط أو الضغط أو المخرج أو متطلبات المواد والاختبار. يجب أن يظل الخلاط الأساسي ممتثلًا للمعيار المذكور في العطاء، وألا يعيق تركيب المراقبة التشغيل أو التصريف أو الفحص أو السلامة المرورية. اطلب وثائق المنتج الأساسي ونشرة المراقبة كلًّا على حدة.'
+	},
+	{
+		question: 'ماذا يحدث إذا لم يتطابق قلاوظ وصلة خلاط الحريق؟',
+		answer: 'قد لا يتصل الخرطوم أو الغطاء أو مركبة الإطفاء، حتى عندما يبدو مقاس المخرج الاسمي صحيحًا. يمكن لعدم تطابق القلاوظ أو الوصلة أن يؤخر توصيل المياه، أو يمنع إزالة الغطاء، أو يفرض استخدام محول غير معتمد. أكّد نوع المخرج وتعيين القلاوظ ومعيار الوصلة وممارسة إدارة الإطفاء المحلية في الرسم المعتمد. عند الحاجة إلى تحويل، حدّد المحول واعتمده قبل الشحن.'
+	},
+	{
+		question: 'ما تقارير الاختبار التي ينبغي طلبها قبل التسليم؟',
+		answer: 'اطلب سجل اختبار الضغط، وأدلة اختبار التدفق أو الأداء المنطبقة على الإصدار المحدد، ووثائق المواد والطلاء، وسجلات فحص الأبعاد والمخارج، وتقرير الفحص النهائي. وبالنسبة إلى الطراز الآمن مروريًا، اطلب وصف مسامير القص والإغلاق التلقائي. اطلب من المورد تحديد الإصدار الدقيق للمعيار المستخدم، لأن إصدار العطاء هو الذي يحدد الأدلة ذات الصلة.'
+	}
+];
+
+const toc = [
+	{ id: 'which-standard', label: '1. المعيار الذي تستند إليه مواصفتك فعليًا' },
+	{ id: 'pressure-classes', label: '2. الضغط المقنن وعمق التركيب' },
+	{ id: 'outlets', label: '3. ترتيب المخارج وأنماط الوصل' },
+	{ id: 'materials', label: '4. المواد والطلاءات والسلامة المرورية' },
+	{ id: 'testing', label: '5. اختبارات النوع واختبارات الإنتاج' },
+	{ id: 'mixing', label: '6. متى يكون خلط المعايير مقبولًا' },
+	{ id: 'rfq-checklist', label: '7. قائمة طلب عرض سعر لخلاط الحريق' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const products = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'خلاط حريق أرضي مقاوم للتجمد (SS100/65)', img: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp', desc: 'حديد زهر مطيل وفق GB 4452، DN100/65، ضغط 1.6 MPa، وتصريف مانع للتجمد' },
+	{ slug: 'underground-fire-hydrant-sa', name: 'خلاط حريق أرضي مدفون (سلسلة SA)', img: '/assets/products/underground-fire-hydrant-sa.webp', desc: 'خلاط حريق أرضي مدفون مقاوم للصقيع للشوارع البلدية الباردة' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'خلاط حريق خارجي منظم للضغط ومضاد للاصطدام (SSFT100)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'حماية مرورية بمسامير قص مع جهاز لتنظيم الضغط' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'رأس خلاط حريق داخلي SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'صمام حديد زهر مطيل SN65، ضغط 1.6 MPa، بوصلة مخددة أو ذات فلنجة' }
+];
+---
+
+<Layout
+	title="مقارنة خلاطات الحريق AWWA C509 وEN 14461"
+	description="مقارنة خلاطات الحريق AWWA C509 وEN 14461: فئات الضغط، وأنماط المخارج، والمواد، واختبارات النوع، وكيفية إعداد مواصفة مقبولة."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'الأدلة', href: '/ar/blog/' }, { name: 'خلاطات الحريق AWWA وEN' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">خلاطات الحريق AWWA وEN</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل معايير خلاطات الحريق</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">خلاطات الحريق AWWA C509 وEN 14461: مقارنة عملية للمواصفات والتوريد</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">باختصار: إن AWWA C509 وEN 14461 ليسا تسميتين قابلتين للتبادل للخلاط نفسه. فـ AWWA C509 معيار منتج في أمريكا الشمالية له أعرافه الخاصة للبرميل والمخارج والقلاوظ؛ أما EN 14461 فهو معيار أوروبي للخلاطات الأرضية قائم على فئات PN، وخيارات مدخل DN، وترتيبات المخارج، وواجهات الوصل، ومتطلبات الأداء. يذكر طلب عرض السعر الناجح الإصدار الحاكم، ووصلة خدمة الإطفاء المحلية، ومهمة الضغط، والمواد، والحماية المرورية، وسجلات الاختبار، بدل طلب خلاط «دولي» عام.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="which-standard" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. المعيار الذي تستند إليه مواصفتك فعليًا</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">السؤال الأول ليس «أي خلاط أفضل؟» بل «أي وثيقة تحكم القبول؟». يُستخدم AWWA C509 لصمامات البوابة ذات المقعد المرن وتكوينات خلاطات الحريق في ممارسة شبكات المياه بأمريكا الشمالية، بما في ذلك ترتيبات البرميل المبلل والبرميل الجاف. وتُقرأ المواصفة إلى جانب رسومات المشروع، ومعيار المرفق، ومتطلبات الجهة المختصة. أما EN 14461 فيتناول خلاطات الحريق الأرضية في الإطار الأوروبي، حيث يحدد المهندس عادةً تعيين الضغط، ومقاس المدخل الاسمي، وترتيب المخارج، وواجهة الوصل، وأدلة الأداء المطلوبة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">يُعد GB 4452 المرجع المناسب لعائلة المنتجات الصينية الشائعة من الخلاطات الأرضية SS100/65. وليس هذا المعيار اختصارًا لقبول AWWA أو EN. يورّد خلاط Wanlian SS100/65 الأرضي وفق تكوين GB 4452، بضغط اسمي 1.6 MPa واختبار ضغط ساكن يبلغ 2.4 MPa. تفيد هذه المعلومات في عطاءات السوق الصينية، لكن مشروع التصدير يحتاج أيضًا إلى معياره الحاكم ونمط مخارجه وقائمة وثائقه.</p>
+			<p class="text-gray-700 leading-relaxed">استخدم المقارنة أدناه كأداة فرز أولية، ثم تحقق من إصدار العطاء الدقيق وتعديلاته الخاصة بالمشروع قبل اعتماد البديل.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">نقطة المواصفة</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">AWWA C509</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">EN 14461</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">GB 4452</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">نطاق المنتج</td>
+							<td class="px-4 py-3 text-gray-700">معيار منتجات خلاطات الحريق في أمريكا الشمالية؛ تكوينات برميل مبلل أو جاف</td>
+							<td class="px-4 py-3 text-gray-700">خلاطات حريق أوروبية أرضية مع متطلبات PN وأداء محددة</td>
+							<td class="px-4 py-3 text-gray-700">خلاطات أرضية صينية، ومنها عائلة SS100/65</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">لغة الضغط</td>
+							<td class="px-4 py-3 text-gray-700">استخدم الفئة المقننة وجدول المشروع؛ لا تستنتج قيمة غير مذكورة</td>
+							<td class="px-4 py-3 text-gray-700">تُذكر فئة PN في المواصفة وتُراجع مقابل التركيب</td>
+							<td class="px-4 py-3 text-gray-700">يُحدد SS100/65 عادةً عند 1.6 MPa؛ واختبار الضغط الساكن 2.4 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">المخارج والواجهات</td>
+							<td class="px-4 py-3 text-gray-700">مخرج رئيسي 2.5 بوصة ومخرج جانبي 65 ملم؛ القلاوظ حسب واجهة AWWA المذكورة</td>
+							<td class="px-4 py-3 text-gray-700">ترتيب شائع 2 × DN65 مع DN100؛ وقد تتبع الواجهة EN 14384 ومتطلبات الوصل ذات الصلة</td>
+							<td class="px-4 py-3 text-gray-700">تتبع تسمية مخارج SS100/65 أعراف المنتج والوصل الصينية</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">المواد والسلامة</td>
+							<td class="px-4 py-3 text-gray-700">تشمل ممارسة الحديد الزهر المطيل مرجع مادة ASTM A536 وتصريف البرميل الجاف عند انطباقه</td>
+							<td class="px-4 py-3 text-gray-700">تُحدد المواد والطلاء وأداء التدفق وسلامة صدم المركبات وتُختبر وفق الإصدار</td>
+							<td class="px-4 py-3 text-gray-700">تكوين منتج من الحديد الزهر المطيل مع متطلبات مواد واختبار GB 4452</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="pressure-classes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. الضغط المقنن وعمق التركيب</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تُعد مصطلحات الضغط مصدرًا شائعًا للمساواة الوهمية. تُظهر وثائق EN عادةً تعيين PN بوضوح، بينما قد يذكر جدول AWWA فئة ضغط مقننة أو متطلبًا للمرفق. وتُعرّف منتجات GB 4452 SS100/65 عادةً عند 1.6 MPa، مع اختبار ضغط ساكن 2.4 MPa للتكوين المذكور. تصف هذه التسميات أنظمة معايير مختلفة؛ ولا ينبغي لمندوب المبيعات تحويلها اعتمادًا على المقاس الاسمي وحده.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">اطلب فئة الضغط لمجموعة الخلاط الكاملة، لا للجسم وحده. يجب أن يظل الغطاء والساق والمقعد والفوهة والغطاء ومصرف الماء ووصلة الفلنجة أو القلاوظ مناسبة لمهمة التشغيل. حدّد عمق التركيب المطلوب، وترتيب الدفن، ومنسوب السطح النهائي في الرسم المدني. وينبغي تحديد أي قيمة تدفق دنيا أو عمق دفن أو رقم آخر يعتمد على الإصدار وفق إصدار المعيار في العطاء.</p>
+			<p class="text-gray-700 leading-relaxed">قد يتطلب شارع بلدي بارد ترتيب برميل جاف أو ترتيبًا أرضيًا مدفونًا، بينما قد يسمح المناخ الدافئ بتصميم برميل مبلل. وللتركيب تحت منسوب الأرض، راجع <a href="/ar/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">خلاط الحريق الأرضي المدفون من سلسلة SA</a> مقابل تفاصيل التصريف والوصول في المشروع. يرتبط قرار الضغط بقرار الحماية من التجمد، لكنهما ليسا القرار نفسه.</p>
+
+			<h2 id="outlets" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. ترتيب المخارج وأنماط الوصل</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">المخرج الذي لا يتوافق مع الخرطوم المحلي يعني فشل الخلاط. تحدد ممارسة AWWA C509 مخرجًا رئيسيًا 2.5 بوصة ومخرجًا جانبيًا 65 ملم، مع قلاوظ يتبع واجهة AWWA C505 المنطبقة. وتُظهر مشاريع EN 14461 عادةً مداخل DN80 أو DN100 أو DN150 وترتيب مخارج مثل 2 × DN65 مع DN100، لكن واجهة الوصل الدقيقة يجب أن ترد في جدول المشروع. والرسم الذي يقول «مخرج DN65» فقط ناقص ما لم يحدد أيضًا نوع القلاوظ أو الوصلة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">أكّد ما إذا كانت خدمة الإطفاء تستخدم وصلات خراطيم ملولبة، أو نمط Storz، أو وصلة وطنية، أو محولًا خاصًا بالمشروع. ويمكن لـ Wanlian مراجعة جدول فوهات الخلاط مع <a href="/ar/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">محول وصلة خرطوم خلاط الحريق</a> أو <a href="/ar/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">وصلة Storz ألمنيوم 2.5 بوصة</a> عندما تكون الوصلة جزءًا من طلب عرض السعر. يجب تسمية المحول واعتماده، لا اكتشافه بعد وصول الحاوية.</p>
+			<p class="text-gray-700 leading-relaxed">إذا كانت إدارة إطفاء أمريكية ستشغّل الصمام، فاطلب منها تأكيد القلاوظ قبل طلب تكوين EN أو GB. وإذا كان المشروع أوروبيًا، فحدد مرجع الوصلة الذي يستخدمه المرفق وأظهره في الرسم العام المعتمد. يشرح <a href="/ar/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">دليل معايير صمامات خلاطات الحريق</a> سبب إدراج هندسة المخرج وخلوص الغطاء واتجاه التشغيل في المراجعة نفسها.</p>
+
+			<h2 id="materials" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. المواد والطلاءات والسلامة المرورية</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تحدد تكوينات AWWA عادةً الحديد الزهر المطيل وفق ASTM A536 وتستخدم ترتيب تصريف البرميل الجاف عند الحاجة إلى الحماية من التجمد. وتحتاج مشاريع EN إلى إدراج درجة المادة ونظام الطلاء الداخلي والخارجي ومادة المثبتات واختيار المطاط الصناعي في ملف التقديم. أما منتجات GB 4452 فتستخدم تكوين المنتج الصيني المحدد. لا تقارن لون الطلاء أو صورة الكتالوج باعتبارهما دليلًا على امتثال الطلاء؛ اطلب سجلات المواد والطلاء المطلوبة في إصدار العطاء.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">الحماية المرورية متطلب وظيفي مستقل. في خلاط SSFT100 المضاد للاصطدام والمنظم للضغط، يؤدي الاصطدام إلى انكسار مسامير القص وإغلاق الصمام الداخلي تلقائيًا، فيتوقف تدفق المياه. ويعيد استبدال مسامير القص الخلاط إلى الخدمة. ويمكن تقديم البيانات الفنية التفصيلية عند الطلب. ولا يعني هذا الوصف أن كل خلاط AWWA أو EN أو GB يملك آلية السلامة نفسها، لذلك يجب ذكر متطلب السلامة المرورية صراحةً.</p>
+			<p class="text-gray-700 leading-relaxed">في موقع تكثر فيه حركة المركبات، قارن <a href="/ar/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">خلاط SSFT100 المضاد للاصطدام</a> مع الحماية المدنية حول الخلاط. ويفيد <a href="/ar/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">دليل خلاطات الحريق المقاومة للتجمد والمضادة للاصطدام</a> عندما تجمع المواصفة بين خطر التجمد والتعرض للصدم والوصول التشغيلي.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. اختبارات النوع واختبارات الإنتاج</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">الشهادة التي تحمل اسم المنتج الصحيح ليست تلقائيًا دليلًا على المعيار الصحيح. اسأل عن الإصدار المستخدم، والتكوين الذي اختُبر، وما إذا كان التقرير يغطي نمط المخارج المورّد. تثبت اختبارات النوع التصميم، بينما تثبت اختبارات الإنتاج أن الشحنة فُحصت وخضعت لاختبار ضغط. وتجيب الوثيقتان عن سؤالين مختلفين للمشتري، وينبغي إدراجهما منفصلتين في أمر الشراء.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">في ملف تقديم AWWA C509، اطلب أدلة الضغط والتشغيل والتصريف والمواد المنطبقة على ترتيب البرميل المبلل أو الجاف. وفي EN 14461، اطلب أدلة PN وأداء التدفق والمخرج وصدم المركبات والواجهة المنطبقة على التكوين المختار. وفي GB 4452، اطلب سجل المنتج عند 1.6 MPa وسجل اختبار الضغط الساكن عند 2.4 MPa عندما يكون ذلك أساس SS100/65 المحدد. وينبغي أن تتبع تفاصيل اختبار التدفق طريقة المعيار وإصداره المنطبقين؛ لا تقبل رقم تدفق عالميًا مختلقًا.</p>
+			<p class="text-gray-700 leading-relaxed">يمكن لـ <a href="/ar/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">خلاط الحريق الأرضي الذكي IoT SS100ZN</a> إضافة المراقبة إلى الأصل، لكن الخلاط الأساسي يحتاج إلى حزمة امتثال خاصة به. تحقق من أن الحساس والبطارية ومعدات الاتصالات لا تتداخل مع حركة الصمام أو التصريف أو الفحص أو وظيفة السلامة المرورية.</p>
+
+			<h2 id="mixing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. متى يكون خلط المعايير مقبولًا</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يمكن قبول خلط المعايير عندما يكون متعمدًا وموثقًا ومعتمدًا. فقد يستخدم المشروع، مثلًا، جسم خلاط مصنوعًا وفق معيار منتج معين ومحولًا محددًا بصورة منفصلة ليتوافق مع الخرطوم المحلي. وهذا لا يجعل الجسم ممتثلًا لمعيار المحول. ويجب أن يحدد ملف التقديم كل مكوّن ووثيقته الحاكمة وتوافق الضغط وواجهة القلاوظ أو الوصلة ومسؤولية القبول النهائي.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">لا تخلط المعايير خفيةً بتغيير الفلنجة أو الفوهة فقط بعد عرض السعر. فقد تتغير ثقوب الفلنجة وخلوص الغطاء ومفتاح التشغيل وسلوك التصريف وأدلة الاختبار كلها. وإذا طلب مقاول جسم AWWA لمشروع EN، فاطلب من المهندس وضع الانحراف على ملف التقديم المعتمد. وإذا اقتُرح خلاط EN لمشروع أمريكي، فاحصل على قبول كتابي من الجهة المختصة قبل التصنيع.</p>
+			<p class="text-gray-700 leading-relaxed">تدعم Wanlian مراجعة المشروع عبر خط إنتاجها الخاص، إضافةً إلى طاقة تعاونية مؤهلة، بما يتيح مطابقة طلب عرض السعر مع حزمة الجسم والمخرج والوثائق المطلوبة. ويبقى المشتري مسؤولًا عن تسمية معيار المشروع والجهة المختصة؛ ولا ينبغي للمورد تقديم ادعاء اعتماد غير مدعوم.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. قائمة طلب عرض سعر لخلاط الحريق</h2>
+			<ul class="list-disc ps-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>سمِّ المعيار الحاكم وإصداره.</strong> اذكر AWWA C509 أو EN 14461 أو GB 4452 أو أي وثيقة مطلوبة أخرى، مع تعديلات المشروع ومتطلبات الجهة المختصة.</li>
+				<li><strong>حدّد البرميل والتركيب.</strong> برميل مبلل أو جاف، فوق الأرض أو أرضي مدفون، ومنسوب السطح النهائي، وترتيب التصريف، والتعرض للتجمد.</li>
+				<li><strong>اذكر مهمة الضغط والتدفق.</strong> أعطِ الضغط المقنن أو فئة PN، واشترط تحديد أي قيمة تدفق تعتمد على الإصدار وفق إصدار المعيار في العطاء.</li>
+				<li><strong>ارسم كل وصلة.</strong> مدخل DN أو المقاس الاسمي، وثقوب الفلنجة، وعدد المخارج ومقاسها، ونمط القلاوظ أو الوصلة، وتفاصيل الغطاء ومفتاح التشغيل.</li>
+				<li><strong>اذكر المواد والحماية.</strong> درجة الحديد الزهر المطيل، والمطاط الصناعي، والمثبتات، ونظام الطلاء، وجهاز السلامة المرورية، ومتطلب استبدال مسامير القص عند انطباقه.</li>
+				<li><strong>اطلب حزمة الأدلة.</strong> تقارير اختبار النوع، واختبارات ضغط الإنتاج، وسجلات التدفق أو الأداء، وشهادات المواد، وفحص الأبعاد، ووثائق الإفراج النهائي.</li>
+				<li><strong>أكّد الملحقات.</strong> يجب إدراج محولات الخراطيم ووصلات Storz والأغطية ومكونات التصريف ومعدات المراقبة ومسامير القص الاحتياطية، لا افتراضها.</li>
+				<li><strong>اجعل القبول مكتوبًا.</strong> اطلب من المهندس أو الجهة المختصة اعتماد أي استبدال بين المعايير قبل الإنتاج، وأرفق الرسم المعتمد بأمر الشراء.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">لمعرفة سياق الاختيار، اقرأ <a href="/ar/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">دليل كيفية اختيار خلاط حريق</a> و<span class="text-gray-700">دليل معايير وصلات خراطيم الحريق</span>. وللتخطيط على مستوى النظام، راجع <a href="/ar/fire-hydrant-systems/" class="text-brand-blue font-semibold hover:underline">أنظمة خلاطات الحريق</a> قبل وضع جدول الصمامات النهائي.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">هل تحتاج إلى خلاط مهيأ لمعيار مشروعك؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل موقع المشروع وإصدار المعيار ونمط المدخل والمخرج ومهمة الضغط وظروف التركيب. سنؤكد تكوين التصدير أو الواجهة للمعيار المنطبق ونقدم تقارير الاختبار ذات الصلة للمراجعة.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/ar/contact/?product=Outdoor%20Fire%20Hydrants%20%28AWWA%20C509%20vs%20EN%2014461%29" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href="https://wa.me/8618684324501?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%AE%D9%84%D8%A7%D8%B7%D8%A7%D8%AA%20%D8%AD%D8%B1%D9%8A%D9%82%20%D8%AE%D8%A7%D8%B1%D8%AC%D9%8A%D8%A9%20%D9%84%D9%85%D8%B4%D8%B1%D9%88%D8%B9%20AWWA%20C509%20%D8%A3%D9%88%20EN%2014461" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

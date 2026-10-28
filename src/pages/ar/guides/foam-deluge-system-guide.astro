@@ -1,0 +1,192 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'أين يكمن فرق التكلفة بين نظام إغراق بالرغوة ونظام إغراق مائي عادي؟',
+		answer: 'يضيف نظام الإغراق بالرغوة مصدرًا لمركز الرغوة، وجهاز معايرة، وأجهزة تصريف متوافقة، واختبارات تشغيل إلى صمام الإغراق وشبكة المياه. كما يؤثر المركز، وترتيب التخزين، وتجهيزات الغسل، والتخلص من محلول الاختبار في تكلفة دورة الحياة. قد يكون نظام الإغراق المائي العادي كافيًا لخطر من الفئة A، لكن الماء وحده ليس بديلًا عن الرغوة فوق سطح سائل قابل للاشتعال.'
+	},
+	{
+		question: 'كيف أختار بين خزان الغشاء وقاذف الخط؟',
+		answer: 'يُعد خزان الغشاء خيارًا عمليًا عند الحاجة إلى احتياطي مخصص من مركز الرغوة ونطاق معايرة متوقع دون مضخة قياس كهربائية. أما قاذف الخط فهو مدمج ويستخدم تيار الماء لسحب المركز، لكن يجب أن يتوافق نطاق تدفقه وضغط تشغيله مع طلب الخطر. أكّد النطاق الهيدروليكي، والمساحة المتاحة، وطريقة إعادة التعبئة، ونسبة الخلط المطلوبة 3% أو 6% مع مصمم حماية الحريق.'
+	},
+	{
+		question: 'ما الذي يجب استبداله عند تحويل نظام AFFF قديم إلى F3؟',
+		answer: 'لا تفترض أن تغيير البرميل وحده آمن. يجب فحص توافق المركز، وجهاز المعايرة، ومواد الغشاء أو الخزان، والحشوات، وأجهزة الرغوة، وترتيب مياه الغسل، وإجراء الاختبار كحزمة متكاملة. قد تكون الأنابيب الحالية قابلة لإعادة الاستخدام بعد التنظيف، لكن بقايا AFFF والمراكز المختلطة قد تغيّر الأداء. احصل على بيان توافق من مُصنّع F3 واجعل الجهة المختصة تقبل التحويل.'
+	},
+	{
+		question: 'كيف يمكن التحقق من نسبة خليط الرغوة في الموقع؟',
+		answer: 'أثناء اختبار تصريف مضبوط، قِس تدفق الماء والمركز أو استخدم طريقة أخذ العينات والتحليل المعتمدة المحددة لجهاز المعايرة والمركز المورّدين. قارن النتيجة المقاسة بنسبة التصميم، وهي عادةً 3% أو 6%، عبر نطاق تدفق التشغيل ذي الصلة. سجّل جودة الماء والضغط ودرجة الحرارة ونقاط أخذ العينات ودفعة المركز؛ فغطاء الرغوة المرئي وحده لا يثبت دقة المعايرة.'
+	},
+	{
+		question: 'هل يمكنني تغيير مراكز الرغوة، وما خطر التوافق؟',
+		answer: 'تعامل مع تغيير المركز بوصفه تغييرًا هندسيًا، لا عملية شراء بديلة بسيطة. قد تختلف مراكز AFFF وAR-AFFF وFFFP والمراكز الخالية من الفلور من حيث اللزوجة والتمدد والتصريف ومتطلبات توافق المواد. لا تخلط المنتجات في خزان أو جهاز معايرة إلا إذا وافق المصنعان على ذلك. اغسل النظام وافحصه وأعد التحقق من النظام كاملًا قبل وضع المركز الجديد في الخدمة.'
+	},
+	{
+		question: 'كيف ينبغي حماية نظام إغراق بالرغوة في بيئة باردة؟',
+		answer: 'احمِ الأنابيب المملوءة بالماء والصمامات ومعدات المركز من التجمد وفق مناخ الموقع والتصميم المعتمد. قد تشمل الخيارات جزءًا جافًا أو ذا تشغيل مسبق، أو تتبعًا حراريًا، أو حاويات معزولة، أو ترتيبات مضاد تجمد مدرجة حيث يُسمح بها، أو مركزًا مناسبًا لدرجة الحرارة المنخفضة. أكّد درجة حرارة تخزين المركز وترتيب تشغيل الإغراق مع مصمم النظام؛ ولا تخفف المركز بمضاد تجمد غير معتمد.'
+	}
+];
+
+const toc = [
+	{ id: 'why-foam', label: '1. متى تتفوق الرغوة على الماء' },
+	{ id: 'anatomy', label: '2. مكونات نظام الإغراق بالرغوة' },
+	{ id: 'proportioning', label: '3. مقارنة خيارات المعايرة' },
+	{ id: 'concentrate', label: '4. اختيار مركز الرغوة' },
+	{ id: 'discharge', label: '5. أجهزة التصريف: الرؤوس والمنظورات والخزائن' },
+	{ id: 'testing', label: '6. التشغيل والاختبار الميداني' },
+	{ id: 'rfq-checklist', label: '7. قائمة طلب عرض سعر لنظام الرغوة' },
+	{ id: 'faq', label: 'الأسئلة الشائعة' }
+];
+
+const products = [
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'مجموعة صمام إنذار الإغراق (سلسلة ZSFM)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'صمام إغراق سريع الفتح قبل أجهزة تصريف الرغوة' },
+	{ slug: 'foam-fire-hydrant-cabinet-psg30', name: 'خزانة حنفية حريق بالرغوة (سلسلة PSG30)', img: '/assets/products/foam-fire-hydrant-cabinet-psg30.webp', desc: 'محطة رغوة مخلوطة مسبقًا بنسبة 3% مع واجهة خرطوم ومنظور' },
+	{ slug: 'manual-fire-water-cannon-ps', name: 'منظور ماء حريق يدوي (سلسلة PS)', img: '/assets/products/manual-fire-water-cannon-ps.webp', desc: 'منظور ثابت وفوهة نفاث/رش متوافقة مع الرغوة' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'فوهة حريق بمقبض مسدس قابلة للضبط', img: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg', desc: 'فوهة خط يدوي لتطبيق الرغوة عبر الخرطوم' }
+];
+
+const contactProduct = encodeURIComponent('نظام إغراق بالرغوة');
+const whatsappText = encodeURIComponent('مرحبًا، أحتاج عرض سعر لنظام إغراق بالرغوة');
+---
+
+<Layout
+	title="دليل أنظمة الإغراق بالرغوة ورش الماء والرغوة"
+	description="دليل B2B لأنظمة الإغراق بالرغوة ورش الماء والرغوة لمخاطر الفئة B: الصمام، المعايرة، المراكز، أجهزة التصريف والاختبار الميداني."
+	type="article"
+	locale="ar"
+	faq={faq}
+	breadcrumbs={[{ name: 'الأدلة', href: '/ar/blog/' }, { name: 'دليل أنظمة الإغراق بالرغوة' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/ar/" class="hover:text-blue-600">الرئيسية</a>
+			<span>/</span>
+			<a href="/ar/blog/" class="hover:text-blue-600">الأدلة</a>
+			<span>/</span>
+			<span class="text-gray-600">دليل أنظمة الإغراق بالرغوة</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">دليل نظام الرغوة</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">أنظمة الإغراق بالرغوة ورش الماء والرغوة: دليل الاختيار والحساب</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">باختصار: يحمي الإغراق بالرغوة خطر سائل من الفئة B عبر فتح صمام الإغراق، ومعايرة مركز الرغوة داخل تدفق مياه الحريق، وإرسال المحلول الجاهز إلى رؤوس رش مفتوحة أو منظورات أو محطات خراطيم. يبدأ التصميم الصحيح من نوع الوقود، ومساحة التطبيق المطلوبة، والمركز المعتمد، ثم يفحص جهاز المعايرة، وتجهيز الصمام، ونمط التصريف، والتصريف، وخطة الاختبار الميداني باعتبارها نظامًا واحدًا.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/ar/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-foam" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. متى تتفوق الرغوة على الماء</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تُختار الرغوة عندما يكون الوقود سائلًا قابلًا للاشتعال ويكون هدف التصميم هو التحكم في إطلاق الأبخرة إلى جانب اللهب. تشمل مواقع الفئة B المعتادة حقول الخزانات، وتخزين الوقود، وحظائر الطائرات، وورش الطلاء، ومناطق المذيبات، ومساحات العمليات الكيميائية. قد يغوص الماء المطبق وحده أسفل السائل المشتعل أو ينشره، كما قد تنثر النفاثة عالية السرعة الوقود خارج منطقة الانسكاب الأصلية. تفصل بطانية رغوة منخفضة التمدد مختارة جيدًا سطح السائل عن الهواء وتساعد على كبح إطلاق الأبخرة.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">ليس نظام رش الماء والرغوة مجرد نظام إغراق مائي بجوار برميل رغوة. يجب تنسيق طلب الماء، وجهاز التطبيق، ونسبة المركز، والتصريف، ومدة التصريف. يبدأ نظام الكشف التسلسل عادةً: يحرر الكشف التجهيز، ويفتح صمام الإغراق، ويصل الماء إلى أجهزة التصريف المفتوحة، وتُدخل المعايرة المركز. ثم يغطي المحلول الجاهز الخطر بالنمط والكثافة المحددين.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">فئة الحريق</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الوقود المعتاد</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">العوامل الأكثر فاعلية</th>
+							<th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">ملاءمة إغراق الرغوة</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الفئة A</td><td class="px-4 py-3 text-gray-700">الخشب والورق والمنسوجات والبلاستيك</td><td class="px-4 py-3 text-gray-700">الماء والرغوة ومسحوق ABC</td><td class="px-4 py-3 text-gray-700">الماء عادةً أولًا</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الفئة B</td><td class="px-4 py-3 text-gray-700">البنزين والزيوت والمذيبات والدهانات</td><td class="px-4 py-3 text-gray-700">مسحوق ABC والرغوة وثاني أكسيد الكربون</td><td class="px-4 py-3 text-gray-700">الاستخدام الأساسي في النظام الثابت</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الفئة C</td><td class="px-4 py-3 text-gray-700">البروبان والبيوتان والميثان وغاز LPG</td><td class="px-4 py-3 text-gray-700">مسحوق ABC (أوقف الإمداد أولًا)</td><td class="px-4 py-3 text-gray-700">ليس بديلًا عن عزل الغاز</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الفئة E</td><td class="px-4 py-3 text-gray-700">معدات كهربائية موصولة بالطاقة</td><td class="px-4 py-3 text-gray-700">ثاني أكسيد الكربون ومسحوق ABC (غير موصل)</td><td class="px-4 py-3 text-gray-700">أكّد استراتيجية الكهرباء</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الفئة F</td><td class="px-4 py-3 text-gray-700">زيوت ودهون الطهي</td><td class="px-4 py-3 text-gray-700">مادة كيميائية رطبة</td><td class="px-4 py-3 text-gray-700">غير موصى به</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">الفئة D</td><td class="px-4 py-3 text-gray-700">معادن قابلة للاحتراق (Mg، Na)</td><td class="px-4 py-3 text-gray-700">مسحوق معادن متخصص</td><td class="px-4 py-3 text-gray-700">غير مناسب</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="anatomy" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. مكونات نظام الإغراق بالرغوة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تتكون المنظومة الأساسية من خمس مناطق منسقة. أولًا مصدر الماء ومجموعة التحكم، بما في ذلك <a href="/ar/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">مجموعة صمام إنذار الإغراق ZSFM</a> والتجهيز والتصريف ونقاط المراقبة. ثانيًا الكشف والتحرير: يرسل ترتيب كشف حراري أو لهب أو دخان أو خطي إشارة التحرير، التي تفتح الصمام قبل تصريف الرؤوس المفتوحة. ثالثًا تخزين المركز، وقد يكون خزان غشاء أو وعاءً معتمدًا آخر. رابعًا جهاز المعايرة وصمامات العزل والفحص وعدم الرجوع الخاصة به. خامسًا شبكة التصريف المفتوحة، بما في ذلك رؤوس الرش والمنظورات وخزائن الخراطيم.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">يكون صمام الإغراق مغلقًا عادةً من جهة الماء، وتكون الأنابيب downstream جافة عادةً أو محتفظة بالترتيب المحدد للمشروع. عند تشغيل تجهيز التحرير، يفتح الصمام بسرعة ويرسل الماء إلى جميع الأجهزة المفتوحة في المنطقة المحمية. قد يُنظر في <a href="/ar/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">نظام إنذار التشغيل المسبق ZSFY</a> عندما يتطلب المشروع تسلسل تحرير خاضعًا للمراقبة وتقليل خطر التصريف العرضي، لكن يجب على المصمم تأكيد ملاءمة تسلسل تشغيله لهدف تطبيق الرغوة.</p>
+			<p class="text-gray-700 leading-relaxed">حدّد حدود النظام بوضوح في طلب عرض السعر. توفر Wanlian مجموعات صمامات الإغراق، والصمامات لحزم معايرة الرغوة، وخزائن الرغوة، والمنظورات، والفوهات. يمكن المساعدة في توريد مركز الرغوة عبر قنوات التوريد، لكنه لا يُصنّع داخليًا لدى Wanlian؛ لذا اذكر علامة المركز وشهادته ومسؤولية التوافق بشكل منفصل.</p>
+
+			<h2 id="proportioning" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. مقارنة خيارات المعايرة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">المعايرة هي نقطة التحكم التي تحدد ما إذا كان الماء سيتحول إلى محلول رغوة بالمواصفات المطلوبة. نسب التصميم الشائعة هي 3% و6%، لكن النسبة الصحيحة يحددها اعتماد المركز وتصميم الخطر، لا تفضيل المشتري. يقارن الجدول أدناه الترتيبات الثلاثة الأكثر تداولًا أثناء الشراء.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50"><tr><th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">الخيار</th><th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">طريقة العمل</th><th class="px-4 py-3 text-start font-bold text-gray-500 uppercase tracking-wider">أفضل ملاءمة ونقاط الانتباه</th></tr></thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">خزان الغشاء</td><td class="px-4 py-3 text-gray-700">يضغط الماء غشاءً مرنًا للمركز ويدفع المركز إلى جهاز المعايرة.</td><td class="px-4 py-3 text-gray-700">احتياطي مخصص وألفة واسعة بالمشاريع؛ يحتاج إلى مساحة وخطة إعادة تعبئة وتحقق من توافق الخزان مع المركز.</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">قاذف الخط</td><td class="px-4 py-3 text-gray-700">يسحب فنتوري يعمل بالماء المركز من وعاء أثناء مرور الماء عبر القاذف.</td><td class="px-4 py-3 text-gray-700">مدمج وبسيط لنطاق تدفق محدد؛ قد يحد فقد الضغط والحد الأدنى لتدفق التشغيل من الاختيار.</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">معاير حول المضخة</td><td class="px-4 py-3 text-gray-700">تقيس دائرة مضخة مخصصة وترتيب تنفيس الضغط أو الإرجاع المركز حول مضخة الماء.</td><td class="px-4 py-3 text-gray-700">مفيد للأنظمة الأكبر أو ذات التدفق المتغير؛ يتطلب تحكم المضخة ومنطق التنفيس وتنسيق تشغيل أكبر.</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">لخلفية هيدروليكية إضافية، قارن المشروع مع <a href="/ar/guides/fire-water-monitor-selection-guide/" class="text-brand-blue font-semibold hover:underline">دليل اختيار منظورات ماء الحريق</a> قبل اختيار الخزان أو القاذف. اطلب الحد الأدنى والأقصى للتدفق، وضغط الدخول، ولزوجة المركز المتوقعة، ودرجة حرارة التشغيل، ووصل الاختبار. هذه المدخلات أكثر فائدة من مقاس اسمي للأنبوب وحده.</p>
+
+			<h2 id="concentrate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. اختيار مركز الرغوة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">ابدأ بكيمياء الوقود. يتميز AFFF (رغوة مكوِّنة للغشاء المائي) بتكوين غشاء سريع على كثير من وقود الهيدروكربون، لكنه يحتوي على PFAS. تفرض جهات قضائية كثيرة الآن قيودًا أو مراجعات على مراكز PFAS من نوع AFFF؛ أكّد القواعد المحلية وفكّر في بدائل خالية من الفلور (F3). صُمم AR-AFFF للمذيبات القطبية حيث تلزم بطانية مقاومة للكحول. ولدى FFFP والتركيبات الأخرى أدلة خاصة بالتطبيق والتمدد والتصريف. لا تختر اعتمادًا على الاختصار وحده: اطلب ورقة بيانات المنتج الحالية، ونطاق الاعتماد، وتعليمات الخلط.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">مدة تخزين المركز هي المدة التي تنص عليها شهادة المصنع لظروف التخزين المحددة. تجنب وضع مدة انتهاء مختلقة في أمر الشراء. سجّل رقم الدفعة وتاريخ التصنيع ودرجة حرارة التخزين وطريقة الفحص، وتأكد من اعتماد الخزان والغشاء والحشوات وجهاز المعايرة وأجهزة التصريف للمنتج المختار. فالمركز الصحيح كيميائيًا لكنه غير المتوافق مع المعدات لا يمثل تصميمًا مطابقًا.</p>
+			<p class="text-gray-700 leading-relaxed">يستحق تحويل F3 مراجعة هندسية موثقة. يمكن الاحتفاظ بالأنابيب الحالية بعد التنظيف والفحص، لكن يجب تأكيد بقايا AFFF وتوافق اللدائن ومعايرة جهاز المعايرة وأداء جهاز الرغوة. ينبغي لمورد الرغوة ومصمم النظام والجهة المختصة الاتفاق على التغيير قبل تصريف المركز القديم.</p>
+
+			<h2 id="discharge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. أجهزة التصريف: الرؤوس والمنظورات والخزائن</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">تُختار رؤوس رش الرغوة المفتوحة وفق التغطية وتوزيع القطرات والعوائق وكثافة التطبيق. وهي مناسبة لمنطقة إغراق ثابتة تكون هندسة الخطر فيها معروفة. تضيف المنظورات مدى وتحكمًا اتجاهيًا لاحتواء الخزانات ومناطق التحميل والمخاطر المفتوحة الكبيرة؛ ويمكن تحديد <a href="/ar/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">منظور ماء الحريق اليدوي من سلسلة PS</a> بفوهة نفاث أو رش متوافقة مع الرغوة بعد أن يؤكد المشروع متطلبات التدفق والمدى.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">تدعم محطة الخرطوم التدخل اليدوي والتطبيق الإضافي، لكن لا ينبغي اعتبارها بديلًا عن التغطية الآلية عندما يتطلب تقييم الخطر حماية ثابتة. تجمع <a href="/ar/products/foam-fire-hydrant-cabinet-psg30/" class="text-brand-blue font-semibold hover:underline">خزانة حنفية الحريق بالرغوة PSG30</a> محطة رغوة مخلوطة مسبقًا بنسبة 3% مع واجهة خرطوم ومنظور. وللخطوط اليدوية، توفر <a href="/ar/products/adjustable-pistol-grip-fire-nozzle/" class="text-brand-blue font-semibold hover:underline">فوهة الحريق بمقبض مسدس القابلة للضبط</a> تطبيقًا قابلًا للاختيار عند نهاية الخرطوم؛ تحقق من ملاءمة حشواتها ونطاق تدفقها لمحلول الرغوة الجاهز.</p>
+			<p class="text-gray-700 leading-relaxed">استخدم <a href="/ar/guides/fire-water-monitor-selection-guide/" class="text-brand-blue font-semibold hover:underline">دليل اختيار منظورات ماء الحريق</a> المنفصل لأسئلة مدى المنظور ونمط الفوهة والتركيب. ونسّق أيضًا <a href="/ar/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">دليل اختيار صمام الإغراق</a> مع حزمة الرغوة: يجب أن تعمل تجهيزات الصمام وضغط التحرير ومخرج الإنذار وترتيبات التصريف معًا. ويكتسب التصريف أهمية خاصة لأن الاختبار أو التصريف الفعلي قد ينتج كمية كبيرة من محلول الرغوة لا يمكن إدخالها ببساطة إلى مصرف مياه الأمطار.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. التشغيل والاختبار الميداني</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يثبت التشغيل السلسلة الكاملة من الكشف إلى التصريف. اغسل أنابيب الماء والمركز وفق الإجراء المعتمد، وأزل مخلفات البناء، وتحقق من اتجاه تجهيز الصمام، وأكد أن كل جهاز مفتوح هو الطراز والفتحة المقصودان. يجب أن يتحقق اختبار تشغيل صمام الإغراق من دخل الكشف أو التحرير اليدوي، وفتح الصمام، وإنذار محرك الماء أو الإشارة الكهربائية، والضغط downstream، وإجراء إعادة الضبط. استخدم إطار NFPA 11 وEN 12845 حيث ينطبق، إلى جانب متطلبات الجهة المحلية وتعليمات مُصنّع المركز.</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>قِس نسبة الخليط.</strong> اختبر المحلول الجاهز عند نطاق التدفق المعتمد وأكد النتيجة مقابل قيمة التصميم 3% أو 6%.</li>
+				<li><strong>تحقق من جودة الرغوة.</strong> قِس التمدد وزمن التصريف بنسبة 25% باستخدام طريقة الاختبار المطلوبة للمركز المورّد واعتماده؛ لا تخترع حدود قبول من منتج آخر.</li>
+				<li><strong>أثبت تسلسل التشغيل.</strong> سجّل دخل الكشف ووقت فتح صمام الإغراق والإنذارات وقراءات الضغط وإجراء إعادة الضبط.</li>
+				<li><strong>افحص نمط التصريف.</strong> أكد تغطية رؤوس الرش وحركة المنظور وحالة خرطوم الخزانة ونمط الفوهة دون تعريض الأفراد لخطر غير مضبوط.</li>
+				<li><strong>وثّق النتيجة.</strong> احتفظ بجودة الماء ودفعة المركز ودرجة الحرارة والتدفق والضغط والعينات والصور والإجراءات التصحيحية مع ملف التشغيل والصيانة (O&amp;M).</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">قد يفوّت اختبار تشغيل وظيفي دون التحقق من الخليط صمام مركز مغلقًا أو خزانًا فارغًا أو قاذفًا مسدودًا أو مركزًا غير متوافق. خطط لجمع مياه الاختبار والتخلص منها قبل وصول المقاول. كرر عمليات الفحص في الفاصل المطلوب في مستندات المشروع وشهادة المركز.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. قائمة طلب عرض سعر لنظام الرغوة</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">يوفر طلب عرض السعر المفيد للمورد معلومات كافية لفحص الهيدروليكا بدل التخمين من اسم المنتج. أدرج العناصر التالية في مخطط مؤشّر واحد أو جدول معدات:</p>
+			<ul class="list-disc ps-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>الخطر والوقود:</strong> هيدروكربون أو مذيب قطبي، وارتفاع التخزين، وهندسة الاحتواء، وسيناريو الانسكاب، وما إذا كانت المناطق المجاورة تحتاج إلى تبريد.</li>
+				<li><strong>طلب التصميم:</strong> المساحة المحمية، وكثافة التطبيق، ومدة التصميم، والمناطق المتزامنة، وتدفق الماء، والضغط المتاح عند مدخل جهاز المعايرة.</li>
+				<li><strong>المركز:</strong> المصنع والتركيبة ونسبة 3% أو 6% ووثائق الاعتماد ودرجة حرارة التخزين ومعلومات الدفعة وما إذا كان تحويل F3 ضمن النطاق.</li>
+				<li><strong>نطاق المعدات:</strong> مجموعة صمام الإغراق ZSFM، ونوع جهاز المعايرة، وحجم الخزان، وصمامات العزل والاختبار، والرؤوس المفتوحة، والمنظور، والخزانة، والفوهة، وواجهة الكشف.</li>
+				<li><strong>المواد والواجهات:</strong> مقاسات الأنابيب، ومعيار الشفة، والمواد الملامسة للسائل، واللدائن، والجهد الكهربائي، وملامسات الإنذار، ومتطلبات المنطقة الخطرة.</li>
+				<li><strong>الاختبارات والمستندات:</strong> خطة الغسل، واختبار التشغيل، وطريقة نسبة الخليط، واختبار التمدد والتصريف، والشهادات، والرسومات، والحشوات الاحتياطية، وتعليمات التشغيل والصيانة.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">للمشاريع الأوروبية، راجع <a href="/ar/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">دليل توافق حماية الحريق CE وEN 12845</a> ذي الصلة، مع تأكيد معيار الرغوة المحدد ومتطلبات الجهة المختصة للخطر. إذا شمل النطاق منظور ماء منفصلًا، فيمكن النظر في <a href="/ar/fire-water-cannon/" class="text-brand-blue font-semibold hover:underline">مجموعة مدافع ماء الحريق</a> إلى جانب تصميم الرش الثابت. يمكن لـ Wanlian تسعير جزء الصمامات ومعدات التصريف من الجدول وتحديد عناصر المركز التي تحتاج إلى شريك قناة معتمد.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">الأسئلة الشائعة</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<!-- href="/ar/contact/?product=" uses the encoded CTA parameter above. -->
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">هل تحتاج إلى عرض سعر لنظام إغراق بالرغوة؟</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">أرسل نوع الوقود والمساحة المحمية والتدفق والضغط التصميميين ونسبة المركز وتفضيل المعايرة وأجهزة التصريف. يمكن لـ Wanlian مراجعة صمام الإغراق وحزمة الرغوة والمنظور والخزانة والفوهة ضمن مشروعك.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href={`/ar/contact/?product=${contactProduct}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">اطلب عرض سعر</a>
+						<a href={`https://wa.me/8618684324501?text=${whatsappText}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">دردشة عبر واتساب</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -13,6 +13,56 @@ export interface GuideFr {
 
 export const guidesFr: GuideFr[] = [
   {
+    title: 'Guide de sélection des vannes à déluge (2026)',
+    description: 'Fonctionnement, dimensionnement, déclenchement, implantation, essais et données de demande de prix du groupe de vannes à déluge ZSFM.',
+    href: '/fr/guides/deluge-valve-selection-guide/',
+    tocPreview: ["1. Quand un système nécessite une protection à déluge", "2. Fonctionnement du groupe de vannes à déluge ZSFM", "3. Choisir le mode de déclenchement"],
+    date: '2026-10',
+    category: 'Protection Incendie',
+    readTime: '9 min read',
+    tags: ['sprinkler-systems', 'fire-protection']
+  },
+  {
+    title: 'AWWA C509 ou EN 14461 : guide des hydrants',
+    description: 'Comparaison AWWA C509 et EN 14461 : pression, sorties, matériaux, essais de type et spécification d’un hydrant conforme pour votre projet.',
+    href: '/fr/guides/awwa-c509-vs-en-14461-fire-hydrants/',
+    tocPreview: ["1. Quelle norme votre spécification invoque réellement", "2. Pression nominale et profondeur d’installation", "3. Disposition des sorties et types de raccordement"],
+    date: '2026-10',
+    category: 'Protection Incendie',
+    readTime: '9 min read',
+    tags: ['fire-hydrant', 'procurement']
+  },
+  {
+    title: 'Aspiration de pompe et réservoir incendie (2026)',
+    description: 'Dimensionnement du réservoir incendie, règle des deux aspirations, anti-vortex, amorçage et contrôle de niveau pour une aspiration conforme.',
+    href: '/fr/guides/fire-pump-suction-water-tank-guide/',
+    tocPreview: ["1. Origine du volume d’eau incendie", "2. Dimensionnement de la réserve d’eau incendie", "3. Règle des deux aspirations et traversées de réservoir"],
+    date: '2026-10',
+    category: 'Protection Incendie',
+    readTime: '9 min read',
+    tags: ['fire-protection', 'industrial-valves']
+  },
+  {
+    title: 'Comparer les Devis de Fournisseurs Chinois de Vannes (2026)',
+    description: 'Guide B2B pour les RFQ aux usines chinoises de vannes : spécifications, écarts de devis, coûts cachés, notation et contrôles avant attribution.',
+    href: '/fr/guides/china-valve-supplier-quote-guide/',
+    tocPreview: ["1. Pourquoi deux devis pour la même vanne diffèrent", "2. Rédiger une RFQ qui obtient des devis précis", "3. Lire le devis ligne par ligne"],
+    date: '2026-10',
+    category: 'Approvisionnement',
+    readTime: '9 min read',
+    tags: ['procurement', 'certification']
+  },
+  {
+    title: 'Guide des systèmes déluge à mousse et eau (2026)',
+    description: 'Systèmes déluge à mousse et eau pour risques de classe B : vanne déluge, proportionnement, concentrés, dispositifs de décharge et essais.',
+    href: '/fr/guides/foam-deluge-system-guide/',
+    tocPreview: ["1. Quand la mousse est préférable à l’eau", "2. Anatomie d’un système déluge à mousse", "3. Comparaison des options de proportionnement"],
+    date: '2026-10',
+    category: 'Protection Incendie',
+    readTime: '9 min read',
+    tags: ['fire-protection', 'sprinkler-systems']
+  },
+  {
     title: 'Prévention du Reflux dans les Réseaux de Protection Incendie & d’Eau Potable (Guide 2026)',
     description: 'Pourquoi les dispositifs anti-retour sont obligatoires dans les réseaux d’eau à double usage, comment fonctionnent les clapets anti-retour HS41X, le contrôle des connexions croisées et une checklist de sélection pour les acheteurs B2B.',
     href: '/fr/guides/backflow-prevention-guide/',

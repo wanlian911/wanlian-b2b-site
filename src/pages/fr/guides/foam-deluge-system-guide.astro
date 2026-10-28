@@ -1,0 +1,187 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Où se situe la différence de coût entre un système déluge à mousse et un système déluge à eau standard ?',
+		answer: 'Un système déluge à mousse ajoute une alimentation en concentré, un proportionneur, des dispositifs de décharge compatibles et des essais de mise en service à la vanne déluge et au réseau d’eau. Le concentré, son stockage, les dispositions de rinçage et l’évacuation de la solution d’essai influencent également le coût du cycle de vie. Un système déluge à eau peut convenir à un danger de classe A, mais l’eau seule ne remplace pas la mousse sur une surface de liquide inflammable en feu.'
+	},
+	{
+		question: 'Comment choisir entre un réservoir à vessie et un injecteur en ligne ?',
+		answer: 'Un réservoir à vessie est un choix pratique lorsqu’une réserve dédiée de concentré et une plage de proportionnement prévisible sont nécessaires sans pompe doseuse électrique. Un injecteur en ligne est compact et utilise le débit d’eau pour aspirer le concentré, mais ses plages de débit et de pression doivent correspondre à la demande du danger. Confirmez l’enveloppe hydraulique, l’espace disponible, la méthode de remplissage et le mélange requis à 3 % ou 6 % avec le concepteur de la protection incendie.'
+	},
+	{
+		question: 'Que faut-il remplacer lorsqu’un ancien système AFFF est converti en F3 ?',
+		answer: 'Ne supposez pas qu’il suffit de changer le fût. Le concentré, le proportionneur, les matériaux du réservoir à vessie ou de la cuve, les joints, les dispositifs à mousse, l’arrivée d’eau de rinçage et la procédure d’essai doivent être vérifiés comme un ensemble compatible. La tuyauterie existante peut être réutilisée après nettoyage, mais les résidus d’AFFF et les concentrés mélangés peuvent modifier les performances. Obtenez la déclaration de compatibilité du fabricant du F3 et faites accepter la conversion par l’autorité compétente.'
+	},
+	{
+		question: 'Comment vérifier sur site le taux de mélange de la mousse ?',
+		answer: 'Lors d’un essai de décharge contrôlé, mesurez le débit d’eau et de concentré ou utilisez la méthode approuvée d’échantillonnage et d’analyse spécifiée pour le proportionneur et le concentré fournis. Comparez le résultat mesuré au taux de conception, généralement 3 % ou 6 %, sur la plage de débit de fonctionnement concernée. Consignez la qualité de l’eau, la pression, la température, les points de prélèvement et le lot de concentré ; une nappe de mousse visible ne prouve pas à elle seule la précision du proportionnement.'
+	},
+	{
+		question: 'Puis-je changer de concentré de mousse et quel est le risque de compatibilité ?',
+		answer: 'Traitez un changement de concentré comme une modification d’ingénierie, et non comme un simple achat de remplacement. Les concentrés AFFF, AR-AFFF, FFFP et sans fluor peuvent avoir des exigences différentes de viscosité, d’expansion, de drainage et de compatibilité des matériaux. Ne mélangez pas des produits dans un réservoir ou un proportionneur sans l’accord des deux fabricants. Rincez, inspectez et revérifiez le système complet avant de mettre le nouveau concentré en service.'
+	},
+	{
+		question: 'Comment protéger un système déluge à mousse dans un environnement froid ?',
+		answer: 'Protégez la tuyauterie remplie d’eau, les vannes et l’équipement de concentré contre le gel selon le climat du site et la conception approuvée. Les solutions peuvent inclure une section sèche ou sous air, un traçage chauffant, des enceintes isolées, des dispositions antigel certifiées lorsqu’elles sont autorisées et un concentré adapté aux basses températures. Confirmez la température de stockage du concentré et la séquence de déclenchement du déluge avec le concepteur ; ne diluez pas le concentré avec un antigel non approuvé.'
+	}
+];
+
+const toc = [
+	{ id: 'why-foam', label: '1. Quand la mousse est préférable à l’eau' },
+	{ id: 'anatomy', label: '2. Anatomie d’un système déluge à mousse' },
+	{ id: 'proportioning', label: '3. Comparaison des options de proportionnement' },
+	{ id: 'concentrate', label: '4. Choisir le concentré de mousse' },
+	{ id: 'discharge', label: '5. Dispositifs de décharge : têtes, moniteurs et armoires' },
+	{ id: 'testing', label: '6. Mise en service et essais sur site' },
+	{ id: 'rfq-checklist', label: '7. Checklist RFQ du système à mousse' },
+	{ id: 'faq', label: 'Questions fréquentes' }
+];
+
+const products = [
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Groupe de vanne d’alarme déluge (série ZSFM)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'Vanne déluge à ouverture rapide en amont des dispositifs de décharge à mousse' },
+	{ slug: 'foam-fire-hydrant-cabinet-psg30', name: 'Armoire d’hydrant incendie à mousse (série PSG30)', img: '/assets/products/foam-fire-hydrant-cabinet-psg30.webp', desc: 'Station à mousse prémélangée à 3 % avec interface flexible et moniteur' },
+	{ slug: 'manual-fire-water-cannon-ps', name: 'Moniteur manuel d’eau anti-incendie (série PS)', img: '/assets/products/manual-fire-water-cannon-ps.webp', desc: 'Moniteur fixe, buse à jet/pulvérisation compatible mousse' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'Buse incendie réglable à poignée pistolet', img: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg', desc: 'Buse de flexible pour application manuelle de mousse' }
+];
+---
+
+<Layout
+	title="Guide des systèmes déluge à mousse et eau (2026)"
+	description="Systèmes déluge à mousse et eau pour risques de classe B : vanne déluge, proportionnement, concentrés, dispositifs de décharge et essais."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Guide des systèmes déluge à mousse' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Guide des systèmes déluge à mousse</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide des systèmes à mousse</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Systèmes déluge à mousse et eau : guide de sélection et de dimensionnement</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En bref : un système déluge à mousse protège un danger liquide de classe B en ouvrant une vanne déluge, en proportionnant le concentré de mousse dans le débit d’eau incendie et en envoyant la solution préparée vers des têtes ouvertes, des moniteurs ou des postes flexibles. La bonne conception commence par le combustible, la surface d’application requise et le concentré approuvé, puis vérifie ensemble le proportionneur, le trim de vanne, le profil de décharge, le drainage et le plan d’essais sur site.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-foam" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Quand la mousse est préférable à l’eau</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La mousse est choisie lorsque le combustible est un liquide inflammable et que l’objectif de conception est de contrôler à la fois les vapeurs et les flammes. Les emplacements de classe B comprennent notamment les parcs de réservoirs, le stockage de carburant, les hangars aéronautiques, les ateliers de peinture, les zones de solvants et les locaux de procédés chimiques. L’eau seule peut passer sous un liquide en combustion ou l’étaler, et un jet à grande vitesse peut projeter le combustible au-delà du déversement initial. Une nappe de mousse à faible expansion correctement sélectionnée sépare la surface du liquide de l’air et contribue à supprimer les émissions de vapeurs.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Un système de pulvérisation eau-mousse n’est pas simplement un système déluge à eau avec un fût de mousse à proximité. La demande en eau, le dispositif d’application, le pourcentage de concentré, le drainage et la durée de décharge doivent être coordonnés. Le système de détection déclenche normalement la séquence : la détection libère le trim, la vanne déluge s’ouvre, l’eau atteint les dispositifs de décharge ouverts et le proportionnement introduit le concentré. La solution préparée couvre ensuite le danger selon le profil et la densité prescrits.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Classe de feu</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Combustibles typiques</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Agents les plus efficaces</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Pertinence du déluge à mousse</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Classe A</td><td class="px-4 py-3 text-gray-700">Bois, papier, textiles, plastiques</td><td class="px-4 py-3 text-gray-700">Eau, mousse, poudre ABC</td><td class="px-4 py-3 text-gray-700">Eau généralement prioritaire</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Classe B</td><td class="px-4 py-3 text-gray-700">Essence, huiles, solvants, peintures</td><td class="px-4 py-3 text-gray-700">Poudre ABC, mousse, CO2</td><td class="px-4 py-3 text-gray-700">Usage principal en système fixe</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Classe C</td><td class="px-4 py-3 text-gray-700">Propane, butane, méthane, GPL</td><td class="px-4 py-3 text-gray-700">Poudre ABC (couper d’abord l’alimentation)</td><td class="px-4 py-3 text-gray-700">Ne remplace pas l’isolement du gaz</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Classe E</td><td class="px-4 py-3 text-gray-700">Équipements électriques sous tension</td><td class="px-4 py-3 text-gray-700">CO2, poudre ABC (non conductrice)</td><td class="px-4 py-3 text-gray-700">Confirmer la stratégie électrique</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Classe F</td><td class="px-4 py-3 text-gray-700">Huiles et graisses de cuisson</td><td class="px-4 py-3 text-gray-700">Produit chimique humide</td><td class="px-4 py-3 text-gray-700">Non recommandé</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Classe D</td><td class="px-4 py-3 text-gray-700">Métaux combustibles (Mg, Na)</td><td class="px-4 py-3 text-gray-700">Poudre métallique spécialisée</td><td class="px-4 py-3 text-gray-700">Non adapté</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="anatomy" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Anatomie d’un système déluge à mousse</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">L’ensemble central comporte cinq zones coordonnées. La première est l’alimentation en eau et l’ensemble de commande, qui comprend le <a href="/fr/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">groupe de vanne d’alarme déluge ZSFM</a>, le trim, le drain et les points de supervision. La deuxième est la détection et le déclenchement : un dispositif de détection thermique, de flamme, de fumée ou linéaire envoie le signal de déclenchement, qui ouvre la vanne avant la décharge des têtes ouvertes. La troisième est le stockage du concentré, qui peut être assuré par un réservoir à vessie ou un autre récipient approuvé. La quatrième est le proportionneur et ses vannes d’isolement, de contrôle et d’essai. La cinquième est le réseau de décharge ouvert, comprenant les têtes de pulvérisation, les moniteurs et les armoires à flexibles.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La vanne déluge est normalement fermée côté eau et la tuyauterie aval est normalement sèche ou maintenue selon la configuration spécifiée pour le projet. Lorsque le trim de déclenchement fonctionne, la vanne s’ouvre rapidement et envoie l’eau vers tous les dispositifs ouverts de la zone protégée. Un <a href="/fr/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">système d’alarme sous air ZSFY</a> peut être envisagé lorsque le projet exige une séquence de déclenchement supervisée et une réduction du risque de décharge accidentelle, mais le concepteur doit confirmer que sa séquence de fonctionnement convient à l’objectif d’application de la mousse.</p>
+			<p class="text-gray-700 leading-relaxed">Définissez clairement les limites du système dans la RFQ. Wanlian fournit des groupes de vannes déluge, des vannes pour les ensembles de proportionnement de mousse, des armoires à mousse, des moniteurs et des buses. Le concentré de mousse peut être fourni par des canaux partenaires, mais il n’est pas fabriqué en interne par Wanlian ; indiquez séparément la marque du concentré, son certificat et la responsabilité de compatibilité.</p>
+
+			<h2 id="proportioning" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Comparaison des options de proportionnement</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Le proportionnement est le point de commande qui détermine si l’eau devient la solution de mousse prescrite. Les taux de conception courants sont de 3 % et 6 %, mais le taux correct est fixé par l’approbation du concentré et la conception du danger, et non par la préférence de l’acheteur. Le tableau ci-dessous compare les trois configurations les plus souvent étudiées lors des achats.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50"><tr><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Option</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Fonctionnement</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Application et points de vigilance</th></tr></thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Réservoir à vessie</td><td class="px-4 py-3 text-gray-700">La pression de l’eau comprime une vessie souple de concentré et pousse le concentré vers le proportionneur.</td><td class="px-4 py-3 text-gray-700">Réserve dédiée et solution familière sur les projets ; nécessite de l’espace, une planification du remplissage et la vérification de la compatibilité entre réservoir et concentré.</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Injecteur en ligne</td><td class="px-4 py-3 text-gray-700">Un venturi entraîné par l’eau aspire le concentré d’un récipient lorsque l’eau traverse l’injecteur.</td><td class="px-4 py-3 text-gray-700">Compact et simple pour une plage de débit définie ; la perte de charge et le débit minimal de fonctionnement peuvent limiter la sélection.</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Proportionneur autour de la pompe</td><td class="px-4 py-3 text-gray-700">Un circuit de pompe dédié et un dispositif de décharge ou de retour dosent le concentré autour de la pompe à eau.</td><td class="px-4 py-3 text-gray-700">Utile pour les systèmes à débit important ou variable ; nécessite les commandes de pompe, la logique de décharge et davantage de coordination de mise en service.</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Pour approfondir l’hydraulique, comparez le projet avec notre <a href="/fr/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">guide de sélection des vannes déluge</a> avant de choisir un réservoir ou un injecteur. Demandez les débits minimal et maximal, la pression d’entrée, la viscosité attendue du concentré, la température de fonctionnement et le raccord d’essai. Ces données sont plus utiles qu’un simple diamètre nominal de tuyauterie.</p>
+
+			<h2 id="concentrate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Choisir le concentré de mousse</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Commencez par la chimie du combustible. L’AFFF forme rapidement un film sur de nombreux hydrocarbures, mais contient des PFAS. De nombreuses juridictions restreignent ou examinent désormais les concentrés de type AFFF contenant des PFAS ; confirmez les règles locales et envisagez des solutions sans fluor (F3). L’AR-AFFF est conçu pour les solvants polaires, lorsqu’une nappe résistante à l’alcool est nécessaire. Les formulations FFFP et autres ont leurs propres données d’application, d’expansion et de drainage. Ne choisissez pas sur la seule base de l’acronyme : demandez la fiche technique actuelle, le périmètre d’approbation et les instructions de mélange.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La durée de stockage du concentré est celle indiquée par le certificat du fabricant pour les conditions de stockage spécifiées. Évitez d’inscrire une durée d’expiration inventée dans le bon de commande. Enregistrez le numéro de lot, la date de fabrication, la température de stockage et la méthode d’inspection, et assurez-vous que le réservoir, la vessie, les joints, le proportionneur et les dispositifs de décharge sont approuvés pour le produit choisi. Un concentré chimiquement adapté mais incompatible avec l’équipement ne constitue pas une conception conforme.</p>
+			<p class="text-gray-700 leading-relaxed">Une conversion en F3 mérite une revue d’ingénierie documentée. La tuyauterie existante peut être conservée après nettoyage et inspection, mais les résidus d’AFFF, la compatibilité des élastomères, l’étalonnage du proportionneur et les performances des dispositifs à mousse doivent être confirmés. Le fournisseur de mousse, le concepteur du système et l’autorité compétente doivent approuver la modification avant la vidange de l’ancien concentré.</p>
+
+			<h2 id="discharge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Dispositifs de décharge : têtes, moniteurs et armoires</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les têtes ouvertes de pulvérisation de mousse sont sélectionnées selon la couverture, la répartition des gouttes, les obstacles et la densité d’application. Elles conviennent à une zone déluge fixe dont la géométrie du danger est connue. Les moniteurs ajoutent de la portée et un contrôle directionnel pour les cuvettes de réservoirs, les zones de chargement et les grands dangers ouverts ; le <a href="/fr/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">moniteur manuel d’eau anti-incendie série PS</a> peut être spécifié avec une buse à jet ou à pulvérisation compatible mousse après confirmation des exigences de débit et de portée du projet.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Un poste à flexible facilite l’intervention manuelle et l’application complémentaire, mais ne doit pas remplacer une couverture automatique lorsque l’évaluation du risque exige une protection fixe. L’<a href="/fr/products/foam-fire-hydrant-cabinet-psg30/" class="text-brand-blue font-semibold hover:underline">armoire d’hydrant incendie à mousse PSG30</a> regroupe une station de mousse prémélangée à 3 % avec interface pour flexible et moniteur. Pour les lignes manuelles, une <a href="/fr/products/adjustable-pistol-grip-fire-nozzle/" class="text-brand-blue font-semibold hover:underline">buse incendie réglable à poignée pistolet</a> offre une application sélectionnable en bout de flexible ; vérifiez que ses joints et sa plage de débit conviennent à la solution préparée.</p>
+			<p class="text-gray-700 leading-relaxed">Consultez le <a href="/fr/guides/fire-water-monitor-selection-guide/" class="text-brand-blue font-semibold hover:underline">guide distinct de sélection des moniteurs d’eau anti-incendie</a> pour les questions de portée, de profil de buse et de montage. Coordonnez également le <a href="/fr/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">guide de sélection des vannes déluge</a> avec l’ensemble à mousse : le trim de vanne, la pression de déclenchement, la sortie d’alarme et les dispositions de drainage doivent fonctionner ensemble. Le drainage est particulièrement important, car un essai ou une décharge réelle peut produire un grand volume de solution de mousse qui ne peut pas être simplement rejeté dans un égout pluvial.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Mise en service et essais sur site</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La mise en service démontre toute la chaîne, de la détection à la décharge. Rincez la tuyauterie d’eau et de concentré selon la procédure approuvée, retirez les débris de chantier, vérifiez l’orientation du trim de vanne et confirmez que chaque dispositif ouvert est bien le modèle et l’orifice prévus. Un essai de déclenchement de la vanne déluge doit vérifier la détection ou le déclenchement manuel, l’ouverture de la vanne, l’alarme hydraulique ou le signal électrique, la pression aval et la remise à zéro. Appliquez le cadre NFPA 11 et EN 12845 lorsqu’il est pertinent, avec les exigences de l’autorité locale et les instructions du fabricant du concentré.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Mesurer le taux de mélange.</strong> Testez la solution préparée dans la plage de débit approuvée et confirmez le résultat par rapport à la valeur de conception de 3 % ou 6 %.</li>
+				<li><strong>Vérifier la qualité de la mousse.</strong> Mesurez l’expansion et le temps de drainage à 25 % selon la méthode d’essai requise pour le concentré fourni et son approbation ; n’inventez pas de seuils d’acceptation à partir d’un autre produit.</li>
+				<li><strong>Démontrer la séquence de déclenchement.</strong> Consignez l’entrée de détection, le temps d’ouverture de la vanne déluge, les alarmes, les relevés de pression et la procédure de remise à zéro.</li>
+				<li><strong>Inspecter le profil de décharge.</strong> Confirmez la couverture des têtes, le mouvement du moniteur, l’état du flexible de l’armoire et le profil de la buse sans exposer le personnel à un danger non maîtrisé.</li>
+				<li><strong>Documenter le résultat.</strong> Conservez la qualité de l’eau, le lot de concentré, la température, le débit, la pression, les échantillons, les photographies et les actions correctives dans le dossier d’exploitation et de maintenance.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Un essai fonctionnel de déclenchement sans vérification du mélange peut laisser passer une vanne de concentré fermée, un réservoir vide, un injecteur obstrué ou un concentré incompatible. Planifiez la collecte et l’évacuation de l’eau d’essai avant l’arrivée de l’entreprise. Répétez les inspections à l’intervalle prévu par les documents du projet et le certificat du concentré.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Checklist RFQ du système à mousse</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Une RFQ utile fournit au fournisseur assez d’informations pour vérifier l’hydraulique au lieu de deviner à partir d’un nom de produit. Incluez les éléments suivants dans un plan annoté ou une nomenclature d’équipements unique :</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Danger et combustible :</strong> hydrocarbure ou solvant polaire, hauteur de stockage, géométrie de la cuvette, scénario de déversement et besoin éventuel de refroidir les expositions voisines.</li>
+				<li><strong>Demande de conception :</strong> surface protégée, densité d’application, durée de conception, zones simultanées, débit d’eau et pression disponible à l’entrée du proportionneur.</li>
+				<li><strong>Concentré :</strong> fabricant, formulation, taux de 3 % ou 6 %, documents d’approbation, température de stockage, informations de lot et éventuelle conversion en F3.</li>
+				<li><strong>Périmètre de fourniture :</strong> groupe de vanne déluge ZSFM, type de proportionneur, volume du réservoir, vannes d’isolement et d’essai, têtes ouvertes, moniteur, armoire, buse et interface de détection.</li>
+				<li><strong>Matériaux et interfaces :</strong> diamètres de tuyauterie, norme de bride, matériaux en contact avec le fluide, élastomères, tension électrique, contacts d’alarme et exigences pour zone dangereuse.</li>
+				<li><strong>Essais et documents :</strong> plan de rinçage, essai de déclenchement, méthode de mesure du mélange, essais d’expansion et de drainage, certificats, plans, joints de rechange et instructions d’exploitation et de maintenance.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Pour les projets européens, consultez le <a href="/fr/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">guide de conformité de la protection incendie CE et EN 12845</a>, tout en confirmant la norme mousse spécifique et les exigences de l’autorité pour le danger concerné. Si le périmètre comprend un moniteur d’eau distinct, la <a href="/fr/fire-water-cannon/" class="text-brand-blue font-semibold hover:underline">gamme de canons à eau anti-incendie</a> peut être étudiée avec la conception de pulvérisation fixe. Wanlian peut chiffrer la partie vannes et équipements de décharge à partir de la nomenclature et identifier les articles de concentré qui nécessitent un partenaire agréé.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Besoin d’un devis pour un système déluge à mousse ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez le type de combustible, la surface protégée, le débit et la pression de conception, le taux de concentré, la préférence de proportionnement et les dispositifs de décharge. Wanlian peut examiner le périmètre de la vanne déluge, de l’ensemble à mousse, du moniteur, de l’armoire et de la buse pour votre projet.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Foam%20Deluge%20System" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20je%20souhaite%20un%20devis%20pour%20un%20syst%C3%A8me%20d%C3%A9luge%20%C3%A0%20mousse" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

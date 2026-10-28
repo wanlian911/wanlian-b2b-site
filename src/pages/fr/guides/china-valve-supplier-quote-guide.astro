@@ -1,0 +1,216 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Un devis pour la même vanne présente un écart d’environ 30 %. Qu’est-ce qui diffère généralement ?',
+		answer: 'Un écart d’environ 30 % reflète généralement une base commerciale et technique différente, plutôt qu’une simple marge d’usine. Vérifiez les matériaux du corps et des pièces internes, le matériau du siège, la norme des extrémités, le revêtement, le périmètre des essais de pression, les certificats, l’emballage, le terme de livraison et l’inclusion éventuelle de l’outillage ou de l’inspection. Demandez une clarification ligne par ligne avant de comparer les totaux.'
+	},
+	{
+		question: 'Pourquoi est-il erroné de regarder uniquement le montant FOB ?',
+		answer: 'FOB couvre le point de remise à l’export convenu, et non votre coût rendu complet. Le transport intérieur, la déclaration d’exportation, le fret maritime, les droits, les frais portuaires et le dédouanement peuvent modifier le résultat livré. Comparez EXW, FOB, CIF et DDP sur une même feuille de coût selon la destination, en confirmant quelles charges restent à votre responsabilité.'
+	},
+	{
+		question: 'Devons-nous demander une inspection par un tiers pour le LFO ?',
+		answer: 'Demandez une inspection indépendante avant expédition ou un témoignage FAT lorsque la commande est critique pour la sécurité, que le fournisseur est nouveau, que la spécification est complexe ou que les documents nécessitent une confirmation indépendante. Clarifiez le point d’arrêt de l’inspection, l’échantillonnage, les procès-verbaux d’essai et le payeur. Des organismes de type SGS ou BV peuvent assister aux contrôles convenus, mais ils ne remplacent pas vos critères d’acceptation technique.'
+	},
+	{
+		question: 'Comment devons-nous négocier la politique d’échantillonnage ?',
+		answer: 'Définissez si l’échantillon est une vanne de production réelle, une coupe de démonstration ou un prototype, et précisez qui paie l’échantillon, l’outillage, le fret et les rapports d’essai. Convenez du traitement de l’échantillon approuvé lorsque la commande pilote est lancée, et consignez avant approbation tout écart dimensionnel, de revêtement ou de marquage.'
+	},
+	{
+		question: 'Comment fixer les échéances de paiement ?',
+		answer: 'T/T 30/70 et L/C à vue sont des structures courantes, mais le déclencheur de libération doit être précis. Liez le solde à l’inspection terminée, aux documents approuvés et à l’emballage convenu plutôt qu’à une promesse informelle. Confirmez le nom du bénéficiaire, les coordonnées bancaires, l’entité qui passe la commande et la procédure de changement de compte par un canal connu.'
+	},
+	{
+		question: 'Quand demander le plan FAT après réception d’un devis ?',
+		answer: 'Demandez le plan FAT pendant la clarification technique et avant l’attribution, pas une fois la production terminée. Le plan doit préciser la base des essais de corps et de siège, l’échantillonnage, les manomètres, les procès-verbaux d’acceptation, les certificats matière, le marquage, l’emballage et la notification du témoin. Les deux parties disposent ainsi du temps nécessaire pour réserver un créneau et résoudre une exception avant l’expédition.'
+	}
+];
+
+const toc = [
+	{ id: 'why-quotes-differ', label: '1. Pourquoi deux devis pour la même vanne diffèrent' },
+	{ id: 'write-rfq', label: '2. Rédiger une RFQ qui obtient des devis précis' },
+	{ id: 'read-quote', label: '3. Lire le devis ligne par ligne' },
+	{ id: 'hidden-costs', label: '4. Les coûts qui apparaissent après l’attribution' },
+	{ id: 'appraisal', label: '5. Construire une évaluation comparative' },
+	{ id: 'verification', label: '6. Vérifications avant paiement' },
+	{ id: 'pilot-order', label: '7. Commandes pilotes et montée en volume' },
+	{ id: 'faq', label: 'Questions fréquentes' }
+];
+
+const products = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Vanne à tiroir à siège résilient à brides Z41X', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50-DN700 PN10/16, coin encapsulé EPDM' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Vanne à tiroir à siège résilient OS&amp;Y UL/FM', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10", extrémités rainurées, tige montante, homologuée UL/FM' },
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'Clapet anti-retour à boule sphérique HQ44X', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50-DN400 PN16, boule EPDM anti-bélier' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hydrant incendie hors sol antigel (SS100/65)', img: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp', desc: 'Fonte ductile GB 4452, 1,6 MPa, vidange antigel' }
+];
+---
+
+<Layout
+	title="Comparer les Devis de Fournisseurs Chinois de Vannes (2026)"
+	description="Guide B2B pour les RFQ aux usines chinoises de vannes : spécifications, écarts de devis, coûts cachés, notation et contrôles avant attribution."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Guide de comparaison des devis de vannes' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Guide de comparaison des devis de vannes</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide d’approvisionnement en vannes</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Comment comparer les devis de fournisseurs chinois de vannes sans compromettre la suite du projet</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En bref : un devis de vanne n’est comparable que si le périmètre technique, le terme de livraison, les documents, les essais et le déclencheur de paiement sont comparables. Ce guide montre aux acheteurs comment rédiger une RFQ, lire chaque ligne, révéler les écarts de coût rendu, noter les fournisseurs et vérifier une usine chinoise de vannes avant l’attribution d’un bon de commande. Wanlian établit ses devis à partir de votre RFQ plutôt que d’afficher une liste de prix ; le bon point de départ est donc une BOM et une spécification complètes.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-quotes-differ" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Pourquoi deux devis pour la même vanne diffèrent</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">« La même vanne » désigne souvent seulement le même nom. Une usine peut chiffrer un corps en fonte ductile avec des pièces internes en acier inoxydable, tandis qu’une autre utilise une nuance différente ou un autre matériau de siège. L’une peut inclure un essai du corps et du siège, la traçabilité matière et un dossier qualité signé ; l’autre peut ne prévoir qu’une inspection de routine en usine. Le perçage des brides peut suivre ANSI, DIN, EN ou JIS, et la dimension face à face peut varier selon la conception. Le système de peinture, le marquage, l’emballage et la palettisation influencent également ce qui arrive sur site.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Le périmètre commercial crée un second écart. Le MOQ, l’outillage dédié, la modification du modèle, les essais d’échantillon, les certificats matière 3.1, le témoignage FAT par un tiers et l’emballage spécial peuvent apparaître comme des lignes séparées ou être omis jusqu’à la clarification. EXW, FOB, CIF et DDP ne sont pas des étiquettes de prix interchangeables : ils transfèrent les coûts et les risques à des étapes différentes. Avant de demander pourquoi un devis est élevé, demandez si les deux fournisseurs ont chiffré le même livrable.</p>
+			<p class="text-gray-700 leading-relaxed">Établissez une seule feuille de comparaison avant la négociation. Placez le modèle, la taille nominale, la classe de pression, le raccordement, les matériaux, la norme, l’inspection, les documents, la quantité, la destination et la date requise dans des colonnes fixes. La <a href="/fr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">checklist d’approvisionnement B2B de vannes</a> est un complément utile pour rendre ce périmètre explicite.</p>
+
+			<h2 id="write-rfq" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Rédiger une RFQ qui obtient des devis précis</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Une RFQ doit permettre à l’usine de répondre sans deviner. Joignez le tableau des vannes ou la BOM, les plans, le fluide de service, la température et la pression de fonctionnement, la quantité par taille, le port de destination, la fenêtre de livraison requise et le code applicable. Précisez si la vanne est destinée à la protection incendie, aux réseaux d’eau, à un procédé ou à un remplacement. Ajoutez les détails de la norme des extrémités, par exemple la classe ANSI ou le perçage DIN/EN/JIS, plutôt que d’écrire seulement « à brides ».</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Faites de la demande documentaire une partie de la ligne. Demandez les désignations des matériaux du corps et des pièces internes, le matériau du siège, les procès-verbaux d’essai de pression, les certificats 3.1 lorsque requis, les données de revêtement, le visuel de la plaque signalétique, les photos d’emballage et le plan d’inspection et d’essai. Si un tiers doit assister au FAT, indiquez le point d’arrêt et les procès-verbaux d’acceptation. Pour les équipements incendie, demandez des éléments vérifiables sur le modèle exact ; n’acceptez jamais « équivalent à une marque connue » à la place d’une homologation ou d’un certificat vérifiable.</p>
+			<p class="text-gray-700 leading-relaxed">Demandez à chaque soumissionnaire d’indiquer les exclusions et les écarts dans une colonne séparée. Une colonne d’écarts vide ne constitue pas une confirmation. Exigez que le fournisseur indique la devise, la période de validité, le délai de production, le MOQ, la base de garantie, la structure de paiement, l’Incoterm et les hypothèses de destination. Wanlian dispose de ses propres lignes de production ainsi que d’une capacité collaborative qualifiée, et établit ses devis selon le périmètre de la RFQ afin d’adapter le mode de production à la vanne et aux documents requis.</p>
+
+			<h2 id="read-quote" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Lire le devis ligne par ligne</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Lisez le devis comme une offre technique, et non comme un seul chiffre. Commencez par le code produit et sa révision exacts, puis vérifiez la classe de pression, la plage de tailles nominales, le raccordement, la norme face à face et la nomenclature des matériaux. Confirmez que la <a href="/fr/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">vanne à tiroir à siège résilient à brides Z41X</a> chiffrée correspond à la configuration demandée, et non à une vanne à tiroir visuellement similaire avec un coin ou un perçage différent.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Champ du devis</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Éléments à confirmer</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Pourquoi cela change la décision</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Vanne et matériaux</td>
+							<td class="px-4 py-3 text-gray-700">Corps, chapeau, tige, pièces internes, coin ou boule, siège et joint</td>
+							<td class="px-4 py-3 text-gray-700">Durée de service, résistance à la corrosion et périmètre d’homologation</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Raccordement</td>
+							<td class="px-4 py-3 text-gray-700">Perçage ANSI, DIN, EN ou JIS ; extrémités rainurées ou filetées</td>
+							<td class="px-4 py-3 text-gray-700">Compatibilité sur site et risque d’une seconde expédition coûteuse</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Essais et documents</td>
+							<td class="px-4 py-3 text-gray-700">Essai du corps/siège selon API 598, certificats, FAT et dossier qualité</td>
+							<td class="px-4 py-3 text-gray-700">Preuves d’acceptation et traçabilité après livraison</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Base de livraison</td>
+							<td class="px-4 py-3 text-gray-700">EXW, FOB, CIF ou DDP, lieu désigné et charges incluses</td>
+							<td class="px-4 py-3 text-gray-700">Coût rendu, transfert des risques et travail d’importation</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Paiement et libération</td>
+							<td class="px-4 py-3 text-gray-700">T/T 30/70 ou L/C à vue, déclencheurs d’inspection et de remise des documents</td>
+							<td class="px-4 py-3 text-gray-700">Exposition de trésorerie et contrôle avant expédition</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Examinez ensuite les petits caractères. « Emballage standard » ne signifie pas nécessairement emballage export, et « certificat d’essai » ne signifie pas forcément un rapport lié à vos numéros de série. Confirmez si les palettes ISPM-15, les étiquettes, les joints de rechange, les manuels et les photos sont inclus. Pour les applications incendie, comparez l’homologation exacte, le marquage et les preuves d’inspection, et pas seulement une description de produit familière. Consultez le guide des essais de pression <span class="text-gray-700">API 598</span> lorsque la formulation des essais manque de clarté.</p>
+
+			<h2 id="hidden-costs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Les coûts qui apparaissent après l’attribution</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Le coût livré commence par la vanne chiffrée, mais ne s’arrête pas là. En EXW, vous pouvez devoir organiser l’enlèvement à l’usine et le transport intérieur. En FOB, le fournisseur prend normalement en charge les formalités d’exportation jusqu’au point de chargement désigné, tandis que l’acheteur supporte le fret maritime et les coûts en aval. CIF inclut le fret et l’assurance jusqu’au port désigné, mais pas nécessairement les opérations du terminal de destination, les droits ou le dédouanement. DDP peut simplifier la tâche de l’acheteur, mais l’étendue exacte des taxes, de l’importateur officiel et de la livraison doit être écrite.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Cartographiez toute la chaîne : transport intérieur, déclaration d’exportation, fret maritime, assurance, droits, frais portuaires et de terminal, agent en douane, livraison finale et inspection ou stockage éventuels. Ajoutez les suppléments commerciaux faciles à oublier : MOQ, frais de moule ou d’outillage, échantillon et essais, certificats 3.1, FAT par un tiers, revêtement spécial, traduction de plaque signalétique, cartons export et traitement ISPM-15. Demandez une période de validité, car le fret et les surcharges peuvent évoluer entre l’attribution et l’expédition.</p>
+			<p class="text-gray-700 leading-relaxed">Ne laissez pas un devis apparemment bas dissimuler une omission technique. Un matériau de siège absent, un perçage de bride erroné ou un procès-verbal d’essai manquant peut provoquer retouche, retard et risque d’homologation, au point de dépasser l’écart initial. Le guide des brides <span class="text-gray-700">ANSI/DIN/EN/JIS</span> aide à résoudre l’un des écarts de périmètre les plus courants avant le bon de commande.</p>
+
+			<h2 id="appraisal" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Construire une évaluation comparative</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Utilisez une évaluation pondérée plutôt que de choisir la ligne la moins chère. Une grille pratique accorde la plus grande attention à l’adéquation technique et aux preuves de conformité, puis à la clarté du coût rendu, aux contrôles qualité, au délai, à la communication et au risque de paiement. La pondération exacte doit refléter les conséquences d’une défaillance : une vanne de remplacement pour un service non critique peut être évaluée différemment d’une vanne intégrée à un ensemble de protection incendie.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Dimension de notation</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Preuves à demander</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Signal d’alerte</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Adéquation technique</td>
+							<td class="px-4 py-3 text-gray-700">Plans, fiche technique, matériaux, normes d’extrémités et écarts</td>
+							<td class="px-4 py-3 text-gray-700">« Équivalent » indiqué sans preuve au niveau du modèle</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Qualité et traçabilité</td>
+							<td class="px-4 py-3 text-gray-700">ITP, dossiers de série, relevés d’essai, certificats 3.1 et accès à l’audit</td>
+							<td class="px-4 py-3 text-gray-700">L’émetteur ou le périmètre du certificat ne peut pas être vérifié</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Clarté commerciale</td>
+							<td class="px-4 py-3 text-gray-700">Incoterm, destination, exclusions, validité et feuille de coût rendu</td>
+							<td class="px-4 py-3 text-gray-700">Le fret, les droits ou l’outillage n’apparaissent qu’après l’attribution</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Risque d’exécution</td>
+							<td class="px-4 py-3 text-gray-700">Vidéo de l’usine, plan de capacité, références et historique de communication</td>
+							<td class="px-4 py-3 text-gray-700">Refus d’un audit ou changement du compte bénéficiaire</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Inscrivez les questions sans réponse comme des déductions, et non comme des hypothèses. Un fournisseur réactif qui signale un écart est plus sûr qu’un fournisseur qui répond oui à tout puis modifie le périmètre. Conservez la révision du devis, les clarifications et le plan approuvé avec l’évaluation afin que la décision d’attribution reste auditable.</p>
+
+			<h2 id="verification" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Vérifications avant paiement</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Avant de libérer un acompte, vérifiez l’entité juridique, l’adresse de l’usine, la capacité de production, le bénéficiaire bancaire et l’émetteur des documents. Demandez une visite vidéo en direct de l’usinage, de l’assemblage, des essais de pression, de la peinture, de l’identification de l’entrepôt et de l’emballage. Une vidéo ne remplace pas un audit, mais le refus de montrer l’exploitation constitue un avertissement clair. Si le fournisseur utilise une capacité collaborative qualifiée, identifiez le processus sous-traité et le responsable de l’inspection finale.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Vérifiez que les certificats mentionnent le bon fabricant et le bon modèle, et que le compte destinataire correspond à l’entité contractante. Des différences de nom inexpliquées entre le titulaire du certificat et le compte de paiement doivent être clarifiées avant le paiement. Considérez « identique à une grande marque » comme un argument marketing tant que le modèle, l’homologation, le matériau et les preuves d’essai ne sont pas vérifiables indépendamment. Pour une démarche structurée, suivez notre <a href="/fr/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">guide de vérification d’un fournisseur chinois de vannes</a> et consultez les <a href="/fr/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">contrôles contre les contrefaçons d’équipements incendie</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Convenez du plan FAT avant que la production n’atteigne sa dernière étape. Définissez les essais du corps et du siège selon API 598 lorsque cela s’applique, l’étalonnage des manomètres, la sélection des échantillons, les contrôles du revêtement et du marquage, la revue documentaire, la notification du témoin et le traitement des non-conformités. Le témoignage d’un tiers issu d’une organisation de type SGS ou BV peut apporter de l’indépendance, mais le bon de commande doit toujours définir l’acceptation.</p>
+
+			<h2 id="pilot-order" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Commandes pilotes et montée en volume</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Une commande pilote transforme les hypothèses en preuves. Utilisez-la pour vérifier la vanne réelle par rapport au plan approuvé, les dimensions, le perçage des brides, le couple de manœuvre, le revêtement, la plaque signalétique, l’emballage et le dossier documentaire. Pour une application d’eau incendie, vérifiez la configuration de la <a href="/fr/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">vanne à tiroir à siège résilient OS&amp;Y UL/FM</a> et du <a href="/fr/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">clapet anti-retour à boule sphérique HQ44X</a> par rapport au périmètre approuvé, plutôt que de vous fier à une photographie de catalogue.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Commencez petit, car le coût de découverte d’une incompatibilité est moindre avant le déploiement du produit dans tout un projet. Un pilote teste aussi la communication, la maîtrise des changements, la qualité de l’emballage, les documents d’exportation et la rapidité de correction d’une non-conformité. Ne libérez le lot suivant qu’après clôture du rapport pilote et confirmation par le fournisseur que la révision approuvée est verrouillée pour la production.</p>
+			<p class="text-gray-700 leading-relaxed">La montée en volume doit conserver les mêmes points de contrôle, la traçabilité et les déclencheurs de paiement. Wanlian peut établir des offres basées sur une RFQ en s’appuyant sur ses propres lignes de production et une capacité collaborative qualifiée ; envoyez le tableau des vannes, la destination et les documents requis afin que nous séparions l’approvisionnement standard des contrôles propres au projet. Pour une planification plus large des risques, lisez le <a href="/fr/guides/cross-border-procurement-risk-whitepaper/" class="text-brand-blue font-semibold hover:underline">livre blanc sur les risques d’approvisionnement transfrontalier</a> avant de finaliser le circuit d’achat.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Prêt à comparer une RFQ de vannes ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez votre BOM ou feuille de demande, la destination, les normes et les exigences documentaires. Wanlian établit son devis selon la RFQ, confirme le périmètre technique et sépare les hypothèses de production, d’inspection et de livraison avant l’attribution.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Package%20RFQ%20de%20vannes" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander une RFQ de vannes</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20j%27ai%20besoin%20de%20devis%20de%20vannes%20pour%20ma%20BOM" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

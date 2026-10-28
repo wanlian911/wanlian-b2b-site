@@ -1,0 +1,182 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Quel matériau de réservoir et quelle protection anticorrosion faut-il spécifier?',
+		answer: 'Spécifiez le matériau du réservoir, son revêtement intérieur et extérieur ainsi que les dispositions liées à la qualité de l’eau avec le fabricant du réservoir et l’ingénieur du projet. Les réservoirs en acier, en acier sectionnel et en béton présentent des exigences anticorrosion différentes; le choix correct dépend de l’eau stockée, du climat et des exigences locales. Demandez les données de revêtement, les accès d’inspection et les instructions de maintenance, plutôt que de supposer qu’un revêtement polyvalent convient à l’eau incendie.'
+	},
+	{
+		question: 'Un dispositif anti-vortex sur aspiration doit-il être certifié pour le service incendie?',
+		answer: 'La nécessité d’un référencement, d’une homologation ou d’une acceptation spécifique au projet dépend de l’édition de la norme applicable, de l’autorité compétente et de l’ensemble du réservoir. Une plaque anti-vortex est un composant de protection hydraulique, et non automatiquement une vanne incendie référencée. Confirmez les justificatifs requis pour le projet et joignez son matériau, ses dimensions et son détail de montage au dossier du réservoir.'
+	},
+	{
+		question: 'Que se passe-t-il lorsque la profondeur d’immersion du réservoir est insuffisante?',
+		answer: 'L’aspiration peut entraîner de l’air, former un vortex visible ou devenir bruyante et instable. La pompe peut présenter une pression d’aspiration fluctuante, une perte de débit, des vibrations ou des symptômes proches de la cavitation. Vérifiez le niveau d’eau, la géométrie de l’entrée, l’écoulement d’approche et le dispositif anti-vortex par rapport à l’édition de la norme applicable et aux données du fabricant de la pompe avant de modifier la pompe.'
+	},
+	{
+		question: 'Un même réservoir peut-il alimenter les usages domestiques et incendie?',
+		answer: 'C’est possible dans certains cas, mais uniquement si la configuration conserve la réserve incendie requise, maintient la séparation ou le niveau de prélèvement imposé et est acceptée par l’autorité compétente. Une sortie domestique ou un réglage de contrôle de niveau ne doit pas permettre à la consommation normale d’utiliser le volume incendie protégé. Confirmez la configuration hydraulique, la surveillance et les commandes de remplissage avec le code applicable.'
+	},
+	{
+		question: 'Pourquoi une vanne à opercule est-elle normalement privilégiée sur l’aspiration de la pompe?',
+		answer: 'Une vanne à opercule totalement ouverte offre un passage intégral avec peu de perturbations près de l’entrée de la pompe et peut être verrouillée ou surveillée en position ouverte. La vanne d’isolement d’aspiration n’est pas un organe de régulation. Une solution référencée peut être acceptée sur certains projets, mais le fournisseur de la pompe, l’ingénieur de conception et l’autorité compétente doivent confirmer le choix avant libération.'
+	},
+	{
+		question: 'Comment protéger un réservoir d’aspiration dans un climat froid?',
+		answer: 'Maintenez le réservoir, la conduite d’aspiration, les vannes et les équipements de contrôle de niveau au-dessus du niveau de risque de gel du projet, ou prévoyez une isolation étudiée, un traçage chauffant et une vidange. La méthode exacte dépend du climat, de la construction du réservoir et de l’édition de la norme applicable. Protéger uniquement la virole du réservoir ne suffit pas si une vanne exposée, une ligne pilote ou un point bas peut geler et interrompre l’alimentation en eau incendie.'
+	}
+];
+
+const toc = [
+	{ id: 'water-source', label: '1. Origine du volume d’eau incendie' },
+	{ id: 'tank-sizing', label: '2. Dimensionnement de la réserve d’eau incendie' },
+	{ id: 'two-suction', label: '3. Règle des deux aspirations et traversées de réservoir' },
+	{ id: 'vortex', label: '4. Prévention des vortex et implantation de la conduite d’aspiration' },
+	{ id: 'level-control', label: '5. Maintenir le réservoir plein : contrôle de niveau' },
+	{ id: 'priming-testing', label: '6. Amorçage, manomètres et dispositions d’essai' },
+	{ id: 'checklist', label: '7. Liste de contrôle de la configuration d’aspiration' },
+	{ id: 'faq', label: 'Questions fréquemment posées' }
+];
+
+const products = [
+	{ slug: 'suction-vortex-preventer-en12845', name: 'Dispositif anti-vortex d’aspiration (EN 12845)', img: '/assets/products/suction-vortex-preventer-en12845.webp', desc: 'En acier inoxydable austénitique, ensemble de plaque anti-vortex' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'Clapet hydraulique de niveau d’eau (F745X)', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'Maintien du niveau piloté, fermeture progressive' },
+	{ slug: 'remote-control-float-valve-100x', name: 'Clapet à flotteur télécommandé (100X-16P)', img: '/assets/products/remote-control-float-valve-100x.webp', desc: 'Clapet pilote à flotteur inox pour le remplissage du réservoir' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'Filtre en Y télescopique (SGL41H)', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'Protection contre les débris sur l’aspiration, nettoyable en ligne' }
+];
+---
+
+<Layout
+	title="Aspiration de pompe et réservoir incendie (2026)"
+	description="Dimensionnement du réservoir incendie, règle des deux aspirations, anti-vortex, amorçage et contrôle de niveau pour une aspiration conforme."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Guide d’aspiration de pompe incendie' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Guide d’aspiration de pompe incendie</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide du réservoir d’eau incendie</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Configuration de l’aspiration de pompe et du réservoir d’eau incendie</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En bref : une pompe incendie ne peut fournir ses performances certifiées que si le réservoir offre la réserve correcte, si les prises d’aspiration restent immergées, si l’entrée d’air et la formation de vortex sont maîtrisées et si les équipements de remplissage ne peuvent pas consommer le volume protégé. Ce guide explique la source, le dimensionnement du réservoir, les configurations à deux aspirations, les détails anti-vortex, le contrôle de niveau, l’amorçage et les informations à inscrire dans une nomenclature côté aspiration.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="water-source" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Origine du volume d’eau incendie</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La configuration d’aspiration commence par la source d’eau, et non par un catalogue de vannes. Une pompe incendie peut aspirer depuis un réservoir atmosphérique ouvert, un réservoir sectionnel dédié, une réserve en béton, un réservoir sous pression ou une conduite municipale. Chaque source modifie la hauteur d’aspiration disponible, la manière d’amorcer la pompe, la protection requise à l’entrée et les justificatifs demandés à la réception. La pompe et son contrôleur sont fournis par un fabricant de pompes conformément à la NFPA 20 ou au code local; Wanlian fournit les vannes et accessoires côté aspiration autour de cet ensemble, et non la pompe incendie elle-même.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Un réservoir d’eau incendie ouvert est généralement la source la plus prévisible, car son niveau de fonctionnement est visible et sa pression est atmosphérique. L’ingénieur de la pompe doit néanmoins tenir compte du niveau utile minimal, de l’altitude de l’entrée, des pertes de charge et des exigences d’aspiration du fabricant de la pompe. Un réservoir fermé sous pression présente une relation différente entre pression et volume, tandis qu’un raccordement municipal dépend de la fiabilité du réseau public et des restrictions imposées par l’autorité de l’eau. Ne transposez pas une configuration de réservoir à un raccordement direct sans recalculer les conditions d’aspiration.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Source</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Signification côté aspiration</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Question de conception</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Réservoir d’eau incendie ouvert</td>
+							<td class="px-4 py-3 text-gray-700">Niveau d’eau statique, entrée immergée, détail anti-vortex et tuyauterie vidangeable</td>
+							<td class="px-4 py-3 text-gray-700">Le niveau de fonctionnement minimal convient-il à l’entrée de la pompe?</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Réservoir fermé sous pression</td>
+							<td class="px-4 py-3 text-gray-700">Pression du réservoir, volume utile, isolement et dispositions de maintenance sûres</td>
+							<td class="px-4 py-3 text-gray-700">La pression reste-t-elle disponible pendant le service requis?</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Raccordement direct au réseau municipal</td>
+							<td class="px-4 py-3 text-gray-700">Pression du réseau public, fiabilité du débit, protection contre le retour et approbation de l’autorité</td>
+							<td class="px-4 py-3 text-gray-700">Le réseau peut-il fournir la condition d’aspiration requise à tout moment?</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Pour une vue plus large de la séquence des vannes en local technique, consultez le <a href="/fr/guides/municipal-fire-water-main-upgrade-guide/" class="text-brand-blue font-semibold hover:underline">guide des vannes de local de pompe incendie</a>. Il est utile de valider la courbe de pompe et la philosophie d’isolement avant de figer les traversées du réservoir.</p>
+
+			<h2 id="tank-sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Dimensionnement de la réserve d’eau incendie</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La réserve d’eau incendie est déterminée par la classification du risque du projet, le débit de calcul et la durée requise selon la norme de conception applicable. Il n’existe pas de volume universel de réservoir qu’il serait responsable de copier d’un bâtiment à l’autre. Le calcul hydraulique identifie la demande, et l’édition de la norme applicable définit la durée pendant laquelle la réserve doit alimenter les systèmes protégés. Inscrivez la base de calcul, le volume utile requis et la cote de niveau bas sur les nomenclatures du réservoir et de la pompe.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Distinguez le volume total du volume incendie utile. La géométrie du réservoir, les réglages des niveaux haut et bas, la réserve de sédiments, le trop-plein et la position de chaque sortie déterminent ce que la pompe peut réellement aspirer. Si une sortie domestique partage le réservoir, son prélèvement doit être organisé de façon que la consommation normale ne puisse pas utiliser la réserve incendie protégée. Le clapet de niveau de remplissage doit maintenir le niveau normal sans fermeture brutale, tandis qu’un signal de niveau bas surveillé doit atteindre l’alarme incendie ou le système de gestion du bâtiment selon les exigences.</p>
+			<p class="text-gray-700 leading-relaxed">Pour le contexte réglementaire, comparez les calculs de l’équipe de conception avec les normes NFPA de protection incendie. Utilisez cette vue d’ensemble pour identifier les questions, puis confirmez chaque exigence de volume, de durée et de niveau avec l’édition de la norme applicable et l’autorité compétente.</p>
+
+			<h2 id="two-suction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Règle des deux aspirations et traversées de réservoir</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les grands réservoirs d’eau incendie exigent plus qu’un seul point de dépendance. Les dispositions de la NFPA 20 relatives aux grands réservoirs de stockage imposent plusieurs sorties ou collecteurs d’aspiration et limitent la dépendance à une seule conduite, mais le seuil et la configuration exacts dépendent de l’édition de la norme applicable. Confirmez l’édition avant de dessiner la paroi du réservoir, et indiquez si chaque pompe dispose d’un parcours indépendant, comment les parcours sont isolés et comment la maintenance peut être effectuée sans supprimer la capacité incendie requise.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Une traversée de réservoir est un détail de système, pas simplement un trou avec une bride. Coordonnez la position du fourreau, le renforcement, le matériau du joint, l’isolement extérieur, les plaques anti-vortex intérieures et l’accès pour inspection. Placez la vanne à l’extérieur du réservoir, là où elle peut être manœuvrée et entretenue, et assurez-vous que le tronçon peut être vidangé ou déposé sans compromettre l’autre aspiration. La <a href="/fr/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">vanne à opercule OS&amp;Y à siège résilient UL/FM</a> est couramment envisagée lorsqu’une vanne d’isolement référencée, à passage intégral et visiblement ouverte est requise; le choix reste soumis aux spécifications du projet.</p>
+			<p class="text-gray-700 leading-relaxed">Deux parcours d’aspiration ne signifient pas deux branches décoratives réunies immédiatement dans un seul étranglement. Suivez chaque parcours jusqu’à la configuration de la pompe, vérifiez la section d’écoulement disponible et identifiez les vannes qui doivent rester verrouillées ou surveillées en position ouverte. Lorsqu’une seconde pompe ou un second compartiment est présent, le concepteur doit démontrer qu’une défaillance d’un seul composant ne supprime pas la capacité d’aspiration requise.</p>
+
+			<h2 id="vortex" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Prévention des vortex et implantation de la conduite d’aspiration</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La prise du réservoir doit rester immergée sur la profondeur minimale exigée par la norme applicable et la configuration de la pompe. Si le niveau d’eau descend trop près de l’ouverture, un vortex peut entraîner de l’air dans l’aspiration alors même que le réservoir semble encore contenir de l’eau. L’entrée d’air réduit le débit fourni, rend la pression d’aspiration instable et peut endommager la roue. Une plaque anti-vortex ou un <a href="/fr/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">dispositif anti-vortex d’aspiration EN 12845</a> aide à interrompre le mouvement tourbillonnaire; il ne remplace ni la profondeur d’immersion requise ni un dimensionnement correct de la conduite.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Gardez l’approche de la pompe aussi simple que le permet le local. Utilisez le diamètre de conduite d’aspiration et la longueur de parcours droit indiqués par le fabricant de la pompe, évitez les coudes inutiles près de la bride d’aspiration et installez un réducteur excentré avec sa partie plate en haut afin d’éviter toute accumulation d’air à l’entrée de la pompe. Soutenez la conduite indépendamment afin que son poids et ses mouvements thermiques ne chargent pas le corps de pompe. La vanne d’aspiration sert à l’isolement, jamais à la régulation.</p>
+			<p class="text-gray-700 leading-relaxed">Si le risque de débris est crédible, un <a href="/fr/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">filtre en Y télescopique SGL41H</a> nettoyable peut protéger la conduite d’aspiration lorsque la conception approuvée l’autorise, mais toute crépine ajoute des pertes et de la maintenance. Confirmez la maille, l’accès, la perte de charge et l’acceptation pour le service incendie avant l’installation. Un filtre obstrué peut donner l’impression d’un réservoir sous-dimensionné alors que le symptôme réel est la chute du manomètre d’aspiration.</p>
+
+			<h2 id="level-control" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Maintenir le réservoir plein : contrôle de niveau</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un réservoir plein lors de la réception n’est pas nécessairement une source incendie fiable. L’équipement de remplissage doit maintenir le niveau normal, se fermer progressivement, supporter la pression d’entrée disponible et fournir un signal clair lorsque le niveau baisse. L’objectif est d’empêcher la demande domestique, l’évaporation, les essais et les petites fuites de consommer la réserve protégée, tout en évitant qu’un remplissage incontrôlé ne fasse déborder le réservoir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Le <a href="/fr/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">clapet hydraulique de niveau d’eau F745X</a> utilise une configuration pilotée pour maintenir le niveau et assurer une fermeture progressive. Lorsque le projet prévoit une configuration télécommandée par flotteur, le <a href="/fr/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">clapet à flotteur télécommandé 100X-16P</a> fournit un pilote à flotteur inox pour le remplissage du réservoir. Aucun de ces produits ne définit à lui seul la réserve incendie : les seuils, by-pass, pressions amont et alarmes doivent suivre la conception hydraulique approuvée.</p>
+			<p class="text-gray-700 leading-relaxed">Indiquez les niveaux haut, normal, bas et d’urgence sur le schéma de commande. Prévoyez une vanne d’isolement amont accessible, une vidange ou un dispositif d’essai lorsque requis, ainsi qu’un moyen de vérifier l’action du pilote ou du flotteur sans vider le réservoir. Si le réservoir est partagé, interverrouillez le signal de niveau avec les commandes domestiques afin qu’une défaillance du clapet de remplissage ne réduise pas silencieusement la réserve incendie.</p>
+
+			<h2 id="priming-testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Amorçage, manomètres et dispositions d’essai</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Avant qu’une pompe incendie centrifuge puisse fonctionner, son corps et son aspiration doivent être correctement remplis, et le côté aspiration doit rester en charge comme prévu. La configuration finale dépend du type de pompe et de l’altitude de la source; suivez donc les instructions d’amorçage du fournisseur de la pompe plutôt que d’improviser un clapet de pied ou un clapet anti-retour supplémentaire. Un manomètre d’aspiration à la bride de la pompe montre si la source est réellement disponible; comparez-le au manomètre de refoulement et à la courbe certifiée de la pompe lors de la réception.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Prévoyez des points d’isolement et de vidange permettant d’inspecter le tronçon d’aspiration, la vanne et les instruments sans vidanger tout le réservoir. Protégez les manomètres contre les chocs accidentels et choisissez des plages adaptées aux conditions statiques et en fonctionnement attendues. Lors de la mise en service, vérifiez la position des vannes, l’alarme de niveau bas, l’action de remplissage, l’installation anti-vortex, les supports de tuyauterie et l’absence de fuites d’air avant d’enregistrer les performances de la pompe.</p>
+			<p class="text-gray-700 leading-relaxed">Les essais doivent démontrer à la fois la capacité hydraulique et l’intention de sécurité intégrée. Simulez une condition de niveau bas lorsque cela est autorisé, faites fonctionner le clapet de remplissage, inspectez la traversée du réservoir et confirmez que l’aspiration requise reste disponible avec l’état d’isolement prévu. Pour le raccordement extérieur et l’interface côté refoulement, le <a href="/fr/guides/fire-department-connection-siamese-guide/" class="text-brand-blue font-semibold hover:underline">guide du raccordement Siamese des services d’incendie</a> explique comment coordonner le raccordement utilisé par les secours avec le reste du local de pompe.</p>
+
+			<h2 id="checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Liste de contrôle de la configuration d’aspiration</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Identifiez la source.</strong> Indiquez le réservoir ouvert, le réservoir sous pression ou le raccordement municipal, le niveau de fonctionnement minimal, la pression disponible et la condition d’aspiration requise par le fournisseur de la pompe.</li>
+				<li><strong>Documentez la réserve.</strong> Indiquez le volume incendie et la durée requis selon le calcul du projet, avec toutes les cotes de niveau et tout volume protégé partagé avec l’usage domestique.</li>
+				<li><strong>Coordonnez les sorties.</strong> Confirmez l’édition applicable de la NFPA 20, l’exigence des deux aspirations pour la taille du réservoir et l’indépendance de chaque parcours.</li>
+				<li><strong>Empêchez l’entrée d’air.</strong> Vérifiez l’immersion, la géométrie anti-vortex, l’orientation du réducteur excentré, la longueur droite et les supports indépendants de la conduite.</li>
+				<li><strong>Protégez l’eau.</strong> Spécifiez la vanne d’isolement extérieure, le filtre nettoyable uniquement lorsqu’il est approuvé, les manomètres, les vidanges et les accès de maintenance.</li>
+				<li><strong>Contrôlez le niveau.</strong> Sélectionnez l’équipement pilote F745X ou 100X selon la pression d’entrée, réglez les niveaux normal et bas et câblez les alarmes requises.</li>
+				<li><strong>Préparez la réception.</strong> Incluez les instructions d’amorçage, les manomètres d’aspiration et de refoulement, les essais de remplissage, la simulation de niveau bas et les dossiers de matériaux, d’essais de pression et d’exploitation-maintenance.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Pour une nomenclature complète des vannes, reliez ce travail au <a href="/fr/guides/municipal-fire-water-main-upgrade-guide/" class="text-brand-blue font-semibold hover:underline">guide de modernisation de la conduite principale d’eau incendie municipale</a> et confirmez les conditions de l’autorité locale de l’eau. Wanlian peut examiner le plan des sorties du réservoir, la courbe de pompe, les diamètres de conduite et l’édition de norme requise avant de chiffrer les vannes et accessoires d’aspiration.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions fréquemment posées</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Besoin de vannes d’aspiration pour pompe incendie?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez le plan des sorties du réservoir, le débit et la hauteur nominaux de la pompe, les diamètres d’aspiration, les niveaux d’eau et l’édition de la norme applicable. Wanlian confirmera la configuration anti-vortex, de contrôle de niveau, d’isolement et d’essai pour votre projet.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Vannes%20d%E2%80%99aspiration%20pour%20pompe%20incendie" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un devis</a>
+						<a href="https://wa.me/8618684324501?text=Bonjour%2C%20j%E2%80%99ai%20besoin%20de%20vannes%20d%E2%80%99aspiration%20pour%20pompe%20incendie" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,198 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Un projet américain peut-il acheter un hydrant EN 14461 ?',
+		answer: 'Il peut être acheté, mais l’achat ne vaut pas acceptation. Un projet américain commence normalement par l’autorité compétente, le schéma de raccordement des services d’incendie et la norme contractuelle. Un hydrant EN 14461 ne peut être envisagé que si l’ingénieur et l’autorité compétente acceptent sa classe de pression, ses sorties, ses interfaces de raccordement, ses documents d’essai et ses détails d’installation. Si l’appel d’offres invoque AWWA C509, proposez un hydrant configuré selon AWWA plutôt que de supposer qu’un produit EN est équivalent.'
+	},
+	{
+		question: 'Un hydrant AWWA C509 peut-il être utilisé sur un projet EN ?',
+		answer: 'Uniquement avec une approbation documentée du projet. Un hydrant AWWA C509 et un hydrant EN 14461 peuvent différer par la configuration du corps, la désignation de pression, les sorties, les filetages et les preuves d’essais de type. Le concepteur doit confirmer que la configuration AWWA répond à l’interface et aux performances européennes requises. Ne remplacez pas un produit sur la seule base du diamètre nominal ; soumettez la norme proposée, les plans, les matériaux et les procès-verbaux d’essai avant validation.'
+	},
+	{
+		question: 'Comment choisir entre un hydrant à barillet sec et à barillet humide ?',
+		answer: 'Commencez par le climat, la configuration d’installation et la norme locale. Une configuration à barillet sec vidange le corps supérieur après la fermeture et convient aux sites où le gel constitue un risque de conception, tandis qu’un barillet humide reste en charge et s’emploie généralement lorsque le gel n’est pas attendu. Le choix final doit figurer dans la spécification du projet et correspondre à la norme, au dispositif de vidange et aux pratiques de maintenance retenus.'
+	},
+	{
+		question: 'Un hydrant équipé d’une surveillance IoT change-t-il sa conformité normative ?',
+		answer: 'Pas en lui-même. Un module de surveillance est un accessoire ou une couche d’instrumentation ; il ne remplace ni le corps de l’hydrant, ni les exigences de pression, de sorties, de matériaux ou d’essais. L’hydrant de base doit toujours respecter la norme invoquée par l’appel d’offres, et l’installation de surveillance ne doit gêner ni la manœuvre, ni la vidange, ni l’inspection, ni la sécurité vis-à-vis du trafic. Demandez séparément les documents du produit de base et la fiche technique du module.'
+	},
+	{
+		question: 'Que se passe-t-il si le filetage du raccord d’hydrant ne correspond pas ?',
+		answer: 'Le flexible, le bouchon ou l’engin incendie peut ne pas se raccorder, même si le diamètre nominal de sortie semble correct. Une incompatibilité de filetage ou de raccord peut retarder l’arrivée d’eau, empêcher le retrait du bouchon ou imposer un adaptateur non approuvé. Confirmez le type de sortie, la désignation du filetage, la norme de raccordement et la pratique locale des services d’incendie sur le plan approuvé. Si une transition est nécessaire, identifiez et approuvez l’adaptateur avant l’expédition.'
+	},
+	{
+		question: 'Quels rapports d’essai demander avant la livraison ?',
+		answer: 'Demandez le procès-verbal d’essai de pression, les preuves d’essai de débit ou de performance applicables à l’édition spécifiée, la documentation des matériaux et du revêtement, les contrôles dimensionnels et des sorties, ainsi que le rapport d’inspection finale. Pour un modèle sûr en zone de circulation, demandez la description des boulons de cisaillement et de la fermeture automatique. Demandez au fournisseur d’indiquer l’édition exacte de la norme utilisée, car l’édition de l’appel d’offres détermine les preuves pertinentes.'
+	}
+];
+
+const toc = [
+	{ id: 'which-standard', label: '1. Quelle norme votre spécification invoque réellement' },
+	{ id: 'pressure-classes', label: '2. Pression nominale et profondeur d’installation' },
+	{ id: 'outlets', label: '3. Disposition des sorties et types de raccordement' },
+	{ id: 'materials', label: '4. Matériaux, revêtements et sécurité en zone de circulation' },
+	{ id: 'testing', label: '5. Essais de type et essais de production' },
+	{ id: 'mixing', label: '6. Quand le mélange de normes est acceptable' },
+	{ id: 'rfq-checklist', label: '7. Checklist de demande de prix pour hydrants' },
+	{ id: 'faq', label: 'Questions fréquentes' }
+];
+
+const products = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hydrant extérieur antigel (SS100/65)', img: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp', desc: 'Fonte ductile GB 4452, DN100/65, 1,6 MPa, vidange antigel' },
+	{
+		slug: 'fire-hydrant-hose-coupling-adapter-hs',
+		name: 'Adaptateur de raccord pour colonne et tuyau',
+		img: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.webp',
+		desc: 'Adaptateur de raccord pour hydrant et flexible, conçu pour assurer la transition entre les interfaces de raccordement du projet'
+	},
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Hydrant anti-collision à régulation de pression (SSFT100)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Protection par boulons de cisaillement avec dispositif de régulation' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Tête d’hydrant intérieur SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'Vanne en fonte ductile SN65, 1,6 MPa, à gorge ou à bride' }
+];
+---
+
+<Layout
+	title="AWWA C509 ou EN 14461 : guide des hydrants"
+	description="Comparaison AWWA C509 et EN 14461 : pression, sorties, matériaux, essais de type et spécification d’un hydrant conforme pour votre projet."
+	type="article"
+	locale="fr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/fr/blog/' }, { name: 'Hydrants AWWA et EN' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/fr/" class="hover:text-blue-600">Accueil</a>
+			<span>/</span>
+			<a href="/fr/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Hydrants AWWA et EN</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guide des normes pour hydrants</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Hydrants AWWA C509 et EN 14461 : comparaison de spécification</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">En bref : AWWA C509 et EN 14461 ne sont pas des appellations interchangeables pour un même hydrant. AWWA C509 est une norme nord-américaine de produit, avec ses propres conventions de corps, de sorties et de filetages ; EN 14461 est une norme européenne pour hydrants hors sol, fondée sur les classes PN, les options d’entrée DN, la disposition des sorties, les interfaces et les exigences de performance. Une demande de prix efficace indique l’édition applicable, le raccordement local des services d’incendie, le régime de pression, les matériaux, la protection contre les chocs et les procès-verbaux d’essai, au lieu de demander un hydrant « international » générique.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/fr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="which-standard" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Quelle norme votre spécification invoque réellement</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La première question n’est pas « Quel hydrant est le meilleur ? », mais « Quel document régit l’acceptation ? » AWWA C509 est utilisée pour les vannes à opercule à siège résilient et les configurations d’hydrants dans les réseaux d’eau nord-américains, notamment les dispositions à barillet humide et à barillet sec. La spécification se lit avec les plans du projet, la norme du service d’eau et les exigences de l’autorité compétente. EN 14461 traite des hydrants hors sol dans le cadre européen, où l’ingénieur indique normalement la désignation de pression, le diamètre nominal d’entrée, la disposition des sorties, l’interface de raccordement et les preuves de performance requises.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">GB 4452 est la référence applicable à la famille courante de produits chinois hors sol SS100/65. Elle ne constitue pas un raccourci vers l’acceptation AWWA ou EN. L’hydrant extérieur Wanlian SS100/65 est fourni selon une configuration GB 4452, avec une pression nominale de 1,6 MPa et un essai de pression statique à 2,4 MPa. Ces informations sont utiles pour un appel d’offres destiné au marché chinois, mais un projet d’exportation nécessite sa propre norme de référence, son schéma de sorties et sa liste documentaire.</p>
+			<p class="text-gray-700 leading-relaxed">Utilisez la comparaison ci-dessous comme outil de présélection, puis vérifiez l’édition exacte de l’appel d’offres et les modifications du projet avant d’approuver un produit de remplacement.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Point de spécification</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">AWWA C509</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">EN 14461</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">GB 4452</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Périmètre du produit</td>
+							<td class="px-4 py-3 text-gray-700">Norme nord-américaine de produit pour hydrants ; configurations à barillet humide ou sec</td>
+							<td class="px-4 py-3 text-gray-700">Hydrants européens hors sol avec PN et exigences de performance indiqués</td>
+							<td class="px-4 py-3 text-gray-700">Hydrants chinois hors sol, y compris la famille SS100/65</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Terminologie de pression</td>
+							<td class="px-4 py-3 text-gray-700">Utiliser la classe nominale et le bordereau du projet ; ne pas déduire une valeur non indiquée</td>
+							<td class="px-4 py-3 text-gray-700">La classe PN figure dans la spécification et se vérifie avec l’installation</td>
+							<td class="px-4 py-3 text-gray-700">SS100/65 généralement spécifié à 1,6 MPa ; essai statique à 2,4 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sorties et interfaces</td>
+							<td class="px-4 py-3 text-gray-700">Sortie principale de 2,5 in et sortie latérale de 65 mm ; filetages selon l’interface AWWA indiquée</td>
+							<td class="px-4 py-3 text-gray-700">Configuration courante 2 x DN65 plus DN100 ; interface pouvant suivre EN 14384 et les exigences de raccordement associées</td>
+							<td class="px-4 py-3 text-gray-700">La désignation SS100/65 suit la convention chinoise du produit et du raccordement</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Matériaux et sécurité</td>
+							<td class="px-4 py-3 text-gray-700">La fonte ductile fait référence à ASTM A536 et la vidange du barillet sec s’applique lorsque nécessaire</td>
+							<td class="px-4 py-3 text-gray-700">Matériaux, revêtement, performance hydraulique et sécurité contre les chocs sont spécifiés et testés selon l’édition</td>
+							<td class="px-4 py-3 text-gray-700">Configuration en fonte ductile conforme aux exigences GB 4452 de matériaux et d’essais</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="pressure-classes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Pression nominale et profondeur d’installation</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">La terminologie de pression est une source fréquente de fausse équivalence. Les documents EN rendent généralement visible la désignation PN, tandis qu’un bordereau AWWA peut indiquer une classe de pression nominale ou une exigence du service d’eau. Les produits SS100/65 GB 4452 sont couramment identifiés à 1,6 MPa, avec un essai de pression statique à 2,4 MPa pour la configuration indiquée. Ces appellations décrivent des systèmes normatifs différents ; elles ne doivent pas être converties par un commercial sur la seule base du diamètre nominal.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Demandez la classe de pression de l’ensemble complet de l’hydrant, et pas seulement celle du corps. Le couvercle, la tige, le siège, la buse, le bouchon, la vidange et le raccord à bride ou fileté doivent tous rester adaptés au service. Indiquez la profondeur d’installation requise, la configuration enterrée et la cote du niveau fini figurant sur le plan de génie civil. Toute valeur minimale de débit, profondeur d’enfouissement ou autre donnée dépendant de l’édition doit être spécifiée selon l’édition de la norme mentionnée dans l’appel d’offres.</p>
+			<p class="text-gray-700 leading-relaxed">Une rue municipale froide peut nécessiter une configuration à barillet sec ou enterrée, tandis qu’un climat chaud peut permettre une conception à barillet humide. Pour une installation sous le niveau du sol, examinez le produit de la série SA décrit comme <span class="font-semibold">hydrant enterré antigel</span> au regard des détails de vidange et d’accès du projet. La décision relative à la pression et celle relative au gel sont liées, mais elles ne constituent pas la même décision.</p>
+
+			<h2 id="outlets" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Disposition des sorties et types de raccordement</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Une sortie qui ne peut pas s’accoupler au flexible local rend l’hydrant inutilisable. La pratique AWWA C509 identifie une sortie principale de 2,5 in et une sortie latérale de 65 mm, avec des filetages suivant l’interface AWWA C505 applicable. Les projets EN indiquent couramment des entrées DN80, DN100 ou DN150 et une disposition de sorties telle que 2 x DN65 plus DN100, mais l’interface exacte doit figurer dans le bordereau du projet. Un plan qui indique seulement « sortie DN65 » est incomplet s’il ne précise pas aussi le type de filetage ou de raccord.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Confirmez si le service d’incendie utilise des raccordements de flexible filetés, un modèle Storz, un raccord national ou un adaptateur propre au projet. Wanlian peut examiner le bordereau des buses avec un <a href="/fr/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">adaptateur de raccord pour flexible d’hydrant</a> ou un <a href="/fr/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">raccord Storz en aluminium de 2,5 pouces</a> lorsque le raccordement fait partie de la demande de prix. L’adaptateur doit être nommé et approuvé ; il ne doit pas être découvert après l’arrivée du conteneur.</p>
+			<p class="text-gray-700 leading-relaxed">Si un service d’incendie américain doit manœuvrer la vanne, demandez-lui de confirmer le filetage avant de commander une configuration EN ou GB. Pour un projet européen, identifiez la référence de raccordement utilisée par le service d’eau et faites-la figurer sur le plan d’ensemble approuvé. Le <a href="/fr/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">guide des normes de vannes d’hydrant</a> explique pourquoi la géométrie des sorties, le dégagement du bouchon et le sens de manœuvre doivent être examinés ensemble.</p>
+
+			<h2 id="materials" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Matériaux, revêtements et sécurité en zone de circulation</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Les configurations AWWA indiquent couramment une fonte ductile selon ASTM A536 et une vidange de barillet sec lorsqu’une protection contre le gel est requise. Les projets EN doivent également inscrire dans le dossier de soumission la nuance de matériau, le système de revêtement interne et externe, le matériau des fixations et le choix des élastomères. Les produits GB 4452 suivent la configuration chinoise définie. Ne comparez pas la couleur de peinture ou une photographie de catalogue comme preuve de conformité du revêtement ; demandez les dossiers de matériaux et de revêtement exigés par l’édition de l’appel d’offres.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">La protection contre les chocs est une exigence fonctionnelle distincte. Sur l’hydrant anti-collision à régulation de pression SSFT100, un choc provoque la rupture des boulons de cisaillement et la fermeture automatique de la vanne interne, ce qui arrête l’écoulement. Le remplacement des boulons de cisaillement rétablit l’hydrant. Des données techniques détaillées peuvent être fournies sur demande. Cette description ne signifie pas que tous les hydrants AWWA, EN ou GB disposent du même mécanisme de sécurité ; l’exigence de protection contre les chocs doit donc être indiquée explicitement.</p>
+			<p class="text-gray-700 leading-relaxed">Pour un site soumis à une circulation fréquente de véhicules, comparez l’<a href="/fr/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">hydrant anti-collision SSFT100</a> avec la protection de génie civil autour de l’hydrant. Le <a href="/fr/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">guide des hydrants antigel et anti-collision</a> est utile lorsque la spécification combine risque de gel, exposition aux chocs et accès pour la manœuvre.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Essais de type et essais de production</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Un certificat portant le bon nom de produit ne constitue pas automatiquement une preuve pour la bonne norme. Demandez quelle édition a été utilisée, quelle configuration a été testée et si le rapport couvre la disposition de sorties fournie. Les essais de type démontrent la conception, tandis que les essais de production démontrent que l’expédition a été inspectée et soumise à un essai de pression. Ces deux documents répondent à des questions d’acheteur différentes et doivent être listés séparément dans le bon de commande.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Pour un dossier AWWA C509, demandez les preuves de pression, de manœuvre, de vidange et de matériaux applicables à la configuration à barillet humide ou sec. Pour EN 14461, demandez les preuves PN, de performance hydraulique, de sorties, de résistance aux chocs de véhicules et d’interface applicables à la configuration choisie. Pour GB 4452, demandez le dossier produit à 1,6 MPa et le procès-verbal d’essai de pression statique à 2,4 MPa lorsque cette base SS100/65 est spécifiée. Les détails d’essai de débit doivent suivre la méthode et l’édition de la norme applicable ; n’acceptez pas un débit universel inventé.</p>
+			<p class="text-gray-700 leading-relaxed">L’<a href="/fr/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">hydrant au sol intelligent IoT SS100ZN</a> peut ajouter une surveillance à l’équipement, mais l’hydrant de base doit conserver son propre dossier de conformité. Vérifiez que le capteur, la batterie et les équipements de communication ne gênent ni la course de la vanne, ni la vidange, ni l’inspection, ni la fonction de sécurité contre les chocs.</p>
+
+			<h2 id="mixing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Quand le mélange de normes est acceptable</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Le mélange de normes peut être acceptable lorsqu’il est volontaire, documenté et approuvé. Par exemple, un projet peut utiliser un corps d’hydrant fabriqué selon une norme de produit et un adaptateur spécifié séparément pour correspondre au flexible local. Cela ne rend pas le corps conforme à la norme de l’adaptateur. Le dossier de soumission doit identifier chaque composant, son document de référence, sa compatibilité de pression, son interface filetée ou de raccordement et la responsabilité de l’acceptation finale.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Ne mélangez pas silencieusement les normes en modifiant seulement la bride ou la buse après le devis. Le perçage de sortie, le dégagement du bouchon, la clé de manœuvre, le comportement de vidange et les preuves d’essai peuvent tous changer. Si un entrepreneur demande un corps AWWA pour un projet EN, demandez à l’ingénieur d’indiquer la dérogation sur le dossier approuvé. Si un hydrant EN est proposé pour un projet américain, obtenez l’acceptation écrite de l’autorité compétente avant la fabrication.</p>
+			<p class="text-gray-700 leading-relaxed">Wanlian accompagne l’examen des projets grâce à sa propre ligne de production et à des capacités coopératives qualifiées, afin d’aligner la demande de prix sur le corps, les sorties et le dossier documentaire requis. L’acheteur reste responsable de nommer la norme du projet et l’autorité compétente ; le fournisseur ne doit pas formuler d’allégation de certification non étayée.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Checklist de demande de prix pour hydrants</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Indiquez la norme et l’édition applicables.</strong> Mentionnez AWWA C509, EN 14461, GB 4452 ou tout autre document requis, avec les modifications du projet et les exigences de l’autorité compétente.</li>
+				<li><strong>Définissez le corps et l’installation.</strong> Barillet humide ou sec, hors sol ou enterré, cote du niveau fini, dispositif de vidange et exposition au gel.</li>
+				<li><strong>Indiquez la pression et le service hydraulique.</strong> Donnez la pression nominale ou la classe PN et exigez que toute valeur de débit dépendant de l’édition soit spécifiée selon l’édition de la norme de l’appel d’offres.</li>
+				<li><strong>Dessinez chaque raccordement.</strong> DN d’entrée ou diamètre nominal, perçage de bride, nombre et taille des sorties, filetage ou modèle de raccordement, bouchon et détails de la clé de manœuvre.</li>
+				<li><strong>Listez les matériaux et protections.</strong> Nuance de fonte ductile, élastomères, fixations, système de revêtement, dispositif de sécurité contre les chocs et exigence de remplacement des boulons de cisaillement lorsque cela s’applique.</li>
+				<li><strong>Demandez le dossier de preuves.</strong> Rapports d’essais de type, essais de pression en production, procès-verbaux de débit ou de performance, certificats de matériaux, inspection dimensionnelle et documents de libération finale.</li>
+				<li><strong>Confirmez les accessoires.</strong> Adaptateurs de flexible, raccords Storz, bouchons, composants de vidange, équipements de surveillance et boulons de cisaillement de rechange doivent être listés plutôt que supposés.</li>
+				<li><strong>Formalisez l’acceptation.</strong> Demandez à l’ingénieur ou à l’autorité compétente d’approuver toute substitution entre normes avant la production, et joignez le plan approuvé au bon de commande.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Pour le contexte de sélection, consultez <a href="/fr/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">comment choisir un hydrant</a> et le <a href="/fr/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">guide de sélection des raccordements de flexibles incendie</a>. Pour la planification au niveau du système, consultez les <a href="/fr/fire-hydrant-systems/" class="text-brand-blue font-semibold hover:underline">systèmes d’hydrants</a> avant de finaliser le bordereau des vannes.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Questions fréquentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Besoin d’un hydrant configuré selon la norme de votre projet ?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envoyez le lieu du projet, l’édition de la norme, le schéma d’entrée et de sorties, le régime de pression et les conditions d’installation. Nous confirmerons une configuration d’exportation ou d’interface adaptée à la norme applicable et fournirons les rapports d’essai pertinents pour examen.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/fr/contact/?product=Hydrants%20ext%C3%A9rieurs%20%28AWWA%20C509%20ou%20EN%2014461%29" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Demander un devis</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Bonjour, je souhaite obtenir des informations sur des hydrants extérieurs pour un projet AWWA C509 ou EN 14461')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
