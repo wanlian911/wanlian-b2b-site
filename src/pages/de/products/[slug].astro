@@ -3,6 +3,7 @@ import ProductGallery from '../../../components/shared/ProductGallery.astro';
 import Layout from '../../../layouts/Layout.astro';
 import { productsDe, productsDeBySlug } from '../../../utils/products.de';
 import { PRODUCT_FAMILY_RELATED } from '../../../utils/product-families';
+import { guidesDe } from '../../../utils/guides.de';
 
 export async function getStaticPaths() {
   return Object.values(productsDeBySlug).map((product) => ({
@@ -28,10 +29,10 @@ const faqByCategory: Record<string, { question: string; answer: string }[]> = {
     { question: 'Haben Überflurhydranten einen Frostschutz?', answer: 'Modelle wie der Überflurhydrant SS100 verfügen über einen automatischen Ablassmechanismus gegen Frost für kalte Klimate. Varianten mit Anprallschutz (SSFT100) und IoT-Ausführung (SS100ZN) sind ebenfalls verfügbar.' }
   ],
   'Sprinkler & Alarmventile': [
-    { question: 'Was ist der Unterschied zwischen einem Nassalarmventil und einem Flutungsventil?', answer: 'Ein Nassalarmventil (ZSFZ) hält die Sprinklerleitungen mit Wasser gefüllt und löst bei Durchfluss den Alarm aus. Ein Flutungsventil (ZSFM) bleibt durch Druckluft oder Wasserdruck geschlossen und flutet die Anlage erst, wenn ein Brandmeldesignal es öffnet - eingesetzt in hochgefährdeten Bereichen, die sofort eine große Wassermenge erfordern.' },
+    { question: 'Was ist der Unterschied zwischen einem Nassalarmventil und einem Sprühflutventil?', answer: 'Ein Nassalarmventil (ZSFZ) hält die Sprinklerleitungen mit Wasser gefüllt und löst bei Durchfluss den Alarm aus. Ein Sprühflutventil (ZSFM) bleibt durch Druckluft oder Wasserdruck geschlossen und flutet die Anlage erst, wenn ein Brandmeldesignal es öffnet - eingesetzt in hochgefährdeten Bereichen, die sofort eine große Wassermenge erfordern.' },
     { question: 'Nach welchen Normen sind die Komponenten der Sprinkleranlage gefertigt?', answer: 'Die Komponenten werden nach der Reihe GB 5135 gefertigt und geprüft; auf Anfrage auch nach weiteren internationalen Normen. Stimmen Sie die für Ihr Projekt geltende Norm mit unseren Ingenieuren ab.' },
     { question: 'Wie hoch ist der Betriebsdruck der Alarmventile?', answer: 'Der Standard-Betriebsdruck beträgt 1,6 MPa, der Prüfdruck 3,2 MPa. Die Nennweiten decken je nach Modell üblicherweise DN50 bis DN300 ab.' },
-    { question: 'Lassen sich die Alarmventilgruppen in vorhandene Brandmeldeanlagen einbinden?', answer: 'Ja. Flutungsventile und vorgesteuerte Systeme unterstützen eine mechanische, pneumatische oder elektrische Auslösung (Magnetventil DC24V) und lassen sich in die meisten Brandmeldezentralen einbinden.' }
+    { question: 'Lassen sich die Alarmventilgruppen in vorhandene Brandmeldeanlagen einbinden?', answer: 'Ja. Sprühflutventile und vorgesteuerte Systeme unterstützen eine mechanische, pneumatische oder elektrische Auslösung (Magnetventil DC24V) und lassen sich in die meisten Brandmeldezentralen einbinden.' }
   ],
   'Hydraulische Regelventile': [
     { question: 'Benötigen hydraulische Regelventile eine Stromversorgung?', answer: 'Die meisten hydraulischen Regelventile (z. B. F745X Niveaukontrolle, 500X Druckminderung) arbeiten vollständig gesteuert über den Leitungsdruck und benötigen keine externe Energieversorgung. Modelle mit Magnetventilsteuerung wie GKZF-1 arbeiten mit AC220V oder DC24V.' },
@@ -64,7 +65,7 @@ const categoryInfo: Record<string, { applications: string[]; testing: string }> 
     testing: 'Statische Druckprüfung (typisch 2,4 MPa) und Durchflussprüfung nach GB 4452 oder den jeweils geltenden Exportnormen.'
   },
   'Sprinkler & Alarmventile': {
-    applications: ['Automatische Sprinkleranlagen', 'Gewerbe- und Wohngebäude', 'Industrielager und Hallen', 'Hochgefährdete Anlagen mit Flutung oder vorgesteuertem System'],
+    applications: ['Automatische Sprinkleranlagen', 'Gewerbe- und Wohngebäude', 'Industrielager und Hallen', 'Hochgefährdete Anlagen mit Sprühflutanlage oder vorgesteuertem System'],
     testing: 'Druck- und Dichtheitsprüfungen nach der Reihe GB 5135; Alarmempfindlichkeit mit Strömungswächtern und Alarmgongs geprüft.'
   },
   'Hydraulische Regelventile': {
@@ -104,32 +105,21 @@ const relatedProducts = familySlugs.length
   : productsDe.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 4);
 const catAnchor = encodeURIComponent(product.category);
 
-// Links para guias de compra por categoria
+// Einkaufsführer je Kategorie
+const guidesByHref: Record<string, { title: string; description: string }> = {};
+for (const g of guidesDe) guidesByHref[g.href] = { title: g.title, description: g.description };
+const guideCard = (href: string) => {
+  const g = guidesByHref[href];
+  if (!g) throw new Error('Leitfaden fehlt in guides.de.ts: ' + href);
+  return { href: href, title: g.title, description: g.description };
+};
 const guideByCategory: Record<string, { href: string; title: string; description: string }[]> = {
-  'Ventile und Bauteile': [
-    { href: '/de/guides/gate-valve-vs-butterfly-valve-fire-protection/', title: 'Absperrschieber vs. Absperrklappe para Brandschutz', description: 'Vedação, Durchfluss, perda de carga e custo comparados para escolher a Ventil de isolamento correta para ramais de Brand- und Feuerschutz e Netze de Wasser.' },
-    { href: '/de/guides/check-valve-types-guide/', title: 'Typs de Válvulas de Retenção e Guia de Seleção', description: 'Retenção de esfera deslizante vs. clapeta oscilante — perda de carga, comportamento no fechamento e as Anwendungen ideais de cada tipo.' }
-  ],
-  'Hydranten und Pumpenanschlüsse': [
-    { href: '/de/guides/how-to-choose-a-fire-hydrant/', title: 'So wählen Sie einen Feuerlöschhydranten', description: 'Interno vs. exterior, coluna seca vs. molhada, Normen de saída e Druckstufes de Druck para projetos kommunale e industrielle.' },
-    { href: '/de/guides/fire-hydrant-valve-standards-guide/', title: 'Normen de Hidrantes, Mangueiras e Válvulas Explicadas', description: 'AWWA C502, NFPA 1961, EN 14384, BS 750 — qual norma se aplica ao seu Bestellung e como verificar a conformidade.' }
-  ],
-  'Sprinkler und Alarmventile': [
-    { href: '/de/guides/fire-sprinkler-control-valve-types/', title: 'Arten von Sprinkler-Steuerventilen: OS&Y, Absperrklappe und Rückschlagventil', description: 'O papel de cada Ventil de Regelung em uma Netz de Sprinkler e como as Ventile OS&Y, borboleta e de retenção trabalham juntas.' },
-    { href: '/de/guides/fire-sprinkler-system-wet-dry-preaction/', title: 'Sprinkleranlagen: Nass-, Trocken- oder vorgesteuertes System?', description: 'Compare as configurações de Systeme de Sprinkler molhado, seco e de pré-ação gemäß a Druckstufe de risco do seu prédio.' }
-  ],
-  'Hydraulische Sicherheit': [
-    { href: '/de/guides/pressure-reducing-valve-guide/', title: 'Guia de Válvulas Redutoras de Pressão: PRV Hidráulico 500X', description: "Como as redutoras pilotadas protegem equipamentos a jusante, regulam a Druck e evitam o martelo d'Wasser." },
-    { href: '/de/guides/backflow-prevention-guide/', title: 'Leitfaden zur Rückflussverhinderung', description: 'Quando as Netze de Wasser Trinkwasser precisam de conjuntos de dupla retenção e como o HS41X protege contra o reflujo.' }
-  ],
-  'Löschmonitore und Löschkanonen': [
-    { href: '/de/guides/fire-water-monitor-selection-guide/', title: 'Seleção de Löschmonitore: Manual vs. Rastreamento Automático', description: 'Monitores manuais PS vs. canhões de rastreamento automatisch ZDMS — Durchfluss, alcance, Regelung e opções à prova de explosão.' },
-    { href: '/de/guides/fire-water-cannon-buying-guide/', title: 'Einkaufsleitfaden de Löschmonitore Brandschutz', description: 'Fixo, remoto ou intelligent? Strahlweite, Durchfluss e fatores de Installation para suDruck de Brand- und Feuerschutz em grandes espaços.' }
-  ],
-  'Feuerlöscherschränke und Schnittstellen': [
-    { href: '/de/guides/fire-hose-reel-cabinet-guide/', title: 'Guia de Seleção de Carretéis de Mangueira e Armários Brandschutz', description: 'Carretéis JPS0.8-19, armários de espuma PSG30 e Ventile de Hydrant SN65 — o que um posto de combate a Brand- und Feuerschutz innen komplett precisa.' },
-    { href: '/de/guides/fire-extinguisher-selection-guide/', title: 'Einkaufsleitfaden de Extintores: Pó Químico ABC', description: 'Cobertura das Druckstufes A/B/C/E, classificações ISO 7165 e embalagem de exportação B2B para extintores portáteis.' }
-  ]
+  'Industrieventile & Schmutzfänger': [guideCard('/de/guides/gate-valve-vs-butterfly-valve-fire-protection/'), guideCard('/de/guides/check-valve-types-guide/')],
+  'Hydranten & Pumpenanschlüsse': [guideCard('/de/guides/how-to-choose-a-fire-hydrant/'), guideCard('/de/guides/fire-hydrant-valve-standards-guide/')],
+  'Sprinkler & Alarmventile': [guideCard('/de/guides/fire-sprinkler-control-valve-types/'), guideCard('/de/guides/fire-sprinkler-system-wet-dry-preaction/')],
+  'Hydraulische Regelventile': [guideCard('/de/guides/pressure-reducing-valve-guide/'), guideCard('/de/guides/backflow-prevention-guide/')],
+  'Löschmonitore & Löschkanonen': [guideCard('/de/guides/fire-water-monitor-selection-guide/'), guideCard('/de/guides/fire-water-cannon-buying-guide/')],
+  'Schlauchhaspeln & Hydrantenschränke': [guideCard('/de/guides/fire-hose-reel-cabinet-guide/'), guideCard('/de/guides/fire-extinguisher-selection-guide/')]
 };
 
 const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
