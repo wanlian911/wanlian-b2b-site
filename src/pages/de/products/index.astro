@@ -5,7 +5,7 @@ import { productsDe } from '../../../utils/products.de';
 // Get all unique categories
 const categories = ['Alle', ...new Set(productsDe.map(p => p.category))];
 
-// ItemList JSON-LD (PT): 45 produtos + 3 páginas temáticas (prefixo /de/)
+// ItemList JSON-LD: all catalogued de products + 3 system pages (under /de/)
 const itemCatalog = [
   ...[...productsDe].sort((a, b) => a.slug.localeCompare(b.slug)).map(p => ({
     name: p.name,
@@ -19,7 +19,7 @@ const itemListJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'Produktkatalog Wanlian Fluid',
-  description: 'Vollständiger Katalog für Ventile, Hydranten, mangueiras contra Brand- und Feuerschutz, Sprinkler e equipamentos de Schutz contra Brand- und Feuerschutz gefertigt por Quanzhou Wanlian Fluid Equipment Co., Ltd.',
+  description: 'Kompletter Katalog von Armaturen, Hydranten, Brandschläuchen, Sprinklern und Brandschutzausrüstungen, gefertigt von Quanzhou Wanlian Fluid Equipment Co., Ltd.',
   itemListElement: itemCatalog.map((item, i) => ({
     '@type': 'ListItem',
     position: i + 1,
@@ -28,27 +28,27 @@ const itemListJsonLd = {
   }))
 };
 
-// FAQ de compra do catálogo (também sae como JSON-LD FAQPage)
+// Buying FAQ for the catalogue (also emitted as FAQPage JSON-LD)
 const faqs = [
-  { question: 'A gama de produtos desta página é o catálogo komplett?', answer: 'Diese Seite listet über 43 lagernde Modelle aus den Bereichen Ventile, Hydranten, Sprinkleranlagen, Schlauchhaspeln, Feuerlöscher und Löschmonitore. Nossa gama de Produktion é mais ampla — se você não encontrar o modelo, a dimensão ou o Werkstoff exato de que precisa, envie a Anfrage e unsere Ingenieure confirmarão a Verfügbarkeit e as alternativas equivalentes.' },
-  { question: 'Welche é o MOQ para Ventile e equipamentos de Schutz contra Brand- und Feuerschutz?', answer: 'Das Standard-MOQ é tipicamente de 20 unidades por modelo para Größen em estoque, com prazos de Produktion de 15 a 30 dias gemäß a quantidade e a personalização. Pedidos de amostra estão verfügbar para testes e aprovação antes do envio.' },
-  { question: 'Os produtos podem ser personalizados para Normen e Anschlüsse de exportação?', answer: 'Ja. Válvulas e Hydranten podem ser gefertigt segundo as Normen GB, ANSI, DIN, JIS, BS ou EN, com Anschlüsse flangeadas, ranuradas, tipo wafer ou roscadas. Werkstoffe, revestimentos e certificações (UL/FM/CE nos modelos aplicáveis) podem ser adaptados à especificação do seu projeto.' },
-  { question: 'Welche Dokumentation você fornece com um Bestellung?', answer: 'Cada remessa inclui os documentos kommerzielle, além dos laudos de teste por lote gemäß a norma aplicável. Zertifizierungs ISO 9001, Zertifikate de Werkstoff e relatórios de inspeção de terceiros podem ser organizados e indicados na ordem de compra.' },
-  { question: 'Como solicitar uma Angebot?', answer: 'Use o formulário de Anfrage na página de contato e informe o modelo, a dimensão, a Druckstufe de Druck, o tipo de Anschluss, a quantidade e o destino. Nossa equipe kommerziell e de engenharia responde em innerhalb von 12 Stunden com as especificações, os preços e o Lieferzeit.' }
+  { question: 'Ist das Produktangebot auf dieser Seite der vollständige Katalog?', answer: `Diese Seite listet ${productsDe.length} katalogisierte Modelle aus den Bereichen Armaturen, Hydranten, Sprinkleranlagen, Schlauchhaspeln, Feuerlöscher und Löschmonitore auf. Unser Fertigungsprogramm ist breiter. Falls Modell, Nennweite oder Werkstoff hier nicht aufgeführt sind, senden Sie uns eine Anfrage; unsere Ingenieure bestätigen die Verfügbarkeit und nennen gleichwertige Alternativen.` },
+  { question: 'Welche Mindestbestellmenge gilt für Armaturen und Brandschutzausrüstung?', answer: 'Die Mindestbestellmenge liegt in der Regel bei 20 Einheiten pro Modell für gängige Nennweiten, mit einer Produktionszeit von 15 bis 30 Tagen je nach Menge und Individualisierung. Musterbestellungen sind für Tests und zur Freigabe vor der Auslieferung möglich.' },
+  { question: 'Können die Produkte für Exportnormen und Anschlussarten ausgelegt werden?', answer: 'Ja. Armaturen und Hydranten werden nach GB, ANSI, DIN, JIS, BS oder EN gefertigt, mit Flansch-, Rillen-, Zwischenflansch- oder Gewindeanschluss. Werkstoffe, Beschichtungen und Zertifizierungen (UL/FM/CE bei den entsprechenden Modellen) können an die Projektspezifikation angepasst werden.' },
+  { question: 'Welche Unterlagen stellen Sie mit einer Bestellung bereit?', answer: 'Jede Lieferung umfasst die Handelsdokumente sowie chargenbezogene Prüfberichte nach der jeweils anwendbaren Norm. ISO-9001-Zertifikate, Werkstoffzeugnisse und Berichte einer unabhängigen Drittinspektion können vereinbart und in der Bestellbestätigung festgehalten werden.' },
+  { question: 'Wie fordere ich ein Angebot an?', answer: 'Nutzen Sie das Anfrageformular auf der Kontaktseite und nennen Sie Modell oder Norm, Nennweite, Druckstufe, Anschlussart, Menge und Bestimmungsort. Unser Vertriebs- und Ingenieurteam antwortet innerhalb von 12 Stunden mit Spezifikation, Preis und Lieferzeit.' }
 ];
 ---
 
-<Layout locale="de" faq={faqs} title="Produktkatalog | Válvulas Industriais & Brandschutz" description="B2B-Katalog von Wanlian Fluid: über 43 Modelle von Ventilen, Hydranten, Sprinklern, Schlauchhaspeln und hydraulischen Ventilen. Angebot auf Anfrage.">
+<Layout locale="de" faq={faqs} title="Produktkatalog | Industriearmaturen & Brandschutz" description={`B2B-Katalog von Wanlian Fluid: ${productsDe.length} katalogisierte Modelle, gefertigt im eigenen Werk. Preise auf Anfrage.`}>
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 mb-20">
     <div class="text-center mb-8 space-y-3">
       <span class="text-xs font-bold tracking-widest text-blue-600 uppercase">Produktzentrum</span>
       <h1 class="text-4xl font-black text-gray-900 tracking-tight">Unser Premium-Katalog für Fluidtechnik</h1>
       <p class="mt-4 text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-        Komponenten de alto Leistung projetados para máxima Zuverlässigkeit, Lebensdauer e Sicherheit em toda a Netz industriell.
+        Hochleistungs-Komponenten für maximale Zuverlässigkeit, Lebensdauer und Sicherheit in industriellen Netzen und Brandschutzsystemen.
       </p>
     </div>
 
-    <!-- Browse by System: entrada das páginas temáticas por System -->
+    <!-- Browse by System: entry points to the system landing pages -->
     <div class="flex flex-wrap justify-center items-center gap-2 mb-6">
       <span class="text-[11px] font-black uppercase tracking-widest text-gray-400 mr-1">Nach System navigieren:</span>
       <a href="/de/fire-hydrant-systems/" class="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white text-gray-600 hover:border-brand-red hover:text-brand-red transition">Hydrantensysteme</a>
@@ -159,7 +159,7 @@ const faqs = [
       // Set 'Alle' button as active initially
       applyFilter('Alle');
 
-      // Suporta links diretos /de/products/#category=xxx (mantém a URL fora da query string indexável)
+      // Supports deep links /de/products/#category=xxx (keeps the filter out of indexable query strings)
       const hashMatch = window.location.hash.match(/^#category=(.+)$/);
       if (hashMatch) {
         const target = decodeURIComponent(hashMatch[1]);
