@@ -7,6 +7,56 @@ const readTime = (min: string) => `${min} Min. Lesezeit`;
 
 export const guidesDe: Guide[] = [
   {
+    title: 'Sprühflutventil: Dimensionierung und Auswahl (2026)',
+    description: 'ZSFM-Sprühflutventil: Funktionsweise, Dimensionierung, Auslösung, offene Sprinkler und Monitore, Prüfung sowie Angaben für die B2B-Anfrage.',
+    href: '/de/guides/deluge-valve-selection-guide/',
+    tocPreview: ["1. Wann eine Anlage Sprühflutschutz benötigt", "2. Funktionsweise der ZSFM-Sprühflutventilgruppe", "3. Auswahl der Auslöseart"],
+    date: '2026-10',
+    category: 'Brandschutz',
+    readTime: readTime('9'),
+    tags: ['sprinkler-systems', 'fire-protection']
+  },
+  {
+    title: 'AWWA C509 vs. EN 14461: Hydrantenvergleich',
+    description: 'AWWA C509 und EN 14461 im Vergleich: Druckstufen, Abgänge, Werkstoffe, Typprüfungen und die richtige Hydrantenspezifikation für B2B-Projekte.',
+    href: '/de/guides/awwa-c509-vs-en-14461-fire-hydrants/',
+    tocPreview: ["1. Welche Norm Ihre Spezifikation tatsächlich fordert", "2. Nenndruck und Einbautiefe", "3. Abgangsanordnung und Kupplungsmuster"],
+    date: '2026-10',
+    category: 'Brandschutz',
+    readTime: readTime('9'),
+    tags: ['fire-hydrant', 'procurement']
+  },
+  {
+    title: 'Feuerpumpen-Saugleitung und Löschwassertank (2026)',
+    description: 'Löschwassertank, zwei Saugleitungen, Wirbelschutz, Füllung und Niveauventile für eine normgerechte Saugseite der Feuerlöschpumpe.',
+    href: '/de/guides/fire-pump-suction-water-tank-guide/',
+    tocPreview: ["1. Herkunft des Löschwasservolumens", "2. Auslegung der Löschwasserreserve", "3. Zwei-Saugleitungen-Regel und Tankdurchführungen"],
+    date: '2026-10',
+    category: 'Brandschutz',
+    readTime: readTime('9'),
+    tags: ['fire-protection', 'industrial-valves']
+  },
+  {
+    title: 'Chinesische Armaturenangebote vergleichen | B2B',
+    description: 'B2B-Leitfaden für Angebote chinesischer Armaturenwerke: RFQ, technische Unterschiede, Nebenkosten, Bewertung und Prüfungen vor der Bestellung.',
+    href: '/de/guides/china-valve-supplier-quote-guide/',
+    tocPreview: ["1. Warum sich zwei Angebote für dieselbe Armatur unterscheiden", "2. Eine RFQ für genaue Angebote verfassen", "3. Das Angebot Zeile für Zeile lesen"],
+    date: '2026-10',
+    category: 'Beschaffung',
+    readTime: readTime('9'),
+    tags: ['procurement', 'certification']
+  },
+  {
+    title: 'Leitfaden: Schaumlösch- und Sprühflutanlagen',
+    description: 'Auslegung von Schaumlösch- und Wasser-Schaum-Sprühanlagen für Risiken der Klasse B: Ventile, Zumischung, Schaummittel, Auslösegeräte und Prüfungen.',
+    href: '/de/guides/foam-deluge-system-guide/',
+    tocPreview: ["1. Wann Schaum Wasser überlegen ist", "2. Aufbau einer Schaumlöschanlage", "3. Zumischoptionen im Vergleich"],
+    date: '2026-10',
+    category: 'Brandschutz',
+    readTime: readTime('9'),
+    tags: ['fire-protection', 'sprinkler-systems']
+  },
+  {
     title: "Leitfaden Rückflussverhinderung: Rückschlagventile für Trinkwasser",
     description: "Rückflussverhinderung in Trinkwasser- und Brandschutznetzen: Gefahrenklassen, HS41X-Doppelrückschlagventil, Dimensionierung, Druckverlust und Prüfung.",
     href: "/de/guides/backflow-prevention-guide/",

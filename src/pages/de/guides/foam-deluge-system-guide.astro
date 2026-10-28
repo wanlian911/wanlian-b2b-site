@@ -1,0 +1,188 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Wo liegt der Kostenunterschied zwischen einer Schaumlöschanlage und einer normalen Sprühflutanlage?',
+		answer: 'Eine Schaumlöschanlage ergänzt das Löschventil und das Wassernetz um Schaummittelversorgung, Zumischeinrichtung, geeignete Auslösegeräte und Inbetriebnahmeprüfungen. Schaummittel, Lagerung, Spülmöglichkeiten und die Entsorgung der Prüflösung beeinflussen ebenfalls die Lebenszykluskosten. Eine normale Sprühflutanlage kann für ein Brandrisiko der Klasse A ausreichen, aber Wasser allein ersetzt Schaum auf einer brennenden Flüssigkeitsoberfläche nicht.'
+	},
+	{
+		question: 'Wie wähle ich zwischen einem Membransystem und einem Injektor?',
+		answer: 'Ein Membransystem ist eine praxisgerechte Wahl, wenn ein eigener Schaummittelvorrat und ein vorhersehbarer Zumischbereich ohne elektrische Dosierpumpe erforderlich sind. Ein Injektor ist kompakt und nutzt den Wasserstrom, um Schaummittel anzusaugen; Volumenstrom und Druckbereich müssen jedoch zum Brandrisiko passen. Bestätigen Sie hydraulischen Bereich, verfügbaren Platz, Nachfüllmethode und die erforderliche Zumischung von 3 % oder 6 % mit dem Brandschutzplaner.'
+	},
+	{
+		question: 'Was muss beim Umbau einer alten AFFF-Anlage auf F3 ersetzt werden?',
+		answer: 'Gehen Sie nicht davon aus, dass ein Austausch nur des Fasses sicher ist. Schaummittel, Zumischer, Membran- oder Tankwerkstoffe, Dichtungen, Schaumgeräte, Spülwasseranordnung und Prüfverfahren müssen als kompatibles Paket geprüft werden. Bestehende Rohrleitungen können nach der Reinigung wiederverwendbar sein, aber AFFF-Rückstände und gemischte Konzentrate können die Leistung verändern. Lassen Sie sich vom F3-Hersteller eine Kompatibilitätserklärung geben und die Umrüstung von der zuständigen Stelle abnehmen.'
+	},
+	{
+		question: 'Wie lässt sich das Schaum-Zumischverhältnis vor Ort prüfen?',
+		answer: 'Messen Sie während einer kontrollierten Auslösung den Wasser- und Schaummittelvolumenstrom oder verwenden Sie die freigegebene Probenahme- und Analysemethode für den gelieferten Zumischer und das Schaummittel. Vergleichen Sie das Messergebnis über den relevanten Betriebsbereich mit dem Auslegungsverhältnis, üblicherweise 3 % oder 6 %. Dokumentieren Sie Wasserqualität, Druck, Temperatur, Probenahmestellen und Charge des Schaummittels; eine sichtbare Schaumdecke allein belegt keine genaue Zumischung.'
+	},
+	{
+		question: 'Kann ich Schaummittel wechseln, und welches Kompatibilitätsrisiko besteht?',
+		answer: 'Behandeln Sie einen Schaummittelwechsel als technische Änderung und nicht als einfachen Ersatzkauf. AFFF, AR-AFFF, FFFP und fluorfreie Schaummittel können unterschiedliche Anforderungen an Viskosität, Verschäumung, Drainage und Werkstoffverträglichkeit haben. Mischen Sie Produkte nicht in Tank oder Zumischer, sofern nicht beide Hersteller dies freigeben. Spülen, prüfen und verifizieren Sie die komplette Anlage erneut, bevor das neue Schaummittel in Betrieb geht.'
+	},
+	{
+		question: 'Wie ist eine Schaumlöschanlage in kalter Umgebung zu schützen?',
+		answer: 'Schützen Sie wassergefüllte Rohrleitungen, Ventile und Schaummittelausrüstung entsprechend Standortklima und freigegebener Auslegung vor Frost. Mögliche Lösungen sind ein Trocken- oder Preaction-Abschnitt, Begleitheizung, gedämmte Gehäuse, zugelassene Frostschutzanordnungen, soweit erlaubt, sowie ein Schaummittel mit geeigneter Tieftemperaturfreigabe. Bestätigen Sie Lagerungstemperatur und Auslöseanordnung des Löschventils mit dem Systemplaner; verdünnen Sie Schaummittel nicht mit ungeprüftem Frostschutz.'
+	}
+];
+
+const toc = [
+	{ id: 'why-foam', label: '1. Wann Schaum Wasser überlegen ist' },
+	{ id: 'anatomy', label: '2. Aufbau einer Schaumlöschanlage' },
+	{ id: 'proportioning', label: '3. Zumischoptionen im Vergleich' },
+	{ id: 'concentrate', label: '4. Auswahl des Schaummittels' },
+	{ id: 'discharge', label: '5. Auslösegeräte: Sprühköpfe, Monitore und Schränke' },
+	{ id: 'testing', label: '6. Inbetriebnahme und Prüfung vor Ort' },
+	{ id: 'rfq-checklist', label: '7. Checkliste für die Anfrage zur Schaumanlage' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const products = [
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Sprühflut-Alarmventilgruppe (ZSFM-Serie)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'Schnell öffnendes Sprühflutventil vor den Schaumauslösegeräten' },
+	{ slug: 'foam-fire-hydrant-cabinet-psg30', name: 'Schaum-Feuerlöschschrank (PSG30-Serie)', img: '/assets/products/foam-fire-hydrant-cabinet-psg30.webp', desc: '3-%-Vormischstation mit Schlauch- und Monitorschnittstelle' },
+	{ slug: 'manual-fire-water-cannon-ps', name: 'Manueller Löschmonitor (PS-Serie)', img: '/assets/products/manual-fire-water-cannon-ps.webp', desc: 'Fester Monitor mit schaumbeständiger Voll- oder Sprühstrahldüse' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'Verstellbares Pistolen-Handstrahlrohr', img: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg', desc: 'Handstrahlrohr für die Schaumanwendung über Schlauchleitungen' }
+];
+---
+
+<Layout
+	title="Leitfaden: Schaumlösch- und Sprühflutanlagen"
+	description="Auslegung von Schaumlösch- und Wasser-Schaum-Sprühanlagen für Risiken der Klasse B: Ventile, Zumischung, Schaummittel, Auslösegeräte und Prüfungen."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Leitfaden zu Schaumlöschanlagen' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Leitfaden zu Schaumlöschanlagen</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden für Schaumlöschanlagen</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Schaumlösch- und Wasser-Schaum-Sprühanlagen: Auslegung</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kurz gesagt: Eine Schaumlöschanlage schützt ein Flüssigkeitsrisiko der Klasse B, indem sie ein Sprühflutventil öffnet, Schaummittel in den Löschwasserstrom zumischt und die fertige Lösung zu offenen Sprühköpfen, Monitoren oder Schlauchstationen leitet. Die richtige Auslegung beginnt mit Brennstoff, erforderlicher Beaufschlagungsfläche und freigegebenem Schaummittel und prüft anschließend Zumischer, Ventilgarnitur, Ausströmbild, Entwässerung und Prüfplan als Gesamtsystem.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-foam" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Wann Schaum Wasser überlegen ist</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Schaum wird gewählt, wenn der Brennstoff eine entzündbare Flüssigkeit ist und neben der Flammenbekämpfung auch die Freisetzung von Dämpfen begrenzt werden soll. Typische Bereiche der Klasse B sind Tanklager, Kraftstofflager, Flugzeughangars, Lackierereien, Lösemittelbereiche und chemische Prozessanlagen. Allein aufgebrachtes Wasser kann unter eine brennende Flüssigkeit sinken oder sie verteilen, und ein Strahl mit hoher Geschwindigkeit kann Brennstoff über die ursprüngliche Leckage hinaus verspritzen. Eine passend ausgewählte Schaumdecke mit niedriger Verschäumung trennt die Flüssigkeitsoberfläche von der Luft und hilft, die Dampfentwicklung zu unterdrücken.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Eine Wasser-Schaum-Sprühanlage ist nicht einfach eine Sprühflutanlage mit einem Schaummittelfass daneben. Wasserbedarf, Auslösegerät, Schaummittelanteil, Entwässerung und Auslösedauer müssen koordiniert werden. Das Detektionssystem startet normalerweise die Sequenz: Die Detektion gibt die Auslösegarnitur frei, das Sprühflutventil öffnet, Wasser erreicht die offenen Auslösegeräte und der Zumischer führt Schaummittel zu. Die fertige Lösung bedeckt das Brandrisiko dann mit dem festgelegten Muster und der erforderlichen Beaufschlagungsdichte.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Brandklasse</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typische Brennstoffe</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Wirksamste Löschmittel</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Eignung für Schaumlöschanlage</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Klasse A</td><td class="px-4 py-3 text-gray-700">Holz, Papier, Textilien, Kunststoffe</td><td class="px-4 py-3 text-gray-700">Wasser, Schaum, ABC-Pulver</td><td class="px-4 py-3 text-gray-700">Zunächst meist Wasser</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Klasse B</td><td class="px-4 py-3 text-gray-700">Benzin, Öle, Lösemittel, Lacke</td><td class="px-4 py-3 text-gray-700">ABC-Pulver, Schaum, CO2</td><td class="px-4 py-3 text-gray-700">Primäre Anwendung in stationären Anlagen</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Klasse C</td><td class="px-4 py-3 text-gray-700">Propan, Butan, Methan, LPG</td><td class="px-4 py-3 text-gray-700">ABC-Pulver, Zufuhr zuerst absperren</td><td class="px-4 py-3 text-gray-700">Kein Ersatz für Gasabsperrung</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Klasse E</td><td class="px-4 py-3 text-gray-700">Unter Spannung stehende elektrische Anlagen</td><td class="px-4 py-3 text-gray-700">CO2, nicht leitendes ABC-Pulver</td><td class="px-4 py-3 text-gray-700">Elektrisches Schutzkonzept bestätigen</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Klasse F</td><td class="px-4 py-3 text-gray-700">Speiseöle und Fette</td><td class="px-4 py-3 text-gray-700">Nasslöschmittel</td><td class="px-4 py-3 text-gray-700">Nicht empfohlen</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Klasse D</td><td class="px-4 py-3 text-gray-700">Brennbare Metalle, Mg, Na</td><td class="px-4 py-3 text-gray-700">Spezialpulver für Metallbrände</td><td class="px-4 py-3 text-gray-700">Nicht geeignet</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="anatomy" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Aufbau einer Schaumlöschanlage</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Kernanlage besteht aus fünf koordinierten Bereichen. Erstens die Wasserversorgung und Steuerung mit der <a href="/de/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM-Sprühflut-Alarmventilgruppe</a>, Garnitur, Entleerung und Überwachungspunkten. Zweitens Detektion und Auslösung: Eine Wärme-, Flammen-, Rauch- oder lineare Detektion sendet das Auslösesignal und öffnet das Ventil, bevor die offenen Köpfe auslösen. Drittens die Lagerung des Schaummittels, beispielsweise in einem Membransystem oder einem anderen zugelassenen Behälter. Viertens der Zumischer mit Absperr-, Rückschlag- und Prüfventilen. Fünftens das offene Auslöseleitungsnetz mit Sprühköpfen, Monitoren und Schlauchschränken.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Das Sprühflutventil ist auf der Wasserseite normalerweise geschlossen, und die nachgeschaltete Rohrleitung ist normalerweise trocken oder wird entsprechend der Projektauslegung in einem anderen Zustand gehalten. Wenn die Auslösegarnitur anspricht, öffnet das Ventil schnell und leitet Wasser zu allen offenen Geräten der geschützten Zone. Ein <a href="/de/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">ZSFY-Preaction-Alarmsystem</a> kann vorgesehen werden, wenn das Projekt eine überwachte Auslösesequenz und ein geringeres Risiko unbeabsichtigter Auslösung verlangt; der Planer muss jedoch bestätigen, dass die Sequenz zum Schutzziel der Schaumanwendung passt.</p>
+			<p class="text-gray-700 leading-relaxed">Definieren Sie die Systemgrenzen in der Anfrage klar. Wanlian liefert Sprühflutventilgruppen, Ventile für Schaummittel-Zumischpakete, Schaum-Feuerlöschschränke, Monitore und Düsen. Schaummittel können über Lieferkanäle bereitgestellt werden, werden von Wanlian jedoch nicht selbst hergestellt; geben Sie Marke, Zertifikat und Kompatibilitätsverantwortung des Schaummittels separat an.</p>
+
+			<h2 id="proportioning" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Zumischoptionen im Vergleich</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Zumischung ist der Regelpunkt, an dem festgelegt wird, ob Wasser zur spezifizierten Schaumlösung wird. Übliche Auslegungsverhältnisse sind 3 % und 6 %, doch das korrekte Verhältnis wird durch Freigabe des Schaummittels und die Auslegung des Brandrisikos bestimmt, nicht durch eine Käuferpräferenz. Die folgende Tabelle vergleicht die drei bei der Beschaffung am häufigsten besprochenen Anordnungen.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50"><tr><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Option</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Funktionsweise</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Geeignet für und zu beachten</th></tr></thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Membransystem</td><td class="px-4 py-3 text-gray-700">Wasserdruck drückt eine flexible Schaummittelmembran zusammen und fördert das Schaummittel zum Zumischer.</td><td class="px-4 py-3 text-gray-700">Eigener Vorrat und hohe Projektvertrautheit; benötigt Platz, Nachfüllplanung und bestätigte Verträglichkeit von Tank und Schaummittel.</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Injektor</td><td class="px-4 py-3 text-gray-700">Ein wasserbetriebener Venturi-Injektor saugt Schaummittel aus einem Behälter an, während Wasser hindurchströmt.</td><td class="px-4 py-3 text-gray-700">Kompakt und einfach bei definiertem Volumenstrom; Druckverlust und Mindestvolumenstrom können die Auswahl begrenzen.</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Pumpenumgehungs-Zumischer</td><td class="px-4 py-3 text-gray-700">Ein eigener Pumpenkreis mit Druckentlastung oder Rückführung dosiert Schaummittel um die Wasserpumpe.</td><td class="px-4 py-3 text-gray-700">Nützlich für größere Anlagen oder variable Volumenströme; erfordert Pumpensteuerung, Entlastungslogik und mehr Abstimmung bei der Inbetriebnahme.</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Für weitere hydraulische Grundlagen vergleichen Sie das Projekt vor der Auswahl von Tank oder Injektor mit dem Abschnitt <a href="/de/guides/foam-deluge-system-guide/#proportioning" class="text-brand-blue font-semibold hover:underline">zu den Schaummittel-Zumischsystemen</a> in diesem Leitfaden. Fordern Sie Mindest- und Höchstvolumenstrom, Eingangsdruck, erwartete Schaummittelviskosität, Betriebstemperatur und Prüfanschluss an. Diese Angaben sind hilfreicher als allein eine Nennrohrgröße.</p>
+
+			<h2 id="concentrate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Auswahl des Schaummittels</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Beginnen Sie mit der Brennstoffchemie. AFFF bildet auf vielen Kohlenwasserstoff-Brennstoffen schnell einen Film, enthält jedoch PFAS. Viele Rechtsräume beschränken oder überprüfen AFFF-artige PFAS-Schaummittel; bestätigen Sie lokale Vorgaben und ziehen Sie fluorfreie Schaummittel (F3) in Betracht. AR-AFFF ist für polare Lösemittel ausgelegt, bei denen eine alkoholbeständige Schaumdecke erforderlich ist. FFFP und andere Formulierungen haben jeweils eigene Nachweise für Anwendung, Verschäumung und Drainage. Wählen Sie nicht nur nach dem Kürzel: Fordern Sie aktuelles Produktdatenblatt, Freigabebereich und Mischanweisungen an.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Lagerfähigkeit des Schaummittels entspricht dem Herstellerzertifikat für die festgelegten Lagerbedingungen. Vermeiden Sie eine erfundene Ablaufdauer in der Bestellung. Dokumentieren Sie Chargennummer, Herstellungsdatum, Lagertemperatur und Prüfverfahren und stellen Sie sicher, dass Tank, Membran, Dichtungen, Zumischer und Auslösegeräte für das gewählte Produkt freigegeben sind. Ein chemisch passendes, aber mit der Ausrüstung unverträgliches Schaummittel ergibt keine konforme Auslegung.</p>
+			<p class="text-gray-700 leading-relaxed">Eine F3-Umrüstung verdient eine dokumentierte technische Prüfung. Bestehende Rohrleitungen können nach Reinigung und Inspektion erhalten bleiben, doch AFFF-Rückstände, Elastomerverträglichkeit, Zumischerkalibrierung und die Leistung der Schaumgeräte müssen bestätigt werden. Schaummittellieferant, Systemplaner und zuständige Stelle sollten der Änderung zustimmen, bevor das alte Schaummittel abgelassen wird.</p>
+
+			<h2 id="discharge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Auslösegeräte: Sprühköpfe, Monitore und Schränke</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Offene Schaum-Sprühköpfe werden nach Abdeckung, Tropfenverteilung, Hindernissen und Beaufschlagungsdichte ausgewählt. Sie eignen sich für eine feste Sprühflutzone mit bekannter Geometrie des Brandrisikos. Monitore bieten zusätzliche Reichweite und Richtungssteuerung für Tankauffangwannen, Verladebereiche und große offene Risiken. Der <a href="/de/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">manuelle Löschmonitor der PS-Serie</a> kann mit einer schaumbeständigen Voll- oder Sprühstrahldüse spezifiziert werden, nachdem das Projekt Volumenstrom und Wurfweite bestätigt hat.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Eine Schlauchstation unterstützt den manuellen Einsatz und die ergänzende Ausbringung, darf aber nicht als Ersatz für eine automatische Abdeckung betrachtet werden, wenn die Gefährdungsbeurteilung einen stationären Schutz verlangt. Der <a href="/de/products/foam-fire-hydrant-cabinet-psg30/" class="text-brand-blue font-semibold hover:underline">PSG30-Schaum-Feuerlöschschrank</a> enthält eine 3-%-Vormischstation mit Schlauch- und Monitorschnittstelle. Für Handlinien ermöglicht ein <a href="/de/products/adjustable-pistol-grip-fire-nozzle/" class="text-brand-blue font-semibold hover:underline">verstellbares Pistolen-Handstrahlrohr</a> eine wählbare Ausbringung am Schlauchende; prüfen Sie, ob Dichtungen und Volumenstrombereich zur fertigen Schaumlösung passen.</p>
+			<p class="text-gray-700 leading-relaxed">Fragen zu Monitorreichweite, Düsenbild und Montage behandelt der separate <a href="/de/guides/fire-water-monitor-selection-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur Auswahl von Löschwassermonitoren</a>. Stimmen Sie außerdem den <a href="/de/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur Auswahl von Sprühflutventilen</a> mit dem Schaumpaket ab: Ventilgarnitur, Auslösedruck, Alarmausgang und Entleerung müssen zusammenspielen. Die Entwässerung ist besonders wichtig, weil eine Prüfung oder reale Auslösung große Mengen Schaumlösung erzeugen kann, die nicht einfach in einen Regenwasserablauf gelangen darf.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Inbetriebnahme und Prüfung vor Ort</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Inbetriebnahme weist die vollständige Kette von der Detektion bis zur Ausbringung nach. Spülen Sie Wasser- und Schaummittelleitungen nach dem freigegebenen Verfahren, entfernen Sie Baurückstände, prüfen Sie die Ausrichtung der Ventilgarnitur und bestätigen Sie, dass jedes offene Gerät dem vorgesehenen Modell und der vorgesehenen Öffnung entspricht. Eine Auslöseprüfung des Sprühflutventils muss Detektion oder manuelle Auslösung, Ventilöffnung, Wassermotoralarm oder elektrisches Signal, Nachdruck und Rückstellung prüfen. Verwenden Sie, soweit anwendbar, den Rahmen von NFPA 11 und EN 12845 zusammen mit lokalen Vorgaben und den Anweisungen des Schaummittelherstellers.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Zumischverhältnis messen.</strong> Prüfen Sie die fertige Lösung im freigegebenen Volumenstrombereich und vergleichen Sie das Ergebnis mit dem Auslegungswert von 3 % oder 6 %.</li>
+				<li><strong>Schaumqualität prüfen.</strong> Messen Sie Verschäumung und 25-%-Drainagezeit nach dem für das gelieferte Schaummittel und seine Freigabe geforderten Prüfverfahren; übernehmen Sie keine Grenzwerte eines anderen Produkts.</li>
+				<li><strong>Auslösesequenz nachweisen.</strong> Dokumentieren Sie Detektionseingang, Öffnungszeit des Sprühflutventils, Alarme, Druckmessungen und Rückstellverfahren.</li>
+				<li><strong>Ausströmbild prüfen.</strong> Bestätigen Sie Sprühkopf-Abdeckung, Monitorbewegung, Zustand des Schlauchs im Schrank und Düsenbild, ohne Personen einem unkontrollierten Risiko auszusetzen.</li>
+				<li><strong>Ergebnis dokumentieren.</strong> Bewahren Sie Wasserqualität, Schaummittelcharge, Temperatur, Volumenstrom, Druck, Proben, Fotos und Korrekturmaßnahmen in der O&amp;M-Dokumentation auf.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Eine Funktionsprüfung ohne Verifizierung der Zumischung kann ein geschlossenes Schaummittelventil, einen leeren Tank, einen verstopften Injektor oder ein unverträgliches Schaummittel übersehen. Planen Sie die Sammlung und Entsorgung des Prüf- und Spülwassers, bevor der Auftragnehmer eintrifft. Wiederholen Sie Inspektionen in dem durch Projektdokumente und Schaummittelzertifikat vorgegebenen Intervall.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Checkliste für die Anfrage zur Schaumanlage</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Eine brauchbare Anfrage gibt dem Lieferanten genügend Informationen für die hydraulische Prüfung, statt ihn aus einem Produktnamen raten zu lassen. Fügen Sie einem markierten Plan oder einer Ausrüstungsliste folgende Angaben bei:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Brandrisiko und Brennstoff:</strong> Kohlenwasserstoff oder polares Lösemittel, Lagerhöhe, Geometrie der Auffangwanne, Leckageszenario und ob benachbarte Anlagen gekühlt werden müssen.</li>
+				<li><strong>Auslegungsbedarf:</strong> geschützte Fläche, Beaufschlagungsdichte, Auslegungsdauer, gleichzeitig auslösende Zonen, Wasser-Volumenstrom und verfügbarer Druck am Zumischereintritt.</li>
+				<li><strong>Schaummittel:</strong> Hersteller, Formulierung, Verhältnis 3 % oder 6 %, Freigabedokumente, Lagertemperatur, Chargendaten und ob eine F3-Umrüstung vorgesehen ist.</li>
+				<li><strong>Lieferumfang:</strong> ZSFM-Sprühflutventilgruppe, Zumischertyp, Tankvolumen, Absperr- und Prüfventile, offene Köpfe, Monitor, Schrank, Düse und Detektionsschnittstelle.</li>
+				<li><strong>Werkstoffe und Schnittstellen:</strong> Rohrgrößen, Flanschnorm, medienberührte Werkstoffe, Elastomere, elektrische Spannung, Alarmkontakte und Anforderungen für explosionsgefährdete Bereiche.</li>
+				<li><strong>Prüfungen und Dokumente:</strong> Spülplan, Auslöseprüfung, Verfahren zur Verhältnisprüfung, Verschäumungs- und Drainageprüfung, Zertifikate, Zeichnungen, Ersatzdichtungen und O&amp;M-Anweisungen.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Für europäische Projekte prüfen Sie den zugehörigen <a href="/de/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur CE- und EN-12845-Konformität im Brandschutz</a> und bestätigen Sie dennoch die konkrete Schaum-Norm sowie die Anforderungen der zuständigen Stelle für das Brandrisiko. Wenn ein separater Löschwassermonitor vorgesehen ist, kann das <a href="/de/fire-water-cannon/" class="text-brand-blue font-semibold hover:underline">Löschkanonenprogramm</a> zusammen mit der festen Sprühauslegung betrachtet werden. Wanlian kann den Ventil- und Ausrüstungsteil anhand der Liste anbieten und kennzeichnen, welche Schaummittelpositionen einen zugelassenen Vertriebspartner benötigen.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Benötigen Sie ein Angebot für eine Schaumlöschanlage?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie Brennstoffart, geschützte Fläche, Auslegungsvolumenstrom und Druck, Zumischverhältnis, bevorzugte Zumischung und Auslösegeräte. Wanlian kann Ventil, Schaumpaket, Monitor, Schrank und Düse für Ihr Projekt prüfen.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Schauml%C3%B6schanlage" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Guten Tag, ich benötige ein Angebot für eine Schaumlöschanlage')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp schreiben</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

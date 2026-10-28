@@ -1,0 +1,184 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const faq = [
+	{
+		question: 'Material tandon dan perlindungan korosi apa yang harus kami tentukan?',
+		answer: 'Tentukan material tandon, pelapis, coating, dan ketentuan mutu air bersama produsen tandon serta insinyur proyek. Tandon baja, baja sectional, dan beton memiliki detail pengendalian korosi yang berbeda; pilihan yang tepat bergantung pada air yang disimpan, iklim, dan persyaratan setempat. Mintalah data coating, akses inspeksi, dan petunjuk pemeliharaan, bukan menganggap pelapis serbaguna selalu sesuai untuk air pemadam.'
+	},
+	{
+		question: 'Apakah pencegah pusaran pada sisi hisap memerlukan sertifikasi layanan pemadam?',
+		answer: 'Kebutuhan listing, persetujuan, atau penerimaan khusus proyek bergantung pada edisi standar yang berlaku, otoritas berwenang, dan keseluruhan rakitan tandon. Pelat pencegah pusaran adalah komponen perlindungan hidraulik, bukan otomatis merupakan klep pemadam yang terdaftar. Pastikan bukti yang diwajibkan proyek dan ajukan material, dimensi, serta detail pemasangannya bersama dokumentasi tandon.'
+	},
+	{
+		question: 'Apa yang terjadi bila kedalaman terendam tandon terlalu kecil?',
+		answer: 'Pipa hisap dapat menarik udara, membentuk pusaran yang terlihat, atau menjadi bising dan tidak stabil. Pompa dapat menunjukkan tekanan hisap yang berfluktuasi, penurunan debit, getaran, atau gejala seperti kavitasi. Periksa ketinggian air, geometri inlet, aliran pendekat, dan detail pencegah pusaran terhadap edisi standar yang berlaku serta data produsen pompa sebelum mengganti pompa.'
+	},
+	{
+		question: 'Dapatkah satu tandon melayani kebutuhan domestik dan air pemadam?',
+		answer: 'Hal ini mungkin, tetapi hanya jika pengaturannya mempertahankan cadangan pemadam yang diwajibkan, menjaga pemisahan atau level pengambilan yang disyaratkan, dan diterima oleh otoritas berwenang. Outlet domestik atau pengaturan kontrol level tidak boleh memungkinkan konsumsi normal memakai volume air pemadam yang dilindungi. Konfirmasikan pengaturan hidraulik, pemantauan, dan kontrol pengisian ulang sesuai kode yang berlaku.'
+	},
+	{
+		question: 'Mengapa gate valve biasanya lebih dipilih pada sisi hisap pompa?',
+		answer: 'Gate valve yang terbuka penuh menyediakan lintasan berdiameter penuh dengan gangguan kecil di dekat inlet pompa serta dapat dikunci atau diawasi dalam posisi terbuka. Klep isolasi hisap bukan perangkat untuk throttling. Alternatif yang terdaftar mungkin diterima pada proyek tertentu, tetapi pemasok pompa, insinyur desain, dan otoritas berwenang harus mengonfirmasi pilihan tersebut sebelum penerbitan.'
+	},
+	{
+		question: 'Bagaimana tandon hisap harus dilindungi di iklim dingin?',
+		answer: 'Jaga tandon, pipa hisap, klep, dan peralatan kontrol level tetap di atas risiko pembekuan proyek, atau sediakan insulasi teknis, heat tracing, dan drainase. Metode tepatnya bergantung pada iklim, konstruksi tandon, dan edisi standar yang berlaku. Melindungi hanya dinding tandon tidak cukup jika klep terbuka, saluran pilot, atau titik rendah dapat membeku dan menghentikan pasokan air pemadam.'
+	}
+];
+
+const toc = [
+	{ id: 'water-source', label: '1. Sumber Volume Air Pemadam' },
+	{ id: 'tank-sizing', label: '2. Menentukan Ukuran Cadangan Air Pemadam' },
+	{ id: 'two-suction', label: '3. Aturan Dua Jalur Hisap dan Penetrasi Tandon' },
+	{ id: 'vortex', label: '4. Pencegahan Pusaran dan Tata Letak Pipa Hisap' },
+	{ id: 'level-control', label: '5. Menjaga Tandon Tetap Penuh: Kontrol Level' },
+	{ id: 'priming-testing', label: '6. Pengisian Awal, Manometer, dan Fasilitas Pengujian' },
+	{ id: 'checklist', label: '7. Daftar Periksa Susunan Hisap' },
+	{ id: 'faq', label: 'Pertanyaan yang Sering Diajukan' }
+];
+
+const products = [
+	{ slug: 'suction-vortex-preventer-en12845', name: 'Pencegah Pusaran Hisap (EN 12845)', img: '/assets/products/suction-vortex-preventer-en12845.webp', desc: 'Rakitan pelat pencegah pusaran dari baja nirkarat austenitik' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'Klep Kontrol Level Air Hidraulik (F745X)', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'Pemeliharaan level berbasis pilot, penutupan halus' },
+	{ slug: 'remote-control-float-valve-100x', name: 'Klep Pelampung Kendali Jarak Jauh (100X-16P)', img: '/assets/products/remote-control-float-valve-100x.webp', desc: 'Klep pilot pelampung nirkarat untuk pengisian ulang tandon' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'Y-Strainer Teleskopik (SGL41H)', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'Perlindungan kotoran pada jalur hisap, dapat dibersihkan di tempat' }
+];
+---
+
+<Layout
+	title="Hisap Pompa dan Tandon Air Kebakaran (2026)"
+	description="Panduan ukuran tandon air pemadam, aturan dua jalur hisap, pencegah pusaran, pengisian awal, dan kontrol level yang sesuai."
+	type="article"
+	locale="id"
+	faq={faq}
+	breadcrumbs={[{ name: 'Panduan', href: '/id/blog/' }, { name: 'Panduan Hisap Pompa Pemadam' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/id/" class="hover:text-blue-600">Beranda</a>
+			<span>/</span>
+			<a href="/id/blog/" class="hover:text-blue-600">Panduan</a>
+			<span>/</span>
+			<span class="text-gray-600">Panduan Hisap Pompa Pemadam</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Panduan Tandon Air Pemadam</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Susunan Hisap Pompa dan Tandon Air Pemadam</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Singkatnya: pompa pemadam hanya dapat mencapai kinerja tersertifikasi jika tandon menyediakan cadangan yang tepat, inlet hisap tetap terendam, udara dan pembentukan pusaran dikendalikan, serta peralatan pengisian ulang tidak menghabiskan volume yang dilindungi. Panduan ini menjelaskan sumber air, ukuran tandon, susunan dua jalur hisap, detail pencegah pusaran, kontrol level, pengisian awal, dan informasi yang perlu dicantumkan pada jadwal sisi hisap.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/id/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="water-source" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Sumber Volume Air Pemadam</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Susunan hisap dimulai dari sumber air, bukan dari katalog klep. Pompa pemadam dapat mengambil air dari tandon atmosfer terbuka, tandon sectional khusus, reservoir beton, bejana bertekanan, atau jaringan utama kota. Setiap sumber mengubah head hisap yang tersedia, cara pompa menjalani pengisian awal, perlindungan yang dibutuhkan pada inlet, dan bukti yang diperlukan saat penerimaan. Pompa dan pengontrol dipasok produsen pompa sesuai NFPA 20 atau kode setempat; Wanlian memasok klep dan aksesori sisi hisap di sekitar paket tersebut, bukan pompa pemadamnya.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Tandon air pemadam terbuka biasanya merupakan sumber paling mudah diprediksi karena level operasinya terlihat dan tekanannya atmosferik. Insinyur pompa tetap harus memperhitungkan level terendah yang dapat digunakan, elevasi inlet, kehilangan pipa, dan persyaratan hisap dari produsen pompa. Tandon bertekanan tertutup memiliki hubungan tekanan dan volume yang berbeda, sedangkan sambungan jaringan kota bergantung pada pasokan publik yang andal serta pembatasan dari otoritas air. Jangan memindahkan susunan tandon ke sambungan langsung tanpa menghitung ulang kondisi hisap.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Sumber</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Arti pada sisi hisap</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Pertanyaan desain</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tandon air pemadam terbuka</td>
+							<td class="px-4 py-3 text-gray-700">Level air statis, inlet terendam, detail pencegah pusaran, dan jaringan pipa yang dapat dikuras</td>
+							<td class="px-4 py-3 text-gray-700">Apakah level operasi terendah memadai untuk inlet pompa?</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tandon bertekanan tertutup</td>
+							<td class="px-4 py-3 text-gray-700">Tekanan tandon, volume yang dapat digunakan, isolasi, dan fasilitas pemeliharaan yang aman</td>
+							<td class="px-4 py-3 text-gray-700">Apakah tekanan tetap tersedia selama tugas yang diwajibkan?</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sambungan langsung jaringan kota</td>
+							<td class="px-4 py-3 text-gray-700">Tekanan jaringan publik, keandalan aliran, pengendalian aliran balik, dan persetujuan otoritas</td>
+							<td class="px-4 py-3 text-gray-700">Dapatkah jaringan utama menyediakan kondisi hisap yang diwajibkan setiap saat?</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Untuk gambaran lebih luas mengenai urutan klep di ruang pompa, lihat panduan klep ruang pompa pemadam. Panduan tersebut berguna untuk menetapkan kurva pompa dan filosofi isolasi sebelum penetrasi tandon ditetapkan.</p>
+
+			<h2 id="tank-sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Menentukan Ukuran Cadangan Air Pemadam</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Cadangan air pemadam ditentukan oleh klasifikasi bahaya proyek, debit desain, dan durasi yang diwajibkan berdasarkan standar desain yang berlaku. Tidak ada volume tandon universal yang bertanggung jawab untuk disalin dari satu bangunan ke bangunan lain. Perhitungan hidraulik menetapkan kebutuhan, sedangkan edisi standar yang berlaku menentukan berapa lama cadangan harus menopang sistem yang dilindungi. Catat dasar perhitungan, volume yang wajib digunakan, dan datum level rendah pada jadwal tandon serta pompa.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Pisahkan volume total dari volume air pemadam yang dapat digunakan. Geometri tandon, pengaturan level tinggi dan rendah, allowance sedimen, overflow, serta posisi setiap outlet memengaruhi jumlah air yang benar-benar dapat diambil pompa. Jika outlet domestik berbagi tandon, pengambilan airnya harus diatur agar konsumsi normal tidak menggunakan cadangan air pemadam yang dilindungi. Klep pengisian ulang harus mempertahankan level normal tanpa menutup secara keras, sementara sinyal level rendah yang dipantau harus diteruskan ke alarm kebakaran atau sistem manajemen gedung sesuai kebutuhan.</p>
+			<p class="text-gray-700 leading-relaxed">Untuk konteks kode, bandingkan perhitungan tim desain dengan panduan standar proteksi kebakaran NFPA. Gunakan ikhtisar tersebut untuk mengidentifikasi pertanyaan, lalu konfirmasikan setiap persyaratan volume, durasi, dan level terhadap edisi standar yang berlaku serta otoritas berwenang.</p>
+
+			<h2 id="two-suction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Aturan Dua Jalur Hisap dan Penetrasi Tandon</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Tandon air pemadam berukuran besar memerlukan lebih dari satu titik ketergantungan. Ketentuan NFPA 20 untuk tandon penyimpanan besar mensyaratkan lebih dari satu outlet hisap atau jalur utama hisap dan membatasi ketergantungan pada satu jalur hisap, tetapi ambang serta konfigurasinya bergantung pada edisi standar yang berlaku. Konfirmasikan edisinya sebelum menggambar dinding tandon, dan tunjukkan apakah setiap pompa memiliki jalur independen, bagaimana jalur tersebut diisolasi, serta bagaimana pemeliharaan dapat diselesaikan tanpa mengurangi kapasitas pemadam yang diwajibkan.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Penetrasi tandon adalah detail sistem, bukan sekadar lubang dengan flange. Koordinasikan posisi sleeve, penguatan, material gasket, isolasi eksternal, pelat pencegah pusaran internal, dan akses inspeksi. Tempatkan klep di luar tandon agar dapat dioperasikan dan dipelihara, serta pastikan spool dapat dikuras atau dilepas tanpa mengganggu jalur hisap lainnya. <a href="/id/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">Gate valve OS&amp;Y dengan dudukan elastis UL/FM</a> sering dipertimbangkan jika diperlukan klep isolasi berdiameter penuh yang terdaftar dan terlihat terbuka; pemilihan tetap tunduk pada spesifikasi proyek.</p>
+			<p class="text-gray-700 leading-relaxed">Dua jalur hisap bukan berarti dua cabang dekoratif yang segera disatukan pada satu titik sempit. Telusuri setiap jalur hingga susunan pompa, periksa luas aliran yang tersedia, dan identifikasi klep yang harus tetap terkunci atau diawasi dalam posisi terbuka. Jika terdapat pompa atau kompartemen kedua, perancang harus menunjukkan bahwa kegagalan satu komponen tidak menghilangkan kapasitas hisap yang diwajibkan.</p>
+
+			<h2 id="vortex" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Pencegahan Pusaran dan Tata Letak Pipa Hisap</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Inlet tandon harus tetap terendam pada kedalaman minimum yang diwajibkan oleh standar yang berlaku dan susunan pompa. Jika level air turun terlalu dekat dengan bukaan, pusaran dapat menarik udara ke dalam hisapan meskipun tandon masih tampak berisi air. Masuknya udara mengurangi debit, menyebabkan tekanan hisap tidak stabil, dan dapat merusak impeller. Pelat pencegah pusaran atau <a href="/id/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">pencegah pusaran hisap EN 12845</a> membantu memutus pola aliran berputar; komponen ini tidak menggantikan kedalaman terendam yang diwajibkan atau ukuran pipa yang benar.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Buat jalur menuju pompa sesederhana mungkin sesuai ruang yang tersedia. Gunakan ukuran pipa hisap dan panjang jalur lurus yang ditetapkan produsen pompa, hindari elbow yang tidak perlu di dekat flange hisap, dan pasang reducer eksentrik dengan sisi datarnya di atas agar udara tidak terkumpul di inlet pompa. Sangga pipa secara independen agar berat dan gerakan termalnya tidak membebani casing pompa. Klep hisap digunakan untuk isolasi, bukan throttling.</p>
+			<p class="text-gray-700 leading-relaxed">Jika kotoran merupakan risiko yang masuk akal, <a href="/id/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">Y-strainer teleskopik SGL41H</a> yang dapat dibersihkan dapat melindungi jalur hisap jika desain yang disetujui mengizinkannya, tetapi setiap saringan menambah kehilangan tekanan dan kebutuhan pemeliharaan. Konfirmasikan mesh, akses, penurunan tekanan, dan penerimaan layanan pemadam sebelum pemasangan. Strainer tersumbat dapat tampak seperti tandon yang terlalu kecil, padahal gejala sebenarnya adalah manometer hisap yang turun.</p>
+
+			<h2 id="level-control" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Menjaga Tandon Tetap Penuh: Kontrol Level</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Tandon yang penuh saat serah terima belum tentu menjadi sumber air pemadam yang andal. Peralatan pengisian ulang harus mempertahankan level normal, menutup dengan halus, menoleransi tekanan inlet yang tersedia, dan memberikan sinyal jelas jika level turun. Tujuan desainnya adalah mencegah kebutuhan domestik, penguapan, pengujian, dan kebocoran kecil menghabiskan cadangan yang dilindungi, sekaligus mencegah pengisian ulang yang tidak terkendali meluapkan tandon.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/id/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">Klep kontrol level air hidraulik F745X</a> menggunakan susunan berbasis pilot untuk pemeliharaan level dan penutupan halus. Jika proyek memerlukan susunan jarak jauh yang dioperasikan pelampung, <a href="/id/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">klep pelampung kendali jarak jauh 100X-16P</a> menyediakan pilot pelampung nirkarat untuk pengisian ulang tandon. Tidak satu pun produk tersebut menentukan cadangan pemadam dengan sendirinya: set point, bypass, tekanan hulu, dan alarm harus mengikuti desain hidraulik yang disetujui.</p>
+			<p class="text-gray-700 leading-relaxed">Tampilkan level tinggi, normal, rendah, dan darurat pada diagram kontrol. Sertakan klep isolasi hulu yang mudah diakses, fasilitas drainase atau pengujian jika diwajibkan, serta cara membuktikan kerja pilot atau pelampung tanpa mengosongkan tandon. Jika tandon digunakan bersama, interlock sinyal level dengan kontrol domestik agar klep pengisian ulang yang gagal tidak diam-diam mengurangi cadangan air pemadam.</p>
+
+			<h2 id="priming-testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Pengisian Awal, Manometer, dan Fasilitas Pengujian</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Sebelum pompa pemadam sentrifugal dapat bekerja, casing dan sisi hisapnya harus terisi dengan benar dan sisi hisap harus tetap tergenang sesuai desain. Susunan akhir bergantung pada tipe pompa dan elevasi sumber, jadi ikuti petunjuk pengisian awal dari pemasok pompa, bukan mengimprovisasi foot valve atau check valve tambahan. Manometer hisap pada flange pompa menunjukkan apakah sumber benar-benar tersedia; bandingkan dengan manometer discharge dan kurva pompa tersertifikasi saat penerimaan.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Sediakan titik isolasi dan drainase agar spool hisap, klep, dan instrumen dapat diperiksa tanpa menguras seluruh tandon. Lindungi manometer dari benturan dan gunakan rentang yang sesuai untuk kondisi statis maupun operasi yang diharapkan. Saat commissioning, verifikasi posisi klep, alarm level rendah, kerja pengisian ulang, pemasangan pencegah pusaran, penyangga pipa, dan tidak adanya kebocoran udara sebelum mencatat kinerja pompa.</p>
+			<p class="text-gray-700 leading-relaxed">Pengujian harus membuktikan kapasitas hidraulik sekaligus tujuan fail-safe. Simulasikan kondisi level rendah jika diizinkan, operasikan klep pengisian ulang, inspeksi penetrasi tandon, dan pastikan hisap yang diwajibkan tetap tersedia dengan kondisi isolasi yang direncanakan. Untuk sambungan luar dan antarmuka sisi discharge, panduan sambungan Siamese pemadam kebakaran menjelaskan bagaimana sambungan dinas pemadam harus dikoordinasikan dengan bagian lain ruang pompa.</p>
+
+			<h2 id="checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Daftar Periksa Susunan Hisap</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Identifikasi sumber.</strong> Nyatakan tandon terbuka, tandon bertekanan, atau sambungan kota, level operasi terendah, tekanan tersedia, dan kondisi hisap yang diwajibkan pemasok pompa.</li>
+				<li><strong>Dokumentasikan cadangan.</strong> Tampilkan volume dan durasi air pemadam yang diwajibkan dari perhitungan proyek, beserta semua datum level dan volume terlindungi yang digunakan bersama kebutuhan domestik.</li>
+				<li><strong>Koordinasikan outlet.</strong> Konfirmasikan edisi NFPA 20 yang berlaku, persyaratan dua jalur hisap untuk ukuran tandon, dan kemandirian setiap jalur.</li>
+				<li><strong>Cegah masuknya udara.</strong> Verifikasi kedalaman terendam, geometri pencegah pusaran, orientasi reducer eksentrik, panjang jalur lurus, dan penyangga pipa independen.</li>
+				<li><strong>Lindungi air.</strong> Tentukan klep isolasi eksternal, strainer yang dapat dibersihkan hanya jika disetujui, manometer, drainase, dan akses pemeliharaan.</li>
+				<li><strong>Kontrol level.</strong> Pilih peralatan pilot F745X atau 100X sesuai tekanan inlet, tetapkan level normal dan rendah, lalu hubungkan alarm yang diwajibkan.</li>
+				<li><strong>Rencanakan penerimaan.</strong> Sertakan petunjuk pengisian awal, manometer hisap dan discharge, pengujian pengisian ulang, simulasi level rendah, serta catatan material, uji tekanan, dan O&amp;M.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Untuk jadwal klep lengkap, hubungkan pekerjaan ini dengan <a href="/id/guides/municipal-fire-water-main-upgrade-guide/" class="text-brand-blue font-semibold hover:underline">panduan peningkatan jaringan utama air pemadam kota</a> dan konfirmasikan ketentuan otoritas air setempat. Wanlian dapat meninjau gambar outlet tandon, kurva pompa, ukuran pipa, dan edisi standar yang diwajibkan sebelum memberikan penawaran klep serta aksesori sisi hisap.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Pertanyaan yang Sering Diajukan</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Membutuhkan Klep Hisap Pompa Pemadam?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Kirim gambar outlet tandon, debit dan head nominal pompa, ukuran hisap, level air, serta edisi standar yang berlaku. Wanlian akan mengonfirmasi susunan pencegah pusaran, kontrol level, isolasi, dan pengujian untuk proyek Anda.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/id/contact/?product=Klep%20Hisap%20Pompa%20Pemadam" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Minta Penawaran</a>
+						<a href="https://wa.me/8618684324501?text=Halo%2C%20kami%20membutuhkan%20klep%20hisap%20pompa%20pemadam%20dan%20ingin%20meminta%20penawaran" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat di WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,188 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Apa perbedaan utama antara katup deluge dan katup pre-action?',
+		answer: 'Sistem deluge menggunakan sprinkler atau nozzle terbuka, sehingga pembukaan katup deluge mengalirkan air ke semua titik pembuangan sekaligus. Sistem pre-action biasanya memakai sprinkler tertutup dan deteksi untuk membuka katup kontrol sebelum sprinkler mengeluarkan air. Deluge dipilih untuk cakupan cepat dan serentak; pre-action dipilih ketika pembuangan air yang tidak disengaja harus dibatasi. Konfirmasikan interlock dan urutan kode sesuai edisi yang berlaku.'
+	},
+	{
+		question: 'Sebaiknya katup deluge menggunakan pelepasan elektrik atau hidraulik?',
+		answer: 'Pilih metode pelepasan berdasarkan desain deteksi, persyaratan area berbahaya, daya yang tersedia, dan urutan fail-safe yang diperlukan. Pelepasan elektrik praktis ketika panel alarm kebakaran dan rangkaian solenoid tersupervisi sudah ditentukan. Pelepasan hidraulik atau pneumatik sesuai untuk lokasi yang membutuhkan jalur tekanan khusus atau detektor pneumatik. Wanlian memasok rakitan katup dan aksesori kompatibel; urutan panel kontrol deteksi harus dikonfirmasi oleh perancang sistem.'
+	},
+	{
+		question: 'Bagaimana sistem deluge harus dilindungi di iklim dingin?',
+		answer: 'Tempatkan rakitan katup deluge dan trim di ruang yang dipanaskan serta mudah diakses bila memungkinkan, dan jangan biarkan pipa terbuka berisi air berada di lokasi yang dapat membeku. Sediakan pengumpulan kondensat dan drainase untuk trim deteksi, isolasi bagian yang rentan, dan gunakan susunan kering atau pneumatik yang disetujui bila desain memerlukannya. Jangan mengganti media dengan antifreeze atau mengubah trim tanpa persetujuan otoritas berwenang. Konfirmasikan metode perlindungan beku sesuai edisi yang berlaku.'
+	},
+	{
+		question: 'Bagaimana jalur deteksi dilindungi dari aktivasi yang tidak disengaja?',
+		answer: 'Pisahkan jalur deteksi dari kontrol layanan biasa, supervisi tekanan atau status rangkaiannya, lindungi perangkat terbuka dari benturan, dan gunakan urutan panel pelepas yang dipersyaratkan untuk bahaya tersebut. Pelepas manual harus terlindung tetapi tetap mudah diakses, sedangkan sambungan uji harus diberi identifikasi jelas dan dikembalikan setelah pengujian. Deteksi hidraulik, pneumatik, dan elektrik masing-masing memerlukan supervisi alarm serta gangguan. Matriks sebab-akibat final harus disetujui sebelum commissioning.'
+	},
+	{
+		question: 'Informasi apa yang harus dicantumkan dalam RFQ katup deluge?',
+		answer: 'Kirimkan uraian bahaya, area terlindungi, aliran dan tekanan desain, ukuran nominal serta sambungan ujung katup, tata letak kepala terbuka atau monitor, metode deteksi, urutan aktuasi yang diperlukan, temperatur lingkungan, susunan drainase, dan edisi kode yang berlaku. Minta juga gambar trim, data material, catatan uji tekanan, informasi suku cadang, dan petunjuk pengoperasian. Jika diperlukan listing atau persetujuan, nyatakan secara eksplisit dan minta pemasok mengonfirmasi dokumentasi yang berlaku.'
+	},
+	{
+		question: 'Apakah Wanlian memasok panel kontrol deteksi deluge?',
+		answer: 'Wanlian memasok rakitan katup deluge serta katup dan aksesori pemantauan terkait, termasuk rakitan ZSFM dan komponen isolasi atau kontrol yang sesuai. Kami tidak menyatakan panel kontrol deteksi sebagai bagian dari paket katup standar bila panel tersebut tidak kami pasok. Panel pelepas, detektor, serta pemrograman sebab-akibat harus ditentukan bersama kontraktor alarm kebakaran atau spesialis deteksi, kemudian diperiksa terhadap trim katup dan urutan di lokasi.'
+	}
+];
+
+const toc = [
+	{ id: 'when-deluge', label: '1. Kapan Sistem Memerlukan Perlindungan Deluge' },
+	{ id: 'how-it-works', label: '2. Cara Kerja Rakitan Katup Deluge ZSFM' },
+	{ id: 'actuation', label: '3. Memilih Metode Aktuasi' },
+	{ id: 'sizing', label: '4. Menentukan Ukuran Katup untuk Aliran dan Waktu Trip' },
+	{ id: 'discharge', label: '5. Sprinkler Terbuka, Monitor, dan Tata Letak Pembuangan' },
+	{ id: 'testing', label: '6. Commissioning dan Pengujian Berkala' },
+	{ id: 'rfq-checklist', label: '7. Checklist RFQ Katup Deluge' },
+	{ id: 'faq', label: 'Pertanyaan yang Sering Diajukan' }
+];
+
+const products = [
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Rakitan Katup Alarm Deluge (Seri ZSFM)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'Rakitan katup deluge wet-bottom untuk sistem kepala terbuka dan monitor' },
+	{ slug: 'pre-action-alarm-system-zsfy', name: 'Sistem Alarm Pre-Action (Seri ZSFY)', img: '/assets/products/pre-action-alarm-system-zsfy.jpg', desc: 'Rakitan pre-action interlock tunggal dan ganda' },
+	{ slug: 'manual-fire-water-cannon-ps', name: 'Monitor Air Pemadam Manual (Seri PS)', img: '/assets/products/manual-fire-water-cannon-ps.webp', desc: 'Monitor tetap untuk tugas pembuangan deluge dan monitor' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Katup Gerbang Dudukan Elastis OS&amp;Y UL/FM', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10", ujung grooved, stem naik, terdaftar UL/FM' }
+];
+---
+
+<Layout
+	title="Panduan Pemilihan Katup Deluge 2026"
+	description="Panduan memilih katup deluge ZSFM: aliran, waktu trip, aktuasi, sprinkler terbuka, monitor, pengujian, dan data RFQ untuk proyek industri."
+	type="article"
+	locale="id"
+	faq={faq}
+	breadcrumbs={[{ name: 'Panduan', href: '/id/blog/' }, { name: 'Panduan Pemilihan Katup Deluge' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/id/" class="hover:text-blue-600">Beranda</a>
+			<span>/</span>
+			<a href="/id/blog/" class="hover:text-blue-600">Panduan</a>
+			<span>/</span>
+			<span class="text-gray-600">Panduan Pemilihan Katup Deluge</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Panduan Katup Deluge</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Pemilihan Katup Deluge: Sistem Sprinkler Terbuka dan Monitor</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Singkatnya, katup deluge adalah gerbang terkendali antara suplai air bertekanan dan jaringan sprinkler, nozzle, atau monitor terbuka. Jalur deteksi bekerja lebih dahulu; katup kemudian memasukkan air ke semua titik pembuangan terbuka secara serentak. Pemilihan yang tepat dimulai dari bahaya dan aliran desain, lalu memeriksa kapasitas Kv atau Cv, kehilangan tekanan, waktu trip, metode aktuasi, drainase, dan akses pengujian. Panduan ini menjelaskan rakitan ZSFM, perbandingannya dengan sistem basah, kering, dan pre-action, serta informasi yang perlu dicantumkan pembeli dalam RFQ.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/id/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="when-deluge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Kapan Sistem Memerlukan Perlindungan Deluge</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Perlindungan deluge sesuai ketika kebakaran dapat membesar dengan cepat, seluruh bahaya harus dibasahi secara bersamaan, atau monitor berarah harus segera menerima air setelah deteksi. Contoh umum mencakup dekorasi panggung dan ruang atas teater, hanggar pesawat, transformator, ban berjalan, area kendaraan, serta aplikasi pre-action busa-air. Ciri utamanya adalah sprinkler atau nozzle dalam kondisi terbuka. Air tidak menunggu bulb sprinkler individual bekerja; satu urutan pelepasan mengalirkan air ke seluruh jaringan terbuka.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Konsekuensinya adalah kebutuhan air yang memang disengaja. Perancang deluge harus mempertimbangkan setiap titik pembuangan terbuka yang dapat beroperasi sekaligus, suplai yang tersedia di inlet katup, gesekan pipa, dan tekanan yang diperlukan di outlet paling jauh secara hidraulik. EN 12845 dan NFPA 13 mensyaratkan katup deluge memasok semua outlet terbuka dengan cepat setelah deteksi, yang sering dinyatakan sekitar 60 detik, tetapi edisi yang berlaku dan bahaya proyek menentukan dasar desain yang tepat. Selalu konfirmasikan persyaratan sesuai edisi yang berlaku.</p>
+			<p class="text-gray-700 leading-relaxed">Keputusannya bukan sekadar memilih “katup terbesar yang tersedia”. Katup searah alarm basah seperti <a href="/id/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">katup alarm basah ZSFZ</a> ditujukan untuk susunan sprinkler yang biasanya tertutup dan berbeda. Untuk sistem kepala terbuka, <a href="/id/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">rakitan katup alarm deluge ZSFM</a> merupakan titik awal yang relevan, dengan tetap memperhatikan perhitungan hidraulik dan persyaratan persetujuan.</p>
+
+			<h2 id="how-it-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Cara Kerja Rakitan Katup Deluge ZSFM</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Katup deluge ditahan tertutup oleh susunan priming sementara sisi suplai tetap bertekanan. Sirkuit deteksi independen merasakan bahaya dan melepas trim melalui urutan hidraulik, pneumatik, atau elektrik. Setelah tekanan penahan hilang atau perangkat pelepas bekerja, diafragma atau clapper utama bergerak dan air suplai memasuki pipa deluge. Air kemudian mencapai semua sprinkler, nozzle, atau monitor terbuka, bukan menunggu operasi termal pada setiap outlet.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Rakitan ZSFM harus ditinjau sebagai satu rakitan, bukan hanya bodinya. RFQ harus mencantumkan ukuran katup, sambungan inlet dan outlet, trim priming, susunan drain dan uji, outlet alarm, sakelar tekanan, serta pelepas darurat manual. Jalur alarm dapat mengoperasikan alarm motor air atau mengirimkan tekanan ke panel terpantau, bergantung pada trim yang ditentukan. Katup isolasi tersupervisi di hulu dan susunan uji hilir terkendali membuat rakitan mudah dirawat tanpa menyembunyikan katup yang tertutup.</p>
+			<p class="text-gray-700 leading-relaxed">Wanlian memasok rakitan katup deluge beserta katup dan aksesori pemantauan terkait. Panel deteksi, detektor, dan logika sebab-akibat terprogram tidak otomatis termasuk bila dipasok spesialis lain. Batas tanggung jawab tersebut harus dicantumkan dalam daftar peralatan agar installer mengetahui pihak yang bertanggung jawab atas rangkaian pelepas, notifikasi alarm, dan urutan reset.</p>
+
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Jenis sistem</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Kondisi pembuangan</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Logika pemilihan umum</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Deluge</td>
+							<td class="px-4 py-3 text-gray-700">Semua outlet terbuka mengalir setelah katup trip</td>
+							<td class="px-4 py-3 text-gray-700">Pembasahan cepat dan serentak pada area bahaya tinggi</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pipa basah</td>
+							<td class="px-4 py-3 text-gray-700">Hanya sprinkler yang teraktivasi panas yang membuang air</td>
+							<td class="px-4 py-3 text-gray-700">Ruang berpemanas dengan sprinkler tertutup</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pipa kering</td>
+							<td class="px-4 py-3 text-gray-700">Udara dilepas sebelum air memasuki jaringan kering</td>
+							<td class="px-4 py-3 text-gray-700">Area yang tidak dapat memakai sistem basah karena pembekuan</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pre-action</td>
+							<td class="px-4 py-3 text-gray-700">Deteksi membuka katup; sprinkler tertutup tetap mengendalikan pembuangan</td>
+							<td class="px-4 py-3 text-gray-700">Ruang sensitif air yang memerlukan kondisi pelepasan tambahan</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="actuation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Memilih Metode Aktuasi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Jalur deteksi terpisah dari pipa distribusi air dan bekerja sebelum katup deluge. Jalur deteksi hidraulik berisi cairan dapat dilepas melalui perangkat pilot; jalur pneumatik menggunakan tekanan udara dan susunan pilot kering; pelepasan elektrik menggunakan solenoid tersupervisi dan panel pelepas. Pilihan bergantung pada lingkungan lokasi, utilitas yang tersedia, rute kabel, filosofi supervisi, serta urutan yang dibutuhkan untuk pelepasan manual, alarm, dan reset.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Pelepasan elektrik sering praktis ketika detektor, panel alarm kebakaran, dan titik status jarak jauh sudah tersedia. Pelepasan hidraulik atau pneumatik dapat lebih disukai ketika filosofi kontrol bersifat lokal atau jalur deteksi harus tetap independen dari rangkaian elektrik yang panjang. <a href="/id/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">katup kontrol solenoid grooved GKZF1</a> dapat sesuai untuk susunan katup yang dikendalikan elektrik, tetapi output panel pelepas, tegangan, supervisi, dan metode reset tetap harus dikonfirmasi perancang sistem.</p>
+			<p class="text-gray-700 leading-relaxed">Sebagai alternatif pre-action, <a href="/id/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">sistem alarm pre-action ZSFY</a> memberikan perbandingan yang berguna karena urutan interlock tunggal dan ganda memiliki kondisi pelepasan yang berbeda. Jangan memilih hanya berdasarkan kata “elektrik”: dokumentasikan apa yang terjadi saat daya hilang, tekanan pilot hilang, detektor alarm, pelepasan manual, alarm aliran air, dan pemulihan. Matriks final harus diuji sebagai urutan operasi, bukan sekadar diperiksa sebagai diagram kabel.</p>
+
+			<h2 id="sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Menentukan Ukuran Katup untuk Aliran dan Waktu Trip</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Tentukan ukuran katup dari kebutuhan terhitung, bukan hanya dari diameter pipa cabang. Tetapkan aliran desain dari seluruh kepala terbuka, monitor, atau nozzle yang harus beroperasi untuk bahaya tersebut, lalu periksa tekanan inlet yang tersedia dan tekanan outlet terjauh. Katup terpilih harus melewatkan aliran yang diperlukan dengan kehilangan yang dapat diterima, sementara trim dan jalur alarm tetap berada dalam rentang operasinya. Kv atau Cv adalah nilai pembanding yang berguna, tetapi harus dibaca pada penurunan tekanan yang relevan dan tidak disalin dari kondisi uji yang tidak terkait.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Waktu trip merupakan hasil sistem. Nilai ini mencakup respons deteksi, penurunan tekanan jalur pilot atau pelepasan elektrik, pembukaan katup, respons trim, pengisian pipa, dan kedatangan air di outlet terjauh. EN 12845 dan NFPA 13 menggunakan ekspektasi pengiriman cepat untuk layanan deluge, sering kali sekitar 60 detik untuk memasok outlet terbuka setelah deteksi. Konfirmasikan persyaratan proyek yang tepat sesuai edisi yang berlaku, lalu validasi menggunakan cabang terpanjang dan paling merugikan secara hidraulik, bukan sambungan uji terpendek.</p>
+			<p class="text-gray-700 leading-relaxed">Jalur deteksi memerlukan perhitungan tersendiri. Jalur pilot yang paling panjang atau paling jauh dapat menentukan penurunan tekanan, volume udara, perpindahan air, atau supervisi elektrik. Sertakan elevasi, fitting, titik kondensat, dan perangkat pelepas aktual. Jika kondisi dingin atau lembap dapat menimbulkan kondensasi, sediakan pengumpul kondensat dan drain pada titik rendah yang sesuai. Detail ini mudah terlewat dalam penawaran katup saja dan sering menjadi alasan uji trip di lokasi tidak sesuai gambar.</p>
+
+			<h2 id="discharge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Sprinkler Terbuka, Monitor, dan Tata Letak Pembuangan</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Sprinkler dan nozzle terbuka ditata untuk melindungi bahaya sebagai satu kelompok. Orifice, sudut semprot, jarak, dan elevasinya memengaruhi kebutuhan hidraulik, sedangkan penghalang dan angin dapat memengaruhi cakupan aktual. Susunan monitor menambah pertimbangan jangkauan, arah, dan reaksi; <a href="/id/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">monitor air pemadam manual PS</a> tetap dapat menjadi bagian dari tugas pembuangan deluge atau monitor, tetapi suplai air harus diperiksa untuk aliran monitor bersama seluruh kepala terbuka yang beroperasi bersamaan.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Sediakan susunan isolasi hilir hanya jika desain yang disetujui mengizinkannya, dan supervisi setiap katup yang dapat menonaktifkan bagian dari bahaya. Drain deluge dan sambungan uji harus membuang air dengan aman tanpa membanjiri ruang katup atau mengirimkan air terkontaminasi ke drain yang tidak sesuai. Pastikan outlet alarm terlihat dan mudah diakses, serta tandai pelepas manual agar operator dapat mengenalinya saat darurat tanpa tertukar dengan katup uji atau drain.</p>
+			<p class="text-gray-700 leading-relaxed">Untuk konteks sistem, bandingkan asumsi hidraulik dengan <a href="/id/guides/awwa-c509-vs-en-14461-fire-hydrants/" class="text-brand-blue font-semibold hover:underline">panduan hidran pemadam</a> dan <a href="/id/guides/fire-pump-suction-water-tank-guide/" class="text-brand-blue font-semibold hover:underline">panduan pompa kebakaran dan tangki air</a>. Jika busa ditambahkan, tinjau <a href="/id/guides/foam-deluge-system-guide/" class="text-brand-blue font-semibold hover:underline">panduan sistem deluge busa</a> agar katup deluge, peralatan konsentrat, dan perangkat pembuangan diperlakukan sebagai satu urutan hidraulik dan kontrol.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Commissioning dan Pengujian Berkala</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Commissioning harus membuktikan jalur air dan jalur pelepasan. Pastikan katup suplai hulu dan katup isolasi trim berada pada posisi yang ditentukan, tekanan priming stabil, drain tidak tersumbat, dan outlet alarm terhubung. Operasikan pelepas manual dan urutan deteksi normal secara terpisah bila prosedur yang disetujui mengizinkan, lalu catat waktu dari pelepasan hingga katup bekerja, sinyal alarm diterima, dan air tiba di outlet jarak jauh yang mewakili.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Uji bypass dan drain tanpa meninggalkan jalur tersembunyi dalam kondisi terbuka. Verifikasi alarm motor air atau sakelar tekanan, transmisi alarm, kontak supervisi, dan reset. Flow switch atau indikator hilir dapat mendukung pemantauan status; <a href="/id/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">panduan indikator aliran air</a> memberikan konteks lebih luas untuk memilih dan mensupervisi sinyal tersebut. Sebelum musim hujan atau periode operasi berisiko tinggi lainnya, lakukan uji trip terencana bersama pemilik, kontraktor alarm, dan persyaratan otoritas yang telah diselaraskan.</p>
+			<p class="text-gray-700 leading-relaxed">Pemeliharaan berkala harus mengikuti NFPA 25 atau kode pemeliharaan lokal yang berlaku serta petunjuk produsen katup. Periksa trim dari korosi, pastikan drain dan pengumpul kondensat tidak tersumbat, dan catat pembacaan tekanan, bukan mengandalkan ingatan. Pengujian harus dikendalikan agar area pembuangan aman dan sistem segera dipulihkan. Jika edisi yang berlaku mengubah interval, kriteria penerimaan, atau persyaratan dokumentasi, konfirmasikan sesuai edisi yang berlaku, bukan menggunakan checklist lama.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Checklist RFQ Katup Deluge</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Jelaskan bahayanya.</strong> Nyatakan ruang atau proses, beban mudah terbakar, area terlindungi, dan apakah outlet berupa sprinkler terbuka, nozzle, monitor, atau perangkat busa-air.</li>
+				<li><strong>Berikan data hidraulik.</strong> Sediakan aliran desain, tekanan outlet jauh yang diperlukan, tekanan suplai yang tersedia, ukuran pipa, elevasi, dan asumsi perhitungan hidraulik yang digunakan.</li>
+				<li><strong>Tentukan rakitan katup.</strong> Cantumkan ukuran nominal, sambungan ujung, material bodi dan trim, ukuran drain, outlet alarm, susunan uji, serta katup isolasi tersupervisi bila ada.</li>
+				<li><strong>Spesifikasikan pelepasan.</strong> Identifikasi deteksi hidraulik, pneumatik, atau elektrik, panjang jalur pilot, pelepas manual, detail solenoid, antarmuka panel, dan urutan trip yang diperlukan.</li>
+				<li><strong>Perhatikan lingkungan.</strong> Nyatakan temperatur lingkungan minimum dan maksimum, lokasi dalam atau luar ruang, risiko kondensasi, rute drainase, dan paparan korosi.</li>
+				<li><strong>Minta dokumen.</strong> Minta gambar rakitan, skema trim, petunjuk instalasi dan pemeliharaan, catatan uji tekanan, informasi material, serta dokumen persetujuan atau listing yang berlaku bila dipersyaratkan proyek.</li>
+				<li><strong>Tetapkan uji penerimaan.</strong> Definisikan target waktu trip, sinyal alarm, pengamatan outlet jauh, prosedur pemulihan, dan catatan yang diperlukan setelah uji trip.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Untuk kerangka pengadaan yang lebih luas, gunakan <a href="/id/fire-sprinkler-systems/" class="text-brand-blue font-semibold hover:underline">ikhtisar sistem sprinkler pemadam</a> bersama panduan terkait di atas. RFQ lengkap memungkinkan Wanlian mengonfirmasi rakitan katup tanpa berpura-pura merancang tata letak detektor atau seluruh panel alarm kebakaran. Hasilnya adalah pembagian suplai yang lebih jelas, pemeriksaan hidraulik yang lebih andal, dan lebih sedikit perubahan saat commissioning.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Pertanyaan yang Sering Diajukan</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Membutuhkan Rakitan Katup Deluge untuk Sistem Anda?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Kirimkan aliran dan tekanan sistem, ukuran katup, jenis bahaya, serta metode deteksi. Teknisi kami dapat mengonfirmasi konfigurasi rakitan katup deluge dalam 12 jam.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/id/contact/?product=Katup%20Alarm%20Deluge%20(ZSFM)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Minta Penawaran</a>
+						<a href="https://wa.me/8618684324501?text=Halo%2C%20saya%20membutuhkan%20rakitan%20katup%20deluge%20untuk%20sistem%20sprinkler%20terbuka%20atau%20monitor" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat di WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,193 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Apakah proyek AS dapat membeli hidran EN 14461?',
+		answer: 'Hidran tersebut dapat dibeli, tetapi pembelian tidak sama dengan penerimaan. Proyek di AS biasanya dimulai dari otoritas yang berwenang, pola sambungan pemadam, dan standar kontrak. Hidran EN 14461 hanya dapat dipertimbangkan jika insinyur dan AHJ menerima kelas tekanan, outlet, antarmuka kopling, dokumen pengujian, dan detail pemasangannya. Jika tender menyebut AWWA C509, tawarkan hidran dengan konfigurasi AWWA, bukan menganggap produk EN setara.'
+	},
+	{
+		question: 'Apakah hidran AWWA C509 dapat digunakan pada proyek EN?',
+		answer: 'Hanya dengan persetujuan proyek yang terdokumentasi. Hidran AWWA C509 dan EN 14461 dapat berbeda dalam susunan barel, penetapan tekanan, pola outlet, ulir, dan bukti uji tipe. Perancang harus memastikan konfigurasi AWWA memenuhi antarmuka dan spesifikasi kinerja Eropa yang diperlukan. Jangan mengganti hanya berdasarkan ukuran nominal; ajukan standar, gambar, material, dan catatan pengujian yang diusulkan untuk ditinjau sebelum dirilis.'
+	},
+	{
+		question: 'Bagaimana cara memilih hidran tipe kering atau tipe basah?',
+		answer: 'Gunakan iklim, susunan pemasangan, dan standar setempat sebagai titik awal. Konfigurasi tipe kering menjaga barel atas tetap terkuras setelah penutupan dan cocok untuk lokasi yang memiliki risiko pembekuan, sedangkan konfigurasi tipe basah menjaga bodi tetap berisi air dan umumnya digunakan ketika pembekuan tidak diperkirakan. Pilihan akhir harus dicantumkan dalam spesifikasi proyek serta sesuai dengan standar, susunan pengurasan, dan praktik pemeliharaan yang dipilih.'
+	},
+	{
+		question: 'Apakah hidran dengan pemantauan IoT mengubah kepatuhan standarnya?',
+		answer: 'Tidak dengan sendirinya. Modul pemantauan adalah aksesori atau lapisan instrumentasi; modul tersebut tidak menggantikan persyaratan bodi hidran, tekanan, outlet, material, atau pengujian. Hidran dasar tetap harus memenuhi standar yang disebutkan dalam tender, dan pemasangan pemantauan tidak boleh menghambat operasi, pengurasan, inspeksi, atau keselamatan lalu lintas. Minta dokumen produk dasar dan datasheet pemantauan secara terpisah.'
+	},
+	{
+		question: 'Apa yang terjadi jika ulir kopling hidran tidak cocok?',
+		answer: 'Selang, tutup, atau peralatan pemadam mungkin tidak dapat tersambung, meskipun ukuran outlet nominal terlihat benar. Ketidakcocokan ulir atau kopling dapat menunda pengiriman air, mencegah pelepasan tutup, atau memerlukan adaptor yang belum disetujui. Konfirmasikan tipe outlet, penetapan ulir, standar kopling, dan praktik dinas pemadam setempat pada gambar yang disetujui. Jika diperlukan transisi, identifikasi dan setujui adaptor sebelum pengiriman.'
+	},
+	{
+		question: 'Laporan pengujian apa yang harus diminta sebelum pengiriman?',
+		answer: 'Minta catatan uji tekan, bukti uji aliran atau kinerja yang berlaku untuk edisi standar yang ditentukan, dokumentasi material dan pelapis, catatan inspeksi dimensi dan outlet, serta laporan inspeksi akhir. Untuk model yang aman terhadap lalu lintas, minta uraian baut geser dan penutupan otomatis. Minta pemasok menyebutkan edisi standar yang digunakan secara tepat, karena edisi tender menentukan bukti yang relevan.'
+	}
+];
+
+const toc = [
+	{ id: 'which-standard', label: '1. Standar yang Sebenarnya Dipakai Spesifikasi' },
+	{ id: 'pressure-classes', label: '2. Tekanan Nominal dan Kedalaman Pemasangan' },
+	{ id: 'outlets', label: '3. Susunan Outlet dan Pola Kopling' },
+	{ id: 'materials', label: '4. Material, Pelapis, dan Keselamatan Lalu Lintas' },
+	{ id: 'testing', label: '5. Uji Tipe dan Uji Produksi' },
+	{ id: 'mixing', label: '6. Kapan Pencampuran Standar Dapat Diterima' },
+	{ id: 'rfq-checklist', label: '7. Checklist RFQ Hidran' },
+	{ id: 'faq', label: 'Pertanyaan yang Sering Diajukan' }
+];
+
+const products = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Hidran Pemadam Antibeku Atas Tanah (SS100/65)', img: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp', desc: 'Besi cor nodular GB 4452, DN100/65, 1,6 MPa, pengurasan tahan beku' },
+	{ slug: 'underground-fire-hydrant-sa', name: 'Hidran Pemadam Bawah Tanah (Seri SA)', img: '/assets/products/underground-fire-hydrant-sa.webp', desc: 'Hidran bawah tanah tahan beku untuk jalan kota beriklim dingin' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Hidran Anti-Benturan dengan Pengatur Tekanan (SSFT100)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Perlindungan lalu lintas dengan baut geser dan perangkat pengatur' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Head Hidran Pemadam Dalam Ruangan SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'Katup besi cor nodular SN65, 1,6 MPa, beralur atau berflensa' }
+];
+---
+
+<Layout
+	title="AWWA C509 vs EN 14461: Perbandingan Hidran (2026)"
+	description="Perbandingan hidran AWWA C509 dan EN 14461: kelas tekanan, outlet, material, uji tipe, dan cara menyusun spesifikasi hidran yang diterima AHJ."
+	type="article"
+	locale="id"
+	faq={faq}
+	breadcrumbs={[{ name: 'Panduan', href: '/id/blog/' }, { name: 'Hidran AWWA vs EN' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/id/" class="hover:text-blue-600">Beranda</a>
+			<span>/</span>
+			<a href="/id/blog/" class="hover:text-blue-600">Panduan</a>
+			<span>/</span>
+			<span class="text-gray-600">Hidran AWWA vs EN</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Panduan Standar Hidran Pemadam</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Hidran AWWA C509 vs EN 14461: Perbandingan Spesifikasi dan Pengadaan</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Singkatnya, AWWA C509 dan EN 14461 bukan label yang dapat dipertukarkan untuk hidran yang sama. AWWA C509 adalah standar produk Amerika Utara dengan konvensi barel, outlet, dan ulirnya sendiri; EN 14461 adalah standar hidran atas tanah Eropa yang berlandaskan kelas PN, pilihan inlet DN, susunan outlet, antarmuka, dan persyaratan kinerja. RFQ yang berhasil harus menyebutkan edisi yang berlaku, sambungan dinas pemadam setempat, tugas tekanan, material, perlindungan lalu lintas, dan catatan pengujian, bukan meminta hidran “internasional” generik.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/id/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="which-standard" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Standar yang Sebenarnya Dipakai Spesifikasi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Pertanyaan pertama bukan “Hidran mana yang lebih baik?” melainkan “Dokumen apa yang mengatur penerimaan?” AWWA C509 digunakan untuk katup gerbang dudukan elastis dan konfigurasi hidran pemadam dalam praktik utilitas air Amerika Utara, termasuk susunan tipe basah dan tipe kering. Spesifikasi tersebut dibaca bersama gambar proyek, standar utilitas, dan otoritas yang berwenang. EN 14461 membahas hidran pemadam atas tanah dalam kerangka Eropa, dengan insinyur yang biasanya menyatakan penetapan tekanan, ukuran inlet nominal, susunan outlet, antarmuka sambungan, dan bukti kinerja yang diwajibkan.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">GB 4452 adalah referensi yang relevan untuk keluarga produk SS100/65 atas tanah Tiongkok yang umum. Standar ini bukan jalan pintas untuk penerimaan AWWA atau EN. Hidran atas tanah Wanlian SS100/65 dipasok sebagai konfigurasi GB 4452, dengan tekanan nominal 1,6 MPa dan uji tekan statis 2,4 MPa. Informasi tersebut berguna untuk tender pasar Tiongkok, tetapi proyek ekspor tetap memerlukan standar yang berlaku, pola outlet, dan daftar dokumennya sendiri.</p>
+			<p class="text-gray-700 leading-relaxed">Gunakan perbandingan di bawah sebagai alat penyaringan, lalu verifikasi edisi tender dan amandemen proyek yang tepat sebelum menyetujui pengganti.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Poin spesifikasi</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">AWWA C509</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">EN 14461</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">GB 4452</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Cakupan produk</td>
+							<td class="px-4 py-3 text-gray-700">Standar produk hidran Amerika Utara; konfigurasi tipe basah atau tipe kering</td>
+							<td class="px-4 py-3 text-gray-700">Hidran pemadam atas tanah Eropa dengan PN dan persyaratan kinerja yang dinyatakan</td>
+							<td class="px-4 py-3 text-gray-700">Hidran atas tanah Tiongkok, termasuk keluarga SS100/65</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Istilah tekanan</td>
+							<td class="px-4 py-3 text-gray-700">Gunakan kelas nominal dan jadwal proyek; jangan menyimpulkan nilai yang tidak tercantum</td>
+							<td class="px-4 py-3 text-gray-700">Kelas PN dinyatakan dalam spesifikasi dan diperiksa terhadap pemasangan</td>
+							<td class="px-4 py-3 text-gray-700">SS100/65 umumnya ditentukan pada 1,6 MPa; uji statis 2,4 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Outlet dan antarmuka</td>
+							<td class="px-4 py-3 text-gray-700">Outlet utama 2,5 inci dan outlet samping 65 mm; ulir mengikuti antarmuka AWWA yang dinyatakan</td>
+							<td class="px-4 py-3 text-gray-700">Susunan umum 2 x DN65 plus DN100; antarmuka dapat mengikuti EN 14384 dan persyaratan kopling terkait</td>
+							<td class="px-4 py-3 text-gray-700">Penamaan outlet SS100/65 mengikuti konvensi produk dan sambungan Tiongkok</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Material dan keselamatan</td>
+							<td class="px-4 py-3 text-gray-700">Praktik besi cor nodular mencakup referensi material ASTM A536 dan pengurasan tipe kering jika berlaku</td>
+							<td class="px-4 py-3 text-gray-700">Material, pelapis, kinerja aliran, dan keselamatan terhadap benturan kendaraan ditentukan dan diuji sesuai edisi</td>
+							<td class="px-4 py-3 text-gray-700">Konfigurasi produk besi cor nodular dengan persyaratan material dan pengujian GB 4452</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="pressure-classes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Tekanan Nominal dan Kedalaman Pemasangan</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Terminologi tekanan sering menjadi sumber kesetaraan yang keliru. Dokumen EN biasanya menampilkan penetapan PN, sedangkan jadwal AWWA dapat menyatakan kelas tekanan nominal atau persyaratan utilitas. Produk GB 4452 SS100/65 umumnya diidentifikasi pada 1,6 MPa, dengan uji tekan statis 2,4 MPa untuk konfigurasi tersebut. Label ini menjelaskan sistem standar yang berbeda; jangan mengonversinya berdasarkan ukuran nominal saja.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Minta kelas tekanan pada rakitan hidran lengkap, bukan hanya pada bodi. Bonet, batang, dudukan, nosel, tutup, penguras, dan sambungan flensa atau berulir semuanya harus tetap sesuai untuk tugasnya. Nyatakan kedalaman pemasangan, susunan tanam, dan dimensi elevasi akhir dari gambar sipil. Nilai aliran minimum, kedalaman tanam, atau angka lain yang bergantung pada edisi harus ditentukan sesuai edisi standar dalam tender.</p>
+			<p class="text-gray-700 leading-relaxed">Jalan kota yang dingin mungkin memerlukan susunan tipe kering atau bawah tanah, sedangkan iklim hangat dapat memungkinkan desain tipe basah. Untuk pemasangan di bawah permukaan, tinjau <a href="/id/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">hidran pemadam bawah tanah Seri SA</a> terhadap detail pengurasan dan akses proyek. Keputusan tekanan dan keputusan perlindungan beku saling berkaitan, tetapi bukan keputusan yang sama.</p>
+
+			<h2 id="outlets" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Susunan Outlet dan Pola Kopling</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Outlet yang tidak dapat tersambung dengan selang setempat berarti hidran gagal memenuhi fungsi. Praktik AWWA C509 menyebut outlet utama 2,5 inci dan outlet samping 65 mm, dengan ulir mengikuti antarmuka AWWA C505 yang berlaku. Proyek EN 14461 umumnya mencantumkan inlet DN80, DN100, atau DN150 dan susunan outlet seperti 2 x DN65 plus DN100, tetapi antarmuka kopling yang tepat harus dicantumkan dalam jadwal proyek. Gambar yang hanya menyebut “outlet DN65” belum lengkap jika tidak mengidentifikasi tipe ulir atau kopling.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Pastikan apakah dinas pemadam menggunakan sambungan selang berulir, pola kopling Storz, kopling nasional, atau adaptor khusus proyek. Wanlian dapat meninjau jadwal nosel hidran bersama <a href="/id/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">adaptor kopling selang hidran</a> atau <a href="/id/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">kopling Storz aluminium 2,5 inci</a> jika sambungan tersebut termasuk dalam RFQ. Adaptor harus disebutkan dan disetujui; jangan baru menemukannya setelah kontainer tiba.</p>
+			<p class="text-gray-700 leading-relaxed">Jika dinas pemadam AS akan mengoperasikan katup, minta konfirmasi ulir sebelum memesan konfigurasi EN atau GB. Jika proyek berada di Eropa, identifikasi referensi sambungan yang digunakan utilitas dan tampilkan pada gambar susunan umum yang disetujui. <a href="/id/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Panduan standar katup hidran</a> menjelaskan mengapa geometri outlet, ruang bebas tutup, dan arah pengoperasian harus ditinjau bersama.</p>
+
+			<h2 id="materials" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Material, Pelapis, dan Keselamatan Lalu Lintas</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Konfigurasi AWWA umumnya menyebut besi cor nodular sesuai ASTM A536 dan menggunakan susunan pengurasan tipe kering ketika perlindungan terhadap pembekuan diperlukan. Proyek EN tetap harus menuliskan kelas material, sistem pelapis internal dan eksternal, material pengencang, serta pilihan elastomer dalam submittal. Produk GB 4452 menggunakan konfigurasi produk Tiongkok yang ditetapkan. Jangan membandingkan warna cat atau foto katalog sebagai bukti kepatuhan pelapis; minta catatan material dan pelapis yang diwajibkan oleh edisi tender.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Perlindungan lalu lintas adalah persyaratan fungsional yang terpisah. Pada hidran anti-benturan dengan pengatur tekanan SSFT100, benturan menyebabkan baut geser patah dan katup internal menutup otomatis sehingga aliran air berhenti. Penggantian baut geser mengembalikan fungsi hidran. Data teknis terperinci dapat diberikan berdasarkan permintaan. Uraian ini tidak berarti semua hidran AWWA, EN, atau GB memiliki mekanisme keselamatan yang sama, sehingga persyaratan keselamatan lalu lintas harus dinyatakan secara jelas.</p>
+			<p class="text-gray-700 leading-relaxed">Untuk lokasi dengan pergerakan kendaraan yang sering, bandingkan <a href="/id/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">hidran anti-benturan SSFT100</a> dengan perlindungan sipil di sekitar hidran. <a href="/id/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">Panduan hidran antibeku dan anti-benturan</a> berguna ketika spesifikasi menggabungkan risiko pembekuan, paparan benturan, dan akses pengoperasian.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Uji Tipe dan Uji Produksi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Sertifikat dengan nama produk yang benar tidak otomatis menjadi bukti untuk standar yang benar. Tanyakan edisi yang digunakan, konfigurasi yang diuji, dan apakah laporan mencakup pola outlet yang dipasok. Uji tipe menunjukkan desain, sedangkan uji produksi menunjukkan bahwa kiriman telah diperiksa dan menjalani uji tekan. Kedua dokumen menjawab pertanyaan pembeli yang berbeda dan harus dicantumkan secara terpisah dalam pesanan pembelian.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Untuk submittal AWWA C509, minta bukti tekanan, operasi, pengurasan, dan material yang berlaku untuk susunan tipe basah atau tipe kering. Untuk EN 14461, minta bukti PN, kinerja aliran, outlet, benturan kendaraan, dan antarmuka yang berlaku untuk konfigurasi terpilih. Untuk GB 4452, minta catatan produk 1,6 MPa dan catatan uji tekan statis 2,4 MPa jika itu merupakan dasar SS100/65 yang ditentukan. Detail uji aliran harus mengikuti metode dan edisi standar yang berlaku; jangan menerima angka aliran universal yang dibuat-buat.</p>
+			<p class="text-gray-700 leading-relaxed"> <a href="/id/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">Hidran tanah pintar IoT SS100ZN</a> dapat menambahkan pemantauan pada aset, tetapi hidran dasar tetap memerlukan paket kepatuhannya sendiri. Pastikan sensor, baterai, dan peralatan komunikasi tidak mengganggu gerak katup, pengurasan, inspeksi, atau fungsi keselamatan lalu lintas.</p>
+
+			<h2 id="mixing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Kapan Pencampuran Standar Dapat Diterima</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Pencampuran standar dapat diterima jika dilakukan secara sengaja, terdokumentasi, dan disetujui. Misalnya, proyek dapat menggunakan bodi hidran yang dibuat menurut satu standar produk dan adaptor yang ditentukan terpisah untuk menyesuaikan selang setempat. Hal itu tidak membuat bodi memenuhi standar adaptor. Submittal harus mengidentifikasi setiap komponen, dokumen yang mengaturnya, kompatibilitas tekanan, antarmuka ulir atau kopling, dan tanggung jawab penerimaan akhir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Jangan mencampur standar secara diam-diam hanya dengan mengubah flensa atau nosel setelah penawaran. Pengeboran outlet, ruang bebas tutup, kunci operasi, perilaku pengurasan, dan bukti pengujian semuanya dapat berubah. Jika kontraktor meminta bodi AWWA untuk proyek EN, minta insinyur menandai penyimpangan tersebut pada submittal yang disetujui. Jika hidran EN diusulkan untuk proyek AS, dapatkan persetujuan tertulis AHJ sebelum produksi.</p>
+			<p class="text-gray-700 leading-relaxed">Wanlian mendukung tinjauan proyek melalui lini produksinya sendiri serta kapasitas kerja sama yang memenuhi kualifikasi, sehingga RFQ dapat dicocokkan dengan bodi, outlet, dan paket dokumen yang diperlukan. Pembeli tetap bertanggung jawab menyebutkan standar proyek dan AHJ; pemasok tidak boleh membuat klaim sertifikasi tanpa dukungan.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Checklist RFQ Hidran</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Sebutkan standar dan edisi yang berlaku.</strong> Nyatakan AWWA C509, EN 14461, GB 4452, atau dokumen lain yang diwajibkan, bersama amandemen proyek dan persyaratan AHJ.</li>
+				<li><strong>Tentukan barel dan pemasangan.</strong> Tipe basah atau tipe kering, atas tanah atau bawah tanah, dimensi elevasi akhir, susunan pengurasan, dan paparan pembekuan.</li>
+				<li><strong>Nyatakan tugas tekanan dan aliran.</strong> Berikan tekanan nominal atau kelas PN, serta minta nilai aliran yang bergantung pada edisi ditentukan sesuai edisi standar dalam tender.</li>
+				<li><strong>Gambarkan setiap sambungan.</strong> DN inlet atau ukuran nominal, pengeboran flensa, jumlah outlet, ukuran outlet, pola ulir atau kopling, tutup, dan detail kunci operasi.</li>
+				<li><strong>Daftarkan material dan perlindungan.</strong> Kelas besi cor nodular, elastomer, pengencang, sistem pelapis, perangkat keselamatan lalu lintas, dan kebutuhan penggantian baut geser jika berlaku.</li>
+				<li><strong>Minta paket bukti.</strong> Laporan uji tipe, uji tekan produksi, catatan aliran atau kinerja, sertifikat material, inspeksi dimensi, dan dokumen rilis akhir.</li>
+				<li><strong>Konfirmasikan aksesori.</strong> Adaptor selang, kopling Storz, tutup, komponen pengurasan, peralatan pemantauan, dan baut geser cadangan harus dicantumkan, bukan diasumsikan.</li>
+				<li><strong>Tuangkan penerimaan secara tertulis.</strong> Minta insinyur atau AHJ menyetujui setiap penggantian lintas standar sebelum produksi, serta lampirkan gambar yang disetujui pada pesanan pembelian.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Untuk konteks pemilihan, baca <a href="/id/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">cara memilih hidran pemadam</a> dan panduan standar kopling selang pemadam. Untuk perencanaan tingkat sistem, lihat <a href="/id/fire-hydrant-systems/" class="text-brand-blue font-semibold hover:underline">sistem hidran pemadam</a> sebelum memfinalkan jadwal katup.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Pertanyaan yang Sering Diajukan</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Memerlukan Hidran Sesuai Standar Proyek Anda?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Kirim lokasi proyek, edisi standar, pola inlet dan outlet, tugas tekanan, serta kondisi pemasangan. Kami akan mengonfirmasi konfigurasi ekspor atau antarmuka untuk standar yang berlaku dan menyediakan laporan pengujian relevan untuk ditinjau.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/id/contact/?product=Hidran%20Pemadam%20Luar%20Ruangan%20(AWWA%20C509%20vs%20EN%2014461)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Minta Penawaran</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Halo, saya memerlukan hidran pemadam luar ruangan untuk proyek AWWA C509 atau EN 14461')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat di WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

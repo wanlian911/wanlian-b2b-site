@@ -1,0 +1,216 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Aynı vana için teklifler neden yaklaşık %30 farklı olabilir?',
+		answer: 'Yaklaşık %30 fark genellikle basit bir fabrika kârından değil, farklı bir ticari ve teknik temelden kaynaklanır. Vana gövdesi ve iç aksam malzemelerini, yatak bileşiğini, uç standardını, kaplamayı, basınç deneyi kapsamını, sertifikaları, ambalajı, teslim şeklini ve kalıp ya da denetimin hariç tutulup tutulmadığını kontrol edin. Toplamları karşılaştırmadan önce satır satır bir açıklama isteyin.'
+	},
+	{
+		question: 'Yalnızca FOB rakamına bakmak neden hatalıdır?',
+		answer: 'FOB, üzerinde anlaşılmış ihracat teslim noktasını kapsar; toplam teslim edilmiş maliyetinizi değil. İç nakliye, ihracat beyannamesi, deniz navlunu, vergiler, liman ücretleri ve gümrük müşavirliği teslim sonucunu değiştirebilir. Hangi masrafların sizin sorumluluğunuzda kaldığını teyit ederek EXW, FOB, CIF ve DDP koşullarını tek bir varış noktası maliyet tablosunda karşılaştırın.'
+	},
+	{
+		question: 'Üçüncü taraf LFO denetimi istemeli miyiz?',
+		answer: 'Sipariş güvenlik açısından kritikse, tedarikçi yeniyse, şartname karmaşıksa veya belgelerin bağımsız olarak doğrulanması gerekiyorsa bağımsız sevkiyat öncesi denetim ya da FAT tanıklığı isteyin. Denetim bekleme noktasını, numune almayı, test kayıtlarını ve ödemeyi kimin yapacağını netleştirin. SGS veya BV benzeri denetim kuruluşları üzerinde anlaşılan kapsama tanıklık edebilir; ancak teknik kabul kriterlerinizin yerini tutmazlar.'
+	},
+	{
+		question: 'Numune politikasını nasıl müzakere etmeliyiz?',
+		answer: 'Numunenin gerçek bir üretim vanası mı, kesit model mi yoksa prototip mi olduğunu tanımlayın; numune, kalıp, navlun ve test raporlarının bedelini kimin ödeyeceğini yazın. Pilot sipariş açıldığında onaylanmış numuneye ne olacağını kararlaştırın ve onaydan önce ölçü, kaplama veya işaretleme sapmalarını kayda geçirin.'
+	},
+	{
+		question: 'Ödeme aşamaları nasıl belirlenmelidir?',
+		answer: 'T/T 30/70 ve görüldüğünde ödemeli L/C yaygın yapılardır; ancak ödeme serbest bırakma tetikleyicisi açık olmalıdır. Bakiyeyi gayriresmî bir vaade değil, tamamlanmış denetime, onaylanmış belgelere ve üzerinde anlaşılan ambalaja bağlayın. Lehtar adını, banka bilgilerini, sipariş tüzel kişisini ve hesap değişikliği prosedürünü bilinen bir kanaldan doğrulayın.'
+	},
+	{
+		question: 'Teklif aldıktan ne kadar sonra FAT planını istemeliyiz?',
+		answer: 'FAT planını teknik açıklamalar sırasında ve sipariş verilmeden önce isteyin; üretim tamamlandıktan sonra değil. Plan; gövde ve yatak testinin temelini, numune almayı, ölçüm cihazlarını, kabul kayıtlarını, malzeme sertifikalarını, işaretlemeyi, ambalajı ve tanık bildirimini belirtmelidir. Böylece iki taraf da bir test aralığı ayırabilir ve sevkiyat öncesinde bir istisnayı çözebilir.'
+	}
+];
+
+const toc = [
+	{ id: 'why-quotes-differ', label: '1. Aynı Vana İçin İki Teklif Neden Farklıdır?' },
+	{ id: 'write-rfq', label: '2. Doğru Teklif Getiren RFQ Nasıl Yazılır?' },
+	{ id: 'read-quote', label: '3. Teklif Satır Satır Nasıl Okunur?' },
+	{ id: 'hidden-costs', label: '4. Siparişten Sonra Ortaya Çıkan Maliyetler' },
+	{ id: 'appraisal', label: '5. Yan Yana Değerlendirme Oluşturma' },
+	{ id: 'verification', label: '6. Ödeme Öncesi Doğrulama' },
+	{ id: 'pilot-order', label: '7. Pilot Siparişler ve Ölçekleme' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' }
+];
+
+const products = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Z41X Elastomer Yataklı Flanşlı Sürgülü Vana', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50-DN700 PN10/16 EPDM kaplı kama' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM Elastomer Yataklı OS&amp;Y Sürgülü Vana', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"-10", yivli uçlar, yükselen mil, UL/FM listeli' },
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'HQ44X Küresel Bilyalı Çek Valf', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50-DN400 PN16, darbesiz EPDM bilya' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Yer Üstü Antifrizli Yangın Hidrantı (SS100/65)', img: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp', desc: 'GB 4452 sfero döküm, 1,6 MPa, donmaya karşı drenaj' }
+];
+---
+
+<Layout
+	title="Çinli Vana Tedarikçi Teklifleri Nasıl Karşılaştırılır"
+	description="Çinli vana fabrikalarına RFQ hazırlama, teklifleri okuma, gizli maliyetleri görme ve sipariş öncesi tedarikçi kontrolü için B2B rehberi."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Vana Teklifi Karşılaştırma Rehberi' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Vana Teklifi Karşılaştırma Rehberi</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Vana Satın Alma Rehberi</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Çinli Vana Tedarikçilerinden Gelen Teklifler Sonradan Sorun Yaşatmadan Nasıl Karşılaştırılır?</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kısaca: Bir vana teklifi ancak teknik kapsam, teslim şekli, belgeler, testler ve ödeme tetikleyicisi karşılaştırılabilir olduğunda adil biçimde kıyaslanabilir. Bu rehber, alıcıların RFQ (teklif talebi) hazırlamasına, her satırı okumasına, teslim edilmiş maliyet farklarını ortaya çıkarmasına, tedarikçileri puanlamasına ve sipariş vermeden önce Çinli bir vana fabrikasını doğrulamasına yardımcı olur. Wanlian fiyat listesi yayımlamak yerine RFQ&#39;nuz üzerinden teklif verir; bu nedenle doğru başlangıç noktası eksiksiz bir BOM (malzeme listesi) ve şartnamedir.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-quotes-differ" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Aynı Vana İçin İki Teklif Neden Farklıdır?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">“Aynı vana” çoğu zaman yalnızca aynı addır. Bir fabrika paslanmaz iç aksamlı sfero döküm gövde teklif ederken diğeri farklı bir iç aksam sınıfı veya yatak bileşiği kullanabilir. Biri gövde ve yatak testi, malzeme izlenebilirliği ve imzalı veri dosyasını kapsarken diğeri yalnızca rutin fabrika denetimini içerebilir. Flanş delikleri ANSI, DIN, EN veya JIS standardına göre olabilir ve yüz yüze ölçü tasarıma göre değişebilir. Boya sistemi, işaretleme, ambalaj ve paletleme de sahaya ulaşan ürünü etkiler.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Ticari kapsam ikinci bir fark yaratır. MOQ, özel kalıp, model değişikliği, numune testi, malzeme sertifikası 3.1, üçüncü taraf FAT tanıklığı ve özel ambalaj ayrı satırlar olarak görünebilir ya da açıklama yapılana kadar hiç yazılmayabilir. EXW (fabrika teslimi), FOB (gemi bordasında teslim), CIF (maliyet, sigorta ve navlun) ve DDP (gümrük vergileri ödenmiş teslim) birbirinin yerine kullanılabilen fiyat etiketleri değildir: maliyet ve riski farklı noktalarda devrederler. Bir teklifin neden yüksek olduğunu sormadan önce iki tedarikçinin de aynı teslimatı fiyatlandırıp fiyatlandırmadığını sorun.</p>
+			<p class="text-gray-700 leading-relaxed">Müzakere öncesinde tek bir karşılaştırma tablosu oluşturun. Modeli, nominal ölçüyü, basınç sınıfını, uç bağlantısını, malzemeleri, standardı, denetimi, belgeleri, miktarı, varış yerini ve gerekli tarihi sabit sütunlara koyun. <a href="/tr/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B vana tedarik kontrol listesi</a>, bu kapsamı açıkça tanımlamak için yararlı bir tamamlayıcıdır.</p>
+
+			<h2 id="write-rfq" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Doğru Teklif Getiren RFQ Nasıl Yazılır?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bir RFQ, fabrikanın tahmin yürütmeden yanıt verebilmesini sağlamalıdır. Vana çizelgesini veya BOM&#39;u, çizimleri, akışkan türünü, çalışma sıcaklığı ve basıncını, ölçü bazında miktarı, varış limanını, istenen teslim aralığını ve geçerli kodu ekleyin. Vananın yangından korunma, su şebekesi, proses hizmeti veya yenileme amacıyla kullanıldığını belirtin. Yalnızca “flanşlı” yazmak yerine ANSI sınıfı ya da DIN/EN/JIS delik düzeni gibi uç standardı ayrıntılarını ekleyin.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Belge talebini satır kaleminin bir parçası hâline getirin. Gövde ve iç aksam malzeme tanımlarını, yatak malzemesini, basınç deneyi kayıtlarını, gerektiğinde 3.1 sertifikalarını, kaplama verilerini, isimlik tasarımını, ambalaj fotoğraflarını ve muayene ve test planını isteyin. Bir üçüncü taraf FAT&#39;a tanıklık edecekse bekleme noktasını ve kabul kayıtlarını belirtin. Yangın ekipmanında, tam modelle karşılaştırılabilecek kanıtlar isteyin; doğrulanabilir listeleme veya sertifika yerine “ünlü markaya eşdeğer” ifadesini asla kabul etmeyin.</p>
+			<p class="text-gray-700 leading-relaxed">Her teklif sahibinden hariçleri ve sapmaları ayrı bir sütunda belirtmesini isteyin. Boş bir sapma sütunu onay anlamına gelmez. Tedarikçinin para birimini, geçerlilik süresini, üretim teslim süresini, MOQ&#39;yu, garanti temelini, ödeme yapısını, teslim şeklini ve varış noktası varsayımlarını yazmasını zorunlu tutun. Wanlian kendi üretim hatlarıyla birlikte nitelikli iş ortağı kapasitesi kullanır ve RFQ kapsamına göre teklif verir; böylece üretim yolu gereken vana ve belgelere göre eşleştirilebilir.</p>
+
+			<h2 id="read-quote" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Teklif Satır Satır Nasıl Okunur?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Teklifi tek bir rakam olarak değil, teknik teklif olarak okuyun. Önce tam ürün kodunu ve revizyonu, ardından basınç sınıfını, nominal ölçü aralığını, uç bağlantısını, yüz yüze standardını ve malzeme çizelgesini kontrol edin. Teklifteki <a href="/tr/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X elastomer yataklı flanşlı sürgülü vananın</a> istenen yapılandırma olduğunu; farklı kaması veya delik düzeni olan, görünüşte benzer bir sürgülü vana olmadığını doğrulayın.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Teklif alanı</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Doğrulanacak konu</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Kararı neden değiştirir?</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Vana ve malzemeler</td>
+							<td class="px-4 py-3 text-gray-700">Gövde, kapak, mil, iç aksam, kama veya bilya, yatak ve conta</td>
+							<td class="px-4 py-3 text-gray-700">Hizmet ömrü, korozyon direnci ve onay kapsamı</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Bağlantı</td>
+							<td class="px-4 py-3 text-gray-700">ANSI, DIN, EN veya JIS delik düzeni; yivli ya da dişli uçlar</td>
+							<td class="px-4 py-3 text-gray-700">Sahadaki uyum ve pahalı ikinci sevkiyat riski</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Testler ve belgeler</td>
+							<td class="px-4 py-3 text-gray-700">API 598 uyarınca gövde/yatak testi, sertifikalar, FAT ve veri dosyası</td>
+							<td class="px-4 py-3 text-gray-700">Teslimat sonrası kabul kanıtı ve izlenebilirlik</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Teslimat temeli</td>
+							<td class="px-4 py-3 text-gray-700">EXW, FOB, CIF veya DDP, belirtilen yer ve dâhil masraflar</td>
+							<td class="px-4 py-3 text-gray-700">Teslim edilmiş maliyet, risk devri ve ithalat yükü</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Ödeme ve serbest bırakma</td>
+							<td class="px-4 py-3 text-gray-700">T/T 30/70 veya görüldüğünde ödemeli L/C, denetim ve belge tetikleyicileri</td>
+							<td class="px-4 py-3 text-gray-700">Nakit riski ve sevkiyat öncesi kontrol</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Ardından küçük yazıları inceleyin. “Standart ambalaj” ihracat ambalajı anlamına gelmeyebilir; “test sertifikası” da seri numaralarınıza bağlı bir rapor olmayabilir. ISPM-15 paletlerinin, etiketlerin, yedek contaların, kılavuzların ve fotoğrafların dâhil olup olmadığını doğrulayın. Yangın hizmeti uygulamalarında yalnızca tanıdık bir ürün açıklamasını değil, tam listelemeyi, işaretlemeyi ve denetim kanıtını karşılaştırın. Test dili belirsizse API 598 basınç testi rehberine başvurun.</p>
+
+			<h2 id="hidden-costs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Siparişten Sonra Ortaya Çıkan Maliyetler</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Teslim edilmiş maliyet teklif edilen vana ile başlar fakat orada bitmez. EXW kapsamında fabrika teslim alımını ve iç nakliye ayağını siz düzenleyebilirsiniz. FOB kapsamında tedarikçi genellikle belirtilen yükleme noktasına kadar ihracat işlemlerini yürütür; deniz navlunu ve sonraki maliyetler alıcıya ait olur. CIF, belirtilen limana navlun ve sigortayı kapsar; ancak varış terminali işlemlerini, vergiyi veya gümrük müşavirliğini her zaman kapsamaz. DDP alıcı için daha kolay olabilir, ancak vergi, ithalatçı ve teslimat kapsamı mutlaka yazılı hâle getirilmelidir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Tüm zinciri haritalayın: iç nakliye, ihracat beyannamesi, deniz navlunu, sigorta, vergiler, liman ve terminal ücretleri, gümrükleme acentesi, son teslimat ve her türlü denetim ya da depolama. Gözden kaçması kolay ticari ekleri de ekleyin: MOQ, kalıp veya takım ücretleri, numune ve test bedelleri, malzeme sertifikası 3.1, üçüncü taraf FAT, özel kaplama, isimlik çevirisi, ihracat kolileri ve ISPM-15 işlemi. Navlun ve ek ücretler sipariş ile sevkiyat arasında değişebileceği için geçerlilik süresini sorun.</p>
+			<p class="text-gray-700 leading-relaxed">Görünen düşük teklifin teknik bir eksikliği gizlemesine izin vermeyin. Eksik yatak malzemesi, yanlış flanş delik düzeni veya bulunmayan test kaydı; ilk fiyat farkını aşan yeniden işleme, gecikme ve onay riski yaratabilir. Siparişten önce en yaygın kapsam boşluklarından birini çözmek için ANSI, DIN ve JIS flanş rehberine bakın.</p>
+
+			<h2 id="appraisal" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Yan Yana Değerlendirme Oluşturma</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">En düşük satırı seçmek yerine ağırlıklı bir değerlendirme kullanın. Uygulanabilir bir puan kartında teknik uygunluğa ve uyum kanıtına en yüksek ağırlığı verin; bunu teslim edilmiş maliyetin açıklığı, kalite kontrolleri, teslim süresi, iletişim ve ödeme riski izlesin. Ağırlıklar arızanın sonucunu yansıtmalıdır: kritik olmayan bir hizmet tesisindeki yedek vana, yangından korunma paketindeki vanadan farklı değerlendirilebilir.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Puanlama boyutu</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">İstenecek kanıt</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Risk işareti</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Teknik uygunluk</td>
+							<td class="px-4 py-3 text-gray-700">Çizimler, veri sayfası, malzemeler, uç standartları ve sapmalar</td>
+							<td class="px-4 py-3 text-gray-700">Model düzeyinde kanıt olmadan “eşdeğer” denmesi</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Kalite ve izlenebilirlik</td>
+							<td class="px-4 py-3 text-gray-700">ITP, seri kayıtları, test günlükleri, 3.1 sertifikaları ve denetim erişimi</td>
+							<td class="px-4 py-3 text-gray-700">Sertifika düzenleyicisi veya kapsamı kontrol edilemiyor</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Ticari açıklık</td>
+							<td class="px-4 py-3 text-gray-700">Teslim şekli, varış yeri, hariçler, geçerlilik ve teslim edilmiş maliyet tablosu</td>
+							<td class="px-4 py-3 text-gray-700">Navlun, vergi veya kalıp yalnızca siparişten sonra ortaya çıkıyor</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Uygulama riski</td>
+							<td class="px-4 py-3 text-gray-700">Fabrika videosu, kapasite planı, referanslar ve iletişim kaydı</td>
+							<td class="px-4 py-3 text-gray-700">Denetimi reddediyor veya tahsilat hesabını değiştiriyor</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Yanıtlanmamış soruları varsayım olarak değil, puan kesintisi olarak kaydedin. Bir sapmayı açıkça belirten duyarlı tedarikçi, her şeye evet deyip kapsamı sonradan değiştiren tedarikçiden daha güvenlidir. Karar denetlenebilir kalması için teklif revizyonunu, açıklamaları ve onaylı çizimi değerlendirmeye ekleyin.</p>
+
+			<h2 id="verification" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Ödeme Öncesi Doğrulama</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Avans göndermeden önce tüzel kişiliği, fabrika adresini, üretim kapasitesini, banka lehtarını ve belge düzenleyicisini doğrulayın. İşleme, montaj, basınç testi, boyama, depo tanımlaması ve ambalajı canlı videoyla göstermelerini isteyin. Video denetimin yerini tutmaz; ancak operasyonu göstermeyi reddetmek açık bir uyarıdır. Tedarikçi nitelikli iş ortağı kapasitesi kullanıyorsa hangi sürecin dışarıda yapıldığını ve son denetimin kime ait olduğunu belirleyin.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Sertifikalarda doğru üreticinin ve modelin yazdığını, tahsilat hesabının sözleşmedeki tüzel kişiyle eşleştiğini kontrol edin. Açıklanamayan isim farkı bulunan sertifika sahibi ve ödeme hesabı, ödeme öncesinde açıklığa kavuşturulmalıdır. “Büyük bir markayla aynı” ifadesini; model, listeleme, malzeme ve test kanıtı bağımsız olarak doğrulanana kadar pazarlama dili sayın. Yapılandırılmış bir süreç için Çinli vana tedarikçisini doğrulama rehberimizi ve sahte yangın ekipmanı kontrollerini inceleyin.</p>
+			<p class="text-gray-700 leading-relaxed">Üretim son aşamaya gelmeden FAT planı üzerinde anlaşın. Uygun olduğu yerlerde API 598 uyarınca gövde ve yatak testlerini, ölçüm cihazı kalibrasyonunu, numune seçimini, kaplama ve işaretleme kontrollerini, belge incelemesini, tanık bildirimini ve uygunsuzluk yönetimini tanımlayın. SGS veya BV benzeri bir kuruluştan üçüncü taraf tanığı bağımsızlık katabilir; ancak satın alma siparişi kabulü yine de tanımlamalıdır.</p>
+
+			<h2 id="pilot-order" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Pilot Siparişler ve Ölçekleme</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Pilot sipariş varsayımları kanıta dönüştürür. Gerçek vanayı onaylı çizime, ölçülere, flanş delik düzenine, çalıştırma torkuna, kaplamaya, isimliğe, ambalaja ve belge paketine göre kontrol etmek için kullanın. Yangın suyu uygulamasında <a href="/tr/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM elastomer yataklı OS&amp;Y sürgülü vana</a> yapılandırmasını ve <a href="/tr/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">HQ44X küresel bilyalı çek valfi</a> katalog fotoğrafına güvenmek yerine onaylı kapsamla karşılaştırın.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Uyumsuzluğu keşfetmenin maliyeti ürün bir projeye yayılmadan önce daha düşük olduğu için küçük başlayın. Pilot çalışma ayrıca iletişimi, değişiklik kontrolünü, ambalaj kalitesini, ihracat belgelerini ve bir uygunsuzluğun ne kadar hızlı düzeltildiğini sınar. Pilot raporu kapatılmadan ve tedarikçi onaylı revizyonun üretim için kilitlendiğini teyit etmeden sonraki partiyi serbest bırakmayın.</p>
+			<p class="text-gray-700 leading-relaxed">Ölçekleme aynı denetim kapılarını, izlenebilirliği ve ödeme tetikleyicilerini korumalıdır. Wanlian kendi üretim hatları ve nitelikli iş ortağı kapasitesiyle RFQ tabanlı paketler için teklif verebilir; standart tedariki projeye özel kontrollerden ayırabilmemiz için vana çizelgesini, varış yerini ve gerekli belgeleri gönderin. Daha geniş risk planlaması için tedarik yolunu kesinleştirmeden önce sınır ötesi satın alma riski teknik incelemesini okuyun.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Bir Vana RFQ&#39;sunu Karşılaştırmaya Hazır mısınız?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">BOM&#39;unuzu veya talep tablonuzu, varış yerini, standartları ve belge gerekliliklerini gönderin. Wanlian RFQ&#39;ya göre teklif verir, teknik kapsamı doğrular ve sipariş vermeden önce üretim, denetim ve teslimat varsayımlarını ayırır.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Vana%20RFQ%20paketi" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Vana RFQ&#39;su İste</a>
+						<a href="https://wa.me/8618684324501?text=Merhaba%2C%20BOM%27um%20i%C3%A7in%20vana%20tekliflerine%20ihtiyac%C4%B1m%20var" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp&#39;ta Yazışın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

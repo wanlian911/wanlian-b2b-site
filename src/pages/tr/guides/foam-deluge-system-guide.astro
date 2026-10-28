@@ -1,0 +1,189 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Köpüklü deluge sistemi ile normal su deluge sistemi arasındaki maliyet farkı nerededir?',
+		answer: 'Köpüklü deluge sistemi; deluge vanası ve su şebekesine köpük konsantresi beslemesi, bir oranlama cihazı, uyumlu boşaltma cihazları ve devreye alma testleri ekler. Konsantre, depolama düzeni, yıkama imkânları ve test çözeltisinin bertarafı da yaşam döngüsü maliyetini etkiler. Normal su deluge sistemi Class A riski için yeterli olabilir; ancak yalnızca su, yanan yanıcı sıvı yüzeyinde köpüğün yerini tutmaz.'
+	},
+	{
+		question: 'Membranlı tank ile hat içi enjektör arasında nasıl seçim yaparım?',
+		answer: 'Membranlı tank, elektrikli ölçüm pompası olmadan özel bir konsantre rezervi ve öngörülebilir bir oranlama aralığı gerektiğinde pratik bir seçimdir. Hat içi enjektör kompakttır ve konsantreyi çekmek için su akışını kullanır; ancak çalışma debisi ve basınç aralığı riskin ihtiyacıyla eşleşmelidir. Hidrolik çalışma aralığını, mevcut alanı, dolum yöntemini ve gerekli %3 veya %6 karışımı yangın koruma tasarımcısıyla doğrulayın.'
+	},
+	{
+		question: 'Eski bir AFFF sistemi F3\'e dönüştürülürken neler değiştirilmelidir?',
+		answer: 'Yalnızca bidonu değiştirmenin güvenli olduğunu varsaymayın. Konsantre, oranlayıcı, membran veya tank malzemeleri, contalar, köpük cihazları, yıkama suyu düzeni ve test prosedürü uyumlu bir paket olarak kontrol edilmelidir. Mevcut borulama temizlendikten sonra yeniden kullanılabilir; ancak kalıntı AFFF ve karışmış konsantreler performansı değiştirebilir. F3 üreticisinin uyumluluk beyanını alın ve dönüşümü yetkili makamın kabul etmesini sağlayın.'
+	},
+	{
+		question: 'Köpük karışım oranı sahada nasıl doğrulanır?',
+		answer: 'Kontrollü bir boşaltma testi sırasında su ve konsantre debisini ölçün veya tedarik edilen oranlayıcı ve konsantre için belirtilen onaylı numune alma ve analiz yöntemini kullanın. Ölçülen sonucu, ilgili çalışma debisi aralığında genellikle %3 veya %6 olan tasarım oranıyla karşılaştırın. Su kalitesini, basıncı, sıcaklığı, numune noktalarını ve konsantre partisini kaydedin; yalnızca görsel köpük örtüsü oranlama doğruluğunu kanıtlamaz.'
+	},
+	{
+		question: 'Köpük konsantrelerini değiştirebilir miyim; uyumluluk riski nedir?',
+		answer: 'Konsantre değişikliğini basit bir yenileme satın alımı değil, mühendislik değişikliği olarak ele alın. AFFF, AR-AFFF, FFFP ve flor içermeyen konsantrelerin viskozite, genleşme, drenaj ve malzeme uyumluluğu gereksinimleri farklı olabilir. Her iki üretici onaylamadıkça ürünleri bir tankta veya oranlayıcıda karıştırmayın. Yeni konsantreyi devreye almadan önce komple sistemi yıkayın, inceleyin ve yeniden doğrulayın.'
+	},
+	{
+		question: 'Köpüklü deluge sistemi soğuk ortamda nasıl korunmalıdır?',
+		answer: 'Su dolu borulamayı, vanaları ve konsantre ekipmanını saha iklimine ve onaylı tasarıma göre donmaya karşı koruyun. Seçenekler arasında kuru veya ön etkili bir bölüm, ısı izleme, yalıtımlı muhafazalar, izin verilen yerlerde listelenmiş antifriz düzenekleri ve uygun düşük sıcaklık derecesine sahip konsantre bulunabilir. Konsantre depolama sıcaklığını ve deluge tetikleme düzenini sistem tasarımcısıyla doğrulayın; konsantreyi onaysız antifrizle seyreltmeyin.'
+	}
+];
+
+const toc = [
+	{ id: 'why-foam', label: '1. Köpüğün Suyu Geride Bıraktığı Durumlar' },
+	{ id: 'anatomy', label: '2. Köpüklü Deluge Sisteminin Yapısı' },
+	{ id: 'proportioning', label: '3. Oranlama Seçeneklerinin Karşılaştırılması' },
+	{ id: 'concentrate', label: '4. Köpük Konsantresi Seçimi' },
+	{ id: 'discharge', label: '5. Boşaltma Cihazları: Püskürtme Başlıkları, Monitörler ve Dolaplar' },
+	{ id: 'testing', label: '6. Devreye Alma ve Saha Testleri' },
+	{ id: 'rfq-checklist', label: '7. Köpük Sistemi RFQ Kontrol Listesi' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' }
+];
+
+const products = [
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Deluge Alarm Vanası Grubu (ZSFM Serisi)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'Köpük boşaltma cihazlarının önünde hızlı açılan deluge vanası' },
+	{ slug: 'foam-fire-hydrant-cabinet-psg30', name: 'Köpüklü Yangın Hidrant Dolabı (PSG30 Serisi)', img: '/assets/products/foam-fire-hydrant-cabinet-psg30.webp', desc: 'Hortum ve monitör arayüzlü %3 ön karışımlı köpük istasyonu' },
+	{ slug: 'manual-fire-water-cannon-ps', name: 'Manuel Yangın Suyu Monitörü (PS Serisi)', img: '/assets/products/manual-fire-water-cannon-ps.webp', desc: 'Köpük uyumlu tam jet/püskürtme nozullu sabit monitör' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'Ayarlanabilir Tabanca Kabzalı Yangın Nozulu', img: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg', desc: 'Hortumla köpük uygulaması için el nozulu' }
+];
+---
+
+<Layout
+	title="Köpüklü Deluge Sistemleri Rehberi (2026)"
+	description="Class B riskleri için köpüklü deluge ve köpük-su püskürtme sistemleri: deluge vanası, oranlama, konsantre, boşaltma cihazları ve saha testleri."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Köpüklü Deluge Sistemleri Rehberi' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Köpüklü Deluge Sistemleri Rehberi</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Köpük Sistemi Rehberi</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Köpüklü Deluge ve Köpük-Su Püskürtme Sistemleri: Seçim ve Boyutlandırma Rehberi</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kısaca: Köpüklü deluge, deluge vanasını açarak köpük konsantresini yangın suyu akışına oranlayan ve hazırlanan çözeltiyi açık püskürtme başlıklarına, monitörlere veya hortum istasyonlarına gönderen bir sistemle Class B sıvı riskini korur. Doğru tasarım yakıtla, gerekli uygulama alanıyla ve onaylı konsantreyle başlar; ardından oranlayıcıyı, vana trimini, boşaltma desenini, drenajı ve saha test planını tek bir sistem olarak kontrol eder.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-foam" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Köpüğün Suyu Geride Bıraktığı Durumlar</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Yakıt yanıcı bir sıvı olduğunda ve tasarım hedefi alevin yanı sıra buhar salımını da kontrol etmek olduğunda köpük seçilir. Tipik Class B alanları arasında tank çiftlikleri, yakıt depoları, uçak hangarları, boya atölyeleri, solvent alanları ve kimyasal proses mahalleri bulunur. Tek başına uygulanan su, yanan sıvının altına inebilir veya sıvının yayılmasına neden olabilir; yüksek hızlı jet ise yakıtı ilk dökülme alanının dışına sıçratabilir. Doğru seçilmiş düşük genleşmeli bir köpük örtüsü sıvı yüzeyini havadan ayırır ve buhar salımını bastırmaya yardımcı olur.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Köpük-su püskürtme sistemi, yakına konulmuş bir köpük bidonuyla birlikte çalışan basit bir su deluge sistemi değildir. Su ihtiyacı, uygulama cihazı, konsantre yüzdesi, drenaj ve boşaltma süresi koordineli olmalıdır. Algılama sistemi normalde süreci başlatır: algılama trim düzenini serbest bırakır, deluge vanası açılır, su açık boşaltma cihazlarına ulaşır ve oranlama konsantreyi sisteme katar. Hazırlanan çözelti daha sonra riski belirtilen desen ve yoğunlukta kaplar.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Yangın Sınıfı</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tipik Yakıtlar</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">En Etkili Söndürücüler</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Köpüklü Deluge Uygunluğu</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Class A</td><td class="px-4 py-3 text-gray-700">Ahşap, kâğıt, tekstil, plastik</td><td class="px-4 py-3 text-gray-700">Su, köpük, ABC tozu</td><td class="px-4 py-3 text-gray-700">Genellikle önce su</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Class B</td><td class="px-4 py-3 text-gray-700">Benzin, yağlar, solventler, boyalar</td><td class="px-4 py-3 text-gray-700">ABC tozu, köpük, CO2</td><td class="px-4 py-3 text-gray-700">Sabit sistemlerde birincil kullanım</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Class C</td><td class="px-4 py-3 text-gray-700">Propan, bütan, metan, LPG</td><td class="px-4 py-3 text-gray-700">ABC tozu (önce beslemeyi kesin)</td><td class="px-4 py-3 text-gray-700">Gaz izolasyonunun yerine geçmez</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Class E</td><td class="px-4 py-3 text-gray-700">Enerjili elektrik ekipmanı</td><td class="px-4 py-3 text-gray-700">CO2, ABC tozu (iletken olmayan)</td><td class="px-4 py-3 text-gray-700">Elektrik stratejisini doğrulayın</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Class F</td><td class="px-4 py-3 text-gray-700">Pişirme yağları ve katı yağlar</td><td class="px-4 py-3 text-gray-700">Islak kimyasal</td><td class="px-4 py-3 text-gray-700">Önerilmez</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Class D</td><td class="px-4 py-3 text-gray-700">Yanıcı metaller (Mg, Na)</td><td class="px-4 py-3 text-gray-700">Özel metal tozu</td><td class="px-4 py-3 text-gray-700">Uygun değil</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="anatomy" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Köpüklü Deluge Sisteminin Yapısı</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Temel montaj beş koordineli bölgeden oluşur. Birincisi; <a href="/tr/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM deluge alarm vanası grubu</a>, trim, drenaj ve izleme noktalarını içeren su besleme ve kontrol grubudur. İkincisi algılama ve boşaltmadır: ısı, alev, duman veya lineer algılama düzeni, açık başlıklar boşaltma yapmadan önce vanayı açan serbest bırakma sinyalini gönderir. Üçüncüsü, membranlı tank veya başka bir onaylı kap olabilen konsantre depolamasıdır. Dördüncüsü, izolasyon, çekvalf ve test vanalarıyla birlikte oranlama cihazıdır. Beşincisi ise püskürtme başlıkları, monitörler ve hortum dolaplarını içeren açık boşaltma şebekesidir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Deluge vanası su tarafında normalde kapalıdır; aşağı akış borusu ise normalde kuru tutulur veya proje için belirtilen düzende çalışır. Serbest bırakma trimi devreye girdiğinde vana hızla açılır ve korunan bölgedeki tüm açık cihazlara su gönderir. Projede denetimli bir serbest bırakma sırası ve daha düşük kazara boşaltma riski gerekiyorsa <a href="/tr/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">ZSFY ön etkili alarm sistemi</a> değerlendirilebilir; ancak tasarımcı, çalışma sırasının köpük uygulama hedefine uygun olup olmadığını doğrulamalıdır.</p>
+			<p class="text-gray-700 leading-relaxed">RFQ kapsamını açıkça tanımlayın. Wanlian deluge vana grupları, köpük oranlama paketleri için vanalar, köpük dolapları, monitörler ve nozullar tedarik eder. Köpük konsantresi tedarik kanallarıyla sağlanabilir; ancak Wanlian tarafından şirket içinde üretilmez. Konsantre markasını, sertifikasını ve uyumluluk sorumluluğunu ayrı olarak belirtin.</p>
+
+			<h2 id="proportioning" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Oranlama Seçeneklerinin Karşılaştırılması</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Oranlama, suyun belirtilen köpük çözeltisine dönüşüp dönüşmediğini belirleyen kontrol noktasıdır. Yaygın tasarım oranları %3 ve %6'dır; ancak doğru oran alıcı tercihine göre değil, konsantre onayına ve risk tasarımına göre belirlenir. Aşağıdaki tablo, tedarik sırasında en sık değerlendirilen üç düzeni karşılaştırır.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50"><tr><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Seçenek</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Çalışma şekli</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">En uygun kullanım ve dikkat noktaları</th></tr></thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Membranlı tank</td><td class="px-4 py-3 text-gray-700">Su basıncı esnek konsantre membranını sıkıştırır ve konsantreyi oranlayıcıya iter.</td><td class="px-4 py-3 text-gray-700">Özel rezerv ve geniş proje deneyimi sağlar; alan, dolum planı ve doğrulanmış tank-konsantre uyumluluğu gerektirir.</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Hat içi enjektör</td><td class="px-4 py-3 text-gray-700">Su enerjisiyle çalışan bir venturi, su enjektörden geçerken konsantreyi kaptan çeker.</td><td class="px-4 py-3 text-gray-700">Belirli bir debi aralığı için kompakt ve basittir; basınç kaybı ve minimum çalışma debisi seçimi sınırlayabilir.</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Pompa çevresi oranlayıcısı</td><td class="px-4 py-3 text-gray-700">Özel pompa devresi ile basınç tahliye veya geri dönüş düzeni, konsantreyi su pompası çevresinde ölçer.</td><td class="px-4 py-3 text-gray-700">Büyük veya değişken debili sistemler için yararlıdır; pompa kontrolleri, tahliye mantığı ve daha fazla devreye alma koordinasyonu gerektirir.</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Daha fazla hidrolik arka plan için bir tank veya enjektör seçmeden önce projeyi <a href="/tr/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">deluge vanası seçimi rehberimizle</a> karşılaştırın. Minimum ve maksimum debiyi, giriş basıncını, beklenen konsantre viskozitesini, çalışma sıcaklığını ve test bağlantısını isteyin. Bu girdiler yalnızca nominal boru çapından daha kullanışlıdır.</p>
+
+			<h2 id="concentrate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Köpük Konsantresi Seçimi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Yakıt kimyasıyla başlayın. AFFF birçok hidrokarbon yakıtta hızlı film oluşturur; ancak PFAS içerir. Birçok yetki alanı artık AFFF tipi PFAS konsantrelerini kısıtlamakta veya incelemektedir; yerel kuralları doğrulayın ve flor içermeyen (F3) alternatifleri değerlendirin. AR-AFFF, alkole dayanıklı bir örtünün gerekli olduğu polar solventler için tasarlanmıştır. FFFP ve diğer formülasyonların kendilerine özgü uygulama, genleşme ve drenaj kanıtları vardır. Yalnızca kısaltmaya göre seçim yapmayın; güncel ürün veri sayfasını, onay kapsamını ve karıştırma talimatlarını isteyin.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Konsantrenin depolama ömrü, belirtilen depolama koşulları için üretici sertifikasında yazan süredir. Satın alma siparişine varsayılan bir son kullanma süresi koymaktan kaçının. Parti numarasını, üretim tarihini, depolama sıcaklığını ve inceleme yöntemini kaydedin; tankın, membranın, contaların, oranlayıcının ve boşaltma cihazlarının seçilen ürün için onaylı olduğundan emin olun. Kimyasal olarak doğru ancak ekipmanla uyumsuz bir konsantre uygun tasarım değildir.</p>
+			<p class="text-gray-700 leading-relaxed">F3 dönüşümü belgelenmiş bir mühendislik incelemesini gerektirir. Mevcut borulama temizlik ve inceleme sonrasında korunabilir; ancak AFFF kalıntısı, elastomer uyumluluğu, oranlayıcı kalibrasyonu ve köpük cihazı performansı doğrulanmalıdır. Eski konsantre boşaltılmadan önce köpük tedarikçisi, sistem tasarımcısı ve yetkili makam değişiklik üzerinde anlaşmalıdır.</p>
+
+			<h2 id="discharge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Boşaltma Cihazları: Püskürtme Başlıkları, Monitörler ve Dolaplar</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Açık köpük püskürtme başlıkları kapsama, damlacık dağılımı, engeller ve uygulama yoğunluğuna göre seçilir. Risk geometrisinin bilindiği sabit bir deluge bölgesine uygundur. Monitörler tank havuzları, yükleme alanları ve geniş açık riskler için erişim ve yön kontrolü sağlar; <a href="/tr/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">PS Serisi manuel yangın suyu monitörü</a>, proje debi ve atış mesafesi gereksinimlerini doğruladıktan sonra köpük uyumlu tam jet veya püskürtme nozulu ile belirtilebilir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Bir hortum istasyonu manuel müdahaleyi ve destekleyici uygulamayı kolaylaştırır; ancak risk değerlendirmesi sabit koruma gerektiriyorsa otomatik kapsamanın yerine konulmamalıdır. <a href="/tr/products/foam-fire-hydrant-cabinet-psg30/" class="text-brand-blue font-semibold hover:underline">PSG30 köpüklü yangın hidrant dolabı</a>, hortum ve monitör arayüzü olan %3 ön karışımlı köpük istasyonunu bir araya getirir. El hortumları için <a href="/tr/products/adjustable-pistol-grip-fire-nozzle/" class="text-brand-blue font-semibold hover:underline">ayarlanabilir tabanca kabzalı yangın nozulu</a>, hortumun ucunda seçilebilir uygulama sağlar; contalarının ve debi aralığının hazırlanan köpük çözeltisine uygun olduğunu doğrulayın.</p>
+			<p class="text-gray-700 leading-relaxed">Monitör erişimi, nozul deseni ve montaj soruları için ayrı <a href="/tr/guides/fire-water-monitor-selection-guide/" class="text-brand-blue font-semibold hover:underline">yangın suyu monitörü seçimi rehberini</a> kullanın. Ayrıca <a href="/tr/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">deluge vanası seçimi rehberini</a> köpük paketiyle koordine edin: vana trimi, boşaltma basıncı, alarm çıkışı ve drenaj düzenleri birlikte çalışmalıdır. Drenaj özellikle önemlidir; çünkü bir test veya gerçek boşaltma, doğrudan yağmur suyu giderine verilemeyecek büyük miktarda köpük çözeltisi oluşturabilir.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Devreye Alma ve Saha Testleri</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Devreye alma, algılamadan boşaltmaya kadar tüm zinciri kanıtlar. Su ve konsantre borulamasını onaylı prosedüre göre yıkayın, inşaat artıklarını temizleyin, vana triminin yönünü doğrulayın ve her açık cihazın amaçlanan model ve orifis olduğunu kontrol edin. Deluge vana tetikleme testi; algılama veya manuel serbest bırakmayı, vananın açılmasını, su motoru alarmını veya elektrik sinyalini, aşağı akış basıncını ve yeniden kurma işlemini doğrulamalıdır. Uygun olduğunda NFPA 11 ve EN 12845 çerçevesini, yerel makam gereklilikleri ve konsantre üreticisinin talimatlarıyla birlikte kullanın.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Karışım oranını ölçün.</strong> Hazırlanan çözeltiyi onaylı debi aralığında test edin ve sonucu %3 veya %6 tasarım değeriyle doğrulayın.</li>
+				<li><strong>Köpük kalitesini kontrol edin.</strong> Tedarik edilen konsantre ve onayı için gereken test yöntemiyle genleşmeyi ve %25 drenaj süresini ölçün; başka bir ürünün kabul sınırlarını kullanmayın.</li>
+				<li><strong>Tetikleme sırasını kanıtlayın.</strong> Algılama girişini, deluge vanasının açılma süresini, alarmları, basınç okumalarını ve yeniden kurma prosedürünü kaydedin.</li>
+				<li><strong>Boşaltma desenini inceleyin.</strong> Personeli kontrolsüz bir riske maruz bırakmadan püskürtme başlığı kapsamasını, monitör hareketini, dolap hortumunun durumunu ve nozul desenini doğrulayın.</li>
+				<li><strong>Sonucu belgelendirin.</strong> Su kalitesini, konsantre partisini, sıcaklığı, debiyi, basıncı, numuneleri, fotoğrafları ve düzeltici işlemleri O&amp;M dosyasında saklayın.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Karışım doğrulaması yapılmadan uygulanan işlevsel tetikleme testi; kapalı konsantre vanasını, boş tankı, tıkalı enjektörü veya uyumsuz konsantreyi gözden kaçırabilir. Yüklenici gelmeden önce test suyunun toplanmasını ve bertarafını planlayın. İncelemeleri proje dokümanları ve konsantre sertifikasında gereken aralıklarla tekrarlayın.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Köpük Sistemi RFQ Kontrol Listesi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Yararlı bir RFQ, tedarikçiye ürün adından tahmin yürütmek yerine hidrolik kontrolü yapması için yeterli bilgi verir. Aşağıdakileri tek bir işaretlenmiş plan veya ekipman çizelgesine ekleyin:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Risk ve yakıt:</strong> hidrokarbon veya polar solvent, depolama yüksekliği, havuz geometrisi, dökülme senaryosu ve bitişik ekipmanların soğutulmasının gerekip gerekmediği.</li>
+				<li><strong>Tasarım ihtiyacı:</strong> korunan alan, uygulama yoğunluğu, tasarım süresi, eşzamanlı bölgeler, su debisi ve oranlayıcı girişindeki mevcut basınç.</li>
+				<li><strong>Konsantre:</strong> üretici, formülasyon, %3 veya %6 oranı, onay belgeleri, depolama sıcaklığı, parti bilgisi ve F3 dönüşümünün söz konusu olup olmadığı.</li>
+				<li><strong>Ekipman kapsamı:</strong> ZSFM deluge vana grubu, oranlayıcı tipi, tank hacmi, izolasyon ve test vanaları, açık başlıklar, monitör, dolap, nozul ve algılama arayüzü.</li>
+				<li><strong>Malzemeler ve arayüzler:</strong> boru çapları, flanş standardı, ıslanan malzemeler, elastomerler, elektrik gerilimi, alarm kontakları ve tehlikeli alan gereksinimleri.</li>
+				<li><strong>Testler ve dokümanlar:</strong> yıkama planı, tetikleme testi, karışım oranı yöntemi, genleşme ve drenaj testi, sertifikalar, çizimler, yedek contalar ve O&amp;M talimatları.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Avrupa projelerinde ilgili <a href="/tr/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">CE ve EN 12845 yangın koruma uygunluğu rehberini</a> inceleyin; ancak risk için özel köpük standardını ve makam gerekliliklerini yine de doğrulayın. Kapsama ayrı bir su monitörü de dâhilse <a href="/tr/fire-water-cannon/" class="text-brand-blue font-semibold hover:underline">yangın suyu topu ürün grubu</a> sabit püskürtme tasarımıyla birlikte değerlendirilebilir. Wanlian, çizelgedeki vana ve boşaltma ekipmanı kapsamı için teklif verebilir ve onaylı kanal ortağı gerektiren konsantre kalemlerini belirleyebilir.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Köpüklü Deluge Sistemi Teklifi mi Gerekiyor?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Yakıt türünü, korunan alanı, tasarım debisi ve basıncını, konsantre oranını, oranlama tercihini ve boşaltma cihazlarını gönderin. Wanlian projeniz için deluge vanası, köpük paketi, monitör, dolap ve nozul kapsamını inceleyebilir.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+		
+						<a href="/tr/contact/?product=K%C3%B6p%C3%BCkl%C3%BC%20Deluge%20Sistemi" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İsteyin</a>
+						<a href="https://wa.me/8618684324501?text=Merhaba%2C%20k%C3%B6p%C3%BCkl%C3%BC%20deluge%20sistemi%20teklifi%20istiyorum" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp'tan Yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,184 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const faq = [
+	{
+		question: 'Hangi depo malzemesi ve korozyon koruması belirtilmelidir?',
+		answer: 'Depo malzemesi, astar, kaplama ve su kalitesi hükümlerini depo üreticisi ve proje mühendisiyle birlikte belirleyin. Çelik, modüler çelik ve beton depoların korozyon kontrol ayrıntıları farklıdır; doğru seçim depolanan suya, iklime ve yerel gerekliliklere bağlıdır. Genel amaçlı bir astarın yangın suyu için uygun olduğunu varsaymak yerine kaplama verilerini, muayene erişimini ve bakım talimatlarını isteyin.'
+	},
+	{
+		question: 'Emme girdap önleyici için itfaiye hizmeti sertifikası gerekir mi?',
+		answer: 'Listeye alınma, onay veya projeye özel kabul gereksinimi; geçerli standardın baskısına, yetkili makama ve komple depo grubuna bağlıdır. Girdap önleyici plaka bir hidrolik koruma bileşenidir ve otomatik olarak listelenmiş bir yangın vanası sayılmaz. Proje için gereken kanıtı doğrulayın; malzeme, ölçüler ve montaj ayrıntısını depo belgeleriyle birlikte sunun.'
+	},
+	{
+		question: 'Depodaki suya batma derinliği çok az olursa ne olur?',
+		answer: 'Emme hattı hava çekebilir, görünür bir girdap oluşturabilir veya gürültülü ve kararsız hale gelebilir. Pompada dalgalanan emme basıncı, debi kaybı, titreşim ya da kavitasyona benzer belirtiler görülebilir. Pompayı değiştirmeden önce su seviyesini, giriş geometrisini, yaklaşım akışını ve girdap önleme ayrıntısını geçerli standardın baskısı ile pompa üreticisinin verilerine göre kontrol edin.'
+	},
+	{
+		question: 'Tek bir depo hem kullanım suyu hem yangın suyu görevi görebilir mi?',
+		answer: 'Bu mümkün olabilir; ancak düzenleme gerekli yangın rezervini korumalı, gereken ayırma veya çekiş seviyesini sağlamalı ve yetkili makam tarafından kabul edilmelidir. Kullanım suyu çıkışı veya seviye kontrol ayarı, normal tüketimin korunan yangın hacmini kullanmasına izin vermemelidir. Hidrolik düzeni, izlemeyi ve doldurma kontrollerini geçerli koda göre doğrulayın.'
+	},
+	{
+		question: 'Pompa emmesinde neden genellikle sürgülü vana tercih edilir?',
+		answer: 'Tamamen açık bir sürgülü vana, pompa girişine yakın bölgede çok az akış bozulmasıyla tam geçişli bir kesit sağlar ve açık konumda kilitlenebilir veya izlenebilir. Emme izolasyon vanası kısma elemanı değildir. Bazı projelerde listelenmiş bir alternatif kabul edilebilir; ancak seçim serbest bırakılmadan önce pompa tedarikçisi, tasarım mühendisi ve yetkili makam tarafından doğrulanmalıdır.'
+	},
+	{
+		question: 'Soğuk iklimde emme deposu nasıl korunmalıdır?',
+		answer: 'Depoyu, emme borusunu, vanaları ve seviye kontrol ekipmanını projenin donma riskinin üzerinde tutun veya mühendislik hesabı yapılmış yalıtım, ısıtma kablosu ve drenaj sağlayın. Kesin yöntem iklime, depo yapısına ve geçerli standardın baskısına bağlıdır. Açıkta kalan bir vana, pilot hattı veya alçak nokta donarak yangın suyu beslemesini kesebiliyorsa yalnızca depo gövdesini korumak yeterli değildir.'
+	}
+];
+
+const toc = [
+	{ id: 'water-source', label: '1. Yangın suyu hacmi nereden sağlanır?' },
+	{ id: 'tank-sizing', label: '2. Yangın suyu rezervinin boyutlandırılması' },
+	{ id: 'two-suction', label: '3. İki emme kuralı ve depo geçişleri' },
+	{ id: 'vortex', label: '4. Girdap önleme ve emme borusu yerleşimi' },
+	{ id: 'level-control', label: '5. Depoyu dolu tutmak: Seviye kontrolü' },
+	{ id: 'priming-testing', label: '6. Doldurma, manometreler ve test düzenekleri' },
+	{ id: 'checklist', label: '7. Emme düzeni kontrol listesi' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' }
+];
+
+const products = [
+	{ slug: 'suction-vortex-preventer-en12845', name: 'Emme Girdap Önleyici (EN 12845)', img: '/assets/products/suction-vortex-preventer-en12845.webp', desc: 'Östenitik paslanmaz çelik, girdap önleyici plaka grubu' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'Hidrolik Su Seviye Kontrol Vanası (F745X)', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'Pilot kontrollü seviye koruma, yumuşak kapanma' },
+	{ slug: 'remote-control-float-valve-100x', name: 'Uzaktan Kumandalı Şamandıralı Vana (100X-16P)', img: '/assets/products/remote-control-float-valve-100x.webp', desc: 'Depo doldurma için paslanmaz şamandıra pilot vanası' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'Teleskopik Y Pislik Tutucu (SGL41H)', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'Emme hattı pislik koruması, hat üzerinde temizlenebilir' }
+];
+---
+
+<Layout
+	title="Yangın Pompası Emmesi ve Su Deposu Düzeni (2026)"
+	description="Yangın suyu deposu boyutlandırması, iki emme kuralı, girdap önleyiciler, doldurma ve seviye kontrol vanaları ile uyumlu pompa emme düzeni."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Yangın Pompası Emme Kılavuzu' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Yangın Pompası Emme Kılavuzu</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Yangın Suyu Deposu Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Yangın Pompası Emmesi ve Yangın Suyu Deposu Düzeni</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kısaca: Bir yangın pompası, yalnızca depo doğru rezervi sağladığında, emme girişleri su altında kaldığında, hava ve girdap oluşumu kontrol edildiğinde ve doldurma ekipmanı korunan hacmi tüketemediğinde sertifikalı performansını verebilir. Bu kılavuz; kaynağı, depo boyutlandırmasını, iki emme düzenlerini, girdap önleme ayrıntılarını, seviye kontrolünü, doldurma ve hava alma işlemlerini ve emme tarafı çizelgesine konulması gereken bilgileri açıklar.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="water-source" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Yangın suyu hacmi nereden sağlanır?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Emme düzeni bir vana kataloğuyla değil, su kaynağıyla başlar. Yangın pompası açık atmosferik bir tanktan, özel bir modüler depodan, beton rezervuardan, basınçlı kaptan veya belediye ana hattından beslenebilir. Her kaynak mevcut emme yüksekliğini, pompanın doldurma biçimini, girişte gereken korumayı ve kabul sırasında istenecek kanıtları değiştirir. Pompa ve kontrolör NFPA 20 veya yerel koda göre pompa üreticisi tarafından sağlanır; Wanlian yangın pompasının kendisini değil, bu grubun çevresindeki emme tarafı vana ve aksesuarlarını sağlar.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Açık yangın suyu deposu, çalışma seviyesi görülebildiği ve basıncı atmosferik olduğu için genellikle en öngörülebilir kaynaktır. Yine de pompa mühendisi en düşük kullanılabilir seviyeyi, giriş kotunu, boru kayıplarını ve pompa üreticisinin emme gerekliliklerini hesaba katmalıdır. Kapalı basınçlı tankın basınç ve hacim ilişkisi farklıdır; belediye bağlantısı ise güvenilir kamu beslemesine ve su idaresinin kısıtlamalarına bağlıdır. Emme koşullarını yeniden hesaplamadan depo düzenini doğrudan bağlantıya aktarmayın.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Kaynak</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Emme tarafındaki anlamı</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tasarım sorusu</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Açık yangın suyu deposu</td>
+							<td class="px-4 py-3 text-gray-700">Statik su seviyesi, suya batmış giriş, girdap önleme ayrıntısı ve boşaltılabilir borulama</td>
+							<td class="px-4 py-3 text-gray-700">En düşük çalışma seviyesi pompa girişi için yeterli mi?</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Kapalı basınçlı tank</td>
+							<td class="px-4 py-3 text-gray-700">Tank basıncı, kullanılabilir hacim, izolasyon ve güvenli bakım düzenekleri</td>
+							<td class="px-4 py-3 text-gray-700">Gerekli görev süresince basınç mevcut kalıyor mu?</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Belediye doğrudan bağlantısı</td>
+							<td class="px-4 py-3 text-gray-700">Kamu ana hattı basıncı, debi güvenilirliği, geri akış kontrolü ve makam onayı</td>
+							<td class="px-4 py-3 text-gray-700">Ana hat her zaman gerekli emme koşulunu sağlayabilir mi?</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Oda tarafındaki vana sırasının daha geniş görünümü için <a href="/tr/guides/municipal-fire-water-main-upgrade-guide/" class="text-brand-blue font-semibold hover:underline">yangın pompası odası vanaları kılavuzuna</a> bakın. Depo geçişlerini kesinleştirmeden önce pompa eğrisini ve izolasyon yaklaşımını netleştirmek faydalıdır.</p>
+
+			<h2 id="tank-sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Yangın suyu rezervinin boyutlandırılması</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Yangın suyu rezervi; proje tehlike sınıfı, tasarım debisi ve geçerli tasarım standardına göre gereken süre ile belirlenir. Bir binadan diğerine sorumlu biçimde kopyalanabilecek evrensel bir depo hacmi yoktur. Hidrolik hesap ihtiyacı belirler; geçerli standardın baskısı ise rezervin korunan sistemleri ne kadar süre desteklemesi gerektiğini tanımlar. Dayanağı, gerekli kullanılabilir hacmi ve düşük seviye kotunu depo ve pompa çizelgelerinde kaydedin.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Toplam hacmi kullanılabilir yangın hacminden ayırın. Depo geometrisi, yüksek ve düşük seviye ayarları, çökelti payı, taşma ve her çıkışın konumu pompanın gerçekte çekebileceği miktarı etkiler. Bir kullanım suyu çıkışı depoyu paylaşıyorsa çekiş, normal tüketimin korunan yangın rezervini kullanamayacağı biçimde düzenlenmelidir. Doldurma vanası normal seviyeyi sert kapanmadan korumalı; izlenen düşük seviye sinyali gerektiğinde yangın alarmına veya bina yönetim sistemine ulaşmalıdır.</p>
+			<p class="text-gray-700 leading-relaxed">Kod bağlamı için tasarım ekibinin hesaplarını <a href="/tr/guides/municipal-fire-water-main-upgrade-guide/" class="text-brand-blue font-semibold hover:underline">NFPA yangın koruma standartları kılavuzu</a> yerine bu bağlantıya yönlendirme yapılmadığından, ilgili standardın baskısına ve yetkili makama göre her hacim, süre ve seviye şartını ayrıca doğrulayın. Genel bakışı soruları belirlemek için kullanın.</p>
+
+			<h2 id="two-suction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. İki emme kuralı ve depo geçişleri</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Büyük yangın suyu depoları tek bir bağımlılık noktasından fazlasını gerektirir. Büyük depolar için NFPA 20 hükümleri birden fazla emme çıkışı veya emme ana hattı gerektirir ve tek bir emme hattına bağımlılığı sınırlar; ancak kesin eşik ve düzenleme geçerli standardın baskısına bağlıdır. Depo duvarını çizmeden önce baskıyı doğrulayın; her pompanın bağımsız güzergâhı olup olmadığını, güzergâhların nasıl izole edildiğini ve gerekli yangın kapasitesi çıkarılmadan bakımın nasıl yapılacağını gösterin.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Depo geçişi yalnızca flanşlı bir delik değil, sistem ayrıntısıdır. Kovan konumunu, takviyeyi, conta malzemesini, harici izolasyonu, dahili girdap önleyici plakaları ve muayene erişimini koordine edin. Vanayı, çalıştırılıp bakımı yapılabileceği depo dışında tutun; makaranın diğer emmeyi tehlikeye atmadan boşaltılabildiğinden veya sökülebildiğinden emin olun. Listelenmiş, tam geçişli ve açıkça açık konumda bir izolasyon vanası gerektiğinde <a href="/tr/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM elastomer yataklı OS&amp;Y sürgülü vana</a> değerlendirilebilir; seçim yine proje şartnamesine tabidir.</p>
+			<p class="text-gray-700 leading-relaxed">İki emme güzergâhı, hemen tek bir darboğazda birleşen iki dekoratif kol demek değildir. Her güzergâhı pompa düzenine kadar izleyin, kullanılabilir akış alanını kontrol edin ve hangi vanaların kilitli veya izlenerek açık kalması gerektiğini belirleyin. İkinci bir pompa veya bölme varsa tasarımcı, tek bir bileşen arızasının gerekli emme kapasitesini ortadan kaldırmadığını göstermelidir.</p>
+
+			<h2 id="vortex" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Girdap önleme ve emme borusu yerleşimi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Depo girişi, geçerli standardın ve pompa düzeninin gerektirdiği minimum derinlikte su altında kalmalıdır. Su seviyesi açıklığa fazla yaklaşırsa, depo hâlâ su içeriyor görünse bile girdap emme hattına hava çekebilir. Hava girişi verilen debiyi azaltır, emme basıncını kararsızlaştırır ve çarka zarar verebilir. Bir girdap önleyici plaka veya <a href="/tr/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">EN 12845 emme girdap önleyici</a> dönen akış düzenini kırmaya yardımcı olur; gerekli suya batma derinliğinin veya doğru boru boyutlandırmasının yerini tutmaz.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Pompa girişini, odanın izin verdiği ölçüde sade tutun. Pompa üreticisinin verdiği emme borusu ölçüsünü ve düz hat uzunluğunu kullanın, emme flanşına yakın gereksiz dirseklerden kaçının ve pompa girişinde havanın birikmemesi için düz tarafı üstte olan eksantrik redüksiyon takın. Boruyu bağımsız destekleyerek ağırlığının ve ısıl hareketinin pompa gövdesine yük bindirmesini önleyin. Emme vanası yalnızca izolasyon içindir, kısma için kullanılmaz.</p>
+			<p class="text-gray-700 leading-relaxed">Pislik riski gerçekse, temizlenebilir bir <a href="/tr/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">SGL41H teleskopik Y pislik tutucu</a>, onaylı tasarım izin verdiğinde emme hattını koruyabilir; ancak her süzgeç kayıp ve bakım gerektirir. Montajdan önce ağ gözü, erişim, basınç düşümü ve itfaiye hizmeti kabulünü doğrulayın. Tıkalı bir pislik tutucu, gerçek belirti düşen emme manometresi iken yetersiz depo gibi görünebilir.</p>
+
+			<h2 id="level-control" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Depoyu dolu tutmak: Seviye kontrolü</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Teslim sırasında dolu olan bir depo, otomatik olarak güvenilir bir yangın kaynağı değildir. Doldurma ekipmanı normal seviyeyi korumalı, düzgün kapanmalı, mevcut giriş basıncına dayanmalı ve seviye düşerse açık bir sinyal vermelidir. Tasarım amacı; kullanım suyu talebi, buharlaşma, testler ve küçük kaçakların korunan rezervi tüketmesini önlerken kontrolsüz doldurmanın depoyu taşırmasını da engellemektir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><a href="/tr/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">F745X hidrolik su seviye kontrol vanası</a>, seviye koruma ve yumuşak kapanma için pilot kumandalı bir düzen kullanır. Proje şamandıra kumandalı uzaktan düzen gerektiriyorsa <a href="/tr/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">100X-16P uzaktan kumandalı şamandıralı vana</a>, depo doldurma için paslanmaz çelik bir şamandıra pilotu sağlar. Bu ürünlerin hiçbiri yangın rezervini tek başına belirlemez; ayar noktaları, bypasslar, giriş basıncı ve alarmlar onaylı hidrolik tasarıma uymalıdır.</p>
+			<p class="text-gray-700 leading-relaxed">Yüksek, normal, düşük ve acil seviyeleri kontrol şemasında gösterin. Erişilebilir bir giriş izolasyon vanası, gerektiğinde drenaj veya test düzeneği ve tankı boşaltmadan pilot ya da şamandıra hareketini kanıtlama yöntemi ekleyin. Depo ortak kullanılıyorsa, arızalı doldurma vanasının yangın rezervini sessizce azaltamaması için seviye sinyalini kullanım suyu kontrolleriyle kilitleyin.</p>
+
+			<h2 id="priming-testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Doldurma, manometreler ve test düzenekleri</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Santrifüj yangın pompası çalışmadan önce gövdesi ve emme hattı doğru biçimde doldurulmalı; emme tarafı tasarlandığı gibi suyla dolu kalmalıdır. Son düzen pompa tipine ve kaynak kotuna bağlıdır; bu nedenle ayak vanası veya ek çek valf doğaçlamak yerine pompa tedarikçisinin doldurma talimatlarını izleyin. Pompa flanşındaki bir emme manometresi kaynağın gerçekten mevcut olup olmadığını gösterir; kabul sırasında bunu basma manometresi ve sertifikalı pompa eğrisiyle karşılaştırın.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Emme makarasının, vananın ve cihazların tüm depoyu boşaltmadan incelenmesini sağlayacak izolasyon ve drenaj noktaları oluşturun. Manometreleri kazara darbelerden koruyun ve aralıklarını beklenen statik ve çalışma koşullarına uygun seçin. Devreye alma sırasında vana konumunu, düşük seviye alarmını, doldurma hareketini, girdap önleyici montajını, boru desteklerini ve performans kaydı öncesinde hava kaçağı olmadığını doğrulayın.</p>
+			<p class="text-gray-700 leading-relaxed">Test, hem hidrolik kapasiteyi hem de arızada güvenli çalışma amacını kanıtlamalıdır. İzin verilen yerde düşük seviye koşulunu simüle edin, doldurma vanasını çalıştırın, depo geçişini inceleyin ve planlanan izolasyon durumunda gerekli emmenin kullanılabilir kaldığını doğrulayın. Dış bağlantı ve basma tarafı arayüzü için <a href="/tr/guides/fire-department-connection-siamese-guide/" class="text-brand-blue font-semibold hover:underline">itfaiye bağlantısı Siamese kılavuzu</a>, müdahale ekibinin bağlantısının pompa odasının geri kalanıyla nasıl koordine edileceğini açıklar.</p>
+
+			<h2 id="checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Emme düzeni kontrol listesi</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Kaynağı belirleyin.</strong> Açık depo, basınçlı tank veya belediye bağlantısını; en düşük çalışma seviyesini, mevcut basıncı ve pompa tedarikçisinin gerekli emme koşulunu belirtin.</li>
+				<li><strong>Rezervi belgeleyin.</strong> Proje hesabındaki gerekli yangın hacmini ve süreyi, tüm seviye kotları ve kullanım suyuyla paylaşılan korunan hacimle birlikte gösterin.</li>
+				<li><strong>Çıkışları koordine edin.</strong> Geçerli NFPA 20 baskısını, depo ölçüsü için iki emme gerekliliğini ve her güzergâhın bağımsızlığını doğrulayın.</li>
+				<li><strong>Hava girişini önleyin.</strong> Suya batma seviyesini, girdap önleyici geometrisini, eksantrik redüksiyon yönünü, düz hat uzunluğunu ve bağımsız boru desteklerini doğrulayın.</li>
+				<li><strong>Suyu koruyun.</strong> Harici izolasyon vanasını, yalnızca onaylandığında temizlenebilir pislik tutucuyu, manometreleri, drenajları ve bakım erişimini şartnameye ekleyin.</li>
+				<li><strong>Seviyeyi kontrol edin.</strong> Giriş basıncına uygun F745X veya 100X pilot ekipmanını seçin, normal ve düşük seviyeleri ayarlayın ve gereken alarmları bağlayın.</li>
+				<li><strong>Kabulü planlayın.</strong> Doldurma talimatlarını, emme ve basma manometrelerini, doldurma testini, düşük seviye simülasyonunu ve malzeme, basınç testi ile bakım kayıtlarını dahil edin.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Eksiksiz vana çizelgesi için bu çalışmayı <a href="/tr/guides/municipal-fire-water-main-upgrade-guide/" class="text-brand-blue font-semibold hover:underline">belediye yangın su ana hattı yenileme kılavuzuyla</a> ilişkilendirin ve yerel su idaresinin koşullarını doğrulayın. Wanlian, emme vanaları ve aksesuarları için teklif vermeden önce depo çıkış çizimini, pompa eğrisini, boru ölçülerini ve gereken standardın baskısını inceleyebilir.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Yangın pompası emme vanalarına mı ihtiyacınız var?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Depo çıkış çizimini, pompanın nominal debi ve basma yüksekliğini, emme ölçülerini, su seviyelerini ve geçerli standardın baskısını gönderin. Wanlian projeniz için girdap önleme, seviye kontrolü, izolasyon ve test düzenini doğrulasın.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Yang%C4%B1n%20pompas%C4%B1%20emme%20vanalar%C4%B1" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İsteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Merhaba, yangın pompası emme vanalarına ihtiyacım var')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp’tan Yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

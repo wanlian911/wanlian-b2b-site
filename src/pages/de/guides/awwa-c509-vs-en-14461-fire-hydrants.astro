@@ -1,0 +1,195 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const faq = [
+	{
+		question: 'Kann ein US-Projekt einen Hydranten nach EN 14461 kaufen?',
+		answer: 'Er kann gekauft werden, aber der Kauf ist nicht gleichbedeutend mit der Abnahme. Ein US-Projekt beginnt normalerweise mit der zuständigen Behörde, dem Anschlussbild der Feuerwehr und der Vertragsnorm. Ein Hydrant nach EN 14461 kann nur berücksichtigt werden, wenn Ingenieur und AHJ Druckstufe, Abgänge, Kupplungsschnittstellen, Prüfunterlagen und Einbaudetails akzeptieren. Wenn die Ausschreibung AWWA C509 verlangt, sollte ein Hydrant in AWWA-Konfiguration angeboten werden, statt die Gleichwertigkeit eines EN-Produkts vorauszusetzen.'
+	},
+	{
+		question: 'Kann ein Hydrant nach AWWA C509 in einem EN-Projekt eingesetzt werden?',
+		answer: 'Nur mit dokumentierter Projektfreigabe. Ein Hydrant nach AWWA C509 und ein Hydrant nach EN 14461 können sich bei Mantelaufbau, Druckbezeichnung, Abgangsbild, Gewinden und Nachweisen aus Typprüfungen unterscheiden. Der Planer muss bestätigen, dass die AWWA-Konfiguration die geforderte europäische Schnittstelle und Leistungsanforderung erfüllt. Ersetzen Sie nicht allein nach Nennweite; legen Sie die vorgeschlagene Norm, Zeichnungen, Werkstoffe und Prüfprotokolle vor der Freigabe zur Prüfung vor.'
+	},
+	{
+		question: 'Wie wähle ich zwischen einem Trocken- und einem Nasshydranten?',
+		answer: 'Beginnen Sie mit Klima, Einbauanordnung und lokaler Norm. Eine hochwasserseitig entleerbare Bauart hält den oberen Mantel nach dem Absperren entleert und eignet sich für Bereiche, in denen Frost ein Auslegungsthema ist, während eine Nasshydranten-Bauart den Körper unter Druck hält und normalerweise dort eingesetzt wird, wo kein Frost erwartet wird. Die endgültige Auswahl gehört in die Projektspezifikation und muss zur gewählten Norm, Entleerung und Instandhaltungspraxis passen.'
+	},
+	{
+		question: 'Ändert ein Hydrant mit IoT-Überwachung seine Normkonformität?',
+		answer: 'Nicht von selbst. Ein Überwachungsmodul ist eine Zubehör- oder Instrumentierungsebene; es ersetzt weder Hydrantenkörper, Druckstufe, Abgang, Werkstoff noch Prüfanforderungen. Der Basishydrant muss weiterhin die in der Ausschreibung genannte Norm erfüllen, und die Überwachungsinstallation darf Betrieb, Entleerung, Inspektion oder Verkehrssicherheit nicht behindern. Fordern Sie die Unterlagen des Basisprodukts und das Datenblatt der Überwachung getrennt an.'
+	},
+	{
+		question: 'Was geschieht, wenn das Kupplungsgewinde des Hydranten nicht passt?',
+		answer: 'Schlauch, Kappe oder Feuerwehrgerät lassen sich möglicherweise nicht anschließen, auch wenn die nominelle Abgangsgröße richtig aussieht. Eine Abweichung bei Gewinde oder Kupplung kann die Wasserabgabe verzögern, das Abnehmen der Kappe verhindern oder einen nicht freigegebenen Adapter erfordern. Bestätigen Sie Abgangstyp, Gewindebezeichnung, Kupplungsnorm und örtliche Praxis der Feuerwehr in der freigegebenen Zeichnung. Wenn ein Übergang erforderlich ist, muss der Adapter vor dem Versand benannt und freigegeben werden.'
+	},
+	{
+		question: 'Welche Prüfberichte sollte ich vor der Lieferung anfordern?',
+		answer: 'Fordern Sie den Druckprüfbericht, den für die angegebene Ausgabe geltenden Durchfluss- oder Leistungsnachweis, Unterlagen zu Werkstoff und Beschichtung, Maß- und Abgangsprüfprotokolle sowie den abschließenden Inspektionsbericht an. Bei einem verkehrssicheren Modell sollten Sie eine Beschreibung von Sollbruchbolzen und automatischer Absperrung anfordern. Lassen Sie den Lieferanten die exakt verwendete Normausgabe nennen, da die Ausgabe der Ausschreibung bestimmt, welche Nachweise relevant sind.'
+	}
+];
+
+const toc = [
+	{ id: 'which-standard', label: '1. Welche Norm Ihre Spezifikation tatsächlich fordert' },
+	{ id: 'pressure-classes', label: '2. Nenndruck und Einbautiefe' },
+	{ id: 'outlets', label: '3. Abgangsanordnung und Kupplungsmuster' },
+	{ id: 'materials', label: '4. Werkstoffe, Beschichtungen und Verkehrssicherheit' },
+	{ id: 'testing', label: '5. Typprüfungen und Produktionsprüfungen' },
+	{ id: 'mixing', label: '6. Wann die Kombination von Normen zulässig ist' },
+	{ id: 'rfq-checklist', label: '7. Checkliste für die Hydranten-RFQ' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const products = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Frostgeschützter Überflurhydrant (SS100/65)', img: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp', desc: 'Duktiles Gusseisen nach GB 4452, DN100/65, 1,6 MPa, frostfreie Entleerung' },
+	{ slug: 'underground-fire-hydrant-sa', name: 'Unterflurhydrant (SA-Serie)', img: '/assets/products/underground-fire-hydrant-sa.webp', desc: 'Frostfreier Unterflurhydrant für kalte kommunale Straßen' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Kollisionssicherer druckregelnder Hydrant (SSFT100)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Verkehrsschutz mit Sollbruchbolzen und Druckregelung' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Innenhydrantenkopf SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'SN65-Ventil aus duktilem Gusseisen, 1,6 MPa, genutet oder geflanscht' }
+];
+---
+
+<Layout
+	title="AWWA C509 vs. EN 14461: Hydrantenvergleich"
+	description="AWWA C509 und EN 14461 im Vergleich: Druckstufen, Abgänge, Werkstoffe, Typprüfungen und die richtige Hydrantenspezifikation für B2B-Projekte."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'AWWA vs. EN-Hydranten' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">AWWA vs. EN-Hydranten</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden zu Hydrantennormen</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">AWWA C509 vs. EN 14461: Hydranten fachgerecht spezifizieren und beschaffen</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kurz gesagt: AWWA C509 und EN 14461 sind keine austauschbaren Bezeichnungen für denselben Hydranten. AWWA C509 ist eine nordamerikanische Produktnorm mit eigenen Konventionen für Mantel, Abgänge und Gewinde; EN 14461 ist eine europäische Norm für Überflurhydranten mit PN-Klassen, DN-Einlassoptionen, Abgangsanordnungen, Schnittstellen und Leistungsanforderungen. Eine erfolgreiche RFQ nennt die maßgebliche Ausgabe, den örtlichen Feuerwehranschluss, die Druckbeanspruchung, Werkstoffe, Verkehrsschutz und Prüfprotokolle, statt einen beliebigen „internationalen“ Hydranten zu verlangen.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="which-standard" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Welche Norm Ihre Spezifikation tatsächlich fordert</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die erste Frage lautet nicht: „Welcher Hydrant ist besser?“ Sie lautet: „Welches Dokument regelt die Abnahme?“ AWWA C509 wird in der nordamerikanischen Wasserwirtschaft für weichdichtende Schieber und Hydrantenkonfigurationen verwendet, einschließlich Nass- und Trockenhydranten. Die Spezifikation wird zusammen mit Projektzeichnungen, Versorgungsstandard und den Vorgaben der zuständigen Behörde gelesen. EN 14461 behandelt Überflurhydranten im europäischen Rahmen, wobei der Ingenieur normalerweise Druckbezeichnung, nominale Einlassgröße, Abgangsanordnung, Anschluss-Schnittstelle und erforderliche Leistungsnachweise festlegt.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">GB 4452 ist die maßgebliche Referenz für die verbreitete chinesische Überflurhydrantenfamilie SS100/65. Sie ist kein Ersatz für die Abnahme nach AWWA oder EN. Der Wanlian-Überflurhydrant SS100/65 wird als GB-4452-Konfiguration mit einem Nenndruck von 1,6 MPa und einer statischen Druckprüfung von 2,4 MPa geliefert. Diese Angaben sind für eine Ausschreibung im chinesischen Markt hilfreich; bei einem Exportprojekt müssen jedoch die maßgebliche Norm, das Abgangsbild und die Dokumentenliste separat festgelegt werden.</p>
+			<p class="text-gray-700 leading-relaxed">Nutzen Sie den folgenden Vergleich als Vorauswahl und prüfen Sie anschließend die genaue Ausgabe der Ausschreibung sowie projektspezifische Ergänzungen, bevor Sie einen Ersatz freigeben.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Spezifikationspunkt</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">AWWA C509</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">EN 14461</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">GB 4452</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Produktumfang</td>
+							<td class="px-4 py-3 text-gray-700">Nordamerikanische Produktnorm für Feuerhydranten; Nass- oder Trockenhydranten</td>
+							<td class="px-4 py-3 text-gray-700">Europäische Überflurhydranten mit festgelegten PN- und Leistungsanforderungen</td>
+							<td class="px-4 py-3 text-gray-700">Chinesische Überflurhydranten einschließlich der SS100/65-Familie</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Druckbezeichnung</td>
+							<td class="px-4 py-3 text-gray-700">Nenndruckklasse und Projektvorgabe verwenden; keinen nicht aufgeführten Wert ableiten</td>
+							<td class="px-4 py-3 text-gray-700">Die PN-Klasse wird in der Spezifikation genannt und gegen den Einbau geprüft</td>
+							<td class="px-4 py-3 text-gray-700">SS100/65 üblicherweise mit 1,6 MPa spezifiziert; statische Prüfung mit 2,4 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Abgänge und Schnittstellen</td>
+							<td class="px-4 py-3 text-gray-700">Hauptabgang 2,5 Zoll und Seitenabgang 65 mm; Gewinde gemäß angegebener AWWA-Schnittstelle</td>
+							<td class="px-4 py-3 text-gray-700">Übliche Anordnung 2 x DN65 plus DN100; Schnittstelle kann EN 14384 und zugehörigen Kupplungsanforderungen folgen</td>
+							<td class="px-4 py-3 text-gray-700">Die Abgangsbezeichnung SS100/65 folgt der chinesischen Produkt- und Anschlusskonvention</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Werkstoffe und Sicherheit</td>
+							<td class="px-4 py-3 text-gray-700">Bei duktilem Gusseisen wird ASTM A536 als Werkstoffreferenz verwendet; bei Bedarf mit Entleerung eines Trockenhydranten</td>
+							<td class="px-4 py-3 text-gray-700">Werkstoff, Beschichtung, Durchflussleistung und Fahrzeugsicherheit werden gemäß Ausgabe spezifiziert und geprüft</td>
+							<td class="px-4 py-3 text-gray-700">Konfiguration aus duktilem Gusseisen mit Werkstoff- und Prüfanforderungen nach GB 4452</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="pressure-classes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Nenndruck und Einbautiefe</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Druckterminologie ist eine häufige Quelle falscher Gleichsetzungen. EN-Dokumente machen die PN-Bezeichnung üblicherweise sichtbar, während ein AWWA-Schema eine Nenndruckklasse oder Versorgervorgabe nennen kann. GB-4452-Produkte SS100/65 werden üblicherweise mit 1,6 MPa angegeben, mit einer statischen Druckprüfung von 2,4 MPa für die beschriebene Konfiguration. Diese Bezeichnungen gehören zu unterschiedlichen Normsystemen und dürfen von einem Vertriebsmitarbeiter nicht allein anhand der Nennweite umgerechnet werden.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Fordern Sie die Druckklasse für die vollständige Hydrantenbaugruppe an, nicht nur für den Körper. Haube, Spindel, Sitz, Düse, Kappe, Entleerung sowie Flansch- oder Gewindeanschluss müssen für die Beanspruchung geeignet bleiben. Geben Sie aus der Bauzeichnung die erforderliche Einbautiefe, Einbauanordnung und Höhe über Fertiggelände an. Jeder Mindestdurchfluss, jede Einbautiefe und jede andere ausgabenabhängige Zahl muss gemäß der in der Ausschreibung genannten Normausgabe spezifiziert werden.</p>
+			<p class="text-gray-700 leading-relaxed">Eine kalte kommunale Straße kann eine hochwasserseitig entleerbare oder unterirdische Bauart erfordern, während ein warmes Klima einen Nasshydranten zulassen kann. Bei einem Unterflureinbau prüfen Sie den <a href="/de/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">Unterflurhydranten der SA-Serie</a> im Hinblick auf Entwässerung und Zugänglichkeit des Projekts. Druckentscheidung und Frostentscheidung hängen zusammen, sind aber nicht dieselbe Entscheidung.</p>
+
+			<h2 id="outlets" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Abgangsanordnung und Kupplungsmuster</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein Abgang, der nicht mit dem örtlichen Schlauch verbunden werden kann, macht den Hydranten unbrauchbar. Die Praxis nach AWWA C509 sieht einen Hauptabgang von 2,5 Zoll und einen Seitenabgang von 65 mm vor, wobei die Gewinde der zutreffenden Schnittstelle nach AWWA C505 folgen. EN-14461-Projekte zeigen häufig Einlässe DN80, DN100 oder DN150 und eine Abgangsanordnung wie 2 x DN65 plus DN100; die genaue Kupplungsschnittstelle gehört jedoch in das Projektschema. Eine Zeichnung mit nur „Abgang DN65“ ist unvollständig, wenn Gewinde- oder Kupplungstyp nicht ebenfalls genannt werden.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Klären Sie, ob die Feuerwehr Gewindeanschlüsse für Schläuche, ein Storz-Muster, eine nationale Kupplung oder einen projektspezifischen Adapter verwendet. Wanlian kann die Düsenliste des Hydranten gemeinsam mit einem <a href="/de/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">Schlauchkupplungsadapter für Feuerhydranten</a> oder einer <a href="/de/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">Aluminium-Storz-Kupplung 2,5 Zoll</a> prüfen, wenn der Anschluss Teil der RFQ ist. Der Adapter muss benannt und freigegeben werden; er darf nicht erst nach Ankunft des Containers entdeckt werden.</p>
+			<p class="text-gray-700 leading-relaxed">Wenn eine US-Feuerwehr das Ventil bedienen wird, lassen Sie sie das Gewinde vor der Bestellung einer EN- oder GB-Konfiguration bestätigen. Bei einem europäischen Projekt ist die vom Versorger verwendete Anschlussreferenz zu identifizieren und in der freigegebenen Gesamtanordnung darzustellen. Der <a href="/de/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Hydrantenventilnormen</a> erläutert, warum Abgangsgeometrie, Kappenfreiraum und Betätigungsrichtung gemeinsam geprüft werden müssen.</p>
+
+			<h2 id="materials" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Werkstoffe, Beschichtungen und Verkehrssicherheit</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">AWWA-Konfigurationen nennen häufig duktiles Gusseisen nach ASTM A536 und verwenden bei erforderlichem Frostschutz eine Entleerungsanordnung für Trockenhydranten. Auch EN-Projekte müssen Werkstoffgüte, innere und äußere Beschichtung, Befestigungswerkstoff und Elastomerauswahl in den Einreichunterlagen festlegen. GB-4452-Produkte folgen der definierten chinesischen Produktkonfiguration. Vergleichen Sie nicht Lackfarbe oder Katalogfoto als Nachweis der Beschichtungskonformität, sondern fordern Sie die in der Ausschreibung verlangten Werkstoff- und Beschichtungsunterlagen an.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Verkehrsschutz ist eine eigenständige funktionale Anforderung. Beim kollisionssicheren druckregelnden Hydranten SSFT100 brechen bei einem Aufprall die Sollbruchbolzen, und das Innenventil schließt automatisch, sodass der Wasserstrom stoppt. Der Hydrant wird durch den Austausch der Sollbruchbolzen wiederhergestellt. Detaillierte technische Daten können auf Anfrage bereitgestellt werden. Diese Beschreibung bedeutet nicht, dass jeder AWWA-, EN- oder GB-Hydrant über denselben Sicherheitsmechanismus verfügt; die Anforderung an den Verkehrsschutz muss daher ausdrücklich genannt werden.</p>
+			<p class="text-gray-700 leading-relaxed">Bei einem Standort mit häufigem Fahrzeugverkehr vergleichen Sie den <a href="/de/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">kollisionssicheren Hydranten SSFT100</a> mit dem baulichen Schutz rund um den Hydranten. Der <a href="/de/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu frostgeschützten und kollisionssicheren Hydranten</a> ist hilfreich, wenn die Spezifikation Frostrisiko, Aufprallgefährdung und Bedienzugang kombiniert.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Typprüfungen und Produktionsprüfungen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein Zertifikat mit dem richtigen Produktnamen ist nicht automatisch ein Nachweis für die richtige Norm. Fragen Sie, welche Ausgabe verwendet wurde, welche Konfiguration geprüft wurde und ob der Bericht das gelieferte Abgangsbild abdeckt. Typprüfungen weisen die Auslegung nach, während Produktionsprüfungen bestätigen, dass die Lieferung inspiziert und druckgeprüft wurde. Die beiden Dokumente beantworten unterschiedliche Fragen des Einkäufers und sollten im Auftrag getrennt aufgeführt werden.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Fordern Sie bei einer Einreichung nach AWWA C509 die zutreffenden Nachweise zu Druck, Betrieb, Entleerung und Werkstoff für die Nass- oder Trockenhydranten-Bauart an. Für EN 14461 sind die Nachweise zu PN, Durchflussleistung, Abgängen, Fahrzeugaufprall und Schnittstelle für die gewählte Konfiguration anzufordern. Für GB 4452 verlangen Sie den Produktnachweis für 1,6 MPa und den statischen Druckprüfbericht über 2,4 MPa, sofern dies die festgelegte Grundlage für SS100/65 ist. Angaben zur Durchflussprüfung müssen der anwendbaren Normmethode und Ausgabe folgen; akzeptieren Sie keine erfundene universelle Durchflusszahl.</p>
+			<p class="text-gray-700 leading-relaxed">Der <a href="/de/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">intelligente IoT-Unterflurhydrant SS100ZN</a> kann dem Betriebsmittel eine Überwachung hinzufügen, doch der Basishydrant benötigt weiterhin sein eigenes Konformitätspaket. Prüfen Sie, dass Sensor, Batterie und Kommunikationstechnik weder Spindelweg, Entleerung, Inspektion noch die Verkehrssicherheitsfunktion beeinträchtigen.</p>
+
+			<h2 id="mixing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Wann die Kombination von Normen zulässig ist</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Kombination von Normen kann zulässig sein, wenn sie bewusst erfolgt, dokumentiert und freigegeben ist. Ein Projekt kann beispielsweise einen nach einer Produktnorm gefertigten Hydrantenkörper und einen separat spezifizierten Adapter zur Anpassung an den örtlichen Schlauch verwenden. Dadurch wird der Körper nicht konform mit der Norm des Adapters. In den Einreichunterlagen müssen jedes Bauteil, sein maßgebliches Dokument, Druckverträglichkeit, Gewinde- oder Kupplungsschnittstelle und die Verantwortung für die Endabnahme genannt werden.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Kombinieren Sie Normen nicht stillschweigend, indem Sie nach dem Angebot nur Flansch oder Düse ändern. Bohrbild, Kappenfreiraum, Betätigungsschlüssel, Entleerungsverhalten und Prüfunterlagen können sich dadurch ändern. Wenn ein Auftragnehmer einen AWWA-Körper für ein EN-Projekt verlangt, muss der Ingenieur die Abweichung in den freigegebenen Einreichunterlagen kennzeichnen. Wenn ein EN-Hydrant für ein US-Projekt vorgeschlagen wird, ist vor der Fertigung die schriftliche Zustimmung der AHJ einzuholen.</p>
+			<p class="text-gray-700 leading-relaxed">Wanlian unterstützt die Projektprüfung durch die eigene Fertigungslinie und qualifizierte kooperative Kapazitäten, sodass die RFQ auf den erforderlichen Körper, die Abgänge und das Dokumentenpaket abgestimmt werden kann. Der Käufer bleibt dafür verantwortlich, Projektnorm und AHJ zu benennen; der Lieferant darf keine unbelegte Zertifizierung behaupten.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Checkliste für die Hydranten-RFQ</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Maßgebliche Norm und Ausgabe nennen.</strong> Geben Sie AWWA C509, EN 14461, GB 4452 oder ein anderes gefordertes Dokument mit Projektänderungen und AHJ-Anforderungen an.</li>
+				<li><strong>Mantel und Einbau festlegen.</strong> Nass- oder Trockenhydrant, über- oder unterirdisch, Höhe über Fertiggelände, Entleerungsanordnung und Frosteinwirkung.</li>
+				<li><strong>Druck- und Durchflussbeanspruchung angeben.</strong> Nennen Sie Nenndruck oder PN-Klasse und verlangen Sie jeden ausgabenabhängigen Durchflusswert gemäß der Normausgabe der Ausschreibung.</li>
+				<li><strong>Jeden Anschluss zeichnen.</strong> Einlass-DN oder Nennweite, Flanschbohrbild, Anzahl und Größe der Abgänge, Gewinde- oder Kupplungsmuster, Kappen- und Betätigungsschlüsseldetails.</li>
+				<li><strong>Werkstoffe und Schutz auflisten.</strong> Güte des duktilen Gusseisens, Elastomere, Befestiger, Beschichtungssystem, Verkehrssicherheitseinrichtung und gegebenenfalls Ersatz-Sollbruchbolzen.</li>
+				<li><strong>Nachweispaket anfordern.</strong> Typprüfberichte, Produktions-Druckprüfungen, Durchfluss- oder Leistungsnachweise, Werkstoffzertifikate, Maßprüfung und abschließende Freigabedokumente.</li>
+				<li><strong>Zubehör bestätigen.</strong> Schlauchadapter, Storz-Kupplungen, Kappen, Entleerungsteile, Überwachungstechnik und Ersatz-Sollbruchbolzen müssen aufgeführt und dürfen nicht vorausgesetzt werden.</li>
+				<li><strong>Abnahme schriftlich festhalten.</strong> Lassen Sie Ingenieur oder AHJ jede normübergreifende Ersetzung vor der Fertigung freigeben und fügen Sie die genehmigte Zeichnung dem Auftrag bei.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Für den Auswahlkontext lesen Sie <a href="/de/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">den Leitfaden zur Auswahl eines Feuerhydranten</a> und den <a href="/de/guides/fire-hose-buying-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Normen für Feuerwehrschlauchkupplungen</a>. Für die Planung auf Systemebene siehe <a href="/de/fire-hydrant-systems/" class="text-brand-blue font-semibold hover:underline">Feuerhydrantensysteme</a>, bevor Sie den Ventilplan finalisieren.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Benötigen Sie einen Hydranten nach Ihrer Projektnorm?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie Projektstandort, Normausgabe, Einlass- und Abgangsbild, Druckbeanspruchung und Einbaubedingungen. Wir bestätigen eine Export- oder Schnittstellenkonfiguration für die zutreffende Norm und stellen die relevanten Prüfberichte zur Prüfung bereit.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Outdoor%20Fire%20Hydrants%20%28AWWA%20C509%20vs%20EN%2014461%29" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Hallo, ich benötige Überflurhydranten für ein AWWA-C509- oder EN-14461-Projekt')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

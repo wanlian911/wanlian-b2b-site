@@ -2,6 +2,56 @@ import type { Guide } from './guides';
 
 export const guidesTr: Guide[] = [
   {
+    title: 'Delüj Vanası Boyutlandırma ve Seçim Kılavuzu',
+    description: 'ZSFM delüj vanası çalışma prensibi, debi ve açılma süresi boyutlandırması, açtırma seçenekleri, açık başlık yerleşimi ve RFQ verileri.',
+    href: '/tr/guides/deluge-valve-selection-guide/',
+    tocPreview: ["1. Bir sistem ne zaman delüj korumasına ihtiyaç duyar?", "2. ZSFM delüj vana grubu nasıl çalışır?", "3. Açtırma yönteminin seçilmesi"],
+    date: '2026-10',
+    category: 'Yangın Koruma',
+    readTime: '9 min read',
+    tags: ['sprinkler-systems', 'fire-protection']
+  },
+  {
+    title: 'AWWA C509 ve EN 14461 Yangın Hidrantları',
+    description: 'AWWA C509 ve EN 14461 yangın hidrantlarını basınç, çıkış, malzeme ve test gereklilikleriyle karşılaştıran B2B tedarik rehberi.',
+    href: '/tr/guides/awwa-c509-vs-en-14461-fire-hydrants/',
+    tocPreview: ["1. Şartnamenizin gerçekten çağırdığı standart", "2. Anma basıncı ve çalışma derinliği", "3. Çıkış düzeni ve kaplin kalıpları"],
+    date: '2026-10',
+    category: 'Yangın Koruma',
+    readTime: '9 min read',
+    tags: ['fire-hydrant', 'procurement']
+  },
+  {
+    title: 'Yangın Pompası Emmesi ve Su Deposu Düzeni (2026)',
+    description: 'Yangın suyu deposu boyutlandırması, iki emme kuralı, girdap önleyiciler, doldurma ve seviye kontrol vanaları ile uyumlu pompa emme düzeni.',
+    href: '/tr/guides/fire-pump-suction-water-tank-guide/',
+    tocPreview: ["1. Yangın suyu hacmi nereden sağlanır?", "2. Yangın suyu rezervinin boyutlandırılması", "3. İki emme kuralı ve depo geçişleri"],
+    date: '2026-10',
+    category: 'Yangın Koruma',
+    readTime: '9 min read',
+    tags: ['fire-protection', 'industrial-valves']
+  },
+  {
+    title: 'Çinli Vana Tedarikçi Teklifleri Nasıl Karşılaştırılır',
+    description: 'Çinli vana fabrikalarına RFQ hazırlama, teklifleri okuma, gizli maliyetleri görme ve sipariş öncesi tedarikçi kontrolü için B2B rehberi.',
+    href: '/tr/guides/china-valve-supplier-quote-guide/',
+    tocPreview: ["1. Aynı Vana İçin İki Teklif Neden Farklıdır?", "2. Doğru Teklif Getiren RFQ Nasıl Yazılır?", "3. Teklif Satır Satır Nasıl Okunur?"],
+    date: '2026-10',
+    category: 'Tedarik',
+    readTime: '9 min read',
+    tags: ['procurement', 'certification']
+  },
+  {
+    title: 'Köpüklü Deluge Sistemleri Rehberi (2026)',
+    description: 'Class B riskleri için köpüklü deluge ve köpük-su püskürtme sistemleri: deluge vanası, oranlama, konsantre, boşaltma cihazları ve saha testleri.',
+    href: '/tr/guides/foam-deluge-system-guide/',
+    tocPreview: ["1. Köpüğün Suyu Geride Bıraktığı Durumlar", "2. Köpüklü Deluge Sisteminin Yapısı", "3. Oranlama Seçeneklerinin Karşılaştırılması"],
+    date: '2026-10',
+    category: 'Yangın Koruma',
+    readTime: '9 min read',
+    tags: ['fire-protection', 'sprinkler-systems']
+  },
+  {
     title: "Geri Akış Önleme Rehberi: İçme Suyu ve Yangın Şebekeleri",
     description: "İçme suyu ve yangın şebekelerinde geri akış önleme: tehlike sınıfları, HS41X çift çekvalf sistemi, boyutlandırma, basınç kaybı, test ve uygunluk uygulamaları.",
     href: "/tr/guides/backflow-prevention-guide/",

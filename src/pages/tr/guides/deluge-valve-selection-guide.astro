@@ -1,0 +1,188 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Delüj vanası ile ön tepkili vana arasındaki temel fark nedir?',
+		answer: 'Delüj sisteminde açık sprinkler veya nozullar bulunur; bu nedenle delüj vanası açıldığında su tüm boşaltma noktalarına aynı anda gönderilir. Ön tepkili sistemde normalde kapalı sprinkler kullanılır ve sprinkler suyu boşaltmadan önce algılama sistemi bir kontrol vanasını açar. Delüj, hızlı ve eş zamanlı kapsama için; ön tepkili sistem ise kazara su boşalmasının sınırlandırılması gereken yerlerde seçilir. Gerekli kilitleme düzenini ve standart sırasını yürürlükteki sürüme göre doğrulayın.'
+	},
+	{
+		question: 'Delüj vanasında elektrikli mi yoksa hidrolik açtırma mı kullanılmalıdır?',
+		answer: 'Açtırma yöntemini algılama tasarımına, tehlikeli alan gereksinimlerine, mevcut enerjiye ve gerekli emniyetli çalışma sırasına göre seçin. Yangın alarm paneli ile denetimli selenoid devresi zaten belirtilmişse elektrikli açtırma pratiktir. Özel basınç hattı veya pnömatik dedektör tercih edilen sahalarda hidrolik ya da pnömatik açtırma uygun olabilir. Wanlian vana grubunu ve uyumlu aksesuarları sağlar; algılama kontrol paneli sırası sistem tasarımcısı tarafından doğrulanmalıdır.'
+	},
+	{
+		question: 'Soğuk iklimde delüj sistemi nasıl korunmalıdır?',
+		answer: 'Delüj vana grubunu ve trimini mümkün olduğunca ısıtılan, erişilebilir bir alanda tutun; donma ihtimali bulunan açıkta su dolu borular bırakmayın. Algılama triminde yoğuşma toplama ve drenaj sağlayın, hassas bölümleri yalıtın ve tasarım gerektiriyorsa onaylı kuru veya pnömatik düzen kullanın. Yetkili makamın onayı olmadan antifriz kullanmayın veya trimi değiştirmeyin. Donmaya karşı koruma yöntemini yürürlükteki sürüme göre doğrulayın.'
+	},
+	{
+		question: 'Algılama hattı kazara tetiklemeye karşı nasıl korunabilir?',
+		answer: 'Algılama hattını olağan servis kumandalarından ayırın, basıncını veya devre durumunu denetleyin, açıkta kalan cihazları darbelere karşı koruyun ve tehlike için gerekli açtırma paneli sırasını kullanın. Manuel açtırma korunaklı ancak erişilebilir olmalı; deney bağlantıları açıkça işaretlenmeli ve deney sonrasında eski durumuna getirilmelidir. Hidrolik, pnömatik ve elektrikli algılamanın her biri kendi alarm ve arıza denetimine ihtiyaç duyar. Son neden-sonuç matrisi devreye almadan önce onaylanmalıdır.'
+	},
+	{
+		question: 'Delüj vanası RFQ talebine hangi bilgiler eklenmelidir?',
+		answer: 'Tehlike açıklamasını, korunan alanı, tasarım debisi ve basıncını, vananın nominal ölçüsünü ve uç bağlantısını, açık başlık veya monitör yerleşimini, algılama yöntemini, gerekli açtırma sırasını, ortam sıcaklığını, drenaj düzenini ve geçerli standart sürümünü gönderin. Ayrıca trim çizimleri, malzeme verileri, basınç deney kayıtları, yedek parça bilgileri ve işletme talimatlarını isteyin. Listeleme veya onay gerekiyorsa bunu açıkça belirtin ve tedarikçiden güncel belgeleri doğrulamasını isteyin.'
+	},
+	{
+		question: 'Wanlian delüj algılama kontrol paneli sağlıyor mu?',
+		answer: 'Wanlian; ZSFM grubu dâhil olmak üzere delüj vana gruplarını, ilgili vanaları ve izleme aksesuarlarını sağlar. Sağlanmadığı durumlarda algılama kontrol panelini standart vana paketinin parçası olarak sunmuyoruz. Açtırma paneli, dedektörler ve neden-sonuç programlaması yangın alarmı veya uzman algılama yüklenicisiyle birlikte belirtilmeli, ardından vana trimi ve saha sırasına göre kontrol edilmelidir.'
+	}
+];
+
+const toc = [
+	{ id: 'when-deluge', label: '1. Bir sistem ne zaman delüj korumasına ihtiyaç duyar?' },
+	{ id: 'how-it-works', label: '2. ZSFM delüj vana grubu nasıl çalışır?' },
+	{ id: 'actuation', label: '3. Açtırma yönteminin seçilmesi' },
+	{ id: 'sizing', label: '4. Debi ve açılma süresine göre vana boyutlandırması' },
+	{ id: 'discharge', label: '5. Açık sprinkler, monitörler ve boşaltma yerleşimi' },
+	{ id: 'testing', label: '6. Devreye alma ve periyodik deneyler' },
+	{ id: 'rfq-checklist', label: '7. Delüj vanası RFQ kontrol listesi' },
+	{ id: 'faq', label: 'Sıkça Sorulan Sorular' }
+];
+
+const products = [
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Delüj Alarm Vanası Grubu (ZSFM Serisi)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'Açık başlık ve monitör sistemleri için ıslak tabanlı delüj vana grubu' },
+	{ slug: 'pre-action-alarm-system-zsfy', name: 'Ön Tepkili Delüj Alarm Sistemi (ZSFY Serisi)', img: '/assets/products/pre-action-alarm-system-zsfy.jpg', desc: 'Tekli ve çift kilitlemeli ön tepkili gruplar' },
+	{ slug: 'manual-fire-water-cannon-ps', name: 'Manuel Yangın Su Monitörü (PS Serisi)', img: '/assets/products/manual-fire-water-cannon-ps.webp', desc: 'Delüj ve monitör boşaltma hizmeti için sabit monitör' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM Elastomer Yataklı OS&amp;Y Sürgülü Vana', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"–10", yivli uçlar, yükselen mil, UL/FM listeli' }
+];
+---
+
+<Layout
+	title="Delüj Vanası Boyutlandırma ve Seçim Kılavuzu"
+	description="ZSFM delüj vanası çalışma prensibi, debi ve açılma süresi boyutlandırması, açtırma seçenekleri, açık başlık yerleşimi ve RFQ verileri."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'Delüj Vanası Seçim Kılavuzu' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana Sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">Delüj Vanası Seçim Kılavuzu</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Delüj Vanası Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Delüj Vanası Boyutlandırma ve Seçimi: Açık Sprinkler ve Monitör Sistemleri</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kısaca: delüj vanası, basınçlı su beslemesi ile açık sprinkler, nozullar veya monitörlerden oluşan şebeke arasındaki kontrollü geçittir. Önce algılama hattı çalışır; ardından vana suyu tüm açık boşaltma noktalarına aynı anda verir. Doğru seçim tehlike ve tasarım debisiyle başlar; sonra Kv veya Cv kapasitesi, basınç kaybı, açılma süresi, açtırma yöntemi, drenaj ve deney erişimi kontrol edilir. Bu kılavuzda ZSFM grubu, ıslak, kuru ve ön tepkili sistemlerle karşılaştırma ve alıcının RFQ talebine eklemesi gereken bilgiler açıklanır.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="when-deluge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Bir sistem ne zaman delüj korumasına ihtiyaç duyar?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Delüj koruması, yangının hızla büyüyebileceği, tüm tehlikenin birlikte ıslatılması gereken veya yönlendirmeli bir monitöre algılamadan hemen sonra su verilmesi gereken durumlar için uygundur. Tipik örnekler arasında sahne dekorları ve tiyatro sahne üstü boşlukları, uçak hangarları, transformatörler, konveyör bantları, araç alanları ve köpüklü su ön tepkili uygulamalar bulunur. Belirleyici özellik, sprinkler veya nozulların açık olmasıdır. Su, tek bir sprinkler ampulünün çalışmasını beklemez; bir açtırma sırası suyu açık şebekenin tamamına gönderir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Bunun karşılığında bilinçli olarak yüksek su talebi oluşur. Delüj tasarımcısı aynı anda çalışabilecek her açık boşaltma noktasını, vana girişindeki mevcut beslemeyi, boru sürtünmesini ve hidrolik açıdan en uzak çıkışta gerekli basıncı dikkate almalıdır. EN 12845 ve NFPA 13, delüj vanasının algılamadan sonra tüm açık çıkışlara hızlıca su vermesini ister; bu süre çoğunlukla yaklaşık 60 saniye olarak ifade edilir, ancak kesin tasarım esasını geçerli sürüm ve proje tehlikesi belirler. Gerekliliği daima yürürlükteki sürüme göre doğrulayın.</p>
+			<p class="text-gray-700 leading-relaxed">Karar yalnızca “mevcut en büyük vana” değildir. <a href="/tr/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ ıslak alarm çekvalfi</a> gibi ıslak alarm çekvalfi, normalde kapalı sprinkler kullanılan farklı bir düzene aittir. Açık başlıklı bir sistem için <a href="/tr/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM delüj alarm vanası grubu</a>, hidrolik hesap ve onay gerekliliklerine bağlı olarak doğru başlangıç noktasıdır.</p>
+
+			<h2 id="how-it-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. ZSFM Delüj Vana Grubu Nasıl Çalışır?</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Besleme tarafı basınç altında kalırken delüj vanası bir besleme düzeniyle kapalı tutulur. Bağımsız bir algılama devresi tehlikeyi algılar ve trimi hidrolik, pnömatik veya elektrikli bir sırayla açtırır. Tutma basıncı kaldırıldığında veya açtırma cihazı çalıştığında ana diyafram ya da klape hareket eder ve besleme suyu delüj borulamasına girer. Su, her çıkışta ısıl çalışma beklemek yerine tüm açık sprinkler, nozullar veya monitörlere ulaşır.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">ZSFM grubu yalnızca gövde olarak değil, bir grup halinde incelenmelidir. RFQ talebinde vana ölçüsü, giriş ve çıkış bağlantısı, besleme trimi, drenaj ve deney düzeni, alarm çıkışı, basınç anahtarları ve manuel acil açtırma belirtilmelidir. Belirtilen trime bağlı olarak alarm yolu su motorlu alarmı çalıştırabilir veya basıncı denetimli bir panele iletebilir. Üst tarafta denetimli izolasyon vanası ve aşağı tarafta kontrollü deney düzeni, kapalı bir vanayı gizlemeden grubun bakımını kolaylaştırır.</p>
+			<p class="text-gray-700 leading-relaxed">Wanlian, ilgili vanalar ve izleme aksesuarlarıyla birlikte delüj vana grupları sağlar. Başka bir uzman tarafından sağlandığında algılama paneli, dedektörler ve programlanmış neden-sonuç mantığı sessizce pakete dâhil edilmez. Yüklenicinin açtırma devresi, alarm bildirimi ve sıfırlama sırasından kimin sorumlu olduğunu bilmesi için bu sınır ekipman çizelgesinde yer almalıdır.</p>
+
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Sistem tipi</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Boşaltma koşulu</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tipik seçim mantığı</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Delüj</td>
+							<td class="px-4 py-3 text-gray-700">Vana açıldıktan sonra tüm açık çıkışlardan su akar</td>
+							<td class="px-4 py-3 text-gray-700">Yüksek tehlikeli alanın hızlı ve eş zamanlı ıslatılması</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Islak borulu</td>
+							<td class="px-4 py-3 text-gray-700">Yalnızca ısıyla çalışan sprinkler boşaltım yapar</td>
+							<td class="px-4 py-3 text-gray-700">Kapalı sprinkler bulunan ısıtılmış alanlar</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Kuru borulu</td>
+							<td class="px-4 py-3 text-gray-700">Su kuru şebekeye girmeden önce hava boşalır</td>
+							<td class="px-4 py-3 text-gray-700">Donmanın ıslak sistemi engellediği alanlar</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Ön tepkili</td>
+							<td class="px-4 py-3 text-gray-700">Algılama vanayı açar; kapalı sprinkler boşaltmayı yine kontrol eder</td>
+							<td class="px-4 py-3 text-gray-700">Ek açtırma koşulu gereken suya duyarlı alanlar</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="actuation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Açtırma Yönteminin Seçilmesi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Algılama hattı su dağıtım borulamasından ayrıdır ve delüj vanasından önce çalışır. Sıvı dolu hidrolik algılama hattı bir pilot cihaz üzerinden açtırabilir; pnömatik hat hava basıncı ve kuru pilot düzeni kullanabilir; elektrikli açtırma ise denetimli bir selenoid ve açtırma paneli kullanır. Seçim; saha ortamına, mevcut tesisatlara, kablo güzergâhına, denetim yaklaşımına ve manuel açtırma, alarm ve sıfırlama için gerekli sıraya bağlıdır.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Dedektörler, yangın alarm paneli ve uzak durum noktaları zaten mevcutsa elektrikli açtırma çoğu zaman pratiktir. Kumanda yaklaşımının yerel olması veya algılama hattının uzun bir elektrik devresinden bağımsız kalması gereken yerlerde hidrolik ya da pnömatik açtırma tercih edilebilir. <a href="/tr/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">GKZF1 yivli selenoid kontrol vanası</a> elektrik kumandalı bir vana düzenine uygun olabilir; ancak açtırma paneli çıkışı, gerilim, denetim ve sıfırlama yöntemi yine sistem tasarımcısı tarafından doğrulanmalıdır.</p>
+			<p class="text-gray-700 leading-relaxed">Ön tepkili bir alternatif olarak <a href="/tr/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">ZSFY ön tepkili alarm sistemi</a> yararlı bir karşılaştırma sağlar; çünkü tekli ve çift kilitlemeli sıralar farklı açtırma koşulları getirir. Yalnızca “elektrikli” sözcüğüne göre seçim yapmayın: enerji kesilmesinde, pilot basıncı kaybında, dedektör alarmında, manuel açtırmada, su akışı alarmında ve yeniden kurulumda ne olacağını belgeleyin. Son matris yalnızca kablo şeması olarak kontrol edilmemeli, işletme sırası olarak deney edilmelidir.</p>
+
+			<h2 id="sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Debi ve Açılma Süresine Göre Vana Boyutlandırması</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Vanayı yalnızca branş borusu çapına göre değil, hesaplanan talebe göre boyutlandırın. Önce tehlikenin çalıştırmasını gerektirdiği tüm açık başlık, monitör veya nozullardan tasarım debisini belirleyin; ardından mevcut giriş basıncını ve uzak çıkış basıncını kontrol edin. Seçilen vana, trim ve alarm yolu çalışma aralıklarında kalırken gerekli debiyi kabul edilebilir kayıpla geçirmelidir. Kv veya Cv yararlı bir karşılaştırma değeridir; ancak ilgili basınç düşümünde okunmalı ve ilgisiz bir deney koşulundan kopyalanmamalıdır.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Açılma süresi sistemin sonucudur. Buna algılama tepkisi, pilot hattı basıncının düşmesi veya elektrikli açtırma, vananın açılması, trim tepkisi, borunun dolması ve uzak çıkışlara suyun ulaşması dâhildir. EN 12845 ve NFPA 13, delüj hizmetinde hızlı teslim beklentileri kullanır; algılamadan sonra açık çıkışlara su verilmesi için süre çoğunlukla yaklaşık 60 saniyedir. Kesin proje gerekliliğini yürürlükteki sürüme göre doğrulayın ve ardından en uzun, hidrolik açıdan en olumsuz branşta doğrulayın; en kısa deney bağlantısında değil.</p>
+			<p class="text-gray-700 leading-relaxed">Algılama hattının da kendi hesabı gerekir. En uzun veya en uzak pilot yolu, basınç düşmesini, hava hacmini, su yer değiştirmesini ya da elektrikli denetimi belirleyebilir. Kot farkını, fittingsleri, yoğuşma noktalarını ve gerçek açtırma cihazını hesaba katın. Soğuk veya nemli koşullarda yoğuşma oluşabiliyorsa uygun bir düşük noktada yoğuşma toplayıcı ve drenaj sağlayın. Bu ayrıntılar yalnızca vana fiyatlandırmasında kolayca atlanır ve saha açılma deneyinin çizimle uyuşmamasının sık nedenidir.</p>
+
+			<h2 id="discharge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Açık Sprinkler, Monitörler ve Boşaltma Yerleşimi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Açık sprinkler ve nozullar, tehlikeyi bir grup olarak kapsayacak şekilde yerleştirilir. Orifisleri, püskürtme açıları, aralıkları ve kotları hidrolik talebi etkiler; engeller ve rüzgâr gerçek kapsama alanını değiştirebilir. Monitör düzeninde atış mesafesi, yönlendirme ve tepki kuvveti dikkate alınmalıdır. Sabit <a href="/tr/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">PS manuel yangın su monitörü</a> delüj veya monitör boşaltma hizmetinin parçası olabilir; ancak su beslemesi, eş zamanlı açık başlıklarla birlikte monitör debisi için kontrol edilmelidir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Aşağı akış izolasyon düzenini yalnızca onaylı tasarım buna izin veriyorsa sağlayın ve tehlikenin bir bölümünü devre dışı bırakabilecek her vanayı denetleyin. Delüj drenajı ve deney bağlantısı, vana odasını su altında bırakmadan ve kirli suyu uygun olmayan bir gidere göndermeden güvenle boşaltmalıdır. Alarm çıkışını görünür ve erişilebilir tutun; acil durumda operatörün manuel açtırmayı deney veya drenaj vanasıyla karıştırmaması için işaretleyin.</p>
+			<p class="text-gray-700 leading-relaxed">Sistem bağlamı için hidrolik kabulleri <a href="/tr/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">ESFR sprinkler sistemi kılavuzu</a> ve <a href="/tr/guides/fire-pump-suction-water-tank-guide/" class="text-brand-blue font-semibold hover:underline">ıslak, kuru ve ön tepkili sistem kılavuzu</a> ile karşılaştırın. Köpük ekleniyorsa delüj vanası, konsantre ekipmanı ve boşaltma cihazlarının tek bir hidrolik ve kumanda sırası olarak ele alınması için <a href="/tr/guides/foam-deluge-system-guide/" class="text-brand-blue font-semibold hover:underline">köpük oranlama sistemi kılavuzunu</a> inceleyin.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Devreye Alma ve Periyodik Deneyler</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Devreye alma hem su yolunu hem de açtırma yolunu kanıtlamalıdır. Üst taraftaki besleme vanası ile trim izolasyon vanalarının amaçlanan konumda olduğunu, besleme basıncının kararlı kaldığını, drenajın açık olduğunu ve alarm çıkışının bağlandığını doğrulayın. Onaylı prosedür izin veriyorsa manuel açtırmayı ve normal algılama sırasını ayrı ayrı çalıştırın; ardından açtırmadan vana çalışmasına, alarm sinyaline ve temsilî uzak çıkışa su ulaşmasına kadar geçen süreyi kaydedin.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Gizli bir açık yol bırakmadan baypası ve drenajı deney edin. Su motorlu alarmı veya basınç anahtarını, alarm iletimini, denetim kontaklarını ve sıfırlamayı doğrulayın. Aşağı akıştaki akış anahtarı veya gösterge durum izlemeyi destekleyebilir; <a href="/tr/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">su akış göstergesi kılavuzu</a> bu sinyalin seçimi ve denetimi için daha geniş bağlam sunar. Yağışlı sezon veya başka bir yüksek riskli işletme döneminden önce planlanan açılma deneyini, işletme sahibi, alarm yüklenicisi ve yetkili makam gereklilikleri uyumlu olacak şekilde gerçekleştirin.</p>
+			<p class="text-gray-700 leading-relaxed">Periyodik bakım NFPA 25 veya yürürlükteki yerel bakım standardı ile vana üreticisinin talimatlarını izlemelidir. Trimi korozyon açısından inceleyin, drenajların ve yoğuşma toplayıcılarının tıkalı olmadığını doğrulayın ve basınç okumalarını hafızaya güvenmek yerine kaydedin. Boşaltma alanı güvenli olacak ve sistem derhâl eski durumuna getirilecek şekilde deneyi kontrol edin. Güncel sürüm bir aralığı, kabul ölçütünü veya belge gerekliliğini değiştirirse eski kontrol listesini yeniden kullanmak yerine yürürlükteki sürüme göre doğrulayın.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Delüj Vanası RFQ Kontrol Listesi</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Tehlikeyi açıklayın.</strong> Odayı veya prosesi, yanıcı yükü, korunan alanı ve çıkışların açık sprinkler, nozullar, monitörler veya köpüklü su cihazları olup olmadığını belirtin.</li>
+				<li><strong>Hidrolik verileri verin.</strong> Tasarım debisini, gerekli uzak basıncı, mevcut besleme basıncını, boru ölçüsünü, kot farkını ve hidrolik hesabın temel kabullerini sağlayın.</li>
+				<li><strong>Vana grubunu tanımlayın.</strong> Nominal ölçüyü, uç bağlantısını, gövde ve trim malzemelerini, drenaj ölçüsünü, alarm çıkışını, deney düzenini ve denetimli izolasyon vanasını belirtin.</li>
+				<li><strong>Açtırmayı belirtin.</strong> Hidrolik, pnömatik veya elektrikli algılamayı, pilot hattı uzunluğunu, manuel açtırmayı, selenoid ayrıntılarını, panel arayüzünü ve gerekli açılma sırasını tanımlayın.</li>
+				<li><strong>Ortamı ele alın.</strong> Minimum ve maksimum ortam sıcaklığını, iç veya dış konumu, yoğuşma riskini, drenaj güzergâhını ve korozyona maruz kalmayı belirtin.</li>
+				<li><strong>Belgeleri isteyin.</strong> Proje gerektiriyorsa grup çizimi, trim şeması, montaj ve bakım talimatları, basınç deneyi kaydı, malzeme bilgisi ve güncel onay veya listeleme belgelerini isteyin.</li>
+				<li><strong>Kabul deneyini belirleyin.</strong> Hedef açılma süresini, alarm sinyallerini, uzak çıkış gözlemini, yeniden kurulum prosedürünü ve açılma deneyinden sonra gerekli kayıtları tanımlayın.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Daha geniş bir tedarik çerçevesi için yukarıdaki ilgili kılavuzlarla birlikte <a href="/tr/fire-sprinkler-systems/" class="text-brand-blue font-semibold hover:underline">yangın sprinkler sistemleri genel bakışını</a> kullanın. Eksiksiz bir RFQ, Wanlian'ın dedektör yerleşimini veya yangın alarm panelinin tamamını tasarlıyormuş gibi davranmadan vana grubunu doğrulamasını sağlar. Böylece tedarik sorumlulukları daha net ayrılır, hidrolik kontrol daha güvenilir olur ve devreye alma sırasında daha az değişiklik gerekir.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sıkça Sorulan Sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Sisteminiz için Delüj Vana Grubuna mı İhtiyacınız Var?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Sistem debisini ve basıncını, vana ölçüsünü, tehlike tipini ve algılama yöntemini gönderin; mühendislerimiz delüj vana grubu konfigürasyonunu 12 saat içinde doğrulayabilir.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=Del%C3%BCj%20Alarm%20Vanas%C4%B1%20Grubu%20(ZSFM)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif İsteyin</a>
+						<a href="https://wa.me/8618684324501?text=Merhaba%2C%20a%C3%A7%C4%B1k%20sprinklere%20veya%20monit%C3%B6r%20sistemine%20y%C3%B6nelik%20bir%20del%C3%BCj%20vanas%C4%B1%20grubuna%20ihtiyac%C4%B1m%20var." class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp'tan Yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,187 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Di mana letak perbedaan biaya antara sistem busa deluge dan sistem deluge air biasa?',
+		answer: 'Sistem busa deluge menambahkan persediaan konsentrat, perangkat proporsi, perangkat discharge yang kompatibel dan uji komisioning di atas katup deluge dan jaringan airnya. Konsentrat, tata letak penyimpanan, ketentuan pembilasan dan pembuangan larutan uji juga memengaruhi biaya siklus hidup. Sistem deluge air biasa mungkin memadai untuk bahaya Kelas A, tetapi air saja bukan pengganti busa pada permukaan cairan mudah terbakar yang sedang terbakar.'
+	},
+	{
+		question: 'Bagaimana memilih antara tangki membran (bladder tank) dan ejector in-line?',
+		answer: 'Tangki membran adalah pilihan praktis bila diperlukan cadangan konsentrat khusus dan rentang proporsi yang terprediksi tanpa pompa ukur elektrik. Ejector in-line ringkas dan memakai aliran air untuk menarik konsentrat, tetapi rentang aliran dan tekanan operasinya harus cocok dengan kebutuhan bahaya. Konfirmasi sampul hidrolik, ruang tersedia, metode pengisian ulang dan rasio 3% atau 6% yang disyaratkan bersama perencana proteksi kebakaran.'
+	},
+	{
+		question: 'Apa saja yang harus diganti saat sistem AFFF lama dikonversi ke F3?',
+		answer: 'Jangan berasumsi cukup mengganti drum-nya saja dengan aman. Konsentrat, proportioner, material membran atau tangki, seal, perangkat busa, tata letak air bilas dan prosedur ujinya harus diperiksa sebagai satu paket kompatibel. Pipa yang ada mungkin dapat dipakai kembali setelah pembersihan, tetapi residu AFFF dan campuran konsentrat dapat mengubah performa. Mintakan pernyataan kompatibilitas dari produsen F3 dan dapatkan persetujuan otoritas berwenang atas konversi tersebut.'
+	},
+	{
+		question: 'Bagaimana memverifikasi rasio campuran busa di lapangan?',
+		answer: 'Selama uji discharge terkendali, ukur aliran air dan konsentrat atau gunakan metode sampling dan analisis yang disetujui untuk proportioner dan konsentrat yang dipasok. Bandingkan hasil ukur dengan rasio desain, umumnya 3% atau 6%, di rentang aliran operasi yang relevan. Catat kualitas air, tekanan, suhu, titik sampling dan batch konsentrat; selimut busa visual saja tidak membuktikan akurasi proporsi.'
+	},
+	{
+		question: 'Bisakah konsentrat busa diganti, dan apa risiko kompatibilitasnya?',
+		answer: 'Perlakukan pergantian konsentrat sebagai perubahan rekayasa, bukan pembelian pengganti sederhana. AFFF, AR-AFFF, FFFP dan konsentrat bebas fluoro karbon dapat memiliki viskositas, ekspansi, drainase dan persyaratan kompatibilitas material yang berbeda. Jangan mencampur produk dalam satu tangki atau proportioner kecuali kedua produsen menyetujuinya. Bilas, periksa dan verifikasi ulang sistem lengkap sebelum mengoperasikan konsentrat baru.'
+	},
+	{
+		question: 'Bagaimana melindungi sistem busa deluge di lingkungan dingin?',
+		answer: 'Lindungi pipa, katup berisi air dan perangkat konsentrat dari pembekuan sesuai iklim lokasi dan desain yang disetujui. Opsinya dapat mencakup bagian kering atau pre-action, heat tracing, ruang berinsulasi, tata letak anti-beku yang terdaftar bila diizinkan, dan konsentrat dengan rating suhu rendah yang sesuai. Konfirmasi suhu penyimpanan konsentrat dan tata letak trip deluge dengan perencana sistem; jangan mengencerkan konsentrat dengan anti-beku yang tidak disetujui.'
+	}
+];
+
+const toc = [
+	{ id: 'why-foam', label: '1. Kapan Busa Mengungguli Air' },
+	{ id: 'anatomy', label: '2. Anatomi Sistem Busa Deluge' },
+	{ id: 'proportioning', label: '3. Perbandingan Opsi Proporsi' },
+	{ id: 'concentrate', label: '4. Memilih Konsentrat Busa' },
+	{ id: 'discharge', label: '5. Perangkat Discharge: Head Semprot, Monitor dan Kabinet' },
+	{ id: 'testing', label: '6. Komisioning dan Uji Lapangan' },
+	{ id: 'rfq-checklist', label: '7. Checklist RFQ Sistem Busa' },
+	{ id: 'faq', label: 'Pertanyaan yang Sering Diajukan' }
+];
+
+const products = [
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Rakitan Katup Alarm Deluge (Seri ZSFM)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'Katup deluge buka-cepat di depan perangkat discharge busa' },
+	{ slug: 'foam-fire-hydrant-cabinet-psg30', name: 'Kabinet Hidran Busa Kebakaran (Seri PSG30)', img: '/assets/products/foam-fire-hydrant-cabinet-psg30.webp', desc: 'Stasiun busa pra-campur 3% dengan antarmuka selang dan monitor' },
+	{ slug: 'manual-fire-water-cannon-ps', name: 'Monitor Air Kebakaran Manual (Seri PS)', img: '/assets/products/manual-fire-water-cannon-ps.webp', desc: 'Monitor tetap, nozzle jet/sempuran kompatibel busa' },
+	{ slug: 'adjustable-pistol-grip-fire-nozzle', name: 'Nozzle Kebakaran Pistol Grip yang Dapat Disetel', img: '/assets/products/adjustable-pistol-grip-fire-nozzle.jpg', desc: 'Nozzle handline untuk aplikasi busa via selang' }
+];
+---
+
+<Layout
+	title="Panduan Sistem Busa Deluge dan Semprot Busa-Air (2026)"
+	description="Sistem busa deluge dan semprot busa-air untuk risiko Kelas B: katup deluge, opsi proporsi, konsentrat, perangkat discharge dan uji lapangan."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Panduan', href: '/id/blog/' }, { name: 'Panduan Sistem Busa Deluge' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/id/" class="hover:text-blue-600">Beranda</a>
+			<span>/</span>
+			<a href="/id/blog/" class="hover:text-blue-600">Panduan</a>
+			<span>/</span>
+			<span class="text-gray-600">Panduan Sistem Busa Deluge</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Panduan Sistem Busa</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Sistem Busa Deluge dan Semprot Busa-Air: Panduan Pemilihan dan Ukuran</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Intinya: busa deluge melindungi bahaya cairan Kelas B dengan membuka katup deluge, memproporsikan konsentrat busa ke dalam aliran air kebakaran, dan mengirimkan larutan jadi ke head semprot terbuka, monitor atau stasiun selang. Desain yang tepat dimulai dari bahan bakar, area aplikasi yang disyaratkan dan konsentrat yang disetujui, lalu memeriksa proportioner, trim katup, pola discharge, drainase dan rencana uji lapangan sebagai satu sistem.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/id/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-foam" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Kapan Busa Mengungguli Air</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Busa dipilih ketika bahan bakarnya adalah cairan mudah terbakar dan tujuan desainnya mengendalikan pelepasan uap sekaligus api. Lokasi Kelas B yang khas termasuk tank farm, penyimpanan bahan bakar, hanggar pesawat, ruang semprot cat, area pelarut dan ruang proses kimia. Air yang dialirkan saja dapat tenggelam di bawah atau menyebarkan cairan yang terbakar, dan jet berkecepatan tinggi dapat mencipratkan bahan bakar melewati tumpahan awalnya. Selimut busa low-expansion yang tepat memilih memisahkan permukaan cairan dari udara dan membantu menekan pelepasan uap.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Sistem semprot busa-air bukan sekadar sistem deluge air dengan drum busa di dekatnya. Kebutuhan air, perangkat aplikasi, persentase konsentrat, drainase dan durasi discharge harus dikoordinasikan. Sistem deteksi biasanya menginisiasi urutannya: deteksi melepas trim, katup deluge membuka, air mencapai perangkat discharge terbuka dan proporsi memasukkan konsentrat. Larutan jadi lalu menutupi bahaya pada pola dan densitas yang dispesifikasi.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Kelas Kebakaran</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Bahan Bakar Khas</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Agen Paling Efektif</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Kecocokan Busa Deluge</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Kelas A</td><td class="px-4 py-3 text-gray-700">Kayu, kertas, tekstil, plastik</td><td class="px-4 py-3 text-gray-700">Air, busa, bubuk ABC</td><td class="px-4 py-3 text-gray-700">Umumnya air dulu</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Kelas B</td><td class="px-4 py-3 text-gray-700">Bensin, oli, pelarut, cat</td><td class="px-4 py-3 text-gray-700">Bubuk ABC, busa, CO2</td><td class="px-4 py-3 text-gray-700">Kegunaan sistem tetap utama</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Kelas C</td><td class="px-4 py-3 text-gray-700">Propana, butana, metana, LPG</td><td class="px-4 py-3 text-gray-700">Bubuk ABC (putuskan suplai dulu)</td><td class="px-4 py-3 text-gray-700">Bukan pengganti isolasi gas</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Kelas E</td><td class="px-4 py-3 text-gray-700">Peralatan listrik bertegangan</td><td class="px-4 py-3 text-gray-700">CO2, bubuk ABC (non-konduktif)</td><td class="px-4 py-3 text-gray-700">Konfirmasi strategi kelistrikan</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Kelas F</td><td class="px-4 py-3 text-gray-700">Minyak dan lemak masak</td><td class="px-4 py-3 text-gray-700">Chemical basah</td><td class="px-4 py-3 text-gray-700">Tidak direkomendasikan</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Kelas D</td><td class="px-4 py-3 text-gray-700">Logam mudah terbakar (Mg, Na)</td><td class="px-4 py-3 text-gray-700">Bubuk logam khusus</td><td class="px-4 py-3 text-gray-700">Tidak cocok</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="anatomy" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Anatomi Sistem Busa Deluge</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Rakitan intinya punya lima zona yang terkoordinasi. Pertama adalah rangkaian suplai dan kontrol air, termasuk <a href="/id/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">rakitan katup alarm deluge ZSFM</a>, trim, drain dan titik supervisi. Kedua adalah deteksi dan pelepasan: tata letak deteksi panas, api, asap atau linear mengirim sinyal pelepasan yang membuka katup sebelum head terbuka mendischarge. Ketiga adalah penyimpanan konsentrat, yang bisa berupa tangki membran atau bejana lain yang disetujui. Keempat adalah perangkat proporsi beserta katup isolasi, periksa dan ujinya. Kelima adalah jaringan discharge terbuka, termasuk head semprot, monitor dan kabinet selang.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Katup deluge normalnya tertutup di sisi air dan pipa hilirnya normal kering atau ditahan dalam tata letak yang dispesifikasiikan proyek. Ketika trim pelepasan bekerja, katup membuka cepat dan mengirim air ke semua perangkat terbuka di zona terlindungi. Sebuah <a href="/id/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">sistem alarm pre-action ZSFY</a> dapat dipertimbangkan bila proyek mensyaratkan urutan pelepasan tersupervisi dan risiko discharge tak sengaja yang lebih rendah, tetapi perencana harus memastikan apakah urutan operasinya cocok dengan tujuan aplikasi busa.</p>
+			<p class="text-gray-700 leading-relaxed">Jaga batas sistem jelas di RFQ. Wanlian memasok rakitan katup deluge, katup untuk paket proporsi busa, kabinet busa, monitor dan nozzle. Konsentrat busa dapat dibantu melalui kanal pasokan, tetapi tidak diproduksi sendiri oleh Wanlian; nyatakan merek konsentrat, sertifikat dan tanggung jawab kompatibilitasnya secara terpisah.</p>
+
+			<h2 id="proportioning" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Perbandingan Opsi Proporsi</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Proporsi adalah titik kontrol yang menentukan apakah air menjadi larutan busa yang dispesifikasiikan. Rasio desain umum adalah 3% dan 6%, tetapi rasio yang benar ditetapkan oleh persetujuan konsentrat dan desain bahaya, bukan preferensi pembeli. Tabel di bawah membandingkan tiga tata letak yang paling sering dibahas selama pengadaan.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50"><tr><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Opsi</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Cara kerja</th><th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Kecocokan terbaik dan yang perlu diwaspadai</th></tr></thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Tangki membran</td><td class="px-4 py-3 text-gray-700">Tekanan air mengempiskan membran konsentrat fleksibel dan mendorong konsentrat ke proportioner.</td><td class="px-4 py-3 text-gray-700">Cadangan khusus dan familiaritas proyek yang luas; butuh ruang, perencanaan isi ulang dan kompatibilitas tangki-konsentrat terverifikasi.</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Ejector in-line</td><td class="px-4 py-3 text-gray-700">Venturi bertenaga air menarik konsentrat dari wadah saat air melewati ejector.</td><td class="px-4 py-3 text-gray-700">Ringkas dan sederhana untuk rentang aliran tertentu; rugi tekanan dan aliran operasi minimum dapat membatasi pemilihan.</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Proporsior around-pump</td><td class="px-4 py-3 text-gray-700">Sirkuit pompa khusus dengan tata letak tekanan lebih (pressure-relief) atau pengembalian mengukur konsentrat mengelilingi pompa air.</td><td class="px-4 py-3 text-gray-700">Berguna untuk sistem lebih besar atau aliran bervariasi; membutuhkan kontrol pompa, logika relief dan koordinasi komisioning lebih banyak.</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Untuk latar hidrolik lebih lanjut, bandingkan proyek dengan <a href="/id/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">panduan pemilihan katup deluge</a> kami sebelum memilih tangki atau ejector — proporsi bekerja di hilir katup deluge dan aliran kontrolnya mengikuti dasar yang sama. Mintakan aliran minimum dan maksimum, tekanan masuk, viskositas konsentrat yang diharapkan, suhu operasi dan koneksi uji. Masukan itu lebih berguna daripada ukuran pipa nominal saja.</p>
+
+			<h2 id="concentrate" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Memilih Konsentrat Busa</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Mulai dari kimia bahan bakarnya. AFFF punya aksi pembentuk film yang cepat pada banyak bahan bakar hidrokarbon, tetapi mengandung PFAS. Banyak yurisdiksi kini membatasi atau mengkaji ulang konsentrat PFAS tipe AFFF; konfirmasi aturan lokal dan pertimbangkan alternatif bebas fluoro (F3). AR-AFFF dirancang untuk pelarut polar, di mana selimut tahan alkohol dibutuhkan. FFFP dan formula lain punya bukti aplikasi, ekspansi dan drainasenya sendiri. Jangan memilih dari akronim saja: mintakan lembar data produk terkini, cakupan persetujuan dan instruksi pencampurannya.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Umur simpan konsentrat adalah apa pun yang dinyatakan sertifikat produsen untuk kondisi penyimpanan yang dispesifikasiikan. Hindari memasukkan tanggal kedaluwarsa karangan ke dalam pesanan pembelian. Catat nomor batch, tanggal produksi, suhu penyimpanan dan metode inspeksi, dan pastikan tangki, membran, seal, proportioner dan perangkat discharge disetujui untuk produk pilihan. Konsentrat yang benar secara kimia tetapi tidak kompatibel dengan peralatan bukan desain yang patuh.</p>
+			<p class="text-gray-700 leading-relaxed">Konversi F3 layak mendapat tinjauan rekayasa terdokumentasi. Pipa yang ada mungkin dapat dipertahankan setelah pembersihan dan inspeksi, tetapi residu AFFF, kompatibilitas elastomer, kalibrasi proportioner dan performa perangkat busa semuanya butuh konfirmasi. Pemasok busa, perencana sistem dan otoritas berwenang harus menyepakati perubahan sebelum konsentrat lama dikuras.</p>
+
+			<h2 id="discharge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Perangkat Discharge: Head Semprot, Monitor dan Kabinet</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Head semprot busa terbuka dipilih untuk cakupan, distribusi droplet, halangan dan densitas aplikasi. Head cocok untuk zona deluge tetap di mana geometri bahayanya diketahui. Monitor menambah jangkauan dan kontrol arah untuk tanggki timbun, area pemuatan dan risiko terbuka besar; <a href="/id/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">monitor air kebakaran manual Seri PS</a> dapat dispesifikasiikan dengan nozzle jet/sempuran yang kompatibel busa setelah proyek mengonfirmasi persyaratan aliran dan jangkauannya.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Stasiun selang mendukung intervensi manual dan aplikasi tambahan, tetapi tidak boleh diperlakukan sebagai pengganti cakupan otomatis di mana penilaian risiko mensyaratkan proteksi tetap. <a href="/id/products/foam-fire-hydrant-cabinet-psg30/" class="text-brand-blue font-semibold hover:underline">Kabinet hidran busa PSG30</a> memaketkan stasiun busa pra-campur 3% dengan antarmuka selang dan monitor. Untuk handline, <a href="/id/products/adjustable-pistol-grip-fire-nozzle/" class="text-brand-blue font-semibold hover:underline">nozzle pistol grip yang dapat disetel</a> menyediakan aplikasi terpilih di ujung selang; verifikasi bahwa seal dan rentang aliran cocok dengan larutan busa jadi.</p>
+			<p class="text-gray-700 leading-relaxed">Gunakan <a href="/id/guides/fire-water-monitor-selection-guide/" class="text-brand-blue font-semibold hover:underline">panduan pemilihan monitor air kebakaran</a> yang terpisah untuk pertanyaan jangkauan monitor, pola nozzle dan dudukan. juga koordinasikan <a href="/id/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">panduan pemilihan katup deluge</a> dengan paket busa: trim katup, tekanan pelepasan, outlet alarm dan tata letak drain harus bekerja bersama. Drainase sangat penting karena uji atau discharge nyata dapat menghasilkan volume larutan busa besar yang tidak boleh sekadar masuk ke drainase badai.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Komisioning dan Uji Lapangan</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Komisioning membuktikan rantai penuh dari deteksi sampai discharge. Bilas pipa air dan konsentrat sesuai prosedur yang disetujui, singkirkan sisa konstruksi, verifikasi orientasi trim katup dan pastikan setiap perangkat terbuka adalah model dan orifice yang dimaksud. Uji trip katup deluge harus memverifikasi deteksi atau pelepasan manual, pembukaan katup, alarm motor air atau sinyal elektrik, tekanan hilir dan reset. Gunakan kerangka NFPA 11 dan EN 12845 bila berlaku, bersama persyaratan otoritas lokal dan instruksi produsen konsentrat.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Ukur rasio campuran.</strong> Uji larutan jadi di rentang aliran yang disetujui dan konfirmasi hasilnya terhadap nilai desain 3% atau 6%.</li>
+				<li><strong>Periksa kualitas busa.</strong> Ukur ekspansi dan waktu drainase 25% memakai metode uji yang disyaratkan untuk konsentrat yang dipasok dan persetujuannya; jangan mengarang batas penerimaan dari produk lain.</li>
+				<li><strong>Buktikan urutan trip.</strong> Catat masukan deteksi, waktu pembukaan katup deluge, alarm, pembacaan tekanan dan prosedur reset.</li>
+				<li><strong>Inspeksi pola discharge.</strong> Konfirmasi cakupan head semprot, pergerakan monitor, kondisi selang kabinet dan pola nozzle tanpa mengekspos personel ke bahaya tak terkendali.</li>
+				<li><strong>Dokumentasikan hasilnya.</strong> Simpan kualitas air, batch konsentrat, suhu, aliran, tekanan, sampel, foto dan tindakan korektif bersama berkas O&amp;M.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Uji trip fungsional tanpa verifikasi campuran dapat melewatkan katup konsentrat tertutup, tangki kosong, ejector tersumbat atau konsentrat tak kompatibel. Rencanakan pengumpulan dan pembuangan air uji sebelum kontraktor tiba. Ulangi inspeksi pada interval yang disyaratkan dokumen proyek dan sertifikat konsentrat.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Checklist RFQ Sistem Busa</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">RFQ yang berguna memberi pemasok cukup informasi untuk memeriksa hidrolik alih-alih menebak dari nama produk. Sertakan hal berikut dalam satu gambar bertanda atau jadwal peralatan:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Bahaya dan bahan bakar:</strong> hidrokarbon atau pelarut polar, tinggi penyimpanan, geometri tanggul, skenario tumpahan dan apakah paparan berdekatan butuh pendinginan.</li>
+				<li><strong>Kebutuhan desain:</strong> area terlindungi, densitas aplikasi, durasi desain, zona simultan, aliran air dan tekanan tersedia di inlet proportioner.</li>
+				<li><strong>Konsentrat:</strong> produsen, formula, rasio 3% atau 6%, dokumen persetujuan, suhu penyimpanan, informasi batch dan apakah konversi F3 terlibat.</li>
+				<li><strong>Cakupan peralatan:</strong> rakitan katup deluge ZSFM, tipe proportioner, volume tangki, katup isolasi dan uji, head terbuka, monitor, kabinet, nozzle dan antarmuka deteksi.</li>
+				<li><strong>Material dan antarmuka:</strong> ukuran pipa, standar flens, material basah, elastomer, tegangan elektrik, kontak alarm dan persyaratan area berbahaya.</li>
+				<li><strong>Pengujian dan dokumen:</strong> rencana pembilasan, uji trip, metode rasio campuran, uji ekspansi dan drainase, sertifikat, gambar, seal cadangan dan instruksi O&amp;M.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Untuk proyek Eropa, tinjau <a href="/id/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">panduan kepatuhan CE dan EN 12845</a> terkait, sambil tetap mengonfirmasi standar busa spesifik dan persyaratan otoritas untuk bahaya tersebut. Bila cakupan termasuk monitor air terpisah, <a href="/id/fire-water-cannon/" class="text-brand-blue font-semibold hover:underline">lini produk meriam air kebakaran</a> dapat dipertimbangkan berdampingan dengan desain semprot tetap. Wanlian dapat menghargai bagian katup dan peralatan discharge dari jadwal dan mengidentifikasi item konsentrat mana yang butuh mitra kanal yang disetujui.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Pertanyaan yang Sering Diajukan</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Butuh Penawaran Sistem Busa Deluge?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Kirimkan tipe bahan bakar, area terlindungi, aliran dan tekanan desain, rasio konsentrat, preferensi proporsi dan perangkat discharge. Wanlian dapat meninjau katup deluge, paket busa, monitor, kabinet dan cakupan nozzle untuk proyek Anda.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/id/contact/?product=Sistem%20Busa%20Deluge" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Minta Penawaran</a>
+						<a href="https://wa.me/8618684324501?text=Halo%2C%20saya%20membutuhkan%20penawaran%20sistem%20busa%20deluge" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat di WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

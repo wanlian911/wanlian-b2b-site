@@ -15,6 +15,56 @@ const category = {
 
 export const guidesPt: Guide[] = [
   {
+    title: 'Guia de Dimensionamento e Seleção de Válvulas de Dilúvio',
+    description: 'Como funciona a válvula de dilúvio ZSFM: dimensionamento, vazão, tempo de disparo, acionamento, layout, ensaios e dados para RFQ.',
+    href: '/pt/guides/deluge-valve-selection-guide/',
+    tocPreview: ["1. Quando um sistema precisa de proteção por dilúvio", "2. Como funciona o grupo de válvula de dilúvio ZSFM", "3. Escolhendo o método de acionamento"],
+    date: '2026-10',
+    category: 'Proteção contra Incêndio',
+    readTime: readTime('9'),
+    tags: ['sprinkler-systems', 'fire-protection']
+  },
+  {
+    title: 'AWWA C509 vs EN 14461: Guia de Hidrantes',
+    description: 'Compare hidrantes AWWA C509 e EN 14461: pressão, saídas, materiais, ensaios de tipo e como especificar um hidrante aceito pela AHJ.',
+    href: '/pt/guides/awwa-c509-vs-en-14461-fire-hydrants/',
+    tocPreview: ["1. Qual norma sua especificação realmente exige", "2. Pressão nominal e profundidade de instalação", "3. Configuração das saídas e padrões de união"],
+    date: '2026-10',
+    category: 'Proteção contra Incêndio',
+    readTime: readTime('9'),
+    tags: ['fire-hydrant', 'procurement']
+  },
+  {
+    title: 'Sucção de Bomba e Reservatório de Incêndio',
+    description: 'Dimensionamento do reservatório, duas sucções, vórtice, escorva e controle de nível para sucção de bomba contra incêndio.',
+    href: '/pt/guides/fire-pump-suction-water-tank-guide/',
+    tocPreview: ["1. De onde vem o volume de água contra incêndio", "2. Dimensionamento da reserva de água contra incêndio", "3. Regra das duas sucções e penetrações no reservatório"],
+    date: '2026-10',
+    category: 'Proteção contra Incêndio',
+    readTime: readTime('9'),
+    tags: ['fire-protection', 'industrial-valves']
+  },
+  {
+    title: 'Como Comparar Cotações de Fornecedores Chineses',
+    description: 'Guia B2B para RFQs de válvulas na China: especificações, diferenças de cotação, custos ocultos, avaliação e verificações antes do pedido.',
+    href: '/pt/guides/china-valve-supplier-quote-guide/',
+    tocPreview: ["1. Por que duas cotações para a mesma válvula diferem", "2. Como redigir uma RFQ para obter cotações precisas", "3. Como ler a cotação linha a linha"],
+    date: '2026-10',
+    category: 'Compras B2B',
+    readTime: readTime('9'),
+    tags: ['procurement', 'certification']
+  },
+  {
+    title: 'Guia de sistemas de espuma por dilúvio (2026)',
+    description: 'Sistemas de espuma e água para riscos de classe B: válvula de dilúvio, proporcionamento, concentrados, dispositivos de descarga e testes em campo.',
+    href: '/pt/guides/foam-deluge-system-guide/',
+    tocPreview: ["1. Quando a espuma supera a água", "2. Anatomia de um sistema de espuma por dilúvio", "3. Comparação das opções de proporcionamento"],
+    date: '2026-10',
+    category: 'Proteção contra Incêndio',
+    readTime: readTime('9'),
+    tags: ['fire-protection', 'sprinkler-systems']
+  },
+  {
     title: 'Prevenção de Refluxo em Redes de Proteção contra Incêndio e Água Potável (Guia 2026)',
     description: 'Por que dispositivos anti-retorno são obrigatórios em redes de uso duplo, como funcionam as válvulas de retenção dupla HS41X, controle de conexões cruzadas e checklist de seleção para compradores B2B.',
     href: '/pt/guides/backflow-prevention-guide/', date: '2026-08', category: category.hydraulic, readTime: readTime('8'),

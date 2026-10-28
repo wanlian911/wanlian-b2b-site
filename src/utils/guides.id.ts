@@ -7,6 +7,56 @@ const readTime = (min: string) => `${min} mnt membaca`;
 
 export const guidesId: Guide[] = [
   {
+    title: 'Panduan Pemilihan Katup Deluge 2026',
+    description: 'Panduan memilih katup deluge ZSFM: aliran, waktu trip, aktuasi, sprinkler terbuka, monitor, pengujian, dan data RFQ untuk proyek industri.',
+    href: '/id/guides/deluge-valve-selection-guide/',
+    tocPreview: ["1. Kapan Sistem Memerlukan Perlindungan Deluge", "2. Cara Kerja Rakitan Katup Deluge ZSFM", "3. Memilih Metode Aktuasi"],
+    date: '2026-10',
+    category: 'Fire Protection',
+    readTime: readTime('9'),
+    tags: ['sprinkler-systems', 'fire-protection']
+  },
+  {
+    title: 'AWWA C509 vs EN 14461: Perbandingan Hidran (2026)',
+    description: 'Perbandingan hidran AWWA C509 dan EN 14461: kelas tekanan, outlet, material, uji tipe, dan cara menyusun spesifikasi hidran yang diterima AHJ.',
+    href: '/id/guides/awwa-c509-vs-en-14461-fire-hydrants/',
+    tocPreview: ["1. Standar yang Sebenarnya Dipakai Spesifikasi", "2. Tekanan Nominal dan Kedalaman Pemasangan", "3. Susunan Outlet dan Pola Kopling"],
+    date: '2026-10',
+    category: 'Fire Protection',
+    readTime: readTime('9'),
+    tags: ['fire-hydrant', 'procurement']
+  },
+  {
+    title: 'Hisap Pompa dan Tandon Air Kebakaran (2026)',
+    description: 'Panduan ukuran tandon air pemadam, aturan dua jalur hisap, pencegah pusaran, pengisian awal, dan kontrol level yang sesuai.',
+    href: '/id/guides/fire-pump-suction-water-tank-guide/',
+    tocPreview: ["1. Sumber Volume Air Pemadam", "2. Menentukan Ukuran Cadangan Air Pemadam", "3. Aturan Dua Jalur Hisap dan Penetrasi Tandon"],
+    date: '2026-10',
+    category: 'Fire Protection',
+    readTime: readTime('9'),
+    tags: ['fire-protection', 'industrial-valves']
+  },
+  {
+    title: 'Cara Membandingkan Penawaran Pemasok Klep Cina (2026)',
+    description: 'Panduan pengadaan untuk RFQ ke pabrik klep Tiongkok: yang harus dispesifikasi, perbedaan penawaran, biaya tersembunyi, skoring dan verifikasi.',
+    href: '/id/guides/china-valve-supplier-quote-guide/',
+    tocPreview: ["1. Mengapa Dua Penawaran untuk Klep yang Sama Berbeda", "2. Menyusun RFQ yang Menghasilkan Penawaran Akurat", "3. Membaca Penawaran Baris demi Baris"],
+    date: '2026-10',
+    category: 'Procurement',
+    readTime: readTime('9'),
+    tags: ['procurement', 'certification']
+  },
+  {
+    title: 'Panduan Sistem Busa Deluge dan Semprot Busa-Air (2026)',
+    description: 'Sistem busa deluge dan semprot busa-air untuk risiko Kelas B: katup deluge, opsi proporsi, konsentrat, perangkat discharge dan uji lapangan.',
+    href: '/id/guides/foam-deluge-system-guide/',
+    tocPreview: ["1. Kapan Busa Mengungguli Air", "2. Anatomi Sistem Busa Deluge", "3. Perbandingan Opsi Proporsi"],
+    date: '2026-10',
+    category: 'Fire Protection',
+    readTime: readTime('9'),
+    tags: ['fire-protection', 'sprinkler-systems']
+  },
+  {
     title: 'Panduan Pencegahan Aliran Balik untuk Air Minum',
     description: 'Panduan pencegahan aliran balik pada jaringan air minum dan kebakaran: kelas bahaya, HS41X, ukuran, kehilangan tekanan, uji, dan kepatuhan proyek.',
     href: '/id/guides/backflow-prevention-guide/',

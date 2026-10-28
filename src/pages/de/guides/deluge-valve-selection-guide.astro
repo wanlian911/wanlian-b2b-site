@@ -1,0 +1,188 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Was ist der Hauptunterschied zwischen einem Sprühflutventil und einem Pre-Action-Ventil?',
+		answer: 'Eine Sprühflutanlage hat offene Sprinkler oder Düsen, sodass das Öffnen des Sprühflutventils gleichzeitig Wasser zu jeder Auslassstelle leitet. Eine Pre-Action-Anlage verfügt normalerweise über geschlossene Sprinkler und nutzt eine Branderkennung, um ein Steuerungsventil zu öffnen, bevor ein Sprinkler Wasser abgibt. Sprühflut wird für eine schnelle, gleichzeitige Abdeckung gewählt; Pre-Action dort, wo eine unbeabsichtigte Wasserabgabe begrenzt werden muss. Bestätigen Sie die erforderliche Verriegelung und Abfolge anhand der geltenden Fassung.'
+	},
+	{
+		question: 'Soll das Sprühflutventil elektrisch oder hydraulisch ausgelöst werden?',
+		answer: 'Wählen Sie die Auslöseart anhand der Auslegung der Branderkennung, der Anforderungen des Gefahrenbereichs, der verfügbaren Energieversorgung und der erforderlichen ausfallsicheren Abfolge. Eine elektrische Auslösung ist zweckmäßig, wenn Brandmelderzentrale und überwachte Magnetventilleitung bereits spezifiziert sind. Eine hydraulische oder pneumatische Auslösung eignet sich für Anlagen mit eigener Druckleitung oder bevorzugter pneumatischer Erkennung. Wanlian liefert die Ventilgruppe und kompatibles Zubehör; die Abfolge der Erkennungs- und Steuerzentrale muss vom Anlagenplaner bestätigt werden.'
+	},
+	{
+		question: 'Wie wird eine Sprühflutanlage in kaltem Klima geschützt?',
+		answer: 'Halten Sie die Sprühflutventilgruppe und die Innengarnitur möglichst in einem beheizten, zugänglichen Raum und vermeiden Sie wassergefüllte, ungeschützte Rohrleitungen bei Frostgefahr. Sehen Sie eine Kondensatsammlung und Entwässerung für die Erkennungsgarnitur vor, isolieren Sie gefährdete Abschnitte und verwenden Sie bei entsprechender Auslegung eine zugelassene Trocken- oder Pneumatikanordnung. Ersetzen Sie die Garnitur nicht durch Frostschutzmittel und ändern Sie sie nicht ohne Zustimmung der zuständigen Stelle. Bestätigen Sie das Frostschutzverfahren anhand der geltenden Fassung.'
+	},
+	{
+		question: 'Wie lässt sich die Erkennungsleitung gegen unbeabsichtigtes Auslösen schützen?',
+		answer: 'Trennen Sie die Erkennungsleitung von normalen Betriebssteuerungen, überwachen Sie ihren Druck oder Schaltungsstatus, schützen Sie außenliegende Geräte vor Stößen und verwenden Sie die für die Gefährdung vorgeschriebene Auslöseabfolge der Steuerzentrale. Eine manuelle Auslösung sollte geschützt, aber zugänglich sein; Prüfanschlüsse müssen eindeutig gekennzeichnet und nach der Prüfung wiederhergestellt werden. Hydraulische, pneumatische und elektrische Erkennung benötigen jeweils eine eigene Alarm- und Störungsüberwachung. Die endgültige Ursache-Wirkungs-Matrix sollte vor der Inbetriebnahme genehmigt werden.'
+	},
+	{
+		question: 'Welche Angaben gehören in eine Anfrage für ein Sprühflutventil?',
+		answer: 'Senden Sie die Beschreibung der Gefährdung, die geschützte Fläche, Auslegungsdurchfluss und -druck, Ventilnennweite und Endanschluss, die Anordnung offener Sprinkler oder Monitore, die Erkennungsmethode, die erforderliche Auslöseabfolge, die Umgebungstemperatur, die Entwässerung und die geltende Normenausgabe. Fordern Sie außerdem Garniturzeichnungen, Werkstoffdaten, Druckprüfberichte, Ersatzteilinformationen und Betriebsanweisungen an. Wenn eine Listung oder Zulassung erforderlich ist, geben Sie dies ausdrücklich an und bitten Sie den Lieferanten, die aktuelle Dokumentation zu bestätigen.'
+	},
+	{
+		question: 'Liefert Wanlian die Erkennungs- und Steuerzentrale für die Sprühflutanlage?',
+		answer: 'Wanlian liefert Sprühflutventilgruppen sowie zugehörige Ventile und Überwachungszubehör, einschließlich der ZSFM-Gruppe und geeigneter Absperr- oder Steuerungskomponenten. Eine Erkennungs- und Steuerzentrale wird nicht als Bestandteil des Standardventilpakets dargestellt, wenn sie nicht mitgeliefert wird. Auslösezentrale, Melder und Ursache-Wirkungs-Programmierung sollten mit dem Brandmelde- oder spezialisierten Erkennungsunternehmen spezifiziert und anschließend mit Ventilgarnitur und Anlagenabfolge abgeglichen werden.'
+	}
+];
+
+const toc = [
+	{ id: 'when-deluge', label: '1. Wann eine Anlage Sprühflutschutz benötigt' },
+	{ id: 'how-it-works', label: '2. Funktionsweise der ZSFM-Sprühflutventilgruppe' },
+	{ id: 'actuation', label: '3. Auswahl der Auslöseart' },
+	{ id: 'sizing', label: '4. Dimensionierung nach Durchfluss und Auslösezeit' },
+	{ id: 'discharge', label: '5. Offene Sprinkler, Monitore und Auslassanordnung' },
+	{ id: 'testing', label: '6. Inbetriebnahme und regelmäßige Prüfung' },
+	{ id: 'rfq-checklist', label: '7. Checkliste für die Sprühflutventil-Anfrage' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const products = [
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Sprühflut-Alarmventilgruppe (ZSFM-Serie)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'Sprühflutventilgruppe mit nasser Unterseite für Anlagen mit offenen Sprinklern und Monitoren' },
+	{ slug: 'pre-action-alarm-system-zsfy', name: 'Pre-Action-Sprühflutalarmsystem (ZSFY-Serie)', img: '/assets/products/pre-action-alarm-system-zsfy.jpg', desc: 'Pre-Action-Baugruppen mit einfacher und doppelter Verriegelung' },
+	{ slug: 'manual-fire-water-cannon-ps', name: 'Manueller Feuerlöschmonitor (PS-Serie)', img: '/assets/products/manual-fire-water-cannon-ps.webp', desc: 'Fester Monitor für Sprühflut- und Monitorauslassaufgaben' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM-Absperrschieber mit elastischem Sitz OS&amp;Y', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"–10", genutete Enden, steigende Spindel, UL/FM-gelistet' }
+];
+---
+
+<Layout
+	title="Sprühflutventil: Dimensionierung und Auswahl (2026)"
+	description="ZSFM-Sprühflutventil: Funktionsweise, Dimensionierung, Auslösung, offene Sprinkler und Monitore, Prüfung sowie Angaben für die B2B-Anfrage."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Leitfaden zur Sprühflutventilauswahl' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Leitfaden zur Sprühflutventilauswahl</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden zu Sprühflutventilen</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Sprühflutventile dimensionieren und auswählen: Anlagen mit offenen Sprinklern und Monitoren</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kurz gesagt: Ein Sprühflutventil ist das kontrollierte Tor zwischen einer druckbeaufschlagten Wasserversorgung und einem Netz aus offenen Sprinklern, Düsen oder Monitoren. Zuerst arbeitet die Erkennungsleitung; anschließend lässt das Ventil Wasser gleichzeitig zu allen offenen Auslassstellen. Eine gute Auswahl beginnt bei Gefährdung und Auslegungsdurchfluss und prüft danach Kv- oder Cv-Leistung, Druckverlust, Auslösezeit, Auslöseart, Entwässerung und Prüfzugang. Dieser Leitfaden erläutert die ZSFM-Gruppe, den Vergleich mit Nass-, Trocken- und Pre-Action-Systemen sowie die Angaben, die ein Käufer in einer Anfrage nennen sollte.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="when-deluge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Wann eine Anlage Sprühflutschutz benötigt</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Sprühflutschutz ist geeignet, wenn sich ein Brand schnell ausbreiten kann, wenn die gesamte Gefährdung gemeinsam benetzt werden muss oder wenn ein gerichteter Monitor unmittelbar nach der Erkennung Wasser erhalten soll. Typische Beispiele sind Bühnenbilder und Schnürböden in Theatern, Flugzeughangars, Transformatoren, Förderbänder, Fahrzeugbereiche und Schaum-Wasser-Pre-Action-Anwendungen. Das bestimmende Merkmal ist, dass Sprinkler oder Düsen offen sind. Das Wasser wartet nicht auf das Ansprechen einer einzelnen Sprinklerampulle; eine Auslöseabfolge leitet Wasser über das vollständige offene Netz.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Der bewusste Nachteil ist der hohe Wasserbedarf. Ein Sprühflutplaner muss jede offene Auslassstelle berücksichtigen, die gleichzeitig betrieben werden kann, sowie die verfügbare Versorgung am Ventileintritt, Rohrreibungsverluste und den erforderlichen Druck am hydraulisch ungünstigsten Auslass. EN 12845 und NFPA 13 verlangen, dass das Sprühflutventil alle offenen Auslässe nach der Erkennung schnell versorgt, häufig mit einem Richtwert von etwa 60 Sekunden; die geltende Fassung und die Gefährdung des Projekts bestimmen jedoch die genaue Auslegungsgrundlage. Bestätigen Sie die Anforderung stets anhand der geltenden Fassung.</p>
+			<p class="text-gray-700 leading-relaxed">Die Entscheidung lautet nicht einfach „das größte verfügbare Ventil“. Ein Nassalarm-Rückschlagventil wie das <a href="/de/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">Nassalarm-Rückschlagventil ZSFZ</a> gehört zu einer anderen, normalerweise geschlossenen Sprinkleranordnung. Für eine Anlage mit offenen Sprinklern ist die <a href="/de/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM-Sprühflutalarmventilgruppe</a> der passende Ausgangspunkt, vorbehaltlich der hydraulischen Berechnung und der Zulassungsanforderungen.</p>
+
+			<h2 id="how-it-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Funktionsweise der ZSFM-Sprühflutventilgruppe</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein Sprühflutventil wird durch eine Priming-Anordnung geschlossen gehalten, während die Versorgungsseite unter Druck bleibt. Ein unabhängiger Erkennungskreis erfasst die Gefährdung und löst die Garnitur hydraulisch, pneumatisch oder elektrisch aus. Sobald der Haltedruck entfernt wird oder die Auslöseeinrichtung arbeitet, bewegt sich die Hauptmembran beziehungsweise der Klappenmechanismus und das Versorgungswasser tritt in die Sprühflutrohrleitung ein. Danach erreicht das Wasser alle offenen Sprinkler, Düsen oder Monitore, statt auf die thermische Auslösung an jedem Auslass zu warten.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Die ZSFM-Gruppe sollte als Baugruppe und nicht nur anhand des Ventilkörpers geprüft werden. Die Anfrage sollte Ventilgröße, Ein- und Ausgangsanschluss, Priming-Garnitur, Entwässerungs- und Prüfanordnung, Alarmausgang, Druckschalter und manuelle Notauslösung nennen. Der Alarmweg kann abhängig von der spezifizierten Garnitur eine Wassermotor-Alarmglocke betätigen oder Druck an eine überwachte Zentrale übertragen. Ein überwachtes Absperrventil vor der Gruppe und eine kontrollierte Prüfung nachgeschaltet machen die Baugruppe wartbar, ohne ein geschlossenes Ventil unbemerkt zu lassen.</p>
+			<p class="text-gray-700 leading-relaxed">Wanlian liefert Sprühflutventilgruppen mit zugehörigen Ventilen und Überwachungszubehör. Erkennungszentrale, Melder und programmierte Ursache-Wirkungs-Logik sind nicht stillschweigend enthalten, wenn sie von einem anderen Spezialisten geliefert werden. Diese Abgrenzung sollte im Ausrüstungsverzeichnis stehen, damit der Installateur die Verantwortung für Auslösekreis, Alarmmeldung und Rückstellabfolge kennt.</p>
+
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Systemtyp</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Auslassbedingung</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typische Auswahlentscheidung</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Sprühflut</td>
+							<td class="px-4 py-3 text-gray-700">Alle offenen Auslässe fördern nach Auslösung des Ventils</td>
+							<td class="px-4 py-3 text-gray-700">Schnelle, gleichzeitige Benetzung eines Bereichs mit hoher Gefährdung</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Nassanlage</td>
+							<td class="px-4 py-3 text-gray-700">Nur durch Wärme ausgelöste Sprinkler geben Wasser ab</td>
+							<td class="px-4 py-3 text-gray-700">Beheizte Räume mit geschlossenen Sprinklern</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Trockenanlage</td>
+							<td class="px-4 py-3 text-gray-700">Luft entweicht, bevor Wasser in das Trockennetz eintritt</td>
+							<td class="px-4 py-3 text-gray-700">Bereiche, in denen Frost eine Nassanlage verhindert</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pre-Action</td>
+							<td class="px-4 py-3 text-gray-700">Die Erkennung öffnet das Ventil; geschlossene Sprinkler begrenzen weiterhin die Abgabe</td>
+							<td class="px-4 py-3 text-gray-700">Wasserempfindliche Räume mit zusätzlicher Auslösebedingung</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="actuation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Auswahl der Auslöseart</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Erkennungsleitung ist von der Wasserverteilungsrohrleitung getrennt und arbeitet vor dem Sprühflutventil. Eine flüssigkeitsgefüllte hydraulische Erkennungsleitung kann über eine Pilotvorrichtung auslösen; eine pneumatische Leitung nutzt Luftdruck und eine Trockenpilot-Anordnung; eine elektrische Auslösung verwendet ein überwachtes Magnetventil und eine Auslösezentrale. Die Auswahl hängt von der Umgebung, den verfügbaren Betriebsmitteln, der Kabelführung, der Überwachungsphilosophie und der erforderlichen Abfolge für manuelle Auslösung, Alarm und Rückstellung ab.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Eine elektrische Auslösung ist oft zweckmäßig, wenn Melder, Brandmeldezentrale und Fernstatuspunkte bereits vorhanden sind. Eine hydraulische oder pneumatische Auslösung kann bevorzugt werden, wenn die Steuerungsphilosophie lokal ist oder die Erkennungsleitung unabhängig von einem langen Stromkreis bleiben muss. Das <a href="/de/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">genutete Magnet-Steuerventil GKZF1</a> kann zu einer elektrisch gesteuerten Ventilanordnung passen; Ausgang der Auslösezentrale, Spannung, Überwachung und Rückstellmethode müssen jedoch weiterhin vom Anlagenplaner bestätigt werden.</p>
+			<p class="text-gray-700 leading-relaxed">Als Pre-Action-Alternative bietet das <a href="/de/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">Pre-Action-Alarmsystem ZSFY</a> einen nützlichen Vergleich, da Einfach- und Doppelverriegelung unterschiedliche Auslösebedingungen schaffen. Wählen Sie nicht allein nach dem Wort „elektrisch“: Dokumentieren Sie das Verhalten bei Stromausfall, Verlust des Pilotdrucks, Melderalarm, manueller Auslösung, Wasserstromalarm und Wiederherstellung. Die endgültige Matrix sollte als Betriebsablauf geprüft und nicht nur als Verdrahtungsplan kontrolliert werden.</p>
+
+			<h2 id="sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Dimensionierung nach Durchfluss und Auslösezeit</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Dimensionieren Sie das Ventil anhand des berechneten Bedarfs und nicht nur anhand des Abzweigrohrdurchmessers. Ermitteln Sie den Auslegungsdurchfluss aus allen offenen Sprinklern, Monitoren oder Düsen, die bei der Gefährdung betrieben werden müssen, und prüfen Sie anschließend den verfügbaren Eintrittsdruck sowie den Druck am entferntesten Auslass. Das gewählte Ventil muss den erforderlichen Durchfluss mit akzeptablem Verlust fördern, während Garnitur und Alarmweg innerhalb ihres Betriebsbereichs bleiben. Kv oder Cv ist ein nützlicher Vergleichswert, muss aber beim relevanten Druckabfall betrachtet und darf nicht aus einer unpassenden Prüfbedingung übernommen werden.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Auslösezeit ist ein Ergebnis der gesamten Anlage. Sie umfasst Reaktion der Erkennung, Druckabfall in der Pilotleitung oder elektrische Auslösung, Ventilöffnung, Reaktion der Garnitur, Füllen der Rohrleitung und Wasserankunft an den entfernten Auslässen. EN 12845 und NFPA 13 erwarten bei Sprühflutbetrieb eine schnelle Versorgung, häufig etwa 60 Sekunden bis zur Versorgung der offenen Auslässe nach der Erkennung. Bestätigen Sie die genaue Projektanforderung anhand der geltenden Fassung und validieren Sie sie anschließend mit dem längsten und hydraulisch ungünstigsten Zweig statt mit dem kürzesten Prüfanschluss.</p>
+			<p class="text-gray-700 leading-relaxed">Auch die Erkennungsleitung benötigt eine eigene Berechnung. Ihr längster oder entferntester Pilotweg kann Druckabfall, Luftvolumen, Wasserverdrängung oder elektrische Überwachung bestimmen. Berücksichtigen Sie Höhenunterschiede, Formstücke, Kondensatstellen und die tatsächliche Auslöseeinrichtung. Wenn kalte oder feuchte Bedingungen Kondensation verursachen können, sehen Sie an einem geeigneten Tiefpunkt einen Kondensatsammler und eine Entwässerung vor. Diese Details werden in einem reinen Ventilangebot leicht ausgelassen und sind häufig der Grund, warum eine Auslöseprüfung vor Ort nicht mit der Zeichnung übereinstimmt.</p>
+
+			<h2 id="discharge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Offene Sprinkler, Monitore und Auslassanordnung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Offene Sprinkler und Düsen werden als Gruppe zur Abdeckung der Gefährdung angeordnet. Ihre Öffnung, ihr Sprühwinkel, Abstand und Höhenlage beeinflussen den hydraulischen Bedarf; Hindernisse und Wind können die tatsächliche Abdeckung verändern. Eine Monitoranordnung bringt Reichweite, Ausrichtung und Reaktionskräfte hinzu. Ein fester <a href="/de/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">manueller Feuerlöschmonitor PS</a> kann Teil einer Sprühflut- oder Monitorauslassaufgabe sein, doch die Wasserversorgung muss den Monitorfluss zusammen mit gleichzeitig offenen Sprinklern abdecken.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Sehen Sie eine nachgeschaltete Absperranordnung nur vor, wenn die genehmigte Auslegung dies erlaubt, und überwachen Sie jedes Ventil, das einen Teil der Gefährdung außer Betrieb setzen könnte. Sprühflutentwässerung und Prüfanschluss müssen sicher abführen, ohne den Ventilraum zu überfluten oder belastetes Wasser in eine ungeeignete Entwässerung zu leiten. Halten Sie den Alarmausgang sichtbar und zugänglich und kennzeichnen Sie die manuelle Auslösung so, dass ein Bediener sie im Notfall erkennt, ohne sie mit Prüf- oder Ablassventil zu verwechseln.</p>
+			<p class="text-gray-700 leading-relaxed">Für den Anlagenkontext können Sie die hydraulischen Annahmen mit dem <a href="/de/guides/fire-pump-suction-water-tank-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Feuerlöschpumpen-Saugseite und Wassertank</a> vergleichen und den <span class="text-gray-700">Leitfaden zu Nass-, Trocken- und Pre-Action-Sprinkleranlagen</span> heranziehen. Bei Zugabe von Schaum sollte der <a href="/de/guides/foam-deluge-system-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Schaum-Sprühflutanlagen</a> geprüft werden, damit Sprühflutventil, Schaummittelausrüstung und Auslassgeräte als eine gemeinsame hydraulische und steuerungstechnische Abfolge behandelt werden.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Inbetriebnahme und regelmäßige Prüfung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Inbetriebnahme sollte sowohl den Wasserweg als auch den Auslöseweg nachweisen. Bestätigen Sie, dass Versorgungsventil und Absperrventile der Garnitur in der vorgesehenen Stellung stehen, der Priming-Druck stabil ist, die Entwässerung frei ist und der Alarmausgang angeschlossen wurde. Betätigen Sie, sofern das genehmigte Verfahren dies erlaubt, die manuelle Auslösung und die normale Erkennungsabfolge getrennt und dokumentieren Sie die Zeit von der Auslösung bis zur Ventilbetätigung, zum Alarmsignal und zur Wasserankunft am repräsentativen entfernten Auslass.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Prüfen Sie Bypass und Entwässerung, ohne einen verborgenen offenen Weg zurückzulassen. Überprüfen Sie Wassermotor-Alarmglocke oder Druckschalter, Alarmübertragung, Überwachungskontakte und Rückstellung. Ein nachgeschalteter Strömungswächter oder eine Anzeige kann die Statusüberwachung unterstützen; der <a href="/de/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">Abschnitt zu Strömungsüberwachung und Prüfung</a> bietet zusätzlichen Kontext für die Auswahl und Überwachung dieses Signals. Führen Sie vor der Regenzeit oder einer anderen risikoreichen Betriebsperiode die geplante Auslöseprüfung durch und stimmen Sie Betreiber, Alarmunternehmen und behördliche Anforderungen ab.</p>
+			<p class="text-gray-700 leading-relaxed">Die regelmäßige Wartung sollte NFPA 25 oder dem geltenden örtlichen Instandhaltungscode sowie den Anweisungen des Ventilherstellers folgen. Prüfen Sie die Garnitur auf Korrosion, bestätigen Sie, dass Entwässerungen und Kondensatsammler nicht verstopft sind, und protokollieren Sie Druckwerte, statt sich auf das Gedächtnis zu verlassen. Die Prüfung muss so gesteuert werden, dass der Auslassbereich sicher ist und die Anlage zügig wiederhergestellt wird. Wenn die geltende Fassung ein Intervall, ein Abnahmekriterium oder eine Dokumentationspflicht ändert, bestätigen Sie dies anhand der geltenden Fassung, statt eine alte Checkliste wiederzuverwenden.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Checkliste für die Sprühflutventil-Anfrage</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Beschreiben Sie die Gefährdung.</strong> Geben Sie Raum oder Prozess, brennbare Last, geschützte Fläche und an, ob die Auslässe offene Sprinkler, Düsen, Monitore oder Schaum-Wasser-Geräte sind.</li>
+				<li><strong>Liefern Sie hydraulische Daten.</strong> Stellen Sie Auslegungsdurchfluss, erforderlichen Fernpunktdruck, verfügbaren Versorgungsdruck, Rohrgröße, Höhenlage und die maßgeblichen Annahmen der hydraulischen Berechnung bereit.</li>
+				<li><strong>Definieren Sie die Ventilgruppe.</strong> Nennen Sie Nennweite, Endanschluss, Werkstoffe von Körper und Garnitur, Entwässerungsgröße, Alarmausgang, Prüfanordnung und jedes überwachte Absperrventil.</li>
+				<li><strong>Spezifizieren Sie die Auslösung.</strong> Geben Sie hydraulische, pneumatische oder elektrische Erkennung, Länge der Pilotleitung, manuelle Auslösung, Magnetventildaten, Schnittstelle zur Zentrale und erforderliche Auslöseabfolge an.</li>
+				<li><strong>Berücksichtigen Sie die Umgebung.</strong> Nennen Sie minimale und maximale Umgebungstemperatur, Innen- oder Außenaufstellung, Kondensationsrisiko, Entwässerungsweg und Korrosionsbelastung.</li>
+				<li><strong>Fordern Sie die Dokumente an.</strong> Bitten Sie um Baugruppenzeichnung, Garniturschema, Installations- und Wartungsanweisungen, Druckprüfbericht, Werkstoffangaben und aktuelle Zulassungs- oder Listungsdokumente, sofern das Projekt dies verlangt.</li>
+				<li><strong>Legen Sie die Abnahmeprüfung fest.</strong> Definieren Sie Zielauslösezeit, Alarmsignale, Beobachtung des entfernten Auslasses, Wiederherstellungsverfahren und die nach der Auslöseprüfung erforderlichen Protokolle.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Für einen breiteren Beschaffungsrahmen nutzen Sie die <a href="/de/fire-sprinkler-systems/" class="text-brand-blue font-semibold hover:underline">Übersicht zu Sprinkleranlagen</a> zusammen mit den oben genannten Leitfäden. Eine vollständige Anfrage ermöglicht Wanlian, die Ventilgruppe zu bestätigen, ohne die Auslegung der Melderanordnung oder der gesamten Brandmeldezentrale vorzugeben. Das Ergebnis ist eine klarere Lieferabgrenzung, eine verlässlichere hydraulische Prüfung und weniger Änderungen bei der Inbetriebnahme.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Benötigen Sie eine Sprühflutventilgruppe für Ihre Anlage?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie Durchfluss und Druck der Anlage, Ventilgröße, Gefährdungsart und Erkennungsmethode – unsere Ingenieure können die Konfiguration der Sprühflutventilgruppe innerhalb von 12 Stunden bestätigen.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/de/contact/?product=Spr%C3%BChflut-Alarmventilgruppe%20(ZSFM)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Hallo, ich benötige eine Sprühflutventilgruppe für eine Anlage mit offenen Sprinklern oder Monitoren.')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

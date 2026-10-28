@@ -1,0 +1,185 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const faq = [
+	{
+		question: 'Que material e proteção contra corrosão devemos especificar para o reservatório?',
+		answer: 'Especifique o material do reservatório, o revestimento, a pintura e as condições de qualidade da água com o fabricante do reservatório e o engenheiro do projeto. Reservatórios de aço, aço seccional e concreto têm diferentes detalhes de controle da corrosão, e a escolha correta depende da água armazenada, do clima e dos requisitos locais. Solicite dados da pintura, acesso para inspeção e instruções de manutenção, em vez de presumir que um revestimento de uso geral é adequado para água contra incêndio.'
+	},
+	{
+		question: 'Um preventor de vórtice de sucção precisa de certificação para serviço contra incêndio?',
+		answer: 'A necessidade de certificação, aprovação ou aceitação específica do projeto depende da edição da norma aplicável, da autoridade competente e do conjunto completo do reservatório. Uma placa anti-vórtice é um componente de proteção hidráulica, não uma válvula de incêndio automaticamente certificada. Confirme quais evidências o projeto exige e apresente seu material, suas dimensões e o detalhe de instalação com a documentação do reservatório.'
+	},
+	{
+		question: 'O que acontece quando a profundidade de submergência no reservatório é muito pequena?',
+		answer: 'A sucção pode aspirar ar, formar um vórtice visível ou ficar ruidosa e instável. A bomba pode apresentar pressão de sucção oscilante, perda de vazão fornecida, vibração ou sintomas semelhantes à cavitação. Verifique o nível da água, a geometria da entrada, o fluxo de aproximação e o detalhe de prevenção de vórtice conforme a edição da norma aplicável e os dados do fabricante da bomba antes de trocar a bomba.'
+	},
+	{
+		question: 'Um reservatório pode atender simultaneamente ao consumo doméstico e à água contra incêndio?',
+		answer: 'Isso pode ser possível, mas somente quando o arranjo preserva a reserva contra incêndio exigida, mantém a separação ou o nível de retirada requerido e é aceito pela autoridade competente. Uma saída doméstica ou um ajuste de controle de nível não pode permitir que o consumo normal utilize o volume protegido contra incêndio. Confirme o arranjo hidráulico, o monitoramento e os controles de reposição conforme o código aplicável.'
+	},
+	{
+		question: 'Por que normalmente se prefere uma válvula de gaveta na sucção da bomba?',
+		answer: 'Uma válvula de gaveta totalmente aberta oferece uma passagem de seção plena, com pouca perturbação próxima à entrada da bomba, e pode ser travada ou supervisionada na posição aberta. A válvula de isolamento da sucção não é um dispositivo de estrangulamento. Uma alternativa certificada pode ser aceita em alguns projetos, mas o fornecedor da bomba, o engenheiro de projeto e a autoridade competente devem confirmar a seleção antes da liberação.'
+	},
+	{
+		question: 'Como proteger um reservatório de sucção em um clima frio?',
+		answer: 'Mantenha o reservatório, a tubulação de sucção, as válvulas e os equipamentos de controle de nível acima do risco de congelamento do projeto ou forneça isolamento projetado, aquecimento elétrico e drenagem. O método exato depende do clima, da construção do reservatório e da edição da norma aplicável. Proteger apenas a carcaça do reservatório não basta se uma válvula exposta, uma linha piloto ou um ponto baixo puder congelar e interromper o abastecimento de água contra incêndio.'
+	}
+];
+
+const toc = [
+	{ id: 'water-source', label: '1. De onde vem o volume de água contra incêndio' },
+	{ id: 'tank-sizing', label: '2. Dimensionamento da reserva de água contra incêndio' },
+	{ id: 'two-suction', label: '3. Regra das duas sucções e penetrações no reservatório' },
+	{ id: 'vortex', label: '4. Prevenção de vórtice e layout da tubulação de sucção' },
+	{ id: 'level-control', label: '5. Como manter o reservatório cheio: controle de nível' },
+	{ id: 'priming-testing', label: '6. Escorva, manômetros e recursos de teste' },
+	{ id: 'checklist', label: '7. Checklist do arranjo de sucção' },
+	{ id: 'faq', label: 'Perguntas frequentes' }
+];
+
+const products = [
+	{ slug: 'suction-vortex-preventer-en12845', name: 'Preventor de Vórtice de Sucção (EN 12845)', img: '/assets/products/suction-vortex-preventer-en12845.webp', desc: 'Aço inoxidável austenítico, conjunto de placa anti-vórtice' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'Válvula Hidráulica de Controle de Nível (F745X)', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'Manutenção de nível por piloto, fechamento suave' },
+	{ slug: 'remote-control-float-valve-100x', name: 'Válvula de Flutuador de Controle Remoto (100X-16P)', img: '/assets/products/remote-control-float-valve-100x.webp', desc: 'Válvula piloto de flutuador em aço inox para reposição do reservatório' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'Filtro Y Telescópico (SGL41H)', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'Proteção contra detritos na linha de sucção, limpeza em linha' }
+];
+---
+
+<Layout
+	title="Sucção de Bomba e Reservatório de Incêndio"
+	description="Dimensionamento do reservatório, duas sucções, vórtice, escorva e controle de nível para sucção de bomba contra incêndio."
+	type="article"
+	locale="pt"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guias', href: '/pt/blog/' }, { name: 'Guia de Sucção de Bomba' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/pt/" class="hover:text-blue-600">Início</a>
+			<span>/</span>
+			<a href="/pt/blog/" class="hover:text-blue-600">Guias</a>
+			<span>/</span>
+			<span class="text-gray-600">Guia de Sucção de Bomba</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guia de Reservatório de Água contra Incêndio</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Arranjo da Sucção da Bomba e do Reservatório de Água contra Incêndio</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Em resumo: uma bomba contra incêndio só pode fornecer seu desempenho certificado quando o reservatório oferece a reserva correta, as entradas de sucção permanecem submersas, a formação de ar e vórtice é controlada e o equipamento de reposição não consome o volume protegido. Este guia explica a fonte, o dimensionamento do reservatório, os arranjos com duas sucções, os detalhes anti-vórtice, o controle de nível, a escorva e as informações que devem constar na lista do lado da sucção.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/pt/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="water-source" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. De onde vem o volume de água contra incêndio</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">O arranjo de sucção começa pela fonte de água, não por um catálogo de válvulas. Uma bomba contra incêndio pode retirar água de um reservatório atmosférico aberto, de um reservatório seccional dedicado, de um reservatório de concreto, de um vaso de pressão ou de uma adutora municipal. Cada fonte altera a altura de sucção disponível, a forma de escorvar a bomba, a proteção necessária na entrada e as evidências exigidas na aceitação. A bomba e o controlador são fornecidos por um fabricante de bombas conforme a NFPA 20 ou o código local; a Wanlian fornece as válvulas e os acessórios do lado da sucção ao redor desse conjunto, não a própria bomba contra incêndio.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Um reservatório aberto de água contra incêndio costuma ser a fonte mais previsível, pois seu nível de operação é visível e sua pressão é atmosférica. Ainda assim, o engenheiro da bomba deve considerar o nível utilizável mínimo, a elevação da entrada, as perdas na tubulação e os requisitos de sucção do fabricante da bomba. Um reservatório de pressão fechado tem uma relação diferente entre pressão e volume, enquanto uma conexão municipal depende de um abastecimento público confiável e das restrições impostas pela autoridade de água. Não transfira um arranjo de reservatório para uma conexão direta sem recalcular as condições de sucção.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Fonte</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Significado no lado da sucção</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Pergunta de projeto</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Reservatório aberto de água contra incêndio</td>
+							<td class="px-4 py-3 text-gray-700">Nível estático da água, entrada submersa, detalhe anti-vórtice e tubulação drenável</td>
+							<td class="px-4 py-3 text-gray-700">O nível operacional mínimo é adequado para a entrada da bomba?</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Reservatório de pressão fechado</td>
+							<td class="px-4 py-3 text-gray-700">Pressão do reservatório, volume utilizável, isolamento e recursos seguros de manutenção</td>
+							<td class="px-4 py-3 text-gray-700">A pressão permanece disponível durante o serviço exigido?</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Conexão direta municipal</td>
+							<td class="px-4 py-3 text-gray-700">Pressão da adutora pública, confiabilidade da vazão, controle de refluxo e aprovação da autoridade</td>
+							<td class="px-4 py-3 text-gray-700">A adutora pode fornecer a condição de sucção exigida a todo momento?</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Para uma visão mais ampla da sequência de válvulas no ambiente, consulte o <a href="/pt/guides/municipal-fire-water-main-upgrade-guide/" class="text-brand-blue font-semibold hover:underline">guia de modernização da rede municipal de água contra incêndio</a>. É útil definir a curva da bomba e a filosofia de isolamento antes de finalizar as penetrações do reservatório.</p>
+
+			<h2 id="tank-sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Dimensionamento da reserva de água contra incêndio</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A reserva de água contra incêndio é determinada pela classificação de risco do projeto, pela vazão de projeto e pela duração exigida na norma de projeto aplicável. Não existe um volume universal de reservatório que possa ser copiado responsavelmente de um edifício para outro. O cálculo hidráulico identifica a demanda, e a edição da norma aplicável define por quanto tempo a reserva deve atender aos sistemas protegidos. Registre a base de cálculo, o volume utilizável exigido e a referência do nível baixo nas listas do reservatório e da bomba.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Separe o volume total do volume útil contra incêndio. A geometria do reservatório, os ajustes de nível alto e baixo, a margem para sedimentos, o extravasor e a posição de cada saída afetam o que a bomba pode realmente retirar. Se uma saída doméstica compartilhar o reservatório, sua retirada deve ser organizada para que o consumo normal não utilize a reserva protegida contra incêndio. A válvula de reposição deve manter o nível normal sem fechar bruscamente, enquanto um sinal monitorado de nível baixo deve chegar ao alarme de incêndio ou ao sistema de gerenciamento predial, conforme exigido.</p>
+			<p class="text-gray-700 leading-relaxed">Para contexto normativo, compare os cálculos da equipe de projeto com o <span class="text-brand-blue font-semibold">guia de normas de proteção contra incêndio NFPA</span>. Use essa visão geral para identificar questões e confirme então cada requisito de volume, duração e nível na edição da norma aplicável e com a autoridade competente.</p>
+
+			<h2 id="two-suction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Regra das duas sucções e penetrações no reservatório</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Reservatórios grandes de água contra incêndio precisam de mais que um único ponto de dependência. As disposições da NFPA 20 para grandes reservatórios de armazenamento exigem mais de uma saída ou adutora de sucção e limitam a dependência de uma única linha de sucção, mas o limite e a configuração exatos dependem da edição da norma aplicável. Confirme a edição antes de desenhar a parede do reservatório e indique se cada bomba tem uma rota independente, como as rotas são isoladas e como a manutenção pode ser concluída sem remover a capacidade contra incêndio exigida.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Uma penetração no reservatório é um detalhe do sistema, não apenas um furo com flange. Coordene a posição da camisa, o reforço, o material da junta, o isolamento externo, as placas anti-vórtice internas e o acesso para inspeção. Mantenha a válvula fora do reservatório, onde possa ser operada e mantida, e assegure que o spool possa ser drenado ou removido sem comprometer a outra sucção. A <a href="/pt/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">válvula de gaveta OS&amp;Y com assento resiliente UL/FM</a> é normalmente considerada quando se exige uma válvula de isolamento certificada, de seção plena e visivelmente aberta; a seleção continua sujeita à especificação do projeto.</p>
+			<p class="text-gray-700 leading-relaxed">Duas rotas de sucção não significam dois ramais decorativos unidos imediatamente em um único gargalo. Trace cada rota até o arranjo da bomba, verifique a área de passagem disponível e identifique quais válvulas devem permanecer travadas ou supervisionadas na posição aberta. Quando houver uma segunda bomba ou compartimento, o projetista deve demonstrar que a falha de um único componente não elimina a capacidade de sucção exigida.</p>
+
+			<h2 id="vortex" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Prevenção de vórtice e layout da tubulação de sucção</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A entrada do reservatório deve permanecer submersa pela profundidade mínima exigida pela norma aplicável e pelo arranjo da bomba. Se o nível da água cair muito próximo da abertura, um vórtice pode aspirar ar para a sucção mesmo quando o reservatório ainda parece conter água. A entrada de ar reduz a vazão fornecida, provoca pressão de sucção instável e pode danificar o impulsor. Uma placa anti-vórtice ou um <a href="/pt/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">preventor de vórtice de sucção EN 12845</a> ajuda a interromper o padrão de fluxo rotativo; ele não substitui a profundidade de submergência exigida nem corrige o dimensionamento da tubulação.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Mantenha o trecho até a bomba tão simples quanto o ambiente permitir. Use o diâmetro da tubulação de sucção e o comprimento do trecho reto indicados pelo fabricante da bomba, evite cotovelos desnecessários próximos à flange de sucção e instale um redutor excêntrico com o lado plano para cima, para que o ar não se acumule na entrada da bomba. Apoie a tubulação de forma independente, para que seu peso e seus movimentos térmicos não carreguem a carcaça da bomba. A válvula de sucção serve para isolamento, nunca para estrangulamento.</p>
+			<p class="text-gray-700 leading-relaxed">Se houver risco plausível de detritos, um <a href="/pt/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">filtro Y telescópico SGL41H</a> limpável pode proteger a linha de sucção quando o projeto aprovado permitir, mas qualquer tela acrescenta perda de carga e manutenção. Confirme a malha, o acesso, a perda de pressão e a aceitação para serviço contra incêndio antes da instalação. Um filtro obstruído pode parecer um reservatório subdimensionado quando o sintoma real é a queda do manômetro de sucção.</p>
+
+			<h2 id="level-control" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Como manter o reservatório cheio: controle de nível</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Um reservatório cheio na entrega não é necessariamente uma fonte confiável de água contra incêndio. O equipamento de reposição deve manter o nível normal, fechar suavemente, tolerar a pressão de entrada disponível e emitir um sinal claro se o nível cair. O objetivo do projeto é impedir que a demanda doméstica, a evaporação, os testes e pequenos vazamentos consumam a reserva protegida, evitando ao mesmo tempo que uma reposição descontrolada transborde o reservatório.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">A <a href="/pt/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">válvula hidráulica de controle de nível F745X</a> utiliza um arranjo operado por piloto para manutenção do nível e fechamento suave. Quando o projeto exige um arranjo remoto operado por flutuador, a <a href="/pt/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">válvula de flutuador de controle remoto 100X-16P</a> fornece um piloto de flutuador em aço inoxidável para a reposição do reservatório. Nenhum dos produtos define sozinho a reserva contra incêndio: os pontos de ajuste, os desvios, a pressão a montante e os alarmes devem seguir o projeto hidráulico aprovado.</p>
+			<p class="text-gray-700 leading-relaxed">Mostre os níveis alto, normal, baixo e de emergência no diagrama de controle. Inclua uma válvula de isolamento a montante acessível, um recurso de drenagem ou teste quando exigido e uma forma de comprovar a ação do piloto ou do flutuador sem esvaziar o reservatório. Se o reservatório for compartilhado, intertrave o sinal de nível com os controles domésticos para que uma falha da válvula de reposição não reduza silenciosamente a reserva contra incêndio.</p>
+
+			<h2 id="priming-testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Escorva, manômetros e recursos de teste</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Antes que uma bomba centrífuga contra incêndio possa operar, sua carcaça e sua sucção devem estar corretamente preenchidas, e o lado da sucção deve permanecer inundado conforme o projeto. O arranjo final depende do tipo de bomba e da elevação da fonte; portanto, siga as instruções de escorva do fornecedor da bomba, em vez de improvisar uma válvula de pé ou uma válvula de retenção adicional. Um manômetro de sucção na flange da bomba mostra se a fonte está realmente disponível; compare-o com o manômetro de descarga e com a curva certificada da bomba durante a aceitação.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Forneça pontos de isolamento e drenagem que permitam inspecionar o spool de sucção, a válvula e os instrumentos sem drenar todo o reservatório. Proteja os manômetros contra impactos acidentais e faça com que suas faixas sejam adequadas às condições estáticas e de operação esperadas. Durante o comissionamento, verifique a posição das válvulas, o alarme de nível baixo, a ação de reposição, a instalação anti-vórtice, os suportes da tubulação e a ausência de vazamentos de ar antes de registrar o desempenho da bomba.</p>
+			<p class="text-gray-700 leading-relaxed">Os testes devem comprovar tanto a capacidade hidráulica quanto a intenção de segurança contra falhas. Simule uma condição de nível baixo quando permitido, acione a válvula de reposição, inspecione a penetração do reservatório e confirme que a sucção exigida permanece disponível com o estado de isolamento planejado. Para a conexão externa e a interface do lado da descarga, o <a href="/pt/guides/fire-department-connection-siamese-guide/" class="text-brand-blue font-semibold hover:underline">guia de conexão siamesa para bombeiros</a> explica como a conexão do corpo de bombeiros deve ser coordenada com o restante da casa de bombas.</p>
+
+			<h2 id="checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Checklist do arranjo de sucção</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Identifique a fonte.</strong> Indique reservatório aberto, reservatório de pressão ou conexão municipal, nível operacional mínimo, pressão disponível e condição de sucção exigida pelo fornecedor da bomba.</li>
+				<li><strong>Documente a reserva.</strong> Mostre o volume e a duração contra incêndio exigidos pelo cálculo do projeto, com todas as referências de nível e qualquer volume protegido compartilhado com o uso doméstico.</li>
+				<li><strong>Coordene as saídas.</strong> Confirme a edição aplicável da NFPA 20, o requisito de duas sucções para o tamanho do reservatório e a independência de cada rota.</li>
+				<li><strong>Impeça a entrada de ar.</strong> Verifique a submergência, a geometria anti-vórtice, a orientação do redutor excêntrico, o comprimento do trecho reto e os suportes independentes da tubulação.</li>
+				<li><strong>Proteja a água.</strong> Especifique a válvula de isolamento externa, o filtro limpável somente quando aprovado, os manômetros, os drenos e o acesso para manutenção.</li>
+				<li><strong>Controle o nível.</strong> Selecione o equipamento piloto F745X ou 100X conforme a pressão de entrada, defina os níveis normal e baixo e conecte os alarmes exigidos.</li>
+				<li><strong>Planeje a aceitação.</strong> Inclua instruções de escorva, manômetros de sucção e descarga, teste de reposição, simulação de nível baixo e registros de materiais, testes de pressão e operação e manutenção.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Para uma lista completa de válvulas, conecte este trabalho ao <a href="/pt/guides/municipal-fire-water-main-upgrade-guide/" class="text-brand-blue font-semibold hover:underline">guia de modernização da rede municipal de água contra incêndio</a> e confirme as condições da autoridade local de água. A Wanlian pode revisar o desenho da saída do reservatório, a curva da bomba, os diâmetros da tubulação e a edição exigida da norma antes de cotar as válvulas e os acessórios de sucção.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Perguntas frequentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Precisa de válvulas de sucção para bomba contra incêndio?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envie o desenho da saída do reservatório, a vazão e a altura manométrica nominais da bomba, os diâmetros de sucção, os níveis de água e a edição da norma aplicável. A Wanlian confirmará o arranjo anti-vórtice, de controle de nível, isolamento e teste para o seu projeto.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+		
+						<a href={`/pt/contact/?product=${uri.EscapeDataString('Válvulas de sucção para bomba contra incêndio')}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar uma cotação</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Olá, preciso de válvulas de sucção para bomba contra incêndio')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Conversar no WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

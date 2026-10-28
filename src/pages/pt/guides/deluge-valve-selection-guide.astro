@@ -1,0 +1,188 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Qual é a principal diferença entre uma válvula de dilúvio e uma válvula de pré-ação?',
+		answer: 'Um sistema de dilúvio usa sprinklers ou bicos abertos, portanto a abertura da válvula de dilúvio envia água a todos os pontos de descarga simultaneamente. Um sistema de pré-ação normalmente possui sprinklers fechados e usa a detecção para abrir uma válvula de controle antes que um sprinkler libere água. O dilúvio é selecionado para cobertura rápida e simultânea; a pré-ação é escolhida quando uma descarga acidental de água deve ser limitada. Confirme o intertravamento e a sequência conforme a edição vigente.'
+	},
+	{
+		question: 'A válvula de dilúvio deve usar acionamento elétrico ou hidráulico?',
+		answer: 'Escolha o método de acionamento a partir do projeto de detecção, dos requisitos da área de risco, da energia disponível e da sequência fail-safe exigida. O acionamento elétrico é prático quando o painel de alarme de incêndio e o circuito supervisionado do solenoide já estão especificados. O acionamento hidráulico ou pneumático pode ser adequado quando o local dispõe de uma linha de pressão dedicada ou quando se prefere um detector pneumático. A Wanlian fornece o grupo de válvula e acessórios compatíveis; a sequência do painel de controle de detecção deve ser confirmada pelo projetista do sistema.'
+	},
+	{
+		question: 'Como proteger um sistema de dilúvio em clima frio?',
+		answer: 'Mantenha o conjunto da válvula de dilúvio e o trim em um espaço aquecido e acessível sempre que possível, evitando deixar tubulações expostas cheias de água onde possa haver congelamento. Preveja coleta e drenagem de condensado para o trim de detecção, isole as seções vulneráveis e use uma configuração seca ou pneumática aprovada quando o projeto exigir. Não substitua o fluido anticongelante nem altere o trim sem a aprovação da autoridade competente. Confirme o método de proteção contra congelamento conforme a edição vigente.'
+	},
+	{
+		question: 'Como proteger a linha de detecção contra acionamentos acidentais?',
+		answer: 'Separe a linha de detecção dos controles de serviço comuns, supervisione sua pressão ou o status do circuito, proteja os dispositivos expostos contra impactos e use a sequência do painel de acionamento exigida para o risco. O acionamento manual deve ser protegido, mas acessível, enquanto as conexões de ensaio devem estar claramente identificadas e ser restauradas após o teste. A detecção hidráulica, pneumática e elétrica exige sua própria supervisão de alarme e falha. A matriz final de causa e efeito deve ser aprovada antes do comissionamento.'
+	},
+	{
+		question: 'Quais informações devem constar em uma RFQ de válvula de dilúvio?',
+		answer: 'Envie a descrição do risco, a área protegida, a vazão e a pressão de projeto, o diâmetro nominal e a conexão das extremidades da válvula, o layout de bicos abertos ou monitores, o método de detecção, a sequência de acionamento exigida, a temperatura ambiente, a configuração de drenagem e a edição do código aplicável. Solicite também desenhos do trim, dados de materiais, registros de ensaio de pressão, informações de peças sobressalentes e instruções de operação. Se for necessária uma listagem ou aprovação, declare isso explicitamente e peça ao fornecedor que confirme a documentação vigente.'
+	},
+	{
+		question: 'A Wanlian fornece o painel de controle de detecção do sistema de dilúvio?',
+		answer: 'A Wanlian fornece grupos de válvulas de dilúvio e válvulas e acessórios de monitoramento associados, incluindo o conjunto ZSFM e componentes de isolamento ou controle adequados. Não apresentamos um painel de controle de detecção como parte do pacote padrão de válvulas quando ele não é fornecido. O painel de acionamento, os detectores e a programação de causa e efeito devem ser especificados com o contratado de alarme de incêndio ou de detecção especializada e depois conferidos com o trim da válvula e a sequência do local.'
+	}
+];
+
+const toc = [
+	{ id: 'when-deluge', label: '1. Quando um sistema precisa de proteção por dilúvio' },
+	{ id: 'how-it-works', label: '2. Como funciona o grupo de válvula de dilúvio ZSFM' },
+	{ id: 'actuation', label: '3. Escolhendo o método de acionamento' },
+	{ id: 'sizing', label: '4. Dimensionando a válvula para vazão e tempo de disparo' },
+	{ id: 'discharge', label: '5. Sprinklers abertos, monitores e layout de descarga' },
+	{ id: 'testing', label: '6. Comissionamento e ensaios periódicos' },
+	{ id: 'rfq-checklist', label: '7. Checklist de RFQ para válvula de dilúvio' },
+	{ id: 'faq', label: 'Perguntas Frequentes' }
+];
+
+const products = [
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'Grupo de Válvula de Alarme de Dilúvio (Série ZSFM)', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'Grupo de válvula de dilúvio de fundo molhado para sistemas de bicos abertos e monitores' },
+	{ slug: 'pre-action-alarm-system-zsfy', name: 'Sistema de Alarme de Pré-ação (Série ZSFY)', img: '/assets/products/pre-action-alarm-system-zsfy.jpg', desc: 'Conjuntos de pré-ação com intertravamento simples e duplo' },
+	{ slug: 'manual-fire-water-cannon-ps', name: 'Monitor Manual de Água para Incêndio (Série PS)', img: '/assets/products/manual-fire-water-cannon-ps.webp', desc: 'Monitor fixo para serviço de descarga de dilúvio e monitores' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Válvula de Gaveta OS&amp;Y com Sede Resiliente UL/FM', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"–10", extremidades ranhuradas, haste ascendente, listada UL/FM' }
+];
+---
+
+<Layout
+	title="Guia de Dimensionamento e Seleção de Válvulas de Dilúvio"
+	description="Como funciona a válvula de dilúvio ZSFM: dimensionamento, vazão, tempo de disparo, acionamento, layout, ensaios e dados para RFQ."
+	type="article"
+	locale="pt"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guias', href: '/pt/blog/' }, { name: 'Guia de Seleção de Válvulas de Dilúvio' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/pt/" class="hover:text-blue-600">Início</a>
+			<span>/</span>
+			<a href="/pt/blog/" class="hover:text-blue-600">Guias</a>
+			<span>/</span>
+			<span class="text-gray-600">Guia de Seleção de Válvulas de Dilúvio</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Guia de Válvulas de Dilúvio</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Dimensionamento e Seleção de Válvulas de Dilúvio: Sistemas de Sprinklers Abertos e Monitores</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Em resumo: uma válvula de dilúvio é a comporta controlada entre uma fonte de água pressurizada e uma rede de sprinklers, bicos ou monitores abertos. A linha de detecção opera primeiro; então a válvula admite água a todos os pontos de descarga abertos simultaneamente. Uma boa seleção começa pelo risco e pela vazão de projeto e depois verifica a capacidade Kv ou Cv, a perda de carga, o tempo de disparo, o método de acionamento, a drenagem e o acesso para ensaio. Este guia explica o grupo ZSFM, a comparação com sistemas molhados, secos e de pré-ação e as informações que o comprador deve incluir em uma RFQ.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/pt/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="when-deluge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Quando um Sistema Precisa de Proteção por Dilúvio</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A proteção por dilúvio é adequada quando um incêndio pode crescer rapidamente, quando todo o risco precisa ser molhado em conjunto ou quando um monitor direcional deve receber água imediatamente após a detecção. Exemplos típicos incluem cenários e espaços de urdimento de teatros, hangares de aeronaves, transformadores, esteiras transportadoras, áreas de veículos e aplicações de pré-ação água-espuma. A característica definidora é que os sprinklers ou bicos são abertos. A água não espera que o bulbo de um sprinkler individual opere; uma sequência de acionamento envia água por toda a rede aberta.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">O compromisso é uma demanda de água deliberadamente alta. O projetista de dilúvio deve considerar cada ponto de descarga aberto que pode operar ao mesmo tempo, o abastecimento disponível na entrada da válvula, o atrito da tubulação e a pressão necessária na saída hidraulicamente mais remota. A EN 12845 e a NFPA 13 exigem que a válvula de dilúvio alimente rapidamente todas as saídas abertas após a detecção, comumente expresso como cerca de 60 segundos, mas a edição vigente e o risco do projeto determinam a base exata de dimensionamento. Confirme sempre o requisito conforme a edição vigente.</p>
+			<p class="text-gray-700 leading-relaxed">A decisão não é simplesmente escolher a “maior válvula disponível”. Uma válvula de retenção de alarme molhada, como a <a href="/pt/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">válvula de retenção de alarme molhada ZSFZ</a>, pertence a uma configuração diferente, com sprinklers normalmente fechados. Para um sistema de bicos abertos, o <a href="/pt/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">grupo de válvula de alarme de dilúvio ZSFM</a> é o ponto de partida relevante, sujeito ao cálculo hidráulico e aos requisitos de aprovação.</p>
+
+			<h2 id="how-it-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Como Funciona o Grupo de Válvula de Dilúvio ZSFM</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Uma válvula de dilúvio é mantida fechada por um arranjo de escorva enquanto o lado de abastecimento permanece pressurizado. Um circuito de detecção independente identifica o risco e libera o trim por uma sequência hidráulica, pneumática ou elétrica. Quando a pressão de retenção é removida ou o dispositivo de acionamento opera, o diafragma ou obturador principal se move e a água de abastecimento entra na tubulação de dilúvio. A água então alcança todos os sprinklers, bicos ou monitores abertos, em vez de esperar a operação térmica em cada saída.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">O grupo ZSFM deve ser analisado como um conjunto, não apenas como um corpo de válvula. A RFQ deve identificar o diâmetro da válvula, as conexões de entrada e saída, o trim de escorva, o arranjo de drenagem e ensaio, a saída de alarme, os pressostatos e o acionamento manual de emergência. O circuito de alarme pode operar um alarme hidráulico com motor de água ou transmitir pressão a um painel monitorado, dependendo do trim especificado. Uma válvula de isolamento supervisionada a montante e um arranjo de ensaio controlado a jusante tornam o conjunto manutenível sem ocultar uma válvula fechada.</p>
+			<p class="text-gray-700 leading-relaxed">A Wanlian fornece grupos de válvulas de dilúvio com válvulas associadas e acessórios de monitoramento. O painel de detecção, os detectores e a lógica programada de causa e efeito não são incluídos silenciosamente quando são fornecidos por outro especialista. Esse limite deve constar na lista de equipamentos para que o instalador saiba quem é responsável pelo circuito de acionamento, pela notificação de alarme e pela sequência de rearme.</p>
+
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Tipo de sistema</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Condição de descarga</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Lógica típica de seleção</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Dilúvio</td>
+							<td class="px-4 py-3 text-gray-700">Todas as saídas abertas escoam após o disparo da válvula</td>
+							<td class="px-4 py-3 text-gray-700">Molhamento rápido e simultâneo de uma área de alto risco</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tubulação molhada</td>
+							<td class="px-4 py-3 text-gray-700">Somente os sprinklers acionados pelo calor descarregam</td>
+							<td class="px-4 py-3 text-gray-700">Espaços aquecidos com sprinklers fechados</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tubulação seca</td>
+							<td class="px-4 py-3 text-gray-700">O ar é liberado antes que a água entre na rede seca</td>
+							<td class="px-4 py-3 text-gray-700">Áreas onde o congelamento impede um sistema molhado</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pré-ação</td>
+							<td class="px-4 py-3 text-gray-700">A detecção abre a válvula; sprinklers fechados ainda controlam a descarga</td>
+							<td class="px-4 py-3 text-gray-700">Espaços sensíveis à água que exigem uma condição adicional de acionamento</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="actuation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Escolhendo o Método de Acionamento</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A linha de detecção é separada da tubulação de distribuição de água e atua antes da válvula de dilúvio. Uma linha de detecção hidráulica cheia de líquido pode liberar a válvula por meio de um dispositivo piloto; uma linha pneumática pode usar pressão de ar e um arranjo de piloto seco; um acionamento elétrico usa um solenoide supervisionado e um painel de acionamento. A escolha depende do ambiente do local, das utilidades disponíveis, do encaminhamento dos cabos, da filosofia de supervisão e da sequência exigida para acionamento manual, alarme e rearme.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">O acionamento elétrico costuma ser conveniente quando já existem detectores, um painel de alarme de incêndio e pontos de status remotos. O acionamento hidráulico ou pneumático pode ser preferido quando a filosofia de controle é local ou quando a linha de detecção deve permanecer independente de um circuito elétrico longo. A <a href="/pt/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">válvula de controle por solenoide ranhurada GKZF1</a> pode ser adequada a um arranjo de válvula controlada eletricamente, mas a saída do painel, a tensão, a supervisão e o método de rearme ainda precisam ser confirmados pelo projetista do sistema.</p>
+			<p class="text-gray-700 leading-relaxed">Como alternativa de pré-ação, o <a href="/pt/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">sistema de alarme de pré-ação ZSFY</a> oferece uma comparação útil, pois as sequências de intertravamento simples e duplo impõem condições de acionamento diferentes. Não escolha apenas pela palavra “elétrico”: documente o que acontece em caso de perda de energia, perda de pressão piloto, alarme do detector, acionamento manual, alarme de fluxo de água e restauração. A matriz final deve ser ensaiada como uma sequência operacional, não apenas conferida como um diagrama de fiação.</p>
+
+			<h2 id="sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Dimensionando a Válvula para Vazão e Tempo de Disparo</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Dimensione a válvula a partir da demanda calculada, não apenas do diâmetro do ramal. Estabeleça a vazão de projeto com base em todos os sprinklers abertos, monitores ou bicos que o risco exige operar e depois verifique a pressão de entrada disponível e a pressão na saída remota. A válvula selecionada deve conduzir a vazão exigida com perda aceitável, enquanto o trim e o circuito de alarme permanecem em sua faixa operacional. Kv ou Cv é um valor útil de comparação, mas deve ser lido na perda de carga relevante e não copiado de uma condição de ensaio sem relação.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">O tempo de disparo é um resultado do sistema. Ele inclui a resposta da detecção, a queda de pressão na linha piloto ou o acionamento elétrico, a abertura da válvula, a resposta do trim, o enchimento da tubulação e a chegada da água às saídas remotas. A EN 12845 e a NFPA 13 usam expectativas de entrega rápida para serviço de dilúvio, frequentemente cerca de 60 segundos para alimentar as saídas abertas após a detecção. Confirme o requisito exato do projeto conforme a edição vigente e valide-o com o ramal mais longo e hidraulicamente mais desfavorável, não com a conexão de ensaio mais curta.</p>
+			<p class="text-gray-700 leading-relaxed">A linha de detecção precisa de seu próprio cálculo. O caminho piloto mais longo ou remoto pode determinar a queda de pressão, o volume de ar, o deslocamento de água ou a supervisão elétrica. Inclua elevação, conexões, pontos de condensado e o dispositivo de acionamento real. Se condições frias ou úmidas puderem criar condensação, instale um coletor e um dreno de condensado em um ponto baixo adequado. Esses detalhes são fáceis de omitir em uma cotação apenas de válvula e frequentemente explicam por que o ensaio de disparo no local não corresponde ao desenho.</p>
+
+			<h2 id="discharge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Sprinklers Abertos, Monitores e Layout de Descarga</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Sprinklers e bicos abertos são dispostos para cobrir o risco como um conjunto. Seu orifício, ângulo de pulverização, espaçamento e elevação afetam a demanda hidráulica, enquanto obstruções e vento podem afetar a cobertura real. Um arranjo de monitores acrescenta considerações de alcance, direcionamento e reação; um <a href="/pt/products/manual-fire-water-cannon-ps/" class="text-brand-blue font-semibold hover:underline">monitor manual de água para incêndio PS</a> fixo pode fazer parte de um serviço de descarga de dilúvio ou de monitores, mas o abastecimento de água deve ser verificado para a vazão do monitor junto com quaisquer sprinklers abertos simultâneos.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Preveja um arranjo de isolamento a jusante somente quando o projeto aprovado permitir e supervisione qualquer válvula que possa desabilitar parte do risco. O dreno e a conexão de ensaio do dilúvio devem descarregar com segurança, sem inundar a sala de válvulas nem enviar água contaminada a um dreno inadequado. Mantenha a saída de alarme visível e acessível e marque o acionamento manual para que o operador possa identificá-lo em uma emergência sem confundi-lo com a válvula de ensaio ou de drenagem.</p>
+			<p class="text-gray-700 leading-relaxed">Para o contexto do sistema, compare as premissas hidráulicas com o <a href="/pt/guides/fire-pump-suction-water-tank-guide/" class="text-brand-blue font-semibold hover:underline">guia de reservatórios de sucção para bombas de incêndio</a> e o <a href="/pt/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">guia de seleção de válvulas de dilúvio</a>. Quando houver espuma, consulte o <a href="/pt/guides/foam-deluge-system-guide/" class="text-brand-blue font-semibold hover:underline">guia de sistemas de dilúvio com espuma</a> para tratar a válvula de dilúvio, o equipamento de concentrado e os dispositivos de descarga como uma única sequência hidráulica e de controle.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Comissionamento e Ensaios Periódicos</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">O comissionamento deve comprovar tanto o caminho da água quanto o caminho de acionamento. Confirme que a válvula de abastecimento a montante e as válvulas de isolamento do trim estão nas posições previstas, que a pressão de escorva está estável, que o dreno está livre e que a saída de alarme está conectada. Opere o acionamento manual e a sequência normal de detecção separadamente quando o procedimento aprovado permitir e registre o tempo entre o acionamento e a operação da válvula, o sinal de alarme e a chegada da água à saída remota representativa.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Teste o bypass e o dreno sem deixar uma rota oculta aberta. Verifique o alarme hidráulico com motor de água ou o pressostato, a transmissão de alarme, os contatos de supervisão e o rearme. Um indicador ou chave de fluxo a jusante pode apoiar o monitoramento de status; o <a href="/pt/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">guia de seleção de válvulas de dilúvio</a> oferece contexto adicional para escolher e supervisionar esse sinal. Antes da estação chuvosa ou de outro período operacional de alto risco, realize o ensaio de disparo planejado com o proprietário, o contratado de alarme e os requisitos da autoridade alinhados.</p>
+			<p class="text-gray-700 leading-relaxed">A manutenção periódica deve seguir a NFPA 25 ou o código local de manutenção aplicável e as instruções do fabricante da válvula. Inspecione o trim quanto à corrosão, confirme que drenos e coletores de condensado não estão bloqueados e registre as leituras de pressão em vez de confiar na memória. O ensaio deve ser controlado para que a área de descarga esteja segura e o sistema seja restaurado prontamente. Se a edição vigente alterar um intervalo, critério de aceitação ou requisito documental, confirme conforme a edição vigente em vez de reutilizar um checklist antigo.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Checklist de RFQ para Válvula de Dilúvio</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Descreva o risco.</strong> Informe a sala ou o processo, a carga combustível, a área protegida e se as saídas são sprinklers abertos, bicos, monitores ou dispositivos de espuma-água.</li>
+				<li><strong>Forneça os dados hidráulicos.</strong> Apresente a vazão de projeto, a pressão remota exigida, a pressão de abastecimento disponível, o diâmetro da tubulação, a elevação e as premissas do cálculo hidráulico vigente.</li>
+				<li><strong>Defina o grupo da válvula.</strong> Informe o diâmetro nominal, a conexão das extremidades, os materiais do corpo e do trim, o diâmetro do dreno, a saída de alarme, o arranjo de ensaio e qualquer válvula de isolamento supervisionada.</li>
+				<li><strong>Especifique o acionamento.</strong> Identifique a detecção hidráulica, pneumática ou elétrica, o comprimento da linha piloto, o acionamento manual, os dados do solenoide, a interface do painel e a sequência de disparo exigida.</li>
+				<li><strong>Trate o ambiente.</strong> Informe a temperatura ambiente mínima e máxima, a localização interna ou externa, o risco de condensação, a rota de drenagem e a exposição à corrosão.</li>
+				<li><strong>Solicite os documentos.</strong> Peça um desenho do conjunto, o esquema do trim, as instruções de instalação e manutenção, o registro de ensaio de pressão, as informações de materiais e os documentos atuais de aprovação ou listagem quando o projeto exigir.</li>
+				<li><strong>Defina o ensaio de aceitação.</strong> Estabeleça o tempo de disparo-alvo, os sinais de alarme, a observação da saída remota, o procedimento de restauração e os registros exigidos após o ensaio de disparo.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Para uma estrutura de aquisição mais ampla, use a <a href="/pt/fire-sprinkler-systems/" class="text-brand-blue font-semibold hover:underline">visão geral de sistemas de sprinklers contra incêndio</a> junto com os guias relacionados acima. Uma RFQ completa permite que a Wanlian confirme a configuração do grupo de válvula sem fingir que está projetando o layout dos detectores ou todo o painel de alarme de incêndio. O resultado é uma divisão de fornecimento mais clara, uma verificação hidráulica mais confiável e menos alterações durante o comissionamento.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Perguntas Frequentes</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Precisa de um Grupo de Válvula de Dilúvio para seu Sistema?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Envie a vazão e a pressão do sistema, o diâmetro da válvula, o tipo de risco e o método de detecção — nossos engenheiros podem confirmar a configuração do grupo de válvula de dilúvio em até 12 horas.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/pt/contact/?product=V%C3%A1lvula%20de%20Alarme%20de%20Dil%C3%BAvio%20(ZSFM)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Solicitar uma Cotação</a>
+						<a href="https://wa.me/8618684324501?text=Ol%C3%A1%2C%20preciso%20de%20um%20grupo%20de%20v%C3%A1lvula%20de%20dil%C3%BAvio%20para%20um%20sistema%20de%20bicos%20abertos%20ou%20monitores" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Conversar no WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

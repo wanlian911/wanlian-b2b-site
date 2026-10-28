@@ -1,0 +1,217 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'Ein Angebot für dieselbe Armatur liegt etwa 30 % auseinander. Was ist normalerweise anders?',
+		answer: 'Eine Differenz von rund 30 % weist meist auf eine unterschiedliche kaufmännische und technische Grundlage hin, nicht einfach auf eine andere Werksmarge. Prüfen Sie Gehäuse- und Garniturwerkstoffe, Sitzwerkstoff, Anschlussnorm, Beschichtung, Umfang der Druckprüfung, Zertifikate, Verpackung, Lieferbedingung sowie die Frage, ob Werkzeuge oder Inspektionen ausgeschlossen sind. Fordern Sie vor dem Vergleich der Gesamtsummen eine zeilenweise Klärung an.'
+	},
+	{
+		question: 'Warum ist es ein Fehler, nur den FOB-Betrag zu betrachten?',
+		answer: 'FOB umfasst den vereinbarten Übergabepunkt für den Export, nicht Ihre vollständigen Einstandskosten. Inlandstransport, Ausfuhranmeldung, Seefracht, Zölle, Hafengebühren und Zollabfertigung können das Ergebnis bei Lieferung verändern. Vergleichen Sie EXW (ab Werk), FOB (frei an Bord), CIF (Kosten, Versicherung und Fracht) und DDP (geliefert verzollt) in einer zielortbezogenen Kostenübersicht und bestätigen Sie, welche Kosten bei Ihnen verbleiben.'
+	},
+	{
+		question: 'Sollten wir eine Drittinspektion oder FAT verlangen?',
+		answer: 'Fordern Sie eine unabhängige Vorversandprüfung oder eine FAT (Werksabnahmeprüfung) mit Zeugen an, wenn die Bestellung sicherheitskritisch ist, der Lieferant neu ist, die Spezifikation komplex ist oder die Dokumente unabhängig bestätigt werden müssen. Klären Sie Haltepunkt, Stichproben, Prüfprotokolle und Kostenträger. Prüfstellen wie SGS oder BV können den vereinbarten Umfang bezeugen, ersetzen aber nicht Ihre technischen Abnahmekriterien.'
+	},
+	{
+		question: 'Wie sollten wir die Musterregelung verhandeln?',
+		answer: 'Legen Sie fest, ob das Muster eine tatsächliche Serienarmatur, ein Schnittmodell oder ein Prototyp ist, und bestimmen Sie, wer Muster, Werkzeuge, Fracht und Prüfberichte bezahlt. Vereinbaren Sie, was mit einem freigegebenen Muster geschieht, wenn die Pilotbestellung ausgelöst wird, und dokumentieren Sie vor der Freigabe alle Abweichungen bei Maßen, Beschichtung oder Kennzeichnung.'
+	},
+	{
+		question: 'Wie sollten Zahlungsmeilensteine festgelegt werden?',
+		answer: 'T/T (telegrafische Überweisung) 30/70 und L/C (Akkreditiv) bei Sicht sind gängige Strukturen, aber der Auslöser für die Freigabe muss konkret sein. Binden Sie den Restbetrag an abgeschlossene Inspektion, freigegebene Dokumente und vereinbarte Verpackung statt an ein informelles Versprechen. Bestätigen Sie Begünstigtenname, Bankdaten, Bestelleinheit und jedes Verfahren zur Änderung des Kontos über einen bekannten Kommunikationsweg.'
+	},
+	{
+		question: 'Wie bald nach Erhalt eines Angebots sollten wir den FAT-Plan anfordern?',
+		answer: 'Fordern Sie den FAT-Plan bereits während der technischen Klärung und vor der Vergabe an, nicht erst nach Abschluss der Produktion. Der Plan sollte Grundlage der Gehäuse- und Sitzprüfung, Stichproben, Messmittel, Abnahmeprotokolle, Werkstoffzertifikate, Kennzeichnung, Verpackung und Zeugenbenachrichtigung nennen. So haben beide Seiten Zeit, einen Prüfplatz zu reservieren und eine Abweichung vor dem Versand zu klären.'
+	}
+];
+
+const toc = [
+	{ id: 'why-quotes-differ', label: '1. Warum sich zwei Angebote für dieselbe Armatur unterscheiden' },
+	{ id: 'write-rfq', label: '2. Eine RFQ für genaue Angebote verfassen' },
+	{ id: 'read-quote', label: '3. Das Angebot Zeile für Zeile lesen' },
+	{ id: 'hidden-costs', label: '4. Kosten, die nach der Vergabe entstehen' },
+	{ id: 'appraisal', label: '5. Eine Gegenüberstellung erstellen' },
+	{ id: 'verification', label: '6. Prüfung vor der Zahlung' },
+	{ id: 'pilot-order', label: '7. Pilotbestellungen und Skalierung' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const products = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Z41X weichdichtender Flanschschieber', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'DN50–DN700 PN10/16, gekapselter EPDM-Keil' },
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'UL/FM weichdichtender OS&amp;Y-Schieber', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: '2"–10", genutete Enden, steigende Spindel, UL/FM-gelistet' },
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'HQ44X Kugelrückschlagventil', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'DN50–DN400 PN16, schlagfreie EPDM-Kugel' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Überflur-Feuerhydrant mit Frostschutz (SS100/65)', img: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp', desc: 'Sphäroguss nach GB 4452, 1,6 MPa, frostsichere Entleerung' }
+];
+---
+
+<Layout
+	title="Chinesische Armaturenangebote vergleichen | B2B"
+	description="B2B-Leitfaden für Angebote chinesischer Armaturenwerke: RFQ, technische Unterschiede, Nebenkosten, Bewertung und Prüfungen vor der Bestellung."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Vergleich von Armaturenangeboten' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Vergleich von Armaturenangeboten</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden zur Armaturenbeschaffung</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">So vergleichen Sie Angebote chinesischer Armaturenlieferanten, ohne später die Bestellung zu gefährden</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kurz gesagt: Ein Armaturenangebot ist nur dann vergleichbar, wenn technischer Umfang, Lieferbedingung, Dokumente, Prüfungen und Zahlungsauslöser vergleichbar sind. Dieser Leitfaden zeigt Einkäufern, wie sie eine RFQ (Angebotsanfrage) verfassen, jede Zeile lesen, Unterschiede bei den Gesamtkosten sichtbar machen, Lieferanten bewerten und ein chinesisches Armaturenwerk vor der Bestellung prüfen. Wanlian erstellt Angebote auf Basis Ihrer RFQ statt eine Preisliste anzuzeigen; der sinnvolle Ausgangspunkt ist daher eine vollständige BOM (Stückliste) und Spezifikation.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="why-quotes-differ" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Warum sich zwei Angebote für dieselbe Armatur unterscheiden</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">„Dieselbe Armatur“ bezeichnet oft nur denselben Namen. Ein Werk bietet möglicherweise ein Gehäuse aus Sphäroguss mit Edelstahlgarnitur an, ein anderes verwendet eine abweichende Garniturqualität oder einen anderen Sitzwerkstoff. Eines kann Gehäuse- und Sitzprüfung, Werkstoffrückverfolgbarkeit und ein unterzeichnetes Dokumentenbuch einschließen; ein anderes nur eine routinemäßige Werksinspektion. Die Flanschbohrung kann ANSI, DIN, EN oder JIS folgen, und das Baumaß von Stirnfläche zu Stirnfläche kann je nach Konstruktion variieren. Anstrichsystem, Kennzeichnung, Verpackung und Palettierung beeinflussen ebenfalls, was am Einsatzort ankommt.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Der kaufmännische Umfang erzeugt eine zweite Differenz. MOQ, kundenspezifische Werkzeuge, Modelländerungen, Musterprüfungen, Materialzeugnisse 3.1, Drittinspektionen mit FAT-Zeugen und Sonderverpackungen können als eigene Positionen erscheinen oder bis zur Klärung fehlen. EXW, FOB, CIF und DDP sind keine austauschbaren Preisetiketten: Sie übertragen Kosten und Risiken zu unterschiedlichen Zeitpunkten. Bevor Sie fragen, warum ein Angebot hoch ist, prüfen Sie, ob beide Lieferanten dasselbe Lieferergebnis kalkuliert haben.</p>
+			<p class="text-gray-700 leading-relaxed">Erstellen Sie vor der Verhandlung ein einheitliches Vergleichsblatt. Führen Sie Modell, Nennweite, Druckstufe, Anschluss, Werkstoffe, Norm, Inspektion, Dokumente, Menge, Bestimmungsort und gewünschtes Datum in festen Spalten. Die <a href="/de/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B-Checkliste zur Armaturenbeschaffung</a> ist eine nützliche Ergänzung, um diesen Umfang eindeutig festzulegen.</p>
+
+			<h2 id="write-rfq" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Eine RFQ für genaue Angebote verfassen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Eine RFQ sollte es einem Werk ermöglichen, ohne Vermutungen zu antworten. Fügen Sie die Armaturenliste oder BOM, Zeichnungen, Betriebsmedium, Betriebsdruck und -temperatur, Menge je Größe, Bestimmungshafen, gewünschtes Lieferfenster und anzuwendende Vorschriften bei. Geben Sie an, ob die Armatur für Brandschutz, Wasserwerke, Prozessbetrieb oder als Ersatz vorgesehen ist. Ergänzen Sie Einzelheiten zur Anschlussnorm wie ANSI Class oder DIN/EN/JIS-Bohrung, statt nur „geflanscht“ zu schreiben.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Machen Sie die Dokumentenanforderung zu einem Bestandteil der Position. Fordern Sie Bezeichnungen der Gehäuse- und Garniturwerkstoffe, Sitzwerkstoff, Druckprüfprotokolle, erforderliche Materialzeugnisse 3.1, Beschichtungsdaten, Typenschildvorlage, Verpackungsfotos sowie einen Inspektions- und Prüfplan an. Wenn ein Dritter die FAT bezeugen soll, nennen Sie den Haltepunkt und die Abnahmeprotokolle. Bei Brandschutzausrüstung verlangen Sie Nachweise, die mit dem exakten Modell abgeglichen werden können; akzeptieren Sie niemals „gleichwertig zu einer bekannten Marke“ als Ersatz für eine überprüfbare Listung oder ein Zertifikat.</p>
+			<p class="text-gray-700 leading-relaxed">Bitten Sie jeden Bieter, Ausschlüsse und Abweichungen in einer eigenen Spalte anzugeben. Eine leere Abweichungsspalte ist keine Bestätigung. Der Lieferant muss Währung, Gültigkeitsdauer, Produktionsvorlauf, MOQ, Gewährleistungsgrundlage, Zahlungsstruktur, Incoterm und Annahmen zum Bestimmungsort nennen. Wanlian arbeitet mit eigenen Produktionslinien sowie qualifizierter kooperierender Kapazität und erstellt Angebote auf Basis des RFQ-Umfangs, damit der Produktionsweg an die erforderliche Armatur und Dokumentation angepasst werden kann.</p>
+
+			<h2 id="read-quote" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Das Angebot Zeile für Zeile lesen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Lesen Sie das Angebot als technisches Angebot, nicht als einzelne Zahl. Beginnen Sie mit dem exakten Produktcode und dem Änderungsstand und prüfen Sie dann Druckstufe, Nennweitenbereich, Anschluss, Baumaßnorm und Werkstoffliste. Bestätigen Sie, ob der angebotene <a href="/de/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">weichdichtende Flanschschieber Z41X</a> der gewünschten Konfiguration entspricht und nicht ein optisch ähnlicher Schieber mit anderem Keil oder anderer Bohrung ist.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Angebotsfeld</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Was zu bestätigen ist</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Warum es die Entscheidung beeinflusst</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Armatur und Werkstoffe</td>
+							<td class="px-4 py-3 text-gray-700">Gehäuse, Deckel, Spindel, Garnitur, Keil oder Kugel, Sitz und Dichtung</td>
+							<td class="px-4 py-3 text-gray-700">Lebensdauer, Korrosionsbeständigkeit und Zulassungsumfang</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Anschluss</td>
+							<td class="px-4 py-3 text-gray-700">ANSI-, DIN-, EN- oder JIS-Bohrung; genutete oder Gewindeenden</td>
+							<td class="px-4 py-3 text-gray-700">Passung vor Ort und Risiko einer teuren zweiten Lieferung</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Prüfungen und Dokumente</td>
+							<td class="px-4 py-3 text-gray-700">Gehäuse-/Sitzprüfung nach API 598, Zertifikate, FAT und Dokumentenbuch</td>
+							<td class="px-4 py-3 text-gray-700">Abnahmenachweis und Rückverfolgbarkeit nach der Lieferung</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Liefergrundlage</td>
+							<td class="px-4 py-3 text-gray-700">EXW, FOB, CIF oder DDP, benannter Ort und enthaltene Kosten</td>
+							<td class="px-4 py-3 text-gray-700">Einstandskosten, Risikoübergang und Importaufwand</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Zahlung und Freigabe</td>
+							<td class="px-4 py-3 text-gray-700">T/T 30/70 oder L/C bei Sicht, Inspektions- und Dokumentenauslöser</td>
+							<td class="px-4 py-3 text-gray-700">Liquiditätsrisiko und Kontrolle vor dem Versand</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Prüfen Sie anschließend das Kleingedruckte. „Standardverpackung“ muss keine Exportverpackung bedeuten, und „Prüfzertifikat“ muss kein Protokoll mit Bezug zu Ihren Seriennummern sein. Bestätigen Sie, ob ISPM-15-Paletten, Etiketten, Ersatzdichtungen, Handbücher und Fotos enthalten sind. Vergleichen Sie bei Brandschutzanwendungen die exakte Listung, Kennzeichnung und Prüfbelege, nicht nur eine vertraute Produktbeschreibung. Wenn die Formulierung zur Prüfung unklar ist, beachten Sie die Anforderungen der Druckprüfung nach API 598.</p>
+
+			<h2 id="hidden-costs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Kosten, die nach der Vergabe entstehen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Gesamtkosten bei Lieferung beginnen mit der angebotenen Armatur, enden dort aber nicht. Bei EXW organisieren Sie möglicherweise die Abholung im Werk und den Inlandstransport. Bei FOB übernimmt der Lieferant normalerweise die Exportformalitäten bis zum benannten Verladeort, während der Käufer Seefracht und Folgekosten trägt. CIF umfasst Fracht und Versicherung bis zum benannten Hafen, aber nicht zwingend Arbeiten am Zielterminal, Zoll oder Zollabfertigung. DDP kann für den Käufer einfacher sein, doch Steuer, Importeur und Lieferumfang müssen genau schriftlich festgehalten werden.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Bilden Sie die gesamte Kette ab: Inlandstransport, Ausfuhranmeldung, Seefracht, Versicherung, Zölle, Hafen- und Terminalgebühren, Zollagent, Endlieferung sowie Inspektion oder Lagerung. Ergänzen Sie leicht übersehene kaufmännische Positionen: MOQ, Form- oder Werkzeugkosten, Muster- und Prüfgebühren, Materialzeugnisse 3.1, Drittinspektion mit FAT, Sonderbeschichtung, Übersetzung des Typenschilds, Exportkartons und ISPM-15-Behandlung. Bitten Sie um eine Gültigkeitsdauer, da sich Fracht und Zuschläge zwischen Vergabe und Versand verändern können.</p>
+			<p class="text-gray-700 leading-relaxed">Lassen Sie eine scheinbar niedrige Offerte nicht durch eine technische Lücke attraktiv wirken. Ein fehlender Sitzwerkstoff, eine falsche Flanschbohrung oder ein fehlendes Prüfprotokoll kann Nacharbeit, Verzögerung und Zulassungsrisiken verursachen, die den anfänglichen Preisunterschied übersteigen. Klären Sie die häufige Lücke bei Anschlussnormen anhand der Anforderungen für ANSI, DIN, EN und JIS, bevor Sie die Bestellung auslösen.</p>
+
+			<h2 id="appraisal" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Eine Gegenüberstellung erstellen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Verwenden Sie eine gewichtete Bewertung, statt die niedrigste Position auszuwählen. Eine praktische Bewertungsmatrix räumt technischer Eignung und Konformitätsnachweisen den größten Anteil ein, gefolgt von Klarheit der Gesamtkosten, Qualitätskontrollen, Lieferzeit, Kommunikation und Zahlungsrisiko. Die genaue Gewichtung sollte die Folgen eines Ausfalls abbilden: Eine Ersatzarmatur für einen unkritischen Versorgungsbereich ist anders zu bewerten als eine Armatur in einem Brandschutzpaket.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Bewertungsdimension</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Anzufordernder Nachweis</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Warnsignal</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Technische Eignung</td>
+							<td class="px-4 py-3 text-gray-700">Zeichnungen, Datenblatt, Werkstoffe, Anschlussnormen und Abweichungen</td>
+							<td class="px-4 py-3 text-gray-700">„Gleichwertig“ ohne Nachweis auf Modellebene</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Qualität und Rückverfolgbarkeit</td>
+							<td class="px-4 py-3 text-gray-700">ITP, Serienaufzeichnungen, Prüfprotokolle, Materialzeugnisse 3.1 und Audit-Zugang</td>
+							<td class="px-4 py-3 text-gray-700">Aussteller oder Umfang des Zertifikats nicht überprüfbar</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Kaufmännische Klarheit</td>
+							<td class="px-4 py-3 text-gray-700">Incoterm, Bestimmungsort, Ausschlüsse, Gültigkeit und Kostenübersicht</td>
+							<td class="px-4 py-3 text-gray-700">Fracht, Zoll oder Werkzeuge erscheinen erst nach der Vergabe</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Ausführungsrisiko</td>
+							<td class="px-4 py-3 text-gray-700">Werksvideo, Kapazitätsplan, Referenzen und Kommunikationsprotokoll</td>
+							<td class="px-4 py-3 text-gray-700">Verweigert Audit oder ändert das empfangende Konto</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Bewerten Sie unbeantwortete Fragen als Abzüge, nicht als Annahmen. Ein ansprechbarer Lieferant, der eine Abweichung offenlegt, ist sicherer als jemand, der allem zustimmt und den Umfang später ändert. Bewahren Sie Angebotsrevision, Klärungen und freigegebene Zeichnung an der Bewertung auf, damit die Vergabeentscheidung nachvollziehbar bleibt.</p>
+
+			<h2 id="verification" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Prüfung vor der Zahlung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Prüfen Sie vor der Freigabe einer Anzahlung die juristische Einheit, Werksanschrift, Produktionsfähigkeit, den Bankbegünstigten und den Aussteller der Dokumente. Bitten Sie um einen Live-Videorundgang durch Bearbeitung, Montage, Druckprüfung, Lackierung, Lagerkennzeichnung und Verpackung. Ein Video ersetzt kein Audit, aber die Weigerung, den Betrieb zu zeigen, ist eine deutliche Warnung. Wenn der Lieferant qualifizierte kooperierende Kapazität nutzt, klären Sie, welcher Prozess ausgelagert wird und wer die Endkontrolle besitzt.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Prüfen Sie, dass Zertifikate den richtigen Hersteller und das richtige Modell nennen und dass das Empfängerkonto zur Vertragspartei passt. Ein Zertifikatsinhaber und ein Zahlungskonto mit unerklärlichen Namensabweichungen müssen vor der Zahlung geklärt werden. Behandeln Sie „gleich wie eine große Marke“ als Marketingaussage, bis Modell, Listung, Werkstoff und Prüfbelege unabhängig verifiziert sind. Für einen strukturierten Ablauf nutzen Sie unseren <a href="/de/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur Prüfung chinesischer Armaturenlieferanten</a> und die <a href="/de/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">Prüfungen gegen Fälschungen bei Brandschutzausrüstung</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Vereinbaren Sie den FAT-Plan, bevor die Produktion ihre letzte Phase erreicht. Definieren Sie gegebenenfalls Gehäuse- und Sitzprüfungen nach API 598, Messmittelkalibrierung, Stichprobenauswahl, Kontrollen von Beschichtung und Kennzeichnung, Dokumentenprüfung, Zeugenbenachrichtigung und Umgang mit Nichtkonformitäten. Ein unabhängiger Zeuge einer Organisation wie SGS oder BV kann zusätzliche Unabhängigkeit schaffen, doch die Bestellung muss die Abnahme weiterhin eindeutig definieren.</p>
+
+			<h2 id="pilot-order" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Pilotbestellungen und Skalierung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Eine Pilotbestellung macht Annahmen zu Nachweisen. Nutzen Sie sie, um die tatsächliche Armatur anhand der freigegebenen Zeichnung, Maße, Flanschbohrung, Betätigungsdrehmoment, Beschichtung, Typenschild, Verpackung und Dokumentenmappe zu prüfen. Bei einer Feuerwasseranwendung verifizieren Sie die Konfiguration des <a href="/de/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM weichdichtenden OS&amp;Y-Schiebers</a> und des <a href="/de/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">Kugelrückschlagventils HQ44X</a> anhand des freigegebenen Umfangs, statt sich auf ein Katalogfoto zu verlassen.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Beginnen Sie klein, weil die Kosten einer festgestellten Abweichung niedriger sind, bevor das Produkt über ein Projekt ausgerollt wird. Eine Pilotbestellung prüft außerdem Kommunikation, Änderungslenkung, Verpackungsqualität, Exportdokumente und die Geschwindigkeit der Korrektur einer Nichtkonformität. Geben Sie die nächste Charge erst frei, wenn der Pilotbericht abgeschlossen ist und der Lieferant bestätigt, dass der freigegebene Änderungsstand für die Produktion gesperrt ist.</p>
+			<p class="text-gray-700 leading-relaxed">Bei der Skalierung müssen dieselben Inspektionsgates, Rückverfolgbarkeit und Zahlungsauslöser erhalten bleiben. Wanlian kann RFQ-basierte Pakete mit eigenen Produktionslinien sowie qualifizierter kooperierender Kapazität anbieten; senden Sie die Armaturenliste, den Bestimmungsort und die geforderten Dokumente, damit wir Standardsortiment und projektspezifische Prüfungen trennen können. Für eine umfassendere Risikoplanung lesen Sie vor der Festlegung des Beschaffungswegs das <a href="/de/guides/cross-border-procurement-risk-whitepaper/" class="text-brand-blue font-semibold hover:underline">Whitepaper zu Risiken der grenzüberschreitenden Beschaffung</a>.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Bereit, eine Armaturen-RFQ zu vergleichen?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie Ihre BOM oder Anfrage, den Bestimmungsort, Normen und Dokumentenanforderungen. Wanlian erstellt ein Angebot auf Basis der RFQ, bestätigt den technischen Umfang und trennt Annahmen zu Produktion, Inspektion und Lieferung vor der Vergabe.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+		
+						<a href={`/de/contact/?product=${encodeURIComponent('Armaturen-RFQ-Paket')}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Armaturen-RFQ anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${encodeURIComponent('Hallo, ich benötige Angebote für Armaturen gemäß meiner BOM')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Auf WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

@@ -1,0 +1,195 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const faq = [
+	{
+		question: 'ABD projesi EN 14461 hidrantı satın alabilir mi?',
+		answer: 'Satın alınabilir; ancak satın alma, kabul anlamına gelmez. ABD projesi normalde yetkili makamı, itfaiye bağlantı düzenini ve sözleşme standardını esas alır. EN 14461 hidrantı ancak mühendis ve yetkili makam basınç sınıfını, çıkışları, kaplin arayüzlerini, test belgelerini ve montaj ayrıntılarını kabul ederse değerlendirilebilir. İhale AWWA C509 talep ediyorsa, EN ürününün eşdeğer olduğunu varsaymak yerine AWWA konfigürasyonlu bir hidrant teklif edin.'
+	},
+	{
+		question: 'AWWA C509 hidrantı EN projesinde kullanılabilir mi?',
+		answer: 'Yalnızca belgelenmiş proje onayıyla. AWWA C509 ve EN 14461 hidrantları gövde düzeni, basınç tanımı, çıkış düzeni, dişler ve tip testi kanıtları bakımından farklı olabilir. Tasarımcı, AWWA konfigürasyonunun gerekli Avrupa arayüzü ve performans şartlarını karşıladığını doğrulamalıdır. Yalnızca nominal ölçüye göre ikame yapmayın; sevkiyat öncesinde önerilen standardı, çizimleri, malzemeleri ve test kayıtlarını incelemeye sunun.'
+	},
+	{
+		question: 'Kuru gövdeli ve ıslak gövdeli hidrant arasında nasıl seçim yaparım?',
+		answer: 'Başlangıç noktası olarak iklimi, montaj düzenini ve yerel standardı kullanın. Kuru tip düzen, kapatma sonrasında üst gövdenin suyunu boşaltır ve donmanın tasarım açısından sorun olduğu yerler için uygundur; ıslak tip düzen ise gövdeyi suyla dolu tutar ve genellikle don beklenmeyen yerlerde kullanılır. Nihai seçim proje şartnamesinde yer almalı ve seçilen standart, drenaj düzeni ve bakım uygulamasıyla uyumlu olmalıdır.'
+	},
+	{
+		question: 'IoT izlemeli hidrant standarda uygunluğu değiştirir mi?',
+		answer: 'Tek başına değiştirmez. İzleme modülü bir aksesuar veya enstrümantasyon katmanıdır; hidrant gövdesi, basıncı, çıkışı, malzeme veya test şartlarının yerine geçmez. Temel hidrant yine ihalede belirtilen standarda uygun olmalı, izleme montajı çalışmayı, drenajı, muayeneyi veya trafik güvenliğini engellememelidir. Temel ürün belgelerini ve izleme veri sayfasını ayrı ayrı isteyin.'
+	},
+	{
+		question: 'Hidrant kaplininin dişi eşleşmezse ne olur?',
+		answer: 'Nominal çıkış ölçüsü doğru görünse bile hortum, kapak veya itfaiye ekipmanı bağlanamayabilir. Diş veya kaplin uyumsuzluğu suyun gecikmesine, kapağın çıkarılamamasına veya onaysız bir adaptör gerektirmesine yol açabilir. Onaylı çizimde çıkış tipini, diş tanımını, kaplin standardını ve yerel itfaiye uygulamasını doğrulayın. Geçiş gerekiyorsa adaptörü sevkiyattan önce tanımlayın ve onaylatın.'
+	},
+	{
+		question: 'Teslimattan önce hangi test raporlarını istemeliyim?',
+		answer: 'Basınç deneyi kaydını, belirtilen baskıya uygulanabilir debi veya performans testi kanıtını, malzeme ve kaplama belgelerini, ölçüsel ve çıkış muayene kayıtlarını ve nihai muayene raporunu isteyin. Trafik güvenlikli model için kopma cıvatalarını ve otomatik kapatma açıklamasını talep edin. Tedarikçinin kullanılan standardın tam baskısını belirtmesini isteyin; çünkü hangi kanıtın geçerli olduğunu ihale baskısı belirler.'
+	}
+];
+
+const toc = [
+	{ id: 'which-standard', label: '1. Şartnamenizin gerçekten çağırdığı standart' },
+	{ id: 'pressure-classes', label: '2. Anma basıncı ve çalışma derinliği' },
+	{ id: 'outlets', label: '3. Çıkış düzeni ve kaplin kalıpları' },
+	{ id: 'materials', label: '4. Malzemeler, kaplamalar ve trafik güvenliği' },
+	{ id: 'testing', label: '5. Tip testleri ve üretim testleri' },
+	{ id: 'mixing', label: '6. Standartların birlikte kullanılmasının kabul edilebilir olduğu durumlar' },
+	{ id: 'rfq-checklist', label: '7. Hidrant RFQ kontrol listesi' },
+	{ id: 'faq', label: 'Sık sorulan sorular' }
+];
+
+const products = [
+	{ slug: 'overground-fire-hydrant-ss100', name: 'Yer Üstü Antifrizli Yangın Hidrantı (SS100/65)', img: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp', desc: 'GB 4452 sünek dökme demir, DN100/65, 1,6 MPa, donmaya karşı drenaj' },
+	{ slug: 'underground-fire-hydrant-sa', name: 'Yer Altı Yangın Hidrantı (SA Serisi)', img: '/assets/products/underground-fire-hydrant-sa.webp', desc: 'Soğuk belediye yolları için donmaya karşı yer altı hidrantı' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'Çarpışma Korumalı Basınç Düzenleyici Hidrant (SSFT100)', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Basınç düzenleyici cihaz ve kopma cıvatalı trafik koruması' },
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'İç Saha Yangın Hidrantı Başlığı SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'SN65 sünek dökme demir vana, 1,6 MPa, yivli veya flanşlı' }
+];
+---
+
+<Layout
+	title="AWWA C509 ve EN 14461 Yangın Hidrantları"
+	description="AWWA C509 ve EN 14461 yangın hidrantlarını basınç, çıkış, malzeme ve test gereklilikleriyle karşılaştıran B2B tedarik rehberi."
+	type="article"
+	locale="tr"
+	faq={faq}
+	breadcrumbs={[{ name: 'Kılavuzlar', href: '/tr/blog/' }, { name: 'AWWA ve EN Yangın Hidrantları' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/tr/" class="hover:text-blue-600">Ana sayfa</a>
+			<span>/</span>
+			<a href="/tr/blog/" class="hover:text-blue-600">Kılavuzlar</a>
+			<span>/</span>
+			<span class="text-gray-600">AWWA ve EN Yangın Hidrantları</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Yangın Hidrantı Standartları Kılavuzu</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">AWWA C509 ve EN 14461 Yangın Hidrantları: Teknik Şartname ve Tedarik Karşılaştırması</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kısaca: AWWA C509 ve EN 14461 aynı hidrant için birbirinin yerine kullanılabilecek etiketler değildir. AWWA C509, kendine özgü gövde, çıkış ve diş kuralları olan Kuzey Amerika ürün standardıdır; EN 14461 ise PN sınıfları, DN giriş seçenekleri, çıkış düzenleri, arayüzler ve performans gereklilikleri üzerine kurulu Avrupa yer üstü hidrant standardıdır. Başarılı bir RFQ, genel bir “uluslararası” hidrant istemek yerine geçerli baskıyı, yerel itfaiye bağlantısını, basınç görevini, malzemeleri, trafik korumasını ve test kayıtlarını belirtir.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/tr/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="which-standard" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Şartnamenizin gerçekten çağırdığı standart</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">İlk soru “Hangi hidrant daha iyi?” değil, “Kabulü hangi belge yönetiyor?” sorusudur. AWWA C509, Kuzey Amerika su işleri uygulamalarında ıslak ve kuru gövdeli düzenler dahil, elastik yataklı sürgülü vanalar ve yangın hidrantı konfigürasyonları için kullanılır. Şartname proje çizimleri, işletme standardı ve yetkili makamla birlikte okunur. EN 14461, Avrupa çerçevesinde yer üstü yangın hidrantlarını ele alır; mühendis normalde basınç tanımını, nominal giriş ölçüsünü, çıkış düzenini, bağlantı arayüzünü ve gerekli performans kanıtını belirtir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">GB 4452, yaygın Çin yer üstü SS100/65 ürün ailesi için ilgili referanstır. AWWA veya EN kabulü için kestirme yol değildir. Wanlian SS100/65 yer üstü hidrantı, 1,6 MPa nominal basınç ve 2,4 MPa statik basınç deneyi ile GB 4452 konfigürasyonunda tedarik edilir. Bu bilgi Çin pazarı ihalesi için yararlıdır; ancak ihracat projesi yine kendi geçerli standardını, çıkış düzenini ve belge listesini gerektirir.</p>
+			<p class="text-gray-700 leading-relaxed">Aşağıdaki karşılaştırmayı ön eleme aracı olarak kullanın; ardından ikameyi onaylamadan önce ihalenin tam baskısını ve proje değişikliklerini doğrulayın.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Şartname noktası</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">AWWA C509</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">EN 14461</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">GB 4452</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Ürün kapsamı</td>
+							<td class="px-4 py-3 text-gray-700">Kuzey Amerika yangın hidrantı ürün standardı; ıslak veya kuru gövdeli konfigürasyonlar</td>
+							<td class="px-4 py-3 text-gray-700">Belirtilmiş PN ve performans gerekliliklerine sahip Avrupa yer üstü yangın hidrantları</td>
+							<td class="px-4 py-3 text-gray-700">SS100/65 ailesi dahil Çin yer üstü hidrantları</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Basınç ifadesi</td>
+							<td class="px-4 py-3 text-gray-700">Anma sınıfını ve proje çizelgesini kullanın; listelenmemiş bir değeri varsaymayın</td>
+							<td class="px-4 py-3 text-gray-700">PN sınıfı şartnamede belirtilir ve montajla karşılaştırılır</td>
+							<td class="px-4 py-3 text-gray-700">SS100/65 yaygın olarak 1,6 MPa; statik basınç deneyi 2,4 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Çıkışlar ve arayüzler</td>
+							<td class="px-4 py-3 text-gray-700">2,5 in ana çıkış ve 65 mm yan çıkış; dişler belirtilen AWWA arayüzünü izler</td>
+							<td class="px-4 py-3 text-gray-700">Yaygın 2 x DN65 artı DN100 düzeni; arayüz EN 14384 ve ilgili kaplin şartlarını izleyebilir</td>
+							<td class="px-4 py-3 text-gray-700">SS100/65 çıkış adlandırması Çin ürün ve bağlantı kuralını izler</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Malzemeler ve güvenlik</td>
+							<td class="px-4 py-3 text-gray-700">Sünek dökme demir uygulaması ASTM A536 malzeme referansını ve uygun olduğunda kuru gövde drenajını içerir</td>
+							<td class="px-4 py-3 text-gray-700">Malzeme, kaplama, akış performansı ve araç çarpması güvenliği baskıya göre belirtilir ve test edilir</td>
+							<td class="px-4 py-3 text-gray-700">GB 4452 malzeme ve test gerekliliklerine sahip sünek dökme demir ürün konfigürasyonu</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="pressure-classes" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Anma basıncı ve çalışma derinliği</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Basınç terminolojisi, yanlış eşdeğerliğin yaygın bir kaynağıdır. EN belgeleri genellikle PN tanımını açıkça gösterirken AWWA çizelgesi anma basıncı sınıfını veya işletme gerekliliğini belirtebilir. GB 4452 SS100/65 ürünleri çoğunlukla 1,6 MPa olarak tanımlanır ve belirtilen konfigürasyon için 2,4 MPa statik basınç deneyine tabi tutulur. Bu etiketler farklı standart sistemlerini anlatır; bir satış görevlisi tarafından yalnızca nominal ölçü kullanılarak dönüştürülmemelidir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Basınç sınıfını yalnızca gövdede değil, komple hidrant grubunda isteyin. Bonet, mil, yatak, nozul, kapak, drenaj ve flanşlı veya dişli bağlantının tamamı görev için uygun kalmalıdır. Gerekli çalışma derinliğini, gömme düzenini ve bitmiş zemin ölçüsünü inşaat çiziminde belirtin. Minimum debi, gömme derinliği veya baskıya bağlı başka bir sayı, ihaledeki standart baskısına göre tanımlanmalıdır.</p>
+			<p class="text-gray-700 leading-relaxed">Soğuk bir belediye yolu kuru gövdeli veya yer altı düzeni gerektirebilirken sıcak iklim ıslak gövdeli tasarıma izin verebilir. Yer altı montajı için <a href="/tr/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">SA Serisi yer altı yangın hidrantını</a> proje drenajı ve erişim ayrıntılarıyla karşılaştırın. Basınç kararı ile donma kararı ilişkilidir; ancak aynı karar değildir.</p>
+
+			<h2 id="outlets" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Çıkış düzeni ve kaplin kalıpları</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Yerel hortumla birleşemeyen bir çıkış, başarısız bir hidranttır. AWWA C509 uygulaması, ilgili AWWA C505 arayüzünü izleyen dişlerle 2,5 in ana çıkış ve 65 mm yan çıkış tanımlar. EN 14461 projelerinde genellikle DN80, DN100 veya DN150 girişler ve 2 x DN65 artı DN100 gibi bir çıkış düzeni görülür; ancak kesin kaplin arayüzü proje çizelgesinde yer almalıdır. Yalnızca “DN65 çıkış” yazan çizim, diş veya kaplin tipini de belirtmiyorsa eksiktir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">İtfaiye hizmetinin dişli hortum bağlantısı, Storz kalıbı, ulusal kaplin veya projeye özel adaptör kullanıp kullanmadığını doğrulayın. RFQ kapsamında bağlantı yer alıyorsa Wanlian, hidrant nozul çizelgesini <a href="/tr/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">yangın hidrantı hortum kaplin adaptörü</a> veya <a href="/tr/products/storz-coupling-2-5inch-aluminum/" class="text-brand-blue font-semibold hover:underline">2,5 inç alüminyum Storz kaplin</a> ile birlikte inceleyebilir. Adaptör adı belirtilmeli ve onaylanmalıdır; konteyner geldikten sonra keşfedilmemelidir.</p>
+			<p class="text-gray-700 leading-relaxed">Vanayı bir ABD itfaiye teşkilatı işletecekse EN veya GB konfigürasyonu sipariş edilmeden önce dişi doğrulamasını isteyin. Proje Avrupa'daysa işletmenin kullandığı bağlantı referansını belirleyin ve onaylı genel yerleşimde gösterin. <a href="/tr/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">Yangın hidrantı vana standartları kılavuzu</a>, çıkış geometrisi, kapak boşluğu ve işletme yönünün neden aynı incelemede ele alınması gerektiğini açıklar.</p>
+
+			<h2 id="materials" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Malzemeler, kaplamalar ve trafik güvenliği</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">AWWA konfigürasyonları genellikle ASTM A536 sünek dökme demir tanımlar ve donma koruması gerektiğinde kuru gövde drenaj düzeni kullanır. EN projelerinde malzeme kalitesi, iç ve dış kaplama sistemi, bağlantı elemanı malzemesi ve elastomer seçimi teklif dosyasında yazılı olmalıdır. GB 4452 ürünleri tanımlı Çin ürün konfigürasyonunu kullanır. Boya rengini veya katalog fotoğrafını kaplama uygunluğunun kanıtı olarak görmeyin; ihale baskısının istediği malzeme ve kaplama kayıtlarını talep edin.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Trafik koruması ayrı bir işlevsel gerekliliktir. SSFT100 çarpışma korumalı basınç düzenleyici hidrantta çarpışma, kopma cıvatalarının kırılmasına ve dahili vananın otomatik olarak kapanmasına neden olarak su akışını durdurur. Kopma cıvatalarının değiştirilmesi hidrantı yeniden çalışır duruma getirir. Ayrıntılı teknik veriler talep üzerine sağlanabilir. Bu açıklama her AWWA, EN veya GB hidrantının aynı güvenlik mekanizmasına sahip olduğu anlamına gelmez; trafik güvenliği gerekliliği açıkça belirtilmelidir.</p>
+			<p class="text-gray-700 leading-relaxed">Araç hareketinin yoğun olduğu bir saha için <a href="/tr/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">SSFT100 çarpışma korumalı hidrantı</a> hidrant çevresindeki inşaat korumasıyla karşılaştırın. Şartname donma riskini, darbe maruziyetini ve işletme erişimini birlikte içeriyorsa <a href="/tr/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">antifrizli ve çarpışma korumalı hidrant kılavuzu</a> yararlı olacaktır.</p>
+
+			<h2 id="testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Tip testleri ve üretim testleri</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Doğru ürün adına sahip bir sertifika, doğru standarda ait kanıt anlamına gelmez. Hangi baskının kullanıldığını, hangi konfigürasyonun test edildiğini ve raporun tedarik edilen çıkış düzenini kapsayıp kapsamadığını sorun. Tip testleri tasarımı kanıtlarken üretim testleri sevkiyatın muayene edildiğini ve basınç deneyinden geçtiğini gösterir. Bu iki belge alıcının farklı sorularını yanıtlar ve satın alma siparişinde ayrı ayrı listelenmelidir.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">AWWA C509 sunumu için ıslak veya kuru gövdeli düzene uygulanabilir basınç, işletme, drenaj ve malzeme kanıtlarını isteyin. EN 14461 için seçilen konfigürasyona uygulanabilir PN, akış performansı, çıkış, araç çarpması ve arayüz kanıtlarını talep edin. GB 4452 için belirtilen SS100/65 temeli buysa 1,6 MPa ürün kaydını ve 2,4 MPa statik basınç deneyi kaydını isteyin. Debi testi ayrıntıları geçerli standart yöntemini ve baskısını izlemelidir; uydurma bir evrensel debi sayısını kabul etmeyin.</p>
+			<p class="text-gray-700 leading-relaxed"><a href="/tr/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">IoT akıllı yer üstü hidrantı SS100ZN</a> varlığa izleme ekleyebilir; ancak temel hidrantın yine kendi uygunluk dosyasına ihtiyacı vardır. Sensör, pil ve haberleşme ekipmanının vana hareketine, drenaja, muayeneye veya trafik güvenliği işlevine müdahale etmediğini kontrol edin.</p>
+
+			<h2 id="mixing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Standartların birlikte kullanılmasının kabul edilebilir olduğu durumlar</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Standartların birlikte kullanılması bilinçli, belgeli ve onaylı olduğunda kabul edilebilir. Örneğin proje, bir ürün standardına göre üretilmiş hidrant gövdesini ve yerel hortuma uyması için ayrıca belirtilmiş bir adaptörü kullanabilir. Bu, gövdeyi adaptör standardına uygun hale getirmez. Teklif dosyası her bileşeni, geçerli belgesini, basınç uyumluluğunu, diş veya kaplin arayüzünü ve nihai kabul sorumluluğunu tanımlamalıdır.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Tekliften sonra yalnızca flanşı veya nozulu değiştirerek standartları sessizce birleştirmeyin. Çıkış delik düzeni, kapak boşluğu, işletme anahtarı, drenaj davranışı ve test kanıtları değişebilir. Yüklenici EN projesi için AWWA gövdesi talep ederse mühendisten sapmayı onaylı teklif dosyasında işaretlemesini isteyin. EN hidrantı ABD projesi için öneriliyorsa üretimden önce yetkili makamın yazılı onayını alın.</p>
+			<p class="text-gray-700 leading-relaxed">Wanlian, kendi üretim hattı ve nitelikli iş ortaklarının kapasitesiyle proje incelemesini destekler; böylece RFQ gerekli gövde, çıkış ve belge paketiyle eşleştirilebilir. Alıcı proje standardını ve yetkili makamı belirtmekten sorumludur; tedarikçi desteklenmeyen bir sertifikasyon iddiasında bulunmamalıdır.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Hidrant RFQ kontrol listesi</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Geçerli standardı ve baskıyı belirtin.</strong> Proje değişiklikleri ve yetkili makam şartlarıyla birlikte AWWA C509, EN 14461, GB 4452 veya gerekli başka belgeyi yazın.</li>
+				<li><strong>Gövdeyi ve montajı tanımlayın.</strong> Islak gövde veya kuru gövde, yer üstü veya yer altı, bitmiş zemin ölçüsü, drenaj düzeni ve donma maruziyeti.</li>
+				<li><strong>Basınç ve debi görevini belirtin.</strong> Anma basıncını veya PN sınıfını verin; baskıya bağlı debi değerinin ihaledeki standart baskısına göre tanımlanmasını isteyin.</li>
+				<li><strong>Her bağlantıyı çizin.</strong> Giriş DN veya nominal ölçüsü, flanş delik düzeni, çıkış sayısı, çıkış ölçüsü, diş veya kaplin kalıbı, kapak ve işletme anahtarı ayrıntıları.</li>
+				<li><strong>Malzemeleri ve korumayı listeleyin.</strong> Sünek dökme demir kalitesi, elastomerler, bağlantı elemanları, kaplama sistemi, trafik güvenlik cihazı ve uygulanıyorsa yedek kopma cıvatası gerekliliği.</li>
+				<li><strong>Kanıt paketini isteyin.</strong> Tip test raporları, üretim basınç deneyleri, debi veya performans kayıtları, malzeme sertifikaları, ölçüsel muayene ve nihai serbest bırakma belgeleri.</li>
+				<li><strong>Aksesuarları doğrulayın.</strong> Hortum adaptörleri, Storz kaplinleri, kapaklar, drenaj bileşenleri, izleme ekipmanı ve yedek kopma cıvataları varsayılmamalı, listelenmelidir.</li>
+				<li><strong>Kabulü yazılı hale getirin.</strong> Üretimden önce mühendisten veya yetkili makamdan her standartlar arası ikameyi onaylamasını isteyin ve onaylı çizimi satın alma siparişine ekleyin.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Seçim bağlamı için <a href="/tr/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">yangın hidrantı nasıl seçilir kılavuzunu</a> ve <a href="/tr/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">yangın hidrantı vana standartları kılavuzunu</a> okuyun. Sistem düzeyinde planlama için vana çizelgesini kesinleştirmeden önce <a href="/tr/fire-hydrant-systems/" class="text-brand-blue font-semibold hover:underline">yangın hidrantı sistemlerine</a> bakın.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Sık sorulan sorular</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Proje standardınıza göre yapılandırılmış bir hidranta mı ihtiyacınız var?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Proje konumunu, standart baskısını, giriş ve çıkış düzenini, basınç görevini ve montaj koşullarını gönderin. Uygulanabilir standarda uygun ihracat veya arayüz konfigürasyonunu doğrulayacak ve ilgili test raporlarını incelemeniz için sağlayacağız.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/tr/contact/?product=D%C4%B1%C5%9F%20Saha%20Yang%C4%B1n%20Hidrantlar%C4%B1%20(AWWA%20C509%20ve%20EN%2014461)" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Teklif isteyin</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Merhaba, AWWA C509 veya EN 14461 projesi için dış saha yangın hidrantlarına ihtiyacım var')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">WhatsApp üzerinden yazın</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

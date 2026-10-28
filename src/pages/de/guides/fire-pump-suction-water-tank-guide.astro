@@ -1,0 +1,171 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/sections/TableOfContents.astro';
+
+const uri = { EscapeDataString: encodeURIComponent };
+
+const faq = [
+	{
+		question: 'Welches Tankmaterial und welchen Korrosionsschutz sollten wir spezifizieren?',
+		answer: 'Legen Sie Tankmaterial, Auskleidung, Beschichtung und Maßnahmen zur Wasserqualität gemeinsam mit dem Tankhersteller und dem Projektplaner fest. Stahl-, Segmentstahl- und Betontanks erfordern jeweils andere Details zur Korrosionskontrolle; die richtige Wahl hängt von gespeichertem Wasser, Klima und lokalen Anforderungen ab. Fordern Sie Beschichtungsdaten, Inspektionszugänge und Wartungsanweisungen an, statt eine Universalauskleidung für Löschwasser vorauszusetzen.'
+	},
+	{
+		question: 'Benötigt ein Saugseiten-Wirbelschutz eine Zertifizierung für den Feuerlöschdienst?',
+		answer: 'Ob eine Listung, Zulassung oder projektspezifische Abnahme erforderlich ist, hängt von der geltenden Normausgabe, der zuständigen Behörde und der vollständigen Tankbaugruppe ab. Eine Wirbelschutzplatte ist ein hydraulisches Schutzelement und nicht automatisch ein gelistetes Feuerlöschventil. Klären Sie die erforderlichen Nachweise und reichen Sie Material, Abmessungen und Einbaudetail mit der Tankdokumentation ein.'
+	},
+	{
+		question: 'Was geschieht, wenn die Eintauchtiefe im Tank zu gering ist?',
+		answer: 'Die Saugleitung kann Luft ziehen, einen sichtbaren Wirbel bilden oder geräuschvoll und instabil werden. Die Pumpe kann schwankenden Saugdruck, sinkenden Förderstrom, Vibrationen oder kavitationstypische Symptome zeigen. Prüfen Sie Wasserstand, Einlaufgeometrie, Zulauf und Wirbelschutzdetail anhand der geltenden Normausgabe und der Herstellerdaten, bevor Sie die Pumpe ändern.'
+	},
+	{
+		question: 'Kann ein Tank gleichzeitig häusliche und feuerlöschtechnische Aufgaben erfüllen?',
+		answer: 'Das kann möglich sein, jedoch nur, wenn die Anordnung die erforderliche Löschwasserreserve erhält, die vorgeschriebene Trennung oder Entnahmehöhe einhält und von der zuständigen Behörde akzeptiert wird. Ein Hauswasserabgang oder eine Niveauregelung darf nicht dazu führen, dass der normale Verbrauch das geschützte Löschwasservolumen nutzt. Bestätigen Sie Hydraulik, Überwachung und Nachspeisesteuerung anhand der geltenden Vorschriften.'
+	},
+	{
+		question: 'Warum wird auf der Saugseite der Pumpe normalerweise ein Absperrschieber bevorzugt?',
+		answer: 'Ein vollständig geöffneter Absperrschieber bietet einen durchgängigen Querschnitt mit geringer Störung nahe dem Pumpeneinlass und kann in geöffneter Stellung verriegelt oder überwacht werden. Das Absperrventil der Saugseite ist kein Drosselorgan. Eine gelistete Alternative kann in manchen Projekten akzeptiert werden; Pumpenlieferant, Planer und zuständige Behörde sollten die Auswahl jedoch vor der Freigabe bestätigen.'
+	},
+	{
+		question: 'Wie sollte ein Saugtank in einem kalten Klima geschützt werden?',
+		answer: 'Halten Sie Tank, Saugleitung, Armaturen und Niveauregelung oberhalb der projektspezifischen Frostgefährdung oder sehen Sie eine geplante Dämmung, Begleitheizung und Entleerung vor. Die genaue Methode hängt von Klima, Tankkonstruktion und geltender Normausgabe ab. Nur den Tankmantel zu schützen reicht nicht, wenn ein außenliegendes Ventil, eine Steuerleitung oder ein Tiefpunkt einfrieren und die Löschwasserversorgung unterbrechen kann.'
+	}
+];
+
+const toc = [
+	{ id: 'water-source', label: '1. Herkunft des Löschwasservolumens' },
+	{ id: 'tank-sizing', label: '2. Auslegung der Löschwasserreserve' },
+	{ id: 'two-suction', label: '3. Zwei-Saugleitungen-Regel und Tankdurchführungen' },
+	{ id: 'vortex', label: '4. Wirbelschutz und Auslegung der Saugleitung' },
+	{ id: 'level-control', label: '5. Tankfüllstand sichern: Niveauregelung' },
+	{ id: 'priming-testing', label: '6. Füllung, Manometer und Prüfeinrichtungen' },
+	{ id: 'checklist', label: '7. Checkliste für die Saugseitenanordnung' },
+	{ id: 'faq', label: 'Häufig gestellte Fragen' }
+];
+
+const products = [
+	{ slug: 'suction-vortex-preventer-en12845', name: 'Saugseiten-Wirbelschutz (EN 12845)', img: '/assets/products/suction-vortex-preventer-en12845.webp', desc: 'Austenitischer Edelstahl, Wirbelschutzplatten-Baugruppe' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'Hydraulisches Niveauventil (F745X)', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'Pilotgesteuerte Niveauhaltung, sanftes Schließen' },
+	{ slug: 'remote-control-float-valve-100x', name: 'Fernsteuerbares Schwimmerventil (100X-16P)', img: '/assets/products/remote-control-float-valve-100x.webp', desc: 'Schwimmer-Pilotventil aus Edelstahl zur Tanknachspeisung' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'Teleskopischer Y-Schmutzfänger (SGL41H)', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'Schmutzschutz für die Saugleitung, inline reinigbar' }
+];
+---
+
+<Layout
+	title="Feuerpumpen-Saugleitung und Löschwassertank (2026)"
+	description="Löschwassertank, zwei Saugleitungen, Wirbelschutz, Füllung und Niveauventile für eine normgerechte Saugseite der Feuerlöschpumpe."
+	type="article"
+	locale="de"
+	faq={faq}
+	breadcrumbs={[{ name: 'Leitfäden', href: '/de/blog/' }, { name: 'Leitfaden zur Feuerpumpen-Saugseite' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/de/" class="hover:text-blue-600">Startseite</a>
+			<span>/</span>
+			<a href="/de/blog/" class="hover:text-blue-600">Leitfäden</a>
+			<span>/</span>
+			<span class="text-gray-600">Leitfaden zur Feuerpumpen-Saugseite</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Leitfaden für Löschwassertanks</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Anordnung von Feuerpumpen-Saugleitung und Löschwassertank</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">Kurz gesagt: Eine Feuerlöschpumpe kann ihre zertifizierte Leistung nur erbringen, wenn der Tank die richtige Reserve bereitstellt, die Saugeinläufe eingetaucht bleiben, Lufteintrag und Wirbelbildung kontrolliert werden und die Nachspeisung das geschützte Volumen nicht verbraucht. Dieser Leitfaden erläutert Quelle, Tankauslegung, Anordnungen mit zwei Saugleitungen, Wirbelschutz, Niveauregelung, Füllung und die Angaben für ein Saugseiten-Verzeichnis.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/de/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="water-source" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Herkunft des Löschwasservolumens</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Saugseitenanordnung beginnt mit der Wasserquelle, nicht mit einem Ventilkatalog. Eine Feuerlöschpumpe kann aus einem offenen atmosphärischen Tank, einem separaten Segmenttank, einem Betonreservoir, einem Druckbehälter oder einer kommunalen Hauptleitung fördern. Jede Quelle verändert die verfügbare Saughöhe, die Füllung der Pumpe, den erforderlichen Schutz am Einlauf und die bei der Abnahme erforderlichen Nachweise. Pumpe und Steuerung werden von einem Pumpenhersteller nach NFPA 20 oder örtlichen Vorschriften geliefert; Wanlian liefert die Saugseitenarmaturen und Zubehörteile für dieses Paket, nicht die Feuerlöschpumpe selbst.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein offener Löschwassertank ist meist die berechenbarste Quelle, weil sein Betriebsniveau sichtbar und sein Druck atmosphärisch ist. Der Pumpenplaner muss dennoch den niedrigsten nutzbaren Füllstand, die Einlaufhöhe, Rohrleitungsverluste und die Saugvorgaben des Pumpenherstellers berücksichtigen. Ein geschlossener Drucktank weist ein anderes Verhältnis von Druck und Volumen auf, während ein kommunaler Anschluss von einer zuverlässigen öffentlichen Versorgung und den Vorgaben des Wasserversorgers abhängt. Übertragen Sie eine Tankanordnung nicht auf einen Direktanschluss, ohne die Saugbedingungen neu zu berechnen.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50"><tr>
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Quelle</th>
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Bedeutung für die Saugseite</th>
+						<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Planungsfrage</th>
+					</tr></thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Offener Löschwassertank</td><td class="px-4 py-3 text-gray-700">Statischer Wasserstand, eingetauchter Einlauf, Wirbelschutz und entleerbare Rohrleitung</td><td class="px-4 py-3 text-gray-700">Ist der niedrigste Betriebsfüllstand für den Pumpeneinlauf ausreichend?</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Geschlossener Drucktank</td><td class="px-4 py-3 text-gray-700">Tankdruck, nutzbares Volumen, Absperrung und sichere Wartungseinrichtungen</td><td class="px-4 py-3 text-gray-700">Bleibt der Druck während der geforderten Betriebsdauer verfügbar?</td></tr>
+						<tr><td class="px-4 py-3 font-bold text-gray-900">Direktanschluss an das Kommunalnetz</td><td class="px-4 py-3 text-gray-700">Druck der Hauptleitung, Versorgungssicherheit, Rückflussverhinderung und behördliche Genehmigung</td><td class="px-4 py-3 text-gray-700">Kann die Hauptleitung jederzeit die erforderliche Saugbedingung liefern?</td></tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Für eine umfassendere Darstellung der ventilseitigen Raumsequenz siehe den <a href="/de/guides/municipal-fire-water-main-upgrade-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu Armaturen im Feuerlöschpumpenraum</a>. Er hilft, Pumpenkennlinie und Absperrkonzept festzulegen, bevor die Tankdurchführungen endgültig gezeichnet werden.</p>
+
+			<h2 id="tank-sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Auslegung der Löschwasserreserve</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Die Löschwasserreserve wird durch Gefahrenklasse, Auslegungsförderstrom und erforderliche Betriebsdauer nach der geltenden Planungsnorm bestimmt. Es gibt kein verantwortbares universelles Tankvolumen, das von einem Gebäude auf ein anderes übertragen werden kann. Die hydraulische Berechnung ermittelt den Bedarf, und die geltende Normausgabe legt fest, wie lange die Reserve die geschützten Systeme versorgen muss. Dokumentieren Sie Berechnungsgrundlage, erforderliches Nutzvolumen und Bezugsniveau für den niedrigen Füllstand in den Tank- und Pumpenplänen.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Trennen Sie Gesamtvolumen und nutzbares Löschwasservolumen. Tankgeometrie, obere und untere Niveaueinstellungen, Sedimentzuschlag, Überlauf und die Lage jedes Abgangs bestimmen, was die Pumpe tatsächlich entnehmen kann. Wenn ein Hauswasserabgang den Tank mitnutzt, muss seine Entnahme so angeordnet sein, dass der normale Verbrauch die geschützte Löschwasserreserve nicht nutzt. Das Nachspeiseventil sollte das normale Niveau ohne hartes Schließen halten, während ein überwachtes Signal für niedrigen Füllstand die Brandmelde- oder Gebäudeleittechnik wie gefordert erreicht.</p>
+			<p class="text-gray-700 leading-relaxed">Für den Normkontext vergleichen Sie die Berechnungen des Planungsteams mit dem <a href="/de/guides/municipal-fire-water-main-upgrade-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zu NFPA-Brandschutzstandards</a>. Nutzen Sie diese Übersicht zur Identifizierung offener Fragen und bestätigen Sie danach jedes Volumen, jede Dauer und jedes Niveau anhand der geltenden Normausgabe und der zuständigen Behörde.</p>
+
+			<h2 id="two-suction" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Zwei-Saugleitungen-Regel und Tankdurchführungen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Große Löschwassertanks dürfen nicht von nur einem Versorgungspunkt abhängen. Die Bestimmungen der NFPA 20 für große Vorratstanks verlangen mehr als einen Saugauslass oder eine Saugrohrleitung und begrenzen die Abhängigkeit von einer einzelnen Saugleitung; der genaue Schwellenwert und die Konfiguration hängen jedoch von der geltenden Normausgabe ab. Bestätigen Sie die Ausgabe, bevor Sie die Tankwand zeichnen, und zeigen Sie für jede Pumpe einen unabhängigen Weg, die Absperrung der Wege und die Wartung ohne Verlust der erforderlichen Löschwasserkapazität.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Eine Tankdurchführung ist ein Systemdetail und nicht nur ein Loch mit Flansch. Stimmen Sie Hülsenposition, Bewehrung, Dichtungsmaterial, äußere Absperrung, interne Wirbelschutzplatten und Inspektionszugang ab. Halten Sie das Ventil außerhalb des Tanks, wo es bedient und gewartet werden kann, und stellen Sie sicher, dass das Passstück entleert oder entfernt werden kann, ohne die andere Saugleitung zu beeinträchtigen. Der <a href="/de/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM-Absperrschieber mit weichdichtendem OS&amp;Y-Keil</a> wird häufig erwogen, wenn ein gelistetes, voll durchgängiges und sichtbar geöffnetes Absperrventil erforderlich ist; die Auswahl bleibt projektspezifisch.</p>
+			<p class="text-gray-700 leading-relaxed">Zwei Saugwege bedeuten nicht zwei dekorative Abzweige, die unmittelbar zu einem Engpass zusammengeführt werden. Verfolgen Sie jeden Weg bis zur Pumpenanordnung, prüfen Sie den verfügbaren Durchflussquerschnitt und kennzeichnen Sie die Ventile, die verriegelt oder in geöffneter Stellung überwacht bleiben müssen. Bei einer zweiten Pumpe oder Kammer sollte der Planer nachweisen, dass der Ausfall eines einzelnen Bauteils die erforderliche Saugkapazität nicht beseitigt.</p>
+
+			<h2 id="vortex" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Wirbelschutz und Auslegung der Saugleitung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Der Tankeinlauf muss mindestens so tief eingetaucht bleiben, wie es die geltende Norm und die Pumpenanordnung verlangen. Sinkt der Wasserstand zu nahe an die Öffnung, kann ein Wirbel Luft in die Saugseite ziehen, obwohl der Tank noch Wasser enthält. Lufteintrag reduziert den Förderstrom, verursacht instabilen Saugdruck und kann das Laufrad beschädigen. Eine Wirbelschutzplatte oder ein <a href="/de/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">Saugseiten-Wirbelschutz nach EN 12845</a> unterbricht das rotierende Strömungsmuster; sie ersetzt weder die erforderliche Eintauchtiefe noch die richtige Rohrdimensionierung.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Halten Sie den Zulauf zur Pumpe so einfach, wie es der Raum erlaubt. Verwenden Sie Rohrgröße und gerade Strecke des Pumpenherstellers, vermeiden Sie unnötige Bögen nahe dem Saugflansch und montieren Sie einen exzentrischen Reduzierstutzen mit der flachen Seite nach oben, damit sich am Pumpeneinlass keine Luft sammelt. Stützen Sie die Rohrleitung unabhängig ab, damit Gewicht und thermische Bewegung das Pumpengehäuse nicht belasten. Das Saugventil dient der Absperrung, niemals der Drosselung.</p>
+			<p class="text-gray-700 leading-relaxed">Wenn Schmutz ein realistisches Risiko darstellt, kann ein reinigbarer <a href="/de/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">teleskopischer Y-Schmutzfänger SGL41H</a> die Saugleitung schützen, sofern die genehmigte Auslegung dies zulässt; jedes Sieb verursacht jedoch Druckverlust und Wartungsaufwand. Bestätigen Sie Maschenweite, Zugang, Druckverlust und Abnahme für den Feuerlöschdienst vor der Montage. Ein verstopfter Schmutzfänger kann wie ein zu kleiner Tank wirken, obwohl tatsächlich das Saugmanometer abfällt.</p>
+
+			<h2 id="level-control" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Tankfüllstand sichern: Niveauregelung</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Ein bei der Übergabe voller Tank ist nicht automatisch eine zuverlässige Löschwasserquelle. Die Nachspeisung muss das normale Niveau halten, sanft schließen, den verfügbaren Eingangsdruck tolerieren und bei fallendem Niveau ein klares Signal geben. Ziel ist, dass Hauswasserbedarf, Verdunstung, Prüfungen und kleine Leckagen die geschützte Reserve nicht verbrauchen und eine unkontrollierte Nachspeisung den Tank nicht überfüllt.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Das <a href="/de/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">hydraulische Niveauventil F745X</a> arbeitet pilotgesteuert zur Niveauhaltung und zum sanften Schließen. Wenn das Projekt eine schwimmerbetätigte Fernsteuerung verlangt, bietet das <a href="/de/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">fernsteuerbare Schwimmerventil 100X-16P</a> ein Schwimmer-Pilotventil aus Edelstahl für die Tanknachspeisung. Keines der Produkte bestimmt die Löschwasserreserve allein: Sollwerte, Bypässe, Vordruck und Alarme müssen der genehmigten hydraulischen Auslegung folgen.</p>
+			<p class="text-gray-700 leading-relaxed">Zeigen Sie obere, normale, niedrige und Notfallniveaus im Steuerungsschema. Fügen Sie ein zugängliches vorgeschaltetes Absperrventil, eine erforderliche Entleerungs- oder Prüfeinrichtung und eine Möglichkeit hinzu, Pilot- oder Schwimmerfunktion ohne Entleerung des Tanks nachzuweisen. Bei gemeinsam genutzten Tanks ist das Niveausignal mit der Hauswassersteuerung zu verriegeln, damit ein ausgefallenes Nachspeiseventil die Löschwasserreserve nicht unbemerkt reduziert.</p>
+
+			<h2 id="priming-testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Füllung, Manometer und Prüfeinrichtungen</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Bevor eine Kreisel-Feuerlöschpumpe arbeiten kann, müssen Gehäuse und Saugseite korrekt gefüllt sein und die Saugseite muss wie geplant geflutet bleiben. Die endgültige Anordnung hängt von Pumpentyp und Quellhöhe ab; befolgen Sie daher die Füllanweisungen des Pumpenlieferanten, statt eigenmächtig ein Fußventil oder ein zusätzliches Rückschlagventil einzubauen. Ein Saugmanometer am Pumpenflansch zeigt, ob die Quelle tatsächlich verfügbar ist; vergleichen Sie es bei der Abnahme mit Druckmanometer, Druckseite und zertifizierter Pumpenkennlinie.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Sehen Sie Absperr- und Entleerungspunkte vor, damit Passstück, Ventil und Instrumente geprüft werden können, ohne den gesamten Tank zu entleeren. Schützen Sie Manometer vor Stößen und wählen Sie Messbereiche für die erwarteten statischen und laufenden Bedingungen. Prüfen Sie bei der Inbetriebnahme Ventilstellung, Alarm für niedrigen Füllstand, Nachspeisung, Wirbelschutz, Rohrstützen und das Fehlen von Lufteintritten, bevor Sie die Pumpenleistung protokollieren.</p>
+			<p class="text-gray-700 leading-relaxed">Die Prüfung muss hydraulische Kapazität und ausfallsichere Funktion nachweisen. Simulieren Sie, soweit zulässig, einen niedrigen Füllstand, betätigen Sie das Nachspeiseventil, prüfen Sie die Tankdurchführung und bestätigen Sie die erforderliche Saugverfügbarkeit mit der geplanten Absperrstellung. Für Außenanschluss und Schnittstelle auf der Druckseite erläutert der <a href="/de/guides/fire-department-connection-siamese-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zum Siamese-Feuerwehranschluss</a>, wie der Anschluss der Feuerwehr mit dem übrigen Pumpenraum abzustimmen ist.</p>
+
+			<h2 id="checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Checkliste für die Saugseitenanordnung</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Quelle bestimmen.</strong> Offenen Tank, Drucktank oder Kommunalanschluss, niedrigsten Betriebsfüllstand, verfügbaren Druck und erforderliche Saugbedingung des Pumpenlieferanten angeben.</li>
+				<li><strong>Reserve dokumentieren.</strong> Erforderliches Löschwasservolumen und Dauer aus der Projektberechnung mit allen Niveaubezügen und gemeinsam geschütztem Hauswasservolumen zeigen.</li>
+				<li><strong>Abgänge abstimmen.</strong> Geltende NFPA-20-Ausgabe, Zwei-Saugleitungen-Anforderung für die Tankgröße und Unabhängigkeit jedes Weges bestätigen.</li>
+				<li><strong>Lufteintritt verhindern.</strong> Eintauchtiefe, Wirbelschutzgeometrie, Ausrichtung des exzentrischen Reduzierstücks, gerade Strecke und unabhängige Rohrstützen prüfen.</li>
+				<li><strong>Wasser schützen.</strong> Äußeres Absperrventil, nur freigegebenen reinigbaren Schmutzfänger, Manometer, Entleerungen und Wartungszugang spezifizieren.</li>
+				<li><strong>Niveau steuern.</strong> F745X oder 100X-Pilotgerät passend zum Eingangsdruck wählen, normale und niedrige Niveaus festlegen und erforderliche Alarme verdrahten.</li>
+				<li><strong>Abnahme planen.</strong> Füllanweisungen, Saug- und Druckmanometer, Nachspeiseprüfung, Simulation des niedrigen Niveaus und Nachweise zu Material, Druckprüfung und Betrieb/Wartung aufnehmen.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Für ein vollständiges Armaturenverzeichnis verbinden Sie diese Planung mit dem <a href="/de/guides/municipal-fire-water-main-upgrade-guide/" class="text-brand-blue font-semibold hover:underline">Leitfaden zur Modernisierung kommunaler Löschwasserleitungen</a> und bestätigen Sie die Bedingungen des örtlichen Wasserversorgers. Wanlian kann Tankabgangszeichnung, Pumpenkennlinie, Rohrgrößen und geltende Normausgabe prüfen, bevor die Saugseitenarmaturen und Zubehörteile angeboten werden.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Häufig gestellte Fragen</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Benötigen Sie Armaturen für die Feuerpumpen-Saugseite?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Senden Sie Tankabgangszeichnung, Pumpenförderstrom und Förderhöhe, Saugseitengrößen, Wasserstände und geltende Normausgabe. Wanlian bestätigt Wirbelschutz, Niveauregelung, Absperrung und Prüfung für Ihr Projekt.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<!-- href="/de/contact/?product=" -->
+						<a href={`/de/contact/?product=${uri.EscapeDataString('Armaturen für Feuerpumpen-Saugseite')}`} class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Angebot anfordern</a>
+						<a href={`https://wa.me/8618684324501?text=${uri.EscapeDataString('Guten Tag, wir benötigen Armaturen für die Feuerpumpen-Saugseite und ein Einzelangebot')}`} class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Über WhatsApp chatten</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
