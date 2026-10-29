@@ -59,6 +59,8 @@ export const guidesId: Guide[] = [
   {
     title: 'Panduan Pencegahan Aliran Balik untuk Air Minum',
     description: 'Panduan pencegahan aliran balik pada jaringan air minum dan kebakaran: kelas bahaya, HS41X, ukuran, kehilangan tekanan, uji, dan kepatuhan proyek.',
+    cardTitle: 'Panduan Pencegahan Aliran Balik',
+    cardDescription: 'Kapan jaringan air minum membutuhkan set dual check dan bagaimana HS41X melindungi dari aliran balik.',
     href: '/id/guides/backflow-prevention-guide/',
     date: '2026-08',
     category: 'Hydraulic Safety',
@@ -69,6 +71,8 @@ export const guidesId: Guide[] = [
   {
     title: 'Panduan Gulungan Selang & Lemari Hidran | Wanlian',
     description: 'Panduan memilih gulungan selang dan lemari hidran: panjang selang, mode nosel, busa Kelas B, material, serta kepatuhan EN 671 dan NFPA 14 untuk proyek Anda.',
+    cardTitle: 'Panduan Pemilihan Gulungan Selang dan Lemari Hidran',
+    cardDescription: 'Gulungan JPS0.8-19, lemari busa PSG30, dan katup hidran SN65 — kebutuhan lengkap pos pemadam dalam ruangan.',
     href: '/id/guides/fire-hose-reel-cabinet-guide/',
     date: '2026-08',
     category: 'Fire Protection',
@@ -79,6 +83,8 @@ export const guidesId: Guide[] = [
   {
     title: 'Memilih Monitor Pemadam: Manual vs Otomatis (ZDMS)',
     description: 'Panduan memilih monitor pemadam: monitor manual PS dan otomatis ZDMS dibandingkan berdasarkan jangkauan, debit, deteksi, dan waktu respons.',
+    cardTitle: 'Pemilihan Monitor Pemadam: Manual vs. Pelacak Otomatis',
+    cardDescription: 'Monitor manual PS vs. meriam pelacak otomatis ZDMS — aliran, jangkauan, pengendalian, dan opsi tahan ledakan.',
     href: '/id/guides/fire-water-monitor-selection-guide/',
     date: '2026',
     category: 'Fire Protection',
@@ -119,6 +125,8 @@ export const guidesId: Guide[] = [
   {
     title: 'Panduan Membeli Monitor Pemadam: Tetap atau Otomatis?',
     description: 'Panduan B2B memilih monitor pemadam: tipe tetap, kendali jarak jauh, pelacakan otomatis, debit, jangkauan, busa, dan checklist pengadaan.',
+    cardTitle: 'Panduan Pembelian Meriam Air Pemadam Kebakaran',
+    cardDescription: 'Statis, jarak jauh, atau cerdas? Jangkauan semburan, aliran, dan faktor pemasangan untuk pemadaman api di ruang luas.',
     href: '/id/guides/fire-water-cannon-buying-guide/',
     date: '2026',
     category: 'Fire Protection',
@@ -129,6 +137,8 @@ export const guidesId: Guide[] = [
   {
     title: 'Sistem Sprinkler: Basah, Kering atau Pre-Action?',
     description: 'Bandingkan sistem sprinkler basah, kering, dan pre-action: kepala sprinkler, komponen, NFPA 13, serta checklist pengadaan B2B. Minta penawaran.',
+    cardTitle: 'Sistem Sprinkler: Basah, Kering, atau Pra-Aksi?',
+    cardDescription: 'Bandingkan konfigurasi sistem sprinkler basah, kering, dan pra-aksi sesuai kelas risiko gedung Anda.',
     href: '/id/guides/fire-sprinkler-system-wet-dry-preaction/',
     date: '2026',
     category: 'Fire Protection',
@@ -139,6 +149,8 @@ export const guidesId: Guide[] = [
   {
     title: 'Cara Memilih Hidran Kebakaran: Panduan B2B 2026',
     description: 'Panduan memilih hidran kebakaran untuk proyek kota dan industri: tipe dalam dan luar, DN/PN, sambungan, sertifikasi, dan checklist pabrik.',
+    cardTitle: 'Cara Memilih Hidran Pemadam Kebakaran',
+    cardDescription: 'Dalam vs. luar ruangan, pilar kering vs. basah, standar sambungan keluar, dan kelas tekanan untuk proyek kota dan industri.',
     href: '/id/guides/how-to-choose-a-fire-hydrant/',
     date: '2026',
     category: 'Fire Protection',
@@ -149,6 +161,8 @@ export const guidesId: Guide[] = [
   {
     title: 'Válvula de Gaveta vs Borboleta para Proteção contra Incêndio',
     description: 'Válvula de gaveta vs borboleta para proteção contra incêndio: compare vazão, perda de carga e custo. Guia B2B do fornecedor chinês Wanlian Fluid.',
+    cardTitle: 'Katup Gerbang vs. Katup Kupu untuk Proteksi Kebakaran',
+    cardDescription: 'Perbandingan penyekatan, aliran, kehilangan tekanan, dan biaya untuk memilih katup isolasi yang tepat pada jaringan kebakaran dan perpipaan air.',
     href: '/id/guides/gate-valve-vs-butterfly-valve-fire-protection/',
     date: '2026',
     category: 'Valves',
@@ -159,6 +173,8 @@ export const guidesId: Guide[] = [
   {
     title: 'Jenis Katup Kontrol Sprinkler Kebakaran | Wanlian Fluid',
     description: 'Panduan formal memilih katup kontrol sprinkler kebakaran: gate OS&Y, butterfly bersinyal, katup searah, deluge, dan pre-action dengan UL/FM dari pabrik.',
+    cardTitle: 'Jenis Katup Kontrol Jaringan Sprinkler: OS&Y, Kupu, dan Cek',
+    cardDescription: 'Peran tiap katup kontrol pada jaringan sprinkler dan bagaimana katup OS&Y, kupu, serta cek bekerja bersamaan.',
     href: '/id/guides/fire-sprinkler-control-valve-types/',
     date: '2026-09',
     category: 'Fire Protection',
@@ -179,6 +195,8 @@ export const guidesId: Guide[] = [
   {
     title: 'Panduan Katup Pengurang Tekanan 500X untuk Pasokan Air',
     description: 'Pahami cara kerja katup pengurang tekanan hidrolik, pilih 500X, F745X, atau 100X, serta gunakan checklist B2B untuk spesifikasi pasokan air.',
+    cardTitle: 'Panduan Katup Pengurang Tekanan: PRV Hidrolik 500X',
+    cardDescription: 'Bagaimana katup pengurang berpilot melindungi peralatan hilir, mengatur tekanan, dan mencegah palu air.',
     href: '/id/guides/pressure-reducing-valve-guide/',
     date: '2026-09',
     category: 'Hydraulic Safety',
@@ -189,6 +207,8 @@ export const guidesId: Guide[] = [
   {
     title: 'Jenis Katup Searah dan Panduan Pemilihan | Wanlian',
     description: 'Jenis dan pemilihan katup searah: swing vs bola (HQ41X/HQ44X), kehilangan tekanan, water hammer, serta daftar periksa B2B dari Wanlian Fluid.',
+    cardTitle: 'Jenis-Jenis Katup Cek dan Panduan Pemilihannya',
+    cardDescription: 'Cek bola apung vs. kupu-kupu terayun (clapper) — kehilangan tekanan, perilaku penutupan, dan aplikasi ideal masing-masing tipe.',
     href: '/id/guides/check-valve-types-guide/',
     date: '2026-09',
     category: 'Valves',
@@ -199,6 +219,8 @@ export const guidesId: Guide[] = [
   {
     title: 'Panduan APAR: Serbuk ABC untuk B2B & Ekspor',
     description: 'Panduan pemilihan APAR B2B: kelas kebakaran serbuk ABC, sertifikasi ISO 7165, ukuran, OEM, dan kemasan ekspor. Minta penawaran Wanlian Fluid.',
+    cardTitle: 'Panduan Pembelian Alat Pemadam Ringan: Serbuk Kimia ABC',
+    cardDescription: 'Cakupan kelas A/B/C/E, klasifikasi ISO 7165, dan pengemasan ekspor B2B untuk APAR portabel.',
     href: '/id/guides/fire-extinguisher-selection-guide/',
     date: '2026-09',
     category: 'Fire Protection',
@@ -239,6 +261,8 @@ export const guidesId: Guide[] = [
   {
     title: 'Standar Hidran & Katup Pemadam | AWWA NFPA EN',
     description: 'Panduan standar hidran, selang pemadam, dan katup: AWWA C502, NFPA 1961, EN 14384, BS 750, EN 1074, ISO 5208. Beli sesuai standar untuk proyek Anda.',
+    cardTitle: 'Penjelasan Standar Hidran, Selang, dan Katup',
+    cardDescription: 'AWWA C502, NFPA 1961, EN 14384, BS 750 — standar mana yang berlaku untuk pesanan Anda dan cara memverifikasi kepantauhan.',
     href: '/id/guides/fire-hydrant-valve-standards-guide/',
     date: '2026-09',
     category: 'Fire Protection',
