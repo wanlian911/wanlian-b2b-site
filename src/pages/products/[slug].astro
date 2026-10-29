@@ -17,6 +17,12 @@ const { product } = Astro.props;
 
 // 按分类生成通用采购 FAQ（数据来源：产品规格与常见询盘问题）
 const faqByCategory: Record<string, { question: string; answer: string }[]> = {
+  'Fire Hose & Reels': [
+    { question: 'Which fire hose coupling standards can Wanlian supply?', answer: 'Couplings are available in Storz, John Morris, Nakajima and GOST patterns. GOST couplings are machined to GOST 22695 / GOST 25813 in aluminum alloy or brass, in DN50 (RK-50) and DN65 (RK-70) with 1.0 MPa or 1.6 MPa working pressure, as head, tail, adapter or coupling halves. Tell us the coupling pattern used by your hydrants and we will match it.' },
+    { question: 'Should I choose a PVC lined or a rubber lined fire hose?', answer: 'PVC lined hoses are lightweight and cost-effective, offered in DN25 to DN65 at 0.8 or 1.0 MPa with a service range of 0°C to +50°C, which suits residential, commercial and light industrial duty. Rubber lined hoses add a natural rubber lining with an abrasion and UV resistant polyester jacket, extend to DN80 and 1.3 MPa, and stay flexible from -20°C to +60°C, so they are the usual choice for high-pressure and cold-climate fire fighting.' },
+    { question: 'How is a fixed fire hose reel specified?', answer: 'A reel is configured by hose diameter (DN19 or DN25), length (20 m, 25 m or 30 m), working pressure (0.8 or 1.0 MPa) and inlet connection (1 inch BSP, NPT or GOST). Each set ships complete with hose, adjustable spray or jet nozzle and mounting bracket, with a swivel joint for 360 degree deployment and a choice of manual or automatic swing-out frames.' },
+    { question: 'Can I order hose, reels and couplings as one package?', answer: 'Yes. Supply the nominal diameter, hose length, working pressure and coupling pattern for each line and our engineers will confirm a compatible combination of hose, reel and couplings, together with the technical datasheets and the applicable test reports for your project.' }
+  ],
   'Valves & Parts': [
     { question: 'What standards and connection types are available for Wanlian valves?', answer: 'Wanlian valves are manufactured to GB, ANSI, DIN and JIS standards on request. Flanged, grooved, wafer and threaded connections are available depending on the model. Tell our engineers your DN/PN and connection type in the inquiry and we will confirm the matching configuration.' },
     { question: 'What materials are used for the valve body and sealing?', answer: 'Bodies are typically ductile iron (QT450), cast iron or cast/forged steel depending on the model. Sealing elements use EPDM or NBR rubber, and stems are stainless steel (2Cr13/304). Material options can be customized for specific media and temperature ranges.' },
@@ -57,6 +63,10 @@ const faqByCategory: Record<string, { question: string; answer: string }[]> = {
 
 // 按分类映射应用场景与测试标准
 const categoryInfo: Record<string, { applications: string[]; testing: string }> = {
+  'Fire Hose & Reels': {
+    applications: ['Indoor fire protection in commercial buildings, hotels, offices and factories', 'Residential, commercial and light industrial hose lines', 'High-pressure fire fighting and exterior supply lines', 'GOST fire hydrant and hose networks for Russian-speaking markets'],
+    testing: 'Hose assemblies are built to a burst pressure of 3x the working pressure. Reels follow EN 671 / GB 14561 and GOST couplings follow GOST 22695 / GOST 25813. Hydrostatic and leakage test reports can be arranged on request.'
+  },
   'Valves & Parts': {
     applications: ['Water supply & distribution', 'Wastewater and sewage networks', 'Industrial process pipelines', 'HVAC systems'],
     testing: '100% shell and seat pressure testing per GB/T13927 or EN 12266-1; epoxy resin coating tested for corrosion resistance.'
@@ -129,6 +139,7 @@ const guideCard = (href: string) => {
   return { href: href, title: g.cardTitle ?? g.title, description: g.cardDescription ?? g.description };
 };
 const guideByCategory: Record<string, { href: string; title: string; description: string }[]> = {
+  'Fire Hose & Reels': [guideCard('/guides/fire-hose-buying-guide/'), guideCard('/guides/fire-hose-reel-cabinet-guide/')],
   'Valves & Parts': [guideCard('/guides/gate-valve-vs-butterfly-valve-fire-protection/'), guideCard('/guides/check-valve-types-guide/')],
   'Hydrants & Pump Connections': [guideCard('/guides/how-to-choose-a-fire-hydrant/'), guideCard('/guides/fire-hydrant-valve-standards-guide/')],
   'Sprinklers & Alarm Valves': [guideCard('/guides/fire-sprinkler-control-valve-types/'), guideCard('/guides/fire-sprinkler-system-wet-dry-preaction/')],
