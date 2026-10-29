@@ -3,27 +3,27 @@ import fs from 'node:fs';
 import path from 'node:path';
 import Layout from '../../layouts/Layout.astro';
 
-// Os assets de evidência da pabrik são colocados em public/assets/factory/.
-// A seção só é renderizada untuk arquivos que realmente existem, untuk que o situs
-// ao vivo nunca exiba uma imagem quebrada ou um placeholder vazio sebelum dos assets chegarem.
+// Factory evidence assets are dropped into public/assets/factory/.
+// The section only renders for files that actually exist, so the live site
+// never shows a broken image or an empty placeholder before assets arrive.
 const factoryDir = path.join(process.cwd(), 'public', 'assets', 'factory');
 const hasFactoryAsset = (file) => fs.existsSync(path.join(factoryDir, file));
 
 const plantPhotos = [
-  { file: 'plant-exterior.webp', alt: 'Exterior da planta de manufaktur dWanlian Fluid em Quanzhou, Fujian', caption: 'Nossa planta — Quanzhou, Fujian' },
-  { file: 'workshop.webp', alt: 'Área de dobra de chapas com dobradeiras de prensa e pórtico de ponte rolante no workshop dWanlian Fluid', caption: 'Área de dobra — dobradeiras de prensa e pórtico de ponte rolante' },
-  { file: 'powder-coating.webp', alt: 'Linha de revestimento a pó com esteira suspensa nWanlian Fluid', caption: 'Linha de revestimento a pó — da cabine de pintura à cura' },
-  { file: 'assembly.webp', alt: 'Baia de montagem e acabamento com armários de carretes de selang kebakaran nWanlian Fluid', caption: 'Baia de montagem e acabamento' },
-  { file: 'fire-hose.webp', alt: 'Carretes de selang kebakaran prontos e selang enroladas preparadas untuk exportação nWanlian Fluid', caption: 'Produção de selang e carretes kebakaran' },
-  { file: 'qc-test-bench.webp', alt: 'Bancada de pengujian de tekanan de bodi e kebocoran de ar de katup dWanlian Fluid', caption: 'Bancada de pengujian de tekanan de bodi e kebocoran de ar' }
+  { file: 'plant-exterior.webp', alt: 'Gedung pabrik Wanlian Fluid di Quanzhou, Fujian', caption: 'Pabrik kami — Quanzhou, Fujian' },
+  { file: 'workshop.webp', alt: 'Area pembentukan plat dengan press brake dan crane gantri di area produksi Wanlian Fluid', caption: 'Area pembentukan plat — press brake dan crane gantri' },
+  { file: 'powder-coating.webp', alt: 'Lantai coating serbuk dengan konveyor gantung di Wanlian Fluid', caption: 'Lantai coating serbuk — dari ruang semprot sampai curing' },
+  { file: 'assembly.webp', alt: 'Area perakitan dan finishing dengan kabinet selang kebakaran di Wanlian Fluid', caption: 'Area perakitan dan finishing' },
+  { file: 'fire-hose.webp', alt: 'Gulungan selang kebakaran jadi dan selang tergulung siap ekspor di Wanlian Fluid', caption: 'Produksi selang kebakaran dan gulungannya' },
+  { file: 'qc-test-bench.webp', alt: 'Bench uji tekanan bodi dan kebocoran udara katup Wanlian Fluid', caption: 'Bench uji tekanan bodi dan kebocoran udara' }
 ].filter((p) => hasFactoryAsset(p.file));
 
 const verifiableItems = [
-  'Certificado do sistem manajemen mutu ISO 9001, com cakupan e organismo emissor',
-  'Laudos de pengujian de tekanan de bodi e kebocoran de ar por lote untuk as unit pesanan Anda',
-  'Inspeção de pihak ketiga (estilo SGS / BV) agendada na pré-entrega, atas permintaan',
-  'Passeio em vídeo ao vivo pela lini e pela bancada de pengujian selama a sua produksi',
-  'Marcação OEM/ODM, embalagem de exportação e o pacote lengkap de dokumentasi de exportação'
+  'Sertifikat sistem manajemen mutu ISO 9001, beserta lingkup dan lembaga penerbitnya',
+  'Laporan uji tekanan bodi dan kebocoran udara per batch untuk unit dalam PO Anda',
+  'Inspeksi pihak ketiga (model SGS / BV) sebelum pengiriman, atas instruksi Anda',
+  'Tur video langsung di area produksi dan di bench uji selama produksi Anda berjalan',
+  'Branding OEM/ODM, pengemasan ekspor, dan paket dokumen ekspor lengkap'
 ];
 
 const hasBusinessLicense = hasFactoryAsset('business-license.webp');
@@ -32,98 +32,98 @@ const hasFactoryEvidence = plantPhotos.length > 0 || hasBusinessLicense || hasPr
 const heroPhoto = hasFactoryAsset('plant-exterior.webp') ? '/assets/factory/plant-exterior.webp' : '/og-image.jpg';
 
 const productionSteps = [
-  { step: '01', name: 'Inspeção de Materiais Recebidos', desc: 'Inspeção de recebimento de ferro fundido dúctil, komponen fundidas, material de vedação e revestimentos sesuai a spesifikasi do pesanan.' },
-  { step: '02', name: 'Usinagem CNC', desc: 'Usinagem de precisão de corpos de katup, discos e itens internal sesuai as tolerâncias dimensionais exigidas.' },
-  { step: '03', name: 'Montagem', desc: 'Montagem de itens internal, elementos de vedação e mecanismos de operação sob condições controladas de oficina.' },
-  { step: '04', name: 'Testes de Pressão e Vazamento', desc: 'Teste de tekanan de bodi e de kebocoran de ar no dudukan em 100% das unit sebelum do acabamento.' },
-  { step: '05', name: 'Revestimento Epóxi', desc: 'Aplicação de revestimento em resina epóxi não tóxica untuk resistência à corrosão e longa vida em layanan.' },
-  { step: '06', name: 'Embalagem untuk Exportação', desc: 'Embalagem, identificação e dokumentasi de level exportador preparadas untuk o pengiriman internasional.' }
+  { step: '01', name: 'Inspeksi Material Masuk', desc: 'Inspeksi material masuk terhadap spesifikasi pesanan: besi ulet, coran, material penyegel, dan lapisan.' },
+  { step: '02', name: 'Permesinan CNC', desc: 'Permesinan presisi bodi katup, disc, dan trim sesuai toleransi dimensi yang disyaratkan.' },
+  { step: '03', name: 'Perakitan', desc: 'Perakitan komponen internal, elemen penyegel, dan mekanisme pengoperasian dalam area produksi yang terkendali.' },
+  { step: '04', name: 'Uji Tekanan dan Kebocoran', desc: '100% uji tekanan bodi dan uji kebocoran dudukan pada setiap unit sebelum finishing.' },
+  { step: '05', name: 'Lapisan Epoksi', desc: 'Lapisan resin epoksi tidak beracun diterapkan untuk ketahanan korosi dan umur pakai yang panjang.' },
+  { step: '06', name: 'Pengemasan Ekspor', desc: 'Pengemasan, penandaan, dan dokumen standar ekspor disiapkan untuk pengiriman internasional.' }
 ];
 
 const values = [
-  { title: 'Inovasi', desc: 'Otimização contínua de proyek e avanços em pesquisa untuk criar sistem de combate a incêndio e de fluidos lebih cerdas e eficientes.' },
-  { title: 'Mutu', desc: 'Dada a importância crítica de sistem kebakaran e tubulações industriais, inspecionamos rigorosamente setiap katup untuk melampaui as standar internasional.' },
-  { title: 'Tanggung Jawab', desc: 'Como perusahaan socialmente responsável, buscamos meningkatkan a keamanan pública e memastikan a keamanan dos fluidos em redes globais.' },
-  { title: 'Lingkungan', desc: 'Incorporamos padrões de manufaktur verde e conceitos de sustentabilidade no kami fluxo de produksi untuk promover a keamanan ecológica.' }
+  { title: 'Inovasi', desc: 'Optimasi desain dan terobosan riset berkelanjutan untuk menciptakan sistem pemadam kebakaran dan sistem fluida yang lebih cerdas serta lebih efisien.' },
+  { title: 'Mutu', desc: 'Mengingat kritisnya sistem pemadam kebakaran dan perpipaan industri, kami memeriksa setiap katup secara ketat hingga melampaui standar internasional.' },
+  { title: 'Tanggung Jawab', desc: 'Sebagai perusahaan yang bertanggung jawab secara sosial, kami berupaya meningkatkan keselamatan publik dan memastikan keamanan fluida di jaringan global.' },
+  { title: 'Lingkungan', desc: 'Menanamkan standar manufaktur hijau dan konsep keberlanjutan ke dalam alur produksi kami untuk mendukung keselamatan ekologis.' }
 ];
 
 const faq = [
   {
-    question: 'A Wanlian Fluid é fabricante ou perusahaan comercializadora?',
-    answer: 'Somos fabricante com lini de produksi próprias em Quanzhou, Fujian: os corpos de katup são usinados em CNC internamente, e a montagem e os pengujian de tekanan são realizados no kami próprio workshop. Itens selecionados são produzidos por parceiros de manufaktur qualificados, documentados por pesanan. A entidade que emite a fatura pesanan Anda é a entidade de manufaktur do kami alvará comercial.'
+    question: 'Apakah Wanlian Fluid produsen atau perusahaan dagang?',
+    answer: 'Kami adalah produsen dengan lini produksi sendiri di Quanzhou, Fujian: bodi katup dimesin secara internal dengan CNC, dan perakitan serta uji tekanan dilakukan di area produksi kami sendiri. Item tertentu diproduksi oleh mitra manufaktur yang memenuhi syarat dan terdokumentasi per pesanan. Entitas yang menerbitkan invoice pesanan Anda adalah entitas manufaktur yang tercantum pada izin usaha kami.'
   },
   {
-    question: 'Quais lini de produk Wanlian Fluid fabrica?',
-    answer: 'Seis lini de produk e lebih de 43 modelos em estoque: katup gerbang com dudukan elástico e metálico, katup kupu-kupu e de retensi, hidran e componentes de hidran, sprinkler e katup de alarm, selang kebakaran revestida de borracha, canhões monitora e extintores — untuk proyek de abastecimento de air, pengendalian fluida industri e proteksi kebakaran.'
+    question: 'Lini produk apa saja yang diproduksi Wanlian Fluid?',
+    answer: 'Enam lini produk dan 43+ model ready stok: katup gerbang dudukan karet dan dudukan logam, katup kupu-kupu dan katup searah, hidran kebakaran beserta komponen hidran, sprinkler dan katup alarm, selang kebakaran berlapis karet, serta meriam air dan alat pemadam api ringan (APAR) — untuk proyek pasokan air, pengendalian fluida industri, dan proteksi kebakaran.'
   },
   {
-    question: 'Como as katup e os hidran são testados sebelum do pengiriman?',
-    answer: 'Cada unit passa por 100% de pengujian de tekanan de bodi e de kebocoran de ar na kami própria bancada de pengujian sebelum do acabamento, com registros per unit. Um vídeo de pengujian com nomor de série de uma unit de sampel e inspeção de pihak ketiga (estilo SGS / BV) dapat ser providenciados atas permintaan.'
+    question: 'Bagaimana katup dan hidran diuji sebelum pengiriman?',
+    answer: 'Setiap unit menjalani 100% uji tekanan bodi dan uji kebocoran udara di bench uji kami sendiri sebelum finishing, dengan catatan pengujian per unit. Video pengujian bernomor seri pada satu unit contoh serta inspeksi pihak ketiga (model SGS / BV) dapat kami siapkan atas permintaan.'
   },
   {
-    question: 'A Wanlian Fluid menawarkan layanan OEM e ODM?',
-    answer: 'Sim — marcação OEM/ODM, personalização não standar, embalagem de exportação e o pacote lengkap de dokumentasi de exportação, com compromisso de tanggapan em 12 jam untuk penawaran e questões técnicas.'
+    question: 'Apakah Wanlian Fluid melayani OEM dan ODM?',
+    answer: 'Ya — branding OEM/ODM, kustomisasi non-standar, pengemasan ekspor, dan paket dokumen ekspor lengkap, dengan komitmen respons 12 jam untuk penawaran maupun pertanyaan teknis.'
   },
   {
-    question: 'Como posso verificar a perusahaan sebelum de fazer um pesanan?',
-    answer: 'Solicite o bersertifikat ISO 9001 com o organismo emissor, um vídeo ao vivo da lini e da bancada de pengujian, laudos de pengujian por lote untuk os Anda modelos e um pesanan de sampel de uma unit. Um fornecedor que resiste à verificação já respondeu à pergunta.'
+    question: 'Bagaimana saya bisa memverifikasi perusahaan Anda sebelum melakukan pemesanan?',
+    answer: 'Minta sertifikat ISO 9001 beserta lembaga penerbitnya, tur video langsung di area produksi dan di bench uji, laporan pengujian per batch untuk model yang Anda pilih, serta pesanan sampel satu unit. Pemasok yang menghindari verifikasi pada dasarnya sudah menjawab pertanyaan tersebut.'
   }
 ];
 ---
 
 <Layout
   locale="id"
-  title="Sobre Nós | Quanzhou Wanlian Fluid Equipment"
-  description="Fábrica de válvulas e equipamentos contra incêndio em Quanzhou, Fujian, China. Linhas de produção próprias, OEM/ODM e suporte técnico para projetos B2B."
+  title="Tentang Kami | Produsen Katup Wanlian Fluid"
+  description="Produsen dan eksportir katup, peralatan proteksi kebakaran, dan perangkat pengendalian fluida dengan lini produksi sendiri di Quanzhou, Fujian."
   faq={faq}
   breadcrumbs={[{ name: 'Tentang Kami' }]}
 >
-  <!-- Cabeçalho do Banner -->
+  <!-- Banner Header -->
   <section class="relative bg-gray-900 text-white overflow-hidden py-20">
     <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/og-image.jpg');"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-      <span class="text-xs font-bold tracking-widest text-blue-500 uppercase">Tentang Kami</span>
+      <span class="text-xs font-bold tracking-widest text-blue-500 uppercase">Profil Perusahaan</span>
       <h1 class="text-3xl sm:text-5xl font-black tracking-tight">Tentang Quanzhou Wanlian</h1>
       <p class="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
-        Produsen e exportador de katup e peralatan proteksi kebakaran, com lini de produksi próprias no coração do polo de katup e encanamento da Tiongkok.
+        Produsen dan eksportir katup serta peralatan proteksi kebakaran, dengan lini produksi sendiri di pusat industri katup dan perpipaan Tiongkok.
       </p>
     </div>
   </section>
 
-  <!-- Profil Perusahaan -->
+  <!-- Factory Profile -->
   <section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div class="space-y-6">
           <div class="border-l-4 border-blue-600 pl-4">
             <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Profil Perusahaan</span>
-            <h2 class="text-3xl font-black text-gray-900 tracking-tight mt-1">Enraizados no Coração do Polo da Indústria de Válvulas</h2>
+            <h2 class="text-3xl font-black text-gray-900 tracking-tight mt-1">Berakar di Jantung Pusat Industri Katup</h2>
           </div>
            <p class="text-base text-gray-600 leading-relaxed">
-             A Quanzhou Wanlian Fluid Equipment Co., Ltd. está localizada em Quanzhou, Fujian — o ponto de partida da Rota da Seda Marítima e o núcleo do polo de katup e encanamento da Tiongkok. Fabricamos e exportamos katup, peralatan proteksi kebakaran, equipamentos de pengendalian fluida e solusi terintegrasi untuk os setores industri, kota, de proteksi kebakaran e de abastecimento e drenagem, e insinyur kami apoiam a seleção e a personalização de produk pada setiap pesanan.
-          </p>
-          <p class="text-base text-gray-600 leading-relaxed">
-             Nossas lini de produksi próprias em Quanzhou, Fujian, combinam uma equipe de teknik sênior com usinagem CNC internal, montagem e pengujian de tekanan — apoiadas por parceiros de manufaktur qualificados untuk itens selecionados. Os corpos de katup são usinados em CNC internamente, setiap unit passa por pengujian de tekanan de bodi e de kebocoran de ar sebelum do pengiriman, e a produksi é conduzida sob um sistem manajemen mutu ISO 9001, juntamente com as standar industriais nacionais berlaku, memastikan a estabilidade, a keandalan e a ketahanan de setiap produk.
-          </p>
-          <p class="text-base text-gray-600 leading-relaxed">
-             Nosso catálogo é estruturado em torno das spesifikasi com as apa saja insinyur de proyek realmente trabalham — classe de tekanan, standar de conexão, material do bodi e dos itens internal e aplikasi — com penawaran berdasarkan permintaan e dukungan teknis untuk abastecimento de air, pengendalian fluida industri e proyek kebakaran.
-          </p>
-          <div class="grid grid-cols-2 gap-6 pt-4 border-t border-gray-100">
-            <div>
-              <span class="block text-2xl font-black text-blue-600">Válvulas</span>
-              <span class="block text-xs text-gray-400 font-bold tracking-wider uppercase mt-1">Sistemas de Controle de Fluidos</span>
-            </div>
-            <div>
-              <span class="block text-2xl font-black text-blue-600">Proteksi Kebakaran</span>
-               <span class="block text-xs text-gray-400 font-bold tracking-wider uppercase mt-1">Linhas de Produção Próprias</span>
-            </div>
-          </div>
+             Quanzhou Wanlian Fluid Equipment Co., Ltd. berlokasi di Quanzhou, Fujian — titik awal Jalur Sutra Maritim dan klaster inti industri katup serta perpipaan Tiongkok. Kami memproduksi dan mengekspor katup, peralatan pemadam kebakaran, perangkat pengendalian fluida, dan solusi terpadu untuk sektor industri, perkotaan, proteksi kebakaran, serta pasokan dan drainase air; tim insinyur kami mendukung pemilihan produk dan kustomisasi pada setiap pesanan.
+           </p>
+           <p class="text-base text-gray-600 leading-relaxed">
+             Lini produksi kami sendiri di Quanzhou, Fujian memadukan tim insinyur senior dengan permesinan CNC, perakitan, dan uji tekanan internal — didukung mitra manufaktur yang memenuhi syarat untuk item tertentu. Bodi katup dimesin secara internal dengan CNC, setiap unit menjalani uji tekanan bodi dan uji kebocoran udara sebelum pengiriman, dan produksi berjalan di bawah sistem manajemen mutu ISO 9001 bersama standar industri nasional terkait, sehingga stabilitas, keandalan, dan keawetan setiap produk terjaga.
+           </p>
+           <p class="text-base text-gray-600 leading-relaxed">
+             Katalog kami disusun berdasarkan spesifikasi yang benar-benar dipakai insinyur perancang — pressure class, standar sambungan, material bodi dan trim, serta aplikasi — dengan penawaran berbasis inquiry dan dukungan teknis untuk proyek pasokan air, pengendalian fluida industri, dan pemadam kebakaran.
+           </p>
+           <div class="grid grid-cols-2 gap-6 pt-4 border-t border-gray-100">
+             <div>
+               <span class="block text-2xl font-black text-blue-600">Katup</span>
+               <span class="block text-xs text-gray-400 font-bold tracking-wider uppercase mt-1">Sistem Pengendalian Fluida</span>
+             </div>
+             <div>
+               <span class="block text-2xl font-black text-blue-600">Proteksi Kebakaran</span>
+                <span class="block text-xs text-gray-400 font-bold tracking-wider uppercase mt-1">Lini Produksi Sendiri</span>
+             </div>
+           </div>
         </div>
 
         <div class="relative rounded-2xl overflow-hidden aspect-video shadow-lg border border-gray-100 bg-gray-50">
           <img 
             src={heroPhoto}
-            alt="Planta de manufatura da Wanlian Fluid e produção de válvulas, Quanzhou, Fujian"
+            alt="Pabrik dan produksi katup Wanlian Fluid, Quanzhou, Fujian"
             loading="lazy"
             class="object-cover w-full h-full"
           />
@@ -132,14 +132,14 @@ const faq = [
     </div>
   </section>
 
-  <!-- Evidências da Manufatura: fotos da planta, alvará comercial, vídeo de produksi -->
+  <!-- Manufacturing Evidence: plant photos, business license, production video -->
   {hasFactoryEvidence && (
   <section class="py-24 bg-gray-50 border-y border-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
-        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Bukti Fasilitas Pabrik</span>
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Bukti Produksi</span>
         <h2 class="text-3xl font-black text-gray-900 tracking-tight">Di Dalam Lini Produksi Kami di Quanzhou</h2>
-        <p class="text-base text-gray-500">Documentos e imagens untuk a sua due diligence — os mesmos registros que kami próprios compradores verificam. Solicite-nos o pacote lengkap de sertifikat e laudos de pengujian correspondente ao seu pesanan.</p>
+        <p class="text-base text-gray-500">Dokumen dan rekaman untuk keperluan verifikasi Anda — catatan yang sama yang diperiksa pembeli kami sendiri. Minta paket sertifikat dan laporan pengujian lengkap yang sesuai PO Anda.</p>
       </div>
 
       {plantPhotos.length > 0 && (
@@ -164,19 +164,19 @@ const faq = [
             poster={hasFactoryAsset('production-line-poster.webp') ? '/assets/factory/production-line-poster.webp' : undefined}
           >
             <source src="/assets/factory/production-line.mp4" type="video/mp4" />
-            Seu navegador não menawarkan dukungan a vídeo incorporado.
+            Browser Anda tidak mendukung pemutaran video tertanam.
           </video>
           <div class="px-6 py-5">
             <h3 class="font-bold text-lg text-gray-900">Di Area Produksi</h3>
-            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Vinte e cinco segundos de imagens não editadas das kami próprias lini de produksi — dobra de chapas, solda, lini de revestimento a pó e tecelagem de cobertura de selang kebakaran. Nenhum vídeo de banco de imagens.</p>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Dua puluh lima detik rekaman tanpa penyuntingan dari lini produksi kami sendiri — pembentukan plat, pengelasan, lantai coating serbuk, dan penenunan lapisan luar selang kebakaran. Bukan video stok.</p>
           </div>
         </div>
         )}
 
         <div class={hasProductionVideo ? 'lg:col-span-2 space-y-8' : 'lg:col-span-3 space-y-8'}>
           <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
-            <h3 class="font-bold text-lg text-gray-900">O que Anda dapat verificar conosco</h3>
-            <p class="mt-2 text-sm text-gray-500 leading-relaxed">A verificação é parte normal dos negócios com um fornecedor chinês. Veja o que colocaremos nas Anda mãos sebelum do seu compromisso — silakan minta tudo.</p>
+            <h3 class="font-bold text-lg text-gray-900">Yang dapat Anda verifikasi bersama kami</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed">Verifikasi adalah bagian normal dari bekerja sama dengan pemasok Tiongkok. Ini yang akan kami serahkan sebelum Anda mengambil keputusan — silakan minta semuanya.</p>
             <ul class="mt-6 space-y-3">
               {verifiableItems.map((item) => (
                 <li class="flex items-start gap-3 text-sm text-gray-600 leading-relaxed">
@@ -189,10 +189,10 @@ const faq = [
 
           {hasBusinessLicense && (
           <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <img src="/assets/factory/business-license.webp" alt="Alvará comercial da Quanzhou Wanlian Fluid Equipment Co., Ltd., com escopo de atuação cobrindo manufatura" loading="lazy" class="w-full object-contain bg-gray-50 max-h-[420px]" />
+            <img src="/assets/factory/business-license.webp" alt="Izin usaha Quanzhou Wanlian Fluid Equipment Co., Ltd. dengan lingkup usaha yang mencakup manufaktur" loading="lazy" class="w-full object-contain bg-gray-50 max-h-[420px]" />
             <div class="px-6 py-5">
               <h3 class="font-bold text-lg text-gray-900">Izin Usaha</h3>
-              <p class="mt-2 text-sm text-gray-500 leading-relaxed">Registrada em Quanzhou, Fujian. O cakupan de atuação mencakup manufaktur, processamento e exportação de katup e peralatan proteksi kebakaran — a entidade que emite a fatura pesanan Anda é a entidade que fabrica o produk.</p>
+              <p class="mt-2 text-sm text-gray-500 leading-relaxed">Terdaftar di Quanzhou, Fujian. Lingkup usaha mencakup manufaktur, pengolahan, dan ekspor katup serta peralatan proteksi kebakaran — entitas yang menerbitkan invoice pesanan Anda adalah entitas yang memproduksi barangnya.</p>
             </div>
           </div>
           )}
@@ -200,26 +200,26 @@ const faq = [
       </div>
 
       <p class="mt-10 text-center text-sm text-gray-500">
-        Quer um vídeo ao vivo da lini e da bancada de pengujian untuk proyek Anda? <a href="/id/contact/" class="text-brand-blue font-semibold hover:underline">Minta kunjungan pabrik</a>.
+        Ingin tur video langsung di area produksi dan di bench uji untuk proyek Anda? <a href="/id/contact/" class="text-brand-blue font-semibold hover:underline">Jadwalkan tur pabrik</a>.
       </p>
     </div>
   </section>
   )}
 
-  <!-- Produk dan Layanan -->
+  <!-- Products & Services -->
   <section class="py-24 bg-white border-b border-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
-        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Produk dan Layanan</span>
-        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Linha de Produtos Completa e Serviços Diversificados</h2>
-        <p class="text-base text-gray-500">Realizando funções de transmissão, regulação, bloqueio e proteção de keamanan de fluidos em várias indústrias.</p>
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Produk &amp; Layanan</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Lini Produk Lengkap &amp; Layanan yang Beragam</h2>
+        <p class="text-base text-gray-500">Menjalankan fungsi transmisi, regulasi, penutupan, dan proteksi keselamatan pada sistem fluida di berbagai industri.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
           <h3 class="font-bold text-lg text-gray-900 mb-4">Produk Utama</h3>
           <ul class="space-y-2 text-sm text-gray-600">
-            {['Katup Gerbang', 'Katup Kupu-kupu', 'Válvulas de Esfera', 'Válvulas de Balanceamento', 'Válvulas de Globo', 'Katup Periksa', 'Filtros', 'Válvulas de Controle Hidráulico', 'Acessórios de Tubulação', 'Atuadores'].map(item => (
+            {['Katup Gerbang', 'Katup Kupu-kupu', 'Katup Bola', 'Katup Penyeimbang', 'Katup Globe', 'Katup Searah', 'Filter', 'Katup Kontrol Hidrolik', 'Aksesori Pipa', 'Aktuator'].map(item => (
               <li class="flex items-center gap-2">
                 <span class="w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>
                 {item}
@@ -229,9 +229,9 @@ const faq = [
         </div>
 
         <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
-          <h3 class="font-bold text-lg text-gray-900 mb-4">Peralatan Proteksi Kebakaran</h3>
+          <h3 class="font-bold text-lg text-gray-900 mb-4">Peralatan Pemadam Kebakaran</h3>
           <ul class="space-y-2 text-sm text-gray-600">
-            {['Armários Contra Incêndio', 'Hidran Kebakaran', 'Extintores Contra Incêndio', 'Carretes de Mangueira', 'Mangueiras Contra Incêndio', 'Bicos de Incêndio', 'Acoplamentos de Mangueira', 'Rociadores Contra Incêndio'].map(item => (
+            {['Kabinet Kebakaran', 'Hidran Kebakaran', 'Alat Pemadam Api Ringan (APAR)', 'Gulungan Selang Kebakaran', 'Selang Kebakaran', 'Nozel Kebakaran', 'Kopling Selang Kebakaran', 'Sprinkler Kebakaran'].map(item => (
               <li class="flex items-center gap-2">
                 <span class="w-1.5 h-1.5 bg-brand-blue rounded-full flex-shrink-0"></span>
                 {item}
@@ -241,10 +241,10 @@ const faq = [
         </div>
 
         <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
-          <h3 class="font-bold text-lg text-gray-900 mb-4">Aplikasi dan Layanan</h3>
-          <p class="text-sm text-gray-600 leading-relaxed mb-6">Amplamente diterapkan nas indústrias de petroquímica, energi elétrica, metalurgia, abastecimento e drenagem kota, proteksi kebakaran em edificações, pengolahan de esgoto, HVAC e outras.</p>
+          <h3 class="font-bold text-lg text-gray-900 mb-4">Aplikasi &amp; Layanan</h3>
+          <p class="text-sm text-gray-600 leading-relaxed mb-6">Banyak digunakan di industri petrokimia, pembangkit listrik, metalurgi, pasokan &amp; drainase air perkotaan, proteksi kebakaran gedung, pengolahan limbah, HVAC, dan lainnya.</p>
           <div class="flex flex-wrap gap-2">
-            {['OEM', 'ODM', 'Personalização Não Padrão'].map(tag => (
+            {['OEM', 'ODM', 'Kustomisasi Non-Standar'].map(tag => (
               <span class="px-3 py-1.5 bg-white border border-gray-200 text-xs font-black uppercase tracking-wider text-gray-700 rounded-full">{tag}</span>
             ))}
           </div>
@@ -253,13 +253,13 @@ const faq = [
     </div>
   </section>
 
-  <!-- Processo de Produção -->
+  <!-- Production Process -->
   <section class="py-24 bg-gray-50 border-y border-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
-        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Pengendalian Mutu</span>
-        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Proses Produksi Standar Kami</h2>
-          <p class="text-base text-gray-500">Cada pesanan segue a mesma sequência de produksi controlada — da inspeção de material recebidos até a embalagem untuk exportação.</p>
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Kontrol Mutu</span>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Alur Produksi Standar Kami</h2>
+          <p class="text-base text-gray-500">Setiap pesanan mengikuti urutan produksi terkendali yang sama — mulai dari inspeksi material masuk hingga pengemasan ekspor.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -278,13 +278,13 @@ const faq = [
     </div>
   </section>
 
-  <!-- Valores Centrais -->
+  <!-- Core Values -->
   <section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
-        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Nilai-Nilai Utama</span>
+        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">Nilai Inti</span>
         <h2 class="text-3xl font-black text-gray-900 tracking-tight">Empat Pilar Utama Perusahaan</h2>
-        <p class="text-base text-gray-500">Impulsionando a keamanan sustentável e a excelência industri di seluruh dunia.</p>
+        <p class="text-base text-gray-500">Mendorong keselamatan berkelanjutan dan keunggulan industri di seluruh dunia.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -305,7 +305,7 @@ const faq = [
     </div>
   </section>
 
-  <!-- Filosofi Bisnis e Visão -->
+  <!-- Business Philosophy & Vision -->
   <section class="py-24 bg-gray-900 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
@@ -314,14 +314,14 @@ const faq = [
       </div>
 
       <blockquote class="text-center text-2xl sm:text-3xl font-black tracking-tight text-white mb-16">
-        "Qualidade em Primeiro Lugar, Cliente em Primeiro Lugar, Integridade para o Ganho-Mútuo, <span class="text-brand-red">Inovação para o Desenvolvimento Sustentável</span>"
+        "Berorientasi mutu, pelanggan terlebih dahulu, integritas untuk kemenangan bersama, <span class="text-brand-red">inovasi untuk pembangunan berkelanjutan</span>"
       </blockquote>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
         {[
-          { title: 'Konsultasi Pra-Penjualan', desc: 'Orientação profissional de seleção de produk e solusi técnicas personalizadas untuk os persyaratan do proyek Anda.' },
-          { title: 'Dukungan Penjualan', desc: 'Orientação teknis untuk instalação e comissionamento, com tanggapan cepat às demandas do pelanggan.' },
-          { title: 'Layanan Purna Jual', desc: 'Manutenção pós-penjualan e solusi práticas de problemas em aplikasi de sistem de fluidos.' }
+          { title: 'Konsultasi Pra-Penjualan', desc: 'Panduan pemilihan produk secara profesional dan solusi teknis yang dikustomisasi sesuai kebutuhan proyek Anda.' },
+          { title: 'Dukungan Selama Proses', desc: 'Panduan teknis untuk instalasi dan komisioning, dengan respons cepat terhadap kebutuhan pelanggan.' },
+          { title: 'Layanan Purna Jual', desc: 'Perawatan purna jual dan pemecahan masalah praktis pada aplikasi sistem fluida.' }
         ].map((item, idx) => (
           <div class="p-8 bg-white/5 border border-white/10 rounded-2xl text-center">
             <span class="block text-4xl font-black text-white/10 mb-4">{String(idx + 1).padStart(2, '0')}</span>
@@ -333,24 +333,24 @@ const faq = [
 
       <div class="text-center max-w-3xl mx-auto space-y-6">
         <p class="text-lg text-gray-300 leading-relaxed">
-          Enraizados em Quanzhou, cobrindo mercados em todo o negara e abraçando oportunidades globais, kami tetap focados no setor de equipamentos de fluidos — promovendo a pembaruan de produk por meio de inovação tecnológica e membangun uma sólida reputação de marca com layanan de tinggi mutu.
+          Berakar di Quanzhou, menjangkau pasar nasional dan merangkul peluang global, kami terus berfokus pada bidang peralatan fluida — mendorong peningkatan produk melalui inovasi teknologi dan membangun reputasi merek yang kokoh lewat layanan berkualitas tinggi.
         </p>
         <p class="text-gray-400 leading-relaxed">
-          Nosso objetivo é ser um fabricante e parceiro de exportação de confiança nos setores de pengendalian fluida, nacional e internasional, entregando solusi de sistem de fluidos lebih eficientes, seguras e cerdas untuk pelanggan de semua os segmentos, e contribuindo untuk o desenvolvimento industri e a construção de infraestrutura.
+          Kami bertujuan menjadi produsen dan mitra ekspor yang tepercaya di sektor pengendalian fluida domestik maupun internasional, menghadirkan solusi sistem fluida yang lebih efisien, lebih aman, dan lebih cerdas bagi pelanggan dari berbagai kalangan, serta berkontribusi pada pembangunan industri dan infrastruktur.
         </p>
         <a href="/id/contact/" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-red hover:opacity-90 text-white font-bold rounded-lg transition">
-          Mulai Percakapan <span aria-hidden="true">→</span>
+          Mulai Konsultasi <span aria-hidden="true">→</span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Pertanyaan Umum -->
+  <!-- FAQ -->
   <section class="py-24 bg-gray-50 border-t border-gray-100">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
         <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">FAQ</span>
-        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Pertanyaan Umum</h2>
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Pertanyaan yang Sering Diajukan</h2>
       </div>
       <div class="space-y-4">
         {faq.map(item => (
