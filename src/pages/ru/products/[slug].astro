@@ -3,6 +3,8 @@ import ProductGallery from '../../../components/shared/ProductGallery.astro';
 import Layout from '../../../layouts/Layout.astro';
 import { productsRuBySlug, productsRu } from '../../../utils/products.ru';
 import { PRODUCT_FAMILY_RELATED } from '../../../utils/product-families';
+import { guides as guidesEn } from '../../../utils/guides';
+import { guidesRu } from '../../../utils/guides.ru';
 
 export async function getStaticPaths() {
   return Object.values(productsRuBySlug).map((product) => ({
@@ -105,31 +107,21 @@ const relatedProducts = familySlugs.length
 const catAnchor = encodeURIComponent(product.category);
 
 // Связанные руководства по покупке по категориям (внутренние ссылки на /ru/guides/)
+const guidesByHref: Record<string, { title: string; description: string; cardTitle?: string; cardDescription?: string }> = {};
+for (const g of guidesEn) guidesByHref[g.href] = g;
+for (const g of guidesRu) guidesByHref[g.href] = g;
+const guideCard = (href: string) => {
+  const g = guidesByHref[href];
+  if (!g) throw new Error('related-guide href missing from guides data: ' + href);
+  return { href: href, title: g.cardTitle ?? g.title, description: g.cardDescription ?? g.description };
+};
 const guideByCategory: Record<string, { href: string; title: string; description: string }[]> = {
-  'Запорная арматура и детали': [
-    { href: '/ru/guides/gate-valve-vs-butterfly-valve-fire-protection/', title: 'Задвижка против дискового затвора для противопожарных систем', description: 'Сравнение герметичности, пропускной способности, потерь давления и стоимости для правильного выбора изолирующего клапана в пожарных и водных сетях.' },
-    { href: '/ru/guides/check-valve-types-guide/', title: 'Типы обратных клапанов и выбор', description: 'Шаровый с качающимся шаром vs подвесной клапан: сопротивление, поведение при закрытии и наиболее подходящие применения для каждого типа.' }
-  ],
-  'Гидранты и насосные соединения': [
-    { href: '/ru/guides/how-to-choose-a-fire-hydrant/', title: 'Как выбрать пожарный гидрант', description: 'Внутренний vs наружный, сухотрубный vs мокрый, стандарты выходов и классы давления для муниципальных и промышленных проектов.' },
-    { href: '/ru/guides/fire-hydrant-valve-standards-guide/', title: 'Стандарты гидрантов, рукавов и клапанов: пояснение', description: 'AWWA C502, NFPA 1961, EN 14384, BS 750 — какой стандарт применим к вашему заказу и как проверить соответствие.' }
-  ],
-  'Спринклеры и сигнальные клапаны': [
-    { href: '/ru/guides/fire-sprinkler-control-valve-types/', title: 'Типы управляющих клапанов спринклерных систем: OS&Y, дисковые и обратные', description: 'Роль каждого управляющего клапана в спринклерной системе и как совместно работают OS&Y, дисковый и обратный клапаны.' },
-    { href: '/ru/guides/fire-sprinkler-system-wet-dry-preaction/', title: 'Спринклерные системы: мокрая, сухая или преакшн?', description: 'Сравнение конфигураций мокрых, сухих и преакшн-систем для соответствия классу опасности вашего здания.' }
-  ],
-  'Гидравлическая защита': [
-    { href: '/ru/guides/pressure-reducing-valve-guide/', title: 'Руководство по редукционным клапанам: гидравлический PRV 500X', description: 'Как пилотные редукционные клапаны защищают оборудование на напорной стороне, регулируют давление и предотвращают гидравлический удар.' },
-    { href: '/ru/guides/backflow-prevention-guide/', title: 'Руководство по предотвращению обратного потока', description: 'Когда сетям питьевой воды нужны двойные обратные клапаны и как HS41X защищает от обратного потока.' }
-  ],
-  'Лафетные стволы пожаротушения': [
-    { href: '/ru/guides/fire-water-monitor-selection-guide/', title: 'Выбор пожарного монитора: ручной vs автоматический следящий', description: 'Ручные мониторы PS vs автоматические стволы ZDMS: расход, дальность, управление и взрывозащищённые опции.' },
-    { href: '/ru/guides/fire-water-cannon-buying-guide/', title: 'Руководство по покупке пожарных стволов', description: 'Фиксированный, дистанционный или интеллектуальный? Дальность струи, расход и факторы установки для тушения на крупных площадях.' }
-  ],
-  'Пожарные шкафы и соединительные устройства': [
-    { href: '/ru/guides/fire-hose-reel-cabinet-guide/', title: 'Руководство по пожарным рукавным барабанам и шкафам', description: 'Барабаны JPS0.8-19, пенные шкафы PSG30 и клапаны SN65 — что нужно для полной внутренней пожарной станции.' },
-    { href: '/ru/guides/fire-extinguisher-selection-guide/', title: 'Руководство по покупке огнетушителей: сухой порошок ABC', description: 'Пожары классов A/B/C/E, классификации ISO 7165 и B2B-экспортная упаковка для переносных огнетушителей.' }
-  ]
+  'Запорная арматура и детали': [guideCard('/ru/guides/gate-valve-vs-butterfly-valve-fire-protection/'), guideCard('/ru/guides/check-valve-types-guide/')],
+  'Гидранты и насосные соединения': [guideCard('/ru/guides/how-to-choose-a-fire-hydrant/'), guideCard('/ru/guides/fire-hydrant-valve-standards-guide/')],
+  'Спринклеры и сигнальные клапаны': [guideCard('/ru/guides/fire-sprinkler-control-valve-types/'), guideCard('/ru/guides/fire-sprinkler-system-wet-dry-preaction/')],
+  'Гидравлическая защита': [guideCard('/ru/guides/pressure-reducing-valve-guide/'), guideCard('/ru/guides/backflow-prevention-guide/')],
+  'Лафетные стволы пожаротушения': [guideCard('/ru/guides/fire-water-monitor-selection-guide/'), guideCard('/ru/guides/fire-water-cannon-buying-guide/')],
+  'Пожарные шкафы и соединительные устройства': [guideCard('/ru/guides/fire-hose-reel-cabinet-guide/'), guideCard('/ru/guides/fire-extinguisher-selection-guide/')]
 };
 
 const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);

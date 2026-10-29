@@ -2,6 +2,8 @@
 import Layout from '../../../layouts/Layout.astro';
 import { productsId, productsIdBySlug } from '../../../utils/products.id';
 import { PRODUCT_FAMILY_RELATED } from '../../../utils/product-families';
+import { guides as guidesEn } from '../../../utils/guides';
+import { guidesId } from '../../../utils/guides.id';
 
 export async function getStaticPaths() {
   return Object.values(productsIdBySlug).map((product) => ({
@@ -104,31 +106,21 @@ const relatedProducts = familySlugs.length
 const catAnchor = encodeURIComponent(product.category);
 
 // Tautan panduan pembelian per kategori
+const guidesByHref: Record<string, { title: string; description: string; cardTitle?: string; cardDescription?: string }> = {};
+for (const g of guidesEn) guidesByHref[g.href] = g;
+for (const g of guidesId) guidesByHref[g.href] = g;
+const guideCard = (href: string) => {
+  const g = guidesByHref[href];
+  if (!g) throw new Error('related-guide href missing from guides data: ' + href);
+  return { href: href, title: g.cardTitle ?? g.title, description: g.cardDescription ?? g.description };
+};
 const guideByCategory: Record<string, { href: string; title: string; description: string }[]> = {
-  'Katup Industri & Saringan (Strainer)': [
-    { href: '/id/guides/gate-valve-vs-butterfly-valve-fire-protection/', title: 'Katup Gerbang vs. Katup Kupu untuk Proteksi Kebakaran', description: 'Perbandingan penyekatan, aliran, kehilangan tekanan, dan biaya untuk memilih katup isolasi yang tepat pada jaringan kebakaran dan perpipaan air.' },
-    { href: '/id/guides/check-valve-types-guide/', title: 'Jenis-Jenis Katup Cek dan Panduan Pemilihannya', description: 'Cek bola apung vs. kupu-kupu terayun (clapper) — kehilangan tekanan, perilaku penutupan, dan aplikasi ideal masing-masing tipe.' }
-  ],
-  'Hidran Pemadam & Adaptor Pompa': [
-    { href: '/id/guides/how-to-choose-a-fire-hydrant/', title: 'Cara Memilih Hidran Pemadam Kebakaran', description: 'Dalam vs. luar ruangan, pilar kering vs. basah, standar sambungan keluar, dan kelas tekanan untuk proyek kota dan industri.' },
-    { href: '/id/guides/fire-hydrant-valve-standards-guide/', title: 'Penjelasan Standar Hidran, Selang, dan Katup', description: 'AWWA C502, NFPA 1961, EN 14384, BS 750 — standar mana yang berlaku untuk pesanan Anda dan cara memverifikasi kepantauhan.' }
-  ],
-  'Sprinkler Pemadam & Katup Alarm': [
-    { href: '/id/guides/fire-sprinkler-control-valve-types/', title: 'Jenis Katup Kontrol Jaringan Sprinkler: OS&Y, Kupu, dan Cek', description: 'Peran tiap katup kontrol pada jaringan sprinkler dan bagaimana katup OS&Y, kupu, serta cek bekerja bersamaan.' },
-    { href: '/id/guides/fire-sprinkler-system-wet-dry-preaction/', title: 'Sistem Sprinkler: Basah, Kering, atau Pra-Aksi?', description: 'Bandingkan konfigurasi sistem sprinkler basah, kering, dan pra-aksi sesuai kelas risiko gedung Anda.' }
-  ],
-  'Katup Kontrol Hidrolik': [
-    { href: '/id/guides/pressure-reducing-valve-guide/', title: 'Panduan Katup Pengurang Tekanan: PRV Hidrolik 500X', description: 'Bagaimana katup pengurang berpilot melindungi peralatan hilir, mengatur tekanan, dan mencegah palu air.' },
-    { href: '/id/guides/backflow-prevention-guide/', title: 'Panduan Pencegahan Aliran Balik', description: 'Kapan jaringan air minum membutuhkan set dual check dan bagaimana HS41X melindungi dari aliran balik.' }
-  ],
-  'Monitor Pemadam & Meriam Air': [
-    { href: '/id/guides/fire-water-monitor-selection-guide/', title: 'Pemilihan Monitor Pemadam: Manual vs. Pelacak Otomatis', description: 'Monitor manual PS vs. meriam pelacak otomatis ZDMS — aliran, jangkauan, pengendalian, dan opsi tahan ledakan.' },
-    { href: '/id/guides/fire-water-cannon-buying-guide/', title: 'Panduan Pembelian Meriam Air Pemadam Kebakaran', description: 'Statis, jarak jauh, atau cerdas? Jangkauan semburan, aliran, dan faktor pemasangan untuk pemadaman api di ruang luas.' }
-  ],
-  'Gulungan Selang & Lemari Hidran': [
-    { href: '/id/guides/fire-hose-reel-cabinet-guide/', title: 'Panduan Pemilihan Gulungan Selang dan Lemari Hidran', description: 'Gulungan JPS0.8-19, lemari busa PSG30, dan katup hidran SN65 — kebutuhan lengkap pos pemadam dalam ruangan.' },
-    { href: '/id/guides/fire-extinguisher-selection-guide/', title: 'Panduan Pembelian Alat Pemadam Ringan: Serbuk Kimia ABC', description: 'Cakupan kelas A/B/C/E, klasifikasi ISO 7165, dan pengemasan ekspor B2B untuk APAR portabel.' }
-  ]
+  'Katup Industri & Saringan (Strainer)': [guideCard('/id/guides/gate-valve-vs-butterfly-valve-fire-protection/'), guideCard('/id/guides/check-valve-types-guide/')],
+  'Hidran Pemadam & Adaptor Pompa': [guideCard('/id/guides/how-to-choose-a-fire-hydrant/'), guideCard('/id/guides/fire-hydrant-valve-standards-guide/')],
+  'Sprinkler Pemadam & Katup Alarm': [guideCard('/id/guides/fire-sprinkler-control-valve-types/'), guideCard('/id/guides/fire-sprinkler-system-wet-dry-preaction/')],
+  'Katup Kontrol Hidrolik': [guideCard('/id/guides/pressure-reducing-valve-guide/'), guideCard('/id/guides/backflow-prevention-guide/')],
+  'Monitor Pemadam & Meriam Air': [guideCard('/id/guides/fire-water-monitor-selection-guide/'), guideCard('/id/guides/fire-water-cannon-buying-guide/')],
+  'Gulungan Selang & Lemari Hidran': [guideCard('/id/guides/fire-hose-reel-cabinet-guide/'), guideCard('/id/guides/fire-extinguisher-selection-guide/')]
 };
 
 const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
