@@ -100,29 +100,32 @@ const videoData = product.video
   : undefined;
 const relatedProducts = productsAr.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 6);
 
-// 相关指南(GEO 内容)按产品 slug 映射 — 阿语指南下一波，暂指向 EN
+// 相关指南(GEO 内容)按产品 slug 映射 — 一律解析到 /ar/guides/，缺译文则构建失败
 const hydrantGuideSlugs = ['overground-fire-hydrant-ss100', 'indoor-fire-hydrant-head-sn65', 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', 'iot-smart-ground-fire-hydrant-ss100zn'];
 const valveGuideSlugs = ['resilient-seat-flanged-gate-valve-z41x', 'telescopic-resilient-seat-gate-valve-z41x-t', 'ul-fm-resilient-seat-osy-gate-valve', 'd381x-16q-grooved-butterfly-valve', 'signal-grooved-wafer-butterfly-valve-dn80', 'spherical-ball-check-valve-hq44x'];
 const hoseGuideSlugs = ['fire-hose-pvc-rubber-lining-8-65', 'storz-coupling-2-5inch-aluminum', 'fire-hydrant-hose-coupling-adapter-hs'];
-const standardsGuide = { href: '/guides/fire-hydrant-valve-standards-guide/', title: 'Hydrant, Fire Hose & Valve Standards Explained', description: 'AWWA C502, NFPA 1961, EN 14384, ISO 5208 — what each standard means and how to verify compliance in Chinese factories.' };
-const avkGuide = { href: '/guides/wanlian-fluid-vs-american-avk/', title: 'Wanlian Fluid vs American AVK', description: 'Which fire hydrant & valve supplier fits your 2026 project? Scope, geography and standards compared side by side.' };
 
-// 按分类默认回链 2 篇指南：确保每个产品页都有到指南的站内链接（阿语指南下一波，暂指 EN）
-const guidesByHref: Record<string, { title: string; description: string; cardTitle?: string; cardDescription?: string }> = {};
-for (const g of guidesEn) guidesByHref[g.href] = g;
-for (const g of guidesAr) guidesByHref[g.href] = g;
-const guideCard = (href: string) => {
-  const g = guidesByHref[href];
-  if (!g) throw new Error('related-guide href missing from guides data: ' + href);
-  return { href: href, title: g.cardTitle ?? g.title, description: g.cardDescription ?? g.description };
+// 按分类默认回链 2 篇指南
+// Related-guide cards resolve through the Arabic catalogue only, so this block can
+// never emit English copy under the Arabic heading. Keys are guide slugs; a missing
+// Arabic counterpart fails the build instead of falling back to English.
+const arGuideBySlug: Record<string, { title: string; description: string; cardTitle?: string; cardDescription?: string }> = {};
+for (const g of guidesAr) arGuideBySlug[g.href.replace('/ar/guides/', '')] = g;
+const guideCard = (key: string) => {
+  const slug = key.replace('/ar/guides/', '');
+  const g = arGuideBySlug[slug];
+  if (!g) throw new Error('related guide has no Arabic counterpart: ' + slug);
+  return { href: '/ar/guides/' + slug, title: g.cardTitle ?? g.title, description: g.cardDescription ?? g.description };
 };
+const standardsGuide = guideCard('fire-hydrant-valve-standards-guide/');
+const avkGuide = guideCard('wanlian-fluid-vs-american-avk/');
 const guideByCategory: Record<string, { href: string; title: string; description: string }[]> = {
-  'صمامات وقطع الغيار': [guideCard('/guides/gate-valve-vs-butterfly-valve-fire-protection/'), guideCard('/guides/check-valve-types-guide/')],
-  'خلاط الحريق واتصالات المضخات': [guideCard('/guides/how-to-choose-a-fire-hydrant/'), guideCard('/guides/fire-hydrant-valve-standards-guide/')],
-  'رؤوس رش الحريق وصمامات الإنذار': [guideCard('/guides/fire-sprinkler-control-valve-types/'), guideCard('/guides/fire-sprinkler-system-wet-dry-preaction/')],
-  'السلامة الهيدروليكية': [guideCard('/guides/pressure-reducing-valve-guide/'), guideCard('/guides/backflow-prevention-guide/')],
-  'مدافع مياه الإطفاء': [guideCard('/guides/fire-water-monitor-selection-guide/'), guideCard('/guides/fire-water-cannon-buying-guide/')],
-  'خزائن الحريق والوحدات الوسيطة': [guideCard('/guides/fire-hose-reel-cabinet-guide/'), guideCard('/guides/fire-extinguisher-selection-guide/')]
+  'صمامات وقطع الغيار': [guideCard('gate-valve-vs-butterfly-valve-fire-protection/'), guideCard('check-valve-types-guide/')],
+  'خلاط الحريق واتصالات المضخات': [guideCard('how-to-choose-a-fire-hydrant/'), guideCard('fire-hydrant-valve-standards-guide/')],
+  'رؤوس رش الحريق وصمامات الإنذار': [guideCard('fire-sprinkler-control-valve-types/'), guideCard('fire-sprinkler-system-wet-dry-preaction/')],
+  'السلامة الهيدروليكية': [guideCard('pressure-reducing-valve-guide/'), guideCard('backflow-prevention-guide/')],
+  'مدافع مياه الإطفاء': [guideCard('fire-water-monitor-selection-guide/'), guideCard('fire-water-cannon-buying-guide/')],
+  'خزائن الحريق والوحدات الوسيطة': [guideCard('fire-hose-reel-cabinet-guide/'), guideCard('fire-extinguisher-selection-guide/')]
 };
 
 // 显式 slug 命中优先；未命中的产品按分类回链指南，去重后最多 3 篇
