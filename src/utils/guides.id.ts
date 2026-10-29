@@ -159,8 +159,8 @@ export const guidesId: Guide[] = [
     tocPreview: ['1. Pahami Kebutuhan Hidran Terlebih Dahulu', '2. Jenis Hidran Kebakaran', '3. Spesifikasi Utama untuk Dibandingkan'],
   },
   {
-    title: 'Válvula de Gaveta vs Borboleta para Proteção contra Incêndio',
-    description: 'Válvula de gaveta vs borboleta para proteção contra incêndio: compare vazão, perda de carga e custo. Guia B2B do fornecedor chinês Wanlian Fluid.',
+    title: 'Katup Gerbang vs Katup Kupu-kupu untuk Perlindungan Kebakaran',
+    description: 'Perbandingan katup gerbang dan katup kupu-kupu untuk perlindungan kebakaran: bandingkan kapasitas aliran, kehilangan tekanan, dan biaya. Panduan B2B dari produsen China Wanlian Fluid.',
     cardTitle: 'Katup Gerbang vs. Katup Kupu untuk Proteksi Kebakaran',
     cardDescription: 'Perbandingan penyekatan, aliran, kehilangan tekanan, dan biaya untuk memilih katup isolasi yang tepat pada jaringan kebakaran dan perpipaan air.',
     href: '/id/guides/gate-valve-vs-butterfly-valve-fire-protection/',
@@ -168,7 +168,7 @@ export const guidesId: Guide[] = [
     category: 'Valves',
     readTime: readTime('7'),
     tags: ['industrial-valves', 'fire-protection'],
-    tocPreview: ['1. Como funcionam: uma comparação rápida', '2. Comparação direta: gaveta vs borboleta', '3. Onde cada válvula se encaixa nos sistemas de proteção contra incêndio'],
+    tocPreview: ['1. Cara kerja: perbandingan singkat', '2. Perbandingan langsung: gerbang vs kupu-kupu', '3. Di mana setiap katup dipakai dalam sistem perlindungan kebakaran'],
   },
   {
     title: 'Jenis Katup Kontrol Sprinkler Kebakaran | Wanlian Fluid',
@@ -322,7 +322,7 @@ export const guidesId: Guide[] = [
   },
   {
     title: 'Infrastruktur Air dan Pemadam Kota di Amerika Latin',
-    description: 'Hidrantes, katup gerbang, selang e perlindungan aliran balik untuk jaringan municipais na América Latina. Guia B2B de pengadaan 2026 da Wanlian Fluid.',
+    description: 'Hidran, katup gerbang, selang, dan perlindungan aliran balik untuk jaringan air dan kebakaran kota di Amerika Latin. Panduan pengadaan B2B 2026 dari Wanlian Fluid.',
     href: '/id/guides/municipal-water-fire-infrastructure-latinamerica/',
     date: '2026-09',
     category: 'Procurement',
@@ -332,7 +332,7 @@ export const guidesId: Guide[] = [
   },
   {
     title: 'Sertifikasi Katup Pemadam di Amerika Latin (2026)',
-    description: 'UL, FM, AWWA, NOM e NFPA: entenda os persyaratan de certificação de válvulas pemadam kebakaran na América Latina, verifikasikan sertifikat e compre com keselamatan.',
+    description: 'UL, FM, AWWA, NOM, dan NFPA: pahami persyaratan sertifikasi untuk katup pemadam kebakaran di Amerika Latin, verifikasi sertifikat, dan beli dengan aman.',
     href: '/id/guides/latinamerica-certification-requirements-fire-valves/',
     date: '2026-09',
     category: 'Procurement',
@@ -372,7 +372,7 @@ export const guidesId: Guide[] = [
   },
   {
     title: 'Wanlian Fluid vs CA-FIRE: Which Chinese Fire Protection Manufacturer Fits Your 2026 Project?',
-    description: 'Wanlian Fluid vs CA-FIRE compared for 2026: FM-approved sprinklers, fire monitors, hydrants, alarm valves & full fire kits — which Chinese fire manufacturer fits your project.',
+    description: 'Perbandingan Wanlian Fluid dan CA-FIRE untuk 2026: sprinkler bersertifikat FM, monitor kebakaran, hidran, katup alarm, dan paket pemadam lengkap — mana produsen pemadam China yang cocok untuk proyek Anda.',
     href: '/id/guides/wanlian-fluid-vs-ca-fire/',
     date: '2026-09',
     category: 'Procurement',
@@ -382,7 +382,7 @@ export const guidesId: Guide[] = [
   },
   {
     title: 'Wanlian Fluid vs Forede: Choosing a Chinese Fire Monitor & Equipment Manufacturer (2026)',
-    description: 'Wanlian Fluid vs Forede compared for 2026: fire monitors, water cannons, foam systems, hydrants & valves — which Chinese fire equipment manufacturer fits your project?',
+    description: 'Perbandingan Wanlian Fluid dan Forede untuk 2026: monitor kebakaran, meriam air, sistem busa, hidran, dan katup — mana produsen peralatan pemadam China yang cocok untuk proyek Anda?',
     href: '/id/guides/wanlian-fluid-vs-forede/',
     date: '2026-09',
     category: 'Procurement',
@@ -418,11 +418,11 @@ export const guidesId: Guide[] = [
     category: 'Fire Protection',
     readTime: readTime('9'),
     tags: ['sprinkler-systems', 'fire-protection', 'procurement'],
-    tocPreview: ['1. Mengapa paket rociadores dibeli sebagai lingkup tunggal', '2. O grupo de válvula de alarme: o coração do sistema molhado', '3. Separação monitorada: válvulas OS&Y e borboletas de sinal'],
+    tocPreview: ['1. Mengapa paket sprinkler dibeli sebagai satu lingkup', '2. Kelompok katup alarm: inti dari sistem basah', '3. Pemisahan terpantau: katup OS&Y dan katup kupu-kupu bersinyal'],
   },
   {
     title: 'Modernisasi Jaringan Pemadam Kota: Katup dan Hidran',
-    description: 'Guia untuk modernização de jaringan municipais pemadam kebakaran: válvulas, hidran antibekus, selang, kopling, standar e pacote satu.',
+    description: 'Panduan modernisasi jaringan pemadam kebakaran kota dalam satu paket: katup alarm, hidran anti-beku, selang, kopling, dan standar negara tujuan.',
     href: '/id/guides/municipal-fire-water-main-upgrade-guide/',
     date: '2026-09',
     category: 'Procurement',
@@ -442,7 +442,7 @@ export const guidesId: Guide[] = [
   },
   {
     title: 'Wanlian Fluid vs Mueller: Fire Hydrant & Valve Sourcing for US-Spec Projects (2026)',
-    description: 'Wanlian Fluid vs Mueller compared for 2026: fire hydrants, gate valves, standards, certification, cost and lead time — which supplier fits your US-spec or export project?',
+    description: 'Perbandingan Wanlian Fluid dan Mueller untuk 2026: hidran kebakaran, katup gerbang, standar, sertifikasi, biaya, dan waktu kirim — mana pemasok yang cocok untuk proyek spesifikasi AS atau ekspor Anda?',
     href: '/id/guides/wanlian-fluid-vs-mueller/',
     date: '2026-09',
     category: 'Procurement',
