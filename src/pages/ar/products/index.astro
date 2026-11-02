@@ -2,6 +2,30 @@
 import Layout from '../../../layouts/Layout.astro';
 import { productsAr } from '../../../utils/products.ar';
 
+// ItemList JSON-LD (AR): 43 products + 3 thematic pages, /ar/ prefix.
+// Labels are read from this file so the Arabic wording stays identical to the visible chips.
+const itemCatalog = [
+  ...[...productsAr].sort((a, b) => a.slug.localeCompare(b.slug)).map(p => ({
+    name: p.name,
+    url: `https://wanlian911.com/ar/products/${p.slug}/`
+  })),
+  { name: "أنظمة رش الحريق", url: "https://wanlian911.com/ar/fire-sprinkler-systems/" },
+  { name: "مدافع مياه الحريق", url: "https://wanlian911.com/ar/fire-water-cannon/" },
+  { name: "صمامات الحريق المعتمدة UL", url: "https://wanlian911.com/ar/ul-fire-valves/" }
+];
+const itemListJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: "كتالوج المنتجات",
+  description: "تصفح كتالوج Wanlian Fluid لـ B2B: أكثر من 43 نموذجًا متوفرًا من الصمامات الصناعية وخلاطات الحريق والرؤوس وبكرات المران والصمامات الهيدروليكية. تسعير حسب الاستفسار.",
+  itemListElement: itemCatalog.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.name,
+    url: item.url
+  }))
+};
+
 // Get all unique categories
 const ALL = 'الكل';
 const categories = [ALL, ...new Set(productsAr.map(p => p.category))];
@@ -151,4 +175,5 @@ const faqs = [
       });
     });
   </script>
+  <script type="application/ld+json" set:html={JSON.stringify(itemListJsonLd)} />
 </Layout>
