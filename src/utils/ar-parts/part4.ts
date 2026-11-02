@@ -17,6 +17,7 @@ export const productsArPart4: Record<string, Product> = {
       'مناسب لأنظمة HVAC وأنظمة تنظيم المياه'
     ],
     specs: {
+      'المعيار': 'GB / ANSI / DIN / JIS; تقارير الاختبار متاحة عند الطلب',
       'نطاق الأحجام': 'DN50 - DN300',
       'المادة': 'حديد زهر كروي (QT450)',
       'الضغط': 'ضغط متوسط',
@@ -50,6 +51,7 @@ export const productsArPart4: Record<string, Product> = {
       'دعم التخصيص OEM / OBM'
     ],
     specs: {
+      'المعيار': 'GB / ANSI / DIN / JIS; تقارير الاختبار متاحة عند الطلب',
       'النموذج': 'Z85X',
       'نطاق الأحجام': 'DN40 - DN300 (2" - 12")',
       'المادة': 'فولاذ مقاوم للصدأ (CF8M)',
@@ -150,6 +152,7 @@ export const productsArPart4: Record<string, Product> = {
       'متوفر تخصيص OEM / ODM'
     ],
     specs: {
+      'المعيار': 'GB / ANSI / DIN / JIS; تقارير الاختبار متاحة عند الطلب',
       'النموذج': '100X-16P',
       'نطاق الأحجام': 'DN40 - DN300',
       'الضغط': '0 - 1.0 MPa (0 - 10 بار)',
@@ -289,6 +292,7 @@ export const productsArPart4: Record<string, Product> = {
       'مناسب لأنظمة الحماية من الحريق وخطوط المياه'
     ],
     specs: {
+      'المعيار': 'GB / ANSI / DIN / JIS; تقارير الاختبار متاحة عند الطلب',
       'النموذج': 'D381X',
       'نطاق الأحجام': 'DN50 - DN300',
       'المادة': 'حديد زهر كروي (QT450)',

@@ -48,6 +48,7 @@ export const productsFrPart3: Record<string, Product> = {
       'Base enterrée à bride standard pour une connexion facile',
     ],
     specs: {
+      'Norme': 'KWS / BS 336; Rapports d’essai disponibles sur demande',
       'Diamètre nominal': 'DN100 (4")',
       'Pression de service': '1.6 MPa',
       'Pression d\u2019essai': '2.4 MPa',
@@ -186,6 +187,7 @@ export const productsFrPart3: Record<string, Product> = {
       'Conforme strictement aux normes internationales (GB, ANSI, DIN, JIS)',
     ],
     specs: {
+      'Norme': 'GB / ANSI / DIN / JIS; Rapports d’essai disponibles sur demande',
       'Gammes de taille': 'DN15 - DN300 (1/2" to 12")',
       'Pression de service': '1.6 - 4.0 MPa (Classe 150/300)',
       'Température de service': '-29°C à 425°C',
@@ -218,6 +220,7 @@ export const productsFrPart3: Record<string, Product> = {
       'Haute réactivité, idéale pour le contrôle automatique des réseaux anti-incendie',
     ],
     specs: {
+      'Norme': 'GB / ANSI / DIN / JIS; Rapports d’essai disponibles sur demande',
       'Gammes de taille': 'DN50 - DN300 (2" to 12")',
       'Tension de l\u2019électrovanne': 'AC220V / DC24V',
       'Pression de service': '300 PSI (2.0 MPa)',
@@ -273,6 +276,7 @@ export const productsFrPart3: Record<string, Product> = {
       'Longueur, diamètre et logo personnalisables (OEM)',
     ],
     specs: {
+      'Norme': 'BS 336 / KWS; Rapports d’essai disponibles sur demande',
       'Gammes de taille': 'Diamètre intérieur 19mm - 400mm',
       'Modèle': '8-65 (taille de raccord standard)',
       'Matériau': 'Doublure caoutchouc PVC',
@@ -439,6 +443,7 @@ export const productsFrPart3: Record<string, Product> = {
       'Conception compacte adaptée à la protection incendie des aéroports et des municipalités',
     ],
     specs: {
+      'Norme': 'SQS 65 / KWS 65; Rapports d’essai disponibles sur demande',
       'Modèle': 'SQD100-1.6',
       'Entrée': '2 × DN65 (2.5") avec bouchons (SQS65 / KWS65)',
       'Sortie': 'DN100 (4") À bride',

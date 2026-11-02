@@ -15,6 +15,7 @@ export const productsPtPart2: Record<string, Product> = {
       'Encapsulamento EPDM do assento garante longa vida útil e vedação completa'
     ],
     specs: {
+      'Norma': 'GB / ANSI / DIN / JIS; Relatórios de ensaio disponíveis mediante solicitação',
       'Diâmetro Nominal': 'DN50 - DN600',
       'Pressão Nominal': '1.0 MPa / 1.6 MPa / 2.5 MPa',
       'Material do Corpo': 'Ductile Iron / Cast Steel / Stainless Steel',
@@ -167,6 +168,7 @@ export const productsPtPart2: Record<string, Product> = {
       'Revestimento em resina epóxi não tóxica por dentro e por fora'
     ],
     specs: {
+      'Norma': 'GB / ANSI / DIN / JIS; Relatórios de ensaio disponíveis mediante solicitação',
       'Diâmetro Nominal': 'DN50 - DN600',
       'Pressão Nominal': '1.0 MPa / 1.6 MPa',
       'Faixa Telescópica': '± 25mm (Expansion compensation)',
@@ -321,6 +323,7 @@ export const productsPtPart2: Record<string, Product> = {
       'Base flangeada subterrânea padrão para conexão simples'
     ],
     specs: {
+      'Norma': 'KWS / BS 336; Relatórios de ensaio disponíveis mediante solicitação',
       'Diâmetro Nominal': 'DN100 (4")',
       'Pressão de Trabalho': '1.6 MPa',
       'Pressão de Teste': '2.4 MPa',
@@ -445,6 +448,7 @@ export const productsPtPart2: Record<string, Product> = {
       'Atende rigorosamente às normas internacionais (GB, ANSI, DIN, JIS)'
     ],
     specs: {
+      'Norma': 'GB / ANSI / DIN / JIS; Relatórios de ensaio disponíveis mediante solicitação',
       'Faixa de Tamanhos': 'DN15 - DN300 (1/2" to 12")',
       'Pressão de Trabalho': '1.6 - 4.0 MPa (Class 150/300)',
       'Temperatura de Trabalho': '-29°C to 425°C',
@@ -475,6 +479,7 @@ export const productsPtPart2: Record<string, Product> = {
       'Alta resposta, ideal para controle automático de redes de água contra incêndio'
     ],
     specs: {
+      'Norma': 'GB / ANSI / DIN / JIS; Relatórios de ensaio disponíveis mediante solicitação',
       'Faixa de Tamanhos': 'DN50 - DN300 (2" to 12")',
       'Tensão do Solenoide': 'AC220V / DC24V',
       'Pressão de Trabalho': '300 PSI (2.0 MPa)',
@@ -524,6 +529,7 @@ export const productsPtPart2: Record<string, Product> = {
       'Comprimento, diâmetro e logotipo personalizáveis (OEM)'
     ],
     specs: {
+      'Norma': 'BS 336 / KWS; Relatórios de ensaio disponíveis mediante solicitação',
       'Faixa de Tamanhos': '19mm - 400mm inner diameter',
       'Modelo': '8-65 (standard coupling size)',
       'Material': 'PVC Rubber Lining',

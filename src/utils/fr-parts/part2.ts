@@ -204,6 +204,7 @@ export const productsFrPart2: Record<string, Product> = {
       "L'encapsulation du siège en EPDM assure une longue durée de vie et une étanchéité complète",
     ],
     specs: {
+      'Norme': 'GB / ANSI / DIN / JIS; Rapports d’essai disponibles sur demande',
       'Diamètre nominal': 'DN50 - DN600',
       'Pression nominale': '1.0 MPa / 1.6 MPa / 2.5 MPa',
       'Matériau du corps': 'Fonte ductile / Acier fondu / Acier inoxydable',
@@ -371,6 +372,7 @@ export const productsFrPart2: Record<string, Product> = {
       'Revêtement époxy non toxique à l\u2019intérieur et à l\u2019extérieur',
     ],
     specs: {
+      'Norme': 'GB / ANSI / DIN / JIS; Rapports d’essai disponibles sur demande',
       'Diamètre nominal': 'DN50 - DN600',
       'Pression nominale': '1.0 MPa / 1.6 MPa',
       'Course télescopique': '± 25mm (compensation de dilatation)',
