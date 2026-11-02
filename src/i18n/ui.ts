@@ -205,6 +205,7 @@ const en: UIStrings = {
       { name: 'FAQ', href: '/faq/' },
       { name: 'Glossary', href: '/glossary/' },
       { name: 'Cost Estimator', href: '/cost-calculator/' },
+      { name: 'Knowledge Hub', href: '/tags/' },
     ],
     contactTitle: 'Contact Us',
     contact: {
@@ -371,6 +372,7 @@ const es: UIStrings = {
       { name: 'Preguntas Frecuentes', href: '/faq/' },
       { name: 'Glosario', href: '/glossary/' },
       { name: 'Calculadora de Costos', href: '/cost-calculator/' },
+      { name: 'Centro de Conocimiento', href: '/tags/' },
     ],
     contactTitle: 'Contacto',
     contact: {
@@ -537,6 +539,7 @@ const ru: UIStrings = {
       { name: 'Часто задаваемые вопросы', href: '/faq/' },
       { name: 'Глоссарий', href: '/glossary/' },
       { name: 'Калькулятор стоимости', href: '/cost-calculator/' },
+      { name: 'Центр знаний', href: '/tags/' },
     ],
     contactTitle: 'Контакты',
     contact: {
@@ -704,6 +707,7 @@ const fr: UIStrings = {
       { name: 'Questions Fréquentes', href: '/faq/' },
       { name: 'Glossaire', href: '/glossary/' },
       { name: "Estimateur de coûts", href: '/cost-calculator/' },
+      { name: 'Centre de Connaissances', href: '/tags/' },
     ],
     contactTitle: 'Contact',
     contact: {
@@ -874,6 +878,7 @@ const ar: UIStrings = {
       { name: 'الأسئلة الشائعة', href: '/faq/' },
       { name: 'المسرد', href: '/glossary/' },
       { name: 'حاسبة التكاليف', href: '/cost-calculator/' },
+      { name: 'مركز المعرفة', href: '/tags/' },
     ],
     contactTitle: 'اتصل بنا',
     contact: {
@@ -1039,6 +1044,7 @@ const pt: UIStrings = {
       { name: 'Perguntas Frequentes', href: '/faq/' },
       { name: 'Glossário', href: '/glossary/' },
       { name: 'Calculadora de Custos', href: '/cost-calculator/' },
+      { name: 'Central de Conhecimento', href: '/tags/' },
     ],
     contactTitle: 'Contato',
     contact: {
@@ -1205,6 +1211,7 @@ const de: UIStrings = {
       { name: 'Fachbegriffe-Glossar', href: '/glossary/' },
       { name: 'Kostenrechner', href: '/cost-calculator/' },
       { name: 'Häufige Fragen (FAQ)', href: '/faq/' },
+      { name: 'Wissenszentrum', href: '/tags/' },
     ],
     contactTitle: 'Kontakt',
     contact: {
@@ -1373,6 +1380,7 @@ const tr: UIStrings = {
       { name: 'Endüstriyel Terimler Sözlüğü', href: '/glossary/' },
       { name: 'Maliyet Hesaplayıcı', href: '/cost-calculator/' },
       { name: 'Sıkça Sorulan Sorular (SSS)', href: '/faq/' },
+      { name: 'Bilgi Merkezi', href: '/tags/' },
     ],
     contactTitle: 'İletişim',
     contact: {
@@ -1541,6 +1549,7 @@ const id: UIStrings = {
       { name: 'Glosarium Istilah Industri', href: '/glossary/' },
       { name: 'Kalkulator Biaya', href: '/cost-calculator/' },
       { name: 'Pertanyaan Umum (FAQ)', href: '/faq/' },
+      { name: 'Pusat Pengetahuan', href: '/tags/' },
     ],
     contactTitle: 'Kontak',
     contact: {
