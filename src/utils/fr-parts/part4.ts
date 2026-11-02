@@ -17,6 +17,7 @@ export const productsFrPart4: Record<string, Product> = {
       'Convient aux systèmes CVC et de régulation de l\u2019eau',
     ],
     specs: {
+      'Norme': 'GB / ANSI / DIN / JIS; Rapports d’essai disponibles sur demande',
       'Gammes de taille': 'DN50 - DN300',
       'Matériau': 'Fonte nodulaire (QT450)',
       'Pression': 'Moyenne pression',
@@ -51,6 +52,7 @@ export const productsFrPart4: Record<string, Product> = {
       'Personnalisation OEM / OBM',
     ],
     specs: {
+      'Norme': 'GB / ANSI / DIN / JIS; Rapports d’essai disponibles sur demande',
       'Modèle': 'Z85X',
       'Gammes de taille': 'DN40 - DN300 (2" - 12")',
       'Matériau': 'Acier inoxydable (CF8M)',
@@ -154,6 +156,7 @@ export const productsFrPart4: Record<string, Product> = {
       'Personnalisation OEM / ODM disponible',
     ],
     specs: {
+      'Norme': 'GB / ANSI / DIN / JIS; Rapports d’essai disponibles sur demande',
       'Modèle': '100X-16P',
       'Gammes de taille': 'DN40 - DN300',
       'Pression': '0 - 1.0 MPa (0 - 10 bar)',
@@ -313,6 +316,7 @@ export const productsFrPart4: Record<string, Product> = {
       'Convient aux réseaux de protection incendie et d\u2019eau',
     ],
     specs: {
+      'Norme': 'GB / ANSI / DIN / JIS; Rapports d’essai disponibles sur demande',
       'Modèle': 'D381X',
       'Gammes de taille': 'DN50 - DN300',
       'Matériau': 'Fonte nodulaire (QT450)',

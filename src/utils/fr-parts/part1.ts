@@ -16,6 +16,7 @@ export const productsFrPart1: Record<string, Product> = {
       'Entretien facile : procédure de remplacement du siège et conditions applicables disponibles dans la documentation technique, fournie sur demande',
     ],
     specs: {
+      'Norme': 'GB / ANSI / DIN / JIS; Rapports d’essai disponibles sur demande',
       'Diamètre nominal': 'DN50 - DN700 (2" to 28")',
       'Pression nominale': '1.0 MPa / 1.6 MPa (PN10 / PN16)',
       'Température de service': '0°C à 80°C',
@@ -81,6 +82,7 @@ export const productsFrPart1: Record<string, Product> = {
       'Revêtement poudre anticorrosion rouge',
     ],
     specs: {
+      'Norme': 'BS 5912; Rapports d’essai disponibles sur demande',
       'Raccordement': 'À gorge / À bride',
       'Taille': 'DN65 (2.5")',
       'Pression de service': '1.6 MPa (232 PSI)',
@@ -189,6 +191,7 @@ export const productsFrPart1: Record<string, Product> = {
       'Disque d\u2019étanchéité élastomère durable pour étanchéité bidirectionnelle',
     ],
     specs: {
+      'Norme': 'UL/FM / GB/T 13927 / EN 12266-1; Rapports d’essai disponibles sur demande',
       'Gammes de taille': 'DN50 - DN300 (2" to 12")',
       'Pression de service': '1.6 MPa (PN16)',
       'Matériau du corps': 'Fonte ductile (QT450)',
@@ -221,6 +224,7 @@ export const productsFrPart1: Record<string, Product> = {
       'Tuyauterie pilote en cuivre/acier inoxydable anticorrosion',
     ],
     specs: {
+      'Norme': 'GB / ANSI / DIN / JIS; Rapports d’essai disponibles sur demande',
       'Diamètre nominal': 'DN50 - DN400',
       'Pression de service': '1.0 MPa / 1.6 MPa',
       'Matériau du corps': 'Fonte ductile / Acier fondu',
@@ -284,6 +288,7 @@ export const productsFrPart1: Record<string, Product> = {
       'Corps en fonte ductile durable avec peinture époxy',
     ],
     specs: {
+      'Norme': 'GB / ANSI / DIN / JIS; Rapports d’essai disponibles sur demande',
       'Gammes de taille': 'DN50 - DN600',
       'Pression de service': '1.0 MPa / 1.6 MPa',
       'Matériau du tamis': 'SS304 / SS316',
@@ -316,6 +321,7 @@ export const productsFrPart1: Record<string, Product> = {
       "Coût d'entretien très faible : il suffit de remplacer les boulons de sécurité et de redémarrer",
     ],
     specs: {
+      'Norme': 'GB 4452 / KWS 65; Rapports d’essai disponibles sur demande',
       'Diamètre nominal': 'DN100 / DN150',
       'Pression nominale': '1.6 MPa',
       'Raccordement d\u2019entrée': 'À bride',
@@ -422,6 +428,7 @@ export const productsFrPart1: Record<string, Product> = {
       'Surface polie et chromée pour un aspect décoratif élégant',
     ],
     specs: {
+      'Norme': 'CCCF; Rapports d’essai disponibles sur demande',
       'Diamètre nominal': 'DN15 (R1/2") / DN20 (R3/4")',
       'Coefficient de débit': 'K=80 ±4 / K=115 ±9',
       'Types de réponse': 'Réponse standard (ampoule 5mm) / Réponse rapide (ampoule 3mm)',

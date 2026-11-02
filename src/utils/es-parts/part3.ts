@@ -90,6 +90,7 @@ export const productsEsPart3: Record<string, Product> = {
       'Diseño compacto apto para protección contra incendios aeroportuaria y municipal'
     ],
     specs: {
+      'Norma': 'SQS 65 / KWS 65; Informes de ensayo disponibles bajo solicitud',
       'Modelo': 'SQD100-1.6',
       'Entrada': '2 × DN65 (2.5") con tapas (SQS65 / KWS65)',
       'Salida': 'DN100 (4") con brida',
@@ -126,6 +127,7 @@ export const productsEsPart3: Record<string, Product> = {
       'Apta para sistemas de HVAC y regulación de agua'
     ],
     specs: {
+      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo solicitud',
       'Rango de tamaños': 'DN50 - DN300',
       'Material': 'Hierro fundido nodular (QT450)',
       'Presión': 'Presión media',
@@ -158,6 +160,7 @@ export const productsEsPart3: Record<string, Product> = {
       'Soporte de personalización OEM / OBM'
     ],
     specs: {
+      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo solicitud',
       'Modelo': 'Z85X',
       'Rango de tamaños': 'DN40 - DN300 (2" - 12")',
       'Material': 'Acero inoxidable (CF8M)',
@@ -255,6 +258,7 @@ export const productsEsPart3: Record<string, Product> = {
       'Personalización OEM / ODM disponible'
     ],
     specs: {
+      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo solicitud',
       'Modelo': '100X-16P',
       'Rango de tamaños': 'DN40 - DN300',
       'Presión': '0 - 1.0 MPa (0 - 10 bar)',
@@ -390,6 +394,7 @@ export const productsEsPart3: Record<string, Product> = {
       'Apta para tuberías de protección contra incendios y de agua'
     ],
     specs: {
+      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo solicitud',
       'Modelo': 'D381X',
       'Rango de tamaños': 'DN50 - DN300',
       'Material': 'Hierro fundido nodular (QT450)',

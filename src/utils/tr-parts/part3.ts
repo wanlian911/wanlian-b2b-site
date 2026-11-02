@@ -41,7 +41,7 @@ export const productsTrPart3: Record<string, Product> = {
     id: '32', slug: 'sqd100-1-6-fire-pump-adapter', name: 'SQD100-1.6 İtfaiye Pompa Bağlantısı (Çift Girişli)', category: 'Yangın Hidrantları & Pompa Bağlantıları',
     description: 'İki DN65 girişi (SQS65 / KWS65) ve flanşlı DN100 çıkışı bulunan SQD100-1.6 itfaiye pompa bağlantısı. Toz boyalı sfero döküm gövde, yangın pompasına güvenilir su beslemesi için entegre kontrol vanasına sahiptir.',
     features: ['İki itfaiye aracından eş zamanlı besleme için çift giriş', 'Debi ayarı için el çarklı entegre kontrol vanası', 'Korozyona dayanıklı toz boya kaplama', 'Kapaklardaki emniyet halatları kullanım sırasında kaybı önler', 'Havalimanları ve belediye yangın güvenliği için kompakt yapı'],
-    specs: { 'Model': 'SQD100-1.6', 'Giriş': 'Kapaklı 2 × DN65 (2.5") (SQS65 / KWS65)', 'Çıkış': 'Flanşlı DN100 (4")', 'Basınç sınıfı': '1.6 MPa', 'Uzunluk': '120 mm', 'Yüzey': 'Kırmızı toz boyalı' },
+    specs: {'Standart': 'SQS 65 / KWS 65', 'Model': 'SQD100-1.6', 'Giriş': 'Kapaklı 2 × DN65 (2.5") (SQS65 / KWS65)', 'Çıkış': 'Flanşlı DN100 (4")', 'Basınç sınıfı': '1.6 MPa', 'Uzunluk': '120 mm', 'Yüzey': 'Kırmızı toz boyalı' },
     materials: { 'Gövde': 'Sfero döküm / dökme demir', 'El çarkı mili': 'Pirinç / paslanmaz çelik', 'Emniyet halatları': 'Örgülü çelik halat' },
     image: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', seoTitle: 'SQD100-1.6 İtfaiye Pompa Bağlantısı | Çift Giriş',
     seoDescription: 'İki DN65 girişli, DN100 flanşlı çıkışlı SQD100-1.6 itfaiye pompa bağlantısı. Toz boyalı gövde, Çin üretici tedariki.',
@@ -56,7 +56,7 @@ export const productsTrPart3: Record<string, Product> = {
     id: '33', slug: 'sp45f-flange-digital-balancing-valve', name: 'SP45F Flanşlı Dijital Balans Vanası', category: 'Hidrolik Kontrol Vanaları',
     description: 'HVAC sistemlerinde hassas hidrolik balans için dijital kilitleme göstergeli, sfero döküm (QT450) SP45F flanşlı dijital balans vanası. Y tipi glob vana yapısında doğru debi ölçümü için iki basınç test noktası bulunur.',
     features: ['Hassas debi balansı için dijital kilitleme göstergesi', 'Doğru ölçüm için iki basınç test noktası', 'Uzun kullanım ömrü için sfero döküm (QT450) gövde', 'Düşük basınç kayıplı Y tipi glob vana yapısı', 'HVAC sistemleri ve su kontrolüne uygun'],
-    specs: { 'Ölçü aralığı': 'DN50 - DN300', 'Malzeme': 'Sfero döküm (QT450)', 'Basınç': 'Orta basınç', 'Akışkanlar': 'Su, yağ, gaz', 'Yapı': 'Balans vanası (Y tipi glob vana)', 'Akışkan sıcaklığı': 'Normal sıcaklık', 'Garanti': '1 yıl', 'Özelleştirme': 'OEM / ODM' },
+    specs: {'Standart': 'GB / ANSI / DIN / JIS', 'Ölçü aralığı': 'DN50 - DN300', 'Malzeme': 'Sfero döküm (QT450)', 'Basınç': 'Orta basınç', 'Akışkanlar': 'Su, yağ, gaz', 'Yapı': 'Balans vanası (Y tipi glob vana)', 'Akışkan sıcaklığı': 'Normal sıcaklık', 'Garanti': '1 yıl', 'Özelleştirme': 'OEM / ODM' },
     materials: { 'Vana gövdesi': 'Sfero döküm (QT450)', 'El çarkı': 'Sfero döküm', 'Test noktaları': 'Paslanmaz çelik' }, image: '/assets/products/sp45f-flange-digital-balancing-valve.webp',
     seoTitle: 'SP45F Dijital Balans Vanası | HVAC', seoDescription: 'HVAC hidrolik balansı için göstergeli ve test noktalı SP45F DN50-DN300 dijital balans vanası. Wanlian Fluid fabrika tedariki.'
   },
@@ -64,7 +64,7 @@ export const productsTrPart3: Record<string, Product> = {
     id: '34', slug: 'z85x-stainless-steel-grooved-gate-valve', name: 'Z85X Paslanmaz Çelik Yivli Sürgülü Vana', category: 'Endüstriyel Vanalar & Pislik Tutucular',
     description: 'Su uygulamaları için yükselmeyen milli, kelepçeli tip Z85X paslanmaz çelik sürgülü vana. Döküm 316 paslanmaz çelik (CF8M) gövde, hızlı montaj için yivli uçlara sahiptir. Korozyon direncinin gerekli olduğu gaz, yağ ve su hatlarına uygundur.',
     features: ['Yüksek korozyon direnci için döküm 316 paslanmaz çelik (CF8M) gövde', 'Hızlı ve kolay montaj için yivli kelepçe bağlantısı', 'Manuel kumandalı yükselmeyen mil tasarımı', 'Gaz, yağ ve su akışkanlarına uygun', 'OEM ve OBM özelleştirme desteği'],
-    specs: { 'Model': 'Z85X', 'Ölçü aralığı': 'DN40 - DN300 (2" - 12")', 'Malzeme': 'Paslanmaz çelik (CF8M)', 'Akışkanlar': 'Gaz, yağ, su', 'Kumanda': 'Manuel (yükselmeyen mil)', 'Yapı': 'Sürgülü vana', 'Garanti': '1 yıl', 'Özelleştirme': 'OEM / OBM' },
+    specs: {'Standart': 'GB / ANSI / DIN / JIS', 'Model': 'Z85X', 'Ölçü aralığı': 'DN40 - DN300 (2" - 12")', 'Malzeme': 'Paslanmaz çelik (CF8M)', 'Akışkanlar': 'Gaz, yağ, su', 'Kumanda': 'Manuel (yükselmeyen mil)', 'Yapı': 'Sürgülü vana', 'Garanti': '1 yıl', 'Özelleştirme': 'OEM / OBM' },
     materials: { 'Vana gövdesi': 'Döküm 316 paslanmaz çelik (CF8M)', 'Mil': 'Paslanmaz çelik', 'El çarkı': 'Sfero döküm / paslanmaz çelik' }, image: '/assets/products/z85x-stainless-steel-grooved-gate-valve.webp',
     seoTitle: 'Z85X Paslanmaz Çelik Yivli Sürgülü Vana | CF8M', seoDescription: 'Gaz, yağ ve su hatları için CF8M gövdeli Z85X DN40-DN300 paslanmaz çelik yivli sürgülü vana. Hızlı montaj, fabrika tedariki.'
   },
@@ -88,7 +88,7 @@ export const productsTrPart3: Record<string, Product> = {
     id: '37', slug: 'remote-control-float-valve-100x', name: 'Uzaktan Kumandalı Paslanmaz Çelik Şamandıra Vanası (100X-16P)', category: 'Hidrolik Kontrol Vanaları',
     description: 'Su depoları ve rezervuarlarda otomatik su seviyesi kontrolü için flanşlı bağlantıya sahip, döküm paslanmaz çelik (CF8) 100X-16P uzaktan kumandalı şamandıra vanası. Şamandıra pilot kumandalı hidrolik çalışma, güvenilir seviye düzenlemesi sağlar.',
     features: ['Korozyona dayanıklı paslanmaz çelik CF8 gövde', 'Otomatik seviye düzenlemesi için hidrolik şamandıra pilot kumandası', 'Kolay montaj için DN40-DN300 flanşlı bağlantı', '-50 °C ile 100 °C arasında geniş çalışma sıcaklığı', 'OEM ve ODM özelleştirme seçeneği'],
-    specs: { 'Model': '100X-16P', 'Ölçü aralığı': 'DN40 - DN300', 'Basınç': '0 - 1.0 MPa (0 - 10 bar)', 'Malzeme': 'Paslanmaz çelik (CF8)', 'Bağlantı': 'Flanşlı', 'Akışkan': 'Su', 'Kumanda': 'Hidrolik (şamandıra pilot kumandalı)', 'Sıcaklık': '-50 °C ile 100 °C arası', 'Garanti': '1 yıl' },
+    specs: {'Standart': 'GB / ANSI / DIN / JIS', 'Model': '100X-16P', 'Ölçü aralığı': 'DN40 - DN300', 'Basınç': '0 - 1.0 MPa (0 - 10 bar)', 'Malzeme': 'Paslanmaz çelik (CF8)', 'Bağlantı': 'Flanşlı', 'Akışkan': 'Su', 'Kumanda': 'Hidrolik (şamandıra pilot kumandalı)', 'Sıcaklık': '-50 °C ile 100 °C arası', 'Garanti': '1 yıl' },
     materials: { 'Vana gövdesi': 'Döküm paslanmaz çelik (CF8)', 'Pilot ve borulama': 'Paslanmaz çelik', 'Üst vana': 'Plastik saplı küresel vana' }, image: '/assets/products/remote-control-float-valve-100x.webp',
     seoTitle: '100X-16P Paslanmaz Çelik Uzaktan Kumandalı Şamandıra Vanası', seoDescription: 'Otomatik su seviyesi kontrolü için flanşlı, CF8 paslanmaz çelik 100X-16P uzaktan kumandalı şamandıra vanası. Fabrika tedariki.'
   },
@@ -119,7 +119,7 @@ export const productsTrPart3: Record<string, Product> = {
     id: '41', slug: 'd381x-16q-grooved-butterfly-valve', name: 'Yivli Kelebek Vana D381X-16Q (Sonsuz Dişli Kutulu)', category: 'Endüstriyel Vanalar & Pislik Tutucular',
     description: 'Yangın ve su hatları için sonsuz dişli kutulu D381X-16Q yivli kelebek vana. Sfero döküm (QT450) gövde elektroforetik kaplamalıdır, PN16 basınç sınıfına uygundur ve konum göstergesi için isteğe bağlı sinyal kilidi sunar.',
     features: ['Düzgün kumanda için el çarklı sonsuz dişli kutusu', 'Mekanik kaplinle hızlı montaj için yivli uçlar', 'Elektroforetik kaplamalı sfero döküm (QT450) gövde', 'Açık/kapalı konum göstergesi için isteğe bağlı sinyal kilidi', 'Yangın güvenliği ve su hatlarına uygun'],
-    specs: { 'Model': 'D381X', 'Ölçü aralığı': 'DN50 - DN300', 'Malzeme': 'Sfero döküm (QT450)', 'Basınç': 'PN16', 'Bağlantı': 'Yivli uçlar', 'Kumanda': 'El çarklı sonsuz dişli kutusu', 'Taşıma kapasitesi': '10 - 50 kN', 'Kaplama': 'Elektroforetik', 'Özelleştirme': 'OEM' },
+    specs: {'Standart': 'GB / ANSI / DIN / JIS', 'Model': 'D381X', 'Ölçü aralığı': 'DN50 - DN300', 'Malzeme': 'Sfero döküm (QT450)', 'Basınç': 'PN16', 'Bağlantı': 'Yivli uçlar', 'Kumanda': 'El çarklı sonsuz dişli kutusu', 'Taşıma kapasitesi': '10 - 50 kN', 'Kaplama': 'Elektroforetik', 'Özelleştirme': 'OEM' },
     materials: { 'Vana gövdesi': 'Sfero döküm (QT450)', 'Disk': 'Sfero döküm / paslanmaz çelik', 'Yatak': 'EPDM kauçuk kaplama', 'Kumanda': 'Dökme demir sonsuz dişli kutusu' }, image: '/assets/products/d381x-16q-grooved-butterfly-valve.webp', seoTitle: 'Yivli Kelebek Vana D381X-16Q | PN16', seoDescription: 'Su ve yangın hatları için sonsuz dişli kutulu D381X-16Q DN50-DN300 yivli kelebek vana. QT450, PN16. Fabrika tedariki.'
   },
   'zstdy-concealed-fire-sprinkler': {
