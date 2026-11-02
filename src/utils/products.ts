@@ -1814,7 +1814,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
       'Door': 'Tempered Glass + Steel Frame',
       'Hardware': 'Steel / Zinc Plated'
     },
-    image: 'https://s.alicdn.com/@sc04/kf/Hf41826ce4742455886be29c0fc3770a8E/Customized-Metal-Fire-Extinguisher-Box-with-Fire.png?hasNWGrade=1',
+    image: '/assets/products/fire-hydrant-cabinet.webp',
     seoTitle: 'Indoor Fire Hydrant Cabinet | Steel Fire Box with Glass Door',
     seoDescription: 'Indoor fire hydrant cabinet, steel construction with tempered glass door. Surface or recessed mounted for commercial buildings. Custom sizes available. Factory price.',
     faqs: [
