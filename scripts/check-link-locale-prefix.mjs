@@ -24,9 +24,6 @@ const SECTIONS = [
 // with noindex; prefixing their remaining links now would point at untranslated
 // pages. Counts here are from a main-aligned tree, not from a stale clone.
 const BASELINE = {
-  'src/pages/id/guides/wanlian-fluid-vs-ca-fire.astro': 1,
-  'src/pages/id/guides/wanlian-fluid-vs-forede.astro': 1,
-  'src/pages/id/guides/wanlian-fluid-vs-mueller.astro': 1
 };
 
 function walk(dir, acc) {
