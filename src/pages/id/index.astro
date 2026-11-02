@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { productsId } from '../../utils/products.id';
 import { guidesId } from '../../utils/guides.id';
+import { isTranslated, stripLocale } from '../../i18n/locales';
 import InquiryForm from '../../components/inquiry/InquiryForm.astro';
 import LeadCaptureSection from '../../components/inquiry/LeadCaptureSection.astro';
 import CompanyIntroVideo from '../../components/sections/CompanyIntroVideo.astro';
@@ -68,6 +69,7 @@ const productionSteps = [
 
 // Entradas de guias e páginas de sistem (conteúdo que direciona peso à página inicial);
 // o spread de guidesId mantém o data source PT — a lista cresce sesuai as publicações PT forem lançadas
+const publishedGuides = guidesId.filter((g) => isTranslated(stripLocale(g.href, 'id'), 'id'));
 const resources = [
   { href: '/id/guides/fire-sprinkler-system-valves-guide/', eyebrow: 'Guia de Compra', title: 'Guia de Válvulas untuk Sistem Sprinkler', desc: 'Grupos de katup de alarm molhado, dilúvio e pré-ação explicados untuk compradores de sistem de sprinkler.' },
   { href: '/id/guides/fire-sprinkler-system-wet-dry-preaction/', eyebrow: 'Guia de Compra', title: 'Sistem Sprinkler: Molhado, Seco ou Pré-Ação', desc: 'Compare os tipos de sistem e escolha a configuração certa untuk o perfil de risco do seu gedung.' },
@@ -75,7 +77,7 @@ const resources = [
   { href: '/id/guides/how-to-choose-a-fire-hydrant/', eyebrow: 'Guia de Compra', title: 'Como Escolher um Hidrante Contra Incêndio', desc: 'Tipos de hidran, classes de tekanan, standar de conexão e checklist de compras direto da pabrik.' },
   { href: '/id/guides/how-to-choose-ul-listed-fire-valves/', eyebrow: 'Guia de Compra', title: 'Como Escolher Válvulas Contra Incêndio Listadas UL', desc: 'O que realmente significa a listagem UL, UL vs FM e bagaimana verificar sertifikat genuínos.' },
   { href: '/id/guides/gate-valve-vs-butterfly-valve-fire-protection/', eyebrow: 'Guia de Compra', title: 'Válvula de Gaveta vs Válvula Borboleta', desc: 'Comparação de vazão, espaço, custo e aplikasi untuk redes de incêndio e lini de derivada de sprinkler.' },
-  ...guidesId.map(g => ({
+  ...publishedGuides.map(g => ({
     href: g.href,
     eyebrow: 'Guia de Compra',
     title: g.title,
