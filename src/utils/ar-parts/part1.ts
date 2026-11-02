@@ -182,7 +182,7 @@ export const productsArPart1: Record<string, Product> = {
       'صمام الطيار الطافية': 'سبائك نحاس أصفر صلب',
       'صمامات الإبرة والكروي': 'فولاذ مقاوم للصدأ / نحاس أصفر'
     },
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp',
+    image: '/assets/products/hydraulic-water-level-control-valve-f745x.webp',
     seoTitle: 'صمام تحكم مستوى هيدروليكي F745X | طيار طافية',
     seoDescription: 'صمام تحكم مستوى تلقائي بطيار طافية F745X لخزانات المياه والأحواض. إغلاق سلس، بدون صدمة ماء. متانة عالية، صيانة سهلة.'
   },

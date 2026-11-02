@@ -205,7 +205,7 @@ image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
       'Float Pilot Valve': 'Solid Brass Alloy',
       'Needle & Ball Valves': 'Stainless Steel / Brass'
     },
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp',
+    image: '/assets/products/hydraulic-water-level-control-valve-f745x.webp',
     seoTitle: 'F745X Hydraulic Level Control Valve | Float Pilot',
     seoDescription: 'Automatic float pilot level control valve F745X for water reservoirs and tanks. Smooth closing, no water hammer. High durability, easy maintenance.'
   },

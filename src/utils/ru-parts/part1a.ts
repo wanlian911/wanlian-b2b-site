@@ -213,7 +213,7 @@ export const productsRuPart1a: Record<string, Product> = {
       'Поплавковый пилотный клапан': 'Массивный латунный сплав',
       'Игольчатый и шаровой клапаны': 'Нержавеющая сталь / Латунь'
     },
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp',
+    image: '/assets/products/hydraulic-water-level-control-valve-f745x.webp',
     seoTitle: 'Клапан регулирования уровня воды F745X | Поплавковый пилот',
     seoDescription: 'Клапан автоматического регулирования уровня воды F745X с пилотным поплавком для резервуаров и баков: плавное закрытие, отсутствие гидравлического удара.'
   },

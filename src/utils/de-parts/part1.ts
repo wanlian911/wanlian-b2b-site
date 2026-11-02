@@ -51,7 +51,7 @@ export const productsDePart1: Record<string, Product> = {
     features: ['Vollständig durch den Leitungsdruck angetrieben, keine externe Stromversorgung erforderlich', 'Sanft schließender Mechanismus verhindert schädliche Druckstöße', 'Präzise Wasserstandsregelung mit zuverlässigem Schwimmerpilot', 'Korrosionsbeständige Pilotleitung aus Kupfer oder Edelstahl'],
     specs: {'Nennweite': 'DN50 - DN400', 'Betriebsdruck': '1.0 MPa / 1.6 MPa', 'Gehäusewerkstoff': 'Ductile Iron / Cast Steel', 'Pilotleitung': 'Stainless Steel / Copper', 'Pilotventil': 'Brass float pilot'},
     materials: {'Hauptventilgehäuse': 'Ductile Iron (QT450-10)', 'Membranbaugruppe': 'Nylon Reinforced EPDM Rubber', 'Spindel und Feder': 'Stainless Steel 304', 'Schwimmerpilotventil': 'Solid Brass Alloy', 'Nadel- und Kugelventile': 'Stainless Steel / Brass'},
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', seoTitle: 'F745X Wasserstandsregelventil | Schwimmerpilot', seoDescription: 'Automatisches Wasserstandsregelventil F745X mit Schwimmerpilot für Tanks und Reservoirs. Sanftes Schließen ohne Druckstoß, direkt vom Hersteller.'
+    image: '/assets/products/hydraulic-water-level-control-valve-f745x.webp', seoTitle: 'F745X Wasserstandsregelventil | Schwimmerpilot', seoDescription: 'Automatisches Wasserstandsregelventil F745X mit Schwimmerpilot für Tanks und Reservoirs. Sanftes Schließen ohne Druckstoß, direkt vom Hersteller.'
   },
   'smart-electromagnetic-flow-meter': {
     id: '7', slug: 'smart-electromagnetic-flow-meter', name: 'Intelligenter magnetisch-induktiver Durchflussmesser DN100', category: 'Hydraulische Regelventile',
