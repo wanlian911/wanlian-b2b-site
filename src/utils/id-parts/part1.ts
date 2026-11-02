@@ -48,7 +48,7 @@ export const productsIdPart1: Record<string, Product> = {
     features: ['Bekerja sepenuhnya dengan tekanan pipa tanpa catu daya listrik eksternal', 'Mekanisme penutupan lambat dan seimbang untuk mencegah water hammer yang merusak', 'Kontrol level air yang akurat melalui pilot pelampung yang andal', 'Pipa pilot tembaga atau baja tahan karat yang tahan korosi'],
     specs: {'Diameter Nominal': 'DN50 - DN400', 'Tekanan Kerja': '1,0 MPa / 1,6 MPa', 'Material Bodi': 'Besi Ulet / Baja Cor', 'Pipa Pilot': 'Baja Tahan Karat / Tembaga', 'Katup Pilot': 'Pilot pelampung kuningan'},
     materials: {'Bodi Katup Utama': 'Besi Ulet (QT450-10)', 'Rakitan Diafragma': 'Karet EPDM diperkuat nilon', 'Batang dan Pegas': 'Baja Tahan Karat 304', 'Katup Pilot Pelampung': 'Paduan Kuningan Padat', 'Katup Jarum dan Bola': 'Baja Tahan Karat / Kuningan'},
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', seoTitle: 'Katup Kontrol Level Air F745X | Pilot Pelampung', seoDescription: 'Katup kontrol level air otomatis F745X dengan pilot pelampung untuk tangki dan reservoir. Penutupan lembut tanpa water hammer dan pasokan pabrik.'
+    image: '/assets/products/hydraulic-water-level-control-valve-f745x.webp', seoTitle: 'Katup Kontrol Level Air F745X | Pilot Pelampung', seoDescription: 'Katup kontrol level air otomatis F745X dengan pilot pelampung untuk tangki dan reservoir. Penutupan lembut tanpa water hammer dan pasokan pabrik.'
   },
   'smart-electromagnetic-flow-meter': {
     id: '7', slug: 'smart-electromagnetic-flow-meter', name: 'Pengukur Aliran Elektromagnetik Cerdas DN100', category: 'Katup Kontrol Hidrolik',

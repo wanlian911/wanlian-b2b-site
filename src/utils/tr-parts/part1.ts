@@ -51,7 +51,7 @@ export const productsTrPart1: Record<string, Product> = {
     features: ['Tamamen hat basıncıyla çalışır; harici elektrik beslemesi gerekmez', 'Zararlı su darbelerini önleyen yavaş ve dengeli kapanma mekanizması', 'Güvenilir şamandıra pilotuyla hassas su seviyesi kontrolü', 'Korozyona dayanıklı bakır veya paslanmaz çelik pilot borulaması'],
     specs: {'Nominal Çap': 'DN50 - DN400', 'Çalışma Basıncı': '1,0 MPa / 1,6 MPa', 'Gövde Malzemesi': 'Sfero Döküm / Dökme Çelik', 'Pilot Borulaması': 'Paslanmaz Çelik / Bakır', 'Pilot Vana': 'Pirinç Şamandıra Pilotu'},
     materials: {'Ana Vana Gövdesi': 'Sfero Döküm (QT450-10)', 'Diyafram Grubu': 'Naylon Takviyeli EPDM Kauçuk', 'Mil ve Yay': 'Paslanmaz Çelik 304', 'Şamandıra Pilot Vanası': 'Masif Pirinç Alaşım', 'İğne ve Küresel Vanalar': 'Paslanmaz Çelik / Pirinç'},
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', seoTitle: 'F745X Su Seviye Kontrol Vanası | Şamandıra Pilotu', seoDescription: 'Depo ve rezervuarlar için şamandıra pilotlu otomatik F745X su seviye kontrol vanası. Su darbesiz yumuşak kapanma ve doğrudan fabrika tedariki.'
+    image: '/assets/products/hydraulic-water-level-control-valve-f745x.webp', seoTitle: 'F745X Su Seviye Kontrol Vanası | Şamandıra Pilotu', seoDescription: 'Depo ve rezervuarlar için şamandıra pilotlu otomatik F745X su seviye kontrol vanası. Su darbesiz yumuşak kapanma ve doğrudan fabrika tedariki.'
   },
   'smart-electromagnetic-flow-meter': {
     id: '7', slug: 'smart-electromagnetic-flow-meter', name: 'Akıllı Elektromanyetik Debimetre DN100', category: 'Hidrolik Kontrol Vanaları',

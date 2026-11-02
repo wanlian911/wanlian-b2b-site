@@ -234,7 +234,7 @@ export const productsFrPart1: Record<string, Product> = {
       'Vanne pilote à flotteur': 'Alliage de laiton massif',
       'Vannes à aiguille et à bille': 'Acier inoxydable / Laiton',
     },
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp',
+    image: '/assets/products/hydraulic-water-level-control-valve-f745x.webp',
     seoTitle: 'Vanne Hydraulique de Niveau F745X | Pilote à Flotteur',
     seoDescription:
       "Vanne de régulation de niveau pilote à flotteur F745X automatique pour réservoirs et citernes. Fermeture progressive, sans coup de bélier. Haute durabilité, entretien facile.",

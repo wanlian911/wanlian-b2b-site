@@ -213,7 +213,7 @@ export const productsEsPart1: Record<string, Product> = {
       'Válvula Piloto de Flotador': 'Aleación maciza de latón',
       'Válvulas de Aguja y de Bola': 'Acero inoxidable / Latón'
     },
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp',
+    image: '/assets/products/hydraulic-water-level-control-valve-f745x.webp',
     seoTitle: 'Válvula de Control de Nivel F745X | Piloto de Flotador',
     seoDescription: 'Válvula automática de control de nivel F745X con piloto de flotador para reservorios y tanques de agua: cierre suave sin golpe de ariete, alta durabilidad.'
   },

@@ -51,7 +51,7 @@ export const productsPtPart1: Record<string, Product> = {
     features: ['Acionada inteiramente pela pressão da tubulação, sem energia elétrica externa', 'Mecanismo de fechamento lento e suave que evita o golpe de aríete destrutivo', 'Controle preciso de nível com sistema piloto de flutuador altamente confiável', 'Tubulação piloto de cobre/aço inox resistente à corrosão'],
     specs: {'Diâmetro Nominal': 'DN50 - DN400', 'Pressão de Trabalho': '1.0 MPa / 1.6 MPa', 'Material do Corpo': 'Ductile Iron / Cast Steel', 'Tubulação Piloto': 'Stainless Steel / Copper', 'Válvula Piloto': 'Brass float pilot'},
     materials: {'Corpo Principal da Válvula': 'Ductile Iron (QT450-10)', 'Conjunto do Diafragma': 'Nylon Reinforced EPDM Rubber', 'Haste e Mola': 'Stainless Steel 304', 'Válvula Piloto de Flutuador': 'Solid Brass Alloy', 'Válvulas de Agulha e Esfera': 'Stainless Steel / Brass'},
-    image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', seoTitle: 'Válvula de Nível F745X | Piloto de Flutuador', seoDescription: 'Válvula automática de nível F745X com piloto de flutuador para tanques e reservatórios. Fechamento suave sem golpe de aríete, direto da fábrica China.'
+    image: '/assets/products/hydraulic-water-level-control-valve-f745x.webp', seoTitle: 'Válvula de Nível F745X | Piloto de Flutuador', seoDescription: 'Válvula automática de nível F745X com piloto de flutuador para tanques e reservatórios. Fechamento suave sem golpe de aríete, direto da fábrica China.'
   },
   'smart-electromagnetic-flow-meter': {
     id: '7', slug: 'smart-electromagnetic-flow-meter', name: 'Medidor de Vazão Eletromagnético Inteligente (DN100)', category: 'Segurança Hidráulica',
