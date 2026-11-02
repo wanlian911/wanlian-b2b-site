@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // Pages carrying a robots noindex must never be handed to crawlers through the sitemap.
 // scripts/check-noindex-sitemap.mjs fails the build if these two lists ever disagree.
-const NO_INDEXED = ["/id/guides/wanlian-fluid-vs-ca-fire/", "/id/guides/wanlian-fluid-vs-forede/", "/id/guides/wanlian-fluid-vs-mueller/"];
+const NO_INDEXED = [];
 
 export default defineConfig({
   site: 'https://wanlian911.com',
