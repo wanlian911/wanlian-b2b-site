@@ -3,11 +3,13 @@ import Layout from '../../../layouts/Layout.astro';
 import { tags, type Tag } from '../../../utils/tags';
 import { tagsId } from '../../../utils/tags.id';
 import { guidesId } from '../../../utils/guides.id';
+import { isTranslated, stripLocale } from '../../../i18n/locales';
 import { productsId } from '../../../utils/products.id';
 export function getStaticPaths() { return tags.map(tag => ({ params: { tag: tag.slug }, props: { tag } })); }
 const { tag } = Astro.props as { tag: Tag };
 const tagId = tagsId.find((x) => x.slug === tag.slug) ?? { name: 'Topik industri', seoTitle: 'Topik industri | Wanlian Fluid Equipment', description: 'Informasi teknis dan solusi pengadaan untuk proyek industri.' };
-const tagGuides = guidesId.filter(g => tag.guideHrefs.some(h => g.href === `/id${h}` || g.href === h));
+const publishedGuides = guidesId.filter((g) => isTranslated(stripLocale(g.href, 'id'), 'id'));
+const tagGuides = publishedGuides.filter(g => tag.guideHrefs.some(h => g.href === `/id${h}` || g.href === h));
 const tagProducts = productsId.filter(p => tag.productSlugs.includes(p.slug));
 const relatedTags = tags.filter(t => tag.relatedTags.includes(t.slug));
 ---
