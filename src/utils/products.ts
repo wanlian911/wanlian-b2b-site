@@ -287,6 +287,7 @@ image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
       'Very low maintenance cost: simply replace safety bolts and restart'
     ],
     specs: {
+      'Standard': 'GB 4452; outlet coupling to KWS 65; type-test and certification documents available on request',
       'Nominal Diameter': 'DN100 / DN150',
       'Nominal Pressure': '1.6 MPa',
       'Inlet Connection': 'Flanged',
@@ -1078,6 +1079,7 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'Compact design suitable for airport and municipal fire protection'
     ],
     specs: {
+      'Standard': 'Inlet coupling to SQS 65 / KWS 65; type-test and certification documents available on request',
       'Model': 'SQD100-1.6',
       'Inlet': '2 × DN65 (2.5") with caps (SQS65 / KWS65)',
       'Outlet': 'DN100 (4") Flanged',
@@ -1489,6 +1491,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
       'Anti-freeze drainage variant available for very cold regions'
     ],
     specs: {
+      'Standard': 'Outlet coupling to KWS or BS 336 per destination market; type-test and certification documents available on request',
       'Nominal Inlet': 'DN100 / DN150',
       'Outlet Config': '2 x 65mm (KWS65), 65 + 80mm option',
       'Nominal Pressure': '1.6 MPa (PN16)',
@@ -1667,6 +1670,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
       'Compliant with EN 671 / GB 14561 standards'
     ],
     specs: {
+      'Standard': 'EN 671 / GB 14561 design basis; inlet to BSP, NPT or GOST; type-test reports available on request',
       'Hose Diameter': 'DN19 (3/4") / DN25 (1")',
       'Hose Length': '20m / 25m / 30m',
       'Working Pressure': '0.8 MPa / 1.0 MPa',
