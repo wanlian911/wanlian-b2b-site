@@ -41,6 +41,7 @@ export const products: Product[] = [
       'Easy maintenance — sealing replacement procedure and applicable conditions available in technical documentation on request'
     ],
     specs: {
+      'Standard': 'GB / ANSI / DIN / JIS per project specification; type-test and certification documents available on request',
       'Nominal Diameter': 'DN50 - DN700 (2" to 28")',
       'Nominal Pressure': '1.0 MPa / 1.6 MPa (PN10 / PN16)',
       'Working Temperature': '0°C to 80°C',
@@ -88,6 +89,7 @@ export const products: Product[] = [
       'Red anti-corrosive powder coating'
     ],
     specs: {
+      'Standard': 'Coupling options include BS 5912; type-test and certification documents available on request',
       'Connection': 'Grooved / Flanged',
       'Size': 'DN65 (2.5")',
       'Working Pressure': '1.6 MPa (232 PSI)',
@@ -160,6 +162,7 @@ export const products: Product[] = [
       'Durable resilient sealing disk for bi-directional sealing'
     ],
     specs: {
+      'Standard': 'UL/FM; type testing to GB/T 13927 and EN 12266-1; certificates available on request',
       'Size Range': 'DN50 - DN300 (2" to 12")',
       'Working Pressure': '1.6 MPa (PN16)',
       'Body Material': 'Ductile Iron (QT450)',
@@ -192,6 +195,7 @@ image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
       'Corrosion-resistant copper/stainless steel pilot piping'
     ],
     specs: {
+      'Standard': 'GB / ANSI / DIN / JIS per project specification; type-test and certification documents available on request',
       'Nominal Diameter': 'DN50 - DN400',
       'Working Pressure': '1.0 MPa / 1.6 MPa',
       'Body Material': 'Ductile Iron / Cast Steel',
@@ -222,6 +226,7 @@ image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
       '16-bit embedded microprocessor for faster computing and strong anti-interference'
     ],
     specs: {
+      'Standard': 'Built to the standard specified for your project; calibration and certification documents available on request',
       'Size Range': 'DN10 - DN2000',
       'Accuracy Class': '0.5% or 1.0%',
       'Nominal Pressure': '0.6 - 4.0 MPa (Customizable up to 70 MPa)',
@@ -251,6 +256,7 @@ image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
       'Durable ductile iron body with epoxy painting'
     ],
     specs: {
+      'Standard': 'GB / ANSI / DIN / JIS per project specification; type-test and certification documents available on request',
       'Size Range': 'DN50 - DN600',
       'Working Pressure': '1.0 MPa / 1.6 MPa',
       'Screen Material': 'SS304 / SS316',
@@ -353,6 +359,7 @@ image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft
       'Polished and chrome-plated surface for a sleek decorative appearance'
     ],
     specs: {
+      'Standard': 'CCCF; type-test and certification documents available on request',
       'Nominal Diameter': 'DN15 (R1/2") / DN20 (R3/4")',
       'Flow Coefficient': 'K=80 ±4 / K=115 ±9',
       'Response Types': 'Standard Response (5mm bulb) / Quick Response (3mm bulb)',
@@ -388,6 +395,7 @@ image: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft
       'Supports manual remote override via PC/Mobile APP or central cabinet'
     ],
     specs: {
+      'Standard': 'Built to the standard specified for your project; type-test and certification documents available on request',
       'Rated Flow': '5L/s, 10L/s, 20L/s, 30L/s (Customizable up to 150L/s)',
       'Working Pressure': '0.6 - 0.8 MPa',
       'Rotation Range': 'Horizontal 360°, Vertical -90° to +30°',
@@ -425,6 +433,7 @@ image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp',
       'Supports mechanical, pneumatic, or electrical remote trigger'
     ],
     specs: {
+      'Standard': 'Built to the standard specified for your project; type-test and certification documents available on request',
       'Size Range': 'DN50 - DN300',
       'Working Pressure': '1.6 MPa',
       'Testing Pressure': '3.2 MPa (Shell 6.4 MPa)',
@@ -460,6 +469,7 @@ image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp',
       'Corrosion resistant brass and stainless steel accessories'
     ],
     specs: {
+      'Standard': 'Built to the standard specified for your project; type-test and certification documents available on request',
       'Size Range': 'DN80 - DN250',
       'Nominal Pressure': '1.6 MPa',
       'System Side Air Pressure': '0.03 - 0.05 MPa',
@@ -522,6 +532,7 @@ image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp',
       'EPDM seat encapsulation ensures long life and complete sealing'
     ],
     specs: {
+      'Standard': 'GB / ANSI / DIN / JIS per project specification; type-test and certification documents available on request',
       'Nominal Diameter': 'DN50 - DN600',
       'Nominal Pressure': '1.0 MPa / 1.6 MPa / 2.5 MPa',
       'Body Material': 'Ductile Iron / Cast Steel / Stainless Steel',
@@ -551,6 +562,7 @@ image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp',
       'Highly flexible hose reel with customized lengths up to 30 meters'
     ],
     specs: {
+      'Standard': 'Built to the standard specified for your project; type-test and certification documents available on request',
       'Model': 'PSG30',
       'Foam Concentrate': '3% AFFF (Aqueous Film Forming Foam)',
       'Working Pressure': '0.5 - 0.8 MPa',
@@ -586,6 +598,7 @@ image: '/assets/products/auto-tracking-jet-suppression-cannon-zdms.webp',
       'Highly durable aluminum alloy or bronze construction resists severe marine weather'
     ],
     specs: {
+      'Standard': 'Built to the standard specified for your project; type-test and certification documents available on request',
       'Flow Range': '20 L/S - 200 L/S',
       'Max Jet Distance': '50 - 110 meters',
       'Rated Pressure': '0.8 - 1.2 MPa',
@@ -623,6 +636,7 @@ image: '/assets/products/manual-fire-water-cannon-ps.webp',
       'Vane blade flexes smoothly without obstructing the main water channel'
     ],
     specs: {
+      'Standard': 'Built to the standard specified for your project; type-test and certification documents available on request',
       'Size Range': 'DN50 - DN200',
       'Working Pressure': '1.2 MPa / 1.6 MPa',
       'Switch Sensitivity': '15 < Q < 37.5 L/min (Trigger threshold)',
@@ -651,6 +665,7 @@ image: '/assets/products/manual-fire-water-cannon-ps.webp',
       'Non-toxic epoxy resin coating inside and out'
     ],
     specs: {
+      'Standard': 'GB / ANSI / DIN / JIS per project specification; type-test and certification documents available on request',
       'Nominal Diameter': 'DN50 - DN600',
       'Nominal Pressure': '1.0 MPa / 1.6 MPa',
       'Telescopic Range': '± 25mm (Expansion compensation)',
@@ -781,6 +796,7 @@ image: '/assets/products/manual-fire-water-cannon-ps.webp',
       'Standard underground flanged base for easy connection'
     ],
     specs: {
+      'Standard': 'Outlet coupling to KWS or BS 336 per destination market; type-test and certification documents available on request',
       'Nominal Diameter': 'DN100 (4")',
       'Working Pressure': '1.6 MPa',
       'Testing Pressure': '2.4 MPa',
@@ -881,6 +897,7 @@ image: '/assets/products/manual-fire-water-cannon-ps.webp',
       'Conforms strictly to international standards (GB, ANSI, DIN, JIS)'
     ],
     specs: {
+      'Standard': 'GB / ANSI / DIN / JIS construction; type-test and certification documents available on request',
       'Size Range': 'DN15 - DN300 (1/2" to 12")',
       'Working Pressure': '1.6 - 4.0 MPa (Class 150/300)',
       'Working Temperature': '-29°C to 425°C',
@@ -911,6 +928,7 @@ image: '/assets/products/manual-fire-water-cannon-ps.webp',
       'Highly responsive, ideal for firefighting water network automatic control'
     ],
     specs: {
+      'Standard': 'GB / ANSI / DIN / JIS per project specification; type-test and certification documents available on request',
       'Size Range': 'DN50 - DN300 (2" to 12")',
       'Solenoid Voltage': 'AC220V / DC24V',
       'Working Pressure': '300 PSI (2.0 MPa)',
@@ -949,6 +967,7 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'Customizable length, diameter and logo (OEM)'
     ],
     specs: {
+      'Standard': 'Coupling thread system matched to destination market (BS 336 / KWS); type-test and certification documents available on request',
       'Size Range': '19mm - 400mm inner diameter',
       'Model': '8-65 (standard coupling size)',
       'Material': 'PVC Rubber Lining',
@@ -984,6 +1003,7 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'Easy operation, no recoil design'
     ],
     specs: {
+      'Standard': 'Built to the standard specified for your project; type-test and certification documents available on request',
       'Size': '1.5" / 2" / 2.5" inlet',
       'Flow Range': '150 - 500 LPM',
       'Material': 'Aluminum Alloy',
@@ -1094,6 +1114,7 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'Suitable for HVAC and water regulation systems'
     ],
     specs: {
+      'Standard': 'GB / ANSI / DIN / JIS per project specification; type-test and certification documents available on request',
       'Size Range': 'DN50 - DN300',
       'Material': 'Nodular Cast Iron (QT450)',
       'Pressure': 'Medium Pressure',
@@ -1126,6 +1147,7 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'OEM / OBM customization support'
     ],
     specs: {
+      'Standard': 'GB / ANSI / DIN / JIS per project specification; type-test and certification documents available on request',
       'Model': 'Z85X',
       'Size Range': 'DN40 - DN300 (2" - 12")',
       'Material': 'Stainless Steel (CF8M)',
@@ -1191,6 +1213,7 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'Red or silver color options, fully customizable (OEM)'
     ],
     specs: {
+      'Standard': 'Built to the standard specified for your project; type-test and certification documents available on request',
       'Material': 'Stainless Steel 304 / 201 / Iron',
       'Type': 'Fire Extinguisher Box / Fire Hose Reel Cabinet',
       'Function': 'Storage of fire reel hose or fire extinguisher',
@@ -1223,6 +1246,7 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'OEM / ODM customization available'
     ],
     specs: {
+      'Standard': 'GB / ANSI / DIN / JIS per project specification; type-test and certification documents available on request',
       'Model': '100X-16P',
       'Size Range': 'DN40 - DN300',
       'Pressure': '0 - 1.0 MPa (0 - 10 bar)',
@@ -1296,6 +1320,7 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'Customizable structure, size and logo (OEM)'
     ],
     specs: {
+      'Standard': 'Built to the standard specified for your project; type-test and certification documents available on request',
       'Material': 'Stainless Steel 304 / 201 / Iron',
       'Type': 'Fire Extinguisher Box / Fire Hose Reel Cabinet',
       'Application': 'Airport Fire Protection, Commercial Buildings',
@@ -1327,6 +1352,7 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'Suitable for light and ordinary hazard occupancies'
     ],
     specs: {
+      'Standard': 'Built to the standard specified for your project; type-test and certification documents available on request',
       'Model': 'T-ZSTBS',
       'Temperature Rating': '68°C (155°F)',
       'Bulb Color': 'Red (Q5 response)',
@@ -1358,6 +1384,7 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'Suitable for fire protection and water pipelines'
     ],
     specs: {
+      'Standard': 'GB / ANSI / DIN / JIS per project specification; type-test and certification documents available on request',
       'Model': 'D381X',
       'Size Range': 'DN50 - DN300',
       'Material': 'Nodular Cast Iron (QT450)',
@@ -1499,6 +1526,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
       'Flanged connections available in DN100 - DN200'
     ],
     specs: {
+      'Standard': 'Built to the standard specified for your project; type-test and certification documents available on request',
       'Size Range': 'DN100 / DN150 / DN200 (ZSFC100 / ZSFC150 / ZSFC200)',
       'Nominal Pressure': '1.6 MPa (PN16)',
       'System Side': 'Air / Nitrogen (0.03 - 0.05 MPa typical)',
@@ -1536,6 +1564,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
       'Durable forged brass construction, packed 50 pcs per box for project supply'
     ],
     specs: {
+      'Standard': 'K-factor per NFPA 13; design basis GB 50084; certification documents available on request',
       'Model Series': 'ESFR-202 / ESFR-242 / ESFR-363, ZSTX-161',
       'Temperature Rating': '74°C (165°F)',
       'Orientation': 'Pendent (PY) / Upright (UY)',
@@ -1571,6 +1600,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
       'Available with aluminum or brass couplings'
     ],
     specs: {
+      'Standard': 'Couplings to GOST, Storz, instantaneous or NPT; type-test and certification documents available on request',
       'Nominal Diameter': 'DN25 / DN40 / DN50 / DN65 / DN80',
       'Working Pressure': '0.8 MPa / 1.0 MPa / 1.3 MPa',
       'Burst Pressure': '3x Working Pressure',
@@ -1604,6 +1634,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
       'Available with quick-coupling fittings'
     ],
     specs: {
+      'Standard': 'Built to the standard specified for your project; type-test and certification documents available on request',
       'Nominal Diameter': 'DN25 / DN40 / DN50 / DN65',
       'Working Pressure': '0.8 MPa / 1.0 MPa',
       'Burst Pressure': '3x Working Pressure',
@@ -1732,6 +1763,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
       'Red lever handle for easy operation'
     ],
     specs: {
+      'Standard': 'GB / ANSI / DIN / JIS per project specification; type-test and certification documents available on request',
       'Nominal Diameter': 'DN8 - DN50 (1/4" - 2")',
       'Working Pressure': '1.6 MPa (PN16)',
       'End Connection': 'BSP / NPT Threaded',
@@ -1766,6 +1798,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
       'Custom sizes and configurations available'
     ],
     specs: {
+      'Standard': 'Built to the standard specified for your project; type-test and certification documents available on request',
       'Standard Size': '800 x 650 x 240 mm',
       'Material': 'Cold-rolled Steel (1.0 - 1.5 mm)',
       'Coating': 'Red epoxy powder coat',
