@@ -1781,7 +1781,7 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
       'Seat': 'PTFE',
       'Handle': 'Steel with Red Coating'
     },
-    image: 'https://s.alicdn.com/@sc04/kf/H5ee845aaa41c491597bb790b931161bbd/Wanlian-Customized-High-Temperature-Manual-Red-Handle.png?hasNWGrade=1',
+    image: '/assets/products/brass-ball-valve-threaded.webp',
     seoTitle: 'Brass Threaded Ball Valve 1/4" - 2" | BSP NPT Water Oil Gas Valve',
     seoDescription: 'Brass threaded ball valve DN8 to DN50, BSP or NPT ends. Full port PTFE seat for water, oil and gas. Factory price from Wanlian Fluid.',
     faqs: [
