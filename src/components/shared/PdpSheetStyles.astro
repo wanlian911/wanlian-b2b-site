@@ -1,0 +1,75 @@
+---
+// Industrial spec-sheet presentation for locale product detail pages.
+// Rendered once per product page; all selectors are namespaced under .pdp-sheet
+// so the global scope cannot leak onto other pages.
+---
+<style is:global>
+  .pdp-sheet { counter-reset: sheet-section; }
+  .pdp-sheet h2 {
+    counter-increment: sheet-section;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f9fafb;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #374151;
+  }
+  .pdp-sheet h2::before {
+    content: counter(sheet-section) ".";
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: #cc2128;
+  }
+  .pdp-sheet > div:not(.pdp-cta):not(.pdp-desc) {
+    padding: 0;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
+  .pdp-sheet > div > dl,
+  .pdp-sheet > div > ul,
+  .pdp-sheet > div > p,
+  .pdp-sheet > div > div > ul,
+  .pdp-sheet > div > div > p { padding: 1rem 1rem 1.125rem; }
+  .pdp-sheet > div > div { padding: 0; background: #ffffff; }
+  .pdp-sheet > div > div > h2 { background: #f9fafb; }
+  .pdp-sheet > div > div > dl,
+  .pdp-sheet > div > div > ul { padding: 1rem 1rem 1.125rem; }
+  .pdp-sheet > div > table { width: 100%; }
+  .pdp-sheet li { display: flex; align-items: flex-start; gap: 0.625rem; }
+  .pdp-sheet li::before {
+    content: "";
+    flex: none;
+    width: 6px;
+    height: 6px;
+    margin-top: 0.5rem;
+    background: #cc2128;
+  }
+  .pdp-sheet li svg { display: none; }
+  /* The Turkish template renders the checkmark as a literal character, not an SVG. */
+  .pdp-sheet li .text-green-500 { display: none; }
+  .pdp-sheet > div dt, .pdp-sheet > div > div dt {
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .pdp-sheet > div dd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+  /* Arabic script must not receive letter-spacing: it breaks the cursive join between
+     glyphs, so every label introduced by this sheet is reset on RTL pages only. */
+  [dir="rtl"] .pdp-sheet h2,
+  [dir="rtl"] .pdp-sheet dt,
+  [dir="rtl"] main > header:first-of-type p {
+    letter-spacing: normal;
+  }
+  @media print {
+    .pdp-sheet > section, .pdp-sheet > div { break-inside: avoid; }
+  }
+</style>
