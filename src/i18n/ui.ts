@@ -194,7 +194,7 @@ const en: UIStrings = {
     ],
     solutionsTitle: 'Product Solutions',
     solutions: [
-      { name: 'UL Listed Fire Valves', href: '/ul-fire-valves/' },
+      { name: 'UL & FM Sourcing Guide', href: '/ul-fire-valves/' },
       { name: 'Fire Water Cannon', href: '/fire-water-cannon/' },
       { name: 'Fire Sprinkler Systems', href: '/fire-sprinkler-systems/' },
     ],
@@ -361,7 +361,7 @@ const es: UIStrings = {
     ],
     solutionsTitle: 'Soluciones de Producto',
     solutions: [
-      { name: 'Válvulas Contra Incendios UL', href: '/ul-fire-valves/' },
+      { name: 'Guía UL y FM', href: '/ul-fire-valves/' },
       { name: 'Cañón Monitor Contra Incendios', href: '/fire-water-cannon/' },
       { name: 'Sistemas de Rociadores', href: '/fire-sprinkler-systems/' },
     ],
@@ -528,7 +528,7 @@ const ru: UIStrings = {
     ],
     solutionsTitle: 'Решения по продукции',
     solutions: [
-      { name: 'Пожарные клапаны с сертификацией UL', href: '/ul-fire-valves/' },
+      { name: 'Руководство по UL и FM', href: '/ul-fire-valves/' },
       { name: 'Пожарный лафетный ствол', href: '/fire-water-cannon/' },
       { name: 'Спринклерные системы пожаротушения', href: '/fire-sprinkler-systems/' },
     ],
@@ -696,7 +696,7 @@ const fr: UIStrings = {
     ],
     solutionsTitle: 'Solutions Produit',
     solutions: [
-      { name: 'Vannes Incendie Certifiées UL', href: '/ul-fire-valves/' },
+      { name: 'Guide UL et FM', href: '/ul-fire-valves/' },
       { name: "Canon d'Incendie", href: '/fire-water-cannon/' },
       { name: 'Systèmes de Gicleurs', href: '/fire-sprinkler-systems/' },
     ],
@@ -867,7 +867,7 @@ const ar: UIStrings = {
     ],
     solutionsTitle: 'حلول المنتجات',
     solutions: [
-      { name: 'صمامات حريق UL', href: '/ul-fire-valves/' },
+      { name: 'دليل UL وFM', href: '/ul-fire-valves/' },
       { name: 'مدفع مياه حريق', href: '/fire-water-cannon/' },
       { name: 'أنظمة رش الحريق', href: '/fire-sprinkler-systems/' },
     ],
@@ -1033,7 +1033,7 @@ const pt: UIStrings = {
     ],
     solutionsTitle: 'Soluções de Produto',
     solutions: [
-      { name: 'Válvulas Contra Incêndio UL', href: '/ul-fire-valves/' },
+      { name: 'Guia UL e FM', href: '/ul-fire-valves/' },
       { name: 'Canhão Monitora de Incêndio', href: '/fire-water-cannon/' },
       { name: 'Sistemas de Rociadores', href: '/fire-sprinkler-systems/' },
     ],
@@ -1200,7 +1200,7 @@ const de: UIStrings = {
     ],
     solutionsTitle: 'Systemlösungen',
     solutions: [
-      { name: 'UL-zertifizierte Brandschutzventile', href: '/ul-fire-valves/' },
+      { name: 'UL-/FM-Ratgeber', href: '/ul-fire-valves/' },
       { name: 'Feuerlöschmonitore & Großraumschutz', href: '/fire-water-cannon/' },
       { name: 'Automatische Sprinklersysteme', href: '/fire-sprinkler-systems/' },
     ],
@@ -1369,7 +1369,7 @@ const tr: UIStrings = {
     ],
     solutionsTitle: 'Sistem Çözümleri',
     solutions: [
-      { name: 'UL Listeli Yangın Vanaları', href: '/ul-fire-valves/' },
+      { name: 'UL ve FM Rehberi', href: '/ul-fire-valves/' },
       { name: 'Yangın Monitörleri & Geniş Alan Koruması', href: '/fire-water-cannon/' },
       { name: 'Otomatik Yangın Sprinkler Sistemleri', href: '/fire-sprinkler-systems/' },
     ],
@@ -1538,7 +1538,7 @@ const id: UIStrings = {
     ],
     solutionsTitle: 'Solusi Sistem',
     solutions: [
-      { name: 'Katup Pemadam Bersertifikasi UL', href: '/ul-fire-valves/' },
+      { name: 'Panduan UL & FM', href: '/ul-fire-valves/' },
       { name: 'Monitor Air & Proteksi Area Luas', href: '/fire-water-cannon/' },
       { name: 'Sistem Sprinkler Pemadam Otomatis', href: '/fire-sprinkler-systems/' },
     ],

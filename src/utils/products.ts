@@ -1299,11 +1299,11 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
   {
     id: '38',
     slug: 'ul-fm-resilient-seat-osy-gate-valve',
-    name: 'UL/FM Fire Protection Resilient Seated OS&Y Gate Valve',
+    name: 'Fire Protection Resilient Seated OS&Y Gate Valve',
     category: 'Valves & Parts',
-    description: 'UL and FM certified resilient seated OS&Y (Outside Screw and Yoke) gate valve with grooved ends for fire protection systems. Nodular cast iron body with rising stem indicator for clear open/closed position visibility.',
+    description: 'Resilient seated OS&Y (Outside Screw and Yoke) gate valve with grooved ends for fire protection systems. Nodular cast iron body with rising stem indicator for clear open/closed position visibility.',
     features: [
-      'UL and FM certified for fire protection service',
+      'Listed configurations sourced from the certificate-holding factory for fire protection service',
       'OS&Y rising stem design with clear position indication',
       'Grooved-end connections for fast mechanical coupling',
       'Nodular cast iron body with resilient seat for drip-tight closure',
@@ -1317,7 +1317,7 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'Operation': 'Manual (OS&Y Rising Stem)',
       'Structure': 'Gate Valve',
       'Temperature': 'Normal Temperature',
-      'Certification': 'UL / FM Listed',
+      'Certification': 'Listed configuration on request - holder named at quotation',
       'Customization': 'OEM / ODM'
     },
     materials: {
@@ -1327,13 +1327,13 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'Handwheel': 'Ductile Iron'
     },
     image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
-    seoTitle: 'UL/FM Resilient Seated OS&Y Gate Valve | Grooved Ends',
-    seoDescription: 'UL/FM listed resilient seated OS&Y gate valve with grooved ends for fire protection systems. Nodular cast iron, rising stem. Factory price from Wanlian Fluid.',
+    seoTitle: 'Resilient Seated OS&Y Gate Valve | Grooved Ends',
+    seoDescription: 'Resilient seated OS&Y gate valve with grooved ends for fire protection systems. Nodular cast iron, rising stem. Factory price from Wanlian Fluid.',
     faqs: [
-      { question: 'Is this OS&Y gate valve really UL and FM listed?', answer: 'The model is listed for fire protection service. We confirm the exact listed model, certificate number and coverage per order, and the certificates travel with the documentation — always verify the number at the issuing body before acceptance.' },
+      { question: 'Is this OS&Y gate valve available as a listed unit?', answer: 'Where a listing is required we source the listed model from the facility that holds it, and we confirm the certificate holder, the exact listed model and the certificate number per order, and the certificates travel with the documentation — always verify the number at the issuing body before acceptance.' },
       { question: 'Why specify grooved ends for fire mains?', answer: 'Grooved ends use mechanical couplings instead of welding or bolting: faster installation, field alignment of the pipe run, and much quicker valve replacement — the standard choice for sprinkler and standpipe mains.' },
       { question: 'What does the rising stem of an OS&Y valve indicate?', answer: 'The OS&Y (outside screw and yoke) rising stem shows valve position at a glance — fully raised means open, lowered means closed — which matters for monitored main isolation in fire systems.' },
-      { question: 'What size range is available for the UL/FM OS&Y valve?', answer: '2 inch to 10 inch (DN50 to DN250) in nodular cast iron with an EPDM resilient seat for drip-tight closure, with OEM/ODM customization available.' }
+      { question: 'What size range is available for the OS&Y valve?', answer: '2 inch to 10 inch (DN50 to DN250) in nodular cast iron with an EPDM resilient seat for drip-tight closure, with OEM/ODM customization available.' }
     ]
   },
   {
@@ -1440,13 +1440,13 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
     slug: 'zstdy-concealed-fire-sprinkler',
     name: 'ZSTDY Concealed Fire Sprinkler (Recessed)',
     category: 'Sprinklers & Alarm Valves',
-    description: 'ZSTDY concealed (recessed) fire sprinkler with electroplated chrome finish and decorative cover plate for high-end ceiling installations. Stainless steel construction with 68°C red glass bulb, UL listed.',
+    description: 'ZSTDY concealed (recessed) fire sprinkler with electroplated chrome finish and decorative cover plate for high-end ceiling installations. Stainless steel construction with 68°C red glass bulb.',
     features: [
       'Concealed design with decorative cover plate for premium ceilings',
       'Electroplated chrome finish, stainless steel construction',
       '68°C (155°F) red glass bulb temperature rating',
       'Thread & gasket sealing for leak-free installation',
-      'UL listed, ideal for high-end ceiling applications'
+      'Ideal for high-end ceiling applications'
     ],
     specs: {
       'Model': 'ZSTDY',
@@ -1454,7 +1454,7 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'Material': 'Stainless Steel',
       'Temperature Rating': '68°C (155°F)',
       'Finish': 'Electroplated Chrome',
-      'Certification': 'UL Listed',
+      'Certification': 'Listed unit available on request - holder named at quotation',
       'Application': 'Concealed Ceiling Fire Sprinkler Systems',
       'Connection Thread': 'R1/2 (DN15) / R3/4 (DN20)',
       'Flow Coefficient K': '80±4 (DN15) / 115±9 (DN20)',
@@ -1468,7 +1468,7 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
     },
     image: '/assets/products/zstdy-concealed-fire-sprinkler.webp',
     seoTitle: 'ZSTDY Concealed Fire Sprinkler | Recessed Chrome',
-    seoDescription: 'ZSTDY concealed fire sprinkler DN15-DN20 with decorative cover for high-end ceilings. Chrome electroplated stainless steel, UL listed. Factory price from Wanlian.'
+    seoDescription: 'ZSTDY concealed fire sprinkler DN15-DN20 with decorative cover for high-end ceilings. Chrome electroplated stainless steel. Factory price from Wanlian.'
   },
   {
     id: '43',
@@ -1759,18 +1759,18 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
     slug: 'groove-pipe-fitting-elbow',
     name: 'Grooved Pipe Fitting - 90° Elbow',
     category: 'Valves & Parts',
-    description: 'Wanlian ductile iron grooved 90° elbow is designed for quick and reliable grooved pipe connections in fire protection, HVAC and water supply systems. FM / UL listed options available.',
+    description: 'Wanlian ductile iron grooved 90° elbow is designed for quick and reliable grooved pipe connections in fire protection, HVAC and water supply systems. Listed options can be sourced from a certificate-holding factory and are confirmed per order.',
     features: [
       'Ductile iron construction with epoxy coating',
       'Grooved ends for quick installation',
-      'FM / UL listed options available',
+      'Listed options sourced from a certificate-holding factory',
       'Compatible with standard grooved couplings'
     ],
     specs: {
       'Nominal Diameter': 'DN25 - DN300 (1" - 12")',
       'Working Pressure': '1.6 MPa / 2.5 MPa',
       'End Connection': 'Grooved (Victaulic style)',
-      'Standard': 'AWWA C606 / FM / UL',
+      'Standard': 'AWWA C606; listed units sourced on request',
       'Coating': 'Red epoxy / Orange powder coat'
     },
     materials: {
@@ -1779,11 +1779,11 @@ image: '/assets/products/storz-coupling-2-5inch-aluminum.webp',
       'Coating': 'Epoxy Powder Coated'
     },
     image: '/assets/products/groove-pipe-fitting-elbow.webp',
-    seoTitle: 'Grooved 90° Elbow Ductile Iron | FM UL Listed Pipe Fitting',
-    seoDescription: 'Grooved 90° elbow ductile iron, DN25 to DN300. FM / UL listed for fire protection systems. Quick installation grooved fittings. Factory price.',
+    seoTitle: 'Grooved 90° Elbow Ductile Iron | Fire and HVAC Pipe Fitting',
+    seoDescription: 'Grooved 90° elbow ductile iron, DN25 to DN300. Listed units available on request. Quick installation grooved fittings. Factory price.',
     faqs: [
       { question: 'What sizes of grooved fittings do you offer?', answer: 'We stock grooved fittings from DN25 (1") to DN300 (12"), including elbows, tees, reducers, flanges and caps, all compatible with standard Victaulic-style grooved couplings.' },
-      { question: 'Are your grooved fittings FM / UL listed?', answer: 'Yes. We can supply FM / UL listed grooved fittings for fire protection projects that require global certification, along with the test reports and documentation.' }
+      { question: 'Are your grooved fittings FM / UL listed?', answer: 'Where your project requires a listed fitting we source it from the facility holding that listing, and we name the certificate holder at quotation, along with the test reports and documentation.' }
     ]
   },
   {
