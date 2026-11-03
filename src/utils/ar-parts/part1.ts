@@ -231,7 +231,7 @@ export const productsArPart1: Record<string, Product> = {
       'مادة الشبكة': 'SS304 / SS316',
       'شبكة الفلتر': '18-30 شبكة (ماء)، 40-100 شبكة (بخار)',
       'مادة الجسم': 'حديد زهر مطبوع (QT450)'
-    },
+    , 'ضغط الاختبار': '1.5 / 2.4 / 3.75 MPa', 'حرارة التشغيل': '≤80°C'},
     materials: {
       'جسم الفلتر': 'حديد زهر مطبوع (QT450-10)',
       'كم التمدد': 'فولاذ كربوني / حديد زهر مطبوع',
@@ -242,7 +242,7 @@ export const productsArPart1: Record<string, Product> = {
     image: '/assets/products/telescopic-y-strainer-sgl41h.webp',
     seoTitle: 'فلتر Y متسلسق SGL41H | شبكة SS304',
     seoDescription: 'فلتر Y متسلسق مدمج SGL41H لخطوط المياه الصناعية وHVAC. صيانة سهلة، شبكة SS304 صلبة. اشترِ مباشرة من المصنع في الصين.'
-  },
+  , dimensions: { headers: ['DN (مم)', 'بمسار L (مم)', 'بفلنجة L (مم)'], rows: [['50', '195', '217'], ['65', '215', '253'], ['80', '240', '280'], ['100', '280', '320'], ['125', '325', '315'], ['150', '350', '450'], ['200', '470', '548'], ['250', '—', '606']] }},
   'anti-collision-pressure-regulating-outdoor-hydrant-ssft100': {
     id: '9',
     slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100',

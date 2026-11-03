@@ -360,7 +360,7 @@ export const productsFrPart4: Record<string, Product> = {
       'Finition': 'Chrome par électrodéposition',
       'Certification': 'Certifié UL',
       'Application': 'Systèmes de gicleurs de plafond dissimulés',
-    },
+     'Coefficient de débit': 'K=80 ±4 / K=115 ±9', 'Pression d\u2019essai': '3.0 MPa'},
     materials: {
       'Corps de gicleur': 'Acier inoxydable',
       'Ampoule': 'Verre (liquide rouge, 68°C)',

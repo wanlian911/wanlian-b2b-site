@@ -260,7 +260,7 @@ export const productsEsPart1: Record<string, Product> = {
       'Material de la Malla': 'SS304 / SS316',
       'Malla del Filtro': '18-30 mesh (Agua), 40-100 mesh (Vapor)',
       'Material del Cuerpo': 'Hierro dúctil (QT450)'
-    },
+    , 'Presión de Prueba': '1.5 / 2.4 / 3.75 MPa', 'Temperatura de Trabajo': '≤80°C'},
     materials: {
       'Cuerpo del Filtro': 'Hierro dúctil (QT450-10)',
       'Manguito de Expansión': 'Acero al carbono / Hierro dúctil',
@@ -271,7 +271,7 @@ export const productsEsPart1: Record<string, Product> = {
     image: '/assets/products/telescopic-y-strainer-sgl41h.webp',
     seoTitle: 'Colador en Y Telescópico SGL41H | Malla SS304',
     seoDescription: 'Colador en Y telescópico integrado SGL41H para tuberías industriales de agua y HVAC: fácil mantenimiento y malla SS304. Precio de fábrica desde China.'
-  },
+  , dimensions: { headers: ['DN (mm)', 'Ranurada L (mm)', 'Con brida L (mm)'], rows: [['50', '195', '217'], ['65', '215', '253'], ['80', '240', '280'], ['100', '280', '320'], ['125', '325', '315'], ['150', '350', '450'], ['200', '470', '548'], ['250', '—', '606']] }},
   'anti-collision-pressure-regulating-outdoor-hydrant-ssft100': {
     id: '9',
     slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100',

@@ -436,7 +436,7 @@ export const productsEsPart3: Record<string, Product> = {
       'Acabado': 'Cromo electrodepositado',
       'Certificación': 'Listado UL',
       'Aplicación': 'Sistemas de rociadores empotrados de techo'
-    },
+    , 'Coeficiente de Caudal': 'K=80 ±4 / K=115 ±9', 'Presión de Prueba': '3.0 MPa'},
     materials: {
       'Cuerpo del rociador': 'Acero inoxidable',
       'Bulbo': 'Vidrio (líquido rojo, 68°C)',
