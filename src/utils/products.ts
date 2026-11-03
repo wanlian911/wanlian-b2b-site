@@ -56,14 +56,23 @@ export const products: Product[] = [
       'O-Rings': 'NBR / EPDM Self-tightening'
     },
     dimensions: {
-      headers: ['DN (mm)', 'L (mm)', 'D (mm)', 'D1 (mm)', 'D2 (mm)', 'z-Φd (Holes)'],
+      headers: ['DN (mm)', 'L (mm)', 'D (mm)', 'D1 (mm)', 'z-Φd (Holes)', 'H (mm)'],
       rows: [
-        ['50', '180', '160', '125', '100', '4-Φ18'],
-        ['80', '210', '195', '160', '135', '4-Φ18'],
-        ['100', '230', '215', '180', '155', '8-Φ18'],
-        ['150', '280', '280', '240', '210', '8-Φ23'],
-        ['200', '330', '335', '295', '265', '8-Φ23'],
-        ['300', '420', '440', '400', '368', '12-Φ23']
+        ['50', '180', '160', '125', '4-Φ18', '350'],
+        ['65', '195', '180', '145', '4-Φ18', '370'],
+        ['80', '205', '195', '160', '4-Φ18', '395'],
+        ['100', '230', '215', '180', '8-Φ18', '415'],
+        ['125', '258', '245', '210', '8-Φ18', '460'],
+        ['150', '265', '280', '240', '8-Φ18', '500'],
+        ['200', '295', '335', '295', '8-Φ23', '710'],
+        ['250', '325', '390', '350', '12-Φ23', '1150'],
+        ['300', '365', '440', '400', '12-Φ23', '1400'],
+        ['350', '420', '500', '460', '12-Φ23', '1680'],
+        ['400', '450', '565', '515', '16-Φ23', '1750'],
+        ['450', '480', '615', '565', '20-Φ25', '1850'],
+        ['500', '510', '670', '620', '20-Φ25', '1950'],
+        ['600', '540', '780', '725', '20-Φ30', '2100'],
+        ['700', '660', '895', '840', '24-Φ30', '2250']
       ]
     },
     image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp',
@@ -261,7 +270,10 @@ image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
       'Working Pressure': '1.0 MPa / 1.6 MPa',
       'Screen Material': 'SS304 / SS316',
       'Screen Mesh': '18-30 mesh (Water), 40-100 mesh (Steam)',
-      'Body Material': 'Ductile Iron (QT450)'
+      'Body Material': 'Ductile Iron (QT450)',
+      'Test Pressure': '1.5 / 2.4 / 3.75 MPa',
+      'Working Temperature': '≤80°C',
+      'Applicable Medium': 'Water, Oil Products'
     },
     materials: {
       'Filter Body': 'Ductile Iron (QT450-10)',
@@ -269,6 +281,19 @@ image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
       'Filter Screen': 'Stainless Steel 304 / 316',
       'Stem Seals': 'NBR / Graphite',
       'Telescopic Bolts': 'Medium Carbon Steel Zinc Plated'
+    },
+    dimensions: {
+      headers: ['DN (mm)', 'Grooved End (mm)', 'Flanged End (mm)'],
+      rows: [
+        ['50', '195', '217'],
+        ['65', '215', '253'],
+        ['80', '240', '280'],
+        ['100', '280', '320'],
+        ['125', '325', '315'],
+        ['150', '350', '450'],
+        ['200', '470', '548'],
+        ['250', '—', '606']
+      ]
     },
     image: '/assets/products/telescopic-y-strainer-sgl41h.webp',
     seoTitle: 'SGL41H Telescopic Y Strainer | SS304 Screen',
@@ -1427,7 +1452,11 @@ image: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp',
       'Temperature Rating': '68°C (155°F)',
       'Finish': 'Electroplated Chrome',
       'Certification': 'UL Listed',
-      'Application': 'Concealed Ceiling Fire Sprinkler Systems'
+      'Application': 'Concealed Ceiling Fire Sprinkler Systems',
+      'Connection Thread': 'R1/2 (DN15) / R3/4 (DN20)',
+      'Flow Coefficient K': '80±4 (DN15) / 115±9 (DN20)',
+      'Glass Bulb Diameter': '5 mm',
+      'Factory Hydrostatic Test': '3.0 MPa'
     },
     materials: {
       'Sprinkler Body': 'Stainless Steel',
