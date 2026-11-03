@@ -299,7 +299,7 @@ export const productsEsPart3: Record<string, Product> = {
       'Operación': 'Manual (OS&Y vástago ascendente)',
       'Estructura': 'Válvula de compuerta',
       'Temperatura': 'Temperatura normal',
-      'Certificación': 'Listado UL / FM',
+      'Certificación': 'Bajo petición',
       'Personalización': 'OEM / ODM'
     },
     materials: {
@@ -434,7 +434,7 @@ export const productsEsPart3: Record<string, Product> = {
       'Material': 'Acero inoxidable',
       'Clasificación de temperatura': '68°C (155°F)',
       'Acabado': 'Cromo electrodepositado',
-      'Certificación': 'Listado UL',
+      'Certificación': 'Bajo petición',
       'Aplicación': 'Sistemas de rociadores empotrados de techo'
     , 'Coeficiente de Caudal': 'K=80 ±4 / K=115 ±9', 'Presión de Prueba': '3.0 MPa'},
     materials: {
