@@ -21,3 +21,46 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 2732e624bbefabc35531083ec7a511ea
           command: pages deploy dist --project-name=wanlian-b2b-site
+      - name: Purge Cloudflare edge cache
+        continue-on-error: true
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: 2732e624bbefabc35531083ec7a511ea
+          SITE_HOST: wanlian911.com
+        run: |
+          set -u
+          if [ -z "$CF_API_TOKEN" ]; then
+            echo "PURGE SKIPPED: CLOUDFLARE_API_TOKEN secret is not available to this workflow"
+            exit 0
+          fi
+          lookup=$(curl -sS -w '\n%{http_code}' -H "Authorization: Bearer $CF_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/zones?name=$SITE_HOST")
+          code=$(printf '%s' "$lookup" | tail -n1)
+          zone=$(printf '%s' "$lookup" | sed '$d' | jq -r '.result[0].id // empty')
+          echo "zone lookup http=$code zone_id=${zone:-EMPTY}"
+          if [ -z "$zone" ]; then
+            lookup=$(curl -sS -w '\n%{http_code}' -H "Authorization: Bearer $CF_API_TOKEN" \
+              "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/zones?name=$SITE_HOST")
+            code=$(printf '%s' "$lookup" | tail -n1)
+            zone=$(printf '%s' "$lookup" | sed '$d' | jq -r '.result[0].id // empty')
+            echo "account zone lookup http=$code zone_id=${zone:-EMPTY}"
+          fi
+          if [ -z "$zone" ]; then
+            echo "PURGE FAILED: cannot resolve zone id; the token needs Zone Read in addition to Cache Purge"
+            exit 1
+          fi
+          purge=$(curl -sS -w '\n%{http_code}' -X POST \
+            -H "Authorization: Bearer $CF_API_TOKEN" \
+            -H 'Content-Type: application/json' \
+            -d '{"purge_everything":true}' \
+            "https://api.cloudflare.com/client/v4/zones/$zone/purge_cache")
+          pcode=$(printf '%s' "$purge" | tail -n1)
+          pbody=$(printf '%s' "$purge" | sed '$d')
+          echo "purge http=$pcode body=$pbody"
+          if [ "$pcode" != "200" ]; then
+            echo "PURGE FAILED: deploy succeeded but edge cache was not purged (see http status above)"
+            echo "**Cache purge FAILED** (http $pcode). Deploy is live but visitors may see stale pages for up to 24h. Give CLOUDFLARE_API_TOKEN the Cache Purge (Edit) and Zone (Read) permissions." >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          echo "PURGE OK: edge cache cleared, next request for each URL is a MISS against the new build"
+          echo "**Cache purge OK** (http 200). Visitors get the new build immediately." >> "$GITHUB_STEP_SUMMARY"
