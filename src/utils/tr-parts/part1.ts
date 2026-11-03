@@ -20,7 +20,7 @@ export const productsTrPart1: Record<string, Product> = {
     id: '2', slug: 'indoor-fire-hydrant-head-sn65', name: 'İç Saha Yangın Hidrant Vanası SN65', category: 'Yangın Hidrantları & Pompa Bağlantıları',
     description: 'Yüksek kaliteli sfero dökümden üretilen yüksek basınçlı SN65 iç saha yangın hidrant vanası. Hassas işleme, esnek yivli veya flanşlı bağlantılar ve ticari ya da endüstriyel yangın boru hatları için güvenilir sızdırmazlık sunar.',
     features: ['Maksimum basınç dayanımı için yüksek kaliteli sfero döküm gövde', 'Hızlı ve güvenilir montaj için esnek yivli bağlantı', '2,4 MPa seviyesine kadar sıkı basınç ve sızdırmazlık testi', 'Kırmızı, korozyona dayanıklı toz boya'],
-    specs: {'Standart': 'BS 5912','Bağlantı': 'Yivli / Flanşlı', 'Ölçü': 'DN65 (2,5")', 'Çalışma Basıncı': '1,6 MPa (232 PSI)', 'Gövde Malzemesi': 'Sfero Döküm', 'Uygulama': 'İç Saha Duvar Tipi Yangın Dolapları'},
+    specs: {'Standart': 'BS 5912','Bağlantı': 'Yivli / Flanşlı', 'Ölçü': 'DN65 (2,5")', 'Çalışma Basıncı': '1,6 MPa (232 PSI)', 'Test Basıncı': '2.4 MPa', 'Uygun Akışkan': 'Su, yangın köpüğü karışımı', 'Bağlantı Dişi': 'G2½', 'Gövde Malzemesi': 'Sfero Döküm', 'Uygulama': 'İç Saha Duvar Tipi Yangın Dolapları'},
     materials: {'Gövde': 'Sfero Döküm (QT400)', 'Vana Mili': 'Pirinç / Paslanmaz Çelik', 'Disk Contası': 'EPDM Kauçuk', 'El Çarkı': 'Sfero Döküm / Pik Döküm', 'Kaplin Arayüzü': 'Eloksallı Alüminyum / Pirinç'},
     image: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', seoTitle: 'SN65 İç Saha Yangın Hidrant Vanası | Fabrika Tedarikçisi',
     seoDescription: 'SN65 sfero döküm iç saha yangın hidrant vanası; 1,6 MPa, yivli veya flanşlı bağlantı seçenekleriyle yangın hatları için doğrudan fabrikadan.',
