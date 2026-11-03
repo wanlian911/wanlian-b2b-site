@@ -285,7 +285,7 @@ export const productsFrPart1: Record<string, Product> = {
       'Matériau du tamis': 'SS304 / SS316',
       'Maille du tamis': '18-30 mailles (eau), 40-100 mailles (vapeur)',
       'Matériau du corps': 'Fonte ductile (QT450)',
-    },
+     'Pression d\u2019essai': '1.5 / 2.4 / 3.75 MPa', 'Température de service': '≤80°C'},
     materials: {
       'Corps de filtre': 'Fonte ductile (QT450-10)',
       'Manchon de dilatation': 'Acier carbone / Fonte ductile',
@@ -297,7 +297,7 @@ export const productsFrPart1: Record<string, Product> = {
     seoTitle: 'Filtre en Y Télescopique SGL41H | Tamis SS304',
     seoDescription:
       "Filtre en Y télescopique SGL41H intégré pour tuyauteries industrielles et CVC. Entretien facile, tamis SS304 robuste. Achat direct usine de Chine Wanlian.",
-  },
+   dimensions: { headers: ['DN (mm)', 'à Gorge L (mm)', 'à Bride L (mm)'], rows: [['50', '195', '217'], ['65', '215', '253'], ['80', '240', '280'], ['100', '280', '320'], ['125', '325', '315'], ['150', '350', '450'], ['200', '470', '548'], ['250', '—', '606']] }},
   'anti-collision-pressure-regulating-outdoor-hydrant-ssft100': {
     id: '9',
     slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100',
