@@ -172,7 +172,7 @@ export const productsPtPart2: Record<string, Product> = {
       'Diâmetro Nominal': 'DN50 - DN600',
       'Pressão Nominal': '1.0 MPa / 1.6 MPa',
       'Faixa Telescópica': '± 25mm (Expansion compensation)',
-      'Material do Corpo': 'Ductile Iron QT450',
+      'Material do Corpo': 'Ferro Dúctil QT450',
       'Meio Aplicável': 'Water, Sewage, Firefighting water'
     },
     materials: {
@@ -220,7 +220,7 @@ export const productsPtPart2: Record<string, Product> = {
       'Ajuste de Pressão': '0.1 MPa to 1.6 MPa',
       'Pressão Nominal': '1.0 MPa / 1.6 MPa / 2.5 MPa',
       'Norma de Projeto': 'ANSI / JIS / GB',
-      'Material do Corpo': 'Ductile Iron (QT450-10)'
+      'Material do Corpo': 'Ferro Dúctil (QT450-10)'
     },
     materials: {
       'Corpo da Válvula Principal': 'Ductile Iron (QT450-10)',
@@ -483,7 +483,7 @@ export const productsPtPart2: Record<string, Product> = {
       'Faixa de Tamanhos': 'DN50 - DN300 (2" to 12")',
       'Tensão do Solenoide': 'AC220V / DC24V',
       'Pressão de Trabalho': '300 PSI (2.0 MPa)',
-      'Material do Corpo': 'Ductile Iron QT450',
+      'Material do Corpo': 'Ferro Dúctil QT450',
       'Conexão das Extremidades': 'Grooved / Flanged'
     },
     materials: {
