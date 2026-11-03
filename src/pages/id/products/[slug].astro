@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import PdpSheetStyles from '../../../components/shared/PdpSheetStyles.astro';
 import { productsId, productsIdBySlug } from '../../../utils/products.id';
 import { PRODUCT_FAMILY_RELATED } from '../../../utils/product-families';
 import { guides as guidesEn } from '../../../utils/guides';
@@ -124,6 +125,9 @@ const guideByCategory: Record<string, { href: string; title: string; description
 };
 
 const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
+
+// First-screen key parameters (labels come from the product's own localized spec keys)
+const keySpecs = (Object.entries(product.specs ?? {}) as [string, string][]).slice(0, 4);
 ---
 
 <Layout
@@ -137,6 +141,7 @@ const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
   breadcrumbs={[{ name: 'Produk', href: '/id/products/' }, { name: product.category, href: `/id/products/#category=${catAnchor}` }, { name: product.name }]}
 >
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mb-20">
+    <PdpSheetStyles />
     <!-- Breadcrumbs -->
     <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-8 flex gap-2">
       <a href="/id/" class="hover:text-blue-600">Beranda</a>
@@ -148,6 +153,14 @@ const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
       <span class="text-gray-600">{product.name}</span>
     </nav>
 
+    <header class="border border-gray-200 border-t-2 border-t-brand-blue bg-white p-5 sm:p-6 mb-6">
+      <p class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-brand-red">
+        <span class="inline-block h-2 w-2 bg-brand-red" aria-hidden="true"></span>
+        <span>{product.category}</span>
+      </p>
+      <h1 class="mt-2.5 text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 tracking-tight leading-tight">{product.name}</h1>
+    </header>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
       <!-- Product Image -->
       <div class="relative overflow-hidden bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
@@ -156,9 +169,6 @@ const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
           alt={product.name}
           class="w-full h-auto rounded-xl object-contain aspect-square"
         />
-        <span aria-hidden="true" class="pointer-events-none select-none absolute inset-0 flex items-center justify-center overflow-hidden">
-          <span class="text-7xl font-black tracking-[0.3em] text-brand-blue/[0.06] -rotate-[24deg] whitespace-nowrap">WANLIAN FLUID</span>
-        </span>
       </div>
 
       <!-- Vídeo do produto (apenas quando os dados configuram product.video) -->
@@ -172,13 +182,20 @@ const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
       )}
 
       <!-- Product Details -->
-      <div class="space-y-6">
-        <div>
-          <span class="text-blue-600 font-semibold uppercase tracking-wider text-sm">{product.category}</span>
-          <h1 class="text-4xl font-bold text-gray-900 mt-2">{product.name}</h1>
-        </div>
+      <div class="pdp-sheet space-y-5">
+        <!-- Key parameters (labels come from the product's own localized spec keys) -->
+        <section class="border border-gray-200 bg-white">
+          <dl class="grid grid-cols-2 gap-px bg-gray-200">
+            {keySpecs.map(([key, value]) => (
+              <div class="bg-white px-3.5 py-3">
+                <dt class="text-[10px] font-semibold uppercase tracking-[0.1em] text-gray-500">{key}</dt>
+                <dd class="mt-1 font-mono text-[13px] font-bold text-gray-900 leading-snug">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
 
-        <div class="text-lg text-gray-600 leading-relaxed space-y-4">
+        <div class="pdp-desc text-lg text-gray-600 leading-relaxed space-y-4">
           {product.description.split('\n\n').map(paragraph => (
             <p>{paragraph}</p>
           ))}
@@ -270,7 +287,7 @@ const relatedGuides = (guideByCategory[product.category] ?? []).slice(0, 3);
           </div>
         )}
 
-        <div class="flex flex-col sm:flex-row gap-4 pt-6">
+        <div class="pdp-cta flex flex-col sm:flex-row gap-4 pt-6">
           <a
             href={`/id/contact/?product=${encodeURIComponent(product.name)}`}
             class="flex-1 text-center py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-600/20"

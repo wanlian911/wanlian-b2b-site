@@ -97,12 +97,42 @@ const categoryInfo: Record<string, { applications: string[]; testing: string }> 
 const faqs = product.faqs ?? faqByCategory[product.category] ?? [];
 const info = categoryInfo[product.category];
 
-// 首屏决策区：按优先级自动提取至多 4 项关键规格（数据驱动，只渲染产品实际具备的字段）
-const SPEC_PRIORITY = ['Nominal Diameter', 'Nominal Pressure', 'Connection', 'Standard', 'Working Temperature', 'Body Material'];
-const keySpecs = SPEC_PRIORITY
-  .map((k) => [k, product.specs?.[k]] as [string, string | undefined])
-  .filter(([, v]) => Boolean(v))
-  .slice(0, 4) as [string, string][];
+// 首屏关键参数：数据里同一物理量存在多套键名（如 Size Range / Nominal Diameter / Size），
+// 因此按“物理量”排序而不是按字面键名排序；标签仍显示产品原始键名，不改写任何数值。
+const SPEC_PRIORITY_GROUPS: string[][] = [
+  ['Nominal Diameter', 'Size Range', 'Size', 'Bore'],
+  ['Nominal Pressure', 'Working Pressure', 'Pressure Rating', 'Pressure'],
+  ['Connection', 'End Connection'],
+  ['Standard'],
+  ['Body Material', 'Material', 'Valve Body', 'Hydrant Body', 'Main Valve Body', 'Body'],
+  ['Working Temperature', 'Temperature Rating', 'Temperature'],
+  ['Certification', 'Compliance Standard'],
+  ['Media', 'Applicable Medium'],
+  ['Operation'],
+  ['Structure', 'Type'],
+  ['Model'],
+  ['Application'],
+  ['Coating'],
+  ['Customization'],
+];
+const specEntries = Object.entries(product.specs ?? {}) as [string, string][];
+const usedSpecKeys = new Set<string>();
+const keySpecs: [string, string][] = [];
+for (const group of SPEC_PRIORITY_GROUPS) {
+  if (keySpecs.length >= 6) break;
+  for (const k of group) {
+    if (usedSpecKeys.has(k)) continue;
+    const hit = specEntries.find(([sk, sv]) => sk === k && Boolean(sv));
+    if (hit) { keySpecs.push(hit); usedSpecKeys.add(k); break; }
+  }
+}
+// 规格键名极不规范的型号：补齐到 3 项，避免首屏参数面板空缺
+if (keySpecs.length < 3) {
+  for (const [k, v] of specEntries) {
+    if (keySpecs.length >= 3) break;
+    if (!usedSpecKeys.has(k) && Boolean(v)) { keySpecs.push([k, v]); usedSpecKeys.add(k); }
+  }
+}
 
 // 产品视频教程(可选):数据源配置 product.video 后自动渲染并输出 VideoObject JSON-LD
 const videoData = product.video
@@ -167,201 +197,209 @@ const relatedGuides = [...explicitGuides, ...(guideByCategory[product.category] 
   video={videoData}
   breadcrumbs={[{ name: 'Products', href: '/products/' }, { name: product.category, href: `/products/#category=${encodeURIComponent(product.category)}` }, { name: product.name }]}
 >
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mb-20">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 mb-16 lg:mb-24">
     <!-- Breadcrumbs -->
-    <nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-8 flex gap-2">
-      <a href="/" class="hover:text-blue-600">Home</a>
-      <span>/</span>
-      <a href="/products/" class="hover:text-blue-600">Products</a>
-      <span>/</span>
-      <a href={`/products/#category=${encodeURIComponent(product.category)}`} class="hover:text-blue-600">{product.category}</a>
-      <span>/</span>
-      <span class="text-gray-600">{product.name}</span>
+    <nav class="text-[11px] text-gray-400 font-semibold uppercase tracking-widest mb-6 flex flex-wrap gap-x-2 gap-y-1">
+      <a href="/" class="hover:text-brand-blue">Home</a>
+      <span aria-hidden="true">/</span>
+      <a href="/products/" class="hover:text-brand-blue">Products</a>
+      <span aria-hidden="true">/</span>
+      <a href={`/products/#category=${encodeURIComponent(product.category)}`} class="hover:text-brand-blue">{product.category}</a>
+      <span aria-hidden="true">/</span>
+      <span class="text-gray-600 normal-case tracking-normal font-medium">{product.name}</span>
     </nav>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-      <!-- Product Image Gallery -->
-      <ProductGallery 
-        mainImage={product.image} 
-        gallery={product.gallery} 
-        alt={product.name} 
-      />
-
-      <!-- Product Video (renders only when product.video is configured) -->
-      {product.video && (
-        <div class="mt-4 rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-gray-900">
-          <video class="w-full h-auto" controls playsinline preload="metadata" poster={product.video.poster}>
-            <source src={product.video.src} type="video/mp4" />
-            Your browser does not support embedded video.
-          </video>
+    <!-- Technical masthead: 阀门/消防行业首屏是型号与关键参数，不是营销头图 -->
+    <header class="border border-gray-200 border-t-2 border-t-brand-blue bg-white">
+      <div class="flex flex-col gap-6 p-5 sm:p-7 lg:flex-row lg:items-start lg:justify-between lg:gap-10">
+        <div class="min-w-0 lg:flex-1">
+          <p class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-brand-red">
+            <span class="inline-block h-2 w-2 bg-brand-red" aria-hidden="true"></span>
+            <span>{product.category}</span>
+          </p>
+          <h1 class="mt-2.5 text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 tracking-tight leading-tight">{product.name}</h1>
+          <div class="mt-4 max-w-3xl space-y-3 text-[15px] text-gray-600 leading-relaxed">
+            {product.description.split('\n\n').map(paragraph => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
         </div>
-      )}
-
-      <!-- Product Details -->
-      <div class="space-y-6">
-        <div>
-          <span class="text-blue-600 font-semibold uppercase tracking-wider text-sm">{product.category}</span>
-          <h1 class="text-4xl font-bold text-gray-900 mt-2">{product.name}</h1>
-        </div>
-
-        <div class="text-lg text-gray-600 leading-relaxed space-y-4">
-          {product.description.split('\n\n').map(paragraph => (
-            <p>{paragraph}</p>
-          ))}
-        </div>
-
-        <!-- Specs at a glance: 买家第一决策信息 + 双 CTA 前置到首屏 -->
-        {keySpecs.length > 0 && (
-          <div class="bg-white border border-gray-200 rounded-xl p-5">
-            <h2 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">Specs at a Glance</h2>
-            <dl class="grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-4">
-              {keySpecs.map(([key, value]) => (
-                <div>
-                  <dt class="text-[11px] font-medium text-gray-500">{key}</dt>
-                  <dd class="text-sm font-bold text-gray-900 mt-0.5">{value}</dd>
-                </div>
-              ))}
-            </dl>
-            <p class="text-xs text-gray-500 mt-3">Full datasheet, test reports and drawings available with your inquiry.</p>
-            <div class="mt-4 flex flex-col sm:flex-row gap-3">
-              <a
-                href={`/contact/?product=${encodeURIComponent(product.name)}`}
-                class="flex-1 text-center py-3 bg-brand-red text-white font-bold rounded-lg hover:bg-red-700 transition"
-              >
-                Inquire Now
-              </a>
-              <a
-                href="/contact/?product=Request%20Catalog%20PDF"
-                class="flex-1 text-center py-3 bg-white text-brand-blue font-bold border-2 border-brand-blue rounded-lg hover:bg-blue-50 transition"
-              >
-                Request Documentation
-              </a>
+        <dl class="grid grid-cols-2 gap-px bg-gray-200 border border-gray-200 shrink-0 lg:w-80">
+          {keySpecs.slice(0, 4).map(([k, v]) => (
+            <div class="bg-white px-3.5 py-3">
+              <dt class="text-[10px] font-semibold uppercase tracking-[0.1em] text-gray-500">{k}</dt>
+              <dd class="mt-1 font-mono text-[13px] font-bold text-gray-900 leading-snug">{v}</dd>
             </div>
+          ))}
+        </dl>
+      </div>
+    </header>
+
+    <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+      <div class="lg:col-span-7 space-y-4">
+        <!-- Product Image Gallery -->
+        <ProductGallery 
+          mainImage={product.image} 
+          gallery={product.gallery} 
+          alt={product.name} 
+        />
+
+        <!-- Product Video (renders only when product.video is configured) -->
+        {product.video && (
+          <div class="overflow-hidden shadow-sm border border-gray-200 bg-gray-900">
+            <video class="w-full h-auto" controls playsinline preload="metadata" poster={product.video.poster}>
+              <source src={product.video.src} type="video/mp4" />
+              Your browser does not support embedded video.
+            </video>
           </div>
         )}
+      </div>
 
-        <div class="space-y-4">
-          <h2 class="text-xl font-bold border-b pb-2">Key Features</h2>
-          <ul class="grid grid-cols-1 gap-2">
-            {product.features.map(feature => (
-              <li class="flex items-start">
-                <svg class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span class="text-gray-700">{feature}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div class="bg-gray-100 p-6 rounded-xl space-y-4">
-          <h2 class="text-xl font-bold">Technical Specifications</h2>
-          <dl class="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+      <!-- 询价栏：全量技术表 + 常驻 CTA（阀门/消防买家按参数发询盘） -->
+      <aside class="lg:col-span-5 lg:sticky lg:top-24 space-y-4">
+        <section class="border border-gray-200 bg-white">
+          <h2 class="flex items-baseline justify-between gap-3 border-b border-gray-200 bg-gray-50 px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-gray-700">
+            <span>Technical Specifications</span>
+          </h2>
+          <dl class="divide-y divide-gray-100">
             {Object.entries(product.specs).map(([key, value]) => (
-              <div class="border-b border-gray-200 py-2">
-                <dt class="text-sm font-medium text-gray-500">{key}</dt>
-                <dd class="mt-1 text-sm font-bold text-gray-900">{value}</dd>
+              <div class="flex items-baseline justify-between gap-4 px-4 py-2">
+                <dt class="shrink-0 text-[11px] font-semibold uppercase tracking-[0.06em] text-gray-500">{key}</dt>
+                <dd class="text-right font-mono text-[12.5px] font-bold text-gray-900 leading-snug">{value}</dd>
               </div>
             ))}
           </dl>
-        </div>
-
-        {product.materials && (
-          <div class="bg-gray-50 p-6 rounded-xl border border-gray-200/60 space-y-4">
-            <h2 class="text-xl font-bold text-gray-900">Parts & Materials List</h2>
-            <dl class="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
-              {Object.entries(product.materials).map(([part, material]) => (
-                <div class="border-b border-gray-200/60 py-2 flex justify-between items-center text-sm">
-                  <dt class="font-medium text-gray-500">{part}</dt>
-                  <dd class="font-bold text-gray-900 text-right">{material}</dd>
-                </div>
-              ))}
-            </dl>
+          <div class="border-t border-gray-200 p-4 space-y-3">
+            <p class="text-[11px] text-gray-500 leading-relaxed">Full datasheet, test reports and drawings available with your inquiry.</p>
+            <a
+              href={`/contact/?product=${encodeURIComponent(product.name)}`}
+              class="block w-full text-center py-3 bg-brand-red text-white text-sm font-bold uppercase tracking-[0.08em] hover:bg-red-700 transition">Request quotation</a>
+            <a
+              href="/contact/?product=Request%20Catalog%20PDF"
+              class="block w-full text-center py-3 bg-white text-brand-blue text-sm font-bold uppercase tracking-[0.08em] border-2 border-brand-blue hover:bg-blue-50 transition">Request documentation</a>
           </div>
-        )}
+        </section>
 
-        {product.dimensions && (
-          <div class="bg-white p-6 rounded-xl border border-gray-100 space-y-4 shadow-sm overflow-x-auto">
-            <h2 class="text-xl font-bold text-gray-900">Standard Dimensions Guide</h2>
-            <table class="min-w-full divide-y divide-gray-200 text-sm">
-              <thead class="bg-gray-50">
+      </aside>
+    </div>
+
+
+    <!-- 技术文档区：编号章节按行业阅读顺序排列（构造 → 材质 → 尺寸 → 工况 → 检测） -->
+    <div class="spec-sheet mt-10 lg:mt-12 space-y-8">
+      <section class="border border-gray-200 bg-white">
+        <h2 class="sheet-title">Key Features</h2>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5 p-5 sm:p-6">
+          {product.features.map(feature => (
+            <li class="flex items-start gap-2.5 text-sm text-gray-700 leading-relaxed">
+              <span class="mt-2 h-1.5 w-1.5 shrink-0 bg-brand-red" aria-hidden="true"></span>
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {product.materials && (
+        <section class="border border-gray-200 bg-white">
+          <h2 class="sheet-title">Parts &amp; Materials List</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr>
+                  <th class="w-[38%] bg-gray-50 px-4 py-2 text-left text-[10px] font-bold uppercase tracking-[0.12em] text-gray-500 border-b border-gray-200">Component</th>
+                  <th class="bg-gray-50 px-4 py-2 text-left text-[10px] font-bold uppercase tracking-[0.12em] text-gray-500 border-b border-gray-200">Material</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100">
+                {Object.entries(product.materials).map(([part, material]) => (
+                  <tr>
+                    <td class="px-4 py-2 font-semibold text-gray-600">{part}</td>
+                    <td class="px-4 py-2 font-mono text-gray-900">{material}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {product.dimensions && (
+        <section class="border border-gray-200 bg-white">
+          <h2 class="sheet-title">Standard Dimensions</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
                 <tr>
                   {product.dimensions.headers.map(header => (
-                    <th class="px-3 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">{header}</th>
+                    <th class="bg-gray-50 px-4 py-2 text-left text-[10px] font-bold uppercase tracking-[0.12em] text-gray-500 border-b border-gray-200 whitespace-nowrap">{header}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
+              <tbody class="divide-y divide-gray-100">
                 {product.dimensions.rows.map(row => (
-                  <tr class="hover:bg-gray-50/50">
+                  <tr class="hover:bg-gray-50">
                     {row.map(cell => (
-                      <td class="px-3 py-3 text-gray-700 font-medium whitespace-nowrap">{cell}</td>
+                      <td class="px-4 py-2 font-mono text-gray-800 whitespace-nowrap">{cell}</td>
                     ))}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        )}
+        </section>
+      )}
 
-        {info && (
-          <div class="space-y-4">
-            <div class="bg-blue-50/50 p-6 rounded-xl border border-blue-100/50">
-              <h2 class="text-xl font-bold text-gray-900 mb-3">Applications</h2>
-              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {info.applications.map(app => (
-                  <li class="flex items-start text-sm text-gray-700">
-                    <svg class="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    {app}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200/60">
-              <h2 class="text-xl font-bold text-gray-900 mb-3">Quality & Testing</h2>
-              <p class="text-sm text-gray-700 leading-relaxed">{info.testing}</p>
-            </div>
-          </div>
-        )}
+      {info && (
+        <section class="border border-gray-200 bg-white">
+          <h2 class="sheet-title">Applications</h2>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5 p-5 sm:p-6">
+            {info.applications.map(app => (
+              <li class="flex items-start gap-2.5 text-sm text-gray-700 leading-relaxed">
+                <span class="mt-2 h-1.5 w-1.5 shrink-0 bg-brand-blue" aria-hidden="true"></span>
+                <span>{app}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
-        <div class="flex flex-col sm:flex-row gap-4 pt-6">
-          <a 
-            href={`/contact/?product=${encodeURIComponent(product.name)}`} 
-            class="flex-1 text-center py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-600/20"
-          >
-            Inquire Now
-          </a>
-          <a 
-            href="/contact/?product=Request%20Catalog%20PDF"
-            class="flex-1 text-center py-4 bg-white text-blue-600 font-bold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition"
-          >
-            Request Product Documentation
-          </a>
-        </div>
-      </div>
+      {info && (
+        <section class="border border-gray-200 bg-white">
+          <h2 class="sheet-title">Quality &amp; Testing</h2>
+          <p class="p-5 sm:p-6 text-sm text-gray-700 leading-relaxed">{info.testing}</p>
+        </section>
+      )}
     </div>
 
     <!-- How-it-works infographic (per-product, only when provided) -->
     {product.infographic && (
-      <figure class="mt-16">
+      <figure class="mt-12 border border-gray-200 bg-white p-3 sm:p-5">
         <img
           src={product.infographic}
           alt={`${product.name} — how it works`}
-          class="w-full h-auto rounded-2xl border border-gray-100 shadow-sm"
+          class="w-full h-auto"
           loading="lazy"
         />
       </figure>
     )}
 
+    <div class="mt-12 border-t-2 border-brand-blue pt-6 flex flex-col sm:flex-row gap-3 sm:gap-4">
+      <a
+        href={`/contact/?product=${encodeURIComponent(product.name)}`}
+        class="flex-1 text-center py-4 bg-brand-red text-white font-bold uppercase tracking-[0.08em] hover:bg-red-700 transition shadow-lg shadow-red-600/20">Request quotation</a>
+      <a
+        href="/contact/?product=Request%20Catalog%20PDF"
+        class="flex-1 text-center py-4 bg-white text-brand-blue font-bold uppercase tracking-[0.08em] border-2 border-brand-blue hover:bg-blue-50 transition">Request product documentation</a>
+    </div>
+
+
+
     <!-- FAQ Section -->
     {faqs.length > 0 && (
-      <section class="mt-20 max-w-4xl">
-        <h2 class="text-3xl font-black text-gray-900 mb-8">Frequently Asked Questions</h2>
-        <div class="space-y-4">
+      <section class="mt-14 max-w-4xl border border-gray-200 bg-white">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="p-4 sm:p-6 space-y-2.5">
           {faqs.map((faq, index) => (
-            <details class="group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+            <details class="group bg-white border border-gray-200 overflow-hidden">
               <summary class="flex items-center justify-between cursor-pointer px-6 py-5 font-bold text-gray-900 hover:bg-gray-50 transition list-none">
                 <span>{faq.question}</span>
                 <svg class="w-5 h-5 text-gray-400 group-open:rotate-45 transition-transform flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
@@ -379,11 +417,11 @@ const relatedGuides = [...explicitGuides, ...(guideByCategory[product.category] 
 
     <!-- Related Guides (GEO content backlinks) -->
     {relatedGuides.length > 0 && (
-      <section class="mt-20">
-        <h2 class="text-3xl font-black text-gray-900 mb-8">Related Buying Guides</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <section class="mt-14">
+        <h2 class="section-title border border-gray-200">Related Buying Guides</h2>
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
           {relatedGuides.map(guide => (
-            <a href={guide.href} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-blue/30 transition p-6 flex flex-col">
+            <a href={guide.href} class="group bg-white border border-gray-200 hover:border-brand-blue hover:shadow-md transition p-5 flex flex-col">
               <span class="text-[10px] font-bold text-brand-blue uppercase tracking-wider mb-2">Buying Guide</span>
               <h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-blue transition leading-snug">{guide.title}</h3>
               <p class="text-xs text-gray-500 leading-relaxed mt-2 flex-grow">{guide.description}</p>
@@ -399,11 +437,11 @@ const relatedGuides = [...explicitGuides, ...(guideByCategory[product.category] 
 
     <!-- Related Products -->
     {relatedProducts.length > 0 && (
-      <section class="mt-20">
-        <h2 class="text-3xl font-black text-gray-900 mb-8">Related Products</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section class="mt-14">
+        <h2 class="section-title border border-gray-200">Related Products</h2>
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {relatedProducts.map(related => (
-            <a href={`/products/${related.slug}/`} class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-brand-blue/30 transition p-6 flex flex-col">
+            <a href={`/products/${related.slug}/`} class="group bg-white border border-gray-200 hover:border-brand-blue hover:shadow-md transition p-5 flex flex-col">
               <img src={related.image} alt={related.name} class="w-full h-40 object-contain rounded-lg bg-gray-50 p-2 mb-4" loading="lazy" />
               <span class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">{related.category}</span>
               <h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-blue transition leading-snug">{related.name}</h3>
@@ -416,5 +454,36 @@ const relatedGuides = [...explicitGuides, ...(guideByCategory[product.category] 
         </div>
       </section>
     )}
+
+    <style>
+      .spec-sheet { counter-reset: sheet-section; }
+      .spec-sheet > section { counter-increment: sheet-section; }
+      .sheet-title, .section-title {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        margin: 0;
+        padding: 0.625rem 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        background: #f9fafb;
+        font-size: 0.6875rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #374151;
+      }
+      .sheet-title::before {
+        content: counter(sheet-section) ".";
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        color: #cc2128;
+      }
+      .section-title::before { content: none; }
+      @media print {
+        .no-print { display: none !important; }
+        main { max-width: none !important; padding-left: 0 !important; padding-right: 0 !important; }
+        aside { position: static !important; }
+        .spec-sheet > section { break-inside: avoid; }
+      }
+    </style>
   </main>
 </Layout>
