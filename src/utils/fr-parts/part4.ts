@@ -199,7 +199,7 @@ export const productsFrPart4: Record<string, Product> = {
       'Manœuvre': 'Manuelle (OS&Y tige montante)',
       'Structure': 'Vanne à boisseau',
       'Température': 'Température normale',
-      'Certification': 'Certifiée UL / FM',
+      'Certification': 'Sur demande',
       'Personnalisation': 'OEM / ODM',
     },
     materials: {
@@ -358,7 +358,7 @@ export const productsFrPart4: Record<string, Product> = {
       'Matériau': 'Acier inoxydable',
       'Classement en température': '68°C (155°F)',
       'Finition': 'Chrome par électrodéposition',
-      'Certification': 'Certifié UL',
+      'Certification': 'Sur demande',
       'Application': 'Systèmes de gicleurs de plafond dissimulés',
      'Coefficient de débit': 'K=80 ±4 / K=115 ±9', 'Pression d\u2019essai': '3.0 MPa'},
     materials: {
