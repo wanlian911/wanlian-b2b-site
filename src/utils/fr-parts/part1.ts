@@ -76,7 +76,7 @@ export const productsFrPart1: Record<string, Product> = {
       'Norme': 'BS 5912; Rapports d’essai disponibles sur demande',
       'Raccordement': 'À gorge / À bride',
       'Taille': 'DN65 (2.5")',
-      'Pression de service': '1.6 MPa (232 PSI)',
+      'Pression de service': '1.6 MPa (232 PSI)', 'Pression d\u2019essai': '2.4 MPa', 'Fluide applicable': 'Eau, mélange d\u2019eau et de mousse', 'Filetage de raccordement': 'G2½',
       'Matériau du corps': 'Fonte ductile',
       'Application': 'Armoires anti-incendie intérieures murales',
     },

@@ -102,6 +102,9 @@ export const products: Product[] = [
       'Connection': 'Grooved / Flanged',
       'Size': 'DN65 (2.5")',
       'Working Pressure': '1.6 MPa (232 PSI)',
+      'Testing Pressure': '2.4 MPa',
+      'Applicable Medium': 'Water, Fire foam mixture',
+      'Connection Thread': 'G2½',
       'Body Material': 'Ductile Iron',
       'Application': 'Indoor Wall-Mounted Fire Cabinets'
     },

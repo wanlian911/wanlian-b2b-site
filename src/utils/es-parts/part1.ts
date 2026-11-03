@@ -69,7 +69,7 @@ export const productsEsPart1: Record<string, Product> = {
       'Norma': 'BS 5912; Informes de ensayo disponibles bajo solicitud',
       'Conexión': 'Ranurada / Con brida',
       'Tamaño': 'DN65 (2.5")',
-      'Presión de Trabajo': '1.6 MPa (232 PSI)',
+      'Presión de Trabajo': '1.6 MPa (232 PSI)', 'Presión de Prueba': '2.4 MPa', 'Medio Aplicable': 'Agua, mezcla de espuma contra incendios', 'Rosca de Conexión': 'G2½',
       'Material del Cuerpo': 'Hierro dúctil',
       'Aplicación': 'Gabinetes contra incendios interiores montados en pared'
     },
