@@ -281,7 +281,7 @@ export const productsEsPart3: Record<string, Product> = {
   'ul-fm-resilient-seat-osy-gate-valve': {
     id: '38',
     slug: 'ul-fm-resilient-seat-osy-gate-valve',
-    name: 'Válvula de Compuerta OS&Y de Asiento Elástico para Protección Contra Incendios UL/FM',
+    name: 'Válvula de Compuerta OS&Y de Asiento Elástico para Protección Contra Incendios',
     category: 'Válvulas y Piezas',
     description: 'Válvula de compuerta OS&Y (husillo exterior y yugo) de asiento elástico certificada UL y FM, con extremos ranurados para sistemas de protección contra incendios. Cuerpo de hierro fundido nodular con vástago ascendente que indica con claridad la posición abierta o cerrada.',
     features: [
@@ -309,7 +309,7 @@ export const productsEsPart3: Record<string, Product> = {
       'Volante': 'Hierro dúctil'
     },
     image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
-    seoTitle: 'Válvula de Compuerta OS&Y de Asiento Elástico UL/FM | Ranurada',
+    seoTitle: 'Válvula de Compuerta OS&Y de Asiento Elástico | Ranurada',
     seoDescription: 'Válvula de compuerta OS&Y de asiento elástico certificada UL/FM para protección contra incendios, extremos ranurados y fundición nodular. Precio de fábrica.',
     faqs: [
       { question: '¿Está realmente esta válvula de compuerta OS&Y certificada UL y FM?', answer: 'El modelo está listado para servicio de protección contra incendios. Confirmamos el modelo listado exacto, el número de certificado y la cobertura en cada pedido, y los certificados viajan con la documentación. Verifique siempre el número en el organismo emisor antes de la aceptación.' },
