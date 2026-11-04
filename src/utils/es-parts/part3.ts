@@ -281,7 +281,7 @@ export const productsEsPart3: Record<string, Product> = {
   'ul-fm-resilient-seat-osy-gate-valve': {
     id: '38',
     slug: 'ul-fm-resilient-seat-osy-gate-valve',
-    name: 'Válvula de Compuerta OS&Y de Asiento Elástico para Protección Contra Incendios UL/FM',
+    name: 'Válvula de Compuerta OS&Y de Asiento Elástico para Protección Contra Incendios',
     category: 'Válvulas y Piezas',
     description: 'Válvula de compuerta OS&Y (husillo exterior y yugo) de asiento elástico certificada UL y FM, con extremos ranurados para sistemas de protección contra incendios. Cuerpo de hierro fundido nodular con vástago ascendente que indica con claridad la posición abierta o cerrada.',
     features: [
@@ -309,13 +309,13 @@ export const productsEsPart3: Record<string, Product> = {
       'Volante': 'Hierro dúctil'
     },
     image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
-    seoTitle: 'Válvula de Compuerta OS&Y de Asiento Elástico UL/FM | Ranurada',
+    seoTitle: 'Válvula de Compuerta OS&Y de Asiento Elástico | Ranurada',
     seoDescription: 'Válvula de compuerta OS&Y de asiento elástico certificada UL/FM para protección contra incendios, extremos ranurados y fundición nodular. Precio de fábrica.',
     faqs: [
       { question: '¿Está realmente esta válvula de compuerta OS&Y certificada UL y FM?', answer: 'El modelo está listado para servicio de protección contra incendios. Confirmamos el modelo listado exacto, el número de certificado y la cobertura en cada pedido, y los certificados viajan con la documentación. Verifique siempre el número en el organismo emisor antes de la aceptación.' },
       { question: '¿Por qué especificar extremos ranurados para líneas contra incendios?', answer: 'Los extremos ranurados utilizan acoples mecánicos en lugar de soldadura o pernos: instalación más rápida, alineación en campo de la línea de tubería y reemplazo de la válvula mucho más ágil. La opción estándar para líneas principales de rociadores y de columna seca.' },
       { question: '¿Qué indica el vástago ascendente de una válvula OS&Y?', answer: 'El vástago ascendente OS&Y (husillo exterior y yugo) muestra la posición de la válvula de un vistazo: completamente elevado significa abierto y bajado significa cerrado, lo cual es importante para el aislamiento supervisado de la línea principal en sistemas contra incendios.' },
-      { question: '¿Qué rango de tamaños está disponible para la válvula OS&Y UL/FM?', answer: 'De 2 a 10 pulgadas (DN50 a DN250) en fundición nodular con asiento elástico de EPDM para un cierre sin goteo, con personalización OEM/ODM disponible.' }
+      { question: '¿Qué rango de tamaños está disponible para la válvula OS&Y?', answer: 'De 2 a 10 pulgadas (DN50 a DN250) en fundición nodular con asiento elástico de EPDM para un cierre sin goteo, con personalización OEM/ODM disponible.' }
     ]
   },
   'metal-fire-extinguisher-box-red': {
@@ -426,7 +426,7 @@ export const productsEsPart3: Record<string, Product> = {
       'Acabado de cromo electrodepositado, construcción de acero inoxidable',
       'Bulbo de vidrio rojo con clasificación de temperatura de 68°C (155°F)',
       'Sellado con rosca y empaque para instalación sin fugas',
-      'Listado UL, ideal para aplicaciones de techos de alta gama'
+      'Ideal para aplicaciones de techos de alta gama'
     ],
     specs: {
       'Modelo': 'ZSTDY',

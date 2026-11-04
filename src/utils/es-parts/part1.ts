@@ -163,7 +163,7 @@ export const productsEsPart1: Record<string, Product> = {
       'Disco de sellado elástico duradero para sellado bidireccional'
     ],
     specs: {
-      'Norma': 'UL/FM / GB/T 13927 / EN 12266-1; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'GB/T 13927 / EN 12266-1; Informes de ensayo disponibles bajo solicitud',
       'Rango de Tamaños': 'DN50 - DN300 (2" a 12")',
       'Presión de Trabajo': '1.6 MPa (PN16)',
       'Material del Cuerpo': 'Hierro dúctil (QT450)',
