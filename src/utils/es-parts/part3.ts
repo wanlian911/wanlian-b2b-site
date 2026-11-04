@@ -283,7 +283,7 @@ export const productsEsPart3: Record<string, Product> = {
     slug: 'ul-fm-resilient-seat-osy-gate-valve',
     name: 'Válvula de Compuerta OS&Y de Asiento Elástico para Protección Contra Incendios',
     category: 'Válvulas y Piezas',
-    description: 'Válvula de compuerta OS&Y (husillo exterior y yugo) de asiento elástico certificada UL y FM, con extremos ranurados para sistemas de protección contra incendios. Cuerpo de hierro fundido nodular con vástago ascendente que indica con claridad la posición abierta o cerrada.',
+    description: 'Válvula de compuerta OS&Y (husillo exterior y yugo) de asiento elástico, con extremos ranurados para sistemas de protección contra incendios. Cuerpo de hierro fundido nodular con vástago ascendente que indica con claridad la posición abierta o cerrada.',
     features: [
       'Certificada UL y FM para servicio de protección contra incendios',
       'Diseño OS&Y de vástago ascendente con indicación clara de posición',
@@ -310,7 +310,7 @@ export const productsEsPart3: Record<string, Product> = {
     },
     image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
     seoTitle: 'Válvula de Compuerta OS&Y de Asiento Elástico | Ranurada',
-    seoDescription: 'Válvula de compuerta OS&Y de asiento elástico certificada UL/FM para protección contra incendios, extremos ranurados y fundición nodular. Precio de fábrica.',
+    seoDescription: 'Válvula de compuerta OS&Y de asiento elástico para protección contra incendios, extremos ranurados y fundición nodular. Precio de fábrica.',
     faqs: [
       { question: '¿Está realmente esta válvula de compuerta OS&Y certificada UL y FM?', answer: 'El modelo está listado para servicio de protección contra incendios. Confirmamos el modelo listado exacto, el número de certificado y la cobertura en cada pedido, y los certificados viajan con la documentación. Verifique siempre el número en el organismo emisor antes de la aceptación.' },
       { question: '¿Por qué especificar extremos ranurados para líneas contra incendios?', answer: 'Los extremos ranurados utilizan acoples mecánicos en lugar de soldadura o pernos: instalación más rápida, alineación en campo de la línea de tubería y reemplazo de la válvula mucho más ágil. La opción estándar para líneas principales de rociadores y de columna seca.' },
@@ -420,7 +420,7 @@ export const productsEsPart3: Record<string, Product> = {
     slug: 'zstdy-concealed-fire-sprinkler',
     name: 'Rociador Empotrado (Oculto) ZSTDY',
     category: 'Rociadores y Válvulas de Alarma',
-    description: 'Rociador empotrado (oculto) ZSTDY con acabado de cromo electrodepositado y placa decorativa de cubierta para instalaciones de techo de alta gama. Construcción de acero inoxidable con bulbo de vidrio rojo de 68°C, listado UL.',
+    description: 'Rociador empotrado (oculto) ZSTDY con acabado de cromo electrodepositado y placa decorativa de cubierta para instalaciones de techo de alta gama. Construcción de acero inoxidable con bulbo de vidrio rojo de 68°C.',
     features: [
       'Diseño empotrado con placa decorativa de cubierta para techos premium',
       'Acabado de cromo electrodepositado, construcción de acero inoxidable',
@@ -444,7 +444,7 @@ export const productsEsPart3: Record<string, Product> = {
     },
     image: '/assets/products/zstdy-concealed-fire-sprinkler.webp',
     seoTitle: 'Rociador Empotrado ZSTDY con Cubierta Decorativa | Cromo',
-    seoDescription: 'Rociador empotrado ZSTDY de acero inoxidable con acabado cromado y cubierta decorativa, listado UL, para techos de alta gama. Precio de fábrica de Wanlian.'
+    seoDescription: 'Rociador empotrado ZSTDY de acero inoxidable con acabado cromado y cubierta decorativa, para techos de alta gama. Precio de fábrica de Wanlian.'
   },
   'storz-coupling-2-5inch-aluminum': {
     id: '43',

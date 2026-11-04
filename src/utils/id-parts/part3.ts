@@ -74,12 +74,12 @@ export const productsIdPart3: Record<string, Product> = {
     seoTitle: 'Katup Pelampung Kontrol Jarak Jauh 100X-16P', seoDescription: 'Katup pelampung kontrol jarak jauh 100X-16P dari baja tahan karat CF8, DN40-DN300 berflensa. Kontrol hidrolik untuk level air otomatis.'
   },
   'ul-fm-resilient-seat-osy-gate-valve': {
-    id: '38', slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Katup Gerbang OS&Y Dudukan Karet untuk Proteksi Kebakaran UL/FM', category: 'Katup Industri & Saringan (Strainer)',
-    description: 'Katup gerbang OS&Y (Outside Screw and Yoke) dengan dudukan karet, ujung beralur, dan sertifikasi UL serta FM untuk sistem proteksi kebakaran. Bodi besi cor nodular dengan batang naik memberikan indikasi posisi buka/tutup yang jelas.',
+    id: '38', slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Katup Gerbang OS&Y Dudukan Karet untuk Proteksi Kebakaran', category: 'Katup Industri & Saringan (Strainer)',
+    description: 'Katup gerbang OS&Y (Outside Screw and Yoke) dengan dudukan karet, ujung beralur untuk sistem proteksi kebakaran. Bodi besi cor nodular dengan batang naik memberikan indikasi posisi buka/tutup yang jelas.',
     features: ['Bersertifikasi UL dan FM untuk aplikasi proteksi kebakaran', 'Desain batang naik OS&Y dengan indikator posisi yang jelas', 'Sambungan ujung beralur untuk kopling mekanis cepat', 'Bodi besi cor nodular dengan dudukan karet untuk penutupan rapat', 'Kustomisasi OEM / ODM tersedia'],
     specs: { 'Rentang ukuran': '2" - 10" (DN50 - DN250)', 'Material': 'Besi cor nodular', 'Sambungan': 'Ujung beralur', 'Media': 'Air', 'Pengoperasian': 'Manual (batang naik OS&Y)', 'Struktur': 'Katup gerbang', 'Suhu': 'Suhu normal', 'Sertifikasi': 'Sesuai permintaan', 'Kustomisasi': 'OEM / ODM' },
     materials: { 'Bodi katup': 'Besi cor nodular', 'Batang': 'Kuningan / baja tahan karat', 'Dudukan': 'Karet (EPDM)', 'Roda tangan': 'Besi cor ulet' }, image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
-    seoTitle: 'Katup Gerbang OS&Y UL/FM dengan Dudukan Karet | Beralur', seoDescription: 'Katup gerbang OS&Y dengan dudukan karet terdaftar UL/FM dan ujung beralur untuk sistem kebakaran. Bodi besi cor nodular, batang naik Wanlian Fluid.',
+    seoTitle: 'Katup Gerbang OS&Y dengan Dudukan Karet | Beralur', seoDescription: 'Katup gerbang OS&Y dengan dudukan karet dan ujung beralur untuk sistem kebakaran. Bodi besi cor nodular, batang naik Wanlian Fluid.',
     faqs: [
       { question: 'Apakah katup gerbang OS&Y ini benar-benar terdaftar UL dan FM?', answer: 'Model ini terdaftar untuk aplikasi proteksi kebakaran. Model terdaftar, nomor sertifikat, dan cakupan yang tepat dikonfirmasi untuk setiap pesanan; nomor harus diverifikasi pada lembaga penerbit sebelum penerimaan.' },
       { question: 'Mengapa ujung beralur digunakan pada pipa utama kebakaran?', answer: 'Ujung beralur menggunakan kopling mekanis, bukan pengelasan atau baut. Pemasangan lebih cepat, penyelarasan di lapangan lebih mudah, dan penggantian katup menjadi lebih sederhana.' },
@@ -111,10 +111,10 @@ export const productsIdPart3: Record<string, Product> = {
   },
   'zstdy-concealed-fire-sprinkler': {
     id: '42', slug: 'zstdy-concealed-fire-sprinkler', name: 'Kepala Sprinkler Pemadam Tersembunyi di Plafon ZSTDY', category: 'Sprinkler Pemadam & Katup Alarm',
-    description: 'Kepala sprinkler plafon tersembunyi ZSTDY dengan pelat penutup dekoratif dan lapisan krom galvanis, dirancang untuk pemasangan plafon kelas premium. Struktur baja tahan karat dengan ampul kaca merah 68 °C dan terdaftar UL.',
-    features: ['Desain tersembunyi dengan pelat penutup dekoratif untuk plafon premium', 'Lapisan krom galvanis dan struktur baja tahan karat', 'Ampul kaca merah dengan kelas suhu 68 °C (155 °F)', 'Penyegelan ulir dan gasket untuk pemasangan tanpa kebocoran', 'Terdaftar UL dan sesuai untuk aplikasi plafon berkualifikasi'],
+    description: 'Kepala sprinkler plafon tersembunyi ZSTDY dengan pelat penutup dekoratif dan lapisan krom galvanis, dirancang untuk pemasangan plafon kelas premium. Struktur baja tahan karat dengan ampul kaca merah 68 °C.',
+    features: ['Desain tersembunyi dengan pelat penutup dekoratif untuk plafon premium', 'Lapisan krom galvanis dan struktur baja tahan karat', 'Ampul kaca merah dengan kelas suhu 68 °C (155 °F)', 'Penyegelan ulir dan gasket untuk pemasangan tanpa kebocoran', 'Sesuai untuk aplikasi plafon berkualifikasi'],
     specs: { 'Model': 'ZSTDY', 'Rentang ukuran': 'DN15 - DN20 (1/2" - 3/4")', 'Material': 'Baja tahan karat', 'Kelas suhu': '68 °C (155 °F)', 'Permukaan': 'Lapisan krom galvanis', 'Sertifikasi': 'Sesuai permintaan', 'Aplikasi': 'Sistem sprinkler pemadam plafon tersembunyi' , 'Koefisien Aliran': 'K=80 ±4 / K=115 ±9', 'Tekanan Uji': '3.0 MPa'},
-    materials: { 'Bodi sprinkler': 'Baja tahan karat', 'Ampul kaca': 'Kaca (cairan merah, 68 °C)', 'Roset / penutup': 'Kuningan berlapis krom' }, image: '/assets/products/zstdy-concealed-fire-sprinkler.webp', seoTitle: 'Kepala Sprinkler Plafon Tersembunyi ZSTDY', seoDescription: 'Kepala sprinkler plafon tersembunyi ZSTDY DN15-DN20 dengan penutup dekoratif, baja tahan karat berlapis krom, dan terdaftar UL.'
+    materials: { 'Bodi sprinkler': 'Baja tahan karat', 'Ampul kaca': 'Kaca (cairan merah, 68 °C)', 'Roset / penutup': 'Kuningan berlapis krom' }, image: '/assets/products/zstdy-concealed-fire-sprinkler.webp', seoTitle: 'Kepala Sprinkler Plafon Tersembunyi ZSTDY', seoDescription: 'Kepala sprinkler plafon tersembunyi ZSTDY DN15-DN20 dengan penutup dekoratif, baja tahan karat berlapis krom.'
   },
   'storz-coupling-2-5inch-aluminum': {
     id: '43', slug: 'storz-coupling-2-5inch-aluminum', name: 'Kopling Pemadam Storz Aluminium 2.5" (Standar Jerman)', category: 'Gulungan Selang & Lemari Hidran',

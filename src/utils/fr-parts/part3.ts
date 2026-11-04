@@ -63,7 +63,7 @@ export const productsFrPart3: Record<string, Product> = {
       'Bouchons': 'Fonte grise / Aluminium avec chaîne',
     },
     image: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp',
-    seoTitle: 'Hydrant Extérieur SS100 à Colonne | Antigel UL',
+    seoTitle: 'Hydrant Extérieur SS100 à Colonne | Antigel',
     seoDescription:
       'Hydrant extérieur à colonne haute pression SS100 avec drainage antigel. Corps en fonte ductile robuste. Approuvé pour l\u2019alimentation en eau municipale et la sécurité forestière.',
     faqs: [

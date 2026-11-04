@@ -94,7 +94,7 @@ export const productsTrPart3: Record<string, Product> = {
   },
   'ul-fm-resilient-seat-osy-gate-valve': {
     id: '38', slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Yangın Güvenliği Elastomer Yataklı OS&Y Sürgülü Vana', category: 'Endüstriyel Vanalar & Pislik Tutucular',
-    description: 'Yangın güvenliği sistemleri için yivli uçlara sahip, UL ve FM sertifikalı elastomer yataklı OS&Y (dış vidalı ve boyunduruklu) sürgülü vana. Sfero döküm gövde ve yükselen mil, açık/kapalı konumu net biçimde gösterir.',
+    description: 'Yangın güvenliği sistemleri için yivli uçlara sahip, elastomer yataklı OS&Y (dış vidalı ve boyunduruklu) sürgülü vana. Sfero döküm gövde ve yükselen mil, açık/kapalı konumu net biçimde gösterir.',
     features: ['Yangın güvenliği uygulamaları için UL ve FM sertifikalı', 'Net konum göstergeli yükselen milli OS&Y tasarımı', 'Hızlı mekanik kaplin bağlantısı için yivli uçlar', 'Sızdırmaz kapanma için elastomer yataklı sfero döküm gövde', 'OEM ve ODM özelleştirme seçeneği'],
     specs: { 'Ölçü aralığı': '2" - 10" (DN50 - DN250)', 'Malzeme': 'Sfero döküm', 'Bağlantı': 'Yivli uçlar', 'Akışkan': 'Su', 'Kumanda': 'Manuel (OS&Y yükselen milli)', 'Yapı': 'Sürgülü vana', 'Sıcaklık': 'Normal sıcaklık', 'Sertifikasyon': 'UL / FM listeli', 'Özelleştirme': 'OEM / ODM' },
     materials: { 'Vana gövdesi': 'Sfero döküm', 'Mil': 'Pirinç / paslanmaz çelik', 'Yatak': 'Elastomer (EPDM)', 'El çarkı': 'Sfero döküm' }, image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
@@ -124,10 +124,10 @@ export const productsTrPart3: Record<string, Product> = {
   },
   'zstdy-concealed-fire-sprinkler': {
     id: '42', slug: 'zstdy-concealed-fire-sprinkler', name: 'Gizli Tavan Yangın Sprinkler Başlığı ZSTDY', category: 'Yangın Sprinkleri & Alarm Vanaları',
-    description: 'Dekoratif kapak plakalı, galvanik krom kaplamalı ZSTDY gizli tavan sprinkler başlığı; üst segment tavan montajları için tasarlanmıştır. 68 °C kırmızı cam ampullü paslanmaz çelik yapıya sahiptir ve UL listelidir.',
-    features: ['Üst segment tavanlar için dekoratif kapak plakalı gizli tasarım', 'Galvanik krom kaplama ve paslanmaz çelik yapı', '68 °C (155 °F) sıcaklık sınıfına sahip kırmızı cam ampul', 'Sızdırmaz montaj için dişli ve conta yalıtımı', 'UL listeli, nitelikli tavan uygulamalarına uygun'],
+    description: 'Dekoratif kapak plakalı, galvanik krom kaplamalı ZSTDY gizli tavan sprinkler başlığı; üst segment tavan montajları için tasarlanmıştır. 68 °C kırmızı cam ampullü paslanmaz çelik yapıya sahiptir.',
+    features: ['Üst segment tavanlar için dekoratif kapak plakalı gizli tasarım', 'Galvanik krom kaplama ve paslanmaz çelik yapı', '68 °C (155 °F) sıcaklık sınıfına sahip kırmızı cam ampul', 'Sızdırmaz montaj için dişli ve conta yalıtımı', 'Nitelikli tavan uygulamalarına uygun'],
     specs: { 'Model': 'ZSTDY', 'Ölçü aralığı': 'DN15 - DN20 (1/2" - 3/4")', 'Malzeme': 'Paslanmaz çelik', 'Sıcaklık sınıfı': '68 °C (155 °F)', 'Yüzey': 'Galvanik krom kaplama', 'Sertifikasyon': 'UL listeli', 'Uygulama': 'Gizli tavan yangın sprinkler sistemleri' , 'Debi Katsayısı': 'K=80 ±4 / K=115 ±9', 'Test Basıncı': '3.0 MPa'},
-    materials: { 'Sprinkler gövdesi': 'Paslanmaz çelik', 'Cam ampul': 'Cam (kırmızı sıvı, 68 °C)', 'Rozet / kapak': 'Krom yüzeyli pirinç' }, image: '/assets/products/zstdy-concealed-fire-sprinkler.webp', seoTitle: 'Kapaklı Gizli Tavan Sprinkler Başlığı ZSTDY', seoDescription: 'Dekoratif kapaklı, krom kaplamalı paslanmaz çelik ZSTDY DN15-DN20 gizli tavan sprinkler başlığı, UL listeli. Fabrika tedariki.'
+    materials: { 'Sprinkler gövdesi': 'Paslanmaz çelik', 'Cam ampul': 'Cam (kırmızı sıvı, 68 °C)', 'Rozet / kapak': 'Krom yüzeyli pirinç' }, image: '/assets/products/zstdy-concealed-fire-sprinkler.webp', seoTitle: 'Kapaklı Gizli Tavan Sprinkler Başlığı ZSTDY', seoDescription: 'Dekoratif kapaklı, krom kaplamalı paslanmaz çelik ZSTDY DN15-DN20 gizli tavan sprinkler başlığı. Fabrika tedariki.'
   },
   'storz-coupling-2-5inch-aluminum': {
     id: '43', slug: 'storz-coupling-2-5inch-aluminum', name: '2.5" Alüminyum Storz İtfaiye Kaplini (Alman Standardı)', category: 'Yangın Hortum Makaraları & Dolapları',
