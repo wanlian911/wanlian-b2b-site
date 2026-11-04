@@ -16,7 +16,7 @@ export const productsEsPart4: Record<string, Product> = {
       'Variante antidrenaje/contra congelamiento disponible para regiones muy frías'
     ],
     specs: {
-      'Norma': 'KWS / BS 336; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'KWS / BS 336; Informes de ensayo disponibles bajo petición',
       'Diámetro Nominal de Entrada': 'DN100 / DN150',
       'Configuración de Salidas': '2 x 65mm (KWS65), opción 65 + 80mm',
       'Presión Nominal': '1.6 MPa (PN16)',
@@ -91,7 +91,7 @@ export const productsEsPart4: Record<string, Product> = {
       'Construcción de latón forjado duradera, empacado de 50 piezas por caja para suministro de proyectos'
     ],
     specs: {
-      'Norma': 'NFPA 13 / GB 50084; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'NFPA 13 / GB 50084; Informes de ensayo disponibles bajo petición',
       'Serie de Modelo': 'ESFR-202 / ESFR-242 / ESFR-363, ZSTX-161',
       'Clasificación de Temperatura': '74°C (165°F)',
       'Orientación': 'Pendo (PY) / Vertical (UY)',

@@ -12,10 +12,10 @@ export const productsEsPart1: Record<string, Product> = {
       'Cuña elástica totalmente encapsulada en caucho EPDM de alta calidad',
       'Diseño de fondo plano que evita la acumulación de suciedad y sedimentos',
       'Recubrimiento de resina epoxi no tóxico interior y exterior para resistencia a la corrosión y oxidación',
-      'Fácil mantenimiento: procedimiento de reemplazo del sellado y condiciones aplicables disponibles en documentación técnica bajo solicitud'
+      'Fácil mantenimiento: procedimiento de reemplazo del sellado y condiciones aplicables disponibles en documentación técnica bajo petición'
     ],
     specs: {
-      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo petición',
       'Diámetro Nominal': 'DN50 - DN700 (2" a 28")',
       'Presión Nominal': '1.0 MPa / 1.6 MPa (PN10 / PN16)',
       'Temperatura de Trabajo': '0°C a 80°C',
@@ -45,7 +45,7 @@ export const productsEsPart1: Record<string, Product> = {
       },
       {
         question: '¿Puede reemplazarse el sello del Z41X sin drenar la línea?',
-        answer: 'El procedimiento de reemplazo del sellado, sus condiciones aplicables y límites de seguridad están documentados para este tipo de válvula; podemos proporcionar la documentación técnica bajo solicitud.'
+        answer: 'El procedimiento de reemplazo del sellado, sus condiciones aplicables y límites de seguridad están documentados para este tipo de válvula; podemos proporcionar la documentación técnica bajo petición.'
       },
       {
         question: '¿Qué medios y temperaturas puede manejar el Z41X?',
@@ -66,7 +66,7 @@ export const productsEsPart1: Record<string, Product> = {
       'Recubrimiento en polvo anticorrosivo de color rojo'
     ],
     specs: {
-      'Norma': 'BS 5912; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'BS 5912; Informes de ensayo disponibles bajo petición',
       'Conexión': 'Ranurada / Con brida',
       'Tamaño': 'DN65 (2.5")',
       'Presión de Trabajo': '1.6 MPa (232 PSI)', 'Presión de Prueba': '2.4 MPa', 'Medio Aplicable': 'Agua, mezcla de espuma contra incendios', 'Rosca de Conexión': 'G2½',
@@ -163,7 +163,7 @@ export const productsEsPart1: Record<string, Product> = {
       'Disco de sellado elástico duradero para sellado bidireccional'
     ],
     specs: {
-      'Norma': 'GB/T 13927 / EN 12266-1; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'GB/T 13927 / EN 12266-1; Informes de ensayo disponibles bajo petición',
       'Rango de Tamaños': 'DN50 - DN300 (2" a 12")',
       'Presión de Trabajo': '1.6 MPa (PN16)',
       'Material del Cuerpo': 'Hierro dúctil (QT450)',
@@ -194,7 +194,7 @@ export const productsEsPart1: Record<string, Product> = {
       'Tubería piloto de cobre/acero inoxidable resistente a la corrosión'
     ],
     specs: {
-      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo petición',
       'Diámetro Nominal': 'DN50 - DN400',
       'Presión de Trabajo': '1.0 MPa / 1.6 MPa',
       'Material del Cuerpo': 'Hierro dúctil / Acero fundido',
@@ -254,7 +254,7 @@ export const productsEsPart1: Record<string, Product> = {
       'Cuerpo de hierro dúctil duradero con pintura epoxi'
     ],
     specs: {
-      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo petición',
       'Rango de Tamaños': 'DN50 - DN600',
       'Presión de Trabajo': '1.0 MPa / 1.6 MPa',
       'Material de la Malla': 'SS304 / SS316',
@@ -285,7 +285,7 @@ export const productsEsPart1: Record<string, Product> = {
       'Costo de mantenimiento muy bajo: basta reemplazar los pernos de seguridad y reiniciar'
     ],
     specs: {
-      'Norma': 'GB 4452 / KWS 65; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'GB 4452 / KWS 65; Informes de ensayo disponibles bajo petición',
       'Diámetro Nominal': 'DN100 / DN150',
       'Presión Nominal': '1.6 MPa',
       'Conexión de Entrada': 'Con brida',
@@ -380,7 +380,7 @@ export const productsEsPart1: Record<string, Product> = {
       'Superficie pulida y cromada para una apariencia decorativa elegante'
     ],
     specs: {
-      'Norma': 'CCCF; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'CCCF; Informes de ensayo disponibles bajo petición',
       'Diámetro Nominal': 'DN15 (R1/2") / DN20 (R3/4")',
       'Coeficiente de Caudal': 'K=80 ±4 / K=115 ±9',
       'Tipos de Respuesta': 'Respuesta estándar (bulbo de 5mm) / Respuesta rápida (bulbo de 3mm)',
