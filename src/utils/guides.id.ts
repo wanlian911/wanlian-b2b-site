@@ -17,8 +17,8 @@ export const guidesId: Guide[] = [
     tags: ['sprinkler-systems', 'fire-protection']
   },
   {
-    title: 'AWWA C509 vs EN 14461: Perbandingan Hidran (2026)',
-    description: 'Perbandingan hidran AWWA C509 dan EN 14461: kelas tekanan, outlet, material, uji tipe, dan cara menyusun spesifikasi hidran yang diterima AHJ.',
+    title: 'AWWA C502/C503 vs EN 14461: Perbandingan Hidran (2026)',
+    description: 'Perbandingan hidran AWWA C502/C503 dan EN 14461: kelas tekanan, outlet, material, uji tipe, dan cara menyusun spesifikasi hidran yang diterima AHJ.',
     href: '/id/guides/awwa-c509-vs-en-14461-fire-hydrants/',
     tocPreview: ["1. Standar yang Sebenarnya Dipakai Spesifikasi", "2. Tekanan Nominal dan Kedalaman Pemasangan", "3. Susunan Outlet dan Pola Kopling"],
     date: '2026-10',
