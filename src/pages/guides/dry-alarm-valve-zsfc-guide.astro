@@ -1,0 +1,190 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'How do I know whether my building needs a dry-pipe system instead of a wet system?',
+		answer: 'A dry-pipe system is appropriate wherever the piping itself can freeze: unheated warehouses, cold stores, attics, parking structures and covered outdoor areas. If the space can drop below 4°C anywhere in the sprinkler network, a wet system is normally unsuitable and a permanent heating or antifreeze solution is impractical, the dry-pipe arrangement with a ZSFC dry alarm valve is the standard answer. Where the space is heated throughout, a wet system with a ZSFZ alarm valve is simpler and responds faster. Confirm the minimum sustained temperature of every protected zone before choosing.'
+	},
+	{
+		question: 'What air pressure should the dry system be maintained at?',
+		answer: 'The ZSFC group is normally supervised at a low system-side pressure - the catalogue value for the standard arrangement is 0.03 - 0.05 MPa - high enough to hold the clapper closed and to give the pressure switch a reliable trip signal, but low enough that a sprinkler operation vents the piping quickly. The exact supervisory pressure is set from the valve differential and the piping volume, not copied from another site. Provide a supervisory low-pressure switch and record the air maintenance method (compressed air plant or nitrogen cylinder) on the equipment schedule.'
+	},
+	{
+		question: 'Is nitrogen better than compressed air for filling the system?',
+		answer: 'Dry air or nitrogen both work; the practical difference is moisture. Nitrogen is inert and cannot add water vapour, so condensate accumulation is slower. Compressed air is cheaper to supply but carries moisture unless it is properly dried, and condensate is the main driver of internal corrosion and blocked auxiliary drains in dry installations. Whichever gas you specify, provide low-point drains and a condensate removal procedure, and state the choice on the RFQ so the air-supply accessories match.'
+	},
+	{
+		question: 'How fast must water reach the open sprinkler after a dry valve trips?',
+		answer: 'Fill time is measured from valve opening to water discharge at the most remote sprinkler, and it depends on the air volume, the venting arrangement and the piping layout. Design codes express a maximum - EN 12845 and NFPA 13 use a commonly cited value of about 60 seconds where the installation is verified, with a longer allowance where it is not - and larger networks may need an accelerator or exhauster to meet it. Treat the fill-time target as a design input to the valve group, and confirm the applicable figure against the current edition and the AHJ.'
+	},
+	{
+		question: 'What causes a dry alarm valve to trip with no fire, and how do buyers prevent it?',
+		answer: 'Most nuisance trips trace back to the air side: a slow leak that drops supervisory pressure below the trip margin, a frozen or blocked auxiliary drain, a faulty pressure switch, or a trim that was restored incorrectly after testing. Prevent it by specifying a leak-rate check at commissioning, supervising the air pressure electrically, routing drains where they can be observed, and requiring the installer to hand over the trip-test record. The valve group itself should be supplied with clear restoration instructions.'
+	},
+	{
+		question: 'Does the ZSFC valve group include accelerators or exhausters?',
+		answer: 'The standard group includes the delay chamber, water-motor alarm gong and inlet/outlet pressure gauges. An accelerator or exhauster is a design-driven accessory: it is fitted where the piping volume and the required fill time demand faster venting. State the target fill time and the piping volume on your enquiry so the supply scope is unambiguous - do not assume the accessory is included, and do not assume it is excluded.'
+	}
+];
+
+const toc = [
+	{ id: 'when-dry', label: '1. When a Dry-Pipe System Is the Right Answer' },
+	{ id: 'how-it-works', label: '2. How the ZSFC Dry Alarm Valve Holds Closed and Trips' },
+	{ id: 'valve-comparison', label: '3. Dry Alarm Valve vs Wet Alarm Valve vs Pre-action' },
+	{ id: 'sizing-air', label: '4. Sizing the Valve and Managing the Air Side' },
+	{ id: 'installation', label: '5. Installation, Drains and Freeze-Protection Details' },
+	{ id: 'troubleshooting', label: '6. Troubleshooting Nuisance Trips and Slow Water Delivery' },
+	{ id: 'rfq-checklist', label: '7. Dry Alarm Valve RFQ Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const products = [
+	{ slug: 'dry-alarm-valve-zsfc', name: 'Dry Alarm Valve (ZSFC Series)', img: '/assets/products/dry-alarm-valve-zsfc.webp', desc: 'DN100 - DN200 dry-pipe control valve with delay chamber and alarm gong' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'Wet Alarm Check Valve (ZSFZ Series)', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'The wet-system counterpart for heated spaces' },
+	{ slug: 'pre-action-alarm-system-zsfy', name: 'Pre-action Deluge Alarm System (ZSFY Series)', img: '/assets/products/pre-action-alarm-system-zsfy.jpg', desc: 'Dual-signal arrangement for water-sensitive spaces' },
+	{ slug: 'glass-bulb-fire-sprinkler-zst', name: 'Glass Bulb Fire Sprinkler (ZST Series)', img: '/assets/products/glass-bulb-fire-sprinkler-zst.webp', desc: 'Quick-response closed heads served by the dry network' }
+];
+---
+
+<Layout
+	title="Dry Alarm Valve (ZSFC) Selection & Installation Guide"
+	description="How a ZSFC dry alarm valve works, dry-pipe vs wet and pre-action selection, sizing, air maintenance, freeze protection, nuisance trips and RFQ data."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Dry Alarm Valve ZSFC Guide' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Dry Alarm Valve ZSFC Guide</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Dry Alarm Valve Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Dry Alarm Valve Selection and Installation: Freeze-Protection for Cold Spaces</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a dry alarm valve is the water control valve for a sprinkler system whose piping is normally filled with pressurised air or nitrogen instead of water. The supply side stays full; the clapper is held shut by the air pressure in the system. When a sprinkler fuses, air vents, pressure collapses, and the valve opens so water runs into the dry network and out of the open head. That single difference - empty, air-filled piping - is what lets sprinkler protection exist in unheated warehouses, cold stores and parking structures. This guide covers how the ZSFC group works, how it compares with wet and pre-action arrangements, and what a buyer must put on the RFQ so the air side is not forgotten.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="when-dry" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. When a Dry-Pipe System Is the Right Answer</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Choose a dry-pipe system when the sprinkler network itself can freeze. The classic cases are unheated warehouses and distribution sheds, cold-store corridors, roof voids and attics, multi-storey parking structures, canopies and loading areas, and industrial buildings in cold climates where keeping every corner above +4°C through winter is either impossible or far more expensive than the valve arrangement. In these spaces the wet alternative would burst pipes long before a fire ever starts, so the standard remedies are a dry system, a pre-action system, or a heated/antifreeze workaround - and for most ordinary storage hazards the dry system with a <a href="/products/dry-alarm-valve-zsfc/" class="text-brand-blue font-semibold hover:underline">ZSFC dry alarm valve</a> is the simplest compliant answer.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The same valve also acts as the water control device in pre-action arrangements, which is why the product literature positions the ZSFC for both dry-pipe and pre-action service. If the space is heated throughout, however, a <a href="/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ wet alarm check valve</a> is the correct family: it reacts faster because there is no air to vent, and it carries far less maintenance. A dry system is not "better engineered" - it is a deliberate trade of slower water delivery for freeze immunity, and the buyer should be able to state which constraint drove the choice.</p>
+			<p class="text-gray-700 leading-relaxed">For the wider system picture - hazard classes, design density and where each system type belongs - read the <a href="/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">wet, dry and pre-action comparison</a> and the <a href="/fire-sprinkler-systems/" class="text-brand-blue font-semibold hover:underline">fire sprinkler systems overview</a>. For outdoor hydrant-side freeze protection, the cold-climate logic is covered separately in the <a href="/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">antifreeze hydrant guide</a>.</p>
+
+			<h2 id="how-it-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. How the ZSFC Dry Alarm Valve Holds Closed and Trips</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The ZSFC is a clapper-type valve with water under pressure on one side and supervised air or nitrogen on the other. In normal service, the system-side gas pressure - the standard catalogue arrangement is supervised at 0.03 - 0.05 MPa - acts over the diaphragm area together with the clapper's own geometry and holds it on its seat. The water side remains full and ready. Inlet and outlet pressure gauges on the group let an inspector confirm both pressures at a glance.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">When a heat-operated sprinkler opens, gas escapes from the highest point of the dry network, system pressure falls, and once the differential across the clapper reverses the valve opens instantly. Water enters the piping, sweeps the trapped air out through the vents, reaches the operating sprinkler, and simultaneously drives the alarm path: the delay chamber smooths out pressure jitter so wind or minor leakage cannot nuisance-alarm the installation, then feeds the <strong>water-motor alarm gong</strong>, with pressure switches available for monitored signal transmission to the fire alarm panel.</p>
+			<p class="text-gray-700 leading-relaxed">Treat the assembly, not just the body, as the product. The ZSFC group ships with delay chamber, alarm gong and gauges; accelerator/exhauster devices, low-air pressure switches, priming water connections and supervised upstream isolation are design-dependent accessories that should be listed line-by-line on the schedule. Where an accelerator is needed, it exists for one reason: to pull the fill time within the code maximum on a large network - see section 4.</p>
+
+			<h2 id="valve-comparison" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Dry Alarm Valve vs Wet Alarm Valve vs Pre-action</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Buyers frequently shorten the decision to "dry vs wet", but the air side changes the maintenance model, and pre-action adds a detection interlock that changes the risk profile again. The table below contrasts the four alarm-valve families at a glance; detailed system-level selection logic is covered in the <a href="/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">wet, dry and pre-action guide</a> and the <a href="/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">deluge valve guide</a>.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Arrangement</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Piping in normal state</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What opens the valve</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical application</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Dry pipe (ZSFC)</td>
+							<td class="px-4 py-3 text-gray-700">Air / nitrogen under supervision, no water</td>
+							<td class="px-4 py-3 text-gray-700">Sprinkler fuses and vents the air</td>
+							<td class="px-4 py-3 text-gray-700">Freezable spaces: cold stores, parking, attics</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Wet pipe (ZSFZ)</td>
+							<td class="px-4 py-3 text-gray-700">Full of water at supply pressure</td>
+							<td class="px-4 py-3 text-gray-700">Sprinkler fuses and water flows immediately</td>
+							<td class="px-4 py-3 text-gray-700">Heated buildings - the default choice</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pre-action (ZSFY)</td>
+							<td class="px-4 py-3 text-gray-700">Pressurised air, monitored for leaks</td>
+							<td class="px-4 py-3 text-gray-700">Detection, sprinkler operation, or both per interlock type</td>
+							<td class="px-4 py-3 text-gray-700">Water-sensitive or false-discharge-critical rooms</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Deluge (ZSFM)</td>
+							<td class="px-4 py-3 text-gray-700">Open heads, empty piping</td>
+							<td class="px-4 py-3 text-gray-700">Detection releases the whole open network at once</td>
+							<td class="px-4 py-3 text-gray-700">High-speed hazards, monitor and foam duties</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 id="sizing-air" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Sizing the Valve and Managing the Air Side</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The ZSFC line is supplied in <strong>DN100, DN150 and DN200</strong> (models ZSFC100 / ZSFC150 / ZSFC200) with flanged connections and a <strong>1.6 MPa (PN16)</strong> nominal rating. Select the size from the hydraulic calculation for the protected zone - design flow, available inlet pressure and allowable loss across the valve - not from the header diameter alone. Body is ductile iron QT450 with an EPDM/NBR-covered clapper, suited to the full dry-pipe pressure cycle rather than to occasional use.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The air side is where dry systems live or die. Three numbers should be documented before you order anything: the <strong>system volume</strong> (how much gas the network holds), the <strong>supervisory pressure</strong> (the standard group sits at 0.03 - 0.05 MPa, adjusted to the site differential), and the <strong>target fill time</strong>. Codes express a maximum interval from valve trip to water at the remote sprinkler - commonly cited as about 60 seconds on verified installations, with a longer allowance where verification is not provided; confirm the governing figure against the current edition of NFPA 13, EN 12845 or the local standard named in the specification. Networks whose volume-to-vent ratio cannot meet that figure need an accelerator or exhauster fitted to the valve group.</p>
+			<p class="text-gray-700 leading-relaxed">Then decide how the pressure is maintained. A dedicated air compressor with a maintenance-free motor, or a nitrogen cylinder panel with automatic changeover: nitrogen reduces condensate formation because it introduces no additional moisture, while compressed air needs a dryer and stricter drain discipline. Whichever route is chosen, fit a supervisory low-pressure switch wired to the alarm panel so a slow leak announces itself days before it can trip the valve - this single device prevents most of the nuisance trips described in section 6.</p>
+
+			<h2 id="installation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Installation, Drains and Freeze-Protection Details</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Install the dry alarm valve in a heated, accessible valve room wherever the layout allows it - the valve itself must never be the thing that freezes. Upstream, provide a supervised rising-stem isolation valve such as the <a href="/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">UL/FM resilient-seated OS&amp;Y gate valve</a> so the installer can lock the supply open and an inspector can see the position at a glance; a hidden butterfly valve in the supply line is how dry systems get found closed. The <a href="/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">control valve types guide</a> covers the full isolation logic.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Water, in small but persistent quantities, will appear inside the dry piping from the gas supply and from temperature swings. Design for it: slope the mains to low points, fit a main drain that can be observed discharging, and install <strong>auxiliary drains</strong> at every intermediate low point with the quick-opening type devices where the layout demands faster tripping. Record the drain locations on the as-built drawing; a blocked auxiliary drain is one of the most common field faults, and it is invisible until someone opens it.</p>
+			<p class="text-gray-700 leading-relaxed">Alarm plumbing deserves the same attention as the water path: keep the alarm line short and clear, confirm the water-motor gong is audible at the required locations, wire the pressure switches, and commission the air-maintenance equipment with its own check. Heads served by a dry network are ordinary closed sprinklers such as the <a href="/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">ZST glass-bulb sprinkler</a>; nothing about the head changes between wet and dry service, but orientation and drainage paths do.</p>
+
+			<h2 id="troubleshooting" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Troubleshooting Nuisance Trips and Slow Water Delivery</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>The valve trips with no fire.</strong> In almost every case the air side lost pressure faster than the makeup arrangement could replace it: a leaking fitting or corroded branch, a frozen-and-then-thawed drain, a gauge or switch that was disturbed during other works, or a pressure switch set too close to the working band. Diagnose by logging supervisory pressure over a week and by performing a leak-rate test on the isolated network, rather than by resetting and hoping. The delay chamber should absorb normal jitter; if the gong sounds on wind, check its trim for blockage.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Water takes too long after a legitimate trip.</strong> The usual chain: oversized air volume with no accelerator, venting arrangement that traps air, auxiliary drains partly blocked with condensate, or a clapper that is not fully lifting because trim was restored incorrectly. Measure fill time at the remote test point as part of commissioning and keep the record - it becomes the baseline every subsequent trip test is judged against.</p>
+			<p class="text-gray-700 leading-relaxed">Maintenance codes such as NFPA 25 put dry-pipe systems on more frequent cycles than wet ones for exactly these reasons: monthly gauge and supervisory checks, seasonal trip testing with drain verification, and prompt restoration afterwards. Where a pre-action variant is in place, the <a href="/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">ZSFY system page</a> and the <a href="/guides/water-flow-indicator-guide/" class="text-brand-blue font-semibold hover:underline">water flow indicator guide</a> cover the additional detection and signal paths. Confirm each interval against the current edition and the AHJ instead of copying an old site checklist.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Dry Alarm Valve RFQ Checklist</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>State the space and the cold case.</strong> Heated or unheated, minimum recorded temperature, and why a wet system is unsuitable - this is what justifies dry-pipe to the specifier.</li>
+				<li><strong>Give the hydraulic data.</strong> Design flow, available supply pressure, the governed zone layout and the piping air volume, so the size (DN100 / DN150 / DN200) and any accelerator can be verified rather than guessed.</li>
+				<li><strong>Fix the fill-time target.</strong> Name the governing standard and edition and the maximum interval from trip to remote discharge; ask the supplier to confirm the selected group meets it for your volume.</li>
+				<li><strong>Define the alarm and signal scope.</strong> Delay chamber, water-motor gong, gauges, pressure switches, panel contacts - list what is supplied and what the alarm contractor provides.</li>
+				<li><strong>Define the air-maintenance scope.</strong> Compressed air or nitrogen, compressor or cylinder panel, supervisory low-pressure switch, and who supplies the trim between them.</li>
+				<li><strong>Address drainage and freeze risk at the valve room.</strong> Confirm the valve location stays above freezing and state the main/auxiliary drain arrangement expected.</li>
+				<li><strong>Request documents per model.</strong> Assembly drawing and trim schematic, pressure test record for the shipped valve, material particulars, installation and maintenance instructions - and where a listing or certification is specified, ask the supplier to confirm current supporting documentation for the exact model.</li>
+				<li><strong>Set the acceptance test.</strong> Trip test with measured fill time at the remote point, alarm verification at the gong and panel, drain flow confirmation, and restoration record signed before handover.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">A dry-pipe installation succeeds or fails on the air side, and most RFQs only price the valve. Sending the seven data points above lets Wanlian quote the complete ZSFC group - valve, delay chamber, alarm and instrument set - against a stated fill-time requirement, with the division of supply between valve house and alarm contractor written on the schedule instead of argued on site.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Specifying a Dry-Pipe System?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the space, the minimum temperature, the piping volume and your fill-time target - our engineers can confirm the ZSFC group and alarm trim configuration within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Dry%20Alarm%20Valve%20%28ZSFC%29" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20a%20dry%20alarm%20valve%20group%20for%20a%20dry-pipe%20or%20pre-action%20system" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

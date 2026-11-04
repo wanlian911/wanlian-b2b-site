@@ -16,6 +16,16 @@ export interface Guide {
 // 内容工厂单一数据源:新增指南只需在此追加一条
 export const guides: Guide[] = [
   {
+    title: 'Dry Alarm Valve (ZSFC) Selection & Installation Guide',
+    description: 'How a ZSFC dry alarm valve works, dry-pipe vs wet and pre-action selection, sizing, air maintenance, freeze protection, nuisance trips and RFQ data.',
+    href: '/guides/dry-alarm-valve-zsfc-guide/',
+    tocPreview: ["1. When a Dry-Pipe System Is the Right Answer", "2. How the ZSFC Dry Alarm Valve Holds Closed and Trips", "3. Dry Alarm Valve vs Wet Alarm Valve vs Pre-action"],
+    date: '2026-11',
+    category: 'Fire Protection',
+    readTime: '8 min read',
+    tags: ['sprinkler-systems', 'fire-protection']
+  },
+  {
     title: 'Deluge Valve Sizing and Selection Guide (2026)',
     description: 'How a ZSFM deluge valve works, how to size it for flow and trip time, actuation options, open-head and monitor layouts, testing and RFQ data.',
     href: '/guides/deluge-valve-selection-guide/',
