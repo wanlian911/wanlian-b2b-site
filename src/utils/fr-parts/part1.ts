@@ -33,7 +33,7 @@ export const productsFrPart1: Record<string, Product> = {
     dimensions: {
       headers: ['DN (mm)', 'L (mm)', 'D (mm)', 'D1 (mm)', 'z-Φd (trous)', 'H (mm)'], rows: [['50', '180', '160', '125', '4-Φ18', '350'], ['65', '195', '180', '145', '4-Φ18', '370'], ['80', '205', '195', '160', '4-Φ18', '395'], ['100', '230', '215', '180', '8-Φ18', '415'], ['125', '258', '245', '210', '8-Φ18', '460'], ['150', '265', '280', '240', '8-Φ18', '500'], ['200', '295', '335', '295', '8-Φ23', '710'], ['250', '325', '390', '350', '12-Φ23', '1150'], ['300', '365', '440', '400', '12-Φ23', '1400'], ['350', '420', '500', '460', '12-Φ23', '1680'], ['400', '450', '565', '515', '16-Φ23', '1750'], ['450', '480', '615', '565', '20-Φ25', '1850'], ['500', '510', '670', '620', '20-Φ25', '1950'], ['600', '540', '780', '725', '20-Φ30', '2100'], ['700', '660', '895', '840', '24-Φ30', '2250']] },
     image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp',
-    seoTitle: 'Vanne à Boisseau Z41X Siège Élastomère | Fonte Ductile UL',
+    seoTitle: 'Vanne à Boisseau Z41X Siège Élastomère | Fonte Ductile',
     seoDescription:
       'Vanne à boisseau Z41X en fonte ductile à siège élastomère : faible perte de charge, étanchéité parfaite pour systèmes fluides industriels. Prix usine de Quanzhou Wanlian Fluid.',
     faqs: [
@@ -182,7 +182,7 @@ export const productsFrPart1: Record<string, Product> = {
       'Disque d\u2019étanchéité élastomère durable pour étanchéité bidirectionnelle',
     ],
     specs: {
-      'Norme': 'UL/FM / GB/T 13927 / EN 12266-1; Rapports d’essai disponibles sur demande',
+      'Norme': 'GB/T 13927 / EN 12266-1; Rapports d’essai disponibles sur demande',
       'Gammes de taille': 'DN50 - DN300 (2" to 12")',
       'Pression de service': '1.6 MPa (PN16)',
       'Matériau du corps': 'Fonte ductile (QT450)',

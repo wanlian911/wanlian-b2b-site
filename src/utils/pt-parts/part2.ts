@@ -338,7 +338,7 @@ export const productsPtPart2: Record<string, Product> = {
       'Tampas Cegas': 'Cast Iron / Aluminum with chain'
     },
     image: '/assets/products/overground-fire-hydrant-ssf100-65-1-6.webp',
-    seoTitle: 'Hidrante Externo SS100 Anticongelante | UL',
+    seoTitle: 'Hidrante Externo SS100 Anticongelante',
     seoDescription: 'Hidrante externo de alta pressão SS100 com drenagem anticongelante e corpo de ferro fundido dúctil para redes municipais de água. Fábrica Wanlian Fluid, China.',
     faqs: [
       {

@@ -180,10 +180,10 @@ export const productsFrPart4: Record<string, Product> = {
   'ul-fm-resilient-seat-osy-gate-valve': {
     id: '38',
     slug: 'ul-fm-resilient-seat-osy-gate-valve',
-    name: 'Vanne à Boisseau OS&Y à Siège Élastomère UL/FM pour Protection Incendie',
+    name: 'Vanne à Boisseau OS&Y à Siège Élastomère pour Protection Incendie',
     category: 'Vannes et Pièces',
     description:
-      "Vanne à boisseau OS&Y (Outside Screw and Yoke) à siège élastomère certifiée UL et FM avec extrémités à gorge pour les systèmes de protection incendie. Corps en fonte nodulaire avec indicateur de tige montante pour une visibilité claire de la position ouverte/fermée.",
+      "Vanne à boisseau OS&Y (Outside Screw and Yoke) à siège élastomère avec extrémités à gorge pour les systèmes de protection incendie. Corps en fonte nodulaire avec indicateur de tige montante pour une visibilité claire de la position ouverte/fermée.",
     features: [
       'Certifiée UL et FM pour le service de protection incendie',
       'Conception OS&Y à tige montante avec indication de position claire',
@@ -209,9 +209,9 @@ export const productsFrPart4: Record<string, Product> = {
       'Volant': 'Fonte ductile',
     },
     image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
-    seoTitle: 'Vanne à Boisseau OS&Y à Siège Élastomère UL/FM | Extrémités à Gorge',
+    seoTitle: 'Vanne à Boisseau OS&Y à Siège Élastomère | Extrémités à Gorge',
     seoDescription:
-      "Vanne à boisseau OS&Y à siège élastomère certifiée UL/FM avec extrémités à gorge pour les systèmes de protection incendie. Fonte nodulaire, tige montante. Prix usine Wanlian Fluid.",
+      "Vanne à boisseau OS&Y à siège élastomère avec extrémités à gorge pour les systèmes de protection incendie. Fonte nodulaire, tige montante. Prix usine Wanlian Fluid.",
     faqs: [
       {
         question: 'Cette vanne à boisseau OS&Y est-elle réellement listée UL et FM ?',
@@ -344,13 +344,13 @@ export const productsFrPart4: Record<string, Product> = {
     name: 'Gicleur Dissimulé ZSTDY (Encastré)',
     category: "Gicleurs et Vannes d'Alarme",
     description:
-      "Gicleur dissimulé (encastré) ZSTDY avec finition chromée par électrodéposition et plaque de couverture décorative pour les installations de plafonds haut de gamme. Construction en acier inoxydable avec ampoule vitrée rouge 68°C, certifié UL.",
+      "Gicleur dissimulé (encastré) ZSTDY avec finition chromée par électrodéposition et plaque de couverture décorative pour les installations de plafonds haut de gamme. Construction en acier inoxydable avec ampoule vitrée rouge 68°C.",
     features: [
       'Conception dissimulée avec plaque de couverture décorative pour plafonds premium',
       'Finition chromée par électrodéposition, construction en acier inoxydable',
       "Classement en température de l'ampoule vitrée rouge 68°C (155°F)",
       'Étanchéité par filetage et joint pour une installation sans fuite',
-      'Certifié UL, idéal pour les applications de plafonds haut de gamme',
+      'Idéal pour les applications de plafonds haut de gamme',
     ],
     specs: {
       'Modèle': 'ZSTDY',
@@ -369,7 +369,7 @@ export const productsFrPart4: Record<string, Product> = {
     image: '/assets/products/zstdy-concealed-fire-sprinkler.webp',
     seoTitle: 'Gicleur Dissimulé ZSTDY | Encastré Chrome',
     seoDescription:
-      'Gicleur dissimulé ZSTDY DN15-DN20 avec plaque de couverture décorative pour plafonds haut de gamme. Acier inoxydable chromé par électrodéposition, certifié UL. Prix usine Wanlian.',
+      'Gicleur dissimulé ZSTDY DN15-DN20 avec plaque de couverture décorative pour plafonds haut de gamme. Acier inoxydable chromé par électrodéposition. Prix usine Wanlian.',
   },
   'storz-coupling-2-5inch-aluminum': {
     id: '43',

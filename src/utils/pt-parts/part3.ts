@@ -94,12 +94,12 @@ export const productsPtPart3: Record<string, Product> = {
     seoTitle: 'Válvula de Flutuador 100X-16P de Controle Remoto', seoDescription: 'Válvula de flutuador 100X-16P em aço inox CF8, DN40-DN300, flangeada e hidráulica para controle automático do nível. Fábrica na China.',
   },
   'ul-fm-resilient-seat-osy-gate-valve': {
-    id: '38', slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Válvula de Gaveta OS&Y com Assento Elástico UL/FM', category: 'Válvulas e Peças',
-    description: 'Válvula de gaveta OS&Y (haste externa e jugo) com assento elástico, certificada UL e FM, com extremidades ranuradas para sistemas de proteção contra incêndio. Corpo de ferro fundido nodular com haste ascendente que indica claramente a posição aberta ou fechada.',
+    id: '38', slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Válvula de Gaveta OS&Y com Assento Elástico', category: 'Válvulas e Peças',
+    description: 'Válvula de gaveta OS&Y (haste externa e jugo) com assento elástico, com extremidades ranuradas para sistemas de proteção contra incêndio. Corpo de ferro fundido nodular com haste ascendente que indica claramente a posição aberta ou fechada.',
     features: ['Certificada UL e FM para serviço de proteção contra incêndio', 'Haste ascendente OS&Y com indicação clara da posição', 'Conexões ranuradas para acoplamento mecânico rápido', 'Corpo de ferro fundido nodular com assento elástico e fechamento estanque', 'Personalização OEM / ODM disponível'],
     specs: { 'Faixa de Tamanhos': '2" - 10" (DN50 - DN250)', 'Material': 'Nodular Cast Iron', 'Conexão': 'Grooved Ends', 'Meio': 'Water', 'Operação': 'Manual (OS&Y Rising Stem)', 'Estrutura': 'Gate Valve', 'Temperatura': 'Normal Temperature', 'Certificação': 'UL / FM Listed', 'Personalização': 'OEM / ODM' },
     materials: { 'Corpo da Válvula': 'Nodular Cast Iron', 'Haste': 'Brass / Stainless Steel', 'Assento': 'Resilient (EPDM)', 'Volante': 'Ductile Iron' }, image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
-    seoTitle: 'Válvula de Gaveta OS&Y UL/FM com Assento Elástico', seoDescription: 'Válvula de gaveta OS&Y UL/FM com assento elástico e extremidades ranuradas para proteção contra incêndio. Fornecedor e fábrica da China.',
+    seoTitle: 'Válvula de Gaveta OS&Y com Assento Elástico', seoDescription: 'Válvula de gaveta OS&Y com assento elástico e extremidades ranuradas para proteção contra incêndio. Fornecedor e fábrica da China.',
     faqs: [{ question: 'Esta válvula de gaveta OS&Y é certificada UL e FM?', answer: 'O modelo é listado para proteção contra incêndio. Confirmamos o modelo exato, o número do certificado e a cobertura por pedido, com certificados na documentação; verifique o número no órgão emissor.' }, { question: 'Por que especificar extremidades ranuradas para redes de incêndio?', answer: 'As extremidades ranuradas usam acoplamentos mecânicos em vez de solda ou parafusos: instalação mais rápida, alinhamento em campo e substituição muito mais ágil da válvula.' }, { question: 'O que indica a haste ascendente de uma válvula OS&Y?', answer: 'A haste ascendente OS&Y (haste externa e jugo) mostra a posição de relance: totalmente elevada significa aberta e abaixada significa fechada, algo importante para o isolamento monitorado da rede.' }, { question: 'Qual faixa de tamanhos está disponível?', answer: 'De 2 a 10 polegadas (DN50 a DN250), em ferro fundido nodular com assento elástico EPDM para fechamento estanque e personalização OEM/ODM.' }]
   },
   'metal-fire-extinguisher-box-red': {
@@ -128,11 +128,11 @@ export const productsPtPart3: Record<string, Product> = {
   },
   'zstdy-concealed-fire-sprinkler': {
     id: '42', slug: 'zstdy-concealed-fire-sprinkler', name: 'Rociador Contra Incêndio Embutido (Oculto) ZSTDY', category: 'Rociadores e Válvulas de Alarme',
-    description: 'Rociador embutido ZSTDY com acabamento cromado eletrodepositado e placa decorativa para instalações de teto de alto padrão. Construção em aço inox com bulbo de vidro vermelho de 68°C, listado UL.',
-    features: ['Design oculto com placa decorativa para tetos de alto padrão', 'Acabamento cromado eletrodepositado e construção em aço inox', 'Bulbo de vidro vermelho com classificação de 68°C (155°F)', 'Vedação por rosca e junta para instalação sem vazamentos', 'Listado UL, ideal para aplicações em tetos sofisticados'],
+    description: 'Rociador embutido ZSTDY com acabamento cromado eletrodepositado e placa decorativa para instalações de teto de alto padrão. Construção em aço inox com bulbo de vidro vermelho de 68°C.',
+    features: ['Design oculto com placa decorativa para tetos de alto padrão', 'Acabamento cromado eletrodepositado e construção em aço inox', 'Bulbo de vidro vermelho com classificação de 68°C (155°F)', 'Vedação por rosca e junta para instalação sem vazamentos', 'Ideal para aplicações em tetos sofisticados'],
     specs: { 'Modelo': 'ZSTDY', 'Faixa de Tamanhos': 'DN15 - DN20 (1/2" - 3/4")', 'Material': 'Stainless Steel', 'Classificação de Temperatura': '68°C (155°F)', 'Acabamento': 'Electroplated Chrome', 'Certificação': 'UL Listed', 'Aplicação': 'Concealed Ceiling Fire Sprinkler Systems' , 'Coeficiente de Vazão': 'K=80 ±4 / K=115 ±9', 'Pressão de Teste': '3.0 MPa'},
     materials: { 'Corpo do Rociador': 'Stainless Steel', 'Bulbo': 'Glass (Red Liquid, 68°C)', 'Canopla / Cobertura': 'Brass with Chrome Finish' }, image: '/assets/products/zstdy-concealed-fire-sprinkler.webp',
-    seoTitle: 'Rociador Embutido ZSTDY com Cobertura Decorativa', seoDescription: 'Rociador embutido ZSTDY DN15-DN20 em aço inox cromado, com cobertura decorativa e listado UL para tetos de alto padrão. Fábrica na China.',
+    seoTitle: 'Rociador Embutido ZSTDY com Cobertura Decorativa', seoDescription: 'Rociador embutido ZSTDY DN15-DN20 em aço inox cromado, com cobertura decorativa para tetos de alto padrão. Fábrica na China.',
   },
   'storz-coupling-2-5inch-aluminum': {
     id: '43', slug: 'storz-coupling-2-5inch-aluminum', name: 'Acoplamento Storz de Alumínio 2.5" (Padrão Alemão)', category: 'Armários de Incêndio e Interfaces',
