@@ -174,7 +174,7 @@ export const products: Product[] = [
       'Durable resilient sealing disk for bi-directional sealing'
     ],
     specs: {
-      'Standard': 'UL/FM; type testing to GB/T 13927 and EN 12266-1; certificates available on request',
+      'Standard': 'type testing to GB/T 13927 and EN 12266-1; certificates available on request',
       'Size Range': 'DN50 - DN300 (2" to 12")',
       'Working Pressure': '1.6 MPa (PN16)',
       'Body Material': 'Ductile Iron (QT450)',
@@ -192,7 +192,7 @@ export const products: Product[] = [
 image: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp',
     infographic: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80-infographic.svg',
     seoTitle: 'Signal Wafer Butterfly Valve with Position Switch DN50-DN300 PN16 Fire Sprinkler System',
-    seoDescription: 'Signal wafer butterfly valve with microswitch position indicator, DN50-DN300 PN16. Ductile iron QT450 body, for fire sprinkler system supervision. UL/FM available. Factory price.'
+    seoDescription: 'Signal wafer butterfly valve with microswitch position indicator, DN50-DN300 PN16. Ductile iron QT450 body, for fire sprinkler system supervision. UL or FM listed units can be sourced on request. Factory price.'
   },
   {
     id: '6',
