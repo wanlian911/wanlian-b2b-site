@@ -16,6 +16,16 @@ export interface Guide {
 // 内容工厂单一数据源:新增指南只需在此追加一条
 export const guides: Guide[] = [
   {
+    title: 'Water Hammer Protection for Fire Water Systems (2026)',
+    description: 'Water hammer and pressure surge in fire water and municipal lines: how to size the spike, which valves close without slamming, and what to put on the RFQ.',
+    href: '/guides/water-hammer-protection-fire-water-systems/',
+    tocPreview: ["1. What Water Hammer Is - and Why Fire Water Systems Get It", "2. Sizing the Pressure Rise: Joukowsky in Plain Terms", "3. The Triggers Buyers Actually Encounter"],
+    date: '2026-11',
+    category: 'Valve Engineering',
+    readTime: '9 min read',
+    tags: ['industrial-valves', 'backflow-prevention', 'fire-protection']
+  },
+  {
     title: 'Dry Alarm Valve (ZSFC) Selection & Installation Guide',
     description: 'How a ZSFC dry alarm valve works, dry-pipe vs wet and pre-action selection, sizing, air maintenance, freeze protection, nuisance trips and RFQ data.',
     href: '/guides/dry-alarm-valve-zsfc-guide/',

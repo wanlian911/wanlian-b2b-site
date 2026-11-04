@@ -1,0 +1,268 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+const faq = [
+	{
+		question: 'How do I know whether my fire water system really has a water hammer problem?',
+		answer: 'Three field signatures are enough to justify investigation: an audible knock or bang from the valve chamber at pump start, pump trip or tank-valve shut-off; a needle on a discharge gauge that swings visibly past normal working pressure and then rings back; and unexplained failures concentrated at one place - a burst gauge siphon, a cracked sight glass, a weeping flange or a check valve clapper damaged at the seat. Fire lines are often charged but idle, so the transient only appears during the weekly or monthly pump test. Log the pump test with a gauge or a simple transient recorder before you buy anything: knowing whether the spike is at start, at stop, or at valve shut-off changes which device fixes it.'
+	},
+	{
+		question: 'Which check valve type is least likely to slam - a spherical ball check or a swing check?',
+		answer: 'Closure speed of the disc, not the label on the valve, decides the noise and the pressure spike. A swing check with a hinged flap depends on gravity and reverse flow to return the disc, so on a large-diameter main with high return velocity it can land hard. The HQ44X-16 spherical ball check valve uses an EPDM-vulcanised rolling sphere in a full-flow, non-blocking body; the catalogue describes it as low start-up flow with completely silent, non-slam closing, and it is offered DN50 - DN400 at 1.6 MPa (PN16) with a nodular cast iron body tested to GB/T 13927. Ask for the closure behaviour to be stated in writing for the size and flow you are buying, and compare head loss as well - both matter at the pump duty point.'
+	},
+	{
+		question: 'Can an automatic tank fill valve stop overflow without creating hammer?',
+		answer: 'Yes, if you choose a modulating valve rather than a hard on/off float. The F745X hydraulic water level control valve is pilot-operated from a brass float pilot and closes progressively as the reservoir reaches the set level, which is why its own design notes emphasise smooth, slow closing to avoid destructive water hammer; it needs no external power and covers DN50 - DN400 at 1.0 / 1.6 MPa. For smaller or hygiene-critical tanks the 100X-16P remote control float valve does the same job with a stainless (CF8) body, DN40 - DN300, rated to 1.0 MPa. A simple ball float on a small isolation valve is the version that slams, because it interrupts the whole design flow in a fraction of a second.'
+	},
+	{
+		question: 'Do I need a formal surge analysis for a fire water network?',
+		answer: 'Commission one when the geometry makes the wave unavoidable rather than occasional: long transmission mains (roughly several hundred metres or more), significant static lift, high working pressure, large pump sets, or a quick-acting device such as a solenoid-operated valve on the line. In those cases a transient calculation tells you the true peak and where the peaks concentrate, and it will also settle whether air valves, a slower closure time or a relief device is the cheapest fix. For a compact pump room with short runs, the checklist and witness tests in this guide are normally sufficient - but write the closure-time requirement into the specification either way.'
+	},
+	{
+		question: 'Are air valves and vortex preventers worth specifying on a suction side?',
+		answer: 'On a tank or reservoir suction they are cheap insurance. Air entering through a vortex carries straight into the pump as cavitation, which both damages the impeller and makes the column unstable, so an unstable column produces uneven, harder transients when the pump stops. The EN 12845 suction vortex preventer is a stainless (SS304 / SS316) vortex plate built to EN 12845 and GB 50974-2014, made DN50 - DN1000, and it also lets the tank drain down to about 100 mm. High-point air release on distribution mains matters just as much: trapped air reduces the effective column stiffness, encourages corrosion and gives the classic gurgling, pulsing discharge during a flow test.'
+	},
+	{
+		question: 'What should the factory prove before a surge-sensitive valve ships?',
+		answer: 'Separate two things. Shell and seat containment is a documented production test - API 598 is the usual reference for valve pressure testing, and the Wanlian test logic is set out in the API 598 valve testing guide. Non-slam or slow-closing behaviour is a design characteristic, so ask for the statement to appear on the datasheet for the exact size, together with the closure-time figure or the pilot arrangement that produces it, plus the type-test standard named on the datasheet (for example GB/T 13927 or EN 12266-1). Then verify on site with the witnessed pump-test and tank-fill cycle described in section 6.'
+	}
+];
+
+const toc = [
+	{ id: 'what-water-hammer-is', label: '1. What Water Hammer Is - and Why Fire Water Systems Get It' },
+	{ id: 'size-the-pressure-rise', label: '2. Sizing the Pressure Rise: Joukowsky in Plain Terms' },
+	{ id: 'triggers-fire-water', label: '3. The Triggers Buyers Actually Encounter' },
+	{ id: 'valve-selection-surge', label: '4. Non-Slam and Slow-Closing Valve Selection' },
+	{ id: 'system-piping-measures', label: '5. Piping and System Measures That Cut the Surge' },
+	{ id: 'commissioning-diagnosis', label: '6. Commissioning, Witness Tests and Field Diagnosis' },
+	{ id: 'rfq-checklist', label: '7. Water Hammer RFQ and Specification Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const products = [
+	{ slug: 'spherical-ball-check-valve-hq44x', name: 'Spherical Ball Check Valve (HQ44X-16)', img: '/assets/products/spherical-ball-check-valve-hq44x.webp', desc: 'Non-blocking full-flow body, silent non-slam closing, DN50 - DN400 PN16' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'Hydraulic Water Level Control Valve (F745X)', img: '/assets/products/hydraulic-water-level-control-valve-f745x.webp', desc: 'Float-pilot level control that closes progressively, no external power' },
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: 'Adjustable Pressure Reducing Valve (500X)', img: '/assets/products/pressure-reducing-valve-500x-dn50.webp', desc: 'Self-operated pilot PRV, slow-closing, DN20 - DN600' },
+	{ slug: 'suction-vortex-preventer-en12845', name: 'Suction Vortex Preventer (EN 12845)', img: '/assets/products/suction-vortex-preventer-en12845.webp', desc: 'SS304/316 vortex plate, DN50 - DN1000, stops air entrainment' }
+];
+---
+
+<Layout
+	title="Water Hammer Protection for Fire Water Systems (2026)"
+	description="Water hammer and pressure surge in fire water and municipal lines: how to size the spike, which valves close without slamming, and what to put on the RFQ."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Water Hammer Protection' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Water Hammer Protection</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Surge and Water Hammer Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Water Hammer and Surge Protection in Fire Water and Municipal Lines</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: water hammer is a pressure spike created when a moving column of water is stopped - or started - faster than the pipeline can absorb the change. The kinetic energy of the column has to go somewhere, so it converts into a pressure wave that runs the length of the pipe, reflects off the next boundary, and loads every flange, gauge, elbow, valve seat and pump casing on the way. Fire water and municipal distribution systems are unusually exposed, because the events that matter most - a pump starting against a closed discharge, a check valve landing on reverse flow, a tank valve shutting at full design flow, a monitor snapped open - are exactly the fast velocity changes the physics punishes. A valve rated 1.6 MPa is rated for steady working pressure, not for a transient that can briefly exceed it. This guide covers how to size the surge, which valve designs genuinely reduce it, what the piping can do instead of the valve, how to verify the result at commissioning, and what to write on the RFQ so the question is answered before you buy.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<h2 id="what-water-hammer-is" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. What Water Hammer Is - and Why Fire Water Systems Get It</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Two events create almost all of the hammer seen on fire and water supply installations. The first is <strong>valve closure</strong>: stop the flow in a time shorter than the pressure wave needs to travel to the nearest boundary and back, and the full theoretical pressure rise appears at the valve. The second is <strong>pump behaviour</strong> - a pump tripping while its discharge check is still open lets the column run back, the check closes hard, and the returning water slams into the closed disc. In both cases the wave reflects between the valve, the tank and the pump, and the peak seen by pipework is a multiple of the steady working pressure rather than an addition to it.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Fire water systems attract the problem for structural reasons. They are charged and idle for months, so joints tighten, air accumulates and operators rarely exercise the valves; pumps are frequently oversized against the actual duty; risers and yard loops end in dead ends where the wave has nowhere gentle to dissipate; and the commissioning flow test - the one moment the system moves water quickly - is exactly when the transient appears. A system that has behaved quietly for two years can produce its first bang during a flow test, and the test is also when a weak component fails.</p>
+			<p class="text-gray-700 leading-relaxed">The commercial consequence is that hammer is bought, not discovered. If nobody states a required closure time or a non-slam requirement at quotation stage, the cheapest compliant valve is supplied, and the buyer pays later in gauges, seats, gaskets and unplanned shutdowns. The same logic applies to the pump room arrangement covered in the <a href="/guides/fire-pump-room-valves-guide/" class="text-brand-blue font-semibold hover:underline">fire pump room valve guide</a>: the valves are only half of the design.</p>
+
+			<h2 id="size-the-pressure-rise" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Sizing the Pressure Rise: Joukowsky in Plain Terms</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">You do not need specialised software to judge whether a surge is credible - the classical Joukowsky relation gives the order of magnitude in one line: <strong>dP = rho x a x dV</strong>, where <em>rho</em> is water density (about 1,000 kg/m3), <em>a</em> is the pressure wave speed in the filled pipe (m/s) and <em>dV</em> is the change in velocity (m/s). Wave speed is not a property of water alone: it depends on pipe material, diameter, wall thickness and how well the line is restrained. As a planning guide, restrained metallic water mains are commonly taken in the region of roughly 900 - 1,300 m/s, while polyethylene and PVC pressure pipe are considerably lower because the wall stretches. The table below uses an assumed a = 1,000 m/s so the arithmetic can be checked by hand; substitute your own pipe data before you use it on a project.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Velocity change dV</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Pressure rise at a = 1,000 m/s</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Equivalent head</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical event that produces it</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">0.5 m/s</td>
+							<td class="px-4 py-3 text-gray-700">0.50 MPa (about 5 bar)</td>
+							<td class="px-4 py-3 text-gray-700">about 51 m</td>
+							<td class="px-4 py-3 text-gray-700">A controlled pump ramp-down, or a modulating level valve approaching set point</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">1.0 m/s</td>
+							<td class="px-4 py-3 text-gray-700">1.00 MPa (about 10 bar)</td>
+							<td class="px-4 py-3 text-gray-700">about 102 m</td>
+							<td class="px-4 py-3 text-gray-700">A check valve seating as reverse flow begins on a distribution main</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">2.0 m/s</td>
+							<td class="px-4 py-3 text-gray-700">2.00 MPa (about 20 bar)</td>
+							<td class="px-4 py-3 text-gray-700">about 204 m</td>
+							<td class="px-4 py-3 text-gray-700">A pump trip discharging into a line whose isolation valve is nearly closed</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">3.0 m/s</td>
+							<td class="px-4 py-3 text-gray-700">3.00 MPa (about 30 bar)</td>
+							<td class="px-4 py-3 text-gray-700">about 306 m</td>
+							<td class="px-4 py-3 text-gray-700">A monitor, cannon or hydrant branch opened sharply into a charged main</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Two consequences matter to a buyer. First, the rise depends on how fast the change happens, not on how big the valve is: closing in a time longer than <strong>2L / a</strong> (the pipe length there and back, divided by wave speed) reduces the peak roughly in proportion, which is why a slow-closing or modulating valve is a legitimate surge device. For a 200 m restrained metallic main at 1,000 m/s, that critical period is under half a second - faster than most people expect, and far faster than a quarter-turn valve operated by hand. Second, the transient is a <em>pressure</em> problem in a system specified by <em>working</em> pressure, so PN16 pipework can be asked to absorb 2.5 MPa for a few cycles. Repeated cycling is fatigue, and fatigue finds the weakest joint first.</p>
+			<p class="text-gray-700 leading-relaxed">If the arithmetic puts your expected surge anywhere near the class rating, treat that as the trigger to specify mitigation deliberately rather than to hope the installer is careful. Section 5 lists the piping-side options, which are usually cheaper than reclassing a whole network.</p>
+
+			<h2 id="triggers-fire-water" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. The Triggers Buyers Actually Encounter</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Pump start against a closed or nearly closed discharge.</strong> The line fills rapidly, the wave runs to the dead end and returns; the pressure gauge at the pump tells the story if you watch it.</li>
+				<li><strong>Pump trip and reverse rotation.</strong> Reverse flow builds until the check valve closes; how hard it closes is a property of the disc and its hinge or guide, not of the trip itself.</li>
+				<li><strong>Check valve slam on a large main.</strong> A hinged flap relying on gravity to return is the classic offender at high return velocity - see the comparison in <a href="/guides/check-valve-types-guide/" class="text-brand-blue font-semibold hover:underline">check valve types and selection</a>.</li>
+				<li><strong>Automatic tank valves shutting at full flow.</strong> A ball float on a simple isolation valve interrupts the entire fill flow almost instantly; a pilot-modulating valve does not.</li>
+				<li><strong>Quick-actuation devices.</strong> A solenoid-pilot valve such as the <a href="/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">GKZF-1 grooved solenoid control gate valve</a> gives you the automatic control a fire water network needs - and, because it is fast, a closure time that has to be specified rather than assumed.</li>
+				<li><strong>Air in the line.</strong> Trapped air at high points and vacuum conditions let the water column separate and then rejoin; that reunion produces sharp spikes quite apart from any valve operation, and long draining of a tank through a suction that vortexes is one of the easiest ways to invite it.</li>
+				<li><strong>Thermal and installation strain.</strong> Not a wave, but it fails valves the same way: a fully encapsulated wedge locked between two fixed points with no allowance for movement binds, and a bound gate valve closes unevenly. Expansion allowance is exactly what the <a href="/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">Z41X-T telescopic gate valve</a> exists to provide.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Name the trigger before you name the product. A buyer who can tell a supplier "the bang happens at tank fill shut-off, roughly DN150, 80 m of ductile iron, 0.6 MPa static" gets a technical answer; a buyer who says "we have hammer" gets a catalogue.</p>
+
+			<h2 id="valve-selection-surge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Non-Slam and Slow-Closing Valve Selection</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Valves address surge in three ways: they close in a controlled, slow or modulating manner; they close without an impact of their own; or they remove the condition (air, debris, unstable pilot) that makes a valve behave badly. The table maps the drivers from section 3 to the device families actually in the Wanlian catalogue, with the specification limits you should confirm on the datasheet - not on a marketing sheet.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Surge driver</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Device that addresses it</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Why it helps</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Confirm on the datasheet</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Check valve slam on reverse flow</td>
+							<td class="px-4 py-3 text-gray-700"><a href="/products/spherical-ball-check-valve-hq44x/" class="text-brand-blue font-semibold hover:underline">HQ44X-16 spherical ball check</a></td>
+							<td class="px-4 py-3 text-gray-700">EPDM-vulcanised rolling ball seats as reverse flow begins; catalogue describes silent, non-slam closing with low start-up flow</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN400, 1.6 MPa (PN16), nodular cast iron body, testing to GB/T 13927</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">High inlet pressure transmitted downstream</td>
+							<td class="px-4 py-3 text-gray-700"><a href="/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">500X adjustable pressure reducing valve</a></td>
+							<td class="px-4 py-3 text-gray-700">Self-operated pilot holds a set downstream pressure and is described as smooth slow-closing, which avoids surges rather than creating them</td>
+							<td class="px-4 py-3 text-gray-700">DN20 - DN600; nominal 1.0 / 1.6 / 2.5 MPa; adjustment range 0.1 - 1.6 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Tank fill shutting off at full flow</td>
+							<td class="px-4 py-3 text-gray-700"><a href="/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">F745X hydraulic water level control</a></td>
+							<td class="px-4 py-3 text-gray-700">Brass float pilot modulates the main valve, so the flow tapers instead of being cut; runs on line pressure with no electrical supply</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN400, 1.0 / 1.6 MPa, EPDM diaphragm with nylon reinforcement, stainless pilot piping</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Small or hygiene-critical tanks</td>
+							<td class="px-4 py-3 text-gray-700"><a href="/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">100X-16P remote control float valve</a></td>
+							<td class="px-4 py-3 text-gray-700">Float-pilot operation in cast stainless (CF8) where corrosion or water quality rules out ductile iron</td>
+							<td class="px-4 py-3 text-gray-700">DN40 - DN300, 0 - 1.0 MPa, flanged, -50 C to 100 C</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Air entrainment and cavitation at suction</td>
+							<td class="px-4 py-3 text-gray-700"><a href="/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">EN 12845 suction vortex preventer</a></td>
+							<td class="px-4 py-3 text-gray-700">Vortex plate prevents the air core at the suction eye, so the pump takes water rather than an air-water mixture that makes the column unstable</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN1000, SS304 / SS316, built to EN 12845 and GB 50974-2014, drains to about 100 mm</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pilot valves clogging and hunting</td>
+							<td class="px-4 py-3 text-gray-700"><a href="/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">SGL41H telescopic Y-strainer</a></td>
+							<td class="px-4 py-3 text-gray-700">Protects pilot ports and needle valves from construction debris; the integrated expansion joint lets the screen be pulled without cutting pipe</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN600, 1.0 / 1.6 MPa, SS304 / SS316 screen, 18 - 30 mesh for water</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Deliberate slow isolation of a section</td>
+							<td class="px-4 py-3 text-gray-700"><a href="/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">OS&amp;Y resilient seat gate valve</a></td>
+							<td class="px-4 py-3 text-gray-700">A multi-turn wedge closes gradually and the rising stem shows position at a glance - the opposite of a quarter-turn valve snapped shut</td>
+							<td class="px-4 py-3 text-gray-700">2" - 10" (DN50 - DN250), grooved ends, nodular cast iron, rising-stem indication</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">The pattern worth remembering: <strong>multi-turn and pilot-modulated devices are surge-friendly; quarter-turn and on/off devices are surge-generating</strong> unless their actuator is deliberately slowed. A resilient seated gate valve such as the <a href="/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X</a> used as an isolation valve takes many turns to close and therefore rarely makes hammer by itself; a butterfly or ball valve opened or shut in a second can. Where automation is required, ask the supplier how the fast device is sequenced - a pilot-operated solenoid group whose main valve is a resilient-seat gate closes far more gently than an actuated butterfly of the same DN.</p>
+			<p class="text-gray-700 leading-relaxed">For the wider trade-off between gate, butterfly and check arrangements in fire service, the comparison in <a href="/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">gate valve vs butterfly valve for fire protection</a> and the hydraulic control family overview in the <a href="/guides/pressure-reducing-valve-guide/" class="text-brand-blue font-semibold hover:underline">500X PRV and water supply valve guide</a> cover selection logic this page deliberately does not repeat.</p>
+
+			<h2 id="system-piping-measures" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Piping and System Measures That Cut the Surge</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Valve choice is only one lever, and often not the cheapest. From the buyer's side of the table, these are the measures that actually reduce the peak, roughly in the order they are decided on a project:</p>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Extend the closure time on anything that shuts automatically.</strong> Specify the required closure duration in seconds on the RFQ for solenoid, level-control and actuated valves, and make the supplier confirm it. This is the single most effective change on most systems.</li>
+				<li><strong>Release the air.</strong> Air release at high points and vacuum provision at low points keep the column continuous. Combined with a vortex preventer on the tank suction, this removes the two conditions that turn a manageable spike into an erratic one.</li>
+				<li><strong>Restraint and support.</strong> Thrust blocks at bends and adequately anchored runs stop the wave from being paid for in movement, which is where gaskets and gland seals fail. Allowance for thermal movement - an expansion joint or a telescopic valve - keeps the valve body unstressed.</li>
+				<li><strong>Match the pump to the duty, and stage what starts.</strong> Oversized pumps and simultaneous starts multiply the initial wave; a minimum-flow or relief path on the discharge protects the pump when the line is closed. The arrangement is set out in the <a href="/guides/fire-pump-room-valves-guide/">pump room valve guide</a> and the <a href="/guides/fire-pump-suction-water-tank-guide/">suction and tank arrangement guide</a>.</li>
+				<li><strong>Fill and drain slowly.</strong> Charge long mains through a small fill connection rather than dumping supply into an empty line, and never let the tank run down to a vortexing suction level.</li>
+				<li><strong>Reduce the wave path where the layout allows.</strong> Shorter runs, fewer dead ends and properly positioned isolation points lower both the peak and the number of components exposed to it.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">On potable and combined municipal networks, the same devices also carry a hygiene and backflow duty, so coordinate the surge decision with the prevention arrangement - the <a href="/guides/backflow-prevention-guide/">backflow prevention guide</a> and the <a href="/backflow-prevention/" class="text-brand-blue font-semibold hover:underline">hydraulic control solution page</a> cover that side of the specification.</p>
+
+			<h2 id="commissioning-diagnosis" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Commissioning, Witness Tests and Field Diagnosis</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Surge is verified by behaviour, not by paperwork. The tests below cost nothing beyond the hour they take, and they belong in the commissioning record next to the flow test:</p>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Watch, do not just listen.</strong> During pump start and during tank fill shut-off, observe the discharge gauge for overshoot past normal working pressure. A needle that visibly slams and rings back is your evidence; a steady rise is not a problem.</li>
+				<li><strong>Cycle the automatic devices.</strong> Trip the pump with the discharge path as loaded as it will realistically be, and listen at the check valve. Do it deliberately and with people clear of the line, and repeat it after any change of closure setting.</li>
+				<li><strong>Confirm closure time with a stopwatch.</strong> For a valve specified to close in a set number of seconds, measure it and record it. This is the figure your whole surge argument rests on.</li>
+				<li><strong>Purge the air.</strong> Run the flow test with high-point vents operated, and treat pulsing or gurgling discharge at the test point as an air problem rather than a pump problem.</li>
+				<li><strong>Inspect the seats afterwards.</strong> Damage concentrated on one clapper or seat tells you where the impact happened.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">On the supply side, be clear about what a factory test proves. Shell and seat pressure testing per API 598 demonstrates containment - the logic is laid out in the <a href="/guides/api-598-valve-pressure-test-guide/" class="text-brand-blue font-semibold hover:underline">API 598 valve pressure test and FAT guide</a>. Non-slam or slow-closing behaviour is a design characteristic verified by the datasheet, the named type-test standard and the witnessed field cycle, so ask for the closure figure explicitly rather than assuming a pressure test certificate covers it. Material and traceability checks sit in the <a href="/guides/valve-body-material-selection-guide/">valve body material selection guide</a>.</p>
+
+			<h2 id="rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Water Hammer RFQ and Specification Checklist</h2>
+			<ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed mb-4">
+				<li><strong>Name the event, not the symptom.</strong> Start, stop, tank shut-off or manual valve closure - state which one produces the noise or the gauge spike, and give the observed overshoot if you have it.</li>
+				<li><strong>Give the line geometry.</strong> Length, diameter, material, wall thickness, static lift and the highest and lowest points, so wave speed and the 2L/a closure criterion can actually be evaluated.</li>
+				<li><strong>State the flow and pressure at the event.</strong> Velocity in the main at the moment of closure, working pressure, and the pump curve or duty point.</li>
+				<li><strong>Specify closure time in seconds</strong> for every automatic or power-operated valve in the scope, and ask for confirmation that the offered valve meets it at the quoted size.</li>
+				<li><strong>Require non-slam wording for check valves</strong> and compare head loss at duty flow at the same time, so a quiet valve is not paid for in lost pressure.</li>
+				<li><strong>Include the protection accessories in the same line item.</strong> Strainer ahead of pilot-operated valves, isolation valves either side, vents and vacuum provision, vortex preventer at the suction - the accessories are where systems fail in practice.</li>
+				<li><strong>Fix the test regime.</strong> Factory pressure test standard (for example API 598, GB/T 13927 or EN 12266-1), what is witnessed at FAT, and what is re-verified on site after commissioning.</li>
+				<li><strong>Ask for the documents per model.</strong> Datasheet with closure data, pilot schematic and tubing arrangement, material particulars, dimensioned drawing, and installation and maintenance instructions - and where listing or certification is specified, ask the supplier to confirm current supporting documentation for that exact model.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Send those eight points with the enquiry and the quotation comes back as an engineering answer: which valve, sized how, closing in how long, protected by what. That is the difference between buying a valve and buying a system that stops banging.</p>
+
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Banging Pipelines or a Surge-Sensitive Specification?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the line length, diameter, material, working pressure and the event that causes the spike. Our engineers will review the closure-time requirement and recommend the valve and accessory set - typically within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Spherical%20Ball%20Check%20Valve%20%28HQ44X-16%29" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20we%20have%20water%20hammer%20on%20a%20fire%20water%20line%20and%20need%20non-slam%20valve%20advice" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
