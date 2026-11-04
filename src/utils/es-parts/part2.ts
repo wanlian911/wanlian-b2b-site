@@ -15,7 +15,7 @@ export const productsEsPart2: Record<string, Product> = {
       'Asiento encapsulado en EPDM que asegura larga vida útil y sellado completo'
     ],
     specs: {
-      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo petición',
       'Diámetro Nominal': 'DN50 - DN600',
       'Presión Nominal': '1.0 MPa / 1.6 MPa / 2.5 MPa',
       'Material del Cuerpo': 'Hierro dúctil / Acero fundido / Acero inoxidable',
@@ -167,7 +167,7 @@ export const productsEsPart2: Record<string, Product> = {
       'Recubrimiento interior y exterior de resina epoxi no tóxica'
     ],
     specs: {
-      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo petición',
       'Diámetro Nominal': 'DN50 - DN600',
       'Presión Nominal': '1.0 MPa / 1.6 MPa',
       'Rango Telescópico': '±25mm (compensación de expansión)',
@@ -322,7 +322,7 @@ export const productsEsPart2: Record<string, Product> = {
       'Base bridada subterránea estándar para conexión sencilla'
     ],
     specs: {
-      'Norma': 'KWS / BS 336; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'KWS / BS 336; Informes de ensayo disponibles bajo petición',
       'Diámetro Nominal': 'DN100 (4")',
       'Presión de Trabajo': '1.6 MPa',
       'Presión de Prueba': '2.4 MPa',
@@ -447,7 +447,7 @@ export const productsEsPart2: Record<string, Product> = {
       'Cumple estrictamente con las normas internacionales (GB, ANSI, DIN, JIS)'
     ],
     specs: {
-      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo petición',
       'Rango de Tamaños': 'DN15 - DN300 (1/2" a 12")',
       'Presión de Trabajo': '1.6 - 4.0 MPa (Clase 150/300)',
       'Temperatura de Trabajo': '-29°C a 425°C',
@@ -478,7 +478,7 @@ export const productsEsPart2: Record<string, Product> = {
       'Alta capacidad de respuesta, ideal para el control automático de redes de agua contra incendios'
     ],
     specs: {
-      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'GB / ANSI / DIN / JIS; Informes de ensayo disponibles bajo petición',
       'Rango de Tamaños': 'DN50 - DN300 (2" a 12")',
       'Voltaje del Solenoide': 'AC220V / DC24V',
       'Presión de Trabajo': '300 PSI (2.0 MPa)',
@@ -528,7 +528,7 @@ export const productsEsPart2: Record<string, Product> = {
       'Longitud, diámetro y logotipo personalizables (OEM)'
     ],
     specs: {
-      'Norma': 'BS 336 / KWS; Informes de ensayo disponibles bajo solicitud',
+      'Norma': 'BS 336 / KWS; Informes de ensayo disponibles bajo petición',
       'Rango de Tamaños': 'Diámetro interior de 19mm - 400mm',
       'Modelo': '8-65 (tamaño de acople estándar)',
       'Material': 'Revestimiento de caucho PVC',

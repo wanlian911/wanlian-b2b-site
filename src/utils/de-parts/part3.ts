@@ -95,7 +95,7 @@ export const productsDePart3: Record<string, Product> = {
   },
   'ul-fm-resilient-seat-osy-gate-valve': {
     id: '38', slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Absperrschieber OS&Y mit Weichdichtung', category: 'Industrieventile & Schmutzfänger',
-    description: 'UL- und FM-zertifizierter OS&Y-Absperrschieber (Outside Screw and Yoke) mit Weichdichtung und Nutenden für Brandschutzsysteme. Das Gehäuse aus Sphäroguss besitzt eine steigende Spindel zur eindeutigen Anzeige der geöffneten oder geschlossenen Stellung.',
+    description: 'OS&Y-Absperrschieber (Outside Screw and Yoke) mit Weichdichtung und Nutenden für Brandschutzsysteme. Das Gehäuse aus Sphäroguss besitzt eine steigende Spindel zur eindeutigen Anzeige der geöffneten oder geschlossenen Stellung.',
     features: ['UL- und FM-zertifiziert für Brandschutzanwendungen', 'Steigende OS&Y-Spindel mit eindeutiger Stellungsanzeige', 'Nutenden für schnelle mechanische Kupplung', 'Sphärogussgehäuse mit Weichdichtung für dichten Abschluss', 'OEM- und ODM-Individualisierung verfügbar'],
     specs: { 'Größenbereich': '2" - 10" (DN50 - DN250)', 'Material': 'Sphäroguss', 'Anschluss': 'Nutenden', 'Medium': 'Wasser', 'Betätigung': 'Manuell (OS&Y-Steigspindel)', 'Bauart': 'Absperrschieber', 'Temperatur': 'Normale Temperatur', 'Zertifizierung': 'Auf Anfrage', 'Individualisierung': 'OEM / ODM' },
     materials: { 'Ventilgehäuse': 'Sphäroguss', 'Spindel': 'Messing / Edelstahl', 'Sitz': 'Weichdichtung (EPDM)', 'Handrad': 'Sphäroguss' }, image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
@@ -125,10 +125,10 @@ export const productsDePart3: Record<string, Product> = {
   },
   'zstdy-concealed-fire-sprinkler': {
     id: '42', slug: 'zstdy-concealed-fire-sprinkler', name: 'Verdeckter Deckensprinkler ZSTDY', category: 'Sprinkler & Alarmventile',
-    description: 'Verdeckter Deckensprinkler ZSTDY mit galvanisch verchromter Oberfläche und dekorativer Abdeckplatte für hochwertige Deckeninstallationen. Edelstahlkonstruktion mit rotem Glasfass 68 °C, UL-gelistet.',
+    description: 'Verdeckter Deckensprinkler ZSTDY mit galvanisch verchromter Oberfläche und dekorativer Abdeckplatte für hochwertige Deckeninstallationen. Edelstahlkonstruktion mit rotem Glasfass 68 °C.',
     features: ['Verdeckte Ausführung mit dekorativer Abdeckplatte für hochwertige Decken', 'Galvanisch verchromte Oberfläche und Edelstahlkonstruktion', 'Rotes Glasfass mit Temperaturstufe 68 °C (155 °F)', 'Gewinde- und Dichtungsabdichtung für leckagefreie Montage', 'UL-gelistet, ideal für anspruchsvolle Deckenanwendungen'],
     specs: { 'Modell': 'ZSTDY', 'Größenbereich': 'DN15 - DN20 (1/2" - 3/4")', 'Material': 'Edelstahl', 'Temperaturstufe': '68 °C (155 °F)', 'Oberfläche': 'Galvanisch verchromt', 'Zertifizierung': 'Auf Anfrage', 'Anwendung': 'Verdeckte Deckensprinkleranlagen' , 'Durchflusskoeffizient': 'K=80 ±4 / K=115 ±9', 'Prüfdruck': '3.0 MPa'},
-    materials: { 'Sprinklergehäuse': 'Edelstahl', 'Glasfass': 'Glas (rote Flüssigkeit, 68 °C)', 'Rosette / Abdeckung': 'Messing mit Chromoberfläche' }, image: '/assets/products/zstdy-concealed-fire-sprinkler.webp', seoTitle: 'Verdeckter Deckensprinkler ZSTDY mit Abdeckung', seoDescription: 'Verdeckter Deckensprinkler ZSTDY DN15-DN20 aus verchromtem Edelstahl mit dekorativer Abdeckung, UL-gelistet. Werksangebot aus China.'
+    materials: { 'Sprinklergehäuse': 'Edelstahl', 'Glasfass': 'Glas (rote Flüssigkeit, 68 °C)', 'Rosette / Abdeckung': 'Messing mit Chromoberfläche' }, image: '/assets/products/zstdy-concealed-fire-sprinkler.webp', seoTitle: 'Verdeckter Deckensprinkler ZSTDY mit Abdeckung', seoDescription: 'Verdeckter Deckensprinkler ZSTDY DN15-DN20 aus verchromtem Edelstahl mit dekorativer Abdeckung. Werksangebot aus China.'
   },
   'storz-coupling-2-5inch-aluminum': {
     id: '43', slug: 'storz-coupling-2-5inch-aluminum', name: 'Storz-Feuerwehrkupplung aus Aluminium 2.5" (deutscher Standard)', category: 'Schlauchhaspeln & Hydrantenschränke',
