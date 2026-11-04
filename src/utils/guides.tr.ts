@@ -12,8 +12,8 @@ export const guidesTr: Guide[] = [
     tags: ['sprinkler-systems', 'fire-protection']
   },
   {
-    title: 'AWWA C509 ve EN 14461 Yangın Hidrantları',
-    description: 'AWWA C509 ve EN 14461 yangın hidrantlarını basınç, çıkış, malzeme ve test gereklilikleriyle karşılaştıran B2B tedarik rehberi.',
+    title: 'AWWA C502/C503 ve EN 14461 Yangın Hidrantları',
+    description: 'AWWA C502/C503 ve EN 14461 yangın hidrantlarını basınç, çıkış, malzeme ve test gereklilikleriyle karşılaştıran B2B tedarik rehberi.',
     href: '/tr/guides/awwa-c509-vs-en-14461-fire-hydrants/',
     tocPreview: ["1. Şartnamenizin gerçekten çağırdığı standart", "2. Anma basıncı ve çalışma derinliği", "3. Çıkış düzeni ve kaplin kalıpları"],
     date: '2026-10',

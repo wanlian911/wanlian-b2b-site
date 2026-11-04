@@ -26,8 +26,8 @@ export const guidesFr: GuideFr[] = [
     tags: ['sprinkler-systems', 'fire-protection']
   },
   {
-    title: 'AWWA C509 ou EN 14461 : guide des hydrants',
-    description: 'Comparaison AWWA C509 et EN 14461 : pression, sorties, matériaux, essais de type et spécification d’un hydrant conforme pour votre projet.',
+    title: 'AWWA C502/C503 ou EN 14461 : guide des hydrants',
+    description: 'Comparaison AWWA C502/C503 et EN 14461 : pression, sorties, matériaux, essais de type et spécification d’un hydrant conforme pour votre projet.',
     href: '/fr/guides/awwa-c509-vs-en-14461-fire-hydrants/',
     tocPreview: ["1. Quelle norme votre spécification invoque réellement", "2. Pression nominale et profondeur d’installation", "3. Disposition des sorties et types de raccordement"],
     date: '2026-10',
