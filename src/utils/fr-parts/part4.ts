@@ -185,7 +185,6 @@ export const productsFrPart4: Record<string, Product> = {
     description:
       "Vanne à boisseau OS&Y (Outside Screw and Yoke) à siège élastomère avec extrémités à gorge pour les systèmes de protection incendie. Corps en fonte nodulaire avec indicateur de tige montante pour une visibilité claire de la position ouverte/fermée.",
     features: [
-      'Certifiée UL et FM pour le service de protection incendie',
       'Conception OS&Y à tige montante avec indication de position claire',
       'Raccordements à extrémités à gorge pour un couplage mécanique rapide',
       'Corps en fonte nodulaire avec siège élastomère pour une fermeture sans goutte',

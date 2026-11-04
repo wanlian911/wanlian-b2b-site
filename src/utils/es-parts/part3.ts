@@ -285,7 +285,6 @@ export const productsEsPart3: Record<string, Product> = {
     category: 'Válvulas y Piezas',
     description: 'Válvula de compuerta OS&Y (husillo exterior y yugo) de asiento elástico, con extremos ranurados para sistemas de protección contra incendios. Cuerpo de hierro fundido nodular con vástago ascendente que indica con claridad la posición abierta o cerrada.',
     features: [
-      'Certificada UL y FM para servicio de protección contra incendios',
       'Diseño OS&Y de vástago ascendente con indicación clara de posición',
       'Conexiones de extremos ranurados para acople mecánico rápido',
       'Cuerpo de hierro fundido nodular con asiento elástico para cierre hermético sin goteo',

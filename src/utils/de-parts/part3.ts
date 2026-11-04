@@ -96,7 +96,7 @@ export const productsDePart3: Record<string, Product> = {
   'ul-fm-resilient-seat-osy-gate-valve': {
     id: '38', slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Absperrschieber OS&Y mit Weichdichtung', category: 'Industrieventile & Schmutzfänger',
     description: 'OS&Y-Absperrschieber (Outside Screw and Yoke) mit Weichdichtung und Nutenden für Brandschutzsysteme. Das Gehäuse aus Sphäroguss besitzt eine steigende Spindel zur eindeutigen Anzeige der geöffneten oder geschlossenen Stellung.',
-    features: ['UL- und FM-zertifiziert für Brandschutzanwendungen', 'Steigende OS&Y-Spindel mit eindeutiger Stellungsanzeige', 'Nutenden für schnelle mechanische Kupplung', 'Sphärogussgehäuse mit Weichdichtung für dichten Abschluss', 'OEM- und ODM-Individualisierung verfügbar'],
+    features: ['Steigende OS&Y-Spindel mit eindeutiger Stellungsanzeige', 'Nutenden für schnelle mechanische Kupplung', 'Sphärogussgehäuse mit Weichdichtung für dichten Abschluss', 'OEM- und ODM-Individualisierung verfügbar'],
     specs: { 'Größenbereich': '2" - 10" (DN50 - DN250)', 'Material': 'Sphäroguss', 'Anschluss': 'Nutenden', 'Medium': 'Wasser', 'Betätigung': 'Manuell (OS&Y-Steigspindel)', 'Bauart': 'Absperrschieber', 'Temperatur': 'Normale Temperatur', 'Zertifizierung': 'Auf Anfrage', 'Individualisierung': 'OEM / ODM' },
     materials: { 'Ventilgehäuse': 'Sphäroguss', 'Spindel': 'Messing / Edelstahl', 'Sitz': 'Weichdichtung (EPDM)', 'Handrad': 'Sphäroguss' }, image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
     seoTitle: 'Absperrschieber OS&Y mit Weichdichtung', seoDescription: 'OS&Y-Absperrschieber mit Weichdichtung und Nutenden für Brandschutzsysteme. Sphäroguss, steigende Spindel. Wanlian Fluid.',
