@@ -76,7 +76,7 @@ export const productsIdPart3: Record<string, Product> = {
   'ul-fm-resilient-seat-osy-gate-valve': {
     id: '38', slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'Katup Gerbang OS&Y Dudukan Karet untuk Proteksi Kebakaran', category: 'Katup Industri & Saringan (Strainer)',
     description: 'Katup gerbang OS&Y (Outside Screw and Yoke) dengan dudukan karet, ujung beralur untuk sistem proteksi kebakaran. Bodi besi cor nodular dengan batang naik memberikan indikasi posisi buka/tutup yang jelas.',
-    features: ['Bersertifikasi UL dan FM untuk aplikasi proteksi kebakaran', 'Desain batang naik OS&Y dengan indikator posisi yang jelas', 'Sambungan ujung beralur untuk kopling mekanis cepat', 'Bodi besi cor nodular dengan dudukan karet untuk penutupan rapat', 'Kustomisasi OEM / ODM tersedia'],
+    features: ['Desain batang naik OS&Y dengan indikator posisi yang jelas', 'Sambungan ujung beralur untuk kopling mekanis cepat', 'Bodi besi cor nodular dengan dudukan karet untuk penutupan rapat', 'Kustomisasi OEM / ODM tersedia'],
     specs: { 'Rentang ukuran': '2" - 10" (DN50 - DN250)', 'Material': 'Besi cor nodular', 'Sambungan': 'Ujung beralur', 'Media': 'Air', 'Pengoperasian': 'Manual (batang naik OS&Y)', 'Struktur': 'Katup gerbang', 'Suhu': 'Suhu normal', 'Sertifikasi': 'Sesuai permintaan', 'Kustomisasi': 'OEM / ODM' },
     materials: { 'Bodi katup': 'Besi cor nodular', 'Batang': 'Kuningan / baja tahan karat', 'Dudukan': 'Karet (EPDM)', 'Roda tangan': 'Besi cor ulet' }, image: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp',
     seoTitle: 'Katup Gerbang OS&Y dengan Dudukan Karet | Beralur', seoDescription: 'Katup gerbang OS&Y dengan dudukan karet dan ujung beralur untuk sistem kebakaran. Bodi besi cor nodular, batang naik Wanlian Fluid.',
