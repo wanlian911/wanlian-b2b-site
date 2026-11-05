@@ -27,7 +27,7 @@ export const guidesPt: Guide[] = [
   {
     title: 'AWWA C502/C503 vs EN 14461: Guia de Hidrantes',
     description: 'Compare hidrantes AWWA C502/C503 e EN 14461: pressão, saídas, materiais, ensaios de tipo e como especificar um hidrante aceito pela AHJ.',
-    href: '/pt/guides/awwa-c509-vs-en-14461-fire-hydrants/',
+    href: '/pt/guides/awwa-c502-c503-vs-en-14461-fire-hydrants/',
     tocPreview: ["1. Qual norma sua especificação realmente exige", "2. Pressão nominal e profundidade de instalação", "3. Configuração das saídas e padrões de união"],
     date: '2026-10',
     category: 'Proteção contra Incêndio',

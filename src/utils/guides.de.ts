@@ -19,7 +19,7 @@ export const guidesDe: Guide[] = [
   {
     title: 'AWWA C502/C503 vs. EN 14461: Hydrantenvergleich',
     description: 'AWWA C502/C503 und EN 14461 im Vergleich: Druckstufen, Abgänge, Werkstoffe, Typprüfungen und die richtige Hydrantenspezifikation für B2B-Projekte.',
-    href: '/de/guides/awwa-c509-vs-en-14461-fire-hydrants/',
+    href: '/de/guides/awwa-c502-c503-vs-en-14461-fire-hydrants/',
     tocPreview: ["1. Welche Norm Ihre Spezifikation tatsächlich fordert", "2. Nenndruck und Einbautiefe", "3. Abgangsanordnung und Kupplungsmuster"],
     date: '2026-10',
     category: 'Brandschutz',

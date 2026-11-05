@@ -48,7 +48,7 @@ export const guides: Guide[] = [
   {
     title: 'AWWA C502/C503 vs EN 14461 Fire Hydrants Compared (2026)',
     description: 'AWWA C502/C503 vs EN 14461 fire hydrants: pressure classes, outlet patterns, materials, type tests and how to spec a hydrant that passes the AHJ.',
-    href: '/guides/awwa-c509-vs-en-14461-fire-hydrants/',
+    href: '/guides/awwa-c502-c503-vs-en-14461-fire-hydrants/',
     tocPreview: ["1. Which Standard Your Specification Actually Invokes", "2. Rated Pressure and Working Depth", "3. Outlet Arrangement and Coupling Patterns"],
     date: '2026-10',
     category: 'Standards & Compliance',
