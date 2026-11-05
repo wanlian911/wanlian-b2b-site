@@ -16,6 +16,16 @@ export interface Guide {
 // 内容工厂单一数据源:新增指南只需在此追加一条
 export const guides: Guide[] = [
   {
+    title: 'Water Level Control Valve Guide: F745X, 100X and the Tank Fill Circuit',
+    description: 'How a hydraulic water level control valve holds a tank level, how to size an F745X or 100X float valve, and exactly what to put on the RFQ.',
+    href: '/guides/water-level-control-valve-guide/',
+    tocPreview: ["1. What the Valve Actually Controls", "2. How the F745X Pilot Circuit Refills a Tank", "3. F745X vs 100X vs 500X: Which Valve for Which Job"],
+    date: '2026-11',
+    category: 'Hydraulic Safety',
+    readTime: '10 min read',
+    tags: ['backflow-prevention', 'industrial-valves', 'fire-protection']
+  },
+  {
     title: 'Water Hammer Protection for Fire Water Systems (2026)',
     description: 'Water hammer and pressure surge in fire water and municipal lines: how to size the spike, which valves close without slamming, and what to put on the RFQ.',
     href: '/guides/water-hammer-protection-fire-water-systems/',
