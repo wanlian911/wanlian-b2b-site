@@ -16,6 +16,16 @@ export interface Guide {
 // 内容工厂单一数据源:新增指南只需在此追加一条
 export const guides: Guide[] = [
   {
+    title: 'Y Strainer Selection Guide: Mesh, Sizing and Protection for Control Valves',
+    description: 'How to choose a Y strainer or telescopic strainer for water and fire systems: screen mesh, DN sizing, pressure drop, installation and RFQ data.',
+    href: '/guides/y-strainer-selection-guide/',
+    tocPreview: ["1. What the Strainer Actually Protects", "2. Y, T and Basket Strainers Compared", "3. Screen Mesh: Matching Openings to Downstream Equipment"],
+    date: '2026-11',
+    category: 'Valve Engineering',
+    readTime: '10 min read',
+    tags: ['industrial-valves', 'backflow-prevention', 'fire-protection']
+  },
+  {
     title: 'Water Level Control Valve Guide: F745X, 100X and the Tank Fill Circuit',
     description: 'How a hydraulic water level control valve holds a tank level, how to size an F745X or 100X float valve, and exactly what to put on the RFQ.',
     href: '/guides/water-level-control-valve-guide/',

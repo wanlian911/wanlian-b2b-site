@@ -1,0 +1,312 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ: real buyer questions, rendered as visible content and as FAQPage JSON-LD
+const faq = [
+	{
+		question: 'What mesh size should I order for a water line?',
+		answer: 'For water, order the coarse screen that still protects the weakest device downstream. The SGL41H is supplied with 18-30 mesh cloth for water duty and 40-100 mesh for steam, in stainless steel 304 or 316. A fire water or potable main with a hydraulic control valve behind it sits comfortably in that 18-30 band; go finer only when a specific component demands it, because every step finer multiplies cleaning frequency. As a rough guide, standard woven cloth opens about 0.8-0.9 mm at 20 mesh, 0.5-0.6 mm at 30 mesh, 0.4 mm at 40 mesh and around 0.15 mm at 100 mesh - the exact figure depends on wire diameter, so take the number from the vendor screen drawing rather than from a generic table.'
+	},
+	{
+		question: 'Do I really need a strainer upstream of a hydraulic control valve?',
+		answer: 'In practice yes, and most warranty disputes trace back to omitting it. A pilot-operated valve such as the F745X level control valve, the 500X pressure reducing valve or the 100X-16P float valve is a large diaphragm main valve controlled by very small passages: a float pilot, a needle valve and copper or stainless pilot tubing. Grit that a main-line gate valve would pass without complaint will hold a pilot needle off its seat, and the symptom appears weeks later as a tank that overflows or a zone whose pressure drifts. The strainer is the cheapest component in that circuit and the one that prevents the most expensive call-out.'
+	},
+	{
+		question: 'Y strainer or T strainer for a large fire water main?',
+		answer: 'Choose on access and debris load, not on price. A Y strainer sits in line with its screen bowl angled downstream, drains and cleans easily, and suits horizontal runs where the bowl can hang clear of the floor - the SGL41H covers DN50 - DN600 at 1.0 or 1.6 MPa. A T (basket) strainer holds a larger screen area in the same nominal size, so it fouls more slowly at high flow, but it needs vertical clearance above the line to lift the screen basket out. On DN200 and above, where a Y bowl becomes heavy and its screen area is small relative to the pipe, a basket type is often the better hydraulic choice if the chamber allows the lift.'
+	},
+	{
+		question: 'Does a strainer reduce flow, and how much?',
+		answer: 'It adds resistance, and the amount changes as the screen loads. A clean screen with adequate open area produces a small, roughly square-law loss with flow; a partly blinded screen produces a large and unpredictable loss and becomes the control orifice in your line. That is why the honest specification asks for two numbers - the clean open area of the screen and a pressure-drop-versus-flow curve for the size proposed - rather than accepting a DN that simply matches the pipe. If the duty matters, verify it in service: an electromagnetic flow meter (DN10 - DN2000, 0.5% or 1.0% accuracy class, pulse or 4-20 mA output, RS485 Modbus) turns a suspected blinded screen into a measured fact.'
+	},
+	{
+		question: 'Can the screen be cleaned, or is it a consumable?',
+		answer: 'The screen is cleanable; the gasket kit is the consumable. The SGL41H screen is stainless steel 304/316 and can be brushed and rinsed repeatedly, while the body is ductile iron QT450-10 with epoxy coating and the stem seals are NBR or graphite. Order the bowl gaskets and a spare screen with the valve, not after the first shutdown. Where the line layout makes the bowl hard to reach, the telescopic body is the practical fix: the built-in expansion sleeve retracts so the screen can be withdrawn without cutting pipe, the same idea used on the telescopic resilient seat gate valve.'
+	},
+	{
+		question: 'Is a strainer actually required by the standard on my project?',
+		answer: 'Treat it as a specification question, not a catalogue question. System designers commonly call for strainers on pilot, priming and deluge-trim circuits precisely because those are the passages that cannot swallow debris, and the requirement sits in the standard named in your contract documents rather than in the valve datasheet. Read the piping and instrumentation drawing, check whether a strainer is shown at each control valve, and if the specification is silent, raise it in the bid query and get the answer in writing. Our NFPA standards guide and CE / EN 12845 compliance guide explain how to trace a device back to the standard that governs it.'
+	}
+];
+
+// TOC: one entry per H2 id in the body
+const toc = [
+	{ id: 'what-the-strainer-actually-protects', label: '1. What the Strainer Actually Protects' },
+	{ id: 'y-t-and-basket-strainers-compared', label: '2. Y, T and Basket Strainers Compared' },
+	{ id: 'screen-mesh-and-opening-size', label: '3. Screen Mesh: Matching Openings to Downstream Equipment' },
+	{ id: 'sizing-open-area-and-pressure-drop', label: '4. Sizing: Line Diameter, Open Area and Pressure Drop' },
+	{ id: 'telescopic-versus-standard-bodies', label: '5. Telescopic vs Standard Strainer Bodies' },
+	{ id: 'installation-orientation-and-access', label: '6. Installation: Orientation, Flow Direction and Access' },
+	{ id: 'maintenance-cleaning-and-records', label: '7. Maintenance, Cleaning Intervals and Records' },
+	{ id: 'rfq-checklist-for-pipeline-strainers', label: '8. RFQ Checklist for Pipeline Strainers' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// Related products: slugs match src/utils/products.ts
+const products = [
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'SGL41H Telescopic Y-Strainer', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'DN50 - DN600, SS304/316 screen, expansion joint built in' },
+	{ slug: 'hydraulic-water-level-control-valve-f745x', name: 'F745X Water Level Control Valve', img: '/assets/products/hydraulic-water-level-control-valve-f745x.webp', desc: 'DN50 - DN400, 1.0/1.6 MPa, brass float pilot' },
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: '500X Pressure Reducing Valve', img: '/assets/products/adjustable-pressure-reducing-valve-500x.webp', desc: 'DN20 - DN600, set 0.1 - 1.6 MPa, pilot protected' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'ZSFZ Wet Alarm Check Valve', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'DN100 - DN200 PN16 with retard chamber and gong' }
+];
+---
+
+<Layout
+	title="Y Strainer Guide: Mesh, Sizing & Valve Protection"
+	description="How to choose a Y strainer or telescopic strainer for water and fire systems: screen mesh, DN sizing, pressure drop, installation and RFQ data."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Y Strainer Selection Guide' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumb -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Y Strainer Selection Guide</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Hydraulic Control Valve Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Y Strainer Selection Guide: Mesh, Sizing and Protection for Hydraulic Control Valves</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a pipeline strainer exists to protect the smallest passage downstream of it, and on a water control valve that passage is a pilot needle a few millimetres across. For most fire water and municipal duties the practical choice is a Y-body strainer with a cleanable stainless screen - the <a href="/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">SGL41H telescopic Y-strainer</a> covers DN50 - DN600 at 1.0 or 1.6 MPa with 18-30 mesh cloth for water. What decides whether the strainer does its job for years is the mesh number, the open area at that size, the bowl orientation and whether anyone can actually reach it to clean it. All four are covered below, with the RFQ lines to specify.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Section 1 -->
+			<h2 id="what-the-strainer-actually-protects" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. What the Strainer Actually Protects</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Buyers often treat a strainer as a formality - a DN that matches the pipe, ordered with the valve it sits in front of. That is the decision that later shows up as a warranty claim. The strainer does not protect the pipe. It protects whatever cannot pass an object without leaking, jamming or misreading, and on a water control scope that list is short and specific.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Pilot-operated control valves.</strong> A <a href="/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">F745X hydraulic water level control valve</a> is a DN50 - DN400 diaphragm main valve steered by a solid brass float pilot, a needle valve and copper or stainless pilot tubing. The main valve will tolerate grit; the needle will not. A partly lifted needle passes water continuously, so the tank never reaches shut-off level and the overflow runs. The same logic applies to the <a href="/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">500X pressure reducing valve</a> (DN20 - DN600, adjustable 0.1 - 1.6 MPa), where a fouled pilot senses the wrong downstream pressure and the zone it feeds drifts off set. See the <a href="/guides/pressure-reducing-valve-guide/" class="text-brand-blue font-semibold hover:underline">pressure reducing valve guide</a> for how that sensing loop is arranged.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Alarm and deluge trims.</strong> The <a href="/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ wet alarm check valve</a> reports flow through a retard chamber, pressure switch and water-motor gong, with galvanized or brass fittings between them. The <a href="/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM deluge alarm valve</a> holds on diaphragm pressure-chamber balance and takes a DC24V / 0.5A solenoid pilot plus stainless or brass trims. Both alarm on small passages. A blocked alarm passage does not stop the system discharging - it stops anyone being told about it, which is the failure that matters at an audit.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Metering and instrumentation.</strong> A <a href="/products/smart-electromagnetic-flow-meter/" class="text-brand-blue font-semibold hover:underline">flow meter</a> has nothing in the bore to foul, but grit scoring electrodes or lining changes its calibration permanently. Gauge siphons, sample points and sampler loops are all smaller than the pipe they hang off. Where the project also runs a <a href="/products/remote-control-float-valve-100x/" class="text-brand-blue font-semibold hover:underline">100X-16P stainless float valve</a> on a hygienic tank, the stainless body resists corrosion but the pilot circuit is still the narrowest thing in the system.</p>
+
+			<!-- Section 2 -->
+			<h2 id="y-t-and-basket-strainers-compared" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Y, T and Basket Strainers Compared</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Three body geometries cover nearly every water and fire protection duty. They differ in screen area, in how debris is removed, and above all in whether a maintenance technician can get the screen out without cutting pipe or draining a chamber.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What to check</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Y-Strainer</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">T / Basket Strainer</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Telescopic Y (SGL41H)</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Screen orientation</td>
+							<td class="px-4 py-3 text-gray-700">Angled bowl off the run, pointing downstream</td>
+							<td class="px-4 py-3 text-gray-700">Basket across the flow, lid above or beside</td>
+							<td class="px-4 py-3 text-gray-700">Angled bowl, sleeve retracts for withdrawal</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Debris capacity</td>
+							<td class="px-4 py-3 text-gray-700">Moderate for its size; needs more frequent cleaning</td>
+							<td class="px-4 py-3 text-gray-700">Highest screen area per DN, longest run between cleans</td>
+							<td class="px-4 py-3 text-gray-700">Same as a Y; the gain is access, not capacity</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Cleaning access</td>
+							<td class="px-4 py-3 text-gray-700">Bowl plug or bonnet bolts; needs clearance below the pipe</td>
+							<td class="px-4 py-3 text-gray-700">Needs headroom above the line to lift the basket</td>
+							<td class="px-4 py-3 text-gray-700">Screen pulled out along the bowl once the sleeve retracts</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Footprint in the trench</td>
+							<td class="px-4 py-3 text-gray-700">Compact; bowl must not foul the trench wall</td>
+							<td class="px-4 py-3 text-gray-700">Largest; plan the chamber around it</td>
+							<td class="px-4 py-3 text-gray-700">Longer body than a plain Y by the sleeve travel</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Size range on this catalogue</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN600 at 1.0 / 1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">Sourced to project specification on request</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN600, 1.0 / 1.6 MPa, test 1.5 / 2.4 / 3.75 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Where it belongs</td>
+							<td class="px-4 py-3 text-gray-700">Control valve inlets, pump suctions, meter sets</td>
+							<td class="px-4 py-3 text-gray-700">Large mains, high solids, long inspection intervals</td>
+							<td class="px-4 py-3 text-gray-700">Buried chambers, tight valve pits, serviceable lines</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">The mistake to avoid is choosing the Y because it is cheaper and then specifying it where no one can remove the screen. A strainer that cannot be cleaned is decorative. On horizontal runs in a valve chamber, the integrated expansion joint of the SGL41H is what turns a two-hour job with a cutting torch into a ten-minute job with a spanner - the same maintenance logic that puts a <a href="/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">telescopic resilient seat gate valve</a> in a buried isolation pit.</p>
+
+			<!-- Section 3 -->
+			<h2 id="screen-mesh-and-opening-size" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Screen Mesh: Matching Openings to Downstream Equipment</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Mesh is the one number buyers change without asking the factory, usually to "be safe". Finer cloth is not safer; it is a maintenance liability that shows up after handover. The screen opening must be clearly smaller than the smallest passage it protects, and clearly large enough not to choke the design flow between planned cleans.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The SGL41H is offered with 18-30 mesh cloth for water and 40-100 mesh for steam, in stainless steel 304 or 316. Water duty on a fire main, a tank fill or a pump suction belongs in the 18-30 band. Steam and other low-viscosity services justify finer cloth because the passages behind them are smaller and the condensate is cleaner.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Approx. opening</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical duty</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Cleaning burden</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">10 - 16 mesh</td>
+							<td class="px-4 py-3 text-gray-700">1.2 - 1.6 mm</td>
+							<td class="px-4 py-3 text-gray-700">Raw water, river or pond intake, pump protection only</td>
+							<td class="px-4 py-3 text-gray-700">Low resistance, frequent large-debris removal</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">18 - 30 mesh</td>
+							<td class="px-4 py-3 text-gray-700">0.5 - 0.9 mm</td>
+							<td class="px-4 py-3 text-gray-700">Standard water range for hydraulic control valves, alarm valve inlets, meter sets</td>
+							<td class="px-4 py-3 text-gray-700">Balanced - the default for mains and tank fills</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">40 - 60 mesh</td>
+							<td class="px-4 py-3 text-gray-700">0.25 - 0.4 mm</td>
+							<td class="px-4 py-3 text-gray-700">Fine pilot circuits, closed-loop HVAC water, sensitive instrumentation</td>
+							<td class="px-4 py-3 text-gray-700">Rising - shortens the interval between cleans</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">80 - 100 mesh</td>
+							<td class="px-4 py-3 text-gray-700">about 0.15 mm</td>
+							<td class="px-4 py-3 text-gray-700">Steam and gas service, spray nozzles, very small bores</td>
+							<td class="px-4 py-3 text-gray-700">High - needs differential pressure monitoring</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Two practical rules follow from that table. First, confirm the material: stainless 304 is the default, and 316 is the choice for coastal, brackish or chlorinated water, where a carbon steel or low-grade mesh will corrode through and deliver its own debris downstream. Body material is a separate decision from screen material - see <a href="/guides/valve-body-material-selection-guide/" class="text-brand-blue font-semibold hover:underline">valve body material selection</a> for the ductile iron versus stainless trade-off.</p>
+			<p class="text-gray-700 leading-relaxed">Second, write the mesh number and the cloth standard on the purchase order. "With strainer" is not a specification; it is how a project ends up with a coarse perforated plate where a woven screen was intended. Because mesh designations vary with wire diameter, ask for the screen drawing with the nominal opening and open area stated, and treat any generic conversion table - including the one above - as a sanity check rather than a source.</p>
+
+			<!-- Section 4 -->
+			<h2 id="sizing-open-area-and-pressure-drop" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Sizing: Line Diameter, Open Area and Pressure Drop</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Strainers are quoted by nominal size, which tempts everyone to order the pipe diameter. Check three things before accepting it.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Open area, not nominal size.</strong> The screen, not the body, sets the resistance. A DN150 Y-strainer whose bowl is half the run diameter can present less free area than the DN100 valve beside it. Ask the factory for the screen's open area in cm2 for the size proposed, and compare it with the pipe bore. This is the single most useful number in a strainer datasheet and the one least likely to be volunteered.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Flow and the resulting loss.</strong> Give the design flow in m3/h, not just the DN. Take a pressure-drop-versus-flow curve for the actual size and mesh, and check the loss at peak flow as well as at average. Losses rise roughly with the square of velocity, so a duty that doubles at churn-test or flush conditions can quadruple the drop across a clean screen - and far more once it is loaded. Where the specification names a test regime, match it to the <a href="/guides/api-598-valve-pressure-test-guide/" class="text-brand-blue font-semibold hover:underline">API 598 testing guide</a> language so the reported figures mean the same thing at both ends.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>What happens as it fouls.</strong> A blinded screen becomes the control orifice of the line. Downstream symptoms are unglamorous and easily misdiagnosed: a refill that takes twice as long as designed, a reducing valve whose zone sags when another branch opens, a pump that cavitates on a hot day. Before blaming the valve, measure. Two gauge tappings across the strainer cost almost nothing and convert guesswork into a reading; the alternative is a <a href="/products/smart-electromagnetic-flow-meter/" class="text-brand-blue font-semibold hover:underline">flow meter</a> in the line, which also gives commissioning a number and can report over 4-20 mA or RS485 Modbus to the building system.</p>
+			<p class="text-gray-700 leading-relaxed">Size range on this catalogue is DN50 - DN600 at 1.0 or 1.6 MPa, with a working temperature up to 80°C and ductile iron QT450-10 bodies under epoxy coating. Where a project needs a higher rating, ask before assuming - pressure class, flange drilling and test pressure must all move together, and the drilling standard (ANSI, EN 1092, JIS or GB) has to match the pipeline. The <a href="/guides/flange-standard-guide-ansi-din-jis/" class="text-brand-blue font-semibold hover:underline">flange standard comparison</a> covers why DN and PN alone are not a complete connection specification.</p>
+
+			<!-- Section 5 -->
+			<h2 id="telescopic-versus-standard-bodies" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Telescopic vs Standard Strainer Bodies</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The SGL41H combines a Y-strainer and a telescopic expansion joint in one body, with a ductile iron filter body, a carbon steel or ductile iron expansion sleeve, stainless 304/316 screen, NBR or graphite stem seals and medium carbon steel telescopic bolts. Its catalogue purpose is explicit: protecting hydraulic water control valves and precision machinery from clogging, with the sleeve fitted so the strainer can be removed without cutting the line.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">That combination earns its price difference in three situations, and wastes money in all others.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Flush-mounted or buried chambers.</strong> If the bowl sits below floor level or against a trench wall, a standard strainer has nowhere to go when the screen comes out. The retracting sleeve solves that without an extra union or a spool piece.</li>
+				<li><strong>Serviceable control valve skids.</strong> A tank fill skid with an <a href="/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">F745X</a>, isolation gates and a strainer is cleaned on a schedule. Telescopic strainers plus <a href="/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X isolation gate valves</a> (DN50 - DN700, PN10/PN16, fully encapsulated EPDM wedge) mean the whole set can be opened without moving pipework.</li>
+				<li><strong>New build with unknown future access.</strong> Whoever maintains the plant in year eight did not design it. Buy the withdrawal clearance now.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Where the strainer sits in an open plant room with a drain tap below the bowl and bolt clearance in front of it, a standard Y body is the honest choice and the saving is real. Note that the telescopic principle is not a strainer exclusive - the same idea carries a gate valve in the <a href="/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">telescopic resilient seat gate valve</a> (DN50 - DN600, 1.0/1.6 MPa, about 25 mm of expansion compensation), so a municipal isolation-and-screening package can be kept consistent across both roles.</p>
+
+			<!-- Section 6 -->
+			<h2 id="installation-orientation-and-access" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Installation: Orientation, Flow Direction and Access</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Most strainer faults reported as product defects are installation faults. Four rules prevent the majority of them.</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Follow the arrow, on horizontal pipe, bowl pointing down or down-forward.</strong> The cast body carries a flow direction; the bowl is also the debris pocket. A Y-strainer installed with the bowl angled upward dumps its load back into the line the moment flow reverses or stops, and it cannot be drained before the bonnet is opened.</li>
+				<li><strong>Do not hang a heavy bowl in a trench wall.</strong> At DN200 and above, a full stainless screen in a ductile iron body is heavy, and the flange joint takes the bending load. Provide a support or change the geometry before the pipe is closed.</li>
+				<li><strong>Leave the space to clean it.</strong> Confirm the bolt swing arc, the bonnet removal distance and, on a telescopic unit, the full sleeve travel. Also confirm the drain: a plug or drain valve at the low point lets a technician flush the bowl into a bucket instead of onto the floor.</li>
+				<li><strong>Flush before the pilot circuit is connected.</strong> On any hydraulic control valve installation, construction grit is the leading cause of early pilot failure. Flush the main, pull and clean the screen, then connect the pilot tubing and needle valves. Commissioning sequence for the valve itself is set out in the <a href="/guides/water-level-control-valve-guide/" class="text-brand-blue font-semibold hover:underline">water level control valve guide</a>.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed mb-4">Placement relative to other equipment follows the same logic as the rest of the pump room: a strainer belongs where the sensitive item is, upstream of it, and usually downstream of any open tank or well where the debris originates. On pump suctions and tank penetrations, screening is not the only protection - a <a href="/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">suction vortex preventer</a> (stainless 304/316, DN50 - DN1000, built to EN 12845 and GB 50974-2014) keeps air out of the pump so the strainer is not asked to solve an aeration problem. The pump room arrangement as a whole is covered in the <a href="/guides/fire-pump-room-valves-guide/" class="text-brand-blue font-semibold hover:underline">fire pump room valve guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed">One more arrangement decision: a bypass line with its own isolation valve lets a blinded strainer be cleaned while the system stays in service. On a fire main that is not a convenience item - if the only path to the screen requires draining the protected volume, the screen will not get cleaned on schedule.</p>
+
+			<!-- Section 7 -->
+			<h2 id="maintenance-cleaning-and-records" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Maintenance, Cleaning Intervals and Records</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">There is no universal cleaning interval, because the interval depends on what is in the water. Set it from the source, then adjust from evidence.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Water source</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Fouling driver</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Practical starting point</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Treated municipal main</td>
+							<td class="px-4 py-3 text-gray-700">Pipe scale, install debris, occasional grit from mains work</td>
+							<td class="px-4 py-3 text-gray-700">Inspect after commissioning, then annually; always after any main break or new connection</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Groundwater / borehole</td>
+							<td class="px-4 py-3 text-gray-700">Sand, silt, iron or manganese precipitation</td>
+							<td class="px-4 py-3 text-gray-700">Quarterly in year one, then set from the measured differential</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Surface or reservoir intake</td>
+							<td class="px-4 py-3 text-gray-700">Organic matter, biofilm, seasonal algae</td>
+							<td class="px-4 py-3 text-gray-700">Monthly through the growth season; consider a coarser first stage upstream</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Fire main, static / rarely flowed</td>
+							<td class="px-4 py-3 text-gray-700">Corrosion products from the mains themselves, stirred up at test</td>
+							<td class="px-4 py-3 text-gray-700">Inspect after every flow or churn test, and at the site ITM visit</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Make the task doable by whoever holds the permit to work. That means the mesh number, the bonnet bolt size, the gasket set reference and the sleeve travel recorded once, on a one-page method statement filed with the strainer datasheet. Order spares against the same record: one stainless screen and a set of bowl gaskets per size will serve most plants for years, and both are far cheaper bought with the original order than during a shutdown. Body and coating condition matters as much as the screen - the maintenance and material choices are discussed in the <a href="/guides/valve-body-material-selection-guide/" class="text-brand-blue font-semibold hover:underline">valve body material guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed">On systems where the strainer protects an alarm function, tie the inspection to the same visit that tests the alarm. The <a href="/products/dry-alarm-valve-zsfc/" class="text-brand-blue font-semibold hover:underline">ZSFC dry alarm valve</a> and its delay chamber, gong and gauges, and the wet system equivalents, are checked against trips and false alarms; a pilot or trim passage half-blinded shows up in that test long before anyone opens the strainer.</p>
+
+			<!-- Section 8 -->
+			<h2 id="rfq-checklist-for-pipeline-strainers" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. RFQ Checklist for Pipeline Strainers</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Strainers are quoted thinly by default. Put these lines in the enquiry and the offers become comparable, including with the valves they are meant to protect.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Service and medium.</strong> Water or oil products, potable or not, temperature up to 80°C, and whether the line ever runs dry.</li>
+				<li><strong>Size and class.</strong> DN plus nominal pressure - DN50 - DN600 at 1.0 or 1.6 MPa on this body - and the test pressure you expect on the datasheet (1.5 / 2.4 / 3.75 MPa for these ratings).</li>
+				<li><strong>Body and coating.</strong> Ductile iron QT450-10 with epoxy coating as standard; name the coating system and thickness if the line is buried or the water is aggressive.</li>
+				<li><strong>Screen material and mesh.</strong> SS304 or SS316, plus the mesh number (18-30 for water, 40-100 for steam) and a request for the screen drawing with nominal opening and open area.</li>
+				<li><strong>Body type.</strong> Standard Y or telescopic, decided by access - and if telescopic, the sleeve travel and the bolt material.</li>
+				<li><strong>End connection.</strong> Flanged with the drilling standard stated (ANSI, EN 1092, JIS or GB) so it matches the pipeline, per the <a href="/guides/flange-standard-guide-ansi-din-jis/" class="text-brand-blue font-semibold hover:underline">flange standard guide</a>.</li>
+				<li><strong>Accessories.</strong> Drain plug or drain valve at the low point, bonnet gaskets, a spare screen, and a differential pressure provision across the screen if the duty is critical.</li>
+				<li><strong>Documentation.</strong> Shell and seat or body test records for the delivered size (see the <a href="/guides/api-598-valve-pressure-test-guide/" class="text-brand-blue font-semibold hover:underline">API 598 test guide</a>), material certificates for body and screen, and the pressure-drop curve at your flow.</li>
+				<li><strong>Package it with what it protects.</strong> Buyers most often save money by ordering the strainer on the same line item as the control valve - the <a href="/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">500X</a>, <a href="/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">GKZF-1 solenoid control gate valve</a> or alarm valve group - and by running the <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">8-point supplier verification checklist</a> before award.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Related buying scopes on this site: the <a href="/guides/backflow-prevention-guide/" class="text-brand-blue font-semibold hover:underline">backflow prevention guide</a> for what belongs upstream of a tank connection, the <a href="/guides/water-hammer-protection-fire-water-systems/" class="text-brand-blue font-semibold hover:underline">water hammer protection guide</a> for closing speed and surge, and the <a href="/guides/commercial-building-sprinkler-system-bom-guide/" class="text-brand-blue font-semibold hover:underline">commercial sprinkler BOM guide</a> for assembling the whole valve and alarm package on one purchase order.</p>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Need Strainers for Control Valves or Fire Water Mains?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send us DN, pressure class, medium, mesh requirement and the equipment the strainer protects - our engineers confirm the screen and body arrangement and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Telescopic%20Y-Strainer%20SGL41H" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20pipeline%20strainers%20for%20hydraulic%20control%20valves" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
