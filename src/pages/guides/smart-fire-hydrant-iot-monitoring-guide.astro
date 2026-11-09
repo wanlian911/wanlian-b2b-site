@@ -1,0 +1,287 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ: real buyer questions, rendered as visible content and as FAQPage JSON-LD
+const faq = [
+	{
+		question: 'What does a smart fire hydrant actually measure?',
+		answer: 'On the SS100/65-1.6ZN unit the sensor set is deliberately narrow: pipeline water pressure, valve open or closed status, and tilt plus vibration, which is what registers a vehicle strike or someone climbing on the barrel. Flow is reported where the design includes metering, and the same controller raises an alarm for illegal water use, an unexpected valve opening or a collision. Data leaves the hydrant over a cellular link - NB-IoT, LTE-M or GPRS - so what arrives at your platform is a timestamped record per device, not a live video or a pressure waveform. Anything beyond that list, such as water quality or a measured flow rate at the outlet, needs a separate instrument, and the honest way to build the scope is to say which question each device answers.'
+	},
+	{
+		question: 'Do we have to replace working hydrants to get monitoring?',
+		answer: 'No, and most sensible programmes do not try. A hydrant network usually has two different problems: unknown flow at the source and boundary, and unverified condition and misuse at individual street units. Metering the first is a pipework job at the pump or zone boundary, where a flanged electromagnetic flow meter (DN10 - DN2000, 0.5 or 1.0 percent accuracy class, 4-20 mA and pulse output, RS485 Modbus) gives you a number you can trust for billing and leakage work at a fraction of the cost per cubic metre. The instrumented hydrant answers the second question, so deploy it where theft, collisions or frozen barrels actually cost you money, and leave the low-risk units conventional.'
+	},
+	{
+		question: 'How long does the battery last, and what happens when it fails?',
+		answer: 'The smart hydrant is built around a lithium battery with a five-year design life, with an optional solar assist for remote or shaded installations where you would rather not send a crew. Design life is not a warranty of five years in your ground: reporting interval, alarm volume, link quality and winter temperature all move the number, and a device searching for a weak cell burns far more than one sitting on a good connection. Treat the battery as a planned maintenance item like a hydrant drain, ask the vendor which interval and link type the quoted life assumes, and require a low-battery alarm at the platform so a dead unit is visible instead of silent. A hydrant that stops reporting looks exactly like a hydrant that nobody has used.'
+	},
+	{
+		question: 'Will it talk to our existing SCADA or smart-city platform?',
+		answer: 'The unit transmits standard cellular data that can be forwarded to a SCADA or smart-city platform, with the data format and alarm logic confirmed during project specification - that is the accurate answer, and it is also the line item that decides whether your phase one works. Do not accept it as a future promise. Ask in the enquiry for the register or tag list, the payload format and encoding, the uplink interval, the device authentication method, and either a documented API or an MQTT topic map, then have your integrator confirm in writing that it can subscribe, decode and alarm on those fields before the first production order. If your platform team cannot test until hardware arrives, buy a single sample unit for that purpose.'
+	},
+	{
+		question: 'Which standard governs the hydrant, and does it cover the electronics?',
+		answer: 'Two separate answers. The hydrant body of the SS100ZN is manufactured to GB 4452-2011 in ductile iron QT450, with a stainless steel 316 water probe and an impact-resistant ABS capsule rated IP68, and our outlet couplings follow KWS or BS 336 depending on the destination market; type-test and certification documents are available on request. Hydrant standards cover the hydraulic and mechanical product - barrel, outlets, strength, drainage - not a radio transmitter with a battery inside a weatherproof capsule. So ask specifically what the pressure sensor is specified against (accuracy band, overpressure survival, medium compatibility), what IP68 means in the vendor test (depth and duration), and what has actually been type-tested versus assembled. See the fire hydrant valve standards guide for how to trace a device back to the standard that really governs it.'
+	},
+	{
+		question: 'How large should a first phase be?',
+		answer: 'Size phase one against the decision you are trying to make, not against the budget line. A useful pilot covers the three or four failure modes you expect to differ: the streets with the worst illegal-use history, one or two high-consequence sites such as a warehouse yard or fuel terminal, a frost-prone stretch where barrel drainage is suspected, and a control group of ordinary hydrants with no instrumentation so you can tell whether an alarm is a network problem or a device problem. Record four to eight weeks of baseline before you act on anything. Then decide the rollout from measured event rates and the crew time each event costs, which is a defensible number in a capital request. The municipal fire water main upgrade guide shows how the same logic packages conventional hydrants, valves and hose on one purchase order.'
+	}
+];
+
+// TOC: one entry per H2 id in the body
+const toc = [
+	{ id: 'what-a-smart-fire-hydrant-actually-is', label: '1. What a Smart Fire Hydrant Actually Is' },
+	{ id: 'what-the-sensor-set-can-and-cannot-tell-you', label: '2. What the Sensor Set Can and Cannot Tell You' },
+	{ id: 'instrumented-hydrant-vs-flow-meter-vs-manual-round', label: '3. Instrumented Hydrant vs Flow Meter vs Manual Round' },
+	{ id: 'choose-the-hydrant-before-the-electronics', label: '4. Choose the Hydrant Before the Electronics' },
+	{ id: 'power-link-quality-and-what-drives-battery-life', label: '5. Power, Link Quality and What Drives Battery Life' },
+	{ id: 'siting-commissioning-and-pilot-design', label: '6. Siting, Commissioning and Pilot Design' },
+	{ id: 'maintenance-calibration-and-alarm-triage', label: '7. Maintenance, Calibration and Alarm Triage' },
+	{ id: 'rfq-checklist-for-a-smart-hydrant-scope', label: '8. RFQ Checklist for a Smart Hydrant Scope' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// Related products: slugs match src/utils/products.ts
+const products = [
+	{ slug: 'iot-smart-ground-fire-hydrant-ss100zn', name: 'SS100/65-1.6ZN IoT Smart Hydrant', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'NB-IoT / LTE-M / GPRS, tilt + pressure + valve status, IP68 capsule' },
+	{ slug: 'overground-fire-hydrant-ss100', name: 'SS100/65 Overground Hydrant', img: '/assets/products/overground-fire-hydrant-ss100.webp', desc: 'DN100, 1.6 MPa working, dry-barrel frost drainage' },
+	{ slug: 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100', name: 'SSFT100/65 Anti-Collision Hydrant', img: '/assets/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100.webp', desc: 'Shear-bolt shutdown, pressure regulating, PN16, GB 4452' },
+	{ slug: 'smart-electromagnetic-flow-meter', name: 'Electromagnetic Flow Meter', img: '/assets/products/smart-electromagnetic-flow-meter.webp', desc: 'DN10 - DN2000, 0.5/1.0 class, 4-20 mA, RS485 Modbus' }
+];
+---
+
+<Layout
+	title="Smart Fire Hydrant Monitoring: IoT Selection Guide"
+	description="How IoT fire hydrant monitoring works for municipal and industrial networks: sensors, NB-IoT links, battery life, siting, pilot design and RFQ lines."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Smart Fire Hydrant Monitoring' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumb -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Smart Fire Hydrant Monitoring</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Fire Hydrant Systems Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Smart Fire Hydrant Monitoring: How to Specify IoT Hydrants for Municipal and Industrial Fire Networks</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: an instrumented hydrant answers three questions nobody can answer from a paper register - is the barrel pressurised, has anyone opened it, and has something hit it. The <a href="/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">SS100/65-1.6ZN IoT smart fire hydrant</a> reports valve status, pipeline pressure, tilt and vibration plus an illegal-use alarm over <strong>NB-IoT, LTE-M or GPRS</strong>, on a lithium battery with a five-year design life and optional solar assist. What decides whether that data is worth the purchase price is not the sensor list. It is the base hydrant you put the electronics on, the link quality at the actual pit, the reporting interval you can afford to battery-drain, and whether your platform team can decode the payload before phase one. All four below, with the RFQ lines to specify.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Section 1 -->
+			<h2 id="what-a-smart-fire-hydrant-actually-is" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. What a Smart Fire Hydrant Actually Is</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Strip away the marketing and the device is an ordinary ductile iron hydrant with a small instrumented capsule bolted into its top works. The hydraulics have not changed: the <a href="/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">smart hydrant</a> body is manufactured to <strong>GB 4452-2011</strong> in ductile iron QT450, with a stainless steel or brass lower stem and valve seat, exactly the family that the conventional <a href="/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">SS100/65 overground hydrant</a> belongs to. What has changed is that the hydrant now reports its own condition instead of waiting for someone to walk to it with a wrench and a clipboard.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The reporting payload on our unit is four signals plus an alarm state. A pressure sensor on the barrel tells you whether that hydrant has supply pressure right now. A valve status input tells you whether the main valve has been turned. A tilt and vibration sensor tells you whether something struck the column or dragged it. A water probe in stainless steel 316 supports the illegal-use detection that municipal operators actually buy this for: an unauthorised opening, a hose left running, or a connection nobody logged. Everything is forwarded wirelessly over cellular networks - NB-IoT, LTE-M or GPRS - with no external wiring, which is the reason the retrofit is possible at all.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Understand what that replaces. A conventional register records where a hydrant is, what it nominally flows, and when someone last exercised it. None of those is a live signal, and every one of them ages. A network operator using only the register is discovering pressure problems when a fire crew discovers them, and discovering collisions when the street is already underwater. The instrumented hydrant moves both events into your own alarm log, usually minutes ahead of anyone else noticing. If the operational question is instead how much water the network is moving, that is a metering question and it is answered better and cheaper at the source - the <a href="/products/smart-electromagnetic-flow-meter/" class="text-brand-blue font-semibold hover:underline">electromagnetic flow meter</a> covers DN10 - DN2000 at 0.5 or 1.0 percent accuracy class with 4-20 mA and pulse output.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Where it sits in the product family.</strong> Our hydrant range covers <a href="/products/indoor-fire-hydrant-head-sn65/">SN65 indoor valves</a> in wall cabinets, overground dry-barrel units for cold streets, <a href="/products/underground-fire-hydrant-sa/">SA series underground hydrants</a> installed flush with the surface, and the SSFT100/65 self-closing anti-collision type. Only the overground SS100ZN variant carries the sensor capsule as built, so a monitoring scope normally means a mixed order: instrumented units where the events are, conventional units everywhere else, and metering at the boundaries. The <a href="/fire-hydrant-systems/" class="text-brand-blue font-semibold hover:underline">fire hydrant systems</a> page groups the whole range, and the <a href="/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">fire hydrant selection guide</a> covers the base-unit decision on its own merits.</p>
+
+			<!-- Section 2 -->
+			<h2 id="what-the-sensor-set-can-and-cannot-tell-you" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. What the Sensor Set Can and Cannot Tell You</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Buying this category badly is almost always a matter of expecting a signal the hardware does not produce. Set the expectation precisely, then write it into the specification.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Pressure.</strong> Continuous barrel pressure monitoring is the signal with the most operational value and the most subtlety. A reading of zero at 03:00 on a Sunday night means an isolation valve upstream is shut, the main is down for works, or the sensor has drifted - and the three look identical in your alarm log unless you also have SCADA state from the upstream section. Decide before ordering which pressure band should alarm, and what suppression window applies while planned works are open. Also confirm the sensor accuracy band and overpressure survival with the vendor: the hydrant itself is rated 1.6 MPa working with a 2.4 MPa test pressure on the conventional SS100/65, and a transmitter selected for nothing in particular will be the component you replace first.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Valve status and unauthorised use.</strong> This is the alarm that pays for the project in water-loss terms, because an open hydrant left running overnight is thousands of litres and no one sees it. Its value depends entirely on your alarm-handling rota: an alert at 02:15 with nobody rostered to act converts to a paper log entry by morning. Before rollout, agree who receives the alert, what they check, and how a false call-out is recorded. The <a href="/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">SSFT100/65 anti-collision hydrant</a> approaches the same risk mechanically rather than electronically - two calibrated shear bolts let the internal valve close on impact, so a struck hydrant shuts off instead of flooding the street, and repair is two new bolts rather than draining a main.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Tilt and vibration.</strong> Useful as evidence and as a trigger for an inspection, weak as a measurement. A heavy vehicle strike and a scaffolding clamp dropped from three metres can look similar. Use it to dispatch, not to adjudicate, and keep the raw event with its timestamp if you ever need to show a contractor which week their plant hit the column.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>What it does not do.</strong> It is not a flow meter at the outlet. It is not a water quality sensor. It will not tell you that the drain at the bottom of a dry barrel has silted up until the barrel freezes, which is why frost-prone stretches still need the physical exercise and drain-verification programme regardless of telemetry. And it does not replace the flow-switch layer inside a building: a vane type <a href="/products/water-flow-indicator-zsjz/">ZSJZ water flow indicator</a> (DN50 - DN200, 1.2 or 1.6 MPa, trigger between 15 and 37.5 L/min, DC24V / 3A changeover contact, adjustable 2-60 second delay) is an alarm initiating device on a sprinkler branch, a different job on a different system. The <a href="/guides/water-flow-indicator-guide/" class="text-brand-blue font-semibold hover:underline">water flow indicator guide</a> sets out that distinction.</p>
+
+			<!-- Section 3 -->
+			<h2 id="instrumented-hydrant-vs-flow-meter-vs-manual-round" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Instrumented Hydrant vs Flow Meter vs Manual Round</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Three methods answer overlapping questions at very different unit costs. Most networks that get value from telemetry end up running all three, allocated by where each one is strongest.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What to compare</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Instrumented hydrant</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Electromagnetic flow meter</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Manual round / test</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Question it answers</td>
+							<td class="px-4 py-3 text-gray-700">Is this specific hydrant pressurised, opened or struck right now?</td>
+							<td class="px-4 py-3 text-gray-700">How much water is moving through this point in the network?</td>
+							<td class="px-4 py-3 text-gray-700">Is the unit physically serviceable and accessible today?</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Signal type</td>
+							<td class="px-4 py-3 text-gray-700">Pressure, valve status, tilt/vibration, theft alarm, event timestamps</td>
+							<td class="px-4 py-3 text-gray-700">Continuous flow, 0.5 or 1.0 percent accuracy class, pulse and 4-20 mA</td>
+							<td class="px-4 py-3 text-gray-700">A snapshot at the moment of the visit, nothing in between</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Data path</td>
+							<td class="px-4 py-3 text-gray-700">Wireless cellular - NB-IoT, LTE-M or GPRS - no field wiring</td>
+							<td class="px-4 py-3 text-gray-700">Wired or logged at the meter, RS485 Modbus into a local system</td>
+							<td class="px-4 py-3 text-gray-700">Paper or app entry keyed in by the technician</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Power work on site</td>
+							<td class="px-4 py-3 text-gray-700">None - lithium battery, five-year design life, solar assist optional</td>
+							<td class="px-4 py-3 text-gray-700">Mains or battery at the chamber, plus signal cable route</td>
+							<td class="px-4 py-3 text-gray-700">None</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Cost driver</td>
+							<td class="px-4 py-3 text-gray-700">Unit count, because each hydrant is one radio and one battery</td>
+							<td class="px-4 py-3 text-gray-700">Chamber, isolation valves and pipe modification at one point</td>
+							<td class="px-4 py-3 text-gray-700">Crew time, recurring forever and scaling with the network</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Blind spot</td>
+							<td class="px-4 py-3 text-gray-700">Outlet flow, water quality, a silted drain that has not frozen yet</td>
+							<td class="px-4 py-3 text-gray-700">Conductive liquids only; says nothing about which hydrant used it</td>
+							<td class="px-4 py-3 text-gray-700">Everything between visits, including the night an open hydrant ran out</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Read the table as an allocation rule rather than a ranking. Bulk quantity questions belong on a meter at a boundary. Per-unit event questions belong on instrumented hydrants, and only at the units where an event is expensive. Physical condition - caps present, spans clear of obstruction, drainage working, no corrosion at the base flange - belongs to a person, on a cycle, whatever you spend on electronics. Buyers who delete the manual round because telemetry has arrived usually re-introduce it within a year.</p>
+			<p class="text-gray-700 leading-relaxed">One consequence worth pricing early: telemetry changes what the crew does, not whether a crew is needed. A pressure alarm at a single hydrant with no neighbours reporting the same drop is a local fault and gets a visit; a whole feeder dropping together is a network event and gets a different escalation. Encode that logic in the platform during commissioning, or the first winter will produce call-outs that teach the operators to ignore the system.</p>
+
+			<!-- Section 4 -->
+			<h2 id="choose-the-hydrant-before-the-electronics" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Choose the Hydrant Before the Electronics</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The most expensive mistake in this category is specifying an instrument and then discovering the base unit is wrong for the street. Sensor capsule failures are a support ticket; a hydrant that cannot be driven, or that freezes, or that floods the carriageway when struck, is civil works. Decide the mechanical duty first against climate, impact exposure and coupling standard, then add telemetry on the variant that suits it.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Base hydrant</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Where it belongs</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Key specification</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What telemetry changes</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900"><a href="/products/overground-fire-hydrant-ss100/" class="text-brand-blue font-semibold hover:underline">SS100/65 overground</a></td>
+							<td class="px-4 py-3 text-gray-700">Cold-climate streets, yards, warehouse perimeters where visibility matters</td>
+							<td class="px-4 py-3 text-gray-700">DN100, 1.6 MPa working, 2.4 MPa test, 2 x 65 mm plus 1 x 100 mm outlets, dry-barrel auto drainage</td>
+							<td class="px-4 py-3 text-gray-700">None required - the same barrel geometry, so a mixed fleet stays visually consistent</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900"><a href="/products/iot-smart-ground-fire-hydrant-ss100zn/" class="text-brand-blue font-semibold hover:underline">SS100/65-1.6ZN IoT smart</a></td>
+							<td class="px-4 py-3 text-gray-700">Theft-prone corridors, high-consequence sites, any unit you want evidence from</td>
+							<td class="px-4 py-3 text-gray-700">GB 4452-2011 body, QT450, IP68 ABS capsule, SS316 probe, NB-IoT / LTE-M / GPRS</td>
+							<td class="px-4 py-3 text-gray-700">This is the instrumented variant; confirm the pit is dry and the cellular link is real</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900"><a href="/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/" class="text-brand-blue font-semibold hover:underline">SSFT100/65 anti-collision</a></td>
+							<td class="px-4 py-3 text-gray-700">Kerbside positions with live vehicle traffic, tight turns, loading areas</td>
+							<td class="px-4 py-3 text-gray-700">DN100 / DN150, PN16, calibrated shear bolts, built-in pressure regulation, tested to 2.4 MPa per GB 4452</td>
+							<td class="px-4 py-3 text-gray-700">Tilt/vibration alarm corroborates a strike and tells you whether the bolts actually sheared</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900"><a href="/products/underground-fire-hydrant-sa/" class="text-brand-blue font-semibold hover:underline">SA series underground</a></td>
+							<td class="px-4 py-3 text-gray-700">Cold regions and locations where a protruding column is a hazard</td>
+							<td class="px-4 py-3 text-gray-700">DN100 / DN150 inlet, 2 x KWS65 (65 + 80 mm option), PN16, installed height 0.71 - 0.92 m</td>
+							<td class="px-4 py-3 text-gray-700">Telemetry is harder below ground - lid access, a wet chamber and link budget all need checking</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900"><a href="/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">SN65 indoor valve</a></td>
+							<td class="px-4 py-3 text-gray-700">Wall cabinets inside commercial and industrial buildings</td>
+							<td class="px-4 py-3 text-gray-700">DN65, 1.6 MPa working, 2.4 MPa test, grooved or flanged, G2 1/2 thread</td>
+							<td class="px-4 py-3 text-gray-700">Indoor cabinets usually get alarm and flow devices instead; different system, different logic</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Two mechanical decisions dominate and neither is about data. <strong>Frost protection:</strong> the overground units keep the barrel dry after closing by draining what sits above the frost line, so a hydrant that will not drain is not a monitoring problem, it is a replacement problem - see the <a href="/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">antifreeze and anti-collision hydrant guide</a>. <strong>Coupling standard:</strong> outlets follow KWS or BS 336 depending on destination market, and a hydrant the local fire service cannot connect to is unusable whatever it reports. The SSFT100 runs 2 x KWS65 plus a DN100 outlet; the underground SA runs 2 x KWS65 with a 65 + 80 mm option. Verify against the appliances your fire service actually operates, not against the drawing legend.</p>
+			<p class="text-gray-700 leading-relaxed">Isolation and connection hardware should be on the same purchase order, because that is where schedule risk lives. A <a href="/products/resilient-seat-flanged-gate-valve-z41x/">Z41X resilient seat gate valve</a> (DN50 - DN700, PN10 / PN16, EPDM fully encapsulated wedge, non-toxic epoxy coating inside and out) is what lets you take a single hydrant out for works without draining a feeder. Where the scope includes the building side, the <a href="/products/sqd100-1-6-fire-pump-adapter/">SQD100-1.6 siamese connection</a> - twin DN65 inlets in SQS65 or KWS65, DN100 flanged outlet, 1.6 MPa, 120 mm length - is the fire service interface, and its inlet pattern needs the same coupling check as the hydrant outlets. Standards and testing background for all of it is in the <a href="/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">fire hydrant valve standards guide</a> and, for US-specification projects, the <a href="/guides/awwa-c502-c503-vs-en-14461-fire-hydrants/" class="text-brand-blue font-semibold hover:underline">AWWA C502/C503 vs EN 14461 comparison</a>.</p>
+
+			<!-- Section 5 -->
+			<h2 id="power-link-quality-and-what-drives-battery-life" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Power, Link Quality and What Drives Battery Life</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The reason a cellular hydrant is retrofit-able at any scale is that there is no cable to run. The same fact is what makes the specification delicate: the battery and the radio are the product, and both are being asked to last for years in a buried, damp, unheated chamber with no maintenance visit scheduled.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>The link choice is a network decision, not a device decision.</strong> The unit supports NB-IoT, LTE-M and GPRS. Roughly speaking, NB-IoT and LTE-M are the low-power options built for small infrequent payloads and deep indoor or below-ground penetration, while GPRS is the legacy fallback that many operators keep for coverage continuity. Which one is actually usable at your pits is an operator question - ask your mobile provider which bands and which technology are live in the specific districts, and confirm the module can be ordered configured for that. Two hydrant networks a hundred kilometres apart can need different answers.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Battery life is a function of what you ask the device to send.</strong> A five-year design life assumes an interval, not a continuous stream. Every extra daily transmission costs power, every alarm costs more than a routine reading, and a module that cannot find a cell retransmits until it gives up. That last one is the quiet killer: a hydrant in a marginal coverage spot can consume its battery in months while reporting nothing useful. Before a production order, survey the real signal at a representative sample of pit locations - not at the depot, not at one convenient street - and set the reporting interval per zone rather than globally.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Environment and access.</strong> The IoT module sits in a reinforced impact-resistant ABS capsule rated IP68, with a stainless steel 316 water probe. IP68 is a test condition, so ask the vendor for the depth and duration actually demonstrated, and ask how the capsule is opened for battery change without breaking the seal rating. Where the pit is chronically wet or a unit is buried behind a curb that floods, a solar-assist option is only useful if the panel sees light - which in a street of mature trees is a site survey answer, not a catalogue answer.</p>
+			<p class="text-gray-700 leading-relaxed">Practical consequence for procurement: battery replacement is a truck, a permit, a crew and a hydrant out of service. Model it over ten years for the whole planned fleet and it can exceed the purchase price of the electronics. It is usually worth paying to extend the reporting interval and adding a low-battery alarm, rather than buying a denser transmission schedule that nobody has time to maintain.</p>
+
+			<!-- Section 6 -->
+			<h2 id="siting-commissioning-and-pilot-design" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Siting, Commissioning and Pilot Design</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Hydrant selection for a conventional order is driven by coverage and flow. In a monitoring scope, event history drives it, and the first phase should be concentrated where an event is expensive rather than spread evenly across the district for appearances.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Known misuse locations.</strong> Historic illegal-connection reports, street vendors, filling points that should not exist. These give the theft alarm a population of real events to prove itself on.</li>
+				<li><strong>High-consequence sites.</strong> Warehouse yards, fuel and chemical storage, cold storage, any location where a lost hydrant means a lost property claim - the fixed asset value justifies the unit cost on its own.</li>
+				<li><strong>Vehicle-exposed kerbside positions.</strong> Instrument these alongside or in place of <a href="/products/anti-collision-pressure-regulating-outdoor-hydrant-ssft100/">SSFT100 anti-collision units</a>; tilt and valve data tells you a strike happened even when the shear bolts did their job quietly.</li>
+				<li><strong>Frost-prone stretches.</strong> Where barrel drainage is suspected, pressure and temperature-driven symptoms plus a winter inspection beat discovering a split barrel in spring.</li>
+				<li><strong>A control group.</strong> Include comparable hydrants with no electronics so that any change you observe can be attributed to the device rather than to the season.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Commissioning is where this category either works or becomes a shelved pilot.</strong> Per unit, the minimum sensible record is: the installed base hydrant model and its pressure rating; the coupling pattern fitted; the pit condition and whether water stands in it; the measured signal strength at the closed lid; the reporting interval configured; the pressure reading compared against a reference gauge at the same moment; a valve-status verification by actually exercising the hydrant; a tilt verification by a controlled lean; and the device identifier mapped to the GIS or asset record so an alarm points a crew at a location. Anything not verified in commissioning will be discovered by a fire crew instead. The same discipline in conventional form is set out in the <a href="/guides/municipal-fire-water-main-upgrade-guide/" class="text-brand-blue font-semibold hover:underline">municipal fire water main upgrade guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Run the baseline period before you report anything upward. Four to eight weeks of pressure and event data across the pilot, including at least one planned flow test, gives you a defensible distribution of normal behaviour, an alarm rate per device per month, and a false-positive rate. Those three numbers are what convert a pilot into a capital programme - and, if they come back poor, what let you stop cheaply. For buyers whose programme also covers the building side, the <a href="/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">hydrant valve standards guide</a> and <a href="/guides/nfpa-fire-protection-standards-guide/" class="text-brand-blue font-semibold hover:underline">NFPA standards guide</a> explain which acceptance tests the specification should be citing.</p>
+
+			<!-- Section 7 -->
+			<h2 id="maintenance-calibration-and-alarm-triage" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Maintenance, Calibration and Alarm Triage</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">An instrumented hydrant inherits the whole maintenance obligation of a conventional one and adds a measurement chain that drifts. Do not let the telemetry become the reason nobody exercises the valve.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Keep the mechanical programme intact.</strong> Opening a hydrant periodically moves the main valve off its seat, clears sediment, verifies that the drain actually empties the barrel, and proves that a fire crew can connect. Pressure telemetry can corroborate that a test happened, but it cannot do the test. On the overground dry-barrel types the drainage path is the thing that fails silently; on the underground SA series it is the lid, the drainage and the access clearance. Record both the exercise and the drainage check against the same asset ID the platform uses.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Calibrate the pressure channel on a schedule you can evidence.</strong> A sensor that has drifted 0.15 MPa low will not trip a low-pressure alarm until the network has a real problem, and it will not trip anything at all if the drift is upward. The practical method is cheap and needs no special tooling: at each site visit, read a reference gauge at the same point and log both numbers. Where you also need quantity - for leakage district metering or for reimbursing a contractor - meter that at a boundary with the <a href="/products/smart-electromagnetic-flow-meter/">electromagnetic flow meter</a>, whose measurement has no obstructing element in the bore and is unaffected by density or viscosity, and which reports over 4-20 mA, pulse or RS485 Modbus into your existing logging.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Write the alarm triage down before go-live.</strong> A workable first version is short: low pressure at one device with neighbours normal, or a valve-open or tilt event, becomes a scheduled inspection within an agreed window. Simultaneous low pressure across devices on one feeder becomes a network escalation to whoever operates the valves, not a hydrant call-out. A repeated alarm from one device that every inspection clears becomes a device fault ticket. Anything with no owner and no time limit will be ignored within a quarter, and the pilot will then be judged a failure for reasons that have nothing to do with the hardware.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Spares and records.</strong> Order the consumables with the units, not after the first failure: spare capsule seals, shear bolts for the anti-collision positions, blank caps with chains, and a gasket set for the isolation valves. Keep one row per asset holding the model, the base hydrant, the coupling pattern, the configured interval, the last reference-gauge comparison and the last exercise date. That single sheet is what makes a five-year-old fleet supportable, and it is also the document any future auditor or insurer will ask for. The supplier-side verification points that keep spare parts honest - batch records, material certificates, test documentation - are listed in the <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a>.</p>
+
+			<!-- Section 8 -->
+			<h2 id="rfq-checklist-for-a-smart-hydrant-scope" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. RFQ Checklist for a Smart Hydrant Scope</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Enquiries in this category get quoted inconsistently, because most buyers specify the radio and leave the hydrant vague. Put these lines in and the offers become comparable line by line.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Base hydrant first.</strong> Type (overground SS100/65, SSFT100/65 anti-collision, SA underground, SN65 indoor), nominal diameter DN100 / DN150, nominal pressure 1.0 or 1.6 MPa, and the test pressure expected on the datasheet.</li>
+				<li><strong>Body standard and coupling pattern.</strong> GB 4452 / GB 4452-2011 for the body, plus KWS, BS 336, SQS65 or the pattern your fire service actually uses - stated per line item, not per project.</li>
+				<li><strong>Sensor list, explicitly.</strong> Pressure, valve status, tilt/vibration, water probe, and any channel you want that is not in that list. Name the pressure accuracy band and the overpressure limit you require.</li>
+				<li><strong>Radio configuration.</strong> NB-IoT, LTE-M or GPRS, the band set the destination operator runs, and whether the module can be re-configured in the field without replacing the capsule.</li>
+				<li><strong>Power.</strong> Battery chemistry and design life, the reporting interval that life assumes, solar assist yes or no, and the low-battery alarm the platform will receive.</li>
+				<li><strong>Ingress and enclosure.</strong> IP rating with the tested depth and duration, capsule material, and the documented procedure for battery replacement without losing the seal.</li>
+				<li><strong>Integration package.</strong> Payload format and encoding, tag or register map, uplink interval, authentication method, API or MQTT documentation, and a named contact who will confirm the mapping with your integrator.</li>
+				<li><strong>Platform responsibility.</strong> State clearly whether you are buying device-to-cloud only, or a hosted dashboard with alarm rules - and if the latter, who owns alarm configuration after handover.</li>
+				<li><strong>Documentation and testing.</strong> Type-test and certification documents for the base hydrant on request, hydrostatic test records for the delivered size, material certificates for body and probe, and the commissioning record sheet you expect back per unit.</li>
+				<li><strong>Spares and service terms.</strong> Capsule seals, shear bolts, caps and chains, gasket sets, plus the price and lead time for a replacement capsule after the warranty window - electronics fail long after a hydrant body would.</li>
+				<li><strong>Package with the balance of scope.</strong> Isolation valves, the siamese connections and any metering are usually cheaper and less error-prone on one order: the <a href="/products/resilient-seat-flanged-gate-valve-z41x/">Z41X gate valve</a>, <a href="/products/sqd100-1-6-fire-pump-adapter/">SQD100-1.6 adapter</a> and <a href="/products/smart-electromagnetic-flow-meter/">flow meter</a> all come from the same water and fire scope, and the <a href="/guides/commercial-building-sprinkler-system-bom-guide/" class="text-brand-blue font-semibold hover:underline">sprinkler system BOM guide</a> shows how to structure that bill.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Related reading on this site: the <a href="/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">fire hydrant selection guide</a> for the base-unit decision, the <a href="/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">antifreeze and anti-collision guide</a> for cold and vehicle-exposed positions, the <a href="/guides/municipal-water-fire-infrastructure-latinamerica/" class="text-brand-blue font-semibold hover:underline">Latin America municipal water and fire infrastructure guide</a> for procurement conditions in that market, and the <a href="/guides/fire-hydrant-valve-standards-guide/" class="text-brand-blue font-semibold hover:underline">hydrant valve standards guide</a> for tracing each device back to the standard that governs it.</p>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Specifying Smart Hydrants or Network Metering?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send us the hydrant type, DN and pressure class, the coupling pattern your fire service uses, the destination operator, and the reporting interval you need - our engineers confirm the sensor and capsule arrangement and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=IoT%20Smart%20Fire%20Hydrant%20SS100ZN" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20smart%20fire%20hydrants%20with%20IoT%20monitoring" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>

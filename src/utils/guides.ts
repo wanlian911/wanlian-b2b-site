@@ -16,6 +16,16 @@ export interface Guide {
 // 内容工厂单一数据源:新增指南只需在此追加一条
 export const guides: Guide[] = [
   {
+    title: 'Smart Fire Hydrant Monitoring: IoT Selection Guide for Water Networks',
+    description: 'How IoT fire hydrant monitoring works for municipal and industrial networks: sensors, NB-IoT links, battery life, siting, pilot design and RFQ lines.',
+    href: '/guides/smart-fire-hydrant-iot-monitoring-guide/',
+    tocPreview: ['1. What a Smart Fire Hydrant Actually Is', '2. What the Sensor Set Can and Cannot Tell You', '3. Instrumented Hydrant vs Flow Meter vs Manual Round'],
+    date: '2026-11',
+    category: 'Fire Protection',
+    readTime: '9 min read',
+    tags: ['fire-hydrant', 'fire-protection', 'procurement']
+  },
+  {
     title: 'Y Strainer Selection Guide: Mesh, Sizing and Protection for Control Valves',
     description: 'How to choose a Y strainer or telescopic strainer for water and fire systems: screen mesh, DN sizing, pressure drop, installation and RFQ data.',
     href: '/guides/y-strainer-selection-guide/',
