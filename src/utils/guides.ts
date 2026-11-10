@@ -16,6 +16,16 @@ export interface Guide {
 // 内容工厂单一数据源:新增指南只需在此追加一条
 export const guides: Guide[] = [
   {
+    title: 'Pre-Action Valve (ZSFY) Guide: Interlock, Trim, Sizing and Nuisance Trips',
+    description: 'How a ZSFY pre-action valve works and how to specify one: interlock arrangement, air-side trim, DN80-DN250 sizing, commissioning, nuisance trips and the RFQ lines.',
+    href: '/guides/pre-action-alarm-valve-zsfy-guide/',
+    tocPreview: ['1. What the Empty Pipe Is Buying You', '2. Single-Interlock, Double-Interlock and Dry-Pipe Pre-action', '3. How the ZSFY Group Holds Closed and Trips'],
+    date: '2026-11',
+    category: 'Fire Protection',
+    readTime: '12 min read',
+    tags: ['sprinkler-systems', 'fire-protection']
+  },
+  {
     title: 'Smart Fire Hydrant Monitoring: IoT Selection Guide for Water Networks',
     description: 'How IoT fire hydrant monitoring works for municipal and industrial networks: sensors, NB-IoT links, battery life, siting, pilot design and RFQ lines.',
     href: '/guides/smart-fire-hydrant-iot-monitoring-guide/',

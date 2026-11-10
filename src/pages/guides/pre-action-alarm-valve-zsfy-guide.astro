@@ -1,0 +1,340 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ: real buyer questions, rendered as visible content and as FAQPage JSON-LD
+const faq = [
+	{
+		question: 'Will a pre-action system discharge if a sprinkler head breaks by accident?',
+		answer: 'That depends on which interlock the valve group is wired for, and it is the first thing to settle on the enquiry. On a double-interlock arrangement such as the ZSFY dual-signal design, two independent signals are required before the diaphragm chamber releases - typically a detection signal plus a pressure change from the piping. A dropped head, a holed pipe or a single faulty detector therefore cannot dump water on the assets below. The trade-off is time: nothing reaches the pipework until both conditions exist, so a real fire runs unopposed for those seconds. A single-interlock arrangement admits water as soon as detection operates, and a sprinkler operating first will also trip the valve, which behaves more like a dry-pipe system.'
+	},
+	{
+		question: 'What pressure does the system side of a pre-action valve hold?',
+		answer: 'The ZSFY group is supplied for a system-side air pressure of 0.03 - 0.05 MPa, the same low-pressure band used on the ZSFC dry alarm valve, with the water side held full at up to 1.6 MPa. That pressure exists for supervision, not for suppression: it is what lets a leak detection device prove the piping is intact before a fire, and what makes an open head or a rupture visible within minutes instead of at the next inspection. Because the margin between 0.05 MPa and a trip is small, the air side is held by an automatic maintenance device and watched by a low-pressure alarm switch set well above the trip point.'
+	},
+	{
+		question: 'Which sizes and actuation options are available for the ZSFY?',
+		answer: 'The catalogue range is DN80 - DN250 at 1.6 MPa nominal, with pneumatic, electric or manual trigger options and integrated pressure-maintaining and air-feeding devices in the group. Bodies and bonnets are ductile iron QT450-10, the internal clapper is bronze or spheroidal iron covered with EPDM, and the diaphragm chamber is reinforced NBR, with galvanized piping and copper-alloy trim. Where a riser needs DN300, the ZSFM deluge group covers DN50 - DN300 at the same working pressure, but it is a different valve type with open discharge points - substitute only with the engineer signing the change.'
+	},
+	{
+		question: 'Do I need an exhaust accelerator on a pre-action system?',
+		answer: 'Ask the question rather than assuming either answer. Water delivery time is the interval between the valve opening and water reaching the most remote operating head; on a pre-action or dry-pipe system that interval is dominated by how fast the air in the pipework can get out of the way. Large-volume piping, long runs, several stories of riser and high system air pressure all lengthen it. An exhaust accelerator senses the drop in air pressure and speeds the opening of the valve so water starts filling sooner, and where the project specifies a maximum delivery time it is usually the cheapest way to meet it. Confirm the required figure from the hydraulic calculation in your tender documents, then size the trim to it.'
+	},
+	{
+		question: 'Why would a pre-action valve trip with no fire?',
+		answer: 'Most nuisance trips trace back to the air side or the trim, not the main valve. The four common ones: system air leaking down faster than the maintenance device can replace it, so the pressure falls to trip level overnight; condensate frozen in a trim passage or drain during a cold snap, then released when it thaws; water logged in the priming chamber, which changes the balance the valve holds itself closed with; and a loss of supervisory power or a failed solenoid in an electric release circuit. Debris in the pilot passages belongs on the same list - a diaphragm valve held closed by pilot pressure is held closed by passages small enough to be blocked by the grit a main-line gate valve would pass without complaint, which is why a strainer on the pilot supply is worth specifying on the same order.'
+	},
+	{
+		question: 'Is a pre-action valve the same thing as a deluge valve?',
+		answer: 'No, and mixing them up is a design error with expensive consequences. A pre-action system protects closed sprinkler heads and keeps the pipework empty and air-filled, so water is admitted only after an interlock condition and then has to fill the network before the heads discharge. A deluge system protects open heads or monitors: the piping is permanently empty, and when the deluge valve opens, every discharge point in the protected area releases at once. Pre-action is chosen to prevent accidental water discharge; deluge is chosen to flood a hazard simultaneously. Because the pipework, the discharge elements and the detection logic all differ, the two should never be treated as interchangeable line items on a tender.'
+	}
+];
+
+// TOC: one entry per H2 id in the body
+const toc = [
+	{ id: 'what-the-system-is-actually-for', label: '1. What the Empty Pipe Is Buying You' },
+	{ id: 'single-interlock-double-interlock-dry-pipe', label: '2. Single-Interlock, Double-Interlock and Dry-Pipe Pre-action' },
+	{ id: 'how-the-zsfy-group-holds-and-trips', label: '3. How the ZSFY Group Holds Closed and Trips' },
+	{ id: 'trim-and-supervision-around-the-valve', label: '4. Trim and Supervision Around the Valve' },
+	{ id: 'sizing-air-side-and-hydraulic-checks', label: '5. Sizing, the Air Side and Hydraulic Checks' },
+	{ id: 'pre-action-compared-with-wet-dry-and-deluge', label: '6. Pre-action Compared with Wet, Dry-Pipe and Deluge' },
+	{ id: 'installation-freeze-protection-and-drains', label: '7. Installation, Freeze Protection and Drain Arrangement' },
+	{ id: 'commissioning-and-periodic-testing', label: '8. Commissioning and Periodic Testing' },
+	{ id: 'nuisance-trips-and-how-to-find-them', label: '9. Nuisance Trips and How to Find Them' },
+	{ id: 'pre-action-valve-rfq-checklist', label: '10. Pre-action Valve RFQ Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// Related products: slugs match src/utils/products.ts
+const products = [
+	{ slug: 'pre-action-alarm-system-zsfy', name: 'ZSFY Pre-action Valve Group', img: '/assets/products/pre-action-alarm-system-zsfy.jpg', desc: 'DN80 - DN250, 1.6 MPa, dual-signal trigger, air side 0.03 - 0.05 MPa' },
+	{ slug: 'dry-alarm-valve-zsfc', name: 'ZSFC Dry Alarm Valve', img: '/assets/products/dry-alarm-valve-zsfc.webp', desc: 'DN100 - DN200 PN16, air-operated clapper, delay chamber and gong' },
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'ZSFM Deluge Alarm Valve', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'DN50 - DN300, DC24V / 0.5A solenoid pilot, open-head discharge duty' },
+	{ slug: 'water-flow-indicator-zsjz', name: 'ZSJZ Water Flow Indicator', img: '/assets/products/water-flow-indicator-zsjz.png', desc: 'DN50 - DN200, 2-60 s delay, dry contact signal to the panel' }
+];
+---
+
+<Layout
+	title="Pre-Action Valve Guide: ZSFY Trim, Sizing & Trips"
+	description="How a ZSFY pre-action valve works, single vs double interlock, air trim, DN80-DN250 sizing, commissioning, nuisance trips and the RFQ lines."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Pre-Action Valve (ZSFY) Guide' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumb -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Pre-Action Valve (ZSFY) Guide</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Sprinkler System Valve Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Pre-Action Valve (ZSFY) Selection Guide: Interlock, Trim, Sizing and Nuisance Trips</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a pre-action valve exists to keep water away from pipework that protects itself with air. The <a href="/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">ZSFY group</a> holds the sprinkler network dry and pressurised with air at 0.03 - 0.05 MPa while the supply side stays full at 1.6 MPa, and it admits water only when the interlock it is wired for is satisfied - which is why it is specified for archives, museums, data halls and cold spaces where an accidental discharge costs more than the fire. Whether that delay is acceptable, which trim the valve actually needs, and what has to be written on the purchase order are the subjects below. This guide is about the valve and its trim; the decision between wet, dry and pre-action as a system type is covered in the <a href="/guides/fire-sprinkler-system-wet-dry-preaction/" class="text-brand-blue font-semibold hover:underline">sprinkler system type guide</a>.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Section 1 -->
+			<h2 id="what-the-system-is-actually-for" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. What the Empty Pipe Is Buying You</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Buyers usually discover pre-action protection through a claim rather than a design review. A wet system with a <a href="/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ wet alarm check valve</a> keeps water standing in every branch pipe, right up to the fusible element of each head. That is exactly what makes a wet system fast and exactly what makes it vulnerable: a corroded tee, an impact from a rack beam, a frozen section that cracks on thaw, or a head loosened during ceiling work turns the pipework into a leak with a valve full open upstream. Nothing about that failure requires a fire.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Pre-action removes that exposure. Under normal conditions the pipework carries air at a low supervisory pressure - 0.03 - 0.05 MPa on this group - and the water is held back at the valve. The consequences for procurement are three:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Accidental discharge needs a second failure.</strong> Piping damage vents air, and how the valve responds to that venting is precisely what the interlock arrangement decides. This is the whole reason a records store or a switching room is specified pre-action rather than wet.</li>
+				<li><strong>The air path becomes part of the scope.</strong> A pre-action system needs an air supply, an air maintenance arrangement, supervisory pressure switches, and pipework that is genuinely tight. Budget for the air side and the leak test, not only the valve.</li>
+				<li><strong>Water delivery is no longer instantaneous.</strong> After the valve opens, the network has to exhaust its air and fill. That filling time is the price of the protection, and the trim, the pipe volume and the exhaust arrangement decide how large the price is.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Cold spaces are the second family of projects. An unheated warehouse, a loading canopy, a cold-store envelope or an outdoor attachment in a freezing climate cannot hold water; the alternatives are air - or antifreeze, which most modern specifications avoid. Where the answer is air, the dry-pipe and pre-action chapters of the <a href="/guides/nfpa-fire-protection-standards-guide/" class="text-brand-blue font-semibold hover:underline">NFPA standards guide</a> and the <a href="/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">CE and EN 12845 compliance guide</a> show how to trace the requirement back to the document governing your project.</p>
+
+			<!-- Section 2 -->
+			<h2 id="single-interlock-double-interlock-dry-pipe" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Single-Interlock, Double-Interlock and Dry-Pipe Pre-action</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Three arrangements share the same empty-pipe principle and differ in what has to happen before water is admitted. They are not interchangeable, and the tender usually names one. The ZSFY is built as a dual-signal group - a fire alarm signal and a pressure signal both required - which puts it in the double-interlock family, but the same valve body is used in single-interlock and dry-pipe duty where the trim and detection logic are arranged for it. Confirm which arrangement the engineer expects before quoting trim components.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What to check</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Single-Interlock</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Double-Interlock (ZSFY dual-signal)</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Dry-Pipe Pre-action</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">What opens the valve</td>
+							<td class="px-4 py-3 text-gray-700">Detection system operating alone</td>
+							<td class="px-4 py-3 text-gray-700">Two independent signals - detection plus a pressure change</td>
+							<td class="px-4 py-3 text-gray-700">Sprinkler operation, or detection, depending on the trim logic</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">State of pipework when it opens</td>
+							<td class="px-4 py-3 text-gray-700">Empty; it fills after the valve opens</td>
+							<td class="px-4 py-3 text-gray-700">Empty until both signals exist</td>
+							<td class="px-4 py-3 text-gray-700">Air-filled; a head operating first vents it</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Accidental discharge risk</td>
+							<td class="px-4 py-3 text-gray-700">Reduced versus wet, but one detector fault can flood the zone</td>
+							<td class="px-4 py-3 text-gray-700">Lowest - a single head break or single detector fault cannot open it</td>
+							<td class="px-4 py-3 text-gray-700">Reduced versus wet; behaves like a dry system</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Time to water</td>
+							<td class="px-4 py-3 text-gray-700">Fast of the three - piping is already charged before the head opens</td>
+							<td class="px-4 py-3 text-gray-700">Slowest - fill starts only after both signals</td>
+							<td class="px-4 py-3 text-gray-700">Dominated by air exhaust from the operating head</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typical specification</td>
+							<td class="px-4 py-3 text-gray-700">Occupied offices, retail, where water damage matters but response matters more</td>
+							<td class="px-4 py-3 text-gray-700">Archives, museums, data halls, control rooms, heritage</td>
+							<td class="px-4 py-3 text-gray-700">Unheated and cold spaces, refrigerated and freezer areas</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Detection dependency</td>
+							<td class="px-4 py-3 text-gray-700">Highest - detection is the trigger</td>
+							<td class="px-4 py-3 text-gray-700">Highest - detection is half the trip condition</td>
+							<td class="px-4 py-3 text-gray-700">Lower when sprinkler operation alone is accepted</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Read the table against the building, not against the catalogue. A double-interlock arrangement in a warehouse where a fast-growing pallet fire doubles every two minutes is buying protection from water damage at the cost of suppression time, and few engineers accept that trade outside a genuine water-sensitive room. Where the trade is not worth making, a dry-pipe system on a <a href="/products/dry-alarm-valve-zsfc/" class="text-brand-blue font-semibold hover:underline">ZSFC dry alarm valve</a> gives the same freeze protection and the same empty pipework with less logic in the trip path.</p>
+
+			<!-- Section 3 -->
+			<h2 id="how-the-zsfy-group-holds-and-trips" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. How the ZSFY Group Holds Closed and Trips</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The valve is a diaphragm or clapper main valve held closed by a balance of pressures rather than by a spring or a handwheel. Body and bonnet are ductile iron QT450-10; the internal clapper is bronze or spheroidal iron covered with EPDM; the diaphragm chamber uses reinforced NBR; the trim is galvanized piping with copper-alloy fittings. Under normal conditions the supply side sits at system water pressure up to 1.6 MPa, the system side holds 0.03 - 0.05 MPa of air, and the trim holds a priming pressure that keeps the clapper seated. Nothing moves and nothing flows.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The trip sequence is a pressure story. Detection operates and the releasing device - pneumatic, electric or manual, all three are offered on this group - vents the holding pressure from the diaphragm chamber. Supply water then enters the chamber and lifts the clapper, water runs into pipework that until that moment held air, and the air is pushed out through the operating head, the exhaust accelerator if one is fitted, and the drains. As the water side moves, the alarm path reports it: pressure switch to the panel, water-motor gong locally, gauges showing the change at the valve. The integrated pressure-maintaining and air-feeding devices included in the group are what keep the air side at its supervisory value between trips and what stop ordinary weeping joints from draining it.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Two consequences follow that a buyer should carry into the quotation. First, the releasing circuit is an interface with someone else - the fire alarm panel, not the valve supplier. State the signal type and voltage you intend to use; the solenoid pilot on the related <a href="/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM deluge group</a> is specified as DC24V / 0.5A and the same discipline of naming coil voltage and supervision belongs here, as does the fail-safe behaviour you expect when the panel loses power. Second, a group held closed by pilot pressure is held closed by small passages. Grit in the trim is a trip or a leak waiting to happen, and the strainer question is dealt with in the <a href="/guides/y-strainer-selection-guide/" class="text-brand-blue font-semibold hover:underline">pipeline strainer guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed">For the alarm and dry-pipe side of the same family, the <a href="/guides/dry-alarm-valve-zsfc-guide/" class="text-brand-blue font-semibold hover:underline">dry alarm valve guide</a> sets out how the ZSFC holds on air pressure and how its delay chamber and gong are arranged - the trim logic transfers almost line for line.</p>
+
+			<!-- Section 4 -->
+			<h2 id="trim-and-supervision-around-the-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Trim and Supervision Around the Valve</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The valve body is a fraction of the delivered scope. What makes a pre-action installation maintainable is everything bolted, piped and wired around it, and each item deserves a line on the enquiry rather than the phrase "complete trim".</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Air maintenance and air supply.</strong> A compressor or cylinder set with the pressure-maintaining device keeps the supervisory air at its set band. Sizing follows the acceptable make-up volume, because an air maintenance device that cannot cover a legitimate leak will keep the system alive while hiding a growing hole.</li>
+				<li><strong>Low-air pressure alarm.</strong> Set comfortably above the trip value so that falling air is an alarm a person can act on rather than a flood. This is the single most valuable device on an air-filled system.</li>
+				<li><strong>Exhaust acceleration.</strong> Fitted where water delivery time is specified; see section 5 for how to decide.</li>
+				<li><strong>Isolation and position supervision.</strong> The main control valve must be supervised open. A rising-stem <a href="/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">OS&amp;Y gate valve</a> (DN50 - DN250, nodular cast iron, grooved ends) shows position at a glance; a <a href="/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">signal butterfly valve</a> (DN50 - DN300 PN16, wafer or grooved, waterproof microswitch) sends it to the panel, which is what a night-shift operator actually needs. The trade-off between the two is covered in the <a href="/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">sprinkler control valve types guide</a>.</li>
+				<li><strong>Zone flow reporting.</strong> On a network of closed heads, a <a href="/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">ZSJZ vane flow indicator</a> (DN50 - DN200, 1.2 or 1.6 MPa, trigger between 15 and 37.5 L/min, adjustable 2 - 60 second delay, dry contact output) tells the panel which zone is flowing, and its delay is what stops pressure oscillation from reporting as a fire.</li>
+				<li><strong>Test, drip and drain connections.</strong> The trim needs a controlled way to prove the alarm path without emptying the protected volume, plus a drip path so a weeping seat shows as a drain discharge rather than as a mysterious air loss.</li>
+				<li><strong>Heads.</strong> The discharge elements stay closed, and standard-response or quick-response <a href="/products/glass-bulb-fire-sprinkler-zst/" class="text-brand-blue font-semibold hover:underline">ZST glass bulb heads</a> (K=80 +/-4 or K=115 +/-9, 57 / 68 / 79 / 93 / 141 degrees C) or <a href="/products/esfr-sprinkler-head/" class="text-brand-blue font-semibold hover:underline">ESFR heads</a> on a 74 degrees C bulb are selected by the hazard - see the <a href="/guides/fire-sprinkler-head-selection-guide/" class="text-brand-blue font-semibold hover:underline">sprinkler head selection guide</a>.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Where the project also needs a remote-acting valve for a monitor or a deluge section, the <a href="/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">GKZF-1 grooved solenoid control gate valve</a> (DN50 - DN300, 300 PSI / 2.0 MPa, AC220V or DC24V) is a separate role and should not be substituted into an alarm valve group because it looks similar on a drawing.</p>
+
+			<!-- Section 5 -->
+			<h2 id="sizing-air-side-and-hydraulic-checks" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Sizing, the Air Side and Hydraulic Checks</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Size is the easy part and the least interesting. The ZSFY covers DN80 - DN250 at 1.6 MPa, which takes most risers and zone duties; where a design needs above that, the deluge group covers DN50 - DN300 at the same working pressure with a 3.2 MPa test pressure and 6.4 MPa shell test. What actually needs checking on a pre-action installation is the behaviour of the air.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Air volume and exhaust time.</strong> Total the internal volume of everything that has to be emptied of air before water arrives at the remote head. Compare that volume with the exhaust path available - the operating head orifice, the accelerator, the open drains - and you have the filling time that the design either accepts or does not. Ask the engineer for the maximum trip-to-water figure in the specification and quote the trim against it, rather than agreeing "pre-action" and discovering at commissioning that the acceptance test cannot be met.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Leakage rate.</strong> The supervisory pressure band of 0.03 - 0.05 MPa is narrow, so the make-up volume demanded of the air maintenance device is the number that reveals the real condition of the pipework. Specify a measured leakage figure at a stated pressure as a commissioning acceptance item; it is the only objective evidence that the air side is fit to hold.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Temperature swing.</strong> Air at 0.05 MPa moves with ambient temperature in a way water does not. A day-night swing in an uninsulated roof space can cycle supervisory pressure enough to nuisance-trip or nuisance-alarm. Shade the pipework where you can, and let the maintenance device absorb the rest.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Water side capacity.</strong> Confirm the valve against the design flow and the available inlet pressure, and ask for Kv or Cv stated at a defined pressure drop together with the pressure-loss figure at your flow - the same discipline applies as in the <a href="/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">deluge sizing chapter</a>. Add the remote head pressure and the riser height, and check the whole duty against the <a href="/guides/fire-pump-room-valves-guide/" class="text-brand-blue font-semibold hover:underline">pump room arrangement</a> so the supply and the valve are quoted for the same case. Where a project needs the numbers verified rather than asserted, an <a href="/products/smart-electromagnetic-flow-meter/" class="text-brand-blue font-semibold hover:underline">electromagnetic flow meter</a> on the test header turns the acceptance test into a record.</p>
+
+			<!-- Section 6 -->
+			<h2 id="pre-action-compared-with-wet-dry-and-deluge" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Pre-action Compared with Wet, Dry-Pipe and Deluge</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Four alarm valve groups, four different failure modes, four different RFQs. The table below uses the catalogue figures for these valves so the comparison is verifiable rather than generic.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Specification</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">ZSFZ Wet Alarm Check</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">ZSFC Dry Alarm</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">ZSFY Pre-action</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">ZSFM Deluge</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pipework in normal state</td>
+							<td class="px-4 py-3 text-gray-700">Full of water</td>
+							<td class="px-4 py-3 text-gray-700">Air or nitrogen, 0.03 - 0.05 MPa typical</td>
+							<td class="px-4 py-3 text-gray-700">Air, 0.03 - 0.05 MPa</td>
+							<td class="px-4 py-3 text-gray-700">Empty and open to atmosphere</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Discharge elements</td>
+							<td class="px-4 py-3 text-gray-700">Closed heads</td>
+							<td class="px-4 py-3 text-gray-700">Closed heads</td>
+							<td class="px-4 py-3 text-gray-700">Closed heads</td>
+							<td class="px-4 py-3 text-gray-700">Open heads, nozzles or monitors</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Trip signal</td>
+							<td class="px-4 py-3 text-gray-700">Head operates, flow lifts clapper</td>
+							<td class="px-4 py-3 text-gray-700">Head operates, system air vents</td>
+							<td class="px-4 py-3 text-gray-700">Detection plus pressure change (dual signal)</td>
+							<td class="px-4 py-3 text-gray-700">Detection line releases the holding pressure</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Catalogue size range</td>
+							<td class="px-4 py-3 text-gray-700">DN100 / DN150 / DN200</td>
+							<td class="px-4 py-3 text-gray-700">DN100 / DN150 / DN200</td>
+							<td class="px-4 py-3 text-gray-700">DN80 - DN250</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN300</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Nominal pressure</td>
+							<td class="px-4 py-3 text-gray-700">1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">1.6 MPa, test 3.2 / shell 6.4 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typical alarm trim</td>
+							<td class="px-4 py-3 text-gray-700">Retard chamber, gong, pressure switch</td>
+							<td class="px-4 py-3 text-gray-700">Delay chamber, gong, gauges</td>
+							<td class="px-4 py-3 text-gray-700">Air maintenance, low-air alarm, gauges, release device</td>
+							<td class="px-4 py-3 text-gray-700">DC24V / 0.5A solenoid pilot, gong, pressure switch</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Main selection driver</td>
+							<td class="px-4 py-3 text-gray-700">Fastest response, permanent water in pipework</td>
+							<td class="px-4 py-3 text-gray-700">Freeze protection</td>
+							<td class="px-4 py-3 text-gray-700">Preventing accidental water discharge</td>
+							<td class="px-4 py-3 text-gray-700">Simultaneous coverage of a fast hazard</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">If you are choosing between the four rather than pricing one, start from the hazard and the contents, then work down to the valve - that is the purpose of the <a href="/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">sprinkler system valves guide</a> and the <a href="/guides/foam-deluge-system-guide/" class="text-brand-blue font-semibold hover:underline">foam deluge guide</a> for Class B risks. Where the tender lists pre-action and deluge as options, treat them as different systems rather than different valves and price the pipework, the heads and the detection accordingly.</p>
+
+			<!-- Section 7 -->
+			<h2 id="installation-freeze-protection-and-drains" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Installation, Freeze Protection and Drain Arrangement</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A pre-action valve installed like a wet alarm valve will disappoint on the first cold snap. Three installation decisions carry most of the risk.</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Slope and drainage.</strong> Air-filled pipework condenses, and in a cold installation that condensate freezes where it collects. The runs must fall to drains, and every low point needs a drain that a technician can actually open and see discharge. Secondary and main drains are trim items on the order, not site scavenging.</li>
+				<li><strong>Flush before the trim is connected.</strong> Construction grit is the leading cause of early pilot and trim failure on any diaphragm valve. Flush the mains, clear the strainers, then connect pilot tubing, solenoids and switches - the sequence is set out in the <a href="/guides/water-level-control-valve-guide/" class="text-brand-blue font-semibold hover:underline">hydraulic control valve commissioning section</a> and applies equally here.</li>
+				<li><strong>Keep the air supply dry.</strong> A compressor feeding supervisory air without drying carries moisture into pipework that then freezes from the inside. Name the air quality you are supplying and the treatment fitted.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed mb-4">Freeze protection strategy belongs on the drawing before the order. Where the space stays cold, the pre-action or dry-pipe system is the protection; where the risk is an occasional frost in an otherwise heated building, the honest answer is insulation and heat trace on the vulnerable run rather than a valve change. The cold-climate behaviour of above-ground equipment is dealt with in the <a href="/guides/antifreeze-anti-collision-fire-hydrant-guide/" class="text-brand-blue font-semibold hover:underline">antifreeze and anti-collision hydrant guide</a>, and the mechanical reason a frozen wet section fails silently is the same there as here.</p>
+			<p class="text-gray-700 leading-relaxed">Finally, connect the releasing circuit with the alarm interface documented: which terminals, which voltage, which supervision, and what the valve does when the panel loses power or a line is cut. A release circuit that fails open has converted a water-damage-prevention system into an uncontrolled deluge, and that behaviour should be a written acceptance item rather than an assumption.</p>
+
+			<!-- Section 8 -->
+			<h2 id="commissioning-and-periodic-testing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. Commissioning and Periodic Testing</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Commission a pre-action installation in stages and record each one. The sequence that has served export projects well:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Water side:</strong> shell and seat proof of the delivered valve and its trim to the pressure stated on the datasheet - the reporting language is covered in the <a href="/guides/api-598-valve-pressure-test-guide/" class="text-brand-blue font-semibold hover:underline">pressure testing guide</a> - followed by a controlled trip test with the system drained and refillable.</li>
+				<li><strong>Air tightness:</strong> charge to the supervisory band, record the make-up volume over a fixed interval, and accept against the leakage figure agreed in the specification. This single test predicts the running behaviour of the whole installation.</li>
+				<li><strong>Interlock proof:</strong> test each path separately - detection only, sprinkler or vent only, both together, manual release - and record what the valve did in each case. On a double-interlock system the detection-only test must demonstrate that it does <strong>not</strong> admit water; that is the function being bought.</li>
+				<li><strong>Delivery time:</strong> with the network charged with air, trip the system and time water at the most remote outlet. Compare with the specified figure.</li>
+				<li><strong>Signals:</strong> confirm that low-air alarm, flow indication and valve position each reach the panel and are identifiable there.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">In service, the in-service testing and maintenance document named in your contract sets the frequencies - NFPA 25 is the usual reference on US-spec work and EN or national equivalents elsewhere, with the edition to be confirmed from the specification rather than assumed. What matters commercially is that the air side is inspected on a real interval, because supervisory air leakage is the failure mode that produces both nuisance trips and the false confidence that a system is live when it is not.</p>
+			<p class="text-gray-700 leading-relaxed">Keep the commissioning record with the valve. A five-year-old installation with its original tightness figures can be diagnosed from a change in make-up volume; the same installation without the record has to be drained, searched and re-tested at far greater cost.</p>
+
+			<!-- Section 9 -->
+			<h2 id="nuisance-trips-and-how-to-find-them" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">9. Nuisance Trips and How to Find Them</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Nuisance trips are the argument every facilities manager raises against pre-action, and almost all of them have identifiable causes. Work the list in order of frequency.</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Air leaking down.</strong> The symptom is a supervisory pressure that falls steadily and a maintenance device running often. Find the leak by section with the system charged, not by raising the set point - raising the set point only converts a slow leak into a trip at a higher pressure.</li>
+				<li><strong>Frozen or blocked trim.</strong> A passage iced shut in winter behaves normally until the thaw, when the balance the valve holds changes and it trips. Trips on a rising morning temperature are diagnostic of this cause.</li>
+				<li><strong>Water logged in the priming chamber.</strong> Check the drip and drain arrangement; a chamber that cannot breathe or drain gives erratic hold behaviour.</li>
+				<li><strong>Release circuit faults.</strong> Loss of supervisory power, a failed coil, a shorted or open initiating line, or a panel programmed to the wrong fail-safe. Trip the electric path deliberately during commissioning so you know what it is supposed to do.</li>
+				<li><strong>Debris in the pilot passages.</strong> The usual signature is a valve that holds badly, drips into the alarm path, or trips on a pressure oscillation elsewhere in the main. Strain the pilot supply and clean the passages rather than adjusting the set point to compensate.</li>
+				<li><strong>Genuine demand.</strong> Occasionally a "nuisance" trip was the system working - a head that operated in a room nobody entered. Read the flow indicator zone and the panel history before writing it off.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed mb-4">False alarms without discharge are a different problem and usually belong to the alarm path: a <a href="/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">flow indicator</a> whose delay is set too short will report a pressure surge as flow, and a wet system alarm path without a retard chamber will do the same mechanically. The <a href="/guides/water-flow-indicator-guide/" class="text-brand-blue font-semibold hover:underline">water flow indicator guide</a> covers that adjustment range.</p>
+			<p class="text-gray-700 leading-relaxed">Related surge behaviour on the water side - including why a fast-closing valve upstream can look exactly like a faulty alarm valve - is covered in the <a href="/guides/water-hammer-protection-fire-water-systems/" class="text-brand-blue font-semibold hover:underline">water hammer protection guide</a>.</p>
+
+			<!-- Section 10 -->
+			<h2 id="pre-action-valve-rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">10. Pre-action Valve RFQ Checklist</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Pre-action groups are quoted as assemblies, and the spread between two apparently identical offers is almost always in the trim. Put these lines in the enquiry.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Interlock arrangement.</strong> Single-interlock, double-interlock or dry-pipe duty - state which, and state the required behaviour when detection operates alone.</li>
+				<li><strong>Size and class.</strong> DN80 - DN250 at 1.6 MPa on this group, plus the end connection and its drilling standard (see the <a href="/guides/flange-standard-guide-ansi-din-jis/" class="text-brand-blue font-semibold hover:underline">flange standard guide</a>).</li>
+				<li><strong>Trigger method.</strong> Pneumatic, electric or manual, and for electric state coil voltage and supervision. The related ZSFM pilot is DC24V / 0.5A; the equivalent figure must be named on this enquiry too.</li>
+				<li><strong>Air side scope.</strong> System-side supervisory pressure (0.03 - 0.05 MPa here), whether the pressure-maintaining and air-feeding devices are included, and whether the compressor or cylinder set is in your scope or ours.</li>
+				<li><strong>Exhaust acceleration.</strong> State the specified maximum water delivery time, or state that there is none and accept the consequence in writing.</li>
+				<li><strong>Alarm trim.</strong> Retard or delay chamber, water-motor gong, pressure switch contacts, gauges, test and drip connections.</li>
+				<li><strong>Materials.</strong> Body and bonnet ductile iron QT450-10, clapper bronze or spheroidal iron with EPDM cover, reinforced NBR diaphragm, galvanized and copper-alloy trim - and name any deviation the specification requires.</li>
+				<li><strong>Supervision devices.</strong> Isolation valve type with or without position signalling, and zone flow indicators by size and mounting (saddle, threaded, flanged or grooved).</li>
+				<li><strong>Documentation.</strong> Shell and seat test records for the delivered size, material certificates, the general arrangement drawing with the trim shown, and the commissioning and spares list - the eight-point verification method is in the <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">sourcing checklist</a>.</li>
+				<li><strong>Listing status.</strong> If the project requires listed equipment, say so at enquiry: listings belong to specific configurations and their holder must be named and verified, as the <a href="/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">UL listed valve guide</a> explains.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Assembling the pre-action valve with its heads, flow indicators, isolation valves and drains on one purchase order is where the saving actually appears - the <a href="/guides/commercial-building-sprinkler-system-bom-guide/" class="text-brand-blue font-semibold hover:underline">commercial sprinkler BOM guide</a> sets out that package line by line.</p>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Specifying a Pre-action System for a Water-Sensitive Room?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send us the interlock arrangement, DN and pressure class, system-side air pressure, trigger method and the required water delivery time - our engineers confirm the valve group and trim against your hydraulic calculation and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=ZSFY%20Pre-action%20Valve%20Group" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20a%20ZSFY%20pre-action%20valve%20group%20with%20trim" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
