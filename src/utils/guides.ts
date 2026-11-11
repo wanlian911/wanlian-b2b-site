@@ -629,4 +629,14 @@ export const guides: Guide[] = [
     readTime: '8 min read',
     tags: ['procurement', 'fire-protection']
   },
+  {
+    title: 'Solenoid Operated Fire Water Valve Guide: Electric Release and Zone Control',
+    description: 'How solenoid-operated fire water valves work: electric release pilots on deluge and pre-action groups, GKZF-1 zone control, coil voltage, fail-safe logic, closure time and RFQ lines.',
+    href: '/guides/solenoid-operated-fire-water-valve-guide/',
+    tocPreview: ['1. Two Different Jobs: Release Solenoids and Zone-Control Valves', '2. How a Solenoid-Piloted Gate Valve Works', '3. Electric vs Manual, Pneumatic and Hydraulic Release'],
+    date: '2026-11',
+    category: 'Hydraulic Safety',
+    readTime: '9 min read',
+    tags: ['backflow-prevention', 'industrial-valves', 'fire-protection']
+  },
 ];

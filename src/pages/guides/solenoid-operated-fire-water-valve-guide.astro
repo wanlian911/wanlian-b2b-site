@@ -1,0 +1,217 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ: real buyer questions, rendered as visible content and as FAQPage JSON-LD
+const faq = [
+	{
+		question: 'Can a GKZF-1 solenoid control gate valve be used instead of a deluge valve?',
+		answer: 'No - the two devices do different jobs and are not interchangeable. A deluge valve such as the ZSFM sits above a system of open discharge heads and holds closed on diaphragm pressure-chamber balance; when detection operates, it must dump water into empty pipework within seconds and report the trip on a gong and a pressure switch. The GKZF-1 is a gate valve on a charged main that opens and closes on command, so the piping downstream stays pressurised between events. A drawing note that substitutes one for the other because both carry the word solenoid is a specification error: the sizing basis, trim arrangement, alarm path and reset procedure are all different. If the question is how to electrically release a deluge or pre-action group, the answer is the DC24V solenoid pilot on the alarm valve group, not a solenoid gate valve in the main.'
+	},
+	{
+		question: 'Should we specify DC24V or AC220V coils?',
+		answer: 'Both are offered on the GKZF-1 (AC220V or DC24V), while the solenoid pilot on the ZSFM deluge group is specified as DC24V / 0.5A, so the two families already have different defaults. The practical rule: use DC24V where the valve is driven from the fire alarm control panel or another supervised, battery-backed circuit, because that is the voltage releasing panels are built to drive and it keeps the device on standby power during a mains failure. Use AC220V where the valve is commanded by a local pump control panel or building systems with reliable mains and long runs are short enough that voltage drop is not an issue. On long cable runs, DC24V coils see real voltage drop at the coil terminals - calculate it before ordering, or specify the higher voltage and step down at the valve. Name the exact voltage on the RFQ; a shipped coil voltage is very hard to change after the fact.'
+	},
+	{
+		question: 'What happens when the control signal or power is lost?',
+		answer: 'That is a wiring-philosophy question, not a valve-catalogue question, and it must be answered in the specification rather than discovered at commissioning. Electrically piloted valves are ordered into one of three behaviours: hold position on signal loss, fail open, or fail closed - and the right answer depends on what the valve protects. A zone-control valve that is normally open may be expected to stay open when power fails, while an electric release on a deluge group is often wired so that loss of the supervisory signal trips the zone, though some designs do the opposite. Whichever you choose, write the sequence out for five conditions - normal command, loss of coil power, loss of panel supply, manual release, and restoration - and make the supplier and the panel integrator both sign the same document before the first energisation.'
+	},
+	{
+		question: 'Is a solenoid operated valve accepted as a supervised control valve?',
+		answer: 'In the sense that matters, yes: a valve whose coil is driven and monitored by the control system reports its commanded state to that system automatically, which is why the automatic-control sections of a fire water network are usually accepted without a separate limit switch. But accept it for the right reason - the panel knows what it commanded, not necessarily where the wedge physically stopped. Where a valve can also be hand-operated locally, or where the duty is supervised isolation of a sprinkler section, codes expect a position-indicating or position-reporting device: an OS and Y gate valve with a visible rising stem, or a signal butterfly valve whose microswitch flips on handwheel movement. Buyers commonly fit both layers: a signal isolation valve at the section, and solenoid control for the automatic function.'
+	},
+	{
+		question: 'How do you keep debris from fouling the pilot?',
+		answer: 'Treat the pilot circuit as the narrow, unforgiving part of the valve, because it is. Three controls do almost all of the work. First, put a strainer on the pilot supply - a Y-strainer or telescopic strainer such as the SGL41H (DN50 - DN600, stainless screen, 18-30 mesh for water) sized to the pilot line. Second, flush and clean the mains before pilot tubing, solenoids and switches are connected; construction grit is the leading cause of early pilot failure on any diaphragm or pilot-piloted valve. Third, put the strainer screens on the periodic inspection sheet with the alarm tests, because a slowly blocking screen does not announce itself - it shows up first as a sluggish trip at the next test, which is exactly when you do not want a surprise.'
+	}
+];
+
+// TOC: one entry per H2 id in the body
+const toc = [
+	{ id: 'two-different-jobs-release-versus-zone-control', label: '1. Two Different Jobs: Release Solenoids and Zone-Control Valves' },
+	{ id: 'how-a-solenoid-piloted-gate-valve-works', label: '2. How a Solenoid-Piloted Gate Valve Works' },
+	{ id: 'electric-versus-manual-pneumatic-and-hydraulic-release', label: '3. Electric vs Manual, Pneumatic and Hydraulic Release' },
+	{ id: 'choosing-the-coil-voltage-dc24v-or-ac220v', label: '4. Choosing the Coil Voltage: DC24V or AC220V' },
+	{ id: 'fail-safe-logic-supervision-and-position-feedback', label: '5. Fail-Safe Logic, Supervision and Position Feedback' },
+	{ id: 'water-hammer-why-closure-time-is-a-specification-line', label: '6. Water Hammer: Why Closure Time Is a Specification Line' },
+	{ id: 'installation-commissioning-and-pilot-protection', label: '7. Installation, Commissioning and Pilot Protection' },
+	{ id: 'rfq-checklist-for-solenoid-operated-valves', label: '8. RFQ Checklist for Solenoid Operated Valves' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// Related products: slugs match src/utils/products.ts
+const products = [
+	{ slug: 'groove-solenoid-control-gate-valve-gkzf1', name: 'GKZF-1 Solenoid Control Gate Valve', img: '/assets/products/groove-solenoid-control-gate-valve-gkzf1.webp', desc: 'DN50 - DN300, AC220V / DC24V, 300 PSI (2.0 MPa), grooved or flanged' },
+	{ slug: 'deluge-alarm-valve-zsfm', name: 'ZSFM Deluge Alarm Valve Group', img: '/assets/products/deluge-alarm-valve-zsfm.webp', desc: 'DN50 - DN300, DC24V / 0.5A solenoid pilot, mechanical, pneumatic or electric trip' },
+	{ slug: 'pre-action-alarm-system-zsfy', name: 'ZSFY Pre-action Alarm System', img: '/assets/products/pre-action-alarm-system-zsfy.jpg', desc: 'DN80 - DN250, pneumatic, electric or manual trigger, dual-signal release' },
+	{ slug: 'water-flow-indicator-zsjz', name: 'ZSJZ Water Flow Indicator', img: '/assets/products/water-flow-indicator-zsjz.png', desc: 'DN50 - DN200, DC24V / 3A dry contact, adjustable 2-60 s delay' }
+];
+---
+
+<Layout
+	title="Solenoid Operated Fire Water Valve Guide: Electric Release"
+	description="Solenoid-operated fire water valves for electric release and zone control: coil voltage, fail-safe logic, supervision, closure time and RFQ lines."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Solenoid Operated Fire Water Valves' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumb -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Solenoid Operated Fire Water Valves</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Fire Water Control Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Solenoid Operated Fire Water Valves: How to Specify Electric Release and Automatic Zone Control</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a solenoid turns a hydraulic decision into an electrical signal, and most procurement problems in this category come from confusing the two jobs it does. The <strong>DC24V / 0.5A solenoid pilot</strong> on a <a href="/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM deluge group</a> is a release device - it vents a diaphragm chamber so a second, larger valve can trip. The <a href="/products/groove-solenoid-control-gate-valve-gkzf1/" class="text-brand-blue font-semibold hover:underline">GKZF-1 grooved solenoid control gate valve</a> (DN50 - DN300, AC220V / DC24V, 300 PSI) is a work device - it opens and closes a charged main on command. Coil voltage, fail-safe behaviour, supervision, closure time and pilot cleanliness decide whether either one works on the day it matters. All five below, with the RFQ lines to specify.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Section 1 -->
+			<h2 id="two-different-jobs-release-versus-zone-control" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Two Different Jobs: Release Solenoids and Zone-Control Valves</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Everything in this family becomes clearer once the two roles are separated. A <strong>release solenoid</strong> is a small pilot valve that carries no water duty at all. On the <a href="/products/deluge-alarm-valve-zsfm/" class="text-brand-blue font-semibold hover:underline">ZSFM deluge alarm valve group</a> it is specified as DC24V / 0.5A: when the releasing panel energises or de-energises it, the pressure held in the diaphragm chamber of a DN50 - DN300 main valve is vented, the balance fails, and the valve opens to flood a system of open heads. The solenoid sees pilot pressure, not line flow. The same principle drives the electric trigger option on the <a href="/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">ZSFY pre-action group</a> (DN80 - DN250, 1.6 MPa, pneumatic, electric or manual trigger), where the release admits water to pipework that normally holds 0.03 - 0.05 MPa of air.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">A <strong>zone-control solenoid valve</strong> is a different animal. The GKZF-1 is a ductile iron QT450 gate valve with a fully EPDM-encapsulated wedge, pilot-operated by its own solenoid: the coil command moves the main valve, and the main valve actually passes or stops the line flow - DN50 - DN300 at 300 PSI (2.0 MPa), grooved or flanged, AC220V or DC24V. It is used where a fire water or municipal network must be sectioned, switched between sources, or released to a monitor or deluge zone on command from a panel - an on-off duty performed repeatedly, not a once-only trip like an alarm valve.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Why the confusion matters commercially.</strong> These two devices are quoted, tested and documented differently. An alarm valve group is bought as a certified assembly with its trim, retard chamber, gong and pressure switch, and the release device is part of that arrangement (see the <a href="/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">deluge valve selection guide</a>). A solenoid control gate valve is bought as a valve with a pilot option, like the rest of the grooved family in the <a href="/guides/grooved-fire-protection-valves-guide/" class="text-brand-blue font-semibold hover:underline">grooved fire protection valves guide</a>. A specification that names the wrong one produces a quote that looks compliant and a system that does not behave as designed - the pre-action guide puts the warning plainly: do not substitute the GKZF-1 into an alarm valve group because it looks similar on a drawing.</p>
+
+			<!-- Section 2 -->
+			<h2 id="how-a-solenoid-piloted-gate-valve-works" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. How a Solenoid-Piloted Gate Valve Works</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The GKZF-1 is not a giant electric actuator grinding a stem. It is a resilient-seat gate valve steered by line pressure through its own pilot: the stainless steel 304 or brass solenoid pilot admits or vents pressure above a diaphragm chamber, and that pressure differential lifts and lowers the EPDM-encapsulated wedge. The moving parts that touch the line are the same parts that make any <a href="/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X resilient seat gate valve</a> bubble-tight - ductile iron QT450 body and wedge core, EPDM encapsulation, non-toxic epoxy coating - while the coil itself draws modest current because it only steers pilot flow.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Read the consequences from that architecture. Closing force comes from the line, so the valve needs a minimum working pressure differential to seat promptly - it is rated for systems up to 300 PSI (2.0 MPa), and the datasheet confirms the class for your DN. The pilot passages are small relative to the bore, which makes filtration a real requirement rather than a formality - Section 7 covers it. Because the main valve is a rising-path gate rather than a quarter-turn disc, the wedge travels in guides and seats on rubber, which is why this style of pilot-actuated group closes far more gently than an actuated butterfly of the same DN - the reason this valve class appears in the <a href="/guides/water-hammer-protection-fire-water-systems/" class="text-brand-blue font-semibold hover:underline">water hammer protection guide</a> as the surge-friendly automation choice.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Interfaces to plan for.</strong> The coil arrives expecting a command signal - AC220V or DC24V - and the project needs to answer, before ordering, which panel supplies it, whether the circuit is supervised, how the valve is released manually when the site wants a test, and what the panel does with the valve state. The supplier side is documented to GB / ANSI / DIN / JIS per project specification with type-test and certification documents available on request; the interface side is yours, and it is where most of the commissioning surprises live.</p>
+
+			<!-- Section 3 -->
+			<h2 id="electric-versus-manual-pneumatic-and-hydraulic-release" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Electric vs Manual, Pneumatic and Hydraulic Release</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Alarm valve groups in this catalogue support mechanical, pneumatic and electrical triggering - the ZSFM lists all three, and the ZSFY is offered with pneumatic, electric or manual trigger - so the buyer is genuinely choosing, not being pushed. Choose the release method from the detection design, the available power, the cable routing and the fail-safe sequence you want, exactly as the <a href="/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">deluge guide</a> frames it; the table is the same decision written side by side.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What to compare</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Manual release</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Pneumatic release</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Electric (solenoid) release</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Trip signal</td>
+							<td class="px-4 py-3 text-gray-700">A person pulls a release at the valve or a remote lever</td>
+							<td class="px-4 py-3 text-gray-700">Air pressure change in a monitored pilot line</td>
+							<td class="px-4 py-3 text-gray-700">A supervised panel output drives the solenoid pilot (DC24V / 0.5A class)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Detection integration</td>
+							<td class="px-4 py-3 text-gray-700">None - human reaction is the detector</td>
+							<td class="px-4 py-3 text-gray-700">Line acts as the detector; local and independent of power</td>
+							<td class="px-4 py-3 text-gray-700">Full integration with the fire alarm panel and its event log</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Power dependence</td>
+							<td class="px-4 py-3 text-gray-700">None</td>
+							<td class="px-4 py-3 text-gray-700">None for the trip itself</td>
+							<td class="px-4 py-3 text-gray-700">Depends on panel supply and standby batteries - define behaviour on loss</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Best suited to</td>
+							<td class="px-4 py-3 text-gray-700">Manned positions, monitors, small high-risk zones</td>
+							<td class="px-4 py-3 text-gray-700">Sites where the detection line should stay independent of long cables</td>
+							<td class="px-4 py-3 text-gray-700">Sites with detectors, a panel and remote status points already specified</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typical failure mode</td>
+							<td class="px-4 py-3 text-gray-700">Nobody pulls it in time</td>
+							<td class="px-4 py-3 text-gray-700">Leaking or damaged pilot line causes nuisance trip</td>
+							<td class="px-4 py-3 text-gray-700">Wiring faults, wrong coil voltage, undefined fail-safe assumption</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Two practical readings. Electric release is usually the cheapest to integrate where the panel infrastructure already exists, because the detection logic, the event log and the supervision are already built - the valve group adds a pilot and a wiring term, not a system. Pneumatic release keeps the detection loop local and unpowered, which some operators prefer precisely because nothing trips if a cable is damaged, and manual release stays in every design as the fallback whatever the primary method is.</p>
+			<p class="text-gray-700 leading-relaxed">Whatever the trip medium, the dry-pipe and pre-action families add their own discipline - air maintenance, condensate control, drain layout - all of it covered in the <a href="/guides/pre-action-alarm-valve-zsfy-guide/" class="text-brand-blue font-semibold hover:underline">pre-action valve guide</a> and the <a href="/guides/dry-alarm-valve-zsfc-guide/" class="text-brand-blue font-semibold hover:underline">dry alarm valve guide</a>. This page deliberately does not re-teach the air side.</p>
+
+			<!-- Section 4 -->
+			<h2 id="choosing-the-coil-voltage-dc24v-or-ac220v" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Choosing the Coil Voltage: DC24V or AC220V</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The catalogue offers GKZF-1 coils in AC220V or DC24V, and the deluge pilot world is specified around DC24V / 0.5A. That asymmetry is a useful hint: fire alarm releasing circuits are DC24V devices with standby batteries behind them, so any valve that must react on panel authority is easiest to justify at DC24V. Pump-control and building-management circuits more often switch AC220V locally, and where the command source is already mains-voltage, stepping down to 24V just to step back up at the valve adds a box nobody needs.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Voltage drop is the calculation people skip.</strong> A 24 V coil at the end of 400 m of control cable may receive far less than 24 V at the moment it must pull in, especially in cold weather when pull-in current is highest. The buyer-side fix is boring and effective: state the maximum cable length the panel will run, ask the supplier what the minimum reliable coil voltage is at the terminal, and either size the cable up, power the coil locally, or specify the AC220V option where the design allows it. On deluge and pre-action groups the same attention belongs to the pilot circuit: the panel output type (maintained or pulsed), the supervision philosophy, and the reset method all come off the same interface drawing.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Write the interface as a table, not a sentence.</strong> One row per signal - command to open, command to closed, manual release acknowledgement, fault, and any position contact - with voltage class, contact ratings and wire numbers. Fire alarm panels in this class expose dry contacts and supervised loops; the <a href="/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">ZSJZ flow indicator</a> is the same story on the detection side, reporting on a DC24V / 3A changeover contact with a 2-60 s delay. When the panel datasheet and the valve datasheet are pinned side by side, the solenoid voltage question answers itself.</p>
+
+			<!-- Section 5 -->
+			<h2 id="fail-safe-logic-supervision-and-position-feedback" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Fail-Safe Logic, Supervision and Position Feedback</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Fire codes treat a closed control valve as a hazard: a sprinkler main nobody checked is a system that exists only on paper. That is why the supervised-isolation role is filled by indicating or signalling devices - the rising stem of an OS and Y gate valve, or the waterproof microswitch on a <a href="/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">signal butterfly valve</a> that reports handwheel movement to the panel. A solenoid valve enters this picture from a different angle: the panel commanded it, so the panel has a legitimate claim on its state - but the claim is about the command, not about the physical wedge. Where the valve can also be worked by hand, or the duty is section isolation, specify position feedback or an indicating valve alongside, not instead. The full duty breakdown lives in the <a href="/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">sprinkler control valve types guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Fail-safe needs an owner.</strong> Between the valve supplier, the panel integrator and the designer, the sentence "the valve closes if power fails" can live in nobody's document. Make it explicit per valve: the expected state on loss of coil power, on loss of panel supply, and on a broken wire - then name who verifies each at commissioning. Two rules of thumb settle most arguments: a valve that is normally open in a fire duty should not silently fail closed unless someone can justify why; and a solenoid must never be asked to be the only protection of a tank level - that job belongs to a self-operated level valve with the solenoid as a commanded shutoff, as covered in the <a href="/guides/water-level-control-valve-guide/" class="text-brand-blue font-semibold hover:underline">water level control valve guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Log the events you will need later.</strong> The quiet value of electrical actuation is the record: every command and every alarm lands in the panel log with a timestamp. Write the two or three reports your maintenance team will actually use - valves exercised but not returned to service, repeated fault entries on one circuit, zones that tripped during works - and the electrical layer pays for itself in audit time alone.</p>
+
+			<!-- Section 6 -->
+			<h2 id="water-hammer-why-closure-time-is-a-specification-line" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Water Hammer: Why Closure Time Is a Specification Line</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A solenoid buys you a fast valve, and a fast valve on a long main buys you a pressure spike. The physics in the <a href="/guides/water-hammer-protection-fire-water-systems/" class="text-brand-blue font-semibold hover:underline">water hammer protection guide</a> is summarized by one pattern: multi-turn and pilot-modulated devices are surge-friendly; quarter-turn and on-off devices are surge-generating unless deliberately slowed. A pilot-operated solenoid group whose main valve is a resilient-seat gate - the GKZF-1 architecture - closes far more gently than an actuated butterfly of the same DN, but "more gently" is a relative term: on a high-rise riser or a long transmission branch it can still be a hammer.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The procurement answer is one sentence on the RFQ: <strong>state the required closure time in seconds, and require the supplier to confirm it.</strong> Ask the same of the opening sequence where the line feeds a deluge zone - slow-open features exist precisely so that a large-volume trip does not shock the supply side. Then check what the rest of the system expects: air release at high points, the surge arithmetic for your geometry, and whether any relief device is sized for the spike the automation now produces. For long mains, significant static lift, or high working pressures, a transient calculation is cheaper than a failed flange gasket programme, and the hammer guide sets out when it earns its fee.</p>
+			<p class="text-gray-700 leading-relaxed">One cross-check most buyers miss: the same fast actuation that hammers the line also unbalances pilot devices elsewhere in the network. A spike through a level-control or pressure-reducing pilot circuit shortens their life and drifts their sensing; that is why this family is specified as a package in the <a href="/guides/pressure-reducing-valve-guide/" class="text-brand-blue font-semibold hover:underline">hydraulic control valve guide</a> rather than one valve at a time.</p>
+
+			<!-- Section 7 -->
+			<h2 id="installation-commissioning-and-pilot-protection" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Installation, Commissioning and Pilot Protection</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Install:</strong> grooved ends are the point - a GKZF-1 lands in a grooved main with couplings, no hot work, alignment tolerance included, the same install economics argued in the <a href="/guides/grooved-fire-protection-valves-guide/" class="text-brand-blue font-semibold hover:underline">grooved valves guide</a>. Flanged ends are available where the specification wants them. Keep the coil and conduit accessible to a technician with a meter, and route the cable so a forklift cannot become part of the fire protection circuit.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Protect the pilot:</strong> flush the mains and clear the strainers before any pilot tubing, solenoid or switch is connected. Put a <a href="/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">telescopic Y-strainer</a> on the pilot supply - the SGL41H covers DN50 - DN600 with a stainless screen at 18-30 mesh for water - and put the screen on the inspection schedule with the alarm tests. A diaphragm or pilot-piloted valve held closed by passages small enough to be blocked by grit will tell you about it at the worst possible moment: the trip test, or the fire (see the nuisance-trip discussion in the <a href="/guides/pre-action-alarm-valve-zsfy-guide/" class="text-brand-blue font-semibold hover:underline">pre-action guide</a>).</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Commission the sequence, not the part.</strong> The minimum witness set for each solenoid valve: coil voltage measured at the terminals under load; open and close commands from the panel with the actual closure time observed; manual release demonstrated; fail-safe behaviour confirmed against the specification table with the supply actually broken; the event appearing in the panel log with the right description; and for alarm groups, the full trip with gong, pressure switch and reset verified against the sequence document. That sheet, signed, is the deliverable - a valve that passes alone proves nothing about the system it lives in.</p>
+
+			<!-- Section 8 -->
+			<h2 id="rfq-checklist-for-solenoid-operated-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. RFQ Checklist for Solenoid Operated Valves</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Electrically actuated valves are quoted inconsistently because most enquiries specify the valve and leave the electrical side to the supplier's imagination. These lines make offers comparable:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Name the role.</strong> Electric release pilot for an alarm valve group, or solenoid-operated zone-control gate valve - with the system drawing number. Do not merge the two onto one line item.</li>
+				<li><strong>Valve duty.</strong> Size and class (GKZF-1: DN50 - DN300, 300 PSI / 2.0 MPa), end connection grooved or flanged, body EPDM-encapsulated wedge ductile iron, the coating for potable or reclaimed service.</li>
+				<li><strong>Coil and circuit.</strong> Exact voltage (AC220V or DC24V), whether the circuit is supervised, the drive type from the panel (maintained or pulsed), maximum cable length from panel to coil.</li>
+				<li><strong>Fail-safe and override.</strong> Required state on loss of power per valve, manual override arrangement, and who confirms each at commissioning.</li>
+				<li><strong>Timing.</strong> Required closure (and opening) time in seconds for the actual main length and pressure - and supplier confirmation of achievable times at your differential.</li>
+				<li><strong>Pilot protection.</strong> Strainer on pilot supply - model, DN and mesh (18-30 for water) on the same PO as the valve.</li>
+				<li><strong>Feedback.</strong> Whether position contacts are required at the valve, or state is taken from the drive relay - written either way.</li>
+				<li><strong>Documentation.</strong> Shell and seat test records for the delivered size, material certificates for body and wedge, the type-test and certification documents offered on request per the destination standard, and the wiring/interface table for the panel integrator.</li>
+				<li><strong>Package the scope.</strong> Alarm group, solenoid valves, strainers, isolation valves and gauges from one supplier avoid trim incompatibility; the <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">8-point verification checklist</a> covers what to confirm before award.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Related reading on this site: the <a href="/guides/deluge-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">deluge valve sizing guide</a> for trip-time and flow sizing on open-head systems, the <a href="/guides/pre-action-alarm-valve-zsfy-guide/" class="text-brand-blue font-semibold hover:underline">pre-action interlock guide</a> for the air side of electric release systems, the <a href="/guides/water-hammer-protection-fire-water-systems/" class="text-brand-blue font-semibold hover:underline">water hammer guide</a> for surge arithmetic, the <a href="/guides/y-strainer-selection-guide/" class="text-brand-blue font-semibold hover:underline">strainer selection guide</a> for pilot and instrument protection, and the <a href="/fire-sprinkler-systems/" class="text-brand-blue font-semibold hover:underline">fire sprinkler systems page</a> for the full alarm-valve family.</p>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Specifying Electrically Actuated Fire Water Valves?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the role (release pilot or zone control), DN and pressure class, the panel and its output, the cable length, and your required closure time - our engineers confirm the coil, trim and strainer arrangement and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=GKZF-1%20Solenoid%20Control%20Gate%20Valve" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20solenoid%20operated%20fire%20water%20valves" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
