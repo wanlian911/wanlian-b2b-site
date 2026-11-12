@@ -16,6 +16,16 @@ export interface Guide {
 // 内容工厂单一数据源:新增指南只需在此追加一条
 export const guides: Guide[] = [
   {
+    title: 'Standpipe System Classes I, II & III: Hose Valve Guide',
+    description: 'Compare Class I, II and III standpipes: outlet size, hose valves, cabinets, pressure reduction, FDC couplings, supervised control valves and RFQ lines.',
+    href: '/guides/standpipe-system-classes-hose-valve-guide/',
+    tocPreview: ['1. What a Standpipe System Is - and Where the Tender Is Lost', '2. Class I vs Class II vs Class III Standpipes', '3. Automatic, Semi-Automatic and Manual Supply Arrangements'],
+    date: '2026-11',
+    category: 'Fire Protection',
+    readTime: '10 min read',
+    tags: ['fire-protection', 'fire-hose-reel', 'procurement']
+  },
+  {
     title: 'Pre-Action Valve (ZSFY) Guide: Interlock, Trim, Sizing and Nuisance Trips',
     description: 'How a ZSFY pre-action valve works and how to specify one: interlock arrangement, air-side trim, DN80-DN250 sizing, commissioning, nuisance trips and the RFQ lines.',
     href: '/guides/pre-action-alarm-valve-zsfy-guide/',

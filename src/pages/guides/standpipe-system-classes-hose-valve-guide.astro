@@ -1,0 +1,301 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ:真实采购问题(生成 FAQPage JSON-LD)
+const faq = [
+	{
+		question: 'What is the difference between a Class I and a Class III standpipe?',
+		answer: 'The outlet size and who is expected to use it. A Class I standpipe provides 65 mm (2.5 inch) hose valves intended for the fire service, which connects its own hose and nozzles. A Class III standpipe provides both 65 mm (2.5 inch) and 40 mm (1.5 inch) outlets, so building occupants can attack an incipient fire while the fire service uses the larger connections. Class II is the occupant-only arrangement with 40 mm (1.5 inch) outlets. Because the outlet size decides the valve, the coupling, the hose and the cabinet, the class has to be fixed before any of those items are quoted.'
+	},
+	{
+		question: 'What pressure is an indoor fire hydrant hose valve rated to?',
+		answer: 'Our SN65 indoor hydrant head is DN65 (2.5 inch), rated 1.6 MPa (232 PSI) working pressure and pressure and anti-leakage tested to 2.4 MPa, with a ductile iron body, brass or stainless stem and EPDM disc seal. That covers the usual indoor standpipe duty. The number that matters at handover is not the valve rating but the pressure the design calculation predicts at each outlet - the valve has to sit above it with margin, and if it does not, the answer is pressure reduction or zoning rather than a heavier valve.'
+	},
+	{
+		question: 'When does a standpipe need a pressure-reducing valve?',
+		answer: 'When the pressure available at the outlet exceeds what the design standard allows for that outlet, or exceeds what the hose and nozzle can be handled with. Tall and high-rise buildings are the normal case, because static head from the tank or pump grows with height. Codes set both a maximum and a minimum at the outlet, and the figures depend on the adopted standard and edition, so treat them as inputs from the hydraulic calculation. Our 500X hydraulic pressure reducing valve holds a set downstream pressure adjustable from 0.1 MPa to 1.6 MPa across DN20-DN600, self-operated with no electrical supply, and closes slowly enough to avoid the surge that a fast-closing valve creates.'
+	},
+	{
+		question: 'Does a standpipe need an alarm valve or a fire pump?',
+		answer: 'Not by itself. A standpipe is a pressurised or unpressurised pipe network with hose outlets, and unlike a sprinkler system it has no automatic discharge element to admit water and start an alarm. Detection and alarm come from the building fire alarm system; the water comes from the municipal main, a tank and pump set, or a manual standpipe fed only through the fire department connection. Where a standpipe shares a riser or pump with sprinklers, the sprinkler side brings its own wet alarm valve and flow indicators, and those are specified against NFPA 13 rather than the standpipe scope.'
+	},
+	{
+		question: 'How do I size the fire department connection for a standpipe?',
+		answer: 'Match the inlets to the couplings the local fire service actually carries, and size the outlet to the riser. The SQD100-1.6 has two DN65 (2.5 inch) inlets with caps in SQS65 or KWS65 pattern, a single DN100 (4 inch) flanged outlet, a 1.6 MPa rating and an integral control valve, in a 120 mm body - two engines can supply the same riser at once. If the inlets do not match the fire service coupling, the connection is decorative: specify the pattern on the enquiry, as set out in the fire department connection guide.'
+	},
+	{
+		question: 'What documentation should ship with a standpipe package?',
+		answer: 'Per item and per lot: shell and seat test records for the delivered sizes (our SN65 is tested to 2.4 MPa; signal butterfly valves are type-tested to GB/T 13927 and EN 12266-1), material declarations for body, stem, seat and coupling, the general arrangement and inlet/outlet dimension drawing, coupling standard confirmation against the destination market, and a spares and consumables list covering gaskets, couplings and nozzle seals. Where the project requires listed equipment, the certificate holder, exact model and certificate number must be named and verified before acceptance.'
+	}
+];
+
+const toc = [
+	{ id: 'what-a-standpipe-system-is', label: '1. What a Standpipe System Is - and Where the Tender Is Lost' },
+	{ id: 'class-i-vs-class-ii-vs-class-iii', label: '2. Class I vs Class II vs Class III Standpipes' },
+	{ id: 'automatic-semi-automatic-and-manual', label: '3. Automatic, Semi-Automatic and Manual Supply Arrangements' },
+	{ id: 'outlet-assembly-valve-cabinet-hose-nozzle', label: '4. The Outlet Assembly: Valve, Cabinet, Hose and Nozzle' },
+	{ id: 'pressure-management-at-the-outlet', label: '5. Pressure Management at the Outlet' },
+	{ id: 'control-valves-supervision-and-risers', label: '6. Control Valves, Supervision and the Riser' },
+	{ id: 'fire-department-connection', label: '7. The Fire Department Connection' },
+	{ id: 'quantifying-a-standpipe-package', label: '8. Quantifying a Standpipe Package for a Building' },
+	{ id: 'testing-handover-and-maintenance', label: '9. Testing, Handover and In-Service Maintenance' },
+	{ id: 'standpipe-rfq-checklist', label: '10. Standpipe System RFQ Checklist' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const products = [
+	{ slug: 'indoor-fire-hydrant-head-sn65', name: 'Indoor Fire Hydrant Head SN65', img: '/assets/products/indoor-fire-hydrant-head-sn65.jpg', desc: 'DN65, 1.6 MPa working, 2.4 MPa tested, grooved or flanged' },
+	{ slug: 'fire-hydrant-cabinet', name: 'Indoor Fire Hydrant Cabinet', img: '/assets/products/fire-hydrant-cabinet.webp', desc: '800 x 650 x 240 mm steel cabinet, surface or recessed' },
+	{ slug: 'fire-hose-reel-jpso8-19', name: 'Fire Hose Reel Set JPS0.8-19', img: '/assets/products/fire-hose-reel-jpso8-19.jpg', desc: '19 mm hose 20-30 m, 0.8-1.0 MPa, jet range 6 m or more' },
+	{ slug: 'sqd100-1-6-fire-pump-adapter', name: 'SQD100-1.6 Siamese Connection', img: '/assets/products/sqd100-1-6-fire-pump-adapter.webp', desc: 'Twin DN65 inlets, DN100 flanged outlet, 1.6 MPa' }
+];
+---
+
+<Layout
+	title="Standpipe System Classes I, II & III: Hose Valve Guide"
+	description="Compare Class I, II and III standpipes: outlet size, hose valves, cabinets, pressure reduction, FDC couplings, supervised control valves and RFQ lines."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Standpipe System Classes' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Standpipe System Classes</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Standpipe &amp; Hose System Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Standpipe System Classes: Specifying Class I, II and III Hose Valve Packages</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a standpipe is a vertical water main inside a building with hose outlets at intervals, and the class - I, II or III - decides the outlet size, the valve, the coupling, the hose and the cabinet you end up buying. Buyers lose money on this scope by quoting a riser valve and forgetting that each outlet is an assembly, that the supply arrangement (automatic, semi-automatic or manual) changes the pipework, and that pressure at the top and bottom floors is never the same. This guide walks the classes, the outlet assembly, pressure management, supervision and the exact lines to put in an enquiry.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Section 1 -->
+			<h2 id="what-a-standpipe-system-is" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. What a Standpipe System Is - and Where the Tender Is Lost</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A standpipe system is a network of vertical pipes inside a building, fitted with hose connections at intervals so that water is available at every level. It is not a sprinkler system and it is not an outdoor hydrant main, although one project usually contains all three. Sprinklers discharge automatically at the head; outdoor hydrants let the fire service draw from the municipal or yard main. The standpipe is the in-building distribution point: a firefighter or an occupant opens a valve on a floor, connects hose, and fights the fire from inside.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The distinction matters commercially because the three scopes are priced and documented differently. A standpipe tender rarely fails on the riser pipe. It fails on four things that buyers routinely under-specify:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>The class.</strong> It fixes the outlet size - 65 mm (2.5 inch) or 40 mm (1.5 inch) - and therefore the valve thread, the coupling, the hose diameter and the nozzle.</li>
+				<li><strong>The supply arrangement.</strong> Automatic, semi-automatic or manual changes whether the pipe normally holds water and whether a fire department connection is the only water source.</li>
+				<li><strong>The outlet assembly.</strong> Each landing is a valve plus cabinet plus hose plus nozzle plus coupling set, not a single line item.</li>
+				<li><strong>Pressure at the extreme floors.</strong> The ground floor sees the most static pressure; the top floor sees the least residual. Both are usually outside the comfortable range of the same valve.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Where the project also contains an outdoor hydrant network, the two scopes share test certificates and connection standards but almost nothing else - the <a href="/guides/how-to-choose-a-fire-hydrant/" class="text-brand-blue font-semibold hover:underline">fire hydrant selection guide</a> covers the outdoor side, and the <a href="/fire-hydrant-systems/" class="text-brand-blue font-semibold hover:underline">fire hydrant systems page</a> groups both product families.</p>
+
+			<!-- Section 2 -->
+			<h2 id="class-i-vs-class-ii-vs-class-iii" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Class I vs Class II vs Class III Standpipes</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Standpipes are classified by the size of the hose connections they provide and therefore by who is expected to use them. The class is a design decision made by the fire protection engineer and confirmed by the authority having jurisdiction; the buyer inherits it. In North American practice the governing document is NFPA 14, the standpipe and hose system standard, with NFPA 25 taking over once the system is handed over - the split between the NFPA documents is mapped in the <a href="/guides/nfpa-fire-protection-standards-guide/" class="text-brand-blue font-semibold hover:underline">NFPA standards guide</a>. Get the class wrong and the delivered valves cannot accept the hose the building is equipped with.</p>
+			<div class="overflow-x-auto my-6">
+				<table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg overflow-hidden">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What to check</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Class I</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Class II</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Class III</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hose outlet size</td>
+							<td class="px-4 py-3 text-gray-700">65 mm (2.5 in) only</td>
+							<td class="px-4 py-3 text-gray-700">40 mm (1.5 in) only</td>
+							<td class="px-4 py-3 text-gray-700">65 mm (2.5 in) and 40 mm (1.5 in)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Intended operator</td>
+							<td class="px-4 py-3 text-gray-700">Fire service with its own hose and nozzles</td>
+							<td class="px-4 py-3 text-gray-700">Building occupants, trained or untrained</td>
+							<td class="px-4 py-3 text-gray-700">Both, at the same landing</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Valve interface</td>
+							<td class="px-4 py-3 text-gray-700">DN65 outlet - our SN65 indoor hydrant head is this duty</td>
+							<td class="px-4 py-3 text-gray-700">DN40/DN50 outlet, usually with pre-connected hose</td>
+							<td class="px-4 py-3 text-gray-700">DN65 valve plus a reduced 40 mm branch or a second outlet</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hose kept on site</td>
+							<td class="px-4 py-3 text-gray-700">Often none, or a rack/roll of 65 mm hose</td>
+							<td class="px-4 py-3 text-gray-700">Hose permanently connected, usually on a reel</td>
+							<td class="px-4 py-3 text-gray-700">Both: reel for occupants, separate 65 mm line</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typical buildings</td>
+							<td class="px-4 py-3 text-gray-700">Industrial plants, car parks, large commercial basements</td>
+							<td class="px-4 py-3 text-gray-700">Low- and mid-rise occupant-protected buildings</td>
+							<td class="px-4 py-3 text-gray-700">High-rise commercial, hotels, mixed-use towers</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Procurement risk</td>
+							<td class="px-4 py-3 text-gray-700">Coupling pattern mismatch with the local fire service</td>
+							<td class="px-4 py-3 text-gray-700">Reel inlet size and cabinet dimensions fixed late</td>
+							<td class="px-4 py-3 text-gray-700">Two outlet families to document and stock per floor</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">You will also meet references to a Class IV standpipe in older specifications and in some industrial standards, meaning a 65 mm system that additionally provides large (100 mm / 4 inch) connections for industrial fire brigades. Where that appears on a tender, treat it as its own scope: the outlet, the hose diameter and the coupling family are all different from a Class III landing, and it is usually served by the yard main rather than a building riser.</p>
+			<p class="text-gray-700 leading-relaxed">The occupant-use half of a Class III system is where the <a href="/products/fire-hose-reel-jpso8-19/" class="text-brand-blue font-semibold hover:underline">JPS0.8-19 hose reel set</a> sits: 19 mm hose on a 180-degree swing bracket in 20, 25 or 30 m lengths, working at 0.8-1.0 MPa with a jet range of at least 6 m, built on the GB15090 / XF180 hose reel design basis. The European and Chinese design bases for the same appliance are EN 671 and GB 14561, which is how our <a href="/products/fire-hose-reel/" class="text-brand-blue font-semibold hover:underline">fixed fire hose reel</a> is specified, with 19 mm or 25 mm hose and a 1 inch BSP, NPT or GOST inlet. The <a href="/guides/fire-hose-reel-cabinet-guide/" class="text-brand-blue font-semibold hover:underline">hose reel and cabinet guide</a> covers that selection in detail.</p>
+
+			<!-- Section 3 -->
+			<h2 id="automatic-semi-automatic-and-manual" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Automatic, Semi-Automatic and Manual Supply Arrangements</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The second axis of classification is not about the outlet at all - it is about where the water is waiting. The same Class I outlet can sit on three completely different supplies, and the bill of materials changes with each.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Automatic standpipe.</strong> Permanently connected to a supply that maintains pressure - a municipal main, a pressurised tank and pump set, or a gravity tank. Open the valve and water is there. This needs a supervised supply, a check valve to stop backflow into the building, and a riser designed for continuous pressure.</li>
+				<li><strong>Semi-automatic standpipe.</strong> Normally charged but with the supply arranged so that a pump or a second source starts or joins on demand. The pressure-holding arrangement and the start signal are the specification items, not the valve.</li>
+				<li><strong>Manual (dry) standpipe.</strong> No permanent water supply. The pipe is empty until the fire service pumps into it through the fire department connection. The whole scope collapses to pipework, outlets, one FDC and a non-return arrangement - which is exactly why manual standpipes are the cheapest to build and the easiest to mis-specify.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">A dry standpipe in a cold climate needs the drainage that nobody orders: the section between the FDC and the top outlet must be able to empty, or the first frost leaves a blocked riser. Where a system is genuinely wet-and-pressurised at all times, freeze protection is not the concern - water hammer and overpressure are, and those are treated in the <a href="/guides/water-hammer-protection-fire-water-systems/" class="text-brand-blue font-semibold hover:underline">water hammer protection guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Where the standpipe shares a riser with sprinklers or a combined building fire main, the sprinkler side keeps its own alarm valve and flow detection even if the standpipe side has none. The <a href="/guides/fire-sprinkler-system-valves-guide/" class="text-brand-blue font-semibold hover:underline">sprinkler system valves guide</a> sets out that boundary; the mistake to avoid is pricing one alarm valve group for two systems that are governed by different documents.</p>
+
+			<!-- Section 4 -->
+			<h2 id="outlet-assembly-valve-cabinet-hose-nozzle" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. The Outlet Assembly: Valve, Cabinet, Hose and Nozzle</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Order the outlet as an assembly and the installation is a bolting job. Order it as five separate line items from three sources and the mismatches appear on site: a valve thread the hose coupling will not mate with, a cabinet 40 mm too shallow for the hose rolled inside it, a nozzle that will not pass the flow the design assumed.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The valve is the <a href="/products/indoor-fire-hydrant-head-sn65/" class="text-brand-blue font-semibold hover:underline">SN65 indoor fire hydrant head</a> in most Class I and Class III work: DN65 (2.5 inch) outlet with a G2 1/2 thread, 1.6 MPa (232 PSI) working pressure, tested to 2.4 MPa, ductile iron body with brass or stainless stem and EPDM disc seal, supplied with grooved or flanged inlet so it can be bolted into a grooved riser or a flanged one. It is the interface that decides everything downstream, because the coupling on the hose must match the coupling on the valve.</p>
+			<div class="overflow-x-auto my-6">
+				<table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg overflow-hidden">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Outlet component</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Catalogue specification</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What to confirm before ordering</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hose valve</td>
+							<td class="px-4 py-3 text-gray-700">SN65: DN65, 1.6 MPa working / 2.4 MPa test, grooved or flanged, G2 1/2 outlet thread</td>
+							<td class="px-4 py-3 text-gray-700">Inlet end type and riser drilling standard; wall-mounted or recessed position</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Cabinet</td>
+							<td class="px-4 py-3 text-gray-700">Indoor hydrant cabinet 800 x 650 x 240 mm, 1.0-1.5 mm cold-rolled steel, tempered glass door, surface or recessed</td>
+							<td class="px-4 py-3 text-gray-700">Recess depth available in the wall; combined extinguisher or double-hose size</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hose (occupant reel)</td>
+							<td class="px-4 py-3 text-gray-700">JPS0.8-19: 19 mm ID, 20/25/30 m, 0.8-1.0 MPa, jet range 6 m or more</td>
+							<td class="px-4 py-3 text-gray-700">Reel inlet thread (1 inch BSP / NPT / GOST) and swing direction</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hose (fire service line)</td>
+							<td class="px-4 py-3 text-gray-700">Rubber lined DN25-DN80 at 0.8/1.0/1.3 MPa, burst 3x working, 20/25/30 m rolls, -20 C to +60 C</td>
+							<td class="px-4 py-3 text-gray-700">Coupling pattern: Storz, GOST, instantaneous or NPT, matched to the valve</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Coupling adapter</td>
+							<td class="px-4 py-3 text-gray-700">HS series DN50/DN65, 2.5 inch internal thread, 1.6 MPa, hard-anodised aluminium, GB12514</td>
+							<td class="px-4 py-3 text-gray-700">Which gender is on the hydrant and which on the hose; spare set quantity</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Nozzle</td>
+							<td class="px-4 py-3 text-gray-700">Pistol grip QLD6.0/8III-B: 1.5 / 2 / 2.5 inch inlets, 150-500 LPM, straight stream to wide fog</td>
+							<td class="px-4 py-3 text-gray-700">Flow at the design residual pressure, not the maximum the nozzle can pass</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Every one of those items is a coupling-standard decision. The <a href="/products/fire-hydrant-hose-coupling-adapter-hs/" class="text-brand-blue font-semibold hover:underline">HS aluminium coupling adapters</a> standardise the hydrant-to-hose and hose-to-nozzle joints, and if your market uses a different pattern the same logic applies to Storz or BS336 - the <a href="/guides/fire-hose-coupling-standards-guide/" class="text-brand-blue font-semibold hover:underline">coupling standards guide</a> compares them, and the <a href="/guides/fire-hose-buying-guide/" class="text-brand-blue font-semibold hover:underline">layflat hose guide</a> covers the hose construction behind the <a href="/products/fire-hose-pvc-rubber-lining-8-65/" class="text-brand-blue font-semibold hover:underline">Model 8-65 line</a>.</p>
+			<p class="text-gray-700 leading-relaxed">One practical point that saves a re-order: state the nozzle inlet size and the coupling pattern in the same sentence on the enquiry. A 2.5 inch nozzle bolted to a 65 mm hose with an adapter that nobody specified is the most common standpipe snag on site.</p>
+
+			<!-- Section 5 -->
+			<h2 id="pressure-management-at-the-outlet" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Pressure Management at the Outlet</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A standpipe is a tall column of water, so the pressure at the lowest outlet is the highest pressure in the building and the pressure at the top outlet under flow is the lowest. Every design standard handles this with a maximum at one end and a minimum at the other; the numbers move with the standard, the edition the authority having jurisdiction has adopted, and the building classification. That is why a supplier should never be asked to "give the usual figure" - the figure comes from your hydraulic calculation, and the supplier's job is to prove the equipment sits inside it.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">What you can buy from a manufacturer is the means of controlling it. Our <a href="/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">500X hydraulic pressure reducing valve</a> is self-operated: a hydraulic pilot senses downstream pressure and modulates the main valve, so it holds a set pressure adjustable from 0.1 MPa to 1.6 MPa with no electrical supply anywhere in the circuit. Sizes run DN20 to DN600 with PN10, PN16 and PN25 bodies in ductile iron QT450-10 with a nylon-reinforced EPDM diaphragm and a forged brass pilot. Two properties matter on a fire main: the valve closes slowly and smoothly, so it does not add the surge it is meant to absorb, and it does not depend on power that a fire is likely to remove.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The same equipment also serves the potable side of a mixed project, which is where buyers usually meet it first - the <a href="/guides/pressure-reducing-valve-guide/" class="text-brand-blue font-semibold hover:underline">pressure reducing valve guide</a> explains the pilot circuit, the setting procedure and the difference between a pressure reducing, a level control and a float valve.</p>
+			<p class="text-gray-700 leading-relaxed">Where a building is too tall for one pressure regime, zoning is the answer rather than a bigger valve: split the standpipe into low and high zones with separate risers and separate reduction, and note that the split changes outlet locations, cabinet schedule and FDC count. Put the zone boundary on the drawing before anyone prices an outlet.</p>
+
+			<!-- Section 6 -->
+			<h2 id="control-valves-supervision-and-risers" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Control Valves, Supervision and the Riser</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The most dangerous valve in a standpipe system is the one nobody looks at. The isolation valve on the riser can be shut by a plumber working downstream, and the building will still look complete until the day the outlet is opened. Codes answer this by requiring an indicating valve - a valve that announces its position - and by requiring that position to be supervised.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Two devices carry this duty. The <a href="/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">resilient seated OS&amp;Y gate valve</a> shows position mechanically: the stem rises out of the yoke when open and is visibly down when closed, in 2 to 10 inch (DN50-DN250) grooved-end bodies in nodular cast iron with an EPDM seat. Where the valve is out of sight, a <a href="/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">signal butterfly valve</a> does the same job electrically: a waterproof microswitch reports open or closed to the panel, DN50-DN300 at PN16 in a wafer body small enough for a crowded riser cupboard, type-tested to GB/T 13927 and EN 12266-1. The <a href="/guides/osy-gate-valve-guide/" class="text-brand-blue font-semibold hover:underline">OS&amp;Y gate valve guide</a> and the <a href="/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">control valve types guide</a> set out where each is accepted.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Around the base of the riser you will normally also need a check valve to stop the standpipe draining backwards or feeding a non-fire demand, the main and auxiliary drains that let the system be emptied for modification, test connections for the annual proof, and gauges top and bottom so that the pressure story is readable without instruments. If the building has a fire pump, the pump room arrangement - relief path, churn test loop, test header - is a separate scope and is covered in the <a href="/guides/fire-pump-room-valves-guide/" class="text-brand-blue font-semibold hover:underline">fire pump room valve guide</a> and the <a href="/guides/fire-pump-suction-water-tank-guide/" class="text-brand-blue font-semibold hover:underline">pump suction and tank guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed">End connections belong in the same enquiry as the valves. Grooved risers, flanged inlets and mixed drilling standards are the subject of the <a href="/guides/grooved-fire-protection-valves-guide/" class="text-brand-blue font-semibold hover:underline">grooved valve guide</a> and the <a href="/guides/flange-standard-guide-ansi-din-jis/" class="text-brand-blue font-semibold hover:underline">flange standard comparison</a>; both mismatch categories stop a job at the site acceptance inspection.</p>
+
+			<!-- Section 7 -->
+			<h2 id="fire-department-connection" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. The Fire Department Connection</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">For a manual standpipe the fire department connection is the entire water supply; for an automatic one it is the backup that lets two appliances push more water into the riser than the building can draw. Either way it is a coupling interface with the local fire service, and it is specified wrong more often than any other item in this scope.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The <a href="/products/sqd100-1-6-fire-pump-adapter/" class="text-brand-blue font-semibold hover:underline">SQD100-1.6 siamese connection</a> is the configuration we supply most for this duty: two DN65 (2.5 inch) inlets with caps in SQS65 or KWS65 pattern, a single DN100 (4 inch) flanged outlet into the building main, 1.6 MPa rating, an integral control valve with handwheel, powder-coated ductile iron body in a compact 120 mm length with braided steel safety cables on the caps. Twin inlets mean two engines can combine flow into one riser, which is the reason the siamese form is specified rather than a single inlet.</p>
+			<p class="text-gray-700 leading-relaxed">The inlet pattern is not a preference - it is compatibility. SQS65 follows the international fire-service pattern and KWS65 the German pattern; UK and Commonwealth practice uses BS336 threads, and Storz is dominant across much of Europe and Asia. Name the pattern your fire service carries, and see the <a href="/guides/fire-department-connection-siamese-guide/" class="text-brand-blue font-semibold hover:underline">fire department connection guide</a> for the inlet, cap and check-valve detail. Our <a href="/fire-pump-connections/" class="text-brand-blue font-semibold hover:underline">fire pump connection range</a> lists the related inlet hardware.</p>
+
+			<!-- Section 8 -->
+			<h2 id="quantifying-a-standpipe-package" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. Quantifying a Standpipe Package for a Building</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The supplier cannot decide outlet locations - that is the design. What the supplier can do is price a complete, internally consistent package if the schedule is given in the right shape. Work the scope in this order:</p>
+			<ol class="list-decimal pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Class and arrangement per riser.</strong> Class I, II or III; automatic, semi-automatic or manual. Different risers in one building may differ.</li>
+				<li><strong>Outlet schedule.</strong> One row per landing: floor, valve type and size, cabinet type (surface or recessed), hose or reel, nozzle, coupling pattern. This is the document that kills mismatches.</li>
+				<li><strong>Hose reach check.</strong> Reel hose comes in 20, 25 and 30 m; fire service hose in 20, 25 and 30 m rolls. Confirm each floor is actually covered before the outlet count is frozen.</li>
+				<li><strong>Riser and branch valves.</strong> One indicating, supervised valve per riser, plus section valves where the layout allows isolation without taking a whole floor out of service.</li>
+				<li><strong>Riser diameter and class.</strong> From the hydraulic calculation, with the drilling or grooved standard named; the valve class must equal or exceed the system working pressure, and the SN65 and the OS&amp;Y family here are 1.6 MPa equipment.</li>
+				<li><strong>Consumables and spares.</strong> Gaskets, coupling seats, nozzle seals, spare adapters - cheap on the PO, expensive as an air-freight emergency.</li>
+			</ol>
+			<p class="text-gray-700 leading-relaxed">Buying the outlets, cabinets, hose, nozzles, couplings, riser valves and FDC on one purchase order is where the commercial gain sits: one coupling standard is enforced across all of it, one test-document package covers the lot, and one party is answerable for a missing part. The same logic applied to a sprinkler scope is set out line by line in the <a href="/guides/commercial-building-sprinkler-system-bom-guide/" class="text-brand-blue font-semibold hover:underline">commercial sprinkler BOM guide</a>.</p>
+
+			<!-- Section 9 -->
+			<h2 id="testing-handover-and-maintenance" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">9. Testing, Handover and In-Service Maintenance</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Two different tests are commonly confused. The factory proves the valve: the SN65 is pressure and anti-leakage tested to 2.4 MPa, and our signal butterfly valves carry type testing to GB/T 13927 and EN 12266-1 with per-lot records on request. The site proves the system: the erected pipework is hydrostatically tested at the pressure your specification states, and the outlets are operated, the drains run, the FDC check valves proved and the residual pressure read at the most remote outlet. The reporting language for the factory side - shell, seat, backseat, holding times, permissible leakage - is explained in the <a href="/guides/api-598-valve-pressure-test-guide/" class="text-brand-blue font-semibold hover:underline">API 598 testing guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">In service, the frequency of every task comes from the inspection, testing and maintenance document named in your contract - NFPA 25 on US-spec work, national or European equivalents elsewhere, with the adopted edition confirmed rather than assumed. What is universal is that standpipe outlets get opened, valves get confirmed in the open position, cabinets get checked for the hose and nozzle they are supposed to contain, and the result gets recorded. Building managers who never open an outlet discover its condition on the wrong day.</p>
+			<p class="text-gray-700 leading-relaxed">For the buyer, the handover file is the asset: as-built outlet schedule, test certificates by lot, material declarations, coupling standard confirmations and the commissioning record. The eight-point way to verify a manufacturer and its paperwork before you award is in the <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">sourcing checklist</a>, and where a tender demands listed equipment, the <a href="/guides/how-to-choose-ul-listed-fire-valves/" class="text-brand-blue font-semibold hover:underline">UL listed valve guide</a> explains what has to be verified and by whom. The governing documents behind the whole scope are mapped in the <a href="/guides/nfpa-fire-protection-standards-guide/" class="text-brand-blue font-semibold hover:underline">NFPA standards guide</a>.</p>
+
+			<!-- Section 10 -->
+			<h2 id="standpipe-rfq-checklist" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">10. Standpipe System RFQ Checklist</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Put these lines in the enquiry and the quotes you receive will be comparable. Left out, every supplier fills the gap with its own default and you compare four different systems.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Class and arrangement.</strong> Class I / II / III per riser, and automatic, semi-automatic or manual - state whether the riser normally holds water.</li>
+				<li><strong>Outlet schedule.</strong> Quantity per floor, valve DN and thread, cabinet type and mounting (surface or recessed), reel or hose, nozzle.</li>
+				<li><strong>Coupling standard.</strong> One named pattern for hydrant, hose and nozzle - Storz, SQS65, KWS65, BS336, GOST, NPT or HS - plus adapters if two patterns must coexist.</li>
+				<li><strong>Hose specification.</strong> Diameter, working pressure, length per roll or on reel, lining and jacket, coupling fitted or loose.</li>
+				<li><strong>Pressure data.</strong> Static and residual pressure at the lowest and highest outlet, and whether pressure reduction is in your scope or ours.</li>
+				<li><strong>Control and supervision.</strong> Indicating valve type per riser, whether position signalling to a panel is required, check valve, drains and test connections.</li>
+				<li><strong>Fire department connection.</strong> Inlet pattern and count, outlet size and flanging, and the local fire service coupling you are matching.</li>
+				<li><strong>Standards and documents.</strong> Governing standard and edition, shell and seat test records by lot, material declarations, dimension drawings, and the certificate holder if listing is required.</li>
+				<li><strong>Packaging and spares.</strong> Cabinet protection for site storage, gasket and seal kits, spare coupling sets, language of the marking and labels.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Send the outlet schedule even if it is provisional. A supplier pricing against a real schedule will flag the inconsistency - a 40 mm occupant outlet behind a 65 mm-only valve, a cabinet too shallow for the hose specified - and that flag is worth more than the price difference it saves you.</p>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Specifying a Standpipe Outlet Package for a Building?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send us the standpipe class, the outlet schedule, the coupling standard your fire service uses, and the static and residual pressure at your lowest and highest outlets - our engineers check the valve, cabinet, hose and nozzle set against it and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Standpipe%20Hose%20Valve%20%26%20Cabinet%20Package" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/861868342698?text=Hi%2C%20I%20need%20a%20quote%20for%20standpipe%20hose%20valves%2C%20cabinets%20and%20hose%20sets" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
