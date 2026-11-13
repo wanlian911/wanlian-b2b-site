@@ -16,6 +16,16 @@ export interface Guide {
 // 内容工厂单一数据源:新增指南只需在此追加一条
 export const guides: Guide[] = [
   {
+    title: 'Valve Sizing Guide: DN, Flow, Velocity & Pressure Drop',
+    description: 'How to choose valve DN from flow and velocity: sizing maths, pressure drop, Cv/Kv, oversized-valve faults and the RFQ lines that prevent mismatches.',
+    href: '/guides/valve-sizing-flow-velocity-pressure-drop-guide/',
+    tocPreview: ['1. Valve Size Is Not Pipe Size', '2. The Sizing Calculation: Flow, Area and Velocity', '3. Flow Capacity by DN at Two Velocities'],
+    date: '2026-11',
+    category: 'Valve Engineering',
+    readTime: '10 min read',
+    tags: ['industrial-valves', 'procurement', 'fire-protection']
+  },
+  {
     title: 'Standpipe System Classes I, II & III: Hose Valve Guide',
     description: 'Compare Class I, II and III standpipes: outlet size, hose valves, cabinets, pressure reduction, FDC couplings, supervised control valves and RFQ lines.',
     href: '/guides/standpipe-system-classes-hose-valve-guide/',

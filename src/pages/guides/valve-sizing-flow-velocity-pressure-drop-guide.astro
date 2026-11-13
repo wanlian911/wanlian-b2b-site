@@ -1,0 +1,342 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ: real procurement questions (drives the FAQPage JSON-LD block)
+const faq = [
+	{
+		question: 'Can I just order the valve in the same DN as the pipe?',
+		answer: 'You can, and on many lines that is exactly what the design calls for - but it is a conclusion, not a starting point. The pipe size was chosen for the flow and the friction loss the designer allowed; the valve then has to sit inside that same allowance. If the design gives you 0.4 bar across the whole branch and the full-open loss of the valve plus a strainer plus the check valve already exceeds it, the pump will not deliver at the far end. Ask the supplier to check the full-open differential of the proposed model against your permitted loss at the design flow. That check costs nothing at quotation stage and is impossible to run cheaply after the pipework is closed in.'
+	},
+	{
+		question: 'How do I convert m3/h into L/s for a sizing calculation?',
+		answer: 'Divide m3/h by 3.6 to get L/s, because one cubic metre per hour is 1000 litres across 3600 seconds. So 42 m3/h is 11.7 L/s, and 27 m3/h is 7.5 L/s. Going the other way, multiply L/s by 3.6. Keep one unit through the whole calculation: the flow area formula A = pi x D2 / 4 returns square metres, so the flow has to be in m3/s when you divide area by velocity, and only converted to m3/h or L/s for the datasheet and the enquiry.'
+	},
+	{
+		question: 'Do you publish Cv or Kv values for your valves?',
+		answer: 'The flow coefficient belongs to a specific model, size and opening position, so it is issued per model rather than as a catalogue-wide table. Our engineers reply to an enquiry with the head-loss curve and datasheet for the exact model and DN you are pricing, together with the differential at your stated design flow. Put the design flow and the permitted pressure loss on the enquiry and ask for the coefficient at full open plus the curve - a single Cv figure with no stated test basis is not comparable between two factories.'
+	},
+	{
+		question: 'What goes wrong if velocity in a fire main is too high?',
+		answer: 'Three things, and they compound. Friction loss rises with the square of velocity, so the residual pressure at the most remote outlet falls faster than the flow rises - the outlet that was marginal at handover fails when the second pump starts. The surge created when any valve closes is proportional to the change in velocity, so a main running fast delivers a taller pressure spike on every closure, which is the mechanism behind the water hammer problems described in our fire water hammer guide. And sustained high velocity drives erosion and noise at elbows, reducers and seat cavities. Velocity is not a free variable in a fire main: it is bought with pressure you no longer have.'
+	},
+	{
+		question: 'Is a reduced-bore valve such as a butterfly valve a problem?',
+		answer: 'Not for isolation, and it is often the correct choice on space and weight grounds. A wafer butterfly such as our D71X keeps a polished disc in the bore, so its full-open resistance is higher than a full-bore resilient seated gate valve of the same DN, and that difference is small at design flow but grows if the line is running near the top of its velocity band. Where it does become a problem is throttling: a disc near closed is an unstable, cavitating, seat-wearing duty. If a line needs regular flow adjustment, size and specify a valve intended for regulation and put the required range on the enquiry.'
+	},
+	{
+		question: 'The valve I need is smaller than the line. Do I have to supply reducers?',
+		answer: 'Yes, and put them on the same purchase order. A valve one or two sizes below the line needs concentric reducers on both sides when the pipe is horizontal, and an eccentric reducer with the flat side up on a pump suction so no air pocket forms at the inlet. Keep a short straight run between the reducer and the valve so the flow reattaches before it meets the disc or wedge. If the reducers are left off the valve order, they get bought from a different supplier in a different material and the flange facing or grooved standard is discovered on site.'
+	}
+];
+
+const toc = [
+	{ id: 'valve-size-is-not-pipe-size', label: '1. Valve Size Is Not Pipe Size' },
+	{ id: 'the-sizing-calculation-flow-area-velocity', label: '2. The Sizing Calculation: Flow, Area and Velocity' },
+	{ id: 'flow-capacity-by-dn-at-two-velocities', label: '3. Flow Capacity by DN at Two Velocities' },
+	{ id: 'typical-velocity-bands-for-water-systems', label: '4. Typical Velocity Bands and What Breaks Outside Them' },
+	{ id: 'pressure-drop-cv-kv-and-what-the-valve-adds', label: '5. Pressure Drop, Cv/Kv and What the Valve Adds' },
+	{ id: 'what-an-oversized-valve-costs', label: '6. What an Oversized Valve Costs You' },
+	{ id: 'valve-family-changes-the-answer', label: '7. Valve Family Changes the Answer' },
+	{ id: 'line-size-reducers-and-installation-effects', label: '8. Line Size, Reducers and Installation Effects' },
+	{ id: 'verifying-flow-and-velocity-in-the-field', label: '9. Verifying Flow and Velocity in the Field' },
+	{ id: 'valve-sizing-data-for-the-rfq', label: '10. Valve Sizing Data to Put on the RFQ' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+const products = [
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Resilient Seat Flanged Gate Valve Z41X', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'Full-bore isolation, DN50-DN700, PN10 / PN16, ductile iron QT450-10' },
+	{ slug: 'wafer-type-butterfly-valve-d71x', name: 'Wafer Butterfly Valve D71X', img: '/assets/products/wafer-type-butterfly-valve-d71x.webp', desc: 'DN50-DN200, 1.0 / 1.6 MPa, EPDM or NBR liner, stainless disc' },
+	{ slug: 'adjustable-pressure-reducing-valve-500x', name: 'Hydraulic Pressure Reducing Valve 500X', img: '/assets/products/pressure-reducing-valve-500x-dn50.webp', desc: 'DN20-DN600, self-operated, downstream set point 0.1-1.6 MPa' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'Telescopic Y-Strainer SGL41H', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'DN50-DN600, SS304/316 screen 18-30 mesh, expansion joint built in' }
+];
+---
+
+<Layout
+	title="Valve Sizing Guide: DN, Flow, Velocity & Pressure Drop"
+	description="How to choose valve DN from flow and velocity: sizing maths, pressure drop, Cv/Kv, oversized-valve faults and the RFQ lines that prevent mismatches."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Valve Sizing' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Valve Sizing</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Valve Engineering Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Valve Sizing: How to Choose DN from Flow Rate, Velocity and Pressure Drop</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: valve size is decided by three numbers, not by the pipe. You need the flow the duty demands, the internal bore that carries it at a velocity the pipe and valve can live with, and the pressure loss the system can afford to give. Copying the line DN onto the enquiry is the most common shortcut in water and fire protection purchasing, and it is the one that produces valves that will not pass the flow test, handwheels nobody can turn, and pumps running off the end of their curve. This guide walks the calculation, the velocity bands, what the valve contributes to the pressure budget, why oversized is not safe, and the exact lines to put on an enquiry so the supplier can check your size instead of accepting it.</p>
+
+			<TableOfContents headings={toc} />
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Section 1 -->
+			<h2 id="valve-size-is-not-pipe-size" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Valve Size Is Not Pipe Size</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A nominal size - DN100, NPS 4 - is a label, not a measurement, and it describes neither the bore of the pipe nor the bore of the valve. Three separate numbers decide whether a valve is the right size, and every one of them belongs on the enquiry:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>The required flow.</strong> Litres per second or cubic metres per hour, and whether it is continuous duty (a supply main, an HVAC branch) or a transient design event (the sprinkler demand for a hazard class, the standpipe flow at the top outlet). Mixing the two is how a valve ends up sized for a fire event it only sees once a year and throttles badly every day.</li>
+				<li><strong>The bore that carries it.</strong> Flow divided by internal area gives velocity. Velocity drives friction loss, erosion, noise and the size of the surge when the valve closes. The internal area is set by the pipe schedule and by the valve design - a full-bore gate valve and a wafer butterfly of the same DN do not present the same area to the water.</li>
+				<li><strong>The pressure the system can spare.</strong> Every valve, strainer, check valve, elbow and metre of pipe spends part of the available head. The valve is entitled to a share only after the pipe run and the terminal device have taken theirs. This is the number buyers never state, and it is the one that turns a correctly chosen DN into a failed commissioning test.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Where the size is genuinely fixed by the design - a hydrant branch, a riser, a pump nozzle - the sizing question changes but does not disappear: it becomes a question of valve <em>type</em> and <em>class</em>, and of how much differential the chosen type adds. That trade is worked through for two families in our <a href="/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">gate valve vs butterfly valve</a> comparison and in the <a href="/guides/osy-gate-valve-guide/" class="text-brand-blue font-semibold hover:underline">OS&amp;Y gate valve guide</a>. What never changes is that the buyer who supplies flow, pressure and pipe data gets a checked size, and the buyer who supplies only a DN gets a price.</p>
+
+			<!-- Section 2 -->
+			<h2 id="the-sizing-calculation-flow-area-velocity" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. The Sizing Calculation: Flow, Area and Velocity</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The arithmetic is simple enough to do on the back of an enquiry, which is why there is no excuse for skipping it. For a circular bore:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li>Area <strong>A = pi x D x D / 4</strong>, with D as the internal diameter in metres and A in square metres.</li>
+				<li>Flow <strong>Q = A x v</strong>, with v the mean velocity in metres per second and Q in cubic metres per second.</li>
+				<li>Rearranged for a required size: <strong>D = sqrt(4 x Q / (pi x v))</strong>.</li>
+				<li>Unit conversion you will need throughout: <strong>m3/h divided by 3.6 = L/s</strong>.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4">Take a building supply branch that has to carry 13.9 L/s - that is 50 m3/h - and a target of 1.8 m/s. Convert the flow to 0.0139 m3/s, then D = sqrt(4 x 0.0139 / (pi x 1.8)) = 0.0992 m, or 99.2 mm. The next standard nominal size above that is DN100, so DN100 is the answer and it came from the flow, not from the pipe drawing.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Now read the same duty against a smaller valve. At DN80 the area is 0.00503 m2, so 13.9 L/s forces the velocity to 2.76 m/s - still moving, but 53 percent faster than the target, and friction loss rises roughly with the square of velocity, so the loss per metre is about 2.3 times what the design assumed. That is how a compliant-looking valve produces a failed residual pressure test at the top floor.</p>
+			<p class="text-gray-700 leading-relaxed">One honest caveat, and it matters when you compare factories: the calculation above uses the nominal size as the bore. Real bore varies with pipe schedule and with valve construction - a resilient seated wedge has to land somewhere, and a butterfly carries a disc and a shaft in the stream. Treat nominal-bore arithmetic as the screening step that gets you to a DN, then confirm with the manufacturer's internal diameter or flow coefficient for the delivered model. Where the design is a fire protection scheme, the governing flow is not yours or the supplier's to choose: it comes from the hazard classification and the hydraulic calculation, as mapped in our <a href="/guides/nfpa-fire-protection-standards-guide/" class="text-brand-blue font-semibold hover:underline">NFPA standards guide</a>.</p>
+
+			<!-- Section 3 -->
+			<h2 id="flow-capacity-by-dn-at-two-velocities" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Flow Capacity by DN at Two Velocities</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The table below converts nominal bore into carried flow at 1.5 m/s and 2.5 m/s, assuming nominal bore equals internal diameter. Use it to place a duty in a size band before you ask for a quotation, and use it again in the other direction when a quote arrives with a size you did not expect.</p>
+			<div class="overflow-x-auto my-6">
+				<table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg overflow-hidden">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Nominal size</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical bore used</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical flow at 1.5 m/s</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Typical flow at 2.5 m/s</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Where it normally sits</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">DN50</td>
+							<td class="px-4 py-3 text-gray-700">50 mm</td>
+							<td class="px-4 py-3 text-gray-700">2.9 L/s - 11 m3/h</td>
+							<td class="px-4 py-3 text-gray-700">4.9 L/s - 18 m3/h</td>
+							<td class="px-4 py-3 text-gray-700">Branch lines, hose reel and hydrant cabinet feeds, equipment connections</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">DN80</td>
+							<td class="px-4 py-3 text-gray-700">80 mm</td>
+							<td class="px-4 py-3 text-gray-700">7.5 L/s - 27 m3/h</td>
+							<td class="px-4 py-3 text-gray-700">12.6 L/s - 45 m3/h</td>
+							<td class="px-4 py-3 text-gray-700">Standpipe risers, small sprinkler zone, one-line FDC</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">DN100</td>
+							<td class="px-4 py-3 text-gray-700">100 mm</td>
+							<td class="px-4 py-3 text-gray-700">11.8 L/s - 42 m3/h</td>
+							<td class="px-4 py-3 text-gray-700">19.6 L/s - 71 m3/h</td>
+							<td class="px-4 py-3 text-gray-700">Sprinkler main, building supply, pump discharge, yard branch</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">DN150</td>
+							<td class="px-4 py-3 text-gray-700">150 mm</td>
+							<td class="px-4 py-3 text-gray-700">26.5 L/s - 95 m3/h</td>
+							<td class="px-4 py-3 text-gray-700">44.2 L/s - 159 m3/h</td>
+							<td class="px-4 py-3 text-gray-700">Distribution main, fire pump suction, monitor supply</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">DN200</td>
+							<td class="px-4 py-3 text-gray-700">200 mm</td>
+							<td class="px-4 py-3 text-gray-700">47.1 L/s - 170 m3/h</td>
+							<td class="px-4 py-3 text-gray-700">78.5 L/s - 283 m3/h</td>
+							<td class="px-4 py-3 text-gray-700">Trunk main, plant room header, industrial yard ring main</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">These are screening figures on nominal bore, not capacity ratings, and they say nothing about what the valve adds - that is section 5. They are enough to catch the two errors that appear on real enquiries: a DN200 valve ordered for 40 m3/h of continuous duty, which will cost a multiple of what it needs to and will throttle poorly if anyone ever tries; and a DN50 valve ordered on a 65 mm hydrant branch, which will not carry the flow the cabinet is supposed to deliver.</p>
+
+			<!-- Section 4 -->
+			<h2 id="typical-velocity-bands-for-water-systems" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Typical Velocity Bands and What Breaks Outside Them</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">There is no single correct velocity. There is a band that keeps friction loss, noise, erosion, surge and settling behaviour all acceptable at once, and it moves with the duty. The ranges below are the screening values in general engineering use for water at ambient temperature; they are not design limits, and the number that governs your project is the one in the hydraulic calculation signed by the designer and accepted by the authority having jurisdiction.</p>
+			<div class="overflow-x-auto my-6">
+				<table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg overflow-hidden">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What to check</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Screening range</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Too low - what happens</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Too high - what happens</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pump suction</td>
+							<td class="px-4 py-3 text-gray-700">About 0.9 - 2.4 m/s</td>
+							<td class="px-4 py-3 text-gray-700">Cost, and air can separate and collect at high points</td>
+							<td class="px-4 py-3 text-gray-700">Insufficient net positive suction, cavitation, loss of prime</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pump discharge and risers</td>
+							<td class="px-4 py-3 text-gray-700">About 1.5 - 3.0 m/s</td>
+							<td class="px-4 py-3 text-gray-700">Capital tied up in pipe and valves for no hydraulic gain</td>
+							<td class="px-4 py-3 text-gray-700">Friction loss rising with the square of velocity; surge on closure</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Distribution main</td>
+							<td class="px-4 py-3 text-gray-700">About 0.6 - 2.4 m/s</td>
+							<td class="px-4 py-3 text-gray-700">Sediment settles, water stagnates, water quality suffers</td>
+							<td class="px-4 py-3 text-gray-700">Residual pressure shortfall at remote outlets, erosion, noise</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hot water and heating circuits</td>
+							<td class="px-4 py-3 text-gray-700">Below the cold-water band</td>
+							<td class="px-4 py-3 text-gray-700">Circulation too slow for the emitters to deliver duty</td>
+							<td class="px-4 py-3 text-gray-700">Pump power and noise rise, and flashing risk at high points</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Fire service mains</td>
+							<td class="px-4 py-3 text-gray-700">Set by the hazard flow, then checked</td>
+							<td class="px-4 py-3 text-gray-700">Rarely a problem - design flow is fixed, not chosen</td>
+							<td class="px-4 py-3 text-gray-700">Remote-outlet residual pressure fails; surge on every closure</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">A note on why the fire row is deliberately left open. In a potable network the designer picks a velocity and derives the pipe; in a fire protection network the flow is dictated by the hazard and the terminal devices, so velocity is an output. What the buyer can still do is make sure the valves in that line are not the thing that pushes the system over its limit - and, where the line runs fast, make sure the valves close gently. The relationship between velocity change and pressure spike is worked through in the <a href="/guides/water-hammer-protection-fire-water-systems/" class="text-brand-blue font-semibold hover:underline">water hammer protection guide</a>, and it is the reason a large fast-closing valve on a fast main is a specification error rather than a preference.</p>
+
+			<!-- Section 5 -->
+			<h2 id="pressure-drop-cv-kv-and-what-the-valve-adds" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Pressure Drop, Cv/Kv and What the Valve Adds</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Choosing a bore that carries the flow at a tolerable velocity is only half the job. The valve then consumes part of the pressure budget, and the honest way to describe that consumption is a flow coefficient. <strong>Kv</strong> is the flow in cubic metres per hour of water that passes at a differential of 1 bar; <strong>Cv</strong> is the same idea in US units - US gallons per minute at 1 psi. They convert directly: <strong>Kv = 0.865 x Cv</strong>, and Cv = 1.156 x Kv.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">From that definition, the differential a valve creates at a given flow is <strong>differential in bar = (Q / Kv) squared</strong> for water. A valve with Kv 300 passing 300 m3/h spends 1 bar; the same valve passing 150 m3/h spends 0.25 bar. This is the calculation to run against the head your system can spare, and it is the calculation a supplier cannot perform unless the enquiry states the flow - which is why "DN100, 20 pieces" gets you a catalogue price rather than an engineering answer.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Then remember that the valve is rarely alone in the budget. A <a href="/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">Y-strainer</a> protecting a control valve spends head too, and spends progressively more as the screen loads, which is why the strainer's mesh choice and its clean-vs-blocked differential belong in the same conversation as the valve size - see the <a href="/guides/y-strainer-selection-guide/" class="text-brand-blue font-semibold hover:underline">Y strainer selection guide</a>. A check valve, an elbow and a reducer each take their share. Add them up before you accept that the isolation valve may have 0.1 bar.</p>
+			<p class="text-gray-700 leading-relaxed">For self-operated hydraulic control valves the differential is not just a loss, it is the energy the valve runs on. The <a href="/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">500X hydraulic pressure reducing valve</a> is available from DN20 to DN600 in PN10, PN16 and PN25, holding a downstream set point adjustable from 0.1 MPa to 1.6 MPa. Size it from the flow, and confirm on the same enquiry the inlet pressure range and the turndown you actually need: a reducing valve sized for a main that routinely runs near its minimum inlet pressure will not hold its set point, and no amount of pilot adjustment fixes that.</p>
+
+			<!-- Section 6 -->
+			<h2 id="what-an-oversized-valve-costs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. What an Oversized Valve Costs</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">"Bigger is safer" is the most expensive sentence in valve purchasing. A valve above the duty does not add margin; it moves the installation into a regime where it behaves less predictably, and it does so quietly, because nothing fails on the day of delivery.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Control authority disappears.</strong> A valve asked to regulate spends its useful travel in the last few degrees or turns of the stem. Oversize it and the whole controllable range collapses into a narrow band near closed, where small movements produce large flow changes. The result is hunting, seat wear, cavitation damage on the disc and liner, and an operator who learns to leave it either fully open or fully shut.</li>
+				<li><strong>Surge gets worse, not better.</strong> The pressure rise when a valve closes depends on how much moving water is stopped and how fast. A larger valve on a larger bore holds a greater volume of water at velocity, so the closure event it must arrest is bigger. The mechanism and the arithmetic are set out in the <a href="/guides/water-hammer-protection-fire-water-systems/" class="text-brand-blue font-semibold hover:underline">water hammer protection guide</a>, including which valve types close without slamming.</li>
+				<li><strong>Money and weight, both recurring.</strong> A larger DN means a higher class-priced body, larger flanges and fasteners, heavier valve weight that the pipe must carry, and usually a gearbox or larger actuator above roughly DN200 in manual service. That cost repeats across every valve in a municipal or plant package.</li>
+				<li><strong>Low velocity has its own failure mode.</strong> In mains that run intermittently or at part load, an oversized bore drops the velocity below the point where solids stay suspended. Sediment collects, corrodes, and eventually holds a seat open - which is exactly the defect that turns up during a supervision check rather than during a purchase inspection.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Undersizing is louder and therefore easier to catch: the flow test fails, the pump runs out along its curve, the nozzle pressure is short, the valve cannot be turned against the differential. Oversizing fails slowly and gets blamed on the pump. If the design flow genuinely sits near the bottom of a size band, say so on the enquiry and ask the supplier to state the velocity and differential they calculated at that flow.</p>
+
+			<!-- Section 7 -->
+			<h2 id="valve-family-changes-the-answer" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Valve Family Changes the Answer</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The same DN carries different duties depending on the valve, because the internal geometry differs. This is the practical reason a substitution approved on a datasheet - butterfly for gate, same DN, same PN - can still upset a hydraulic calculation.</p>
+			<div class="overflow-x-auto my-6">
+				<table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg overflow-hidden">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Valve family</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Bore in full open</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Suitability for regulation</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Range and rating in our catalog</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Resilient seated gate (Z41X)</td>
+							<td class="px-4 py-3 text-gray-700">Effectively full bore; lowest resistance of the isolation types</td>
+							<td class="px-4 py-3 text-gray-700">Not intended for throttling - the wedge lands on its seat, not on a controlled orifice</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN700, PN10 / PN16, ductile iron QT450-10, EPDM encapsulated wedge</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Wafer butterfly (D71X)</td>
+							<td class="px-4 py-3 text-gray-700">Disc and shaft sit in the stream, so resistance is higher per DN</td>
+							<td class="px-4 py-3 text-gray-700">Quarter-turn position control only; avoid sustained near-closed duty</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN200, 1.0 / 1.6 MPa, EPDM or NBR liner, stainless 304/316 disc</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hydraulic control (500X)</td>
+							<td class="px-4 py-3 text-gray-700">Main valve modulates; the pilot circuit sets the duty</td>
+							<td class="px-4 py-3 text-gray-700">Designed to hold a pressure set point across varying flow</td>
+							<td class="px-4 py-3 text-gray-700">DN20 - DN600, PN10 / PN16 / PN25, set point 0.1 - 1.6 MPa</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Balancing valve (SP45F)</td>
+							<td class="px-4 py-3 text-gray-700">Y-pattern globe body with dual stainless test points</td>
+							<td class="px-4 py-3 text-gray-700">Built for it: set, measure and lock a branch flow</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN300, nodular cast iron QT450, digital lock display</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed">Two consequences for the enquiry. First, if a line has been calculated with full-bore isolation valves and the quote comes back with wafer butterflies because they are cheaper and lighter, ask for the recalculated differential - or specify the <a href="/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X flanged gate valve</a> where the calculation assumed one. Second, if the branch actually needs setting and measuring, a butterfly is not a balancing valve: the <a href="/products/sp45f-flange-digital-balancing-valve/" class="text-brand-blue font-semibold hover:underline">SP45F digital balancing valve</a> exists for that duty, with the test points needed to read the differential across the opening.</p>
+
+			<!-- Section 8 -->
+			<h2 id="line-size-reducers-and-installation-effects" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. Line Size, Reducers and Installation Effects</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A valve sized correctly can still perform badly because of how it is brought into the line. The items below are cheap to specify on paper and awkward to fix once the flanges are bolted.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Reducer type and orientation.</strong> Concentric reducers on horizontal discharge and vertical runs. On a pump suction, an eccentric reducer with the flat face up, so air cannot collect in a pocket ahead of the impeller - the same class of problem that a <a href="/products/suction-vortex-preventer-en12845/" class="text-brand-blue font-semibold hover:underline">vortex preventer</a> deals with at the tank penetration.</li>
+				<li><strong>Straight run.</strong> Give the valve bore a short length of undisturbed pipe on its inlet side so the flow reattaches after the reducer before it crosses the seat or disc.</li>
+				<li><strong>Face-to-face length.</strong> Wafer and lug bodies are dramatically shorter than flanged gate valves, which is why they get chosen - and why a substitution changes the spool piece. Confirm the face-to-face dimension against the standard being followed rather than assuming the old valve's gap will take the new one. The drilling and facing families are compared in the <a href="/guides/flange-standard-guide-ansi-din-jis/" class="text-brand-blue font-semibold hover:underline">flange standard guide</a>, and the grooved alternative in the <a href="/guides/grooved-fire-protection-valves-guide/" class="text-brand-blue font-semibold hover:underline">grooved valve guide</a>.</li>
+				<li><strong>Access and stroke.</strong> A rising stem needs headroom for the stem; a gearbox handwheel needs room to turn a person, not just to exist. Confirm the operating envelope against the valve pit, ceiling void or pump room layout before the size is frozen.</li>
+				<li><strong>Weight and support.</strong> Large DN ductile iron valves with actuators need independent support. Hanging that load on the flanges transfers bending into the joint, and the first symptom is a leak that no gasket explains.</li>
+				<li><strong>Maintenance envelope.</strong> Leave room to pull a screen or a stem, and fit a telescopic strainer or expansion joint where the line is tight - the <a href="/products/telescopic-resilient-seat-gate-valve-z41x-t/" class="text-brand-blue font-semibold hover:underline">telescopic Z41X-T gate valve</a> and the SGL41H are both built around this problem.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Direction matters as well: check valves, strainers and most control valves are uni-directional by design, and the arrow has to match the flow the installer thinks he has. The orientation rules by check valve type are covered in the <a href="/guides/check-valve-types-guide/" class="text-brand-blue font-semibold hover:underline">check valve types guide</a>.</p>
+
+			<!-- Section 9 -->
+			<h2 id="verifying-flow-and-velocity-in-the-field" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">9. Verifying Flow and Velocity in the Field</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Sizing assumptions get checked once, and the earlier the better: at commissioning. Two provisions make that possible without cutting the line open.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Test points at the valve.</strong> The <a href="/products/sp45f-flange-digital-balancing-valve/" class="text-brand-blue font-semibold hover:underline">SP45F flange digital balancing valve</a> carries dual stainless pressure test points across its Y-pattern body plus a digital lock display, so the differential is measured where the flow is being set and the setting is recorded rather than remembered. This is the equipment that lets a contractor hand over a balanced branch schedule instead of an opinion. For a package view of what belongs in a mechanical room, see the <a href="/guides/fire-pump-room-valves-guide/" class="text-brand-blue font-semibold hover:underline">fire pump room valve guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>A meter in the line.</strong> The <a href="/products/smart-electromagnetic-flow-meter/" class="text-brand-blue font-semibold hover:underline">smart electromagnetic flow meter</a> covers DN10 to DN2000 with 0.5 percent or 1.0 percent accuracy class, no obstructing element in the measuring tube and therefore no added pressure loss, pulse or 4-20 mA output with RS485 Modbus for logging. Conductive liquids only - which covers water duty, and is the reason it suits mains where adding an orifice plate would cost head you cannot spare.</p>
+			<p class="text-gray-700 leading-relaxed">Read the flow, divide by the bore area, and you have the real velocity in the real pipe. If it disagrees with the design, the input was wrong rather than the valve - and that is the moment to revisit the pressure budget instead of the size, because opening the bore by one step while leaving the available head untouched usually moves the failure rather than removing it. Keep the record: a commissioning sheet showing measured flow, static and residual pressure by lot is the document that settles a claim two years later, as explained in the <a href="/guides/api-598-valve-pressure-test-guide/" class="text-brand-blue font-semibold hover:underline">API 598 test report guide</a>.</p>
+
+			<!-- Section 10 -->
+			<h2 id="valve-sizing-data-for-the-rfq" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">10. Valve Sizing Data to Put on the RFQ</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Send these lines and a competent supplier returns a checked size with the arithmetic behind it. Leave them out and every factory substitutes its own default, then you compare four proposals that were never the same valve.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Design flow, with units and character.</strong> L/s or m3/h, and whether it is continuous, intermittent or a design fire event.</li>
+				<li><strong>Available pressure at the point of connection.</strong> Static and residual, or minimum and maximum inlet pressure, plus the downstream pressure required.</li>
+				<li><strong>Permissible pressure loss across the valve</strong> at the design flow, after pipe friction and the terminal device have taken their share.</li>
+				<li><strong>Line size, pipe OD and wall thickness</strong> - the actual bore, not just the nominal size - and whether reducers are in the valve scope.</li>
+				<li><strong>Valve family and duty.</strong> Isolation only, or isolation plus regulation; indicate whether the valve will ever be run part open.</li>
+				<li><strong>Requested data.</strong> Flow coefficient (Kv or Cv) at full open, the head-loss curve, and the internal bore or Cv by size for the delivered model.</li>
+				<li><strong>Pressure class and end standard.</strong> PN or Class, flange drilling and facing or grooved standard, nameplate units and language.</li>
+				<li><strong>Medium condition.</strong> Temperature, whether the water is potable or contains solids, and the strainer mesh if a strainer is upstream.</li>
+				<li><strong>Operating provision.</strong> Handwheel, gearbox or actuator, the access envelope at the installation, and the position signalling required.</li>
+				<li><strong>Documentation.</strong> Shell and seat test records by lot, material declarations, dimension drawing, and the certificate holder if listing applies.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Once the size is agreed, the rest of the commercial risk sits in how the quotes are read rather than what they say about DN - hidden scope, test documents and lead time are covered in our guide to <a href="/guides/china-valve-supplier-quote-guide/" class="text-brand-blue font-semibold hover:underline">comparing Chinese valve supplier quotes</a>, and the full package approach in the <a href="/guides/commercial-building-sprinkler-system-bom-guide/" class="text-brand-blue font-semibold hover:underline">sprinkler system BOM guide</a>.</p>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Sizing a Valve and Want the Number Checked First?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the design flow, the available static and residual pressure, the pipe bore and the permissible loss - our engineers calculate the velocity and differential for the proposed model and reply with head-loss data and a quotation within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Valve%20Sizing%20%26%20Selection" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20help%20confirming%20valve%20size%20(DN)%20for%20my%20flow%20and%20pressure" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
