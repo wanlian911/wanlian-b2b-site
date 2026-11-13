@@ -295,7 +295,7 @@ const en: UIStrings = {
     description:
       'The page you are looking for was not found. Explore Wanlian Fluid industrial valves and fire protection equipment.',
     heading: 'Page Not Found',
-    body: 'The page you are looking for may have been moved, renamed, or no longer exists. Explore our certified valves and fire protection catalog instead.',
+    body: 'The page you are looking for may have been moved, renamed, or no longer exists. Explore our valves and fire protection catalog instead.',
     backHome: 'Back to Home',
     browseProducts: 'Browse Products',
     contactUs: 'Contact Us',
@@ -462,7 +462,7 @@ const es: UIStrings = {
     description:
       'La página que busca no fue encontrada. Explore las válvulas industriales y equipos de protección contra incendios de Wanlian Fluid.',
     heading: 'Página No Encontrada',
-    body: 'La página que busca pudo haber sido movida, renombrada o ya no existe. Explore nuestro catálogo certificado de válvulas y protección contra incendios.',
+    body: 'La página que busca pudo haber sido movida, renombrada o ya no existe. Explore nuestro catálogo de válvulas y protección contra incendios.',
     backHome: 'Volver al Inicio',
     browseProducts: 'Ver Productos',
     contactUs: 'Contacto',
@@ -630,7 +630,7 @@ const ru: UIStrings = {
     description:
       'Запрашиваемая страница не найдена. Ознакомьтесь с промышленными клапанами и противопожарным оборудованием Wanlian Fluid.',
     heading: 'Страница не найдена',
-    body: 'Возможно, страница была перемещена, переименована или больше не существует. Ознакомьтесь с нашим каталогом сертифицированных клапанов и противопожарного оборудования.',
+    body: 'Возможно, страница была перемещена, переименована или больше не существует. Ознакомьтесь с нашим каталогом клапанов и противопожарного оборудования.',
     backHome: 'На главную',
     browseProducts: 'Смотреть продукцию',
     contactUs: 'Связаться с нами',
@@ -801,7 +801,7 @@ const fr: UIStrings = {
       "La page que vous recherchez est introuvable. Découvrez les vannes industrielles et l'équipement de protection incendie de Wanlian Fluid.",
     heading: 'Page Introuvable',
     body:
-      "La page que vous recherchez a peut-être été déplacée, renommée ou n'existe plus. Découvrez plutôt notre catalogue certifié de vannes et de protection incendie.",
+      "La page que vous recherchez a peut-être été déplacée, renommée ou n'existe plus. Découvrez plutôt notre catalogue de vannes et de protection incendie.",
     backHome: "Retour à l'Accueil",
     browseProducts: 'Voir les Produits',
     contactUs: 'Contactez-nous',
@@ -967,7 +967,7 @@ const ar: UIStrings = {
     description:
       'الصفحة التي تبحث عنها غير موجودة. استكشف صمامات Wanlian الصناعية ومعدات الحماية من الحريق.',
     heading: 'الصفحة غير موجودة',
-    body: 'قد تكون الصفحة التي تبحث عنها قد نُقلت أو أعيدت تسميتها أو لم تعد موجودة. استكشف كتالوج صماماتنا والحماية من الحريق المعتمد بدلاً من ذلك.',
+    body: 'قد تكون الصفحة التي تبحث عنها قد نُقلت أو أعيدت تسميتها أو لم تعد موجودة. استكشف كتالوج صماماتنا والحماية من الحريق بدلاً من ذلك.',
     backHome: 'العودة للرئيسية',
     browseProducts: 'تصفح المنتجات',
     contactUs: 'اتصل بنا',
@@ -1134,7 +1134,7 @@ const pt: UIStrings = {
       'A página que você procura não foi encontrada. Explore as válvulas industriais e equipamentos de proteção contra incêndio da Wanlian Fluid.',
     heading: 'Página Não Encontrada',
     body:
-      'A página que você procura pode ter sido movida, renomeada ou deixado de existir. Explore nosso catálogo de válvulas certificadas e de proteção contra incêndio.',
+      'A página que você procura pode ter sido movida, renomeada ou deixado de existir. Explore nosso catálogo de válvulas e de proteção contra incêndio.',
     backHome: 'Voltar ao Início',
     browseProducts: 'Ver Produtos',
     contactUs: 'Fale Conosco',
@@ -1303,7 +1303,7 @@ const de: UIStrings = {
       'Die gewünschte Seite wurde nicht gefunden. Entdecken Sie zertifizierte Industriearmaturen und Brandschutztechnik von Wanlian Fluid.',
     heading: 'Seite Nicht Gefunden',
     body:
-      'Die aufgerufene Seite existiert leider nicht oder wurde verschoben. Durchsuchen Sie unser zertifiziertes Sortiment an Industrie- und Brandschutzventilen.',
+      'Die aufgerufene Seite existiert leider nicht oder wurde verschoben. Durchsuchen Sie unser Sortiment an Industrie- und Brandschutzventilen.',
     backHome: 'Zur Startseite',
     browseProducts: 'Produkte Entdecken',
     contactUs: 'Kontakt Aufnehmen',
@@ -1472,7 +1472,7 @@ const tr: UIStrings = {
       'Aradığınız sayfa bulunamadı. Wanlian Fluid\'in sertifikalı endüstriyel vana ve yangın güvenlik ekipmanı kataloğunu inceleyin.',
     heading: 'Sayfa Bulunamadı',
     body:
-      'Aradığınız sayfa taşınmış, adı değiştirilmiş veya kaldırılmış olabilir. Sertifikalı endüstriyel ve yangın vanaları ürün yelpazemizi inceleyebilirsiniz.',
+      'Aradığınız sayfa taşınmış, adı değiştirilmiş veya kaldırılmış olabilir. endüstriyel ve yangın vanaları ürün yelpazemizi inceleyebilirsiniz.',
     backHome: 'Ana Sayfaya Dön',
     browseProducts: 'Ürünleri İnceleyin',
     contactUs: 'Bizimle İletişime Geçin',
@@ -1641,7 +1641,7 @@ const id: UIStrings = {
       'Halaman yang Anda cari tidak ditemukan. Jelajahi katalog katup industri bersertifikasi dan peralatan proteksi kebakaran dari Wanlian Fluid.',
     heading: 'Halaman Tidak Ditemukan',
     body:
-      'Halaman yang Anda cari mungkin telah dipindahkan, diubah namanya, atau dihapus. Jelajahi rangkaian produk katup industri dan pemadam kebakaran bersertifikasi kami.',
+      'Halaman yang Anda cari mungkin telah dipindahkan, diubah namanya, atau dihapus. Jelajahi rangkaian produk katup industri dan pemadam kebakaran.',
     backHome: 'Kembali ke Beranda',
     browseProducts: 'Jelajahi Produk',
     contactUs: 'Hubungi Kami',
