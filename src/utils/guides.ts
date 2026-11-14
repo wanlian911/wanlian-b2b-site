@@ -16,6 +16,16 @@ export interface Guide {
 // 内容工厂单一数据源:新增指南只需在此追加一条
 export const guides: Guide[] = [
   {
+    title: 'Butterfly Valve Selection Guide: Wafer, Grooved & Signal',
+    description: 'How to specify a butterfly valve for water and fire lines: wafer or grooved ends, EPDM, NBR or PTFE liner, DN, PN, torque, signal switch and RFQ lines.',
+    href: '/guides/butterfly-valve-selection-guide/',
+    tocPreview: ['1. What a Butterfly Valve Actually Buys You', '2. Wafer, Grooved or Flanged: The Mounting Decision', '3. The Three Catalogue Builds Compared'],
+    date: '2026-11',
+    category: 'Valve Engineering',
+    readTime: '11 min read',
+    tags: ['industrial-valves', 'fire-protection', 'procurement']
+  },
+  {
     title: 'Valve Sizing Guide: DN, Flow, Velocity & Pressure Drop',
     description: 'How to choose valve DN from flow and velocity: sizing maths, pressure drop, Cv/Kv, oversized-valve faults and the RFQ lines that prevent mismatches.',
     href: '/guides/valve-sizing-flow-velocity-pressure-drop-guide/',

@@ -1,0 +1,255 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ: real buyer questions, rendered as visible content and as FAQPage JSON-LD
+const faq = [
+	{
+		question: 'Can a wafer butterfly valve replace a gate valve on a fire main?',
+		answer: 'Only where the duty allows it, and two things decide: supervision and pressure budget. A fire protection main normally needs a control valve whose open position can be proved by inspection or reported to a panel, so the accepted devices are an indicating type - an OS and Y gate valve with a visible rising stem, or a butterfly fitted with a position switch. A plain lever-operated wafer valve gives you neither. The second limit is head loss: the butterfly disc sits permanently in the bore, so it costs pressure even wide open, and every metre of pipe you saved on weight you may pay back in residual pressure at the furthest outlet. Where size, weight and cost dominate and you can supervise the position, the signal butterfly is the right answer; where full-bore flow matters, the resilient seat gate valve is. The head-to-head logic is in the gate valve vs butterfly valve guide.'
+	},
+	{
+		question: 'Why does the lever-operated D71X stop at DN200?',
+		answer: 'Because of seat torque, not because of the casting. Operating torque in a resilient-seated butterfly grows quickly with bore size - the liner presses on the disc over its whole circumference, and the lever arm available to the operator does not grow at the same rate. Up to DN200 at 1.0 / 1.6 MPa a multi-position hand lever is still workable for one operator, which is why that is where the lever option stops. Above it, or whenever the valve must be closed against pressure by hand on a schedule, the correct operator is a worm gear box with a handwheel - the arrangement used on the D381X-16Q and on the signal butterfly. A worm gear also holds the disc against line pressure and will not be flung open when someone lets go of the handwheel.'
+	},
+	{
+		question: 'Which liner should we choose: EPDM, NBR or PTFE?',
+		answer: 'Choose it from the fluid and the temperature, not from the price. EPDM is the default for water duties - fresh, sea, treated and mildly contaminated water, and hot water - and it resists ozone and weathering well, which matters for valves in plant rooms and buried chambers; it is the wrong choice for mineral oils and fuels. NBR is the opposite trade: better resistance to oils, greases and hydrocarbon contamination, poorer resistance to heat, ozone and sunlight, so it belongs on services where oil carryover is realistic. PTFE is selected where temperature or chemistry rules out both elastomers. Our wafer D71X is offered with a fully vulcanised EPDM, NBR or PTFE lining and the grooved and signal valves are built on EPDM, so state the service medium and maximum temperature on the enquiry and let the supplier confirm the compound behind it.'
+	},
+	{
+		question: 'Is a wafer body safe between any two flanges?',
+		answer: 'It is safe between correctly spaced, correctly aligned flanges - and that is the part that goes wrong. A wafer valve is located by the flange faces, not by its own ends, so the gap must match the valve thickness and the flanges must be pulled together squarely on the pipe. The common field shortcut is to stretch the gap with two full-face gaskets when the valve is thinner than the space, which unloads the liner unevenly, allows the disc to foul, and produces a leak that nobody can tighten out. Use the correct thickness, one gasket per face sized for the bore, and pipe supports or pipe stops close enough that flange bolt load is not carried by the valve body. For DN50 - DN200 wafer types supplied to ANSI, DIN, JIS or GB wafer patterns, name the flange standard and facing on the order.'
+	},
+	{
+		question: 'What does the signal microswitch actually report?',
+		answer: 'It reports the position of the shaft, and therefore of the disc, at the moment the handwheel is moved. On the signal butterfly valve a waterproof microswitch is flipped by the operator, so the change of state reaches the fire alarm or control panel even where the valve is 500 m from the control room and nobody walks the line. Be precise about what that buys you: it is a supervision device for the isolated section duty - it tells you somebody closed a valve that should have stayed open. It is not a flow device and it does not prove a downstream demand event; that is the job of the ZSJZ water flow indicator. Where a valve can be hand-worked, codes expect exactly this kind of position-reporting arrangement - see the sprinkler control valve types guide.'
+	},
+	{
+		question: 'What documentation should arrive with the valves?',
+		answer: 'Ask for it on the enquiry and it will be comparable between quotes. For this family the meaningful set is: the shell and seat test record for the delivered size and batch - our valves are pressure tested per GB/T 13927 or EN 12266-1 and type testing to those standards is documented, with certificates available on request; material certificates for body, disc and stem; the liner compound declaration with its temperature range; the dimensional sheet showing face-to-face and the flange or groove standard; the wiring and contact rating sheet for the microswitch where signal units are ordered; and the installation torque values for the closing sequence. Counterfeit and paper-only compliance is a real problem in this category, so the 8-point verification checklist is worth running before award.'
+	}
+];
+
+// TOC: one entry per H2 id in the body
+const toc = [
+	{ id: 'what-a-butterfly-valve-actually-buys-you', label: '1. What a Butterfly Valve Actually Buys You' },
+	{ id: 'wafer-grooved-or-flanged-the-mounting-decision', label: '2. Wafer, Grooved or Flanged: The Mounting Decision' },
+	{ id: 'the-three-catalogue-builds-compared', label: '3. The Three Catalogue Builds Compared' },
+	{ id: 'liner-materials-epdm-nbr-and-ptfe', label: '4. Liner Materials: EPDM, NBR and PTFE' },
+	{ id: 'sizing-dn-velocity-and-the-disc-in-the-way', label: '5. Sizing: DN, Velocity and the Disc in the Way' },
+	{ id: 'operating-torque-levers-worm-gears-and-actuation', label: '6. Operating Torque: Levers, Worm Gears and Actuation' },
+	{ id: 'signal-butterfly-valves-supervised-isolation', label: '7. Signal Butterfly Valves: Supervised Isolation' },
+	{ id: 'installation-and-commissioning-traps', label: '8. Installation and Commissioning Traps' },
+	{ id: 'rfq-checklist-for-butterfly-valves', label: '9. RFQ Checklist for Butterfly Valves' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// Related products: slugs match src/utils/products.ts
+const products = [
+	{ slug: 'wafer-type-butterfly-valve-d71x', name: 'D71X Wafer Butterfly Valve', img: '/assets/products/wafer-type-butterfly-valve-d71x.webp', desc: 'DN50 - DN200, 1.0 / 1.6 MPa, vulcanised EPDM / NBR / PTFE liner, lever operated' },
+	{ slug: 'd381x-16q-grooved-butterfly-valve', name: 'D381X-16Q Grooved Butterfly Valve', img: '/assets/products/d381x-16q-grooved-butterfly-valve.webp', desc: 'DN50 - DN300, PN16, grooved ends, worm gear handwheel, signal option' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Signal Butterfly Valve', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', desc: 'DN50 - DN300, PN16, waterproof microswitch reports position to the panel' },
+	{ slug: 'resilient-seat-flanged-gate-valve-z41x', name: 'Z41X Resilient Seat Gate Valve', img: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp', desc: 'The full-bore alternative: DN50 - DN700, PN10 / PN16, flanged' }
+];
+---
+
+<Layout
+	title="Butterfly Valve Selection Guide: Wafer, Grooved & Signal"
+	description="How to specify a butterfly valve for water and fire lines: wafer or grooved ends, EPDM, NBR or PTFE liner, DN, PN, torque, signal switch and RFQ lines."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Butterfly Valve Selection' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumb -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Butterfly Valve Selection</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Valve Engineering Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Butterfly Valves: How to Specify Wafer, Grooved and Signal Types for Water and Fire Protection Lines</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a butterfly valve is bought for weight, speed and price, and it is paid for in pressure loss and seat torque. The disc stays in the bore when it is open, the liner seals on that disc all the way round, and a quarter turn of a lever closes the line - so the four decisions that decide whether the valve works on the day it matters are the mounting arrangement (wafer between flanges, grooved ends, or flanged), the liner compound (EPDM, NBR or PTFE), the operator (lever below DN200, worm gear above it), and whether the position has to be reported to a panel. This guide takes each in order against three real catalogue builds - the lever <strong>D71X</strong> wafer valve, the worm-gear <strong>D381X-16Q</strong> grooved valve and the microswitch signal valve - and finishes with the RFQ lines that stop quotes being incomparable.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Section 1 -->
+			<h2 id="what-a-butterfly-valve-actually-buys-you" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. What a Butterfly Valve Actually Buys You</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The mechanism is a disc on a shaft, clamped between pipe flanges or fitted with grooved ends, that rotates a quarter turn from fully open to fully closed. Around the disc, a resilient liner - vulcanised rubber on the body, in our case EPDM or NBR, with PTFE available - is deformed slightly by the disc edge to make a bi-directional seat. There are far fewer parts than in a gate valve, no stem nut to wear, no yoke to bend, and nothing to grease. That is the whole attraction, and it is a real one: for the same DN a butterfly valve weighs and costs a fraction of a <a href="/products/resilient-seat-flanged-gate-valve-z41x/" class="text-brand-blue font-semibold hover:underline">Z41X resilient seat gate valve</a> and takes a fraction of the space in a congested riser.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The cost is equally physical. The disc, the seat ring and the shaft support all sit in the flow path when the valve is wide open, so a butterfly valve never gives you the clear bore of a gate valve - there is always a permanent pressure loss, and it is not negligible on a long main or a high-rise riser where residual pressure is already tight. The second cost is torque: sealing pressure acts on the whole disc circumference, so closing a large DN against line pressure takes real effort, which is why lever operation stops at DN200 in this catalogue and larger sizes arrive with a worm gear box. The third is behaviour near the closed position, where high velocity past a partly rotated disc can wash and damage the liner - these valves isolate reliably and modulate reluctantly.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>So when is it the right valve?</strong> When you need frequent operation, tight spaces, low weight, low cost per point, and you can afford the head loss - section isolation on a water network, branch control, pump suction and discharge duties where the size is dictated by the equipment, HVAC and process lines. When the answer is a full-bore main isolation valve that is opened once a year and must not cost any pressure, the comparison in the <a href="/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">gate valve vs butterfly valve guide</a> generally lands the other way.</p>
+
+			<!-- Section 2 -->
+			<h2 id="wafer-grooved-or-flanged-the-mounting-decision" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. Wafer, Grooved or Flanged: The Mounting Decision</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Mounting is the first specification decision because it drives the rest: how the valve is located, what it costs to install, how it is removed later, and how much pipe weight and thrust it ends up carrying. Three arrangements dominate water and fire protection work, and this catalogue covers two of them directly.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wafer.</strong> The body is a thin ring with locating holes, clamped between two mating flanges; the flange faces, not the valve, do the locating and much of the retaining. That is why the D71X is offered against ANSI, DIN, JIS and GB wafer patterns and why the flange standard on your order matters as much as the DN. Installation is fast and cheap - but the arrangement assumes the gap matches the valve thickness. Spreading two flanges with packing to fit a thinner valve is the single most common wafer-valve installation error, and Section 8 covers what it costs. See the <a href="/guides/flange-standard-guide-ansi-din-jis/" class="text-brand-blue font-semibold hover:underline">flange standard guide</a> for why "DN100 PN16" is not a complete connection specification.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Grooved.</strong> The valve ends are grooved to receive a mechanical coupling, so the joint is assembled with bolts and a key - no hot work, no flange alignment drama, and a coupling that tolerates a little angular and axial misalignment. This is the D381X-16Q, and it is the reason grooved valve families win on fire mains: the whole line, elbows, tees and valves, goes up with the same two tools. The design consequence is that the valve is only as good as the coupling system around it - groove depth, gasket and coupling rating are part of the pressure boundary, which is why they belong in the specification, as argued in the <a href="/guides/grooved-fire-protection-valves-guide/" class="text-brand-blue font-semibold hover:underline">grooved fire protection valves guide</a>. Pair with <a href="/products/groove-pipe-fitting-elbow/" class="text-brand-blue font-semibold hover:underline">grooved pipe fittings</a> on the same purchase order.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Flanged.</strong> The valve carries its own bolt circle and is bolted directly to one flange. It is the rigid, self-locating option, preferred on larger sizes, on valves that will be removed and refitted, and where the specification wants a defined face-to-face. It also puts the pipe load question in the open: a flanged valve must be supported by the pipe, not by the bolts of its neighbours. Where a specification says flanged and a supplier quotes wafer "as equivalent", that is a substitution to reject, not a saving to bank.</p>
+
+			<!-- Section 3 -->
+			<h2 id="the-three-catalogue-builds-compared" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. The Three Catalogue Builds Compared</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The table is the specification of what we actually stock in this family, side by side. Read it as a selection matrix: duty on the left, then the build whose ends, operator and supervision match it.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What to compare</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">D71X wafer (lever)</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">D381X-16Q grooved (gear)</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Signal butterfly (DN80)</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">End connection</td>
+							<td class="px-4 py-3 text-gray-700">Wafer, to ANSI / DIN / JIS / GB wafer patterns</td>
+							<td class="px-4 py-3 text-gray-700">Grooved ends, mechanical coupling</td>
+							<td class="px-4 py-3 text-gray-700">Wafer or grooved</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Size range</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN200 (2" to 8")</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN300</td>
+							<td class="px-4 py-3 text-gray-700">DN50 - DN300 (2" to 12")</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pressure rating</td>
+							<td class="px-4 py-3 text-gray-700">1.0 MPa / 1.6 MPa</td>
+							<td class="px-4 py-3 text-gray-700">PN16</td>
+							<td class="px-4 py-3 text-gray-700">1.6 MPa (PN16)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Body</td>
+							<td class="px-4 py-3 text-gray-700">Ductile iron QT450 / cast iron</td>
+							<td class="px-4 py-3 text-gray-700">Nodular cast iron QT450, electrophoretic coating</td>
+							<td class="px-4 py-3 text-gray-700">Ductile iron QT450, compact wafer</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Disc and seat</td>
+							<td class="px-4 py-3 text-gray-700">Polished SS 304 / 316 disc; fully vulcanised EPDM / NBR / PTFE liner</td>
+							<td class="px-4 py-3 text-gray-700">Ductile iron or stainless disc; EPDM lining</td>
+							<td class="px-4 py-3 text-gray-700">Ductile iron with epoxy / EPDM coating; EPDM or NBR resilient seat, bi-directional</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Operator</td>
+							<td class="px-4 py-3 text-gray-700">Multi-position hand lever, die-cast aluminium or spheroidal iron</td>
+							<td class="px-4 py-3 text-gray-700">Worm gear box with handwheel; 10 - 50 kN bearing capacity</td>
+							<td class="px-4 py-3 text-gray-700">Worm gear handwheel, low torque</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Position indication</td>
+							<td class="px-4 py-3 text-gray-700">Visual - lever position at the valve</td>
+							<td class="px-4 py-3 text-gray-700">Visual handwheel; signal locking device as an option</td>
+							<td class="px-4 py-3 text-gray-700">Waterproof microswitch reports open / closed to the panel</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Typical duty</td>
+							<td class="px-4 py-3 text-gray-700">HVAC, water treatment, plant isolation, branch control</td>
+							<td class="px-4 py-3 text-gray-700">Fire protection grooved mains and water pipelines</td>
+							<td class="px-4 py-3 text-gray-700">Supervised section isolation on fire mains and risers</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pressure testing basis</td>
+							<td class="px-4 py-3 text-gray-700">100% shell and seat pressure tested</td>
+							<td class="px-4 py-3 text-gray-700">GB / ANSI / DIN / JIS per project specification; type-test documents on request</td>
+							<td class="px-4 py-3 text-gray-700">100% shell and seat tested per GB/T 13927 or EN 12266-1</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Three readings. First, the wafer lever valve and the grooved gear valve are not two sizes of the same product - they are two installation philosophies, and the site's pipe system usually decides before the valve spec does. Second, the signal unit is the fire protection answer to a supervision question, and it is priced and specified as an instrumented valve, not as a valve plus a cheap extra. Third, note what is deliberately absent from this table: no flow coefficient figures. Kv/Cv is published per size and per build, and it is the number you must ask for by name - Section 5 explains how to use it.</p>
+			<p class="text-gray-700 leading-relaxed">Where a project needs a different end or a bigger bore than anything above, say so early: flanged and larger-bore isolation is the gate valve territory covered in the <a href="/guides/osy-gate-valve-guide/" class="text-brand-blue font-semibold hover:underline">OS and Y gate valve guide</a>, and mixing the two families on one drawing is normal practice, not a compromise.</p>
+
+			<!-- Section 4 -->
+			<h2 id="liner-materials-epdm-nbr-and-ptfe" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Liner Materials: EPDM, NBR and PTFE</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">In a resilient-seated butterfly valve the liner is the valve's service life. It is the sealing surface, the seat spring, the gasket, and the barrier between the body and the medium - which is why the compound is a specification line, not a catalogue default. All three options offered on the <a href="/products/wafer-type-butterfly-valve-d71x/" class="text-brand-blue font-semibold hover:underline">D71X</a> are fully vulcanised to the body rather than mechanically clamped, so the liner cannot migrate, roll or blow out the way a loose seat ring can.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>EPDM</strong> is the water compound: fresh, treated, sea and mildly contaminated water, hot water, and duties where the valve sees ozone, sunlight or intermittent drying. It is the right default for fire protection mains, municipal water and most HVAC circuits, and it is what the grooved D381X-16Q and the signal valve are built with. Its weakness is hydrocarbons - mineral oils, greases and fuel carryover swell it, and a swollen EPDM liner turns a smooth quarter turn into a seized one. <strong>NBR</strong> is bought for exactly that weakness: it handles oils and hydrocarbon-contaminated services better, at the price of poorer heat, ozone and weathering resistance, so it suits plant rooms with oil carryover better than buried chambers. <strong>PTFE</strong> is selected where temperature or chemistry takes both elastomers out of the running; expect a different torque figure and a different seat finish, so treat it as a separate build with its own datasheet.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Potable and food service is a documentation question.</strong> Lining a valve with a rubber compound is not the same as the valve meeting the approval your project names. Where the specification requires drinking-water approval, the enquiry should state the approval and the destination market explicitly and require the supplier to name the specific compound and its supporting documents - the same per-model discipline explained in the <a href="/guides/valve-body-material-selection-guide/" class="text-brand-blue font-semibold hover:underline">valve body material selection guide</a>, applied to the wetted liner instead of the casting. Never let "EPDM" on a quote stand in for an approval the tender asked for.</p>
+
+			<!-- Section 5 -->
+			<h2 id="sizing-dn-velocity-and-the-disc-in-the-way" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Sizing: DN, Velocity and the Disc in the Way</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Size a butterfly valve the way the <a href="/guides/valve-sizing-flow-velocity-pressure-drop-guide/" class="text-brand-blue font-semibold hover:underline">valve sizing guide</a> sizes anything: from the flow, not from the pipe. Take the duty flow, choose the velocity the pipework can live with, convert to bore, and take the next standard DN up. What butterfly valves add to that calculation is a second question nobody asks: how much of the pressure budget does this valve consume at the actual flow, with the disc sitting in the stream?</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The tool is the flow coefficient. Using the same relation as the sizing guide - differential in bar equals (Q / Kv) squared for water - a quoted Kv tells you the loss at any flow, and the absence of a quoted Kv tells you the offer was priced from a catalogue, not engineered. Ask for Kv or Cv <strong>for the specific DN being quoted, in the fully open position</strong>, and check it against the head your system can spare. Two DN50 - DN200 valves with the same nominal size can differ materially in open loss depending on disc profile, seat design and liner geometry, and that difference lands on your residual pressure at commissioning, not on the purchase order.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Two butterfly-specific traps.</strong> The first is buying a butterfly to throttle. Near closed, the same velocity that gives the valve its range beats the liner; erosion, chatter and a seat that no longer holds are the normal outcome, and where fine control is the duty the answer is a control valve - a <a href="/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">500X pressure reducing valve</a> or a level control valve - not a manually rotated disc. The second is the reverse of the sizing mistake: a butterfly two sizes below the pipe looks cheaper and costs pressure twice over, once for the smaller bore and once for the higher velocity through the valve. On long transmission mains, also read this together with the <a href="/guides/water-hammer-protection-fire-water-systems/" class="text-brand-blue font-semibold hover:underline">water hammer guide</a>: a quarter-turn valve is a fast valve, and fast closure on a long main is a surge generator unless closure time is deliberately specified.</p>
+
+			<!-- Section 6 -->
+			<h2 id="operating-torque-levers-worm-gears-and-actuation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Operating Torque: Levers, Worm Gears and Actuation</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Seat torque is the number that quietly decides the operator, and it rises with bore, with pressure differential and with liner compound. A multi-position lever is honest, cheap and fast on DN50 - DN200 wafer valves, and that is exactly where this catalogue stops offering it. Above that - or below it, whenever the valve is closed by hand on a routine, at full differential, or at height - the worm gear box with handwheel becomes the correct answer, and it is standard on both the D381X-16Q and the signal valve. The gear is not a luxury: it multiplies operator effort, it holds the disc against line pressure, and it cannot be released suddenly the way a lever can.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The D381X-16Q data sheet carries a <strong>10 - 50 kN bearing capacity</strong> figure, and it is worth understanding what that line means commercially: it is the thrust the gear box is built to carry, which is what lets the valve be closed and opened against differential without the operator taking the load. Put the required differential on the enquiry and ask the supplier to confirm the operator for that condition at the quoted DN - the same discipline as asking for achievable closure time on an actuated valve.</p>
+			<p class="text-gray-700 leading-relaxed">Where the duty is automated rather than manual, the mechanical layer stays the same and a gear head or actuator is added, which brings the whole electrical specification into play: voltage class, supervisory wiring, fail-safe behaviour on loss of signal, feedback contacts and closure time. That territory belongs to the <a href="/guides/solenoid-operated-fire-water-valve-guide/" class="text-brand-blue font-semibold hover:underline">solenoid operated fire water valve guide</a>, and the honest rule is the same in both: an actuator on a valve does not change the valve's pressure and torque limits, it changes who has to be standing next to it.</p>
+
+			<!-- Section 7 -->
+			<h2 id="signal-butterfly-valves-supervised-isolation" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Signal Butterfly Valves: Supervised Isolation</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Fire protection has an unforgiving rule: a valve nobody has looked at is a valve nobody knows the state of, and a closed control valve turns a designed system into a drawing. That is why control valves on sprinkler and fire mains are specified as supervised - and the <a href="/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">signal butterfly valve</a> is the compact answer for section and riser isolation. A waterproof microswitch is actuated by the operator, so the moment the handwheel moves, open or closed status is reported to the panel, hundreds of metres from the control room. The wafer body is what makes it fit: DN50 - DN300 at PN16 in a compact QT450 body, in riser cupboards and plant rooms where an OS and Y valve simply will not go.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Buy it for the right reason, though. A signal valve reports <em>position</em>, at the shaft, which is exactly what supervision of an isolation duty needs. It does not report flow, it does not prove that water arrived, and it must not be substituted for a <a href="/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">ZSJZ water flow indicator</a> on a sprinkler branch or for an alarm valve group on a system riser. The three duties - isolate and indicate, detect flow, trip a system - are performed by three different devices, and the <a href="/guides/fire-sprinkler-control-valve-types/">sprinkler control valve types guide</a> sets out which does what.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Commission the loop, not the part.</strong> The witness test is short: with the panel in normal supervisory mode, move the valve from full open to full closed and back, confirm the panel registers a change of state within its specified response, confirm the contact is the correct type and rating for the input, confirm the tamper condition cannot be cleared by hand at the valve, and log the result against the drawing number. A signal valve installed with a switched, monitored input and a test record is a supervision layer; one installed with the wires left in a junction box is a more expensive handwheel.</p>
+
+			<!-- Section 8 -->
+			<h2 id="installation-and-commissioning-traps" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. Installation and Commissioning Traps</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Wafer valves: respect the gap.</strong> A wafer body is located by the flange faces, so the flanges must be pulled squarely together on a valve of the correct thickness, with one suitably sized gasket per face. Packing the gap with two full-face gaskets to take up slack unloads the liner on one side, lets the disc rub, and produces a weeping joint that bolts will not cure. Keep the disc slightly open while the flanges are drawn down and centred so it cannot be pinched off-centre, then close to check seating. Support the pipe either side: the valve is not a structural member, and on DN150 - DN200 the line weight will show up as seat distortion.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Grooved valves: the coupling is in the pressure boundary.</strong> Groove the pipe to the coupling manufacturer's dimensions, check the groove depth and the gasket before bolting, and tighten to the specified torque across the coupling bolts. Do not use a grooved valve as a flange adapter or force alignment with the coupling bolts - the tolerance a coupling is designed to absorb is not unlimited. The <a href="/guides/grooved-fire-protection-valves-guide/" class="text-brand-blue font-semibold hover:underline">grooved valves guide</a> argues the installation economics in full, and <a href="/products/groove-pipe-fitting-elbow/" class="text-brand-blue font-semibold hover:underline">grooved fittings</a> should come from the same PO so the system is one compatible family.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Protect the seat from the job.</strong> Weld spatter, construction grit and scale are the three things that destroy a resilient liner before the valve ever enters service. Flush the mains before the valve is fitted wherever the sequence allows, or fit the valve with the disc closed and open it only after flushing. Keep anything sharp off the liner face - a scraper or a screwdriver used to centre a gasket makes a leak path that no amount of bolt torque reverses. If the line carries grit in service, put a <a href="/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">telescopic Y-strainer</a> upstream and put its screen on the inspection schedule.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Test what will be relied on.</strong> Pressure-test the installed line at the specified test condition with the valve in the position the manufacturer's instruction states, cycle every valve fully open and fully closed before the system is handed over - a valve that has sat wide open since 2019 and must move in an emergency is untested equipment - and for signal units complete the panel loop test described in Section 7. Record the results against tag numbers. Documentation is not paperwork here: the <a href="/guides/api-598-valve-pressure-test-guide/" class="text-brand-blue font-semibold hover:underline">API 598 test guide</a> explains exactly why a shell and seat test record is the cheapest evidence a buyer can demand.</p>
+
+			<!-- Section 9 -->
+			<h2 id="rfq-checklist-for-butterfly-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">9. RFQ Checklist for Butterfly Valves</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Butterfly valve enquiries are quoted inconsistently because most of them state a size and nothing else. These lines make offers comparable line for line:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Service and duty.</strong> Medium, temperature range, whether the valve isolates or modulates, and how often it will be operated. This drives the liner compound before it drives anything else.</li>
+				<li><strong>Size and class.</strong> DN plus PN or MPa - DN50 - DN200 at 1.0 / 1.6 MPa for the wafer lever type, DN50 - DN300 at PN16 for the grooved and signal builds.</li>
+				<li><strong>End arrangement.</strong> Wafer (state the flange standard and facing: ANSI, DIN, JIS or GB), or grooved (state the coupling system), or flanged with the required face-to-face dimension.</li>
+				<li><strong>Materials.</strong> Body, disc, shaft and liner by name: QT450 ductile iron, polished SS 304/316 or ductile iron disc, SS 416 / 2Cr13 shaft, EPDM / NBR / PTFE lining, and the coating for potable or reclaimed service if required.</li>
+				<li><strong>Flow data.</strong> Kv or Cv for the quoted DN in the fully open position, and the differential at the stated design flow - the two lines that turn a price into an engineering answer.</li>
+				<li><strong>Operator.</strong> Lever, worm gear with handwheel, or gear head ready for an actuator; required hand force or torque at full differential; handwheel orientation and access; and for grooved units confirmation the operator is rated for your differential within its 10 - 50 kN bearing capacity.</li>
+				<li><strong>Supervision.</strong> Whether a microswitch is required, its contact type and rating, the number of ways, cable entry, and whether the valve must indicate locally as well as remotely.</li>
+				<li><strong>Closure behaviour.</strong> Where the main is long or the riser is tall, state the required closure time in seconds and ask for confirmation it is achievable without surge.</li>
+				<li><strong>Documentation.</strong> Shell and seat test records per GB/T 13927 or EN 12266-1 for the delivered size and batch, material certificates, liner declaration, dimensional drawings, and the type-test documents offered on request per the destination standard.</li>
+				<li><strong>Package the scope.</strong> Valves, grooved fittings, strainers, isolation valves and signal devices from one supplier avoid incompatible trim and coupling patterns; the <a href="/guides/china-valve-supplier-quote-guide/" class="text-brand-blue font-semibold hover:underline">quote comparison guide</a> and the <a href="/guides/b2b-valve-sourcing-checklist/">8-point verification checklist</a> cover what to confirm before award.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Related reading on this site: the <a href="/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">gate valve vs butterfly valve comparison</a> for the family decision, the <a href="/guides/grooved-fire-protection-valves-guide/" class="text-brand-blue font-semibold hover:underline">grooved fire protection valves guide</a> for coupling-based installation, the <a href="/guides/valve-sizing-flow-velocity-pressure-drop-guide/" class="text-brand-blue font-semibold hover:underline">valve sizing guide</a> for DN, velocity and pressure drop, the <a href="/guides/valve-body-material-selection-guide/" class="text-brand-blue font-semibold hover:underline">body material guide</a> for cast and ductile iron selection, the <a href="/guides/flange-standard-guide-ansi-din-jis/" class="text-brand-blue font-semibold hover:underline">flange standard guide</a> for connection specification, and the <a href="/fire-sprinkler-systems/" class="text-brand-blue font-semibold hover:underline">fire sprinkler systems page</a> for the alarm valve and control valve family.</p>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Specifying Butterfly Valves for a Water or Fire Scope?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the medium and temperature, DN and PN, the end arrangement, the operator and whether position must be reported - our engineers confirm the liner, torque and Kv for your duty and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Butterfly%20Valve%20D71X%20%2F%20D381X" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20butterfly%20valves%20for%20water%20and%20fire%20protection%20lines" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
