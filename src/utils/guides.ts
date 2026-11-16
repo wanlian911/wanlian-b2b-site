@@ -669,4 +669,14 @@ export const guides: Guide[] = [
     readTime: '9 min read',
     tags: ['backflow-prevention', 'industrial-valves', 'fire-protection']
   },
+  {
+    title: 'Fire Valve Maintenance & Spare Parts Guide for B2B Buyers',
+    description: 'Fire valve maintenance and spare parts for B2B buyers: wear parts, exercise testing, alarm valve servicing, spares kits and the RFQ lines that matter.',
+    href: '/guides/fire-valve-maintenance-spares-guide/',
+    tocPreview: ['1. Serviceability Is Bought at the Order Stage', '2. What Actually Wears in Fire Valves', '3. Four Maintenance Levels: Inspection, Operation, Internal, Overhaul'],
+    date: '2026-11',
+    category: 'Fire Protection',
+    readTime: '11 min read',
+    tags: ['fire-protection', 'sprinkler-systems', 'procurement']
+  },
 ];

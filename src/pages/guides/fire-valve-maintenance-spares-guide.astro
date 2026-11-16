@@ -1,0 +1,289 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ: real buyer questions, rendered as visible content and as FAQPage JSON-LD
+const faq = [
+	{
+		question: 'Which fire valve maintenance tasks can be done without draining the system?',
+		answer: 'Two of the four levels. Visual and operational checks need no drainage: confirm that the rising stem of an OS and Y gate valve or the pointer of a signal butterfly shows full open, read the supply and system gauges, and confirm the supervisory contact reports the same state the technician sees. The ZSFZ wet alarm check valve group is additionally designed for on-line maintenance and periodic testing, so the alarm path can be demonstrated through its own test and drain connections while the sprinkler system stays charged. What does force a decision is internal work: opening a body, lifting a clapper or changing a seat seal means isolating and draining that section. Specify the isolation valves, drain points and impairment procedure at order stage, not at the failure.'
+	},
+	{
+		question: 'What spare parts should we order together with the valves?',
+		answer: 'Order elastomers and consumables against the DN families you actually bought, not against a generic list. For alarm groups (ZSFZ, ZSFC, ZSFY, ZSFM) that means clapper and seat seals in EPDM or NBR for DN100, DN150 and DN200, plus cover and trim gaskets. For hydraulic control valves (500X, F745X) it means the nylon-reinforced EPDM diaphragm and the pilot filters and tubing. Add replacement screens in SS304 or SS316 for every SGL41H strainer, one waterproof microswitch for each installed signal valve, grooved coupling gaskets for the pipe sizes on the project, and a spare pressure switch and gauge set for the alarm riser. Weight quantity by installed count and by replacement lead time: a spares kit is a rounding error next to an emergency shipment or a system impairment.'
+	},
+	{
+		question: 'How do you prove a valve still works without discharging the system?',
+		answer: 'Test the functions that do not require water delivery. Check position, either visibly at the OS and Y stem or electrically at the reported contact. Check seat tightness with the system pressurised by watching the drain or test manifold for passage. Demonstrate the alarm path through the retard chamber to the water-motor gong and the pressure switch, and observe the delay setting at the panel. Then exercise the valve through full travel and confirm it returns to and holds full open. One discipline matters more than the paperwork: gate valves are isolation devices, not throttle devices. A wedge left part open erodes the very seat path it is supposed to seal, and the exercise test is what stops a seized stem from being discovered during the fire instead of during the test.'
+	},
+	{
+		question: 'Is a coated ductile iron valve enough for a coastal or chemical plant, or do we need stainless?',
+		answer: 'Decide from exposure and medium, then write the decision on the enquiry. Epoxy-coated ductile iron is the normal answer for water service: the OS and Y gate valve, the Z41X and the signal butterfly are QT450 or nodular cast iron bodies with epoxy or EPDM protection on the wetted parts. Move the metal up where salt spray, splash zones, chloride-bearing or acidic atmospheres are permanent features, or where a chipped coating cannot be repaired in place. The Z85X is a cast 316 stainless (CF8M) grooved gate valve in DN40 - DN300 with a stainless stem, and the catalogue lists it with a one-year warranty. Check the small parts either way, because corrosion starts there: stems, bolting, gauges, pilot tubing, and the switch enclosure on a signalled valve.'
+	},
+	{
+		question: 'What documentation do we need at handover so maintenance is possible in five years?',
+		answer: 'Six items, named on the purchase order so they become deliverables rather than favours. Marked nameplates photographed as shipped, matching the delivered model and heat numbers. Material certificates for body, wedge or disc, and seat seals. Shell and seat test records for the delivered sizes against the test standard named in the contract, such as GB/T 13927 or EN 12266-1. A dimensioned general arrangement drawing showing handwheel height, access clearance and drain points. A recommended spares list tied to model and DN. And for any listed or certified item, the certificate holder, the exact listed model and the certificate number, so the buyer can verify it at the issuing body. A closeout pack missing these cannot be maintained by a third party, which is how a supplier relationship quietly turns into a hostage.'
+	}
+];
+
+// TOC: one entry per H2 id in the body
+const toc = [
+	{ id: 'serviceability-is-bought-at-the-order-stage', label: '1. Serviceability Is Bought at the Order Stage' },
+	{ id: 'what-actually-wears-in-fire-valves', label: '2. What Actually Wears in Fire Valves' },
+	{ id: 'four-maintenance-levels-inspection-operation-internal-overhaul', label: '3. Four Maintenance Levels: Inspection, Operation, Internal, Overhaul' },
+	{ id: 'keeping-control-valves-open-indication-and-supervision', label: '4. Keeping Control Valves Open: Indication and Supervision' },
+	{ id: 'alarm-valves-and-trim-the-on-line-maintainable-parts', label: '5. Alarm Valves and Trim: The On-Line Maintainable Parts' },
+	{ id: 'hydraulic-control-valves-diaphragms-pilots-and-screens', label: '6. Hydraulic Control Valves: Diaphragms, Pilots and Screens' },
+	{ id: 'building-the-spare-parts-kit', label: '7. Building the Spare Parts Kit' },
+	{ id: 'rfq-lines-that-buy-a-maintainable-system', label: '8. RFQ Lines That Buy a Maintainable System' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// Related products: slugs match src/utils/products.ts
+const products = [
+	{ slug: 'ul-fm-resilient-seat-osy-gate-valve', name: 'OS&Y Resilient Seat Gate Valve', img: '/assets/products/ul-fm-resilient-seat-osy-gate-valve.webp', desc: 'DN50 - DN250, grooved ends, rising stem position indication, EPDM resilient seat' },
+	{ slug: 'wet-alarm-check-valve-zsfz-150', name: 'ZSFZ Wet Alarm Check Valve', img: '/assets/products/wet-alarm-check-valve-zsfz-150.webp', desc: 'DN100 / DN150 / DN200, 1.6 MPa, built for on-line maintenance and testing' },
+	{ slug: 'signal-grooved-wafer-butterfly-valve-dn80', name: 'Signal Butterfly Valve', img: '/assets/products/signal-grooved-wafer-butterfly-valve-dn80.webp', desc: 'DN50 - DN300 PN16, waterproof microswitch reports valve position to the panel' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'Telescopic Y-Strainer SGL41H', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'DN50 - DN600, SS304/316 screen 18-30 mesh, expansion joint for easy removal' }
+];
+---
+
+<Layout
+	title="Fire Valve Maintenance & Spare Parts Guide for B2B Buyers"
+	description="Fire valve maintenance and spare parts for B2B buyers: wear parts, exercise testing, alarm valve servicing, spares kits and the RFQ lines that matter."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Fire Valve Maintenance & Spare Parts' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumb -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Fire Valve Maintenance & Spare Parts</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Fire Protection Maintenance Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Fire Valve Maintenance and Spare Parts: How B2B Buyers Keep Fire Water Systems Serviceable</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: a fire valve is expected to serve for decades, and almost everything that decides how expensive those decades are was chosen on the purchase order - whether position is visible, whether the seat can be reached without cutting pipe, whether the elastomers have a part number, and whether anyone can read the nameplate after a decade. In service, fire valves fail in a short list of ways: a seal that stops rebounding, a stem nobody has turned since commissioning, a pilot passage blocked by grit, a diaphragm fatigued by surge, and an isolation valve found closed. This guide covers what wears, the four maintenance levels that catch it, which spare parts to order with the valves, and the RFQ lines that buy maintainability.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Section 1 -->
+			<h2 id="serviceability-is-bought-at-the-order-stage" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Serviceability Is Bought at the Order Stage</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Maintenance budgets are not set by maintenance teams. They are set by the specification. An <a href="/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">OS&Y resilient seat gate valve</a> with a rising stem can be checked from across a room by a guard on a night round; a non-rising stem valve in a ceiling void has to be reached, worked and proved with a ladder and a torch. A valve whose seat is accessible through a bolted cover is a job you can do with a seal kit and hand tools; the same duty on a body with no service access is a hot-work permit, a drained floor and a contractor. That difference is decided before the first container ships.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The commercial asymmetry is what makes this worth a paragraph at order stage. The wear items in a fire valve are small elastomers and light hardware - EPDM or NBR seat and clapper seals, a diaphragm, a strainer screen, a cover gasket - while the cost of not holding them is measured in system impairment, emergency air freight, and a building operating without active protection while a section is drained. Buyers routinely spend more on expediting a single failed valve than the entire spares kit for a project would have cost on the original purchase order.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>What a serviceable order actually contains.</strong> Four things separate a maintainable package from an attractive catalogue price: position indication appropriate to the duty (visible or reported), isolation and drain arrangements that let a valve be worked without shutting a whole system, a spares list with real part numbers against model and DN, and closeout documentation a third party can use later. The factory-side half of that is covered in the <a href="/guides/api-598-valve-pressure-test-guide/" class="text-brand-blue font-semibold hover:underline">valve pressure test guide</a>, because the test record you receive at delivery is the baseline every later inspection is compared against; the buyer-side half is what Sections 4 to 8 below specify.</p>
+
+			<!-- Section 2 -->
+			<h2 id="what-actually-wears-in-fire-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. What Actually Wears in Fire Valves</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Fire water valves are not high-cycle devices. Most of them sit fully open and are moved only occasionally, which means the failure mechanism is almost never the metal wearing out - it is elastomers relaxing, water doing chemistry, and debris sitting still. The table below maps the wear items in this catalogue to their first visible symptom, so a maintenance round knows what it is looking at before it schedules the work.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Wear item</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">How it fails</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">First symptom</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Where it appears in this range</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Seat and clapper elastomers</td>
+							<td class="px-4 py-3 text-gray-700">Compression set and loss of rebound; swelling when the water or additives are wrong for the compound</td>
+							<td class="px-4 py-3 text-gray-700">Weep past a closed wedge; alarm trim that will not hold pressure between tests</td>
+							<td class="px-4 py-3 text-gray-700">EPDM resilient seat on the OS&Y gate valve; EPDM or NBR clapper and seat seals on the ZSFZ and ZSFC</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Stem, yoke and stem seals</td>
+							<td class="px-4 py-3 text-gray-700">Pitting and grit in the yoke; packing or O-ring wear where the stem leaves the body</td>
+							<td class="px-4 py-3 text-gray-700">Moisture at the gland, torque rising hand-over-hand, stem that stops short of full open</td>
+							<td class="px-4 py-3 text-gray-700">Brass or stainless stem on the OS&Y gate valve; 2Cr13 / 416 stainless shaft on the signal butterfly</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Hydraulic control valve diaphragms</td>
+							<td class="px-4 py-3 text-gray-700">Fatigue from surge and cycling; mineral fouling of the sensing chamber</td>
+							<td class="px-4 py-3 text-gray-700">Controlled pressure drifting, slow response, drip at the pilot</td>
+							<td class="px-4 py-3 text-gray-700">Nylon-reinforced high-elastic EPDM diaphragms with SS304 internals on the 500X and F745X</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pilot and trim passages</td>
+							<td class="px-4 py-3 text-gray-700">Blockage by construction grit and scale carried in old mains</td>
+							<td class="px-4 py-3 text-gray-700">Sluggish or nuisance trip, gauges that disagree with each other</td>
+							<td class="px-4 py-3 text-gray-700">DC24V / 0.5A release pilot on the ZSFM group; copper and SS304 tubing on self-operated control valves</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Strainer screens</td>
+							<td class="px-4 py-3 text-gray-700">Progressive load-up that nobody notices until a device downstream reacts</td>
+							<td class="px-4 py-3 text-gray-700">Pressure drop across the strainer, slow valve response at the next test</td>
+							<td class="px-4 py-3 text-gray-700">SS304 / SS316 screens, 18-30 mesh for water, on the SGL41H telescopic strainer</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Position switches and delay circuits</td>
+							<td class="px-4 py-3 text-gray-700">Ingress, terminal corrosion, electronic drift in a sealed assembly</td>
+							<td class="px-4 py-3 text-gray-700">Panel status disagrees with the visible stem; alarm delay no longer matches the setting</td>
+							<td class="px-4 py-3 text-gray-700">Waterproof microswitch on signal valves; sealed PCB and IP54 box on the ZSJZ flow indicator</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Coatings and linings</td>
+							<td class="px-4 py-3 text-gray-700">Handling damage at threads and lugs in transit; chipping at machined faces</td>
+							<td class="px-4 py-3 text-gray-700">Rust bloom, then pitting that reaches the seat ring</td>
+							<td class="px-4 py-3 text-gray-700">Epoxy-coated QT450 bodies across the gate and butterfly range; CF8M stainless where chloride is permanent</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Dry and pre-action air side</td>
+							<td class="px-4 py-3 text-gray-700">Condensate accumulating in low points; slow leak-down of maintained air</td>
+							<td class="px-4 py-3 text-gray-700">Nuisance trip, or a trip test that takes far longer than design</td>
+							<td class="px-4 py-3 text-gray-700">Air or nitrogen at 0.03 - 0.05 MPa typical on the ZSFC and ZSFY system side</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Read the table as a procurement instruction rather than a repair manual. Seven of the eight rows are elastomers, screens or small electrical parts - items that can be stocked, and that stop being stocked emergencies the moment they appear on the original purchase order. The eighth, coating damage, is prevented at packing and caught at receiving, which is why the receiving-inspection discipline in the <a href="/guides/flange-standard-guide-ansi-din-jis/" class="text-brand-blue font-semibold hover:underline">flange standard guide</a> and the supplier-verification steps in the <a href="/guides/how-to-verify-chinese-valve-supplier/" class="text-brand-blue font-semibold hover:underline">supplier verification guide</a> belong in a maintenance conversation at all: damage discovered after the container leaves the port is a warranty argument, and warranty arguments do not protect a building.</p>
+			<p class="text-gray-700 leading-relaxed">The second pattern is that water quality is a maintenance variable, not just a design variable. The same EPDM compound that performs for years in treated water can soften in a hydrocarbon-affected line or scale up in a hot, hard-water one, and the strainer and drain arrangement you buy is what decides whether you find out early. The material logic is set out in the <a href="/guides/valve-body-material-selection-guide/" class="text-brand-blue font-semibold hover:underline">valve body material guide</a>; this page deals with what to do once the installed asset has to survive the choice.</p>
+
+			<!-- Section 3 -->
+			<h2 id="four-maintenance-levels-inspection-operation-internal-overhaul" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Four Maintenance Levels: Inspection, Operation, Internal, Overhaul</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Every inspection, testing and maintenance regime for water-based fire protection sorts its tasks into the same four levels of invasiveness, and each level buys different evidence. The reason a buyer cares is that each level has a different hardware requirement - and the hardware for levels three and four either arrives in the container or has to be retrofitted with a shutdown.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Level</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What the task is</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What it proves</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What you must have bought</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">1. Visual inspection</td>
+							<td class="px-4 py-3 text-gray-700">Walk the line: position indication, gauge readings, visible damage, leakage, enclosure integrity, obstruction and access</td>
+							<td class="px-4 py-3 text-gray-700">That the valve is where it should be and that somebody is looking</td>
+							<td class="px-4 py-3 text-gray-700">Readable marking, visible stem or pointer, gauges mounted where they can be read, IP-rated switch boxes</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">2. Operational test</td>
+							<td class="px-4 py-3 text-gray-700">Full travel and return to seat, alarm path demonstrated, feedback contact verified at the panel, delay observed</td>
+							<td class="px-4 py-3 text-gray-700">That moving parts still move and that the signal chain still reports</td>
+							<td class="px-4 py-3 text-gray-700">Test and drain connections, retard chamber and gong access, trim workable with hand tools</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">3. Internal inspection</td>
+							<td class="px-4 py-3 text-gray-700">Open a body or lift a clapper on a representative unit; examine seat condition, scale, coating and the elastomer itself</td>
+							<td class="px-4 py-3 text-gray-700">What the water and the years have actually done inside</td>
+							<td class="px-4 py-3 text-gray-700">Bolted covers, standard tooling, published seat and seal designations, a drain arrangement that empties the section</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">4. Overhaul or replace</td>
+							<td class="px-4 py-3 text-gray-700">Renew seals, stem seals and diaphragms, reassemble, re-test shell and seat, or retire the valve</td>
+							<td class="px-4 py-3 text-gray-700">That the unit is fit for another term against a documented baseline</td>
+							<td class="px-4 py-3 text-gray-700">Spare kits on the same PO, a valve family with a multi-year parts trail, original test records to compare to</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>How often is a contractual question, not a catalogue one.</strong> The frequency of each level comes from the inspection, testing and maintenance document adopted where the asset stands - NFPA 25 is the reference most often cited in international specifications for water-based systems, and it governs readiness after handover rather than design - together with the system design standard in force, the environment, and the edition the authority having jurisdiction has adopted. This guide deliberately does not restate intervals, because an interval quoted without its edition and jurisdiction is worse than no interval at all. What you should do is name the standard and edition in the contract, then require the valve to be demonstrably testable against it: a test connection that exists, a drain that drains, a seal with a part number, and a switch whose function a technician can trigger.</p>
+			<p class="text-gray-700 leading-relaxed">For the code architecture behind that instruction - which NFPA document covers design, which covers standpipes, pumps and maintenance - see the <a href="/guides/nfpa-fire-protection-standards-guide/" class="text-brand-blue font-semibold hover:underline">NFPA standards guide</a>, and for the European design standard route see <a href="/guides/ce-en12845-fire-protection-compliance/" class="text-brand-blue font-semibold hover:underline">CE and EN 12845 compliance</a>. The <a href="/guides/water-flow-indicator-guide/" class="text-brand-blue font-semibold hover:underline">water flow indicator guide</a> covers the detection devices whose testing sits alongside the valve tests on the same schedule.</p>
+
+			<!-- Section 4 -->
+			<h2 id="keeping-control-valves-open-indication-and-supervision" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Keeping Control Valves Open: Indication and Supervision</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The most common cause of a sprinkler system that fails to deliver is not a broken valve - it is a closed one that nobody knew about. Every maintenance regime therefore starts with the control valves, and the hardware choice is between two ways of answering the same question, <em>is this valve proven open?</em></p>
+			<p class="text-gray-700 leading-relaxed mb-4">The first is <strong>visible indication</strong>. An <a href="/products/ul-fm-resilient-seat-osy-gate-valve/" class="text-brand-blue font-semibold hover:underline">OS&Y gate valve</a> answers by geometry: the stem rises with the wedge, so a technician can see full open from the floor without touching anything. Sizes DN50 - DN250 with grooved ends, nodular cast iron body, brass or stainless stem, EPDM resilient seat. That is why the main control position is still filled by OS&Y valves on most fire protection work, and why the maintenance task at that valve is a round and a record rather than a dismantling. The working detail of rising stem versus non-rising stem, and where each is expected, is covered in the <a href="/guides/osy-gate-valve-guide/" class="text-brand-blue font-semibold hover:underline">OS&Y gate valve guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The second is <strong>reported position</strong>. A <a href="/products/signal-grooved-wafer-butterfly-valve-dn80/" class="text-brand-blue font-semibold hover:underline">signal butterfly valve</a> (DN50 - DN300, PN16, QT450 ductile iron body, EPDM or NBR resilient seated disc, stainless shaft) carries a waterproof microswitch that flips when the handwheel moves, so a whole floor of section valves can be supervised from one panel instead of walked one at a time. In service the maintenance obligation shifts rather than disappears: the switch must be proven to correspond with reality. Put it on the schedule as a two-part test - move the valve, confirm the change at the panel, then confirm the valve is back and held at full open. A contact that has never been exercised against a moving valve is a contact that may be reporting a fiction, and the supervision logic is set out in the <a href="/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">sprinkler control valve types guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>Practical maintenance notes that do not appear on a datasheet.</strong> Keep access to handwheels unobstructed - a valve proved open but reachable only over ductwork tends not to get proved. Chain wheels, extension stems and gear operators change the effort needed to exercise a valve, so a valve nobody can turn is a valve that is not being maintained; the same reasoning that puts a worm gear operator on a large butterfly so the exercise test stays something the site actually performs. Record the position of every supervised valve with a date and a name, and keep lock or seal arrangements under one keyholder list, because an improvised cable tie in year four is how a section gets closed without a record.</p>
+
+			<!-- Section 5 -->
+			<h2 id="alarm-valves-and-trim-the-on-line-maintainable-parts" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Alarm Valves and Trim: The On-Line Maintainable Parts</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The alarm valve group is the one assembly in a wet system that has to be maintained while the system stays in service, because draining a wet riser to prove an alarm path defeats the purpose of the test. The <a href="/products/wet-alarm-check-valve-zsfz-150/" class="text-brand-blue font-semibold hover:underline">ZSFZ wet alarm check valve</a> is built around that requirement: DN100, DN150 and DN200 bodies at 1.6 MPa to GB 5135.2, cast or ductile iron, with the delay chamber, water-motor gong and pressure switch supplied as the working set, and on-line maintenance and periodic testing designed into the trim. The maintenance schedule for that group is short but specific.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Clapper and seat seal.</strong> EPDM or NBR on these groups. Inspect for compression set, embedding of grit and distortion at the seat ring; renew against the model and DN rather than by matching rubber by eye, and never reassemble with a compound the specification did not call for.</li>
+				<li><strong>Retard chamber.</strong> Its job is to absorb pressure transients so that a mains surge does not sound a gong. A chamber with a blocked or partially blocked passage produces the opposite fault: nuisance alarms followed by a schedule of bypasses improvised by whoever is tired of them.</li>
+				<li><strong>Water-motor gong and pressure switch.</strong> Prove both on the test line: the wheel should turn and the bell should be audible at the required location, and the switch should close at the pressure the datasheet states. Aluminum alloy or copper gong bodies and galvanized or brass fittings are the material set to check for corrosion in wet rooms.</li>
+				<li><strong>Gauges and isolation cocks.</strong> Supply-side and system-side gauges that disagree by more than a reading error are an early warning of a trim passage problem; record the pair rather than replacing one gauge to make the symptom disappear.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>The air side adds a second maintenance world.</strong> On a <a href="/products/dry-alarm-valve-zsfc/" class="text-brand-blue font-semibold hover:underline">ZSFC dry alarm valve</a> or a <a href="/products/pre-action-alarm-system-zsfy/" class="text-brand-blue font-semibold hover:underline">ZSFY pre-action group</a> the system side normally holds air or nitrogen at a typical 0.03 - 0.05 MPa, with the clapper held closed by that pressure while the water side stays full. Two failure patterns dominate: leak-down that the compressor or air maintenance device quietly compensates for until the trim can no longer hold, and condensate that collects in low points and changes both the trip behaviour and the corrosion clock inside the pipework. The maintenance answers are a leak-down measurement rather than a pressure reading, drain points at the real low points, and a trip test timed and recorded. The procedures and the nuisance-trip diagnostics are covered in the <a href="/guides/dry-alarm-valve-zsfc-guide/" class="text-brand-blue font-semibold hover:underline">dry alarm valve guide</a> and the <a href="/guides/pre-action-alarm-valve-zsfy-guide/" class="text-brand-blue font-semibold hover:underline">pre-action valve guide</a>; the deluge groups with a DC24V / 0.5A electric release pilot are covered in the <a href="/guides/solenoid-operated-fire-water-valve-guide/" class="text-brand-blue font-semibold hover:underline">solenoid operated fire water valve guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed">Detection devices on the same schedule deserve the same treatment. A <a href="/products/water-flow-indicator-zsjz/" class="text-brand-blue font-semibold hover:underline">ZSJZ vane-type water flow indicator</a> (DN50 - DN200, 1.2 / 1.6 MPa, DC24V 3A changeover contact, adjustable 2 - 60 s delay, IP54 box) triggers across a defined band of roughly 15 to 37.5 L/min, so a vane fouled by scale or a paddle deformed during installation changes the sensitivity of the zone. These are sealed-assembly devices: test the delay and the contact, and replace the unit rather than attempting an in-field repair of a sealed PCB.</p>
+
+			<!-- Section 6 -->
+			<h2 id="hydraulic-control-valves-diaphragms-pilots-and-screens" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Hydraulic Control Valves: Diaphragms, Pilots and Screens</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Self-operated hydraulic control valves are the most maintenance-sensitive equipment in a fire water installation, because they are valves steered by other, smaller valves. The <a href="/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">500X pressure reducing valve</a> covers DN20 - DN600 with an adjustment range of 0.1 - 1.6 MPa at PN1.0, PN1.6 and PN2.5; the <a href="/products/hydraulic-water-level-control-valve-f745x/" class="text-brand-blue font-semibold hover:underline">F745X water level control valve</a> covers DN50 - DN400 at 1.0 / 1.6 MPa with a solid brass float pilot. Both run on the same three consumables: a diaphragm, a pilot, and clean passages.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The wear item is the <strong>diaphragm</strong> - nylon-reinforced high-elastic EPDM on both families, with stainless steel 304 internal stems and springs. Diaphragms fatigue through pressure cycling and they fail faster after surge, which is one reason the slow-closing characteristic on these valves is a maintenance feature as much as a hydraulic one: the same absence of hammer that protects the main also protects the sensing chamber. The <strong>pilot</strong> is a small valve with small passages - solid forged brass on the 500X, brass float pilot on the F745X, with copper or stainless tubing - and it fails by blockage rather than wear. After any internal work, re-check the downstream setpoint: a control valve that has been opened and reassembled is a control valve whose setting is unproven until it is read under flow. The selection and setting logic is in the <a href="/guides/pressure-reducing-valve-guide/" class="text-brand-blue font-semibold hover:underline">pressure reducing valve guide</a> and the <a href="/guides/water-level-control-valve-guide/" class="text-brand-blue font-semibold hover:underline">water level control valve guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Which brings the <a href="/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">telescopic Y-strainer</a> into the maintenance conversation, because it was designed for it. The SGL41H combines a Y-strainer and a telescopic expansion joint in one body (DN50 - DN600, 1.0 / 1.6 MPa, ductile iron QT450 with epoxy coating, SS304 or SS316 screen at 18 - 30 mesh for water, tested at 1.5 / 2.4 / 3.75 MPa, up to 80 degrees C). The expansion feature exists so that the screen can be withdrawn without cutting the line - a task that takes minutes becomes a shutdown, a hot-work permit and a re-weld when it cannot. Every hydraulic control valve, pilot circuit and instrument connection in a fire water network should have a strainer it can actually clean.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>One sequencing rule worth putting in the specification.</strong> Flush and clean the mains before pilot tubing, solenoid pilots, switches and gauges are connected, and put the screens on the periodic schedule with the alarm tests. A screen that blocks gradually never announces itself; it announces itself at the next trip test, which is exactly the moment a site cannot afford a surprise. The mesh and sizing reasoning is in the <a href="/guides/y-strainer-selection-guide/" class="text-brand-blue font-semibold hover:underline">Y-strainer selection guide</a>.</p>
+
+			<!-- Section 7 -->
+			<h2 id="building-the-spare-parts-kit" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Building the Spare Parts Kit</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A spares kit is a risk decision expressed as a purchase list. Build it by family rather than by unit, because a project concentrates on a small number of DN families and one kit per family covers the installed base. The starting point below is drawn from the material sets actually published for these products; quantities should be weighted by installed count and by the replacement lead time you are prepared to live with.</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Alarm valve groups.</strong> Clapper and seat seal sets in EPDM or NBR for each of DN100, DN150 and DN200; cover and trim gaskets; a spare pressure switch, a spare gauge pair and gong-side fittings in the galvanised or brass materials as supplied.</li>
+				<li><strong>Isolation and section valves.</strong> Stem seal and packing sets for the OS&Y gate valves in the installed sizes; a spare handwheel and stem nut where valves are worked often; for signal butterflies, one waterproof microswitch per installed DN band plus the cable gland.</li>
+				<li><strong>Hydraulic control valves.</strong> A nylon-reinforced EPDM diaphragm assembly and pilot service kit for every installed 500X and F745X size, plus spare pilot tubing in the supplied copper or SS304 material.</li>
+				<li><strong>Filtration.</strong> Replacement SS304 or SS316 screens at the working mesh for every SGL41H, ordered at the same time as the body so the mesh is not guessed at later.</li>
+				<li><strong>Grooved lines.</strong> Gaskets and spare bolts for the coupling sizes on the project; for corrosive or coastal duty, consider a <a href="/products/z85x-stainless-steel-grooved-gate-valve/" class="text-brand-blue font-semibold hover:underline">Z85X stainless grooved gate valve</a> in DN40 - DN300 for the sections that are hardest to maintain.</li>
+				<li><strong>Detection.</strong> One spare flow indicator per zone type, so a failed device is swapped rather than bypassed while a replacement is sourced.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Three ordering mechanics that decide whether the kit exists in year four.</strong> Put the spares on the same purchase order and in the same container as the valves, because a separate small order after commissioning attracts a minimum order quantity and a freight cost that dwarf the parts. Ask for the seat, seal and diaphragm designations to appear on the packing list and in the closeout documentation, so whoever orders in five years has something to quote from rather than a photograph. And treat the warranty as a lead-time question: the catalogue states a one-year warranty on the Z85X, so the sensible enquiry is what the period covers, what voids it, and whether the spares kit is sized to bridge the gap between a failure and the next scheduled shipment.</p>
+			<p class="text-gray-700 leading-relaxed">For distributors and contractors, the spares question is also a range question: stocking one valve family with a documented parts trail beats stocking five with none. The <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">B2B valve sourcing checklist</a> and the <a href="/guides/china-valve-supplier-quote-guide/" class="text-brand-blue font-semibold hover:underline">supplier quotation guide</a> cover how to pin down packaging, MOQ and lead time before award, which is where the cost of a spares policy is really set.</p>
+
+			<!-- Section 8 -->
+			<h2 id="rfq-lines-that-buy-a-maintainable-system" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. RFQ Lines That Buy a Maintainable System</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Most enquiries specify a valve and stop. These lines make offers comparable on the thing that matters after commissioning, and they cost nothing to add:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Position duty.</strong> State per valve whether position must be visible, reported, or both - OS&Y rising stem, signal butterfly with microswitch, or non-rising stem where space dictates - with the DN and pressure class.</li>
+				<li><strong>Serviceability of the internals.</strong> Ask whether the seat and stem seals are field-replaceable, what the part designations are, and whether the body has a bolted cover that allows internal inspection.</li>
+				<li><strong>Elastomer set.</strong> Name EPDM or NBR for seats, clappers, diaphragms and disc seals, and state the medium and temperature so the compound is a specification rather than a default.</li>
+				<li><strong>Isolation and drain.</strong> Require isolation valves either side of every maintainable device, plus drain and test connections, and ask for them to appear on the general arrangement drawing.</li>
+				<li><strong>Filtration.</strong> Strainer at each control valve, pilot circuit and instrument tee - model, DN, mesh, and confirm the telescopic arrangement where the screen must be cleanable in service.</li>
+				<li><strong>Spares.</strong> Quantities by DN family on the same PO, with unit prices so later reorders price against the same basis.</li>
+				<li><strong>Test evidence.</strong> Shell and seat records for the delivered sizes against the named test standard (GB/T 13927, EN 12266-1 or the project standard), plus material certificates for body, wedge or disc and seals.</li>
+				<li><strong>Documentation.</strong> As-shipped nameplate photographs, dimensioned general arrangement, recommended spares list, and for listed items the certificate holder, exact model and number to verify at the issuing body.</li>
+				<li><strong>Interface honesty.</strong> If a valve is electrical - a solenoid pilot, a signal contact, a flow indicator - state voltage, contact rating, enclosure and who proves it at commissioning.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Related reading on this site: the <a href="/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">sprinkler control valve types guide</a> for choosing the isolation and supervision layer, the <a href="/guides/api-598-valve-pressure-test-guide/" class="text-brand-blue font-semibold hover:underline">valve pressure test guide</a> for the acceptance records a maintenance baseline needs, the <a href="/guides/valve-body-material-selection-guide/" class="text-brand-blue font-semibold hover:underline">valve body material guide</a> for coating and corrosion decisions, the <a href="/guides/water-hammer-protection-fire-water-systems/" class="text-brand-blue font-semibold hover:underline">water hammer protection guide</a> for the surge that shortens diaphragm life, the <a href="/guides/grooved-fire-protection-valves-guide/" class="text-brand-blue font-semibold hover:underline">grooved valves guide</a> for coupling maintenance access, and the <a href="/fire-sprinkler-systems/" class="text-brand-blue font-semibold hover:underline">fire sprinkler systems page</a> for the full alarm valve family.</p>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Sourcing Valves and the Spares Kit in One Order?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the valve schedule with model, DN and pressure class, the installed quantities, and the inspection and maintenance standard your project applies - our engineers confirm seat, seal, diaphragm and screen kits for each family and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Wet%20Alarm%20Check%20Valve%20ZSFZ" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20fire%20valve%20spare%20parts%20and%20maintenance%20support" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
