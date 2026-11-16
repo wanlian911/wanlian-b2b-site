@@ -16,6 +16,16 @@ export interface Guide {
 // 内容工厂单一数据源:新增指南只需在此追加一条
 export const guides: Guide[] = [
   {
+    title: 'Brass Ball Valve Guide: Full Port vs Standard Port (2026)',
+    description: 'How to specify a brass threaded ball valve: full port or standard bore, H59 brass body, PTFE seat, PN16, BSP or NPT ends, DN8 - DN50 sizing and RFQ lines.',
+    href: '/guides/brass-ball-valve-selection-guide/',
+    tocPreview: ['1. Where a Brass Ball Valve Belongs - and Where It Does Not', '2. How a Quarter-Turn Ball Actually Seals', '3. Full Port or Standard Port: The Bore Decision'],
+    date: '2026-11',
+    category: 'Valve Engineering',
+    readTime: '9 min read',
+    tags: ['industrial-valves', 'procurement']
+  },
+  {
     title: 'Butterfly Valve Selection Guide: Wafer, Grooved & Signal',
     description: 'How to specify a butterfly valve for water and fire lines: wafer or grooved ends, EPDM, NBR or PTFE liner, DN, PN, torque, signal switch and RFQ lines.',
     href: '/guides/butterfly-valve-selection-guide/',

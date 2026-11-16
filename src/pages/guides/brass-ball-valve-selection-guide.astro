@@ -1,0 +1,243 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TableOfContents from '../../components/sections/TableOfContents.astro';
+
+// FAQ: real buyer questions, rendered as visible content and as FAQPage JSON-LD
+const faq = [
+	{
+		question: 'Is a brass threaded ball valve suitable for gas service?',
+		answer: 'Yes, within limits you should state on the order rather than discover on site. Our brass threaded ball valve is rated for water, oil and non-corrosive gas at 1.6 MPa (PN16), with a PTFE seat providing shutoff across the catalogue temperature range of -20°C to +120°C. What the valve datasheet does not decide for you is the installation code: gas service in most markets carries additional requirements on the joint (thread standard and sealant), on the stem sealing arrangement and sometimes on certification of the complete assembly. Name the medium, its pressure and the destination country on the enquiry, and ask the supplier to confirm the build - including whether the stainless or brass stem option is specified - against those conditions before quoting.'
+	},
+	{
+		question: 'Full port or standard port - what should the purchase order say?',
+		answer: 'Decide it from the duty, then write it into the PO in words, because "DN15 ball valve" left open invites whichever build the factory has in stock. Our threaded ball valve is built as a full port design: the bore through the ball is close to the pipe internal diameter, so the valve adds little loss and a line can be flushed or swabbed through it. A standard (reduced) port is cheaper and slightly smaller, and on a small branch valve that spends its life open it is usually invisible in the pressure budget - but on a metered, gravity or drain line every bit of restriction at DN15 - DN25 matters more than it looks. If the choice is genuinely contested, run the flow through the calculation in the valve sizing guide and ask for the Kv or Cv of the exact build being quoted.'
+	},
+	{
+		question: 'Can BSP and NPT threads be mixed with an adapter?',
+		answer: 'Physically an adapter can join them; commercially you should avoid making that a design feature. BSP and NPT are different thread systems - taper and flank form differ - so a male of one will not seal correctly against a female of the other without a dedicated adapter, and every adapter is one more joint, one more seal interface and one more torque path in a line rated 1.6 MPa. The disciplined approach: specify the thread standard your installers actually work with (BSP or NPT, size, male or female) for every valve on the PO, and order custom thread options where the plant mixes systems. Our catalogue valves are supplied with BSP or NPT ends as standard with other thread options on request, so the mismatch is normally solved at the order stage, not with adapters in the corridor.'
+	},
+	{
+		question: 'Are these ball valves UL or FM listed for fire protection systems?',
+		answer: 'No - and saying so plainly is the point. This brass threaded ball valve is a general-service isolation valve for water, oil and gas lines; it is not offered as a listed, supervised control valve on fire mains or sprinkler systems. Codes expect riser and main control valves to be listed indicating types - an OS and Y gate valve whose stem visibly proves the position, or a butterfly with a position switch reporting to the panel - as set out in the sprinkler control valve types guide and the OS and Y gate valve guide. Where a ball valve legitimately touches fire work is at the edges: gauge isolation, test and drain connections and utility branches, where the duty is ordinary isolation and the standard governing the assembly decides.'
+	},
+	{
+		question: 'Can a ball valve throttle or partly control flow?',
+		answer: 'Treat it as an on-off device and the valve will serve you for years; use it as a regulating valve and it fails early. With the ball barely off its seat, the full differential drives a thin, high-velocity jet across the PTFE seat and the ball surface. The result is seat wash-through and wire-drawing in the metal - a valve that passes at low pressure while reading "closed" on the handle. Where a line genuinely needs adjustment - reducing pressure, balancing a circuit, controlling a small process flow - the correct tool is a purpose-built control valve such as a 500X pressure reducing valve or a balancing valve, and the ball valve stays upstream of it as the isolation.'
+	},
+	{
+		question: 'What documentation should arrive with the order, and what do I check on site?',
+		answer: 'Ask for the paperwork in the enquiry so quotes stay comparable: the shell and seat test record for the delivered size and batch, the material declaration for body, ball and stem, the seat compound statement, and the dimensional sheet showing thread standard - our catalogue states testing and certification documents are available on request per the project standard (GB, ANSI, DIN or JIS). On receipt, check four things before the valves disappear into site stores: nameplate versus PO (DN, port type, thread), smooth quarter-turn operation through the full 90 degrees with no binding, the lever actually seats against its stop, and a visual on the thread for transit damage. Spot-pressure-test a sample of installed joints at the specified test pressure and log it. The logic behind demanding per-batch test records is covered in the API 598 test guide, and the supplier-side verification steps in the 8-point sourcing checklist.'
+	}
+];
+
+// TOC: one entry per H2 id in the body
+const toc = [
+	{ id: 'where-a-brass-ball-valve-belongs', label: '1. Where a Brass Ball Valve Belongs - and Where It Does Not' },
+	{ id: 'how-a-quarter-turn-ball-actually-seals', label: '2. How a Quarter-Turn Ball Actually Seals' },
+	{ id: 'full-port-or-standard-port-the-bore-decision', label: '3. Full Port or Standard Port: The Bore Decision' },
+	{ id: 'materials-behind-the-price', label: '4. Materials Behind the Price: H59 Brass, Chrome Ball, PTFE Seat' },
+	{ id: 'brass-ball-valve-vs-brass-gate-valve', label: '5. Brass Ball Valve vs Brass Gate Valve: Head to Head' },
+	{ id: 'thread-ends-and-sizing', label: '6. Thread Ends and Sizing: BSP, NPT and the DN8 - DN50 Range' },
+	{ id: 'pressure-temperature-and-service-limits', label: '7. Pressure, Temperature and Service Limits' },
+	{ id: 'installation-testing-and-common-field-failures', label: '8. Installation, Testing and Common Field Failures' },
+	{ id: 'rfq-checklist-for-brass-ball-valves', label: '9. RFQ Checklist for Brass Ball Valves' },
+	{ id: 'faq', label: 'Frequently Asked Questions' }
+];
+
+// Related products: slugs match src/utils/products.ts
+const products = [
+	{ slug: 'brass-ball-valve-threaded', name: 'Brass Threaded Ball Valve', img: '/assets/products/brass-ball-valve-threaded.webp', desc: 'DN8 - DN50 (1/4" - 2"), PN16, full port, H59 forged brass body, PTFE seat, BSP / NPT ends' },
+	{ slug: 'brass-gate-valve-z15w-16t', name: 'Z15W-16T Brass Gate Valve', img: '/assets/products/brass-gate-valve-z15w-16t.webp', desc: 'DN15 - DN100, 200 WOG, NPT threaded, non-rising stem - the multi-turn alternative' },
+	{ slug: 'wafer-type-butterfly-valve-d71x', name: 'D71X Wafer Butterfly Valve', img: '/assets/products/wafer-type-butterfly-valve-d71x.webp', desc: 'Where lines grow past DN50: DN50 - DN200, 1.0 / 1.6 MPa, clamped between flanges' },
+	{ slug: 'telescopic-y-strainer-sgl41h', name: 'Telescopic Y-Strainer SGL41H', img: '/assets/products/telescopic-y-strainer-sgl41h.webp', desc: 'Screens out commissioning grit before it reaches seats and instruments' }
+];
+---
+
+<Layout
+	title="Brass Ball Valve Guide: Full Port vs Standard Port (2026)"
+	description="How to specify a brass threaded ball valve: full port or standard bore, H59 brass body, PTFE seat, PN16, BSP or NPT ends, DN8 - DN50 sizing and RFQ lines."
+	type="article"
+	faq={faq}
+	breadcrumbs={[{ name: 'Guides', href: '/blog/' }, { name: 'Brass Ball Valve Selection' }]}
+>
+	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-16">
+		<!-- Breadcrumb -->
+		<nav class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 flex gap-2">
+			<a href="/" class="hover:text-blue-600">Home</a>
+			<span>/</span>
+			<a href="/blog/" class="hover:text-blue-600">Guides</a>
+			<span>/</span>
+			<span class="text-gray-600">Brass Ball Valve Selection</span>
+		</nav>
+
+		<article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+			<p class="text-brand-red font-bold uppercase tracking-widest text-sm mb-3">Valve Engineering Guide</p>
+			<h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight tracking-tight">Brass Ball Valves: How to Specify Full Port vs Standard Port, BSP or NPT Ends and PN16 Service</h1>
+			<p class="mt-5 text-gray-600 leading-relaxed text-lg">In short: the threaded brass ball valve is the cheapest reliable quarter-turn isolation a water, oil or gas line can buy in small bores - DN8 to DN50, PN16, a chrome-plated ball between PTFE seats, BSP or NPT ends, no welding and no flange kit. It is bought for speed of operation, visual position and price per point, and it fails for three repeatable reasons: the port type was left unstated on the order, the thread standard was mixed on site, or the valve was asked to throttle. This guide walks the decisions in order - bore, materials, ball versus gate, threads, service limits and commissioning - against the two real catalogue builds, and closes with the RFQ lines that make quotes comparable.</p>
+
+			<TableOfContents headings={toc} />
+
+			<!-- Product strip -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+				{products.map(p => (
+					<a href={`/products/${p.slug}/`} class="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden hover:border-brand-red hover:shadow-md transition">
+						<img src={p.img} alt={p.name} loading="lazy" class="w-full h-28 object-contain bg-white p-2" />
+						<div class="p-3">
+							<p class="text-xs font-bold text-gray-800 group-hover:text-brand-red leading-snug transition-colors">{p.name}</p>
+							<p class="text-[10px] text-gray-400 mt-1 line-clamp-2">{p.desc}</p>
+						</div>
+					</a>
+				))}
+			</div>
+
+			<!-- Section 1 -->
+			<h2 id="where-a-brass-ball-valve-belongs" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">1. Where a Brass Ball Valve Belongs - and Where It Does Not</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">On a plant drawing the <a href="/products/brass-ball-valve-threaded/" class="text-brand-blue font-semibold hover:underline">brass threaded ball valve</a> owns the small-bore isolation duty: branch take-offs, instrument roots, gauge and sampling lines, pump drains, utility connections, HVAC circuits, and the hundred-odd points between a DN15 tap and a DN50 branch where a flanged valve is overkill and a gate valve is slower to work. Three properties put it there: a quarter turn from full open to shut, a lever whose angle tells anyone in the room the state of the line, and a threaded joint that needs a wrench and sealant - no hot work, no flange alignment, no coupling torque.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Two duties do not belong to it, and buyers in this category lose real money on both. The first is supervised fire protection isolation. Control valves on sprinkler and standpipe mains must prove their position to an inspector or a panel, which is the job of an OS and Y gate valve or a signal butterfly - a plain lever ball valve satisfies neither, exactly as argued for lever butterflies in the <a href="/guides/fire-sprinkler-control-valve-types/" class="text-brand-blue font-semibold hover:underline">sprinkler control valve types guide</a>. The second is regulation: the ball valve is an on-off device, and Section 7 covers what throttling does to it.</p>
+			<p class="text-gray-700 leading-relaxed">Between those edges, the economic logic is simple. In DN8 - DN50 the brass ball family is usually the lowest total-cost isolation point in a catalogue - cheap body, fast install, no maintenance programme beyond an occasional exercise. Where the same duty grows past DN50, threaded brass gives way to the valve families built for those bores - the <a href="/products/wafer-type-butterfly-valve-d71x/" class="text-brand-blue font-semibold hover:underline">D71X wafer butterfly</a> between flanges, or a flanged resilient-seat gate valve - and forcing a threaded joint bigger than two inches is how cracked nipples and cross-threaded fittings get made.</p>
+
+			<!-- Section 2 -->
+			<h2 id="how-a-quarter-turn-ball-actually-seals" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">2. How a Quarter-Turn Ball Actually Seals</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The sealing story is a sphere with a hole through it, clamped between two soft seats, rotated ninety degrees on a stem. In the open position the bore lines up with the pipe and the medium passes almost as if the valve were not there. In the closed position the ball wall covers both ports and line pressure itself pushes each PTFE seat harder against the ball - the seats are the spring and the medium is the presser, which is why a well-built ball valve seals better as pressure rises within its rating, and why seat material, not the ball, is the wear item.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The stem is the other half of the pressure boundary. Rotation transfers through a stem that passes one or two sealing rings to the outside; on a sound build the stem is retained so line pressure cannot eject it (a blow-out-proof stem arrangement), and the packing that stops the leak path is what a leaking stem is telling you has worn or was over-torqued during lever replacement. Our catalogue build is a forged brass body with a chrome-plated stainless steel ball and a brass or stainless stem against PTFE seats, closed by a red steel lever with a coat of paint - the arrangement described material-by-material in Section 4.</p>
+			<p class="text-gray-700 leading-relaxed">Why this matters commercially: the mechanism gives you the properties you are paying for - one-quarter turn, positive hard stop at both ends, position readable across a plant room - and it also gives you the failure modes to price against. Soft seats wash through if throttled (Section 7), and a valve left wide open for years without exercise can seize its stem and seats exactly like a gate valve does; the exercise discipline in the <a href="/guides/fire-valve-maintenance-spares-guide/" class="text-brand-blue font-semibold hover:underline">fire valve maintenance and spares guide</a> applies to every isolation valve on site, brass included, whether or not a code schedules it.</p>
+
+			<!-- Section 3 -->
+			<h2 id="full-port-or-standard-port-the-bore-decision" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">3. Full Port or Standard Port: The Bore Decision</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">A full port (full bore) ball carries an opening through the sphere close to the internal diameter of the mating pipe; a standard or reduced port ball has a noticeably smaller opening than the body around it. Our threaded ball valve is built as a full port design, and that is the first reason to write the words "full bore" on the purchase order: the two builds look identical from across a store room, cost differently, and behave differently under flow. Left unspecified, buyers receive the factory default - which is not always the one the drawing intended.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The engineering difference is paid for in pressure. A reduced port constricts the stream twice - once entering, once leaving the smaller opening - and the loss grows with the square of velocity, so the penalty is trivial on a trickle line and real on a DN15 - DN25 branch carrying genuine flow. The practical tests: if the line is flushed or pigged, the ball bore is the limiting diameter and reduced port is out; if the valve sits on a gravity drain, every extra kilopascal of loss changes drain time; if the valve is metered or the head budget is tight, put the duty flow through the method in the <a href="/guides/valve-sizing-flow-velocity-pressure-drop-guide/" class="text-brand-blue font-semibold hover:underline">valve sizing guide</a> and ask for the Kv or Cv of the exact build quoted - the number that turns this from a preference into an arithmetic answer.</p>
+			<p class="text-gray-700 leading-relaxed">What reduced port genuinely buys: lower price, slightly smaller envelope and lower weight, which at 3/4" and 1" is rarely decisive - the material saving that matters at these sizes is in body design, not bore. That is why the honest default for new work at these bores is full port, exactly why this catalogue builds it that way, and why the exception should be a decision on paper rather than a delivery note surprise.</p>
+
+			<!-- Section 4 -->
+			<h2 id="materials-behind-the-price" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">4. Materials Behind the Price: H59 Brass, Chrome Ball, PTFE Seat</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Every line of the material list is a service-life decision, so read the datasheet instead of the photo. The catalogue build is: forged brass (H59) body; stainless steel ball, chrome plated; stem in brass or stainless steel; PTFE seats; steel lever with red coating - and the interesting part is what each choice is buying and refusing.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Forged H59 body.</strong> Forging rather than sand casting means the flow channels are compressed metal - denser, more predictable under pressure, with fewer shrink paths for a leak to grow along - and brass brings the properties small-bore work needs: corrosion tolerance in water service without coatings, low notch sensitivity, and threads that can be made integral with the body rather than fitted. H59 is a leaded free-cutting brass designed for machining; where a destination market restricts lead for drinking-water contact, that is an alloy conversation to have before the order, not after - the wider body-material logic, including when copper alloys give way to ductile iron and stainless, is laid out in the <a href="/guides/valve-body-material-selection-guide/" class="text-brand-blue font-semibold hover:underline">valve body material selection guide</a>.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Chrome-plated stainless ball.</strong> The sealing surface against the seats is a plated sphere: stainless underneath for strength and corrosion margin, hard chrome on the face for a smooth, wear-resistant quarter-turn surface against PTFE. A visibly scored or pitted ball is the usual root cause behind a "leaky" valve that has been throttled or run with grit - which is why grit upstream is a materials topic, not just housekeeping: hard particles circulating in the line cut the seats in one closure cycle. A <a href="/products/telescopic-y-strainer-sgl41h/" class="text-brand-blue font-semibold hover:underline">telescopic Y-strainer</a> upstream of the instrument cluster is how that is prevented for the price of one spare screen cleaning per shutdown.</p>
+			<p class="text-gray-700 leading-relaxed"><strong>PTFE seats.</strong> Polytetrafluoroethylene is chosen because it is chemically inert across water, oil and gas service, has a low friction face that lets a small lever torque a 1.6 MPa line, and stays elastic enough over the catalogue range of -20°C to +120°C to follow the ball. Its limits define the valve's limits: it does not like sharp metallic edges, sustained heat at the top of the range, or the jetting of a throttled closure. When a quote offers a different seat - reinforced PTFE, nylon, PEEK - it is a different valve wearing the same handle; take it up separately, with its own temperature and pressure statement, the same discipline applied to elastomer liners in the <a href="/guides/butterfly-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">butterfly valve selection guide</a>.</p>
+
+			<!-- Section 5 -->
+			<h2 id="brass-ball-valve-vs-brass-gate-valve" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">5. Brass Ball Valve vs Brass Gate Valve: Head to Head</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The two small-bore brass families in this catalogue answer different questions, and the comparison below is between the real builds: the threaded ball valve and the <a href="/products/brass-gate-valve-z15w-16t/" class="text-brand-blue font-semibold hover:underline">Z15W-16T forged brass gate valve</a>. Read the table as a duty assignment, not a ranking - the sizes, pressure classes and media lines are the catalogue figures for each product.</p>
+			<div class="overflow-x-auto rounded-xl border border-gray-200 my-5">
+				<table class="min-w-full divide-y divide-gray-200 text-sm">
+					<thead class="bg-gray-50">
+						<tr>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">What to compare</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Brass threaded ball valve</th>
+							<th class="px-4 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Z15W-16T brass gate valve</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Closing mechanism</td>
+							<td class="px-4 py-3 text-gray-700">Perforated sphere rotates a quarter turn; PTFE seats clamp on the ball</td>
+							<td class="px-4 py-3 text-gray-700">Gate lowered onto its seats by a non-rising stem; multiple handle turns</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Operation time</td>
+							<td class="px-4 py-3 text-gray-700">90 degrees of lever - instant shut-off, position visible across the room</td>
+							<td class="px-4 py-3 text-gray-700">Several handwheel turns; a non-rising stem gives no visual open / closed proof</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Bore in the open position</td>
+							<td class="px-4 py-3 text-gray-700">Full port design - bore close to pipe ID, minimal added loss</td>
+							<td class="px-4 py-3 text-gray-700">Open bore set by the gate profile; the gate always stands in the stream when open</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Size range</td>
+							<td class="px-4 py-3 text-gray-700">DN8 - DN50 (1/4" - 2")</td>
+							<td class="px-4 py-3 text-gray-700">DN15 - DN100 (1/2" - 4")</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Pressure rating</td>
+							<td class="px-4 py-3 text-gray-700">1.6 MPa (PN16)</td>
+							<td class="px-4 py-3 text-gray-700">PN1.6 MPa, rated 200 WOG (cold water / oil / gas service)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Temperature</td>
+							<td class="px-4 py-3 text-gray-700">-20°C to +120°C (PTFE seat range)</td>
+							<td class="px-4 py-3 text-gray-700">Normal-temperature service per catalogue</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Media</td>
+							<td class="px-4 py-3 text-gray-700">Water, oil, gas (non-corrosive)</td>
+							<td class="px-4 py-3 text-gray-700">Oil, water</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Ends</td>
+							<td class="px-4 py-3 text-gray-700">BSP or NPT threaded; custom threads on request</td>
+							<td class="px-4 py-3 text-gray-700">NPT threaded (ANSI family)</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 font-bold text-gray-900">Best duty</td>
+							<td class="px-4 py-3 text-gray-700">Frequently operated isolation: branch, instrument, drain, utility</td>
+							<td class="px-4 py-3 text-gray-700">Isolation left open between inspections, up to DN100 where a ball valve stops</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="text-gray-700 leading-relaxed mb-4">Three readings. First, above DN50 the decision leaves this table - the gate family (threaded to DN100, flanged beyond) and wafer butterflies own those bores, and the shut-off-versus-flow logic between those two is worked through in the <a href="/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">gate valve vs butterfly valve guide</a>. Second, the lever versus handwheel line is not cosmetic: if the valve will be closed by hand in a rush - a leak, a changeover, a shutdown - quarter-turn wins the argument by itself, and operation frequency is the honest selector. Third, the 200 WOG versus PN16 pair is not a loophole: both are 1.6 MPa-class ratings quoted on different traditions, and both are tied to normal-temperature, non-shock service. The rating system your project uses decides which certificate reads correctly in the tender file - the same standard-naming discipline as the <a href="/guides/flange-standard-guide-ansi-din-jis/" class="text-brand-blue font-semibold hover:underline">flange standard guide</a> argues for bolt circles.</p>
+			<p class="text-gray-700 leading-relaxed">One more pairing worth noting because POs get it wrong: a ball valve downstream of a pump protects nothing by itself - the backflow duty belongs to a check valve, chosen by behaviour in the <a href="/guides/check-valve-types-guide/" class="text-brand-blue font-semibold hover:underline">check valve types guide</a>. The ball isolates so the check can be inspected; two devices, two lines on the specification.</p>
+
+			<!-- Section 6 -->
+			<h2 id="thread-ends-and-sizing" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">6. Thread Ends and Sizing: BSP, NPT and the DN8 - DN50 Range</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Threaded isolation lives or dies at the joint, and the first fork is the system. BSP covers the British standard family - parallel G threads that seal on a washer or face, and tapered BSPT variants that seal on the thread flanks - while NPT is the American tapered family, taper and thread form both different from BSP. They will thread into each other far enough to feel tight and will leak at pressure anyway; mixing them is solved at the order stage with the correct ends or a named adapter, as covered in the FAQ below. Our catalogue valves ship with BSP or NPT ends as standard, with custom thread options on request - but "as ordered" is only safe if "ordered" says which.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">Sizing in this family is reading the range honestly: DN8 - DN50 is 1/4" to 2", and the bores cluster into three working groups. Quarter to half inch is instrument, gauge, sample and drain territory, where the valve is chosen for the connection, not the flow. Three-quarters to one inch covers fixture branches, small pump drains and hose-bibb duties, where full-port versus reduced begins to show in drain times. One and a quarter to two inches is genuine branch flow - and here the sizing method stops being about the valve: run the duty flow through the <a href="/guides/valve-sizing-flow-velocity-pressure-drop-guide/" class="text-brand-blue font-semibold hover:underline">valve sizing guide</a>, take the DN from the velocity the pipework can carry, and treat the catalogue top size as the ceiling of the family, not an invitation to force threaded brass into two-and-a-half-inch duty.</p>
+			<p class="text-gray-700 leading-relaxed">State on the order, for every line item: DN, port type (full / reduced), thread standard with size and form (for example G3/4 female, or 3/4" NPT male), and the mating fitting it screws into. A quote that says "ball valve 1 inch" answered that enquiry is not comparable with one that says "DN25 full port, BSP female × BSP female" - and the difference between them is exactly what the <a href="/guides/china-valve-supplier-quote-guide/" class="text-brand-blue font-semibold hover:underline">quote comparison guide</a> teaches you to catch before award.</p>
+
+			<!-- Section 7 -->
+			<h2 id="pressure-temperature-and-service-limits" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">7. Pressure, Temperature and Service Limits</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">The catalogue gives the box the engineer has to stay inside: 1.6 MPa (PN16) working pressure, -20°C to +120°C, water, oil and gas service, PTFE seat, H59 forged brass body. Read that as a single coupled statement, not four independent numbers. Pressure and temperature trade against each other in every valve material and every seat polymer - the rated figure belongs to a reference temperature, and as the medium approaches the seat and body limits the allowable differential falls. The order enquiry should name the actual maximum and minimum medium temperatures and require the supplier to confirm the derated pressure figure for that condition in writing, rather than trusting both corners of the box at once.</p>
+			<p class="text-gray-700 leading-relaxed mb-4">The lower limit deserves its own paragraph because buyers meet it as damage: at -20°C the PTFE seat is at the edge of its elastic range, and the real killer in freezing weather is water left inside the body. A trapped, freezing volume does not care about any of the ratings on the nameplate - it splits brass bodies and cracks levers with equal indifference. Where frost is a service condition, the design answer is drainability - valves at low points, bodies that can be blown down - or a dry service, not a warmer nameplate.</p>
+			<p class="text-gray-700 leading-relaxed">Two behaviours complete the limits picture. Throttling: a part-cracked ball drives the full differential through an annular jet that washes the seat and wire-draws the chrome - if a line needs adjustment, put a <a href="/products/adjustable-pressure-reducing-valve-500x/" class="text-brand-blue font-semibold hover:underline">500X pressure reducing valve</a> or a balancing device in the circuit and let the ball valve do what it is built for, isolation. And speed: a quarter-turn valve is a fast valve, and fast closure on a long column of water is a surge event - Joukowsky does not make exceptions for small bores, which is why pump stations and long runs should close to a schedule and read alongside the <a href="/guides/water-hammer-protection-fire-water-systems/" class="text-brand-blue font-semibold hover:underline">water hammer protection guide</a>. Within its box - on-off duty, named medium, temperature declared, closure considered - the threaded brass ball is one of the most dependable line items on the PO.</p>
+
+			<!-- Section 8 -->
+			<h2 id="installation-testing-and-common-field-failures" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">8. Installation, Testing and Common Field Failures</h2>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Make the thread the joint, not the sealant.</strong> Tapered threads (NPT, BSPT) seal on the flanks and need a controlled sealant - PTFE tape or paste wound on the male, starting a thread or two back from the end - while parallel G threads seal on the washer or face and sealant on them is lubrication, not sealing. The two field classics follow directly: too much tape, and shreds travel downstream to foul the PTFE seat and instrument ports; too much torque, and the hex of a small brass valve cracks around an over-long wrench. Grip the valve body's own flats, not a mating fitting, and leave one or two threads visible at a tapered joint after make-up.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Prepare the line before the seat meets it.</strong> Commissioning grit - scale, thread clippings, weld spatter from neighbouring work - is the number one seat killer in small valves: one flush of swarf across a DN15 seat at 1.6 MPa and the valve passes at low pressure forever after. Flush or blow the line before fitting wherever the sequence allows; where it does not, fit the valve closed, open slowly after flushing, and put a strainer upstream of anything that must stay clean. Cycle every valve fully open and closed once at installation - a valve that has sat in a crate since the container was stuffed may have a stiff stem, and finding that out during hydro testing is an expensive hour.</p>
+			<p class="text-gray-700 leading-relaxed mb-4"><strong>Test the installed thing, not the shelf thing.</strong> Pressure-test the completed line at the specified test condition with valves in the position the works instruction states, and leak-check every joint under pressure rather than after insulation. For documentation of what the factory already tested - shell at one-and-a-half times rating, seat at tighter multiples, hold times by size - the logic and the report anatomy are in the <a href="/guides/api-598-valve-pressure-test-guide/" class="text-brand-blue font-semibold hover:underline">API 598 valve testing guide</a>, and asking the same questions of a brass-valve offer separates a manufacturer quote from a re-boxer's, as the <a href="/guides/b2b-valve-sourcing-checklist/" class="text-brand-blue font-semibold hover:underline">8-point sourcing checklist</a> walks through.</p>
+			<p class="text-gray-700 leading-relaxed">Then run what you installed. The failure the maintenance files repeat is not the broken valve - it is the never-touched valve: stems seize, seats dry-stick to the ball, and the first real operation cracks a lever or shears a handle. A simple exercise schedule - open and close every isolation point on site on a fixed cycle, log it - costs nothing on new brass and is the whole difference between an isolation valve and a pipe fitting with a handle.</p>
+
+			<!-- Section 9 -->
+			<h2 id="rfq-checklist-for-brass-ball-valves" class="text-2xl font-black text-gray-900 mt-12 mb-4 tracking-tight scroll-mt-24">9. RFQ Checklist for Brass Ball Valves</h2>
+			<p class="text-gray-700 leading-relaxed mb-4">Brass ball valve enquiries get quoted inconsistently because most of them state a size and a photo. These lines make two offers mean the same thing:</p>
+			<ul class="list-disc pl-6 text-gray-700 leading-relaxed space-y-2 mb-4">
+				<li><strong>Service and duty.</strong> Medium (water / oil / named gas), maximum and minimum temperature, whether the valve is on-off or will ever be moved against full differential. This drives seat, stem and thread confirmation before price.</li>
+				<li><strong>Size, bore and class.</strong> DN plus port type by words - "DN25 full port", not "DN25" - at 1.6 MPa (PN16) for this family.</li>
+				<li><strong>Ends.</strong> Thread standard, size and form for each end (e.g. BSP female × female, 1" NPT male × male), with the mating fitting named; custom threads flagged as an option, since the catalogue offers them on request.</li>
+				<li><strong>Materials.</strong> Body forged brass H59; ball stainless with chrome plate; stem brass or stainless stated - name the option; seat PTFE with its temperature statement; lever material and coating.</li>
+				<li><strong>Flow data where contested.</strong> Kv or Cv for the exact build and DN, fully open, if the line has a real pressure budget - the discipline from the sizing guide.</li>
+				<li><strong>Documentation.</strong> Shell and seat test records for the delivered batch, material declarations for wetted parts, and the type-test / certification documents the destination market names - available on request per GB / ANSI / DIN / JIS project specification; verify them per the counterfeiting checks in the <a href="/guides/detect-fake-valves-fire-equipment-counterfeits/" class="text-brand-blue font-semibold hover:underline">fake valve detection guide</a>.</li>
+				<li><strong>Marking and package.</strong> Nameplate or body stamping (DN, PN, material, standard), thread protectors, carton quantity and pallet configuration - threaded brass valves damaged in transit are a warranty argument waiting to happen.</li>
+				<li><strong>Commercial scope.</strong> OEM branding and laser marking options, MOQ per DN band, sample policy for the two most-used sizes, spare-lever and stem-seal provision for the maintenance store.</li>
+			</ul>
+			<p class="text-gray-700 leading-relaxed">Related reading on this site: the <a href="/guides/valve-sizing-flow-velocity-pressure-drop-guide/" class="text-brand-blue font-semibold hover:underline">valve sizing guide</a> for DN and pressure-drop maths, the <a href="/guides/valve-body-material-selection-guide/" class="text-brand-blue font-semibold hover:underline">body material guide</a> for brass versus iron versus stainless territory, the <a href="/guides/butterfly-valve-selection-guide/" class="text-brand-blue font-semibold hover:underline">butterfly valve selection guide</a> and <a href="/guides/gate-valve-vs-butterfly-valve-fire-protection/" class="text-brand-blue font-semibold hover:underline">gate vs butterfly comparison</a> for everything above DN50, the <a href="/guides/check-valve-types-guide/" class="text-brand-blue font-semibold hover:underline">check valve types guide</a> for the backflow duty ball valves do not perform, and the <a href="/guides/china-valve-supplier-quote-guide/" class="text-brand-blue font-semibold hover:underline">Chinese valve supplier quote guide</a> for turning comparable offers into an award decision.</p>
+
+			<!-- FAQ -->
+			<h2 id="faq" class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight scroll-mt-24">Frequently Asked Questions</h2>
+			<div class="space-y-4">
+				{faq.map(item => (
+					<details class="group bg-gray-50 rounded-xl border border-gray-100 p-5 open:border-brand-red/30">
+						<summary class="flex justify-between items-center font-bold text-gray-800 cursor-pointer list-none">
+							<span>{item.question}</span>
+							<span class="text-brand-blue text-xl transition-transform group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-3 text-gray-600 leading-relaxed text-sm">{item.answer}</p>
+					</details>
+				))}
+			</div>
+
+			<!-- Dual CTA -->
+			<div class="mt-12 rounded-2xl overflow-hidden">
+				<div class="bg-gradient-to-r from-brand-blue to-blue-800 px-6 sm:px-10 py-10 text-center">
+					<h2 class="text-2xl font-black text-white tracking-tight">Specifying Brass Ball Valves for a Water, Oil or Gas Scope?</h2>
+					<p class="mt-3 text-blue-100 max-w-xl mx-auto text-sm leading-relaxed">Send the DN and port type, the thread standard for each end, the medium and its temperature range - our engineers confirm the seat, stem and derated pressure for your condition and quote within 12 hours.</p>
+					<div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+						<a href="/contact/?product=Brass%20Ball%20Valve%20DN8-DN50" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg hover:opacity-90 transition">Request a Quote</a>
+						<a href="https://wa.me/8618684324501?text=Hi%2C%20I%20need%20brass%20threaded%20ball%20valves%20for%20water%20oil%20or%20gas%20lines" class="px-8 py-4 bg-white text-brand-blue font-bold rounded-lg hover:bg-blue-50 transition" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</Layout>
