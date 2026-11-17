@@ -1,11 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { productsTr } from '../../utils/products.tr';
-import { guidesTr } from '../../utils/guides.tr';
+import { productsTr as products } from '../../utils/products.tr';
 import InquiryForm from '../../components/inquiry/InquiryForm.astro';
 import LeadCaptureSection from '../../components/inquiry/LeadCaptureSection.astro';
-import CompanyIntroVideo from '../../components/sections/CompanyIntroVideo.astro';
-import VideoCarousel from '../../components/sections/VideoCarousel.astro';
 
 const faq = [
   { question: 'Wanlian Fluid hangi ürünleri üretir ve ihraç eder?', answer: 'Wanlian Fluid, Quanzhou merkezli bir üretici ve ihracatçı olarak endüstriyel vanalar, yangın hidrantları, sprinkler ve alarm vanaları, yangın hortumları ve hidrolik kontrol ekipmanları sunar.' },
@@ -14,52 +11,38 @@ const faq = [
   { question: 'OEM veya özel marka siparişi kabul ediyor musunuz?', answer: 'Evet. OEM/ODM işaretleme, özel ürün ve ihracat ambalajı standart hizmetlerimizdir. AWWA, TS EN, UL veya FM gibi standartlara uygunluk model bazında teyit edilir.' }
 ];
 
-const featuredProducts = productsTr.filter(p => [
-  'resilient-seat-flanged-gate-valve-z41x', 'indoor-fire-hydrant-head-sn65',
-  'wet-alarm-check-valve-zsfz-150', 'signal-grooved-wafer-butterfly-valve-dn80',
-  'spherical-ball-check-valve-hq44x', 'hydraulic-water-level-control-valve-f745x',
-  'telescopic-y-strainer-sgl41h', 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100'
-].includes(p.slug));
+// Category grid and the grouped catalog index are both derived from this locale's product
+// module, so line names, counts and card photography cannot drift from the live catalog.
+// is keyed by English category names, so it stays empty and each line uses its first photo.
+const CATEGORY_LEAD: Record<string, string> = {};
 
-// 分类名与数量取自本语种产品数据本身。此前这里硬编码了一套与数据不一致的名称
-// （id 残留葡语标签），使 /tr/products/#category= 深链筛不到任何产品，
-// 且 count 为无依据的估算值。字段形状保持 { name, count, image } 不变，模板无需改动。
-// 卡片配图用全站统一 slug 反查，不新增未核实的图片路径。
-const CARD_LEAD_SLUGS = [
-  'resilient-seat-flanged-gate-valve-z41x',
-  'indoor-fire-hydrant-head-sn65',
-  'wet-alarm-check-valve-zsfz-150',
-  'hydraulic-water-level-control-valve-f745x',
-  'manual-fire-water-cannon-ps',
-  'foam-fire-hydrant-cabinet-psg30',
-  'pvc-fire-hose',
-];
-const categoryNames: string[] = [...new Set(productsTr.map((p) => p.category))];
-const categories = categoryNames.map((name) => {
-  const inCategory = productsTr.filter((p) => p.category === name);
-  const lead = inCategory.find((p) => CARD_LEAD_SLUGS.includes(p.slug)) ?? inCategory[0];
-  return { name, count: String(inCategory.length), image: lead.image };
+const categoryNames: string[] = [...new Set(products.map(p => p.category))];
+
+const categories = categoryNames.map(name => {
+  const inCategory = products.filter(p => p.category === name);
+  const lead = inCategory.find(p => p.slug === CATEGORY_LEAD[name]) ?? inCategory[0];
+  return { name, count: inCategory.length, image: lead.image, leadName: lead.name, href: `/tr/products/#category=${encodeURIComponent(name)}` };
 });
 
-const catalogByCategory = categories.map((cat) => ({
-  name: cat.name,
-  items: productsTr.filter((p) => p.category === cat.name)
+const catalogByCategory = categoryNames.map(name => ({
+  name,
+  href: `/tr/products/#category=${encodeURIComponent(name)}`,
+  items: products.filter(p => p.category === name).map(p => ({ name: p.name, href: '/tr/products/' + p.slug + '/' }))
 }));
 
-// Altı kayıt /tr/certificates/ sayfasındaki listeyle birebir aynıdır; adlar ve norm
-// kodları oradan aynen alınmıştır. Oradaki kapsam tanımı modele bağlı olduğu için bu
-// şerit koşulsuz bir taahhüt gibi okunamaz.
-const certifications = [
-  { name: 'Basınç testi', code: 'her parti, %100' },
-  { name: 'Malzeme belgeleri', code: 'döküm, gövde, conta' },
-  { name: 'Bağımsız muayene', code: 'SGS / BV / Intertek' },
-  { name: 'ISO 9001:2015', code: 'Kalite Yönetimi' },
-  { name: 'EN 12266-1', code: 'GB/T 13927' },
-  { name: 'GB Standardı', code: 'GB 5135 / GB 4452' }
-];
+const productionSteps = [{"step":"01","title":"Hassas Örgü","desc":"Dayanıklı yangın hortumu kılıfları için yüksek mukavemetli polyester örgü."},{"step":"02","title":"Kaplama Yapışması","desc":"Sızdırmaz kauçuk kaplama için gelişmiş vulkanizasyon prosesi."},{"step":"03","title":"CNC İşleme","desc":"Sfero dökme demir vana gövdeleri ve parçalarının hassas işlenmesi."},{"step":"04","title":"Güvenlik Testleri","desc":"Her birimde yüzde 100 gövde basıncı ve hava sızdırmazlık testi."},{"step":"05","title":"Epoksi Kaplama","desc":"Yüksek korozyon direnci için toksik olmayan epoksi reçine kaplama."}];
 
-// Gerçek bir yangın pompa dairesi montajı: görseller, video ve ifade kapsamı İngilizce
-// ve İspanyolca ana sayfayla aynıdır; yeni bir iddia eklenmemiştir.
+
+
+// Own-name assurance only. Third-party listings belong to the factory that holds them, so this
+// strip must never imply that Wanlian itself holds UL, FM, CE or LPCB listings.
+const certifications = [{"name":"Basınç testi","code":"her parti, %100"},{"name":"Malzeme belgeleri","code":"döküm, gövde, conta"},{"name":"Bağımsız muayene","code":"SGS / BV / Intertek"},{"name":"ISO 9001:2015","code":"Kalite Yönetimi"},{"name":"EN 12266-1","code":"GB/T 13927"},{"name":"GB Standardı","code":"GB 5135 / GB 4452"}];
+
+const waCallbackHref = `https://wa.me/8618684324501?text=${encodeURIComponent('Merhaba, endüstriyel vanalarınız ve yangın koruma ekipmanlarınızla ilgileniyorum. Lütfen ürün kataloğu ve fiyat listesi gönderin.')}`;
+
+const resources = [{"href":"/tr/guides/fire-sprinkler-system-valves-guide/","eyebrow":"Satın Alma Kılavuzu","title":"Sprinkler Sistemleri için Vana Kılavuzu","desc":"Islak alarm, baskın ve ön tepkili sistem vanalarını karşılaştırın."},{"href":"/tr/fire-water-cannon/","eyebrow":"Sistem Genel Bakışı","title":"Yangın Monitörleri ve Su Topları","desc":"Büyük hacimli alanlar için manuel PS ve otomatik izlemeli ZDMS monitörleri."},{"href":"/tr/guides/how-to-choose-a-fire-hydrant/","eyebrow":"Satın Alma Kılavuzu","title":"Yangın Hidrantı Nasıl Seçilir?","desc":"Hidrant tipi, basınç sınıfı, bağlantı standardı ve satın alma kontrol listesi."},{"href":"/tr/guides/how-to-choose-ul-listed-fire-valves/","eyebrow":"Satın Alma Kılavuzu","title":"UL Listeli Yangın Vanaları Nasıl Seçilir?","desc":"UL ve FM kapsamını, model doğrulamasını ve sertifika belgelerini inceleyin."},{"href":"/tr/guides/gate-valve-vs-butterfly-valve-fire-protection/","eyebrow":"Satın Alma Kılavuzu","title":"Sürgülü Vana ve Kelebek Vana Karşılaştırması","desc":"Yangın şebekeleri için debi, alan, maliyet ve uygulama karşılaştırması."},{"href":"/tr/guides/deluge-valve-selection-guide/","eyebrow":"Satın Alma Kılavuzu","title":"Delüj Vanası Boyutlandırma ve Seçim Kılavuzu","desc":"ZSFM delüj vanası çalışma prensibi, debi ve açılma süresi boyutlandırması, açtırma seçenekleri, açık başlık yerleşimi ve RFQ verileri."}];
+
+// On-site project evidence: real fire pump room installation (photos + portrait walkthrough video)
 const projectPhotos = [
   { src: '/assets/projects/pump-skids.webp', alt: 'Kurulu bir yangın pompa dairesinde OPEN ve CLOSE konum etiketleriyle sprinkler ve yangın pompa grupları', caption: 'OPEN/CLOSE etiketli pompa grupları' },
   { src: '/assets/projects/valve-train.webp', alt: 'Kurulu yangın pompa dairesinde kırmızı riser hatları üzerinde sürgülü vanalar ve manometreler', caption: 'Riser hatları ve sürgülü vana grubu' },
@@ -73,60 +56,523 @@ const projectScope = [
   'Riser şebekesi boyunca yürütülen tavan üstü kanallar ve kablo tavaları',
   'Nihai kontrol ve teslime hazırlanan saha',
 ];
-const manufacturingSteps = [
-  { step: '01', title: 'Hassas Örgü', desc: 'Dayanıklı yangın hortumu kılıfları için yüksek mukavemetli polyester örgü.' },
-  { step: '02', title: 'Kaplama Yapışması', desc: 'Sızdırmaz kauçuk kaplama için gelişmiş vulkanizasyon prosesi.' },
-  { step: '03', title: 'CNC İşleme', desc: 'Sfero dökme demir vana gövdeleri ve parçalarının hassas işlenmesi.' },
-  { step: '04', title: 'Güvenlik Testleri', desc: 'Her birimde yüzde 100 gövde basıncı ve hava sızdırmazlık testi.' },
-  { step: '05', title: 'Epoksi Kaplama', desc: 'Yüksek korozyon direnci için toksik olmayan epoksi reçine kaplama.' }
+
+const industries = [{"name":"Petrol ve Gaz","desc":"Zorlu endüstriyel koşullarda güvenli akışkan taşınması.","icon":"pipe"},{"name":"Su Arıtma","desc":"Belediye su temini, drenaj ve filtrasyon şebekeleri.","icon":"drop"},{"name":"Yangından Korunma","desc":"Sertifikalı hidrantlar, sprinkler vanaları ve söndürme sistemleri.","icon":"flame"}];
+
+type Clip = { src: string; poster: string; title: string; desc: string };
+
+const clips = [{"src":"/videos/factory/assembly.mp4","poster":"/videos/factory/assembly-poster.webp","title":"Montaj","desc":"Hidrolik kontrol vanası gövde bağlantılarında tork kontrolü"},{"src":"/videos/factory/blue-valves.mp4","poster":"/videos/factory/blue-valves-poster.webp","title":"Basınç Testi","desc":"Basınç testi tamamlanan üniteler sevkiyata hazır"},{"src":"/videos/factory/red-field.mp4","poster":"/videos/factory/red-field-poster.webp","title":"Mamul Deposu","desc":"Üretimi tamamlanan yangın hidrantları sevk için sırada"},{"src":"/videos/factory/loading-close.mp4","poster":"/videos/factory/loading-close-poster.webp","title":"Paketleme ve Yükleme","desc":"Yükleme rampasında sandıklanmış ve paletlenmiş ihracat siparişi"},{"src":"/videos/factory/dispatch.mp4","poster":"/videos/factory/dispatch-poster.webp","title":"Sevkiyat","desc":"Tam yüklü tır fabrikamızdan limana doğru yola çıkıyor"}];
+
+const walkthroughClip = {"src":"/assets/projects/project-walkthrough.mp4","poster":"/assets/projects/pump-room-wide.webp","title":"Saha Videosu"};
+
+const stats = [
+  { value: String(products.length), unit: '', label: "Katalogtaki Model" },
+  { value: String(categories.length), unit: '', label: "Ürün Hattı" },
+  { value: '%100', unit: '', label: "Basınç Testi" },
+  { value: 'ISO 9001', unit: '', label: "Kalite Sistemi" }
 ];
 
-const resources = [
-  { href: '/tr/guides/fire-sprinkler-system-valves-guide/', eyebrow: 'Satın Alma Kılavuzu', title: 'Sprinkler Sistemleri için Vana Kılavuzu', desc: 'Islak alarm, baskın ve ön tepkili sistem vanalarını karşılaştırın.' },
-  { href: '/tr/fire-water-cannon/', eyebrow: 'Sistem Genel Bakışı', title: 'Yangın Monitörleri ve Su Topları', desc: 'Büyük hacimli alanlar için manuel PS ve otomatik izlemeli ZDMS monitörleri.' },
-  { href: '/tr/guides/how-to-choose-a-fire-hydrant/', eyebrow: 'Satın Alma Kılavuzu', title: 'Yangın Hidrantı Nasıl Seçilir?', desc: 'Hidrant tipi, basınç sınıfı, bağlantı standardı ve satın alma kontrol listesi.' },
-  { href: '/tr/guides/how-to-choose-ul-listed-fire-valves/', eyebrow: 'Satın Alma Kılavuzu', title: 'UL Listeli Yangın Vanaları Nasıl Seçilir?', desc: 'UL ve FM kapsamını, model doğrulamasını ve sertifika belgelerini inceleyin.' },
-  { href: '/tr/guides/gate-valve-vs-butterfly-valve-fire-protection/', eyebrow: 'Satın Alma Kılavuzu', title: 'Sürgülü Vana ve Kelebek Vana Karşılaştırması', desc: 'Yangın şebekeleri için debi, alan, maliyet ve uygulama karşılaştırması.' },
-  ...guidesTr.map(g => ({ href: g.href, eyebrow: 'Satın Alma Kılavuzu', title: g.title, desc: g.description }))
-];
+const capability = [{"icon":"valve","title":"Kendi Üretim Hatlarımız","body":"Quanzhou tesisimizde CNC işleme, montaj, basınç testi ve kaplama süreçleri kontrol edilir."},{"icon":"gauge","title":"12 Saatte Teklif","body":"Çizim, teknik şartname veya ürün fotoğrafını gönderin; mühendislerimiz stok ve teslimat bilgisiyle yanıtlasın."},{"icon":"doc","title":"Test Edilmiş Kalite","body":"ISO 9001 kalite sistemi ve EN 12266-1 / GB/T 13927 gerekliliklerine göre model bazlı test ve belge desteği."}];
 
-const visibleResources = resources.slice(0, 6);
-const moreResources = resources.slice(6);
-const industries = [
-  { name: 'Petrol ve Gaz', desc: 'Zorlu endüstriyel koşullarda güvenli akışkan taşınması.' },
-  { name: 'Su Arıtma', desc: 'Belediye su temini, drenaj ve filtrasyon şebekeleri.' },
-  { name: 'Yangından Korunma', desc: 'Sertifikalı hidrantlar, sprinkler vanaları ve söndürme sistemleri.' }
-];
+const svgOpen = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
+const icons: Record<string, string> = {
+  valve: svgOpen + '<path d="M4 16 12 9l8 7H4Z"/><path d="M12 9V4"/><path d="M8.5 4h7"/></svg>',
+  gauge: svgOpen + '<circle cx="12" cy="10" r="6"/><path d="M12 10l3.2-2.6"/><path d="M6 20h12"/></svg>',
+  cog: svgOpen + '<circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.4M12 18.6V21M3 12h2.4M18.6 12H21M5.6 5.6l1.7 1.7M16.7 16.7l1.7 1.7M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7"/></svg>',
+  doc: svgOpen + '<path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v4h4"/><path d="M10 12h6M10 16h6"/></svg>',
+  flame: svgOpen + '<path d="M12 3c3 4 5 6 5 9a5 5 0 0 1-10 0c0-2.2 1.1-3.8 2.6-5.2"/></svg>',
+  drop: svgOpen + '<path d="M12 3l5.4 7a6.4 6.4 0 1 1-10.8 0L12 3Z"/></svg>',
+  pipe: svgOpen + '<path d="M3 8.5h7v7H3zM14 8.5h7v7h-7z"/><path d="M10 12h4"/><path d="M3 8.5v7M21 8.5v7"/></svg>',
+  guide: svgOpen + '<path d="M4 5h7v15H4zM13 5h7v15h-7z"/><path d="M7 9h1M16 9h1"/></svg>',
+  chat: svgOpen + '<path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8 9h8M8 12h5"/></svg>'
+};
+const tick = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9 17.5 20 6.5"/></svg>';
 ---
 
 <Layout locale="tr" title="Wanlian Fluid | Endüstriyel Vanalar ve Yangın Güvenliği" description="Quanzhou, Çin merkezli endüstriyel vana ve yangın güvenliği ekipmanı üreticisi. ISO 9001, CNC işleme ve 12 saatte ayrıntılı teklif." faq={faq} video={{ name: '50 Saniyede Wanlian Fluid', description: 'Quanzhou tesisinde showroom, üretim, OEM özelleştirme ve kalite kontrol tanıtımı.', thumbnail: '/videos/company-intro-poster.webp', src: '/videos/company-intro.mp4', duration: 'PT49S', uploadDate: '2026-09-18' }}>
-  <section class="relative bg-gray-900 text-white min-h-[85vh] flex items-center overflow-hidden">
-    <div class="absolute inset-0 z-0" aria-hidden="true"><img src="/og-image.jpg" alt="" fetchpriority="high" class="w-full h-full object-cover object-center opacity-90 hero-kenburns" /><div class="absolute inset-0 bg-gradient-to-r from-gray-950 via-gray-950/75 to-gray-950/10"></div></div>
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24"><div class="max-w-3xl space-y-7">
-      <div class="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full border border-white/20"><span class="h-2 w-2 rounded-full bg-brand-red"></span><span class="text-sm font-bold tracking-widest uppercase">Üretici ve İhracatçı — Vanalar ve Yangın Güvenliği</span></div>
-      <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-tight">Küresel Projeler için <span class="text-brand-red">Vanalar ve Yangın Güvenliği.</span></h1>
-      <p class="text-lg sm:text-xl text-gray-300 max-w-2xl leading-relaxed">Endüstriyel vanalar, yangın hidrantları, sprinkler ve alarm vana sistemleri. Yüzde 100 basınç testi, ISO 9001 ve 12 saat içinde ayrıntılı teklif.</p>
-      <div class="flex flex-wrap gap-4"><a href="/tr/products/" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg">Kataloğu Görüntüle</a><a href="/tr/contact/#inquiry" class="px-8 py-4 bg-white/10 text-white font-bold rounded-lg border border-white/30">Teklif İste</a></div>
-    </div></div>
-  </section>
-  <VideoCarousel locale="tr" />
-  <section class="py-10 bg-white border-b border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-gray-200 border border-gray-200 rounded-xl overflow-hidden">{certifications.map(cert => <div class="bg-white px-4 py-5 text-center"><p class="text-sm font-black text-gray-900 tracking-tight leading-tight">{cert.name}</p><p class="mt-1 text-[11px] font-bold text-brand-blue uppercase tracking-widest">{cert.code}</p></div>)}</div><div class="mt-4 flex flex-wrap items-center justify-between gap-3"><p class="text-xs text-gray-500 leading-relaxed max-w-2xl">Listeleme ve onay kapsamı model bazında geçerlidir. Sertifika kopyaları ve listelenen modeller, siparişten önce teknik şartnamenize göre teyit edilir.</p><a href="/tr/certificates/" class="inline-flex items-center gap-2 text-sm font-bold text-brand-blue hover:underline shrink-0">Sertifikalar ve kapsam <span aria-hidden="true">→</span></a></div></div></section>
+  <div class="c68">
 
-  <section class="py-24 bg-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col lg:flex-row items-center gap-16"><div class="flex-1 space-y-7"><h2 class="text-sm font-black tracking-[0.3em] text-brand-red uppercase">Şirket Profili</h2><h3 class="text-4xl sm:text-5xl font-black text-gray-900">Küresel Projeler için <span class="text-brand-blue">Akışkan Kontrol Çözümleri.</span></h3><div class="space-y-5 text-gray-600 text-lg leading-relaxed"><p>Quanzhou Wanlian Fluid Equipment Co., Ltd., Çin'in vana ve boru endüstrisi merkezlerinden Quanzhou, Fujian'da endüstriyel vanalar, hidrolik kontrol ürünleri, hidrant bileşenleri ve yangın güvenliği ekipmanları üretir ve ihraç eder.</p><p>Kendi üretim hatlarımızda CNC işleme, montaj ve test süreçlerini yürütür; seçili ürünlerde nitelikli üretim ortaklarından yararlanırız. Her ürün sevkiyattan önce gövde basıncı ve hava sızdırmazlığı testinden geçirilir.</p></div><div class="grid grid-cols-2 lg:grid-cols-4 gap-4"><div class="p-5 bg-gray-50 rounded-xl"><b class="block text-3xl text-brand-red">{productsTr.length}</b><span class="text-[11px] font-bold text-gray-500 uppercase">Katalogtaki Model</span></div><div class="p-5 bg-gray-50 rounded-xl"><b class="block text-3xl text-brand-blue">{categories.length}</b><span class="text-[11px] font-bold text-gray-500 uppercase">Ürün Hattı</span></div><div class="p-5 bg-gray-50 rounded-xl"><b class="block text-3xl text-brand-red">%100</b><span class="text-[11px] font-bold text-gray-500 uppercase">Basınç Testi</span></div><div class="p-5 bg-gray-50 rounded-xl"><b class="block text-3xl text-brand-blue">ISO 9001</b><span class="text-[11px] font-bold text-gray-500 uppercase">Kalite Sistemi</span></div></div><a href="/tr/about/" class="font-bold text-brand-blue hover:underline">Şirket profilinin tamamını okuyun →</a></div><div class="flex-1"><CompanyIntroVideo locale="tr" /></div></div></div></section>
+    <section class="c68-hero">
+      <div class="c68-wrap c68-hero-grid">
+        <div class="c68-rv">
+          <p class="c68-eyebrow"><span class="c68-dot"></span>Üretici ve İhracatçı — Vanalar ve Yangın Güvenliği</p>
+          <h1>Küresel Projeler için <em>Vanalar ve Yangın Güvenliği.</em></h1>
+          <p class="c68-rule" aria-hidden="true"></p>
+          <p class="c68-lede">Endüstriyel vanalar, yangın hidrantları, sprinkler ve alarm vana sistemleri. Yüzde 100 basınç testi, ISO 9001 ve 12 saat içinde ayrıntılı teklif.</p>
+          <div class="c68-cta">
+            <a class="c68-btn c68-btn-red" href="/tr/products/">Kataloğu Görüntüle</a>
+            <a class="c68-btn c68-btn-ghost" href="/tr/contact/#inquiry">Teklif İste</a>
+          </div>
+        </div>
+        <figure class="c68-frame c68-rv">
+          <span class="c68-frame-tab"></span>
+          <img src="/assets/factory/plant-exterior.webp" alt="Wanlian Fluid plant exterior in Quanzhou, Fujian" decoding="async" />
+          <figcaption>Üretim Tesisimizden Gerçek Görüntüler</figcaption>
+        </figure>
+      </div>
+      <div class="c68-stats">
+        <div class="c68-wrap c68-stats-grid">
+          {stats.map((s) => (
+            <div class="c68-stat">
+              <p class="c68-stat-num">{s.value}<span>{s.unit}</span></p>
+              <p class="c68-stat-label">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
 
-  <section class="py-24 bg-gray-50 border-y border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center max-w-3xl mx-auto mb-14"><h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Neden Wanlian Fluid?</h2><h3 class="text-4xl font-black text-gray-900">Güvenilir Tedarik Ortağı</h3></div><div class="grid md:grid-cols-3 gap-8"><div class="p-8 rounded-2xl border bg-white"><h4 class="text-lg font-black mb-2">Kendi Üretim Hatlarımız</h4><p class="text-gray-600 text-sm leading-relaxed">Quanzhou tesisimizde CNC işleme, montaj, basınç testi ve kaplama süreçleri kontrol edilir.</p></div><div class="p-8 rounded-2xl border bg-white"><h4 class="text-lg font-black mb-2">Test Edilmiş Kalite</h4><p class="text-gray-600 text-sm leading-relaxed">ISO 9001 kalite sistemi ve EN 12266-1 / GB/T 13927 gerekliliklerine göre model bazlı test ve belge desteği.</p></div><div class="p-8 rounded-2xl border bg-white"><h4 class="text-lg font-black mb-2">12 Saatte Teklif</h4><p class="text-gray-600 text-sm leading-relaxed">Çizim, teknik şartname veya ürün fotoğrafını gönderin; mühendislerimiz stok ve teslimat bilgisiyle yanıtlasın.</p></div></div></div></section>
+    <section class="c68-band c68-band-mist" id="product-lines">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Başlıca Ürün Kategorileri</p>
+          <h2>Dünya genelindeki yangın ve su şebekeleri için yüksek hassasiyetli mühendislik.</h2>
+        </header>
+        <div class="c68-lines">
+          {categories.map((c) => (
+            <a class="c68-line c68-rv" href={c.href}>
+              <span class="c68-line-media"><img src={c.image} alt={c.leadName} loading="lazy" decoding="async" /></span>
+              <span class="c68-line-body">
+                <span class="c68-line-count">{c.count}</span>
+                <span class="c68-line-name">{c.name}</span>
+              </span>
+            </a>
+          ))}
+          <a class="c68-line c68-line-full c68-rv" href="/tr/products/">
+            <span class="c68-line-body">
+              <span class="c68-line-count">Tam Katalog →</span>
+              <span class="c68-line-name c68-line-name-inv">{products.length}</span>
+              <span class="c68-line-more c68-line-more-inv">Tüm ürünler ve filtreler →</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
 
-  <section class="py-24 bg-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center max-w-3xl mx-auto mb-16"><h2 class="text-4xl font-black text-gray-900 uppercase">Başlıca Ürün Kategorileri</h2><div class="h-1.5 w-20 bg-brand-red mx-auto my-4"></div><p class="text-gray-500">Dünya genelindeki yangın ve su şebekeleri için yüksek hassasiyetli mühendislik.</p></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">{categories.map(cat => <a href={`/tr/products/#category=${encodeURIComponent(cat.name)}`} class="group bg-white rounded-xl shadow-sm hover:shadow-xl overflow-hidden border"><div class="aspect-[4/3] bg-gray-50 p-6 flex items-center justify-center"><img src={cat.image} alt={cat.name} loading="lazy" class="max-w-full max-h-full object-contain" /></div><div class="p-6 flex justify-between items-center group-hover:bg-brand-red group-hover:text-white"><div><h4 class="font-black text-lg">{cat.name}</h4><p class="text-[10px] font-black uppercase tracking-widest opacity-60">{cat.count} ürün</p></div><span class="text-2xl">→</span></div></a>)}</div></div></section>
+    <section class="c68-band">
+      <div class="c68-wrap">
+        <div class="c68-cap-grid">
+          {capability.map((c) => (
+            <article class="c68-cap c68-rv">
+              <span class="c68-ico" set:html={icons[c.icon]}></span>
+              <h3>{c.title}</h3>
+              <p>{c.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
 
-  <section class="py-24 bg-gray-50"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col lg:flex-row items-start gap-16"><div class="w-full lg:w-1/2"><h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Üretim Akışı</h2><h3 class="text-4xl font-black text-gray-900 mt-4">Standart Üretim Prosesimiz</h3><p class="text-gray-500 mt-6 max-w-md">Her ürün döküm ve CNC işlemeden yüzde 100 basınç testine ve epoksi kaplamaya kadar kontrollü bir sırayı izler.</p></div><div class="w-full lg:w-1/2 grid sm:grid-cols-2 gap-4">{manufacturingSteps.map(step => <div class="relative bg-white rounded-xl p-6 border"><span class="absolute top-4 right-5 text-2xl font-black text-gray-200">{step.step}</span><h4 class="font-black mb-2">{step.title}</h4><p class="text-sm text-gray-600 leading-relaxed">{step.desc}</p></div>)}</div></div></div></section>
-  <section class="py-24 bg-gray-50 border-t border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col md:flex-row justify-between items-end mb-14 gap-4"><div class="space-y-4"><h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Proje Örnekleri</h2><h3 class="text-4xl font-black text-gray-900 tracking-tight">Projelerimiz, <span class="text-brand-red">sahada</span></h3></div><p class="text-gray-500 max-w-md text-right hidden md:block">Yangın pompa dairesinden fotoğraflar ve video — gerçek montaj çalışması, teslime hazır.</p></div><div class="grid grid-cols-2 lg:grid-cols-4 gap-5">{projectPhotos.map(photo => <figure class="group bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"><div class="aspect-[4/3] overflow-hidden bg-gray-100"><img src={photo.src} alt={photo.alt} loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /></div><figcaption class="px-4 py-3 text-xs font-bold text-gray-600 leading-snug">{photo.caption}</figcaption></figure>)}</div><div class="mt-10 grid md:grid-cols-3 gap-6 items-center"><div class="flex justify-center"><div class="relative rounded-xl overflow-hidden bg-gray-900 shadow-xl"><video class="h-[420px] w-auto object-cover" src="/assets/projects/project-walkthrough.mp4" poster="/assets/projects/pump-room-wide.webp" muted loop autoplay playsinline preload="metadata" controls></video><span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-brand-red text-white text-[10px] font-black uppercase tracking-wider pointer-events-none">Saha Videosu</span></div></div><div class="md:col-span-2"><h4 class="text-xl font-black text-gray-900 mb-5">Bu sahada neler tesis edildi</h4><ul class="space-y-3 mb-8">{projectScope.map(item => <li class="flex items-start gap-3"><span class="mt-1 w-2 h-2 rounded-full bg-brand-red shrink-0"></span><span class="text-gray-600 text-sm leading-relaxed">{item}</span></li>)}</ul><a href="/tr/contact/" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-red hover:opacity-90 text-white font-bold rounded-lg transition shadow-lg shadow-brand-red/20 transform hover:-translate-y-0.5">Projenizi konuşalım <span aria-hidden="true">→</span></a></div></div></div></section>
-  <section class="py-24 bg-white border-t border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between items-end mb-16"><h2 class="text-4xl font-black text-gray-900 tracking-tight">Global <span class="text-brand-red">Çok Satanlar</span></h2><a href="/tr/products/" class="text-brand-blue font-bold hover:underline">Tam Katalog →</a></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">{featuredProducts.map(product => <div class="group bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"><div class="aspect-square relative overflow-hidden bg-gray-50 p-6"><img src={product.image} alt={product.name} loading="lazy" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" /><div class="absolute top-4 left-4 flex gap-2"><span class="px-2 py-1 bg-gray-900/80 text-white text-[10px] font-black uppercase tracking-widest rounded">{product.category}</span></div></div><div class="p-6 space-y-4"><h4 class="font-bold text-gray-900 min-h-[3rem] group-hover:text-brand-red transition-colors tracking-tight">{product.name}</h4><div class="pt-4 border-t border-gray-100 flex gap-2"><a href={`/tr/products/${product.slug}/`} class="flex-1 py-2 text-center text-xs font-black border border-gray-200 rounded hover:bg-gray-50 transition">DETAYLAR</a><a href={`/tr/contact/?product=${encodeURIComponent(product.name)}`} class="flex-1 py-2 text-center text-xs font-black bg-brand-red text-white rounded hover:opacity-90 transition">TEKLİF İSTE</a></div></div></div>)}</div></div></section>
-  <section class="py-24 bg-gray-50 border-t border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-12"><div class="space-y-4"><h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Tam Model Dizini</h2><h3 class="text-4xl font-black text-gray-900 tracking-tight">Eksiksiz <span class="text-brand-red">Ürün Serisi</span></h3></div><a href="/tr/products/" class="text-brand-red font-bold hover:underline shrink-0">Tüm ürünler ve filtreler →</a></div><div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-12">{catalogByCategory.map(group => <div><div class="flex items-baseline justify-between gap-3 pb-3 mb-1 border-b-2 border-brand-blue/30"><a href={`/tr/products/#category=${encodeURIComponent(group.name)}`} class="font-black text-gray-900 hover:text-brand-red transition-colors leading-tight">{group.name}</a><span class="text-[11px] font-bold text-gray-400 uppercase tracking-widest tabular-nums shrink-0">{group.items.length}</span></div><ul>{group.items.map(product => <li><a href={`/tr/products/${product.slug}/`} class="group flex items-start justify-between gap-3 py-2 border-b border-gray-100 hover:border-brand-red transition-colors"><span class="text-sm font-semibold text-gray-700 group-hover:text-brand-red transition-colors leading-snug">{product.name}</span><span class="text-brand-blue opacity-0 group-hover:opacity-100 transition-opacity shrink-0">→</span></a></li>)}</ul></div>)}</div></div></section>
+    <section class="c68-band c68-band-mist" id="about">
+      <div class="c68-wrap c68-profile-grid">
+        <div class="c68-rv">
+          <header class="c68-head">
+            <p class="c68-kicker">Şirket Profili</p>
+            <h2>Küresel Projeler için <em>Akışkan Kontrol Çözümleri.</em></h2>
+          </header>
+          <p class="c68-body">Quanzhou Wanlian Fluid Equipment Co., Ltd., Çin'in vana ve boru endüstrisi merkezlerinden Quanzhou, Fujian'da endüstriyel vanalar, hidrolik kontrol ürünleri, hidrant bileşenleri ve yangın güvenliği ekipmanları üretir ve ihraç eder.</p>
+          <p class="c68-profile-link"><a href="/tr/about/">Hakkımızda &rarr;</a><a href="/tr/applications/">Uygulamalar &rarr;</a></p>
+        </div>
+        <div class="c68-shots">
+          <figure class="c68-shot c68-rv">
+            <img src="/assets/factory/workshop.webp" alt="Main workshop at the Quanzhou plant" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="c68-shot c68-rv">
+            <img src="/assets/factory/powder-coating.webp" alt="Powder coating line at the Quanzhou plant" loading="lazy" decoding="async" />
+          </figure>
+        </div>
+      </div>
+    </section>
 
-  <section class="py-24 bg-gray-900 text-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col lg:flex-row items-center gap-16"><div class="flex-1"><h2 class="text-4xl font-black">Yüksek Basınçlı <span class="text-brand-blue">Hizmet için Tasarlandı.</span></h2><p class="text-gray-400 mt-5 leading-relaxed">Mühendisliğimiz kritik ve zorlu altyapılarda dayanıklılık, güvenilirlik ve güvenliğe odaklanır.</p><a href="/tr/certificates/" class="inline-block mt-8 px-7 py-3 bg-white/10 border border-white/30 rounded-lg font-bold">Sertifikaları ve Teknik Belgeleri Görün</a></div><div class="flex-1 space-y-4">{industries.map(industry => <div class="p-6 bg-white/5 rounded-2xl border border-white/10"><h4 class="font-black text-lg">{industry.name}</h4><p class="text-sm text-gray-400 mt-1">{industry.desc}</p></div>)}</div></div></div></section>
+    <section class="c68-band" id="process">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Üretim Akışı</p>
+          <h2>Standart Üretim Prosesimiz</h2>
+        </header>
+        <ol class="c68-steps">
+          {productionSteps.map((s) => (
+            <li class="c68-step c68-rv">
+              <span class="c68-step-n">{s.step}</span>
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
 
-  <section class="py-24 bg-white" id="inquiry"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col lg:flex-row gap-14"><div class="w-full lg:w-2/5"><h2 class="text-4xl font-black uppercase">Profesyonel Teklif Alın</h2><div class="h-1.5 w-20 bg-brand-red my-5"></div><p class="text-lg text-gray-600 leading-relaxed">Teknik çizimlerinizi veya ürün gereksinimlerinizi gönderin. Uygun ürün ve teklif adımlarını paylaşalım.</p><ul class="mt-6 space-y-3 text-gray-700"><li>• Talep üzerine fiyatlandırma</li><li>• Uygulama ve ürün seçimi desteği</li><li>• İhracat ambalajı koordinasyonu</li><li>• Ürün dokümantasyonu desteği</li></ul></div><div class="w-full lg:w-3/5"><InquiryForm /></div></div></div></section>
-  <section class="py-24 bg-gray-50"><div class="max-w-7xl mx-auto px-4"><div class="text-center max-w-3xl mx-auto mb-12"><h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Teknik Kaynaklar</h2><h3 class="text-4xl font-black text-gray-900">Seçim Kılavuzları ve Sistem Bilgileri</h3></div><div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">{visibleResources.map(item => <a href={item.href} class="bg-white rounded-2xl border p-8 hover:shadow-xl"><span class="text-[10px] font-black tracking-widest uppercase text-brand-blue">{item.eyebrow}</span><h4 class="text-xl font-black text-gray-900 my-3">{item.title}</h4><p class="text-sm text-gray-600 leading-relaxed">{item.desc}</p><span class="inline-block mt-5 font-bold text-brand-red">Kaynağı okuyun →</span></a>)}</div>{moreResources.length > 0 && <details class="mt-10 border-t border-gray-200 pt-6"><summary class="cursor-pointer text-sm font-black uppercase tracking-[0.2em] text-brand-blue hover:text-brand-red">Tüm seçim kılavuzlarını göster ({moreResources.length})</summary><ul class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10">{moreResources.map(item => <li><a href={item.href} class="group flex items-start justify-between gap-3 py-2 border-b border-gray-100 hover:border-brand-red transition-colors"><span class="text-sm font-semibold text-gray-700 group-hover:text-brand-red transition-colors leading-snug">{item.title}</span><span class="text-brand-blue opacity-0 group-hover:opacity-100 transition-opacity shrink-0">→</span></a></li>)}</ul></details>}</div></section>
+    <section class="c68-band c68-dark" id="factory">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker c68-kicker-red">Fabrikadan Canlı</p>
+          <h2>Üretim Tesisimizden <em>Gerçek Görüntüler</em></h2>
+          <p class="c68-head-sub">Stok video yok, kurgu yok — montajdan sevkiyata kadar Quanzhou tesisimiz iş başında.</p>
+        </header>
+        <div class="c68-video-lead">
+          <figure class="c68-vid c68-rv">
+            <video src="/videos/company-intro.mp4" poster="/videos/company-intro-poster.webp" controls playsinline preload="none"></video>
+            <figcaption><strong>50 Saniyede Wanlian Fluid</strong><span>Quanzhou tesisimizde showroom, üretim hatları ve kalite denetimi — stok video içermeyen gerçek fabrika görüntüleri.</span></figcaption>
+          </figure>
+          <div class="c68-side">
+            <ul class="c68-video-note">
+              <li>Kurumsal Videoyu Oynat</li>
+              <li>Sertifikaları ve Teknik Belgeleri Görün</li>
+            </ul>
+            <div class="c68-side-shots">
+              <figure class="c68-sshot c68-rv">
+                <img src="/assets/factory/assembly.webp" alt="Assembly and finishing bay" loading="lazy" decoding="async" style="aspect-ratio: 5 / 2" />
+                <figcaption>Montaj</figcaption>
+              </figure>
+              <figure class="c68-sshot c68-rv">
+                <img src="/assets/factory/fire-hose.webp" alt="Mamul Deposu" loading="lazy" decoding="async" style="aspect-ratio: 5 / 2" />
+                <figcaption>Mamul Deposu</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+        <div class="c68-clips">
+          {clips.map((c) => (
+            <figure class="c68-clip c68-rv">
+              <video src={c.src} poster={c.poster} controls playsinline preload="none"></video>
+              <figcaption><strong>{c.title}</strong><span>{c.desc}</span></figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band c68-band-mist">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Sistem Çözümleri</p>
+          <h2>Yüksek Basınçlı <em>Hizmet için Tasarlandı.</em></h2>
+          <p class="c68-head-sub"><a class="c68-inlink" href="/tr/applications/">Uygulamalar &rarr;</a></p>
+        </header>
+        <div class="c68-ind">
+          {industries.map((i) => (
+            <a class="c68-ind-card c68-rv" href="/tr/applications/">
+              <span class="c68-ico" set:html={icons[i.icon]}></span>
+              <h3>{i.name}</h3>
+              <p>{i.desc}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band" id="quality">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Neden Wanlian Fluid?</p>
+          <h2>Güvenilir <em>Tedarik Ortağı</em></h2>
+        </header>
+        <div class="c68-cert-grid">
+          {certifications.map((c) => (
+            <div class="c68-cert c68-rv">
+              <p class="c68-cert-name">{c.name}</p>
+              <p class="c68-cert-code">{c.code}</p>
+            </div>
+          ))}
+        </div>
+        <p class="c68-scope">Listeleme ve onay kapsamı model bazında geçerlidir. Sertifika kopyaları ve listelenen modeller, siparişten önce teknik şartnamenize göre teyit edilir.</p>
+        <div class="c68-chips">
+          <a class="c68-chip c68-chip-link" href="/tr/certificates/">Sertifikalar &rarr;</a>
+          <a class="c68-chip c68-chip-link" href="/tr/faq/">Sıkça Sorulan Sorular (SSS) &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band c68-band-mist" id="resources">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Teknik Kaynaklar</p>
+          <h2>Seçim Kılavuzları ve Sistem Bilgileri</h2>
+        </header>
+        <div class="c68-guides">
+          {resources.map((r) => (
+            <a class="c68-guide c68-rv" href={r.href}>
+              <span class="c68-guide-eyebrow">{r.eyebrow}</span>
+              <span class="c68-guide-title">{r.title}</span>
+              <span class="c68-guide-desc">{r.desc}</span>
+              <span class="c68-guide-more">Kaynağı okuyun → <i aria-hidden="true">&rarr;</i></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band" id="projects">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Proje Örnekleri</p>
+          <h2>Projelerimiz, <em>sahada</em></h2>
+          <p class="c68-head-sub">Yangın pompa dairesinden fotoğraflar ve video — gerçek montaj çalışması, teslime hazır.</p>
+        </header>
+        <div class="c68-proj-grid">
+          <figure class="c68-vid c68-vid-tall c68-rv">
+            <video src={walkthroughClip.src} poster={walkthroughClip.poster} controls playsinline preload="none"></video>
+            <figcaption><strong>{walkthroughClip.title}</strong></figcaption>
+          </figure>
+          <div class="c68-proj-cards">
+            {projectPhotos.map((s) => (
+              <figure class="c68-pcard c68-rv">
+                <img src={s.src} alt={s.alt} loading="lazy" decoding="async" />
+                <figcaption>{s.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+        <ul class="c68-scope-list">
+          {projectScope.map((s) => (<li set:html={tick + '<span>' + s + '</span>'}></li>))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="c68-band c68-band-mist" id="model-index">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Tam Model Dizini</p>
+          <h2>Eksiksiz <em>Ürün Serisi</em></h2>
+        </header>
+        <div class="c68-index">
+          {catalogByCategory.map((g) => (
+            <div class="c68-index-col c68-rv">
+              <p class="c68-index-head"><a href={g.href}>{g.name}</a><span>{g.items.length}</span></p>
+              <ul>
+                {g.items.map((it) => (<li><a href={it.href}>{it.name}</a></li>))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band c68-dark" id="inquiry">
+      <div class="c68-wrap c68-rfq-grid">
+        <div class="c68-rv">
+          <p class="c68-kicker c68-kicker-red">İletişim</p>
+          <h2>Profesyonel<br /><span class="c68-plate">Teklif Alın</span></h2>
+          <p class="c68-head-sub">Teknik çizimlerinizi veya ürün gereksinimlerinizi gönderin. Uygun ürün ve teklif adımlarını paylaşalım.</p>
+          <div class="c68-rfq-links">
+            <a class="c68-btn c68-btn-red" href="/tr/contact/">Projenizi konuşalım</a>
+            <a class="c68-btn c68-btn-ghost" href={waCallbackHref}>WhatsApp üzerinden bizimle iletişime geçin</a>
+          </div>
+          <p class="c68-fine">QUANZHOU WANLIAN FLUID EQUIPMENT CO., LTD. · FOB · CIF · T/T</p>
+        </div>
+        <div class="c68-rv">
+          <InquiryForm locale="tr" />
+        </div>
+      </div>
+    </section>
+
+  </div>
+
   <LeadCaptureSection />
-  <style is:global> @keyframes hero-kenburns { from { transform: scale(1); } to { transform: scale(1.07); } } .hero-kenburns { animation: hero-kenburns 26s ease-in-out infinite alternate; } </style>
+
+  <script is:inline>
+    const root = document.documentElement;
+    const marks = Array.from(document.querySelectorAll('.c68-rv'));
+    root.classList.add('c68-js');
+    const showAll = () => marks.forEach((m) => m.classList.add('c68-in'));
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) { e.target.classList.add('c68-in'); io.unobserve(e.target); }
+        }
+      }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+      marks.forEach((m) => io.observe(m));
+      setTimeout(showAll, 1500);
+    } else {
+      showAll();
+    }
+  </script>
+
+  <style is:inline>
+    .c68 { --navy: #004797; --navy-deep: #00306b; --navy-ink: #00204a; --red: #cc2128; --mist: #f1f3f7; --ink: #1c2735; --muted: #5c6879; --line: #dde2ea; }
+    .c68-wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+    .c68-band { padding: 84px 0; background: #fff; }
+    .c68-band-mist { background: var(--mist); }
+    .c68-dark { background: var(--navy-ink); color: #fff; }
+    .c68-head { max-width: 680px; margin-bottom: 40px; }
+    .c68-kicker { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--red); font-weight: 700; margin: 0 0 12px; }
+    .c68-kicker::before { content: ''; display: inline-block; width: 28px; height: 2px; background: var(--red); vertical-align: middle; margin-right: 12px; }
+    .c68-head h2 { font-size: clamp(28px, 4vw, 44px); line-height: 1.08; letter-spacing: -.01em; font-weight: 800; text-transform: uppercase; margin: 0; color: var(--navy-ink); }
+    .c68-head h2 em { font-style: normal; color: var(--red); }
+    .c68-head-sub { font-size: 15px; line-height: 1.7; color: var(--muted); margin: 16px 0 0; }
+    .c68-dark .c68-head h2 { color: #fff; }
+    .c68-dark .c68-head-sub { color: #b9c6d8; }
+    .c68-kicker-red { color: #ff8b90; }
+    .c68-plate { color: #fff; background: var(--red); display: inline-block; padding: 0 10px 4px; }
+    .c68-inlink { color: var(--red); font-weight: 700; font-size: 14px; text-decoration: none; }
+    .c68-rfq-grid h2 { font-size: clamp(28px, 4vw, 44px); line-height: 1.08; font-weight: 800; text-transform: uppercase; margin: 0; color: #fff; }
+
+    .c68-hero { background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 62%, var(--navy-ink) 100%); color: #fff; }
+    .c68-hero-grid { display: grid; gap: 48px; align-items: center; padding-top: 84px; padding-bottom: 76px; }
+    .c68-eyebrow { display: inline-block; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); padding: 8px 14px; margin: 0 0 26px; }
+    .c68-dot { display: inline-block; width: 6px; height: 6px; background: var(--red); border-radius: 50%; margin-right: 10px; vertical-align: middle; }
+    .c68-hero-grid h1 { font-size: clamp(32px, 5vw, 56px); line-height: 1.05; text-transform: uppercase; letter-spacing: -.015em; font-weight: 800; margin: 0; color: #fff; }
+    .c68-hero-grid h1 em { font-style: normal; color: #fff; }
+    .c68-rule { width: 64px; height: 4px; background: var(--red); margin: 22px 0 24px; }
+    .c68-lede { font-size: 17px; line-height: 1.7; color: #d3ddea; max-width: 44ch; margin: 0 0 30px; }
+    .c68-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+    .c68-btn { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 15px 24px; text-decoration: none; }
+    .c68-btn-red { background: var(--red); color: #fff; }
+    .c68-btn-red:hover { background: #b01b21; }
+    .c68-btn-ghost { border: 1px solid rgba(255,255,255,.4); color: #fff; }
+    .c68-btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+    .c68-frame { position: relative; margin: 0; padding: 14px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16); }
+    .c68-frame-tab { position: absolute; top: -1px; left: -1px; width: 54px; height: 8px; background: var(--red); }
+    .c68-frame img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+    .c68-frame figcaption { display: block; font-size: 11px; letter-spacing: .16em; color: #b9c6d8; padding-top: 12px; }
+
+    .c68-stats { background: var(--red); }
+    .c68-stats-grid { display: grid; gap: 1px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .c68-stat { padding: 30px 24px; border-left: 1px solid rgba(255,255,255,.28); }
+    .c68-stat:first-child { border-left: 0; padding-left: 0; }
+    .c68-stat-num { font-size: 40px; font-weight: 800; line-height: 1; margin: 0 0 8px; }
+    .c68-stat-num span { font-size: 15px; font-weight: 700; margin-left: 4px; }
+    .c68-stat-label { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; line-height: 1.6; margin: 0; color: rgba(255,255,255,.9); }
+
+    .c68-lines { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); }
+    .c68-line { display: block; background: #fff; border: 1px solid var(--line); text-decoration: none; color: inherit; }
+    .c68-line:hover { box-shadow: 0 18px 40px rgba(0,32,74,.12); }
+    .c68-line-media { display: block; height: 190px; background: #fff; border-bottom: 1px solid var(--line); }
+    .c68-line-media img { width: 100%; height: 100%; object-fit: contain; padding: 14px; }
+    .c68-line-body { display: block; padding: 20px; }
+    .c68-line-count { display: block; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+    .c68-line-name { display: block; font-size: 19px; font-weight: 800; margin: 8px 0 14px; color: var(--navy-ink); }
+    .c68-line-more { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .c68-line-full { background: var(--navy); border-color: var(--navy); display: flex; align-items: center; }
+    .c68-line-name-inv { color: #fff; font-size: 26px; }
+    .c68-line-more-inv { color: #cdd9e8; text-transform: none; letter-spacing: 0; font-size: 13px; line-height: 1.6; }
+
+    .c68-cap-grid, .c68-ind { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .c68-cap { padding: 30px 26px; background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--navy); }
+    .c68-cap h3 { font-size: 18px; font-weight: 800; margin: 16px 0 10px; color: var(--navy-ink); }
+    .c68-cap p { font-size: 14px; line-height: 1.7; color: var(--muted); margin: 0; }
+    .c68-ind-card { display: block; padding: 30px 26px; background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--red); text-decoration: none; }
+    .c68-ind-card h3 { font-size: 18px; font-weight: 800; margin: 16px 0 10px; color: var(--navy-ink); }
+    .c68-ind-card p { font-size: 14px; line-height: 1.7; color: var(--muted); margin: 0; }
+    .c68-ico { display: block; width: 34px; height: 34px; color: var(--navy); }
+    .c68-ico svg { width: 100%; height: 100%; display: block; }
+
+    .c68-profile-grid { display: grid; gap: 40px; align-items: start; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+    .c68-body { font-size: 15px; line-height: 1.8; color: var(--ink); margin: 0 0 20px; }
+    .c68-profile-link { display: flex; gap: 24px; flex-wrap: wrap; margin: 0; }
+    .c68-profile-link a { color: var(--navy); font-weight: 700; font-size: 14px; text-decoration: none; }
+
+    .c68-steps { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); list-style: none; margin: 0; padding: 0; }
+    .c68-step { padding: 26px 22px; background: #fff; border: 1px solid var(--line); }
+    .c68-step-n { font-size: 13px; font-weight: 800; letter-spacing: .1em; color: var(--red); }
+    .c68-step-line { float: right; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); padding: 3px 7px; }
+    .c68-step h3 { font-size: 16px; font-weight: 800; margin: 12px 0 8px; color: var(--navy-ink); }
+    .c68-step p { font-size: 13px; line-height: 1.65; color: var(--muted); margin: 0; }
+
+    .c68-video-lead { display: grid; gap: 24px; align-items: start; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); margin-bottom: 24px; }
+    .c68-side { display: grid; gap: 18px; }
+    .c68-video-note { list-style: none; margin: 0; padding: 0; }
+    .c68-video-note li { font-size: 14px; line-height: 1.7; color: #cdd9e8; padding: 12px 0 12px 24px; border-bottom: 1px solid rgba(255,255,255,.12); position: relative; }
+    .c68-video-note li::before { content: ''; position: absolute; left: 0; top: 19px; width: 8px; height: 8px; background: var(--red); }
+    .c68-side-shots { display: grid; gap: 12px; }
+    .c68-sshot { margin: 0; }
+    .c68-sshot img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid rgba(255,255,255,.18); }
+    .c68-sshot figcaption { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #9fb0c6; padding-top: 7px; }
+    .c68-vid { margin: 0; background: #000; }
+    .c68-vid video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #00122b; }
+    .c68-vid figcaption { padding: 16px 18px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-top: 0; }
+    .c68-vid figcaption strong { display: block; font-size: 14px; color: #fff; }
+    .c68-vid figcaption span { display: block; font-size: 13px; color: #b9c6d8; margin-top: 4px; }
+    .c68-clips { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .c68-clip { margin: 0; }
+    .c68-clip video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #00122b; }
+    .c68-clip figcaption { padding-top: 11px; }
+    .c68-clip figcaption strong { display: block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #fff; }
+    .c68-clip figcaption span { display: block; font-size: 12px; color: #9fb0c6; margin-top: 4px; line-height: 1.55; }
+
+    .c68-cert-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 26px; }
+    .c68-cert { padding: 20px; background: var(--mist); border-left: 3px solid var(--navy); }
+    .c68-cert-name { font-size: 15px; font-weight: 800; color: var(--navy-ink); margin: 0 0 6px; }
+    .c68-cert-code { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+    .c68-scope { font-size: 14px; line-height: 1.75; color: var(--muted); background: var(--mist); border-left: 3px solid var(--red); padding: 16px 18px; margin: 0 0 22px; max-width: 860px; }
+    .c68-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .c68-chip { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; border: 1px solid var(--line); background: #fff; color: var(--ink); padding: 8px 12px; text-decoration: none; }
+    .c68-chip-link { border-color: var(--navy); color: var(--navy); }
+
+    .c68-guides { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .c68-guide { display: flex; flex-direction: column; gap: 8px; padding: 26px 24px; background: #fff; border: 1px solid var(--line); text-decoration: none; }
+    .c68-guide-eyebrow { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+    .c68-guide-title { font-size: 17px; font-weight: 800; color: var(--navy-ink); line-height: 1.3; }
+    .c68-guide-desc { font-size: 13px; line-height: 1.65; color: var(--muted); flex-grow: 1; }
+    .c68-guide-more { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--navy); font-weight: 700; }
+    .c68-guide-more i { font-style: normal; }
+
+    .c68-proj-grid { display: grid; gap: 22px; grid-template-columns: 290px minmax(0, 1fr); align-items: start; }
+    .c68-vid-tall { max-width: 290px; }
+    .c68-vid-tall video { aspect-ratio: 9 / 16; }
+    .c68-proj-cards { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .c68-pcard { margin: 0; background: #fff; border: 1px solid var(--line); }
+    .c68-pcard img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+    .c68-pcard figcaption { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: 10px 12px; }
+    .c68-scope-list { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); list-style: none; margin: 26px 0 0; padding: 0; }
+    .c68-scope-list li { display: flex; gap: 10px; align-items: center; font-size: 13px; line-height: 1.6; color: var(--muted); }
+    .c68-scope-list svg { flex: none; color: var(--red); }
+
+    .c68-shots { display: grid; gap: 14px; }
+    .c68-shot { margin: 0; }
+    .c68-shot img { display: block; width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover; }
+    .c68-shot figcaption { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding-top: 8px; }
+
+    .c68-index { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); }
+    .c68-index-col { background: #fff; border: 1px solid var(--line); padding: 22px; }
+    .c68-index-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin: 0 0 12px; font-weight: 800; font-size: 15px; }
+    .c68-index-head a { color: var(--navy-ink); text-decoration: none; }
+    .c68-index-head span { font-size: 12px; color: var(--red); }
+    .c68-index-col ul { list-style: none; margin: 0; padding: 0; }
+    .c68-index-col li { border-top: 1px solid var(--line); }
+    .c68-index-col a { display: block; font-size: 13px; line-height: 1.5; color: var(--muted); padding: 8px 0; text-decoration: none; }
+    .c68-index-col a:hover { color: var(--navy); }
+
+    .c68-rfq-grid { display: grid; gap: 44px; align-items: start; padding-top: 84px; padding-bottom: 84px; }
+    .c68-rfq-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .c68-fine { font-size: 11px; letter-spacing: .16em; color: #8fa2ba; margin-top: 26px; }
+
+    /* Arabic cannot carry tracking: letter-spacing pulls joined letters apart and breaks the word
+       shapes. This sheet is shared by all nine locales, so the exemption is scoped by writing
+       direction rather than by a separate locale stylesheet - the eight Latin-script pages keep the
+       approved values. .c68-fine is the English legal line and stays tracked. ASCII on purpose: the
+       locale pages are generated from this block line by line and drop any CJK-bearing line. */
+    html[dir="rtl"] .c68-kicker, html[dir="rtl"] .c68-eyebrow, html[dir="rtl"] .c68-btn,
+    html[dir="rtl"] .c68-stat-label, html[dir="rtl"] .c68-line-count, html[dir="rtl"] .c68-line-more,
+    html[dir="rtl"] .c68-chip, html[dir="rtl"] .c68-cert-code, html[dir="rtl"] .c68-step-n,
+    html[dir="rtl"] .c68-guide-eyebrow, html[dir="rtl"] .c68-guide-more,
+    html[dir="rtl"] .c68-frame figcaption, html[dir="rtl"] .c68-sshot figcaption,
+    html[dir="rtl"] .c68-clip figcaption strong, html[dir="rtl"] .c68-pcard figcaption,
+    html[dir="rtl"] .c68-shot figcaption, html[dir="rtl"] .c68-hero-grid h1,
+    html[dir="rtl"] .c68-head h2 { letter-spacing: normal; }
+
+    html.c68-js .c68-rv { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    html.c68-js .c68-rv.c68-in { opacity: 1; transform: none; }
+
+    @media (min-width: 760px) {
+      .c68-clips { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1100px) {
+      .c68-clips { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    }
+    @media (min-width: 900px) {
+      .c68-hero-grid { grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); }
+    }
+    @media (max-width: 899px) {
+      .c68-band { padding: 60px 0; }
+      .c68-hero-grid { padding-top: 56px; padding-bottom: 56px; gap: 36px; }
+      .c68-video-lead, .c68-profile-grid, .c68-proj-grid, .c68-rfq-grid { grid-template-columns: minmax(0, 1fr); }
+      .c68-vid-tall { max-width: 260px; }
+      .c68-stat { border-left: 0; padding-left: 0; border-top: 1px solid rgba(255,255,255,.28); }
+      .c68-stat:first-child { border-top: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html.c68-js .c68-rv { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
 </Layout>
