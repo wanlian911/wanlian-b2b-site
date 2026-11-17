@@ -1,11 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { productsDe } from '../../utils/products.de';
-import { guidesDe } from '../../utils/guides.de';
+import { productsDe as products } from '../../utils/products.de';
 import InquiryForm from '../../components/inquiry/InquiryForm.astro';
 import LeadCaptureSection from '../../components/inquiry/LeadCaptureSection.astro';
-import CompanyIntroVideo from '../../components/sections/CompanyIntroVideo.astro';
-import VideoCarousel from '../../components/sections/VideoCarousel.astro';
 
 const faq = [
   { question: 'Was fertigt und exportiert Wanlian Fluid?', answer: 'Wanlian Fluid ist ein Hersteller und Exporteur aus Quanzhou für Industriearmaturen und Brandschutzausrüstung: Absperrschieber, Absperrklappen, Rückschlagventile, Hydranten, Sprinkler- und Alarmventile sowie feuerbeständige Schläuche.' },
@@ -14,50 +11,38 @@ const faq = [
   { question: 'Sind OEM-, ODM- und Eigenmarkenaufträge möglich?', answer: 'Ja. OEM/ODM, kundenspezifische Kennzeichnung und Exportverpackung gehören zu unserem Standardservice. Die Konformität mit AWWA-, EN-, UL- oder FM-Anforderungen wird je Modell bestätigt.' }
 ];
 
-const featuredProducts = productsDe.filter(p => [
-  'resilient-seat-flanged-gate-valve-z41x', 'indoor-fire-hydrant-head-sn65', 'wet-alarm-check-valve-zsfz-150',
-  'signal-grooved-wafer-butterfly-valve-dn80', 'spherical-ball-check-valve-hq44x', 'hydraulic-water-level-control-valve-f745x',
-  'telescopic-y-strainer-sgl41h', 'anti-collision-pressure-regulating-outdoor-hydrant-ssft100'
-].includes(p.slug));
+// Category grid and the grouped catalog index are both derived from this locale's product
+// module, so line names, counts and card photography cannot drift from the live catalog.
+// is keyed by English category names, so it stays empty and each line uses its first photo.
+const CATEGORY_LEAD: Record<string, string> = {};
 
-// Kategorienamen und -zahlen werden aus productsDe abgeleitet statt hartcodiert: die
-// Kartenwerte müssen mit den data-category-Werten von /de/products/ übereinstimmen, sonst
-// läuft der #category-Deeplink ins Leere. Bilder stammen aus dem image-Feld echter Produkte
-// derselben Kategorie, es wird kein neuer Pfad erfunden.
-const CARD_LEAD_SLUGS = [
-  'resilient-seat-flanged-gate-valve-z41x',
-  'indoor-fire-hydrant-head-sn65',
-  'wet-alarm-check-valve-zsfz-150',
-  'hydraulic-water-level-control-valve-f745x',
-  'manual-fire-water-cannon-ps',
-  'foam-fire-hydrant-cabinet-psg30',
-];
-const categoryNames: string[] = [...new Set(productsDe.map((p) => p.category))];
-const categories = categoryNames.map((name) => {
-  const inCategory = productsDe.filter((p) => p.category === name);
-  const lead = inCategory.find((p) => CARD_LEAD_SLUGS.includes(p.slug)) ?? inCategory[0];
-  return { name, count: String(inCategory.length), image: lead.image };
+const categoryNames: string[] = [...new Set(products.map(p => p.category))];
+
+const categories = categoryNames.map(name => {
+  const inCategory = products.filter(p => p.category === name);
+  const lead = inCategory.find(p => p.slug === CATEGORY_LEAD[name]) ?? inCategory[0];
+  return { name, count: inCategory.length, image: lead.image, leadName: lead.name, href: `/de/products/#category=${encodeURIComponent(name)}` };
 });
 
-const catalogByCategory = categories.map((cat) => ({
-  name: cat.name,
-  items: productsDe.filter((p) => p.category === cat.name)
+const catalogByCategory = categoryNames.map(name => ({
+  name,
+  href: `/de/products/#category=${encodeURIComponent(name)}`,
+  items: products.filter(p => p.category === name).map(p => ({ name: p.name, href: '/de/products/' + p.slug + '/' }))
 }));
 
-// Die sechs Einträge entsprechen wörtlich der Liste auf /de/certificates/ (Name und Norm).
-// Deren Geltungsbereich ist modellbezogen formuliert, daher darf der Streifen nicht als
-// uneingeschränkte Zusage gelesen werden.
-const certifications = [
-  { name: '100 % Druckprüfung', code: 'je Charge, Prüfprotokoll' },
-  { name: 'Zeugnisse', code: 'Werkstoff, Guss, Dichtung' },
-  { name: 'Unabhängige Prüfung', code: 'SGS / BV / Intertek' },
-  { name: 'ISO 9001:2015', code: 'Qualitätsmanagement' },
-  { name: 'EN 12266-1', code: 'GB/T 13927' },
-  { name: 'Chinesische GB-Normen', code: 'GB 5135 / GB 4452' }
-];
+const productionSteps = [{"step":"01","title":"Präzisionsfertigung","desc":"CNC-Bearbeitung von Armaturengehäusen und Komponenten mit engen Toleranzen."},{"step":"02","title":"Montage","desc":"Kontrollierte Montage von Dichtungen, Betätigungselementen und Innenteilen."},{"step":"03","title":"Druckprüfung","desc":"Gehäuse- und Sitzprüfung an 100 % der Einheiten vor der Endbearbeitung."},{"step":"04","title":"Epoxidbeschichtung","desc":"Ungiftige Epoxidharzbeschichtung für hohe Korrosionsbeständigkeit."}];
 
-// Reale Montage-Dokumentation eines Brandschutz-Pumpenraums; identische Assets und
-// identischer Aussageumfang wie die englische und spanische Startseite.
+
+
+// Own-name assurance only. Third-party listings belong to the factory that holds them, so this
+// strip must never imply that Wanlian itself holds UL, FM, CE or LPCB listings.
+const certifications = [{"name":"100 % Druckprüfung","code":"je Charge, Prüfprotokoll"},{"name":"Zeugnisse","code":"Werkstoff, Guss, Dichtung"},{"name":"Unabhängige Prüfung","code":"SGS / BV / Intertek"},{"name":"ISO 9001:2015","code":"Qualitätsmanagement"},{"name":"EN 12266-1","code":"GB/T 13927"},{"name":"Chinesische GB-Normen","code":"GB 5135 / GB 4452"}];
+
+const waCallbackHref = `https://wa.me/8618684324501?text=${encodeURIComponent('Hallo, ich interessiere mich für Ihre Industrie- und Brandschutzarmaturen.')}`;
+
+const resources = [{"href":"/de/applications/","eyebrow":"","title":"Anwendungen und Branchen","desc":"Armaturen und Brandschutzlösungen für Wasserwerke, Industrie, Gebäude und Prozessanlagen."},{"href":"/de/certificates/","eyebrow":"","title":"Technische Dokumentation","desc":"Zertifikate, Prüfberichte, Werkstoffoptionen und Exportdokumente auf Anfrage."},{"href":"/de/guides/deluge-valve-selection-guide/","eyebrow":"Brandschutz","title":"Sprühflutventil: Dimensionierung und Auswahl (2026)","desc":"ZSFM-Sprühflutventil: Funktionsweise, Dimensionierung, Auslösung, offene Sprinkler und Monitore, Prüfung sowie Angaben für die B2B-Anfrage."},{"href":"/de/guides/awwa-c502-c503-vs-en-14461-fire-hydrants/","eyebrow":"Brandschutz","title":"AWWA C502/C503 vs. EN 14461: Hydrantenvergleich","desc":"AWWA C502/C503 und EN 14461 im Vergleich: Druckstufen, Abgänge, Werkstoffe, Typprüfungen und die richtige Hydrantenspezifikation für B2B-Projekte."},{"href":"/de/guides/fire-pump-suction-water-tank-guide/","eyebrow":"Brandschutz","title":"Feuerpumpen-Saugleitung und Löschwassertank (2026)","desc":"Löschwassertank, zwei Saugleitungen, Wirbelschutz, Füllung und Niveauventile für eine normgerechte Saugseite der Feuerlöschpumpe."},{"href":"/de/guides/china-valve-supplier-quote-guide/","eyebrow":"Beschaffung","title":"Chinesische Armaturenangebote vergleichen | B2B","desc":"B2B-Leitfaden für Angebote chinesischer Armaturenwerke: RFQ, technische Unterschiede, Nebenkosten, Bewertung und Prüfungen vor der Bestellung."}];
+
+// On-site project evidence: real fire pump room installation (photos + portrait walkthrough video)
 const projectPhotos = [
   { src: '/assets/projects/pump-skids.webp', alt: 'Reihe von Sprinkler- und Feuerlöschpumpen mit OPEN- und CLOSE-Positionsschildern in einem installierten Brandschutz-Pumpenraum', caption: 'Pumpen-Skids mit OPEN/CLOSE-Kennzeichnung' },
   { src: '/assets/projects/valve-train.webp', alt: 'Reihe von Absperrschiebern und Manometern an roten Steigsträngen im installierten Brandschutz-Pumpenraum', caption: 'Steigstränge und Schieber-Reihe' },
@@ -72,51 +57,522 @@ const projectScope = [
   'Anlage bereit für die Schlussabnahme und Übergabe',
 ];
 
-const productionSteps = [
-  { step: '01', title: 'Präzisionsfertigung', desc: 'CNC-Bearbeitung von Armaturengehäusen und Komponenten mit engen Toleranzen.' },
-  { step: '02', title: 'Montage', desc: 'Kontrollierte Montage von Dichtungen, Betätigungselementen und Innenteilen.' },
-  { step: '03', title: 'Druckprüfung', desc: 'Gehäuse- und Sitzprüfung an 100 % der Einheiten vor der Endbearbeitung.' },
-  { step: '04', title: 'Epoxidbeschichtung', desc: 'Ungiftige Epoxidharzbeschichtung für hohe Korrosionsbeständigkeit.' }
+const industries = [{"name":"Wasser- und Abwassertechnik","desc":"Zuverlässige Armaturen für kommunale Netze und Pumpstationen.","icon":"pipe"},{"name":"Industrielle Prozessanlagen","desc":"Druckbeständige Ventile und Schmutzfänger für kritische Medien.","icon":"drop"},{"name":"Brandschutz","desc":"Hydranten, Sprinklerarmaturen und Löschsysteme für sichere Anlagen.","icon":"flame"}];
+
+type Clip = { src: string; poster: string; title: string; desc: string };
+
+const clips = [{"src":"/videos/factory/assembly.mp4","poster":"/videos/factory/assembly-poster.webp","title":"Montage","desc":"Drehmomentprüfung an Verbindungen hydraulischer Regelventile"},{"src":"/videos/factory/blue-valves.mp4","poster":"/videos/factory/blue-valves-poster.webp","title":"Druckprüfung","desc":"Druckgeprüfte Einheiten bereit für den Versand"},{"src":"/videos/factory/red-field.mp4","poster":"/videos/factory/red-field-poster.webp","title":"Fertigwarenlager","desc":"Fertiggestellte Hydranten bereit zur Auslieferung"},{"src":"/videos/factory/loading-close.mp4","poster":"/videos/factory/loading-close-poster.webp","title":"Verpackung & Verladung","desc":"Exportauftrag am Ladedock, fachgerecht verpackt und gesichert"},{"src":"/videos/factory/dispatch.mp4","poster":"/videos/factory/dispatch-poster.webp","title":"Versand","desc":"Vollbeladener Lkw verlässt das Werk in Richtung Seehafen"}];
+
+const walkthroughClip = {"src":"/assets/projects/project-walkthrough.mp4","poster":"/assets/projects/pump-room-wide.webp","title":"Video von der Baustelle"};
+
+const stats = [
+  { value: String(products.length), unit: '', label: "Modelle im Katalog" },
+  { value: String(categories.length), unit: '', label: "Produktlinien" },
+  { value: '100', unit: '%', label: "Druckprüfung" },
+  { value: 'ISO 9001', unit: '', label: "Qualitätssystem" }
 ];
 
-const resources = [
-  { href: '/de/applications/', title: 'Anwendungen und Branchen', desc: 'Armaturen und Brandschutzlösungen für Wasserwerke, Industrie, Gebäude und Prozessanlagen.' },
-  { href: '/de/certificates/', title: 'Technische Dokumentation', desc: 'Zertifikate, Prüfberichte, Werkstoffoptionen und Exportdokumente auf Anfrage.' },
-  ...guidesDe.map(g => ({ href: g.href.replace(/^\/[^/]+\//, '/de/'), title: g.title, desc: g.description }))
-];
+const capability = [{"icon":"valve","title":"Eigene Fertigung in Quanzhou","body":"CNC-Bearbeitung, Montage und Druckprüfung laufen im eigenen Werk; ausgewählte Positionen werden durch qualifizierte Fertigungspartner ergänzt."},{"icon":"gauge","title":"Angebot in 12 Stunden","body":"Modell oder Norm, Nennweite, Druckstufe, Werkstoff, Menge und Bestimmungsort genügen; das detaillierte Angebot folgt innerhalb von 12 Stunden."},{"icon":"doc","title":"Geprüfte Qualität","body":"Jede Armatur und jeder Hydrant wird vor dem Versand einer Gehäuse-Druckprüfung und einer Luft-Leckageprüfung unterzogen; Fertigung nach ISO 9001."}];
 
-const visibleResources = resources.slice(0, 6);
-const moreResources = resources.slice(6);
-const industries = [
-  { name: 'Wasser- und Abwassertechnik', desc: 'Zuverlässige Armaturen für kommunale Netze und Pumpstationen.' },
-  { name: 'Industrielle Prozessanlagen', desc: 'Druckbeständige Ventile und Schmutzfänger für kritische Medien.' },
-  { name: 'Brandschutz', desc: 'Hydranten, Sprinklerarmaturen und Löschsysteme für sichere Anlagen.' }
-];
+const svgOpen = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
+const icons: Record<string, string> = {
+  valve: svgOpen + '<path d="M4 16 12 9l8 7H4Z"/><path d="M12 9V4"/><path d="M8.5 4h7"/></svg>',
+  gauge: svgOpen + '<circle cx="12" cy="10" r="6"/><path d="M12 10l3.2-2.6"/><path d="M6 20h12"/></svg>',
+  cog: svgOpen + '<circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.4M12 18.6V21M3 12h2.4M18.6 12H21M5.6 5.6l1.7 1.7M16.7 16.7l1.7 1.7M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7"/></svg>',
+  doc: svgOpen + '<path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v4h4"/><path d="M10 12h6M10 16h6"/></svg>',
+  flame: svgOpen + '<path d="M12 3c3 4 5 6 5 9a5 5 0 0 1-10 0c0-2.2 1.1-3.8 2.6-5.2"/></svg>',
+  drop: svgOpen + '<path d="M12 3l5.4 7a6.4 6.4 0 1 1-10.8 0L12 3Z"/></svg>',
+  pipe: svgOpen + '<path d="M3 8.5h7v7H3zM14 8.5h7v7h-7z"/><path d="M10 12h4"/><path d="M3 8.5v7M21 8.5v7"/></svg>',
+  guide: svgOpen + '<path d="M4 5h7v15H4zM13 5h7v15h-7z"/><path d="M7 9h1M16 9h1"/></svg>',
+  chat: svgOpen + '<path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8 9h8M8 12h5"/></svg>'
+};
+const tick = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9 17.5 20 6.5"/></svg>';
 ---
 
 <Layout locale="de" title="Wanlian Fluid | Industriearmaturen und Brandschutz" description="Hersteller von Industriearmaturen, Hydranten und Brandschutzausrüstung in Quanzhou. ISO 9001, CNC-Bearbeitung und detailliertes Angebot innerhalb von 12 Stunden." faq={faq} video={{ name: 'Wanlian Fluid in 50 Sekunden', description: 'Unternehmensvideo mit Ausstellungsraum, Fertigung, OEM-Service und Qualitätskontrolle.', thumbnail: '/videos/company-intro-poster.webp', src: '/videos/company-intro.mp4', duration: 'PT49S', uploadDate: '2026-09-18' }}>
-  <section class="relative bg-gray-900 text-white min-h-[85vh] flex items-center overflow-hidden">
-    <div class="absolute inset-0 z-0" aria-hidden="true"><img src="/og-image.jpg" alt="" fetchpriority="high" class="w-full h-full object-cover object-center opacity-90 hero-kenburns" /><div class="absolute inset-0 bg-gradient-to-r from-gray-950 via-gray-950/75 to-gray-950/15"></div></div>
-    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"><div class="max-w-3xl space-y-7">
-      <span class="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full border border-white/20 text-sm font-bold tracking-widest uppercase"><span class="h-2 w-2 rounded-full bg-brand-red"></span>Hersteller &amp; Exporteur — Industriearmaturen &amp; Brandschutz</span>
-      <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-tight">Armaturen und <span class="text-brand-red">Brandschutzlösungen</span> für globale Projekte.</h1>
-      <p class="text-lg sm:text-xl text-gray-300 max-w-2xl leading-relaxed">Industrieventile, Hydranten sowie Sprinkler- und Alarmventile — 100 % Druckprüfung, ISO 9001 und detaillierte Angebote innerhalb von 12 Stunden.</p>
-      <div class="flex flex-wrap gap-4 pt-4"><a href="/de/products/" class="px-8 py-4 bg-brand-red text-white font-bold rounded-lg">Katalog ansehen</a><a href="/de/contact/#inquiry" class="px-8 py-4 bg-white/10 text-white font-bold rounded-lg border border-white/30">Angebot anfordern</a></div>
-    </div></div>
-  </section>
-  <VideoCarousel locale="de" />
-  <section class="py-10 bg-white border-b border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-gray-200 border border-gray-200 rounded-xl overflow-hidden">{certifications.map(cert => <div class="bg-white px-4 py-5 text-center"><p class="text-sm font-black text-gray-900 tracking-tight leading-tight">{cert.name}</p><p class="mt-1 text-[11px] font-bold text-brand-blue uppercase tracking-widest">{cert.code}</p></div>)}</div><div class="mt-4 flex flex-wrap items-center justify-between gap-3"><p class="text-xs text-gray-500 leading-relaxed max-w-2xl">Listung und Zulassung gelten modellbezogen. Zertifikatskopien und die gelisteten Modelle werden vor der Bestellung anhand Ihrer Spezifikation abgeglichen.</p><a href="/de/certificates/" class="inline-flex items-center gap-2 text-sm font-bold text-brand-blue hover:underline shrink-0">Zertifikate und Geltungsbereich <span aria-hidden="true">→</span></a></div></div></section>
-  <section class="py-20 bg-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid lg:grid-cols-2 gap-16 items-center"><div class="space-y-6"><span class="text-sm font-black tracking-[0.3em] text-brand-red uppercase">Unternehmensprofil</span><h2 class="text-4xl font-black text-gray-900">Fluidtechnik für <span class="text-brand-blue">globale Projekte.</span></h2><p class="text-lg text-gray-600 leading-relaxed">Quanzhou Wanlian Fluid Equipment Co., Ltd. fertigt und exportiert Industriearmaturen, Hydranten und Brandschutzausrüstung für internationale B2B-Projekte. Unsere eigene Fertigung in Quanzhou umfasst CNC-Bearbeitung, Montage und Druckprüfung; ausgewählte Positionen werden durch qualifizierte Fertigungspartner ergänzt.</p><p class="text-lg text-gray-600 leading-relaxed">Jede Produktseite ist nach den Anforderungen von Planern aufgebaut: Druckstufe, Anschlussnorm, Werkstoff und Anwendung. Unsere Ingenieure unterstützen die Auswahl und erstellen Angebote auf Anfrage.</p><div class="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-4"><div class="p-5 bg-gray-50 rounded-xl border border-gray-100"><span class="block text-3xl font-black text-brand-red tabular-nums">{productsDe.length}</span><span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Modelle im Katalog</span></div><div class="p-5 bg-gray-50 rounded-xl border border-gray-100"><span class="block text-3xl font-black text-brand-blue tabular-nums">{categories.length}</span><span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Produktlinien</span></div><div class="p-5 bg-gray-50 rounded-xl border border-gray-100"><span class="block text-3xl font-black text-brand-red tabular-nums">100 %</span><span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Druckprüfung</span></div><div class="p-5 bg-gray-50 rounded-xl border border-gray-100"><span class="block text-3xl font-black text-brand-blue">ISO 9001</span><span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Qualitätssystem</span></div></div>
-  <section class="py-20 bg-gray-50 border-y border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center max-w-3xl mx-auto mb-14 space-y-4"><h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Ihre Vorteile</h2><h3 class="text-4xl font-black text-gray-900 tracking-tight">Warum <span class="text-brand-red">Wanlian Fluid</span></h3></div><div class="grid md:grid-cols-3 gap-8"><div class="p-8 rounded-2xl border border-gray-200 bg-white hover:shadow-lg transition-shadow duration-300"><h4 class="text-lg font-black text-gray-900 mb-2">Eigene Fertigung in Quanzhou</h4><p class="text-gray-600 text-sm leading-relaxed">CNC-Bearbeitung, Montage und Druckprüfung laufen im eigenen Werk; ausgewählte Positionen werden durch qualifizierte Fertigungspartner ergänzt.</p></div><div class="p-8 rounded-2xl border border-gray-200 bg-white hover:shadow-lg transition-shadow duration-300"><h4 class="text-lg font-black text-gray-900 mb-2">Geprüfte Qualität</h4><p class="text-gray-600 text-sm leading-relaxed">Jede Armatur und jeder Hydrant wird vor dem Versand einer Gehäuse-Druckprüfung und einer Luft-Leckageprüfung unterzogen; Fertigung nach ISO 9001.</p></div><div class="p-8 rounded-2xl border border-gray-200 bg-white hover:shadow-lg transition-shadow duration-300"><h4 class="text-lg font-black text-gray-900 mb-2">Angebot in 12 Stunden</h4><p class="text-gray-600 text-sm leading-relaxed">Modell oder Norm, Nennweite, Druckstufe, Werkstoff, Menge und Bestimmungsort genügen; das detaillierte Angebot folgt innerhalb von 12 Stunden.</p></div></div></div></section>
-<a href="/de/about/" class="font-bold text-brand-blue hover:underline">Vollständiges Unternehmensprofil lesen →</a></div><div><CompanyIntroVideo locale="de" /></div></div></div></section>
-  <section class="py-20 bg-gray-50 border-y border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-14"><h2 class="text-4xl font-black text-gray-900">Unsere Produktkategorien</h2><p class="mt-4 text-gray-500">Präzisionstechnik für Wasser-, Industrie- und Brandschutzsysteme.</p></div><div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">{categories.map(cat => <a href={`/de/products/#category=${encodeURIComponent(cat.name)}`} class="group bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl"><div class="aspect-[4/3] p-6 flex items-center justify-center bg-gray-50"><img src={cat.image} alt={cat.name} loading="lazy" class="max-w-full max-h-full object-contain group-hover:scale-105 transition" /></div><div class="p-6 flex justify-between font-black"><span>{cat.name}</span><span>→</span></div></a>)}</div></div></section>
-  <section class="py-20 bg-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col lg:flex-row gap-14 items-center"><div class="lg:w-1/3"><span class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Fertigungsablauf</span><h2 class="text-4xl font-black text-gray-900 mt-4">Unser Herstellungsprozess</h2><p class="text-gray-500 mt-5">Jede Einheit durchläuft eine kontrollierte Abfolge von der Bearbeitung bis zur Prüfung und Exportverpackung.</p></div><div class="lg:w-2/3 grid sm:grid-cols-2 gap-4">{productionSteps.map(step => <div class="p-6 bg-gray-50 rounded-xl border border-gray-100"><span class="text-3xl font-black text-gray-200">{step.step}</span><h3 class="font-black text-gray-900 mt-3">{step.title}</h3><p class="text-sm text-gray-600 mt-2 leading-relaxed">{step.desc}</p></div>)}</div></div></div></section>
-  <section class="py-20 bg-gray-50 border-y border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between items-end mb-12"><h2 class="text-4xl font-black text-gray-900">Ausgewählte Produkte</h2><a href="/de/products/" class="text-brand-blue font-bold hover:underline">Gesamtkatalog →</a></div><div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">{featuredProducts.map(product => <div class="bg-white rounded-xl border border-gray-200 overflow-hidden"><div class="aspect-square p-6 bg-gray-50"><img src={product.image} alt={product.name} loading="lazy" class="w-full h-full object-contain" /></div><div class="p-5"><h3 class="font-bold text-gray-900 min-h-[3rem]">{product.name}</h3><div class="flex gap-2 mt-4"><a href={`/de/products/${product.slug}/`} class="flex-1 py-2 text-center text-xs font-black border rounded">DETAILS</a><a href={`/de/contact/?product=${encodeURIComponent(product.name)}`} class="flex-1 py-2 text-center text-xs font-black bg-brand-red text-white rounded">ANFRAGEN</a></div></div></div>)}</div></div></section>
-  <section class="py-20 bg-white border-t border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col md:flex-row justify-between items-end mb-14 gap-4"><div class="space-y-4"><h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Projektbeispiele</h2><h3 class="text-4xl font-black text-gray-900 tracking-tight">Unsere Projekte, <span class="text-brand-red">vor Ort</span></h3></div><p class="text-gray-500 max-w-md text-right hidden md:block">Fotos und Video eines Brandschutz-Pumpenraums — reale Montagearbeit, übergabebereit.</p></div><div class="grid grid-cols-2 lg:grid-cols-4 gap-5">{projectPhotos.map(photo => <figure class="group bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"><div class="aspect-[4/3] overflow-hidden bg-gray-100"><img src={photo.src} alt={photo.alt} loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /></div><figcaption class="px-4 py-3 text-xs font-bold text-gray-600 leading-snug">{photo.caption}</figcaption></figure>)}</div><div class="mt-10 grid md:grid-cols-3 gap-6 items-center"><div class="flex justify-center"><div class="relative rounded-xl overflow-hidden bg-gray-900 shadow-xl"><video class="h-[420px] w-auto object-cover" src="/assets/projects/project-walkthrough.mp4" poster="/assets/projects/pump-room-wide.webp" muted loop autoplay playsinline preload="metadata" controls></video><span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-brand-red text-white text-[10px] font-black uppercase tracking-wider pointer-events-none">Video von der Baustelle</span></div></div><div class="md:col-span-2"><h4 class="text-xl font-black text-gray-900 mb-5">Was auf dieser Anlage installiert wurde</h4><ul class="space-y-3 mb-8">{projectScope.map(item => <li class="flex items-start gap-3"><span class="mt-1 w-2 h-2 rounded-full bg-brand-red shrink-0"></span><span class="text-gray-600 text-sm leading-relaxed">{item}</span></li>)}</ul><a href="/de/contact/" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-red hover:opacity-90 text-white font-bold rounded-lg transition shadow-lg shadow-brand-red/20 transform hover:-translate-y-0.5">Über Ihr Projekt sprechen <span aria-hidden="true">→</span></a></div></div></div></section>
-  <section class="py-20 bg-white border-t border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-12"><div class="space-y-4"><h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Vollständiges Modellverzeichnis</h2><h3 class="text-4xl font-black text-gray-900 tracking-tight">Komplette <span class="text-brand-red">Produktpalette</span></h3></div><a href="/de/products/" class="text-brand-red font-bold hover:underline shrink-0">Alle Produkte und Filter →</a></div><div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-12">{catalogByCategory.map(group => <div><div class="flex items-baseline justify-between gap-3 pb-3 mb-1 border-b-2 border-brand-blue/30"><a href={`/de/products/#category=${encodeURIComponent(group.name)}`} class="font-black text-gray-900 hover:text-brand-red transition-colors leading-tight">{group.name}</a><span class="text-[11px] font-bold text-gray-400 uppercase tracking-widest tabular-nums shrink-0">{group.items.length}</span></div><ul>{group.items.map(product => <li><a href={`/de/products/${product.slug}/`} class="group flex items-start justify-between gap-3 py-2 border-b border-gray-100 hover:border-brand-red transition-colors"><span class="text-sm font-semibold text-gray-700 group-hover:text-brand-red transition-colors leading-snug">{product.name}</span><span class="text-brand-blue opacity-0 group-hover:opacity-100 transition-opacity shrink-0">→</span></a></li>)}</ul></div>)}</div></div></section>
-  <section class="py-20 bg-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-12"><span class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Technische Ressourcen</span><h2 class="text-4xl font-black text-gray-900 mt-3">Auswahlhilfen und Systemübersichten</h2></div><div class="grid md:grid-cols-3 gap-6">{visibleResources.map(item => <a href={item.href} class="p-7 rounded-2xl border border-gray-200 hover:border-brand-blue hover:shadow-lg"><h3 class="text-xl font-black text-gray-900">{item.title}</h3><p class="text-sm text-gray-600 leading-relaxed mt-3">{item.desc}</p><span class="inline-block mt-5 text-brand-red font-bold">Ressource lesen →</span></a>)}</div>{moreResources.length > 0 && <details class="mt-10 border-t border-gray-200 pt-6"><summary class="cursor-pointer text-sm font-black uppercase tracking-[0.2em] text-brand-blue hover:text-brand-red">Alle Auswahlhilfen anzeigen ({moreResources.length})</summary><ul class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10">{moreResources.map(item => <li><a href={item.href} class="group flex items-start justify-between gap-3 py-2 border-b border-gray-100 hover:border-brand-red transition-colors"><span class="text-sm font-semibold text-gray-700 group-hover:text-brand-red transition-colors leading-snug">{item.title}</span><span class="text-brand-blue opacity-0 group-hover:opacity-100 transition-opacity shrink-0">→</span></a></li>)}</ul></details>}</div></section>
-  <section class="py-20 bg-gray-900 text-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-14 items-center"><div><h2 class="text-4xl font-black">Entwickelt für <span class="text-brand-blue">hohe Druckstufen.</span></h2><p class="text-gray-400 mt-5 leading-relaxed">Unsere Konstruktion konzentriert sich auf Dauerhaftigkeit und Betriebssicherheit in kritischer Infrastruktur.</p><a href="/de/certificates/" class="inline-block mt-7 px-7 py-3 bg-white/10 border border-white/30 rounded-lg font-bold">Zertifikate und Spezifikationen</a></div><div class="space-y-4">{industries.map(industry => <div class="p-6 bg-white/5 rounded-2xl border border-white/10"><h3 class="font-black text-lg">{industry.name}</h3><p class="text-sm text-gray-400 mt-1">{industry.desc}</p></div>)}</div></div></section>
-  <section id="inquiry" class="py-20 bg-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-14"><div><h2 class="text-4xl font-black text-gray-900">Professionelles Angebot anfordern</h2><p class="text-lg text-gray-600 mt-5 leading-relaxed">Senden Sie Zeichnungen, Spezifikationen oder Ihre Projektanforderungen. Unsere Ingenieure prüfen die Details und melden sich mit den nächsten Schritten.</p><ul class="mt-6 space-y-3 text-gray-700"><li>• Angebot auf Anfrage</li><li>• Unterstützung bei Anwendung und Auswahl</li><li>• Exportverpackung und Dokumentation</li></ul></div><InquiryForm /></div></section>
+  <div class="c68">
+
+    <section class="c68-hero">
+      <div class="c68-wrap c68-hero-grid">
+        <div class="c68-rv">
+          <p class="c68-eyebrow"><span class="c68-dot"></span>Hersteller &amp; Exporteur — Industriearmaturen &amp; Brandschutz</p>
+          <h1>Armaturen und <em>Brandschutzlösungen</em> für globale Projekte.</h1>
+          <p class="c68-rule" aria-hidden="true"></p>
+          <p class="c68-lede">Industrieventile, Hydranten sowie Sprinkler- und Alarmventile — 100 % Druckprüfung, ISO 9001 und detaillierte Angebote innerhalb von 12 Stunden.</p>
+          <div class="c68-cta">
+            <a class="c68-btn c68-btn-red" href="/de/products/">Katalog ansehen</a>
+            <a class="c68-btn c68-btn-ghost" href="/de/contact/#inquiry">Angebot anfordern</a>
+          </div>
+        </div>
+        <figure class="c68-frame c68-rv">
+          <span class="c68-frame-tab"></span>
+          <img src="/assets/factory/plant-exterior.webp" alt="Wanlian Fluid plant exterior in Quanzhou, Fujian" decoding="async" />
+          <figcaption>Echte Einblicke in Unsere Fertigung</figcaption>
+        </figure>
+      </div>
+      <div class="c68-stats">
+        <div class="c68-wrap c68-stats-grid">
+          {stats.map((s) => (
+            <div class="c68-stat">
+              <p class="c68-stat-num">{s.value}<span>{s.unit}</span></p>
+              <p class="c68-stat-label">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band c68-band-mist" id="product-lines">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Unsere Produktkategorien</p>
+          <h2>Präzisionstechnik für Wasser-, Industrie- und Brandschutzsysteme.</h2>
+        </header>
+        <div class="c68-lines">
+          {categories.map((c) => (
+            <a class="c68-line c68-rv" href={c.href}>
+              <span class="c68-line-media"><img src={c.image} alt={c.leadName} loading="lazy" decoding="async" /></span>
+              <span class="c68-line-body">
+                <span class="c68-line-count">{c.count}</span>
+                <span class="c68-line-name">{c.name}</span>
+              </span>
+            </a>
+          ))}
+          <a class="c68-line c68-line-full c68-rv" href="/de/products/">
+            <span class="c68-line-body">
+              <span class="c68-line-count">Gesamtkatalog →</span>
+              <span class="c68-line-name c68-line-name-inv">{products.length}</span>
+              <span class="c68-line-more c68-line-more-inv">Alle Produkte und Filter →</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band">
+      <div class="c68-wrap">
+        <div class="c68-cap-grid">
+          {capability.map((c) => (
+            <article class="c68-cap c68-rv">
+              <span class="c68-ico" set:html={icons[c.icon]}></span>
+              <h3>{c.title}</h3>
+              <p>{c.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band c68-band-mist" id="about">
+      <div class="c68-wrap c68-profile-grid">
+        <div class="c68-rv">
+          <header class="c68-head">
+            <p class="c68-kicker">Unternehmensprofil</p>
+            <h2>Fluidtechnik für <em>globale Projekte.</em></h2>
+          </header>
+          <p class="c68-body">Quanzhou Wanlian Fluid Equipment Co., Ltd. fertigt und exportiert Industriearmaturen, Hydranten und Brandschutzausrüstung für internationale B2B-Projekte. Unsere eigene Fertigung in Quanzhou umfasst CNC-Bearbeitung, Montage und Druckprüfung; ausgewählte Positionen werden durch qualifizierte Fertigungspartner ergänzt.</p>
+          <p class="c68-profile-link"><a href="/de/about/">Über Uns &rarr;</a><a href="/de/applications/">Anwendungen &rarr;</a></p>
+        </div>
+        <div class="c68-shots">
+          <figure class="c68-shot c68-rv">
+            <img src="/assets/factory/workshop.webp" alt="Main workshop at the Quanzhou plant" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="c68-shot c68-rv">
+            <img src="/assets/factory/powder-coating.webp" alt="Powder coating line at the Quanzhou plant" loading="lazy" decoding="async" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band" id="process">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Fertigungsablauf</p>
+          <h2>Unser Herstellungsprozess</h2>
+        </header>
+        <ol class="c68-steps">
+          {productionSteps.map((s) => (
+            <li class="c68-step c68-rv">
+              <span class="c68-step-n">{s.step}</span>
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="c68-band c68-dark" id="factory">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker c68-kicker-red">Live Aus Dem Werk</p>
+          <h2>Echte Einblicke in <em>Unsere Fertigung</em></h2>
+          <p class="c68-head-sub">Kein Stockmaterial, nichts inszeniert — der Quanzhou-Betrieb in Aktion, von der Montage bis zur Verladung.</p>
+        </header>
+        <div class="c68-video-lead">
+          <figure class="c68-vid c68-rv">
+            <video src="/videos/company-intro.mp4" poster="/videos/company-intro-poster.webp" controls playsinline preload="none"></video>
+            <figcaption><strong>Wanlian Fluid in 50 Sekunden</strong><span>Showroom, automatisierte Fertigungslinien und Qualitätsprüfung in unserem Werk Quanzhou — echte Aufnahmen, kein Stockmaterial.</span></figcaption>
+          </figure>
+          <div class="c68-side">
+            <ul class="c68-video-note">
+              <li>Unternehmensvideo abspielen</li>
+              <li>Zertifikate und Spezifikationen</li>
+            </ul>
+            <div class="c68-side-shots">
+              <figure class="c68-sshot c68-rv">
+                <img src="/assets/factory/assembly.webp" alt="Assembly and finishing bay" loading="lazy" decoding="async" style="aspect-ratio: 5 / 2" />
+                <figcaption>Montage</figcaption>
+              </figure>
+              <figure class="c68-sshot c68-rv">
+                <img src="/assets/factory/fire-hose.webp" alt="Fertigwarenlager" loading="lazy" decoding="async" style="aspect-ratio: 5 / 2" />
+                <figcaption>Fertigwarenlager</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+        <div class="c68-clips">
+          {clips.map((c) => (
+            <figure class="c68-clip c68-rv">
+              <video src={c.src} poster={c.poster} controls playsinline preload="none"></video>
+              <figcaption><strong>{c.title}</strong><span>{c.desc}</span></figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band c68-band-mist">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Systemlösungen</p>
+          <h2>Entwickelt für <em>hohe Druckstufen.</em></h2>
+          <p class="c68-head-sub"><a class="c68-inlink" href="/de/applications/">Anwendungen &rarr;</a></p>
+        </header>
+        <div class="c68-ind">
+          {industries.map((i) => (
+            <a class="c68-ind-card c68-rv" href="/de/applications/">
+              <span class="c68-ico" set:html={icons[i.icon]}></span>
+              <h3>{i.name}</h3>
+              <p>{i.desc}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band" id="quality">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Ihre Vorteile</p>
+          <h2>Warum <em>Wanlian Fluid</em></h2>
+        </header>
+        <div class="c68-cert-grid">
+          {certifications.map((c) => (
+            <div class="c68-cert c68-rv">
+              <p class="c68-cert-name">{c.name}</p>
+              <p class="c68-cert-code">{c.code}</p>
+            </div>
+          ))}
+        </div>
+        <p class="c68-scope">Listung und Zulassung gelten modellbezogen. Zertifikatskopien und die gelisteten Modelle werden vor der Bestellung anhand Ihrer Spezifikation abgeglichen.</p>
+        <div class="c68-chips">
+          <a class="c68-chip c68-chip-link" href="/de/certificates/">Zertifikate &rarr;</a>
+          <a class="c68-chip c68-chip-link" href="/de/faq/">Häufige Fragen (FAQ) &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band c68-band-mist" id="resources">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Technische Ressourcen</p>
+          <h2>Auswahlhilfen und Systemübersichten</h2>
+        </header>
+        <div class="c68-guides">
+          {resources.map((r) => (
+            <a class="c68-guide c68-rv" href={r.href}>
+              <span class="c68-guide-eyebrow">{r.eyebrow}</span>
+              <span class="c68-guide-title">{r.title}</span>
+              <span class="c68-guide-desc">{r.desc}</span>
+              <span class="c68-guide-more">Ressource lesen → <i aria-hidden="true">&rarr;</i></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band" id="projects">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Projektbeispiele</p>
+          <h2>Unsere Projekte, <em>vor Ort</em></h2>
+          <p class="c68-head-sub">Fotos und Video eines Brandschutz-Pumpenraums — reale Montagearbeit, übergabebereit.</p>
+        </header>
+        <div class="c68-proj-grid">
+          <figure class="c68-vid c68-vid-tall c68-rv">
+            <video src={walkthroughClip.src} poster={walkthroughClip.poster} controls playsinline preload="none"></video>
+            <figcaption><strong>{walkthroughClip.title}</strong></figcaption>
+          </figure>
+          <div class="c68-proj-cards">
+            {projectPhotos.map((s) => (
+              <figure class="c68-pcard c68-rv">
+                <img src={s.src} alt={s.alt} loading="lazy" decoding="async" />
+                <figcaption>{s.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+        <ul class="c68-scope-list">
+          {projectScope.map((s) => (<li set:html={tick + '<span>' + s + '</span>'}></li>))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="c68-band c68-band-mist" id="model-index">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Vollständiges Modellverzeichnis</p>
+          <h2>Komplette <em>Produktpalette</em></h2>
+        </header>
+        <div class="c68-index">
+          {catalogByCategory.map((g) => (
+            <div class="c68-index-col c68-rv">
+              <p class="c68-index-head"><a href={g.href}>{g.name}</a><span>{g.items.length}</span></p>
+              <ul>
+                {g.items.map((it) => (<li><a href={it.href}>{it.name}</a></li>))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band c68-dark" id="inquiry">
+      <div class="c68-wrap c68-rfq-grid">
+        <div class="c68-rv">
+          <p class="c68-kicker c68-kicker-red">Kontakt</p>
+          <h2>Professionelles<br /><span class="c68-plate">Angebot anfordern</span></h2>
+          <p class="c68-head-sub">Senden Sie Zeichnungen, Spezifikationen oder Ihre Projektanforderungen. Unsere Ingenieure prüfen die Details und melden sich mit den nächsten Schritten.</p>
+          <div class="c68-rfq-links">
+            <a class="c68-btn c68-btn-red" href="/de/contact/">Über Ihr Projekt sprechen</a>
+            <a class="c68-btn c68-btn-ghost" href={waCallbackHref}>Kontaktieren Sie uns auf WhatsApp</a>
+          </div>
+          <p class="c68-fine">QUANZHOU WANLIAN FLUID EQUIPMENT CO., LTD. · FOB · CIF · T/T</p>
+        </div>
+        <div class="c68-rv">
+          <InquiryForm locale="de" />
+        </div>
+      </div>
+    </section>
+
+  </div>
+
   <LeadCaptureSection />
-  <style is:global> @keyframes hero-kenburns { from { transform: scale(1); } to { transform: scale(1.07); } } .hero-kenburns { animation: hero-kenburns 26s ease-in-out infinite alternate; } </style>
+
+  <script is:inline>
+    const root = document.documentElement;
+    const marks = Array.from(document.querySelectorAll('.c68-rv'));
+    root.classList.add('c68-js');
+    const showAll = () => marks.forEach((m) => m.classList.add('c68-in'));
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) { e.target.classList.add('c68-in'); io.unobserve(e.target); }
+        }
+      }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+      marks.forEach((m) => io.observe(m));
+      setTimeout(showAll, 1500);
+    } else {
+      showAll();
+    }
+  </script>
+
+  <style is:inline>
+    .c68 { --navy: #004797; --navy-deep: #00306b; --navy-ink: #00204a; --red: #cc2128; --mist: #f1f3f7; --ink: #1c2735; --muted: #5c6879; --line: #dde2ea; }
+    .c68-wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+    .c68-band { padding: 84px 0; background: #fff; }
+    .c68-band-mist { background: var(--mist); }
+    .c68-dark { background: var(--navy-ink); color: #fff; }
+    .c68-head { max-width: 680px; margin-bottom: 40px; }
+    .c68-kicker { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--red); font-weight: 700; margin: 0 0 12px; }
+    .c68-kicker::before { content: ''; display: inline-block; width: 28px; height: 2px; background: var(--red); vertical-align: middle; margin-right: 12px; }
+    .c68-head h2 { font-size: clamp(28px, 4vw, 44px); line-height: 1.08; letter-spacing: -.01em; font-weight: 800; text-transform: uppercase; margin: 0; color: var(--navy-ink); }
+    .c68-head h2 em { font-style: normal; color: var(--red); }
+    .c68-head-sub { font-size: 15px; line-height: 1.7; color: var(--muted); margin: 16px 0 0; }
+    .c68-dark .c68-head h2 { color: #fff; }
+    .c68-dark .c68-head-sub { color: #b9c6d8; }
+    .c68-kicker-red { color: #ff8b90; }
+    .c68-plate { color: #fff; background: var(--red); display: inline-block; padding: 0 10px 4px; }
+    .c68-inlink { color: var(--red); font-weight: 700; font-size: 14px; text-decoration: none; }
+    .c68-rfq-grid h2 { font-size: clamp(28px, 4vw, 44px); line-height: 1.08; font-weight: 800; text-transform: uppercase; margin: 0; color: #fff; }
+
+    .c68-hero { background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 62%, var(--navy-ink) 100%); color: #fff; }
+    .c68-hero-grid { display: grid; gap: 48px; align-items: center; padding-top: 84px; padding-bottom: 76px; }
+    .c68-eyebrow { display: inline-block; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); padding: 8px 14px; margin: 0 0 26px; }
+    .c68-dot { display: inline-block; width: 6px; height: 6px; background: var(--red); border-radius: 50%; margin-right: 10px; vertical-align: middle; }
+    .c68-hero-grid h1 { font-size: clamp(32px, 5vw, 56px); line-height: 1.05; text-transform: uppercase; letter-spacing: -.015em; font-weight: 800; margin: 0; color: #fff; }
+    .c68-hero-grid h1 em { font-style: normal; color: #fff; }
+    .c68-rule { width: 64px; height: 4px; background: var(--red); margin: 22px 0 24px; }
+    .c68-lede { font-size: 17px; line-height: 1.7; color: #d3ddea; max-width: 44ch; margin: 0 0 30px; }
+    .c68-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+    .c68-btn { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 15px 24px; text-decoration: none; }
+    .c68-btn-red { background: var(--red); color: #fff; }
+    .c68-btn-red:hover { background: #b01b21; }
+    .c68-btn-ghost { border: 1px solid rgba(255,255,255,.4); color: #fff; }
+    .c68-btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+    .c68-frame { position: relative; margin: 0; padding: 14px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16); }
+    .c68-frame-tab { position: absolute; top: -1px; left: -1px; width: 54px; height: 8px; background: var(--red); }
+    .c68-frame img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+    .c68-frame figcaption { display: block; font-size: 11px; letter-spacing: .16em; color: #b9c6d8; padding-top: 12px; }
+
+    .c68-stats { background: var(--red); }
+    .c68-stats-grid { display: grid; gap: 1px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .c68-stat { padding: 30px 24px; border-left: 1px solid rgba(255,255,255,.28); }
+    .c68-stat:first-child { border-left: 0; padding-left: 0; }
+    .c68-stat-num { font-size: 40px; font-weight: 800; line-height: 1; margin: 0 0 8px; }
+    .c68-stat-num span { font-size: 15px; font-weight: 700; margin-left: 4px; }
+    .c68-stat-label { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; line-height: 1.6; margin: 0; color: rgba(255,255,255,.9); }
+
+    .c68-lines { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); }
+    .c68-line { display: block; background: #fff; border: 1px solid var(--line); text-decoration: none; color: inherit; }
+    .c68-line:hover { box-shadow: 0 18px 40px rgba(0,32,74,.12); }
+    .c68-line-media { display: block; height: 190px; background: #fff; border-bottom: 1px solid var(--line); }
+    .c68-line-media img { width: 100%; height: 100%; object-fit: contain; padding: 14px; }
+    .c68-line-body { display: block; padding: 20px; }
+    .c68-line-count { display: block; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+    .c68-line-name { display: block; font-size: 19px; font-weight: 800; margin: 8px 0 14px; color: var(--navy-ink); }
+    .c68-line-more { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .c68-line-full { background: var(--navy); border-color: var(--navy); display: flex; align-items: center; }
+    .c68-line-name-inv { color: #fff; font-size: 26px; }
+    .c68-line-more-inv { color: #cdd9e8; text-transform: none; letter-spacing: 0; font-size: 13px; line-height: 1.6; }
+
+    .c68-cap-grid, .c68-ind { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .c68-cap { padding: 30px 26px; background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--navy); }
+    .c68-cap h3 { font-size: 18px; font-weight: 800; margin: 16px 0 10px; color: var(--navy-ink); }
+    .c68-cap p { font-size: 14px; line-height: 1.7; color: var(--muted); margin: 0; }
+    .c68-ind-card { display: block; padding: 30px 26px; background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--red); text-decoration: none; }
+    .c68-ind-card h3 { font-size: 18px; font-weight: 800; margin: 16px 0 10px; color: var(--navy-ink); }
+    .c68-ind-card p { font-size: 14px; line-height: 1.7; color: var(--muted); margin: 0; }
+    .c68-ico { display: block; width: 34px; height: 34px; color: var(--navy); }
+    .c68-ico svg { width: 100%; height: 100%; display: block; }
+
+    .c68-profile-grid { display: grid; gap: 40px; align-items: start; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+    .c68-body { font-size: 15px; line-height: 1.8; color: var(--ink); margin: 0 0 20px; }
+    .c68-profile-link { display: flex; gap: 24px; flex-wrap: wrap; margin: 0; }
+    .c68-profile-link a { color: var(--navy); font-weight: 700; font-size: 14px; text-decoration: none; }
+
+    .c68-steps { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); list-style: none; margin: 0; padding: 0; }
+    .c68-step { padding: 26px 22px; background: #fff; border: 1px solid var(--line); }
+    .c68-step-n { font-size: 13px; font-weight: 800; letter-spacing: .1em; color: var(--red); }
+    .c68-step-line { float: right; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); padding: 3px 7px; }
+    .c68-step h3 { font-size: 16px; font-weight: 800; margin: 12px 0 8px; color: var(--navy-ink); }
+    .c68-step p { font-size: 13px; line-height: 1.65; color: var(--muted); margin: 0; }
+
+    .c68-video-lead { display: grid; gap: 24px; align-items: start; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); margin-bottom: 24px; }
+    .c68-side { display: grid; gap: 18px; }
+    .c68-video-note { list-style: none; margin: 0; padding: 0; }
+    .c68-video-note li { font-size: 14px; line-height: 1.7; color: #cdd9e8; padding: 12px 0 12px 24px; border-bottom: 1px solid rgba(255,255,255,.12); position: relative; }
+    .c68-video-note li::before { content: ''; position: absolute; left: 0; top: 19px; width: 8px; height: 8px; background: var(--red); }
+    .c68-side-shots { display: grid; gap: 12px; }
+    .c68-sshot { margin: 0; }
+    .c68-sshot img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid rgba(255,255,255,.18); }
+    .c68-sshot figcaption { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #9fb0c6; padding-top: 7px; }
+    .c68-vid { margin: 0; background: #000; }
+    .c68-vid video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #00122b; }
+    .c68-vid figcaption { padding: 16px 18px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-top: 0; }
+    .c68-vid figcaption strong { display: block; font-size: 14px; color: #fff; }
+    .c68-vid figcaption span { display: block; font-size: 13px; color: #b9c6d8; margin-top: 4px; }
+    .c68-clips { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .c68-clip { margin: 0; }
+    .c68-clip video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #00122b; }
+    .c68-clip figcaption { padding-top: 11px; }
+    .c68-clip figcaption strong { display: block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #fff; }
+    .c68-clip figcaption span { display: block; font-size: 12px; color: #9fb0c6; margin-top: 4px; line-height: 1.55; }
+
+    .c68-cert-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 26px; }
+    .c68-cert { padding: 20px; background: var(--mist); border-left: 3px solid var(--navy); }
+    .c68-cert-name { font-size: 15px; font-weight: 800; color: var(--navy-ink); margin: 0 0 6px; }
+    .c68-cert-code { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+    .c68-scope { font-size: 14px; line-height: 1.75; color: var(--muted); background: var(--mist); border-left: 3px solid var(--red); padding: 16px 18px; margin: 0 0 22px; max-width: 860px; }
+    .c68-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .c68-chip { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; border: 1px solid var(--line); background: #fff; color: var(--ink); padding: 8px 12px; text-decoration: none; }
+    .c68-chip-link { border-color: var(--navy); color: var(--navy); }
+
+    .c68-guides { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .c68-guide { display: flex; flex-direction: column; gap: 8px; padding: 26px 24px; background: #fff; border: 1px solid var(--line); text-decoration: none; }
+    .c68-guide-eyebrow { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+    .c68-guide-title { font-size: 17px; font-weight: 800; color: var(--navy-ink); line-height: 1.3; }
+    .c68-guide-desc { font-size: 13px; line-height: 1.65; color: var(--muted); flex-grow: 1; }
+    .c68-guide-more { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--navy); font-weight: 700; }
+    .c68-guide-more i { font-style: normal; }
+
+    .c68-proj-grid { display: grid; gap: 22px; grid-template-columns: 290px minmax(0, 1fr); align-items: start; }
+    .c68-vid-tall { max-width: 290px; }
+    .c68-vid-tall video { aspect-ratio: 9 / 16; }
+    .c68-proj-cards { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .c68-pcard { margin: 0; background: #fff; border: 1px solid var(--line); }
+    .c68-pcard img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+    .c68-pcard figcaption { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: 10px 12px; }
+    .c68-scope-list { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); list-style: none; margin: 26px 0 0; padding: 0; }
+    .c68-scope-list li { display: flex; gap: 10px; align-items: center; font-size: 13px; line-height: 1.6; color: var(--muted); }
+    .c68-scope-list svg { flex: none; color: var(--red); }
+
+    .c68-shots { display: grid; gap: 14px; }
+    .c68-shot { margin: 0; }
+    .c68-shot img { display: block; width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover; }
+    .c68-shot figcaption { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding-top: 8px; }
+
+    .c68-index { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); }
+    .c68-index-col { background: #fff; border: 1px solid var(--line); padding: 22px; }
+    .c68-index-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin: 0 0 12px; font-weight: 800; font-size: 15px; }
+    .c68-index-head a { color: var(--navy-ink); text-decoration: none; }
+    .c68-index-head span { font-size: 12px; color: var(--red); }
+    .c68-index-col ul { list-style: none; margin: 0; padding: 0; }
+    .c68-index-col li { border-top: 1px solid var(--line); }
+    .c68-index-col a { display: block; font-size: 13px; line-height: 1.5; color: var(--muted); padding: 8px 0; text-decoration: none; }
+    .c68-index-col a:hover { color: var(--navy); }
+
+    .c68-rfq-grid { display: grid; gap: 44px; align-items: start; padding-top: 84px; padding-bottom: 84px; }
+    .c68-rfq-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .c68-fine { font-size: 11px; letter-spacing: .16em; color: #8fa2ba; margin-top: 26px; }
+
+    /* Arabic cannot carry tracking: letter-spacing pulls joined letters apart and breaks the word
+       shapes. This sheet is shared by all nine locales, so the exemption is scoped by writing
+       direction rather than by a separate locale stylesheet - the eight Latin-script pages keep the
+       approved values. .c68-fine is the English legal line and stays tracked. ASCII on purpose: the
+       locale pages are generated from this block line by line and drop any CJK-bearing line. */
+    html[dir="rtl"] .c68-kicker, html[dir="rtl"] .c68-eyebrow, html[dir="rtl"] .c68-btn,
+    html[dir="rtl"] .c68-stat-label, html[dir="rtl"] .c68-line-count, html[dir="rtl"] .c68-line-more,
+    html[dir="rtl"] .c68-chip, html[dir="rtl"] .c68-cert-code, html[dir="rtl"] .c68-step-n,
+    html[dir="rtl"] .c68-guide-eyebrow, html[dir="rtl"] .c68-guide-more,
+    html[dir="rtl"] .c68-frame figcaption, html[dir="rtl"] .c68-sshot figcaption,
+    html[dir="rtl"] .c68-clip figcaption strong, html[dir="rtl"] .c68-pcard figcaption,
+    html[dir="rtl"] .c68-shot figcaption, html[dir="rtl"] .c68-hero-grid h1,
+    html[dir="rtl"] .c68-head h2 { letter-spacing: normal; }
+
+    html.c68-js .c68-rv { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    html.c68-js .c68-rv.c68-in { opacity: 1; transform: none; }
+
+    @media (min-width: 760px) {
+      .c68-clips { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1100px) {
+      .c68-clips { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    }
+    @media (min-width: 900px) {
+      .c68-hero-grid { grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); }
+    }
+    @media (max-width: 899px) {
+      .c68-band { padding: 60px 0; }
+      .c68-hero-grid { padding-top: 56px; padding-bottom: 56px; gap: 36px; }
+      .c68-video-lead, .c68-profile-grid, .c68-proj-grid, .c68-rfq-grid { grid-template-columns: minmax(0, 1fr); }
+      .c68-vid-tall { max-width: 260px; }
+      .c68-stat { border-left: 0; padding-left: 0; border-top: 1px solid rgba(255,255,255,.28); }
+      .c68-stat:first-child { border-top: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html.c68-js .c68-rv { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
 </Layout>
