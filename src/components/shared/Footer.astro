@@ -43,7 +43,7 @@ const resources = dict.footer.resources.map(i => ({ ...i, href: safeHref(i.href,
       <div id="footerSubscribeCard" class="pt-5 mt-2 border-t border-gray-800">
         <h3 class="text-sm font-bold tracking-widest text-gray-300 uppercase mb-1">{dict.footer.subscribeTitle}</h3>
         <p class="text-xs text-gray-500 mb-3">{dict.footer.subscribeDesc}</p>
-        <form id="footerSubscribeForm" class="space-y-2">
+        <form id="footerSubscribeForm" class="space-y-2" data-strings={JSON.stringify({ success: dict.footer.subscribeSuccess, verify: dict.footer.subscribeVerify, error: dict.footer.subscribeError })}>
           <input type="email" name="email" required placeholder={dict.footer.subscribePlaceholder} class="w-full px-3 py-2 rounded-lg bg-gray-800 border border-gray-700 text-sm text-white placeholder-gray-500 focus:ring-2 focus:ring-brand-blue outline-none transition" />
           <button type="submit" id="footerSubscribeBtn" class="w-full px-3 py-2 rounded-lg bg-brand-red hover:opacity-90 text-white text-sm font-bold transition">{dict.footer.subscribeButton}</button>
           <div class="cf-turnstile" data-sitekey="0x4AAAAAAEF-SD39wEwlYPuN"></div>
@@ -139,12 +139,18 @@ const resources = dict.footer.resources.map(i => ({ ...i, href: safeHref(i.href,
 
 <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
-<script define:vars={{ subSuccess: dict.footer.subscribeSuccess, subVerify: dict.footer.subscribeVerify, subError: dict.footer.subscribeError }}>
+<script>
   // 页脚邮件订阅：同端点同 Turnstile 规则；同页多个 Turnstile 组件时按本卡片 widgetId 精确取 token
   const subForm = document.getElementById('footerSubscribeForm') as HTMLFormElement | null;
   const subCard = document.getElementById('footerSubscribeCard') as HTMLElement | null;
   const subStatus = document.getElementById('footerSubscribeStatus') as HTMLParagraphElement | null;
   const subBtn = document.getElementById('footerSubscribeBtn') as HTMLButtonElement | null;
+  // Copy travels on the form's data-strings because define:vars turns off Astro's TS transpilation
+  // for that script, which sent the type annotations to the browser verbatim and killed the handler.
+  const subStrings: Record<string, string> = subForm?.dataset.strings ? JSON.parse(subForm.dataset.strings) : {};
+  const subVerify = subStrings.verify ?? '';
+  const subSuccess = subStrings.success ?? '';
+  const subError = subStrings.error ?? '';
 
   const getToken = () => {
     const w = window as any;
