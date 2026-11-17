@@ -1,10 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { productsRu as products } from '../../utils/products.ru';
 import InquiryForm from '../../components/inquiry/InquiryForm.astro';
 import LeadCaptureSection from '../../components/inquiry/LeadCaptureSection.astro';
-import CompanyIntroVideo from '../../components/sections/CompanyIntroVideo.astro';
-import VideoCarousel from '../../components/sections/VideoCarousel.astro';
-import { productsRu, productsRuBySlug } from '../../utils/products.ru';
 
 const ruFaq = [
   {
@@ -25,50 +23,38 @@ const ruFaq = [
   }
 ];
 
-const featuredSlugs = [
-  'resilient-seat-flanged-gate-valve-z41x',
-  'indoor-fire-hydrant-head-sn65',
-  'wet-alarm-check-valve-zsfz-150',
-  'signal-grooved-wafer-butterfly-valve-dn80',
-  'spherical-ball-check-valve-hq44x',
-  'hydraulic-water-level-control-valve-f745x',
-  'telescopic-y-strainer-sgl41h',
-  'anti-collision-pressure-regulating-outdoor-hydrant-ssft100'
-];
-const featuredProducts = featuredSlugs.map(slug => productsRuBySlug[slug]).filter(Boolean);
+// Category grid and the grouped catalog index are both derived from this locale's product
+// module, so line names, counts and card photography cannot drift from the live catalog.
+// is keyed by English category names, so it stays empty and each line uses its first photo.
+const CATEGORY_LEAD: Record<string, string> = {};
 
-const systemResources = [
-  { href: '/ru/fire-sprinkler-systems/', eyebrow: 'Описание системы', title: 'Клапаны для систем спринклерного пожаротушения', desc: 'Мокрые сигнальные, дренчерные и преакшн-клапаны — понятные объяснения для покупателей систем спринклеров.' },
-  { href: '/ru/fire-hydrant-systems/', eyebrow: 'Описание системы', title: 'Системы пожарных гидрантов', desc: 'Внутренние и наружные гидранты, соединения и нормативы для муниципальных и промышленных сетей.' },
-  { href: '/ru/fire-water-cannon/', eyebrow: 'Описание системы', title: 'Пожарные лафетные стволы и мониторы', desc: 'Ручные мониторы PS и автоматические следящие лафеты ZDMS для тушения в больших пространствах.' },
-  { href: '/ru/backflow-prevention/', eyebrow: 'Описание системы', title: 'Предотвращение обратного потока и гидравлический контроль', desc: 'Устройства предотвращения обратного потока и регулирующие клапаны для защиты сетей водоснабжения.' },
-  { href: '/ru/ul-fire-valves/', eyebrow: 'Сертифицированная продукция', title: 'Сертифицированные UL противопожарные клапаны', desc: 'Что означает сертификат UL, чем UL отличается от FM и как проверить подлинность сертификатов.' },
-  { href: '/ru/certificates/', eyebrow: 'Сертификация', title: 'Сертификаты и одобрения', desc: 'UL Listing, одобрение FM, маркировка CE, ISO 9001 и LPCB: проверьте наши аккредитации.' }
-];
+const categoryNames: string[] = [...new Set(products.map(p => p.category))];
 
-const featuredGuides = [
-  { href: '/ru/guides/how-to-choose-a-fire-hydrant/', eyebrow: 'Гид по выбору', title: 'Как выбрать пожарный гидрант', desc: 'Типы, классы давления, стандарты присоединения и проверка на заводе перед оформлением заказа.' },
-  { href: '/ru/guides/fire-sprinkler-system-valves-guide/', eyebrow: 'Гид по выбору', title: 'Клапаны для систем спринклерного пожаротушения', desc: 'Как работают сигнальные клапаны ZSFZ, дренчерные ZSFM и преакшн-клапаны ZSFY.' },
-  { href: '/ru/guides/b2b-valve-sourcing-checklist/', eyebrow: 'Закупки B2B', title: 'Чек-лист проверки производителя', desc: '8 пунктов проверки контрагента: сертификаты, отчёты по партиям, аудит производства и образцы.' }
-];
+const categories = categoryNames.map(name => {
+  const inCategory = products.filter(p => p.category === name);
+  const lead = inCategory.find(p => p.slug === CATEGORY_LEAD[name]) ?? inCategory[0];
+  return { name, count: inCategory.length, image: lead.image, leadName: lead.name, href: `/ru/products/#category=${encodeURIComponent(name)}` };
+});
 
-const categories = [
-  { name: 'Запорная арматура и детали', image: '/assets/products/resilient-seat-flanged-gate-valve-z41x.webp' },
-  { name: 'Гидранты и насосные соединения', image: '/assets/products/indoor-fire-hydrant-head-sn65.jpg' },
-  { name: 'Спринклеры и сигнальные клапаны', image: '/assets/products/wet-alarm-check-valve-zsfz-150.webp' },
-  { name: 'Гидравлическая защита', image: '/assets/products/adjustable-pressure-reducing-valve-500x.webp' },
-  { name: 'Лафетные стволы пожаротушения', image: '/assets/products/manual-fire-water-cannon-ps.webp' },
-  { name: 'Пожарные шкафы и соединительные устройства', image: '/assets/products/fire-hydrant-hose-coupling-adapter-hs.jpg' }
-];
+const catalogByCategory = categoryNames.map(name => ({
+  name,
+  href: `/ru/products/#category=${encodeURIComponent(name)}`,
+  items: products.filter(p => p.category === name).map(p => ({ name: p.name, href: '/ru/products/' + p.slug + '/' }))
+}));
 
-const qualitySteps = [
-  { step: '01', title: 'Точное ткачество', desc: 'Ткачество высокопрочной полиэстеровой основы для долговечных оболочек пожарных рукавов.' },
-  { step: '02', title: 'Нанесение покрытия', desc: 'Современный процесс вулканизации для герметичного резинового покрытия.' },
-  { step: '03', title: 'Обработка на ЧПУ', desc: 'Точная обработка корпусов и деталей клапанов из высокопрочного чугуна.' },
-  { step: '04', title: 'Испытания безопасности', desc: '100% испытание корпуса давлением и проверка на герметичность воздухом каждой единицы.' },
-  { step: '05', title: 'Эпоксидное покрытие', desc: 'Безопасное эпоксидное покрытие для превосходной коррозионной стойкости.' }
-];
+const productionSteps = [{"step":"01","title":"Точное ткачество","desc":"Ткачество высокопрочной полиэстеровой основы для долговечных оболочек пожарных рукавов."},{"step":"02","title":"Нанесение покрытия","desc":"Современный процесс вулканизации для герметичного резинового покрытия."},{"step":"03","title":"Обработка на ЧПУ","desc":"Точная обработка корпусов и деталей клапанов из высокопрочного чугуна."},{"step":"04","title":"Испытания безопасности","desc":"100% испытание корпуса давлением и проверка на герметичность воздухом каждой единицы."},{"step":"05","title":"Эпоксидное покрытие","desc":"Безопасное эпоксидное покрытие для превосходной коррозионной стойкости."}];
 
+
+
+// Own-name assurance only. Third-party listings belong to the factory that holds them, so this
+// strip must never imply that Wanlian itself holds UL, FM, CE or LPCB listings.
+const certifications = [{"name":"ТЕХНИЧЕСКИЕ ДАННЫЕ"},{"name":"ЧЕРТЁЖИ ПРОДУКЦИИ"},{"name":"МАТЕРИАЛЫ ИСПОЛНЕНИЯ"},{"name":"КЛАССЫ ДАВЛЕНИЯ"},{"name":"OEM / ODM"},{"name":"ПОДДЕРЖКА ЭКСПОРТА"}];
+
+const waCallbackHref = `https://wa.me/8618684324501?text=${encodeURIComponent('Здравствуйте! Меня интересуют ваши клапаны и противопожарное оборудование.')}`;
+
+const resources = [{"href":"/ru/guides/how-to-choose-a-fire-hydrant/","eyebrow":"Гид по выбору","title":"Как выбрать пожарный гидрант","desc":"Типы, классы давления, стандарты присоединения и проверка на заводе перед оформлением заказа."},{"href":"/ru/guides/fire-sprinkler-system-valves-guide/","eyebrow":"Гид по выбору","title":"Клапаны для систем спринклерного пожаротушения","desc":"Как работают сигнальные клапаны ZSFZ, дренчерные ZSFM и преакшн-клапаны ZSFY."},{"href":"/ru/guides/b2b-valve-sourcing-checklist/","eyebrow":"Закупки B2B","title":"Чек-лист проверки производителя","desc":"8 пунктов проверки контрагента: сертификаты, отчёты по партиям, аудит производства и образцы."},{"href":"/ru/fire-hydrant-systems/","eyebrow":"Описание системы","title":"Системы пожарных гидрантов","desc":"Внутренние и наружные гидранты, соединения и нормативы для муниципальных и промышленных сетей."},{"href":"/ru/fire-water-cannon/","eyebrow":"Описание системы","title":"Пожарные лафетные стволы и мониторы","desc":"Ручные мониторы PS и автоматические следящие лафеты ZDMS для тушения в больших пространствах."},{"href":"/ru/backflow-prevention/","eyebrow":"Описание системы","title":"Предотвращение обратного потока и гидравлический контроль","desc":"Устройства предотвращения обратного потока и регулирующие клапаны для защиты сетей водоснабжения."}];
+
+// On-site project evidence: real fire pump room installation (photos + portrait walkthrough video)
 const projectPhotos = [
   { src: '/assets/projects/pump-skids.webp', alt: 'Ряд пожарных насосов спринклерных систем с бирками OPEN и CLOSE в смонтированном помещении насосов', caption: 'Насосные блоки с бирками OPEN/CLOSE' },
   { src: '/assets/projects/valve-train.webp', alt: 'Линия шиберных клапанов и манометры на красных вертикальных стояках смонтированного помещения насосов', caption: 'Стояки и линия шиберных клапанов' },
@@ -83,18 +69,36 @@ const projectScope = [
   'Объект подготовлен к финальной приёмке и сдаче',
 ];
 
-const industries = [
-  { name: 'Нефть и газ', desc: 'Надёжный транспорт жидкостей в экстремальных промышленных условиях.' },
-  { name: 'Очистка воды', desc: 'Муниципальные системы водоснабжения, водоотведения и фильтрации.' },
-  { name: 'Противопожарная защита', desc: 'Сертифицированные гидранты, клапаны спринклеров и системы пожаротушения.' }
+const industries = [{"name":"Нефть и газ","desc":"Надёжный транспорт жидкостей в экстремальных промышленных условиях.","icon":"pipe"},{"name":"Очистка воды","desc":"Муниципальные системы водоснабжения, водоотведения и фильтрации.","icon":"drop"},{"name":"Противопожарная защита","desc":"Сертифицированные гидранты, клапаны спринклеров и системы пожаротушения.","icon":"flame"}];
+
+type Clip = { src: string; poster: string; title: string; desc: string };
+
+const clips = [{"src":"/videos/factory/assembly.mp4","poster":"/videos/factory/assembly-poster.webp","title":"Сборка","desc":"Болтовое соединение с проверкой момента затяжки"},{"src":"/videos/factory/blue-valves.mp4","poster":"/videos/factory/blue-valves-poster.webp","title":"Контроль","desc":"Единичные приборы после гидравлического испытания"},{"src":"/videos/factory/red-field.mp4","poster":"/videos/factory/red-field-poster.webp","title":"Готовая Продукция","desc":"Готовые гидранты ожидают отгрузки"},{"src":"/videos/factory/loading-close.mp4","poster":"/videos/factory/loading-close-poster.webp","title":"Упаковка и Погрузка","desc":"Экспортный заказ на доке, в коробах и стрейч-плёнке"},{"src":"/videos/factory/dispatch.mp4","poster":"/videos/factory/dispatch-poster.webp","title":"Отгрузка","desc":"Полностью загруженный грузовик едет в порт"}];
+
+const walkthroughClip = {"src":"/assets/projects/project-walkthrough.mp4","poster":"/assets/projects/pump-room-wide.webp","title":"Видео с Объекта"};
+
+const stats = [
+  { value: String(products.length), unit: '', label: "Модели на складе" },
+  { value: String(categories.length), unit: '', label: "Линии продукции" },
+  { value: '100', unit: '%', label: "Испытаны под давлением" },
+  { value: 'ISO 9001', unit: '', label: "Система качества" }
 ];
 
-const inquiryPoints = [
-  'Расчёт цены по запросу',
-  'Подбор оборудования и инженерная поддержка',
-  'Координация экспортной упаковки',
-  'Поддержка по документации продукции'
-];
+const capability = [{"icon":"valve","title":"Собственные Линии Производства","body":"Токарно-фрезерная обработка, сборка, испытания на прочность и окраска выполняются на наших собственных линиях завода в Цюаньчжоу, с квалифицированной партнёрской мощностью для пиковых заказов."},{"icon":"gauge","title":"Детальная Цитата за 12 Часов","body":"Пришлите чертежи, спецификацию или просто фото — наши инженеры ответят детальной цитатой, наличием на складе и сроком поставки за 12 часов, 7 дней в неделю."},{"icon":"doc","title":"Сертификация и 100% Испытания","body":"Каждая единица проходит один и тот же контролируемый цикл — от обработки на ЧПУ до 100% испытания давлением и нанесения эпоксидного покрытия."}];
+
+const svgOpen = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
+const icons: Record<string, string> = {
+  valve: svgOpen + '<path d="M4 16 12 9l8 7H4Z"/><path d="M12 9V4"/><path d="M8.5 4h7"/></svg>',
+  gauge: svgOpen + '<circle cx="12" cy="10" r="6"/><path d="M12 10l3.2-2.6"/><path d="M6 20h12"/></svg>',
+  cog: svgOpen + '<circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.4M12 18.6V21M3 12h2.4M18.6 12H21M5.6 5.6l1.7 1.7M16.7 16.7l1.7 1.7M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7"/></svg>',
+  doc: svgOpen + '<path d="M7 3h7l4 4v14H7V3Z"/><path d="M14 3v4h4"/><path d="M10 12h6M10 16h6"/></svg>',
+  flame: svgOpen + '<path d="M12 3c3 4 5 6 5 9a5 5 0 0 1-10 0c0-2.2 1.1-3.8 2.6-5.2"/></svg>',
+  drop: svgOpen + '<path d="M12 3l5.4 7a6.4 6.4 0 1 1-10.8 0L12 3Z"/></svg>',
+  pipe: svgOpen + '<path d="M3 8.5h7v7H3zM14 8.5h7v7h-7z"/><path d="M10 12h4"/><path d="M3 8.5v7M21 8.5v7"/></svg>',
+  guide: svgOpen + '<path d="M4 5h7v15H4zM13 5h7v15h-7z"/><path d="M7 9h1M16 9h1"/></svg>',
+  chat: svgOpen + '<path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8 9h8M8 12h5"/></svg>'
+};
+const tick = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9 17.5 20 6.5"/></svg>';
 ---
 
 <Layout
@@ -104,418 +108,472 @@ const inquiryPoints = [
   faq={ruFaq}
   video={{ name: 'Wanlian Fluid за 50 секунд', description: 'Видео о компании: выставочный зал, производственные линии, OEM-изготовление и контроль качества на заводе в Цюаньчжоу.', thumbnail: '/videos/company-intro-poster.webp', src: '/videos/company-intro.mp4', duration: 'PT49S', uploadDate: '2026-09-18' }}
 >
-  <!-- Hero Section -->
-  <section class="relative bg-gray-900 text-white min-h-[85vh] flex items-center overflow-hidden">
-  <div class="absolute inset-0 z-0" aria-hidden="true">
-      <img src="/og-image.jpg" alt="" fetchpriority="high" class="w-full h-full object-cover object-center opacity-90 hero-kenburns" />
-      <div class="absolute inset-0 bg-gradient-to-r from-gray-950 via-gray-950/75 to-gray-950/15"></div>
-      <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-gray-950 to-transparent"></div>
-  </div>
+  <div class="c68">
 
-    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-24">
-      <div class="max-w-3xl space-y-6 sm:space-y-8">
-        <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
-          <span class="flex h-2 w-2 rounded-full bg-brand-red animate-pulse"></span>
-          <span class="text-sm font-bold tracking-widest uppercase">Производитель и экспортёр — арматура и пожаротушение</span>
-        </div>
-
-        <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-[1.15]">
-          Арматура и пожарное <br/>
-          <span class="text-brand-red">оборудование для глобальных проектов.</span>
-        </h1>
-        
-        <p class="text-lg sm:text-xl text-gray-300 max-w-2xl leading-relaxed">
-          Промышленные клапаны, гидранты и группы клапанов сигнализации и дренчеров: 100% опрессовка, ISO 9001, детальный коммерческий ответ в течение 12 часов.
-        </p>
-        
-        <div class="flex flex-wrap gap-4 pt-4">
-          <a href="/ru/#inquiry" class="px-8 py-4 bg-brand-red hover:opacity-90 text-white font-bold rounded-lg transition shadow-xl shadow-brand-red/20 transform hover:-translate-y-1">
-            Запросить цену
-          </a>
-          <a href="/ru/#perfil" class="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-bold rounded-lg border border-white/30 transition">
-            О компании
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <VideoCarousel locale="ru" />
-
-  <!-- Certification Wall -->
-  <div class="bg-gray-100 py-8 border-b border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition duration-500">
-        <span class="text-gray-900 font-black text-xl tracking-tighter">ТЕХНИЧЕСКИЕ ДАННЫЕ</span>
-        <span class="text-gray-900 font-black text-xl tracking-tighter">ЧЕРТЁЖИ ПРОДУКЦИИ</span>
-        <span class="text-gray-900 font-black text-xl tracking-tighter">МАТЕРИАЛЫ ИСПОЛНЕНИЯ</span>
-        <span class="text-gray-900 font-black text-xl tracking-tighter">КЛАССЫ ДАВЛЕНИЯ</span>
-        <span class="text-gray-900 font-black text-xl tracking-tighter">OEM / ODM</span>
-        <span class="text-gray-900 font-black text-xl tracking-tighter">ПОДДЕРЖКА ЭКСПОРТА</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- About Section -->
-  <section id="perfil" class="py-24 bg-white overflow-hidden scroll-mt-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col lg:flex-row items-center gap-16">
-        <div class="flex-1 space-y-8">
-          <div class="space-y-4">
-            <h2 class="text-sm font-black tracking-[0.3em] text-brand-red uppercase flex items-center gap-2">
-              <span class="w-8 h-[2px] bg-brand-red"></span>
-              О компании
-            </h2>
-            <h3 class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight leading-tight">
-              Решения по управлению потоком <br/><span class="text-brand-blue">для мировых проектов.</span>
-            </h3>
-          </div>
-
-          <div class="space-y-6 text-gray-600 text-lg leading-relaxed">
-            <p>
-              Компания Quanzhou Wanlian Fluid Equipment Co., Ltd., базирующаяся в Чжоушане провинции Фуцзянь — ядре китайской индустрии трубопроводов и арматуры, — производит и экспортирует промышленные клапаны, гидравлическое оборудование, компоненты гидрантов и средства противопожарной защиты для международных B2B-проектов. Производство ведётся на собственных линиях в Чжоушане, отдельные позиции выпускают квалифицированные производственные партнёры; корпуса клапанов обрабатываются на станках с ЧПУ, каждая единица проходит испытание корпуса давлением и проверку на герметичность воздухом перед отгрузкой, в рамках системы менеджмента качества ISO 9001.
-            </p>
-            <p>
-              Каждую страницу продукции мы строим вокруг реальных рабочих характеристик — класса давления, стандарта присоединения, материала корпуса и затвора, области применения, — с расчётом цены по запросу и инженерной поддержкой систем водоснабжения, промышленного управления потоком и противопожарной защиты.
-            </p>
-          </div>
-
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-            <div class="p-5 bg-gray-50 rounded-xl border border-gray-100">
-              <span class="block text-3xl font-black text-brand-red tabular-nums">{productsRu.length}+</span>
-              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Модели на складе</span>
-            </div>
-            <div class="p-5 bg-gray-50 rounded-xl border border-gray-100">
-              <span class="block text-3xl font-black text-brand-blue tabular-nums">6</span>
-              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Линии продукции</span>
-            </div>
-            <div class="p-5 bg-gray-50 rounded-xl border border-gray-100">
-              <span class="block text-3xl font-black text-brand-red tabular-nums">100%</span>
-              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Испытаны под давлением</span>
-            </div>
-            <div class="p-5 bg-gray-50 rounded-xl border border-gray-100">
-              <span class="block text-3xl font-black text-brand-blue tabular-nums">ISO 9001</span>
-              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Система качества</span>
-            </div>
-          </div>
-
-          <div class="flex flex-wrap gap-3 pt-2">
-            <span class="px-4 py-2 bg-brand-red/5 border border-brand-red/20 text-brand-red text-xs font-black uppercase tracking-widest rounded-full">НИОКР · Продажи · Сервис</span>
-            <span class="px-4 py-2 bg-brand-blue/5 border border-brand-blue/20 text-brand-blue text-xs font-black uppercase tracking-widest rounded-full">Сертификат ISO 9001</span>
-            <span class="px-4 py-2 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-black uppercase tracking-widest rounded-full">OEM · ODM · Изготовление под заказ</span>
-          </div>
-
-          <a href="/ru/#inquiry" class="inline-flex items-center gap-2 font-bold text-brand-blue hover:underline pt-2">
-            Запросить цену <span aria-hidden="true">→</span>
-          </a>
-        </div>
-
-        <div class="flex-1 relative">
-          <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-100 rounded-full blur-3xl opacity-50 z-0"></div>
-          <CompanyIntroVideo locale="ru" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Почему Мы -->
-  <section class="py-24 bg-white border-t border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-14 space-y-4">
-        <h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Почему Мы</h2>
-        <h3 class="text-4xl font-black text-gray-900 tracking-tight">Почему Выбирают <span class="text-brand-red">Wanlian</span></h3>
-      </div>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="p-8 rounded-2xl border border-gray-200 bg-gray-50 hover:shadow-lg transition-shadow duration-300">
-          <div class="w-12 h-12 rounded-lg bg-brand-red/10 flex items-center justify-center mb-5">
-            <svg class="w-6 h-6 text-brand-red" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </div>
-          <h4 class="text-lg font-black text-gray-900 mb-2">Собственные Линии Производства</h4>
-          <p class="text-gray-600 text-sm leading-relaxed">Токарно-фрезерная обработка, сборка, испытания на прочность и окраска выполняются на наших собственных линиях завода в Цюаньчжоу, с квалифицированной партнёрской мощностью для пиковых заказов.</p>
-        </div>
-        <div class="p-8 rounded-2xl border border-gray-200 bg-gray-50 hover:shadow-lg transition-shadow duration-300">
-          <div class="w-12 h-12 rounded-lg bg-brand-red/10 flex items-center justify-center mb-5">
-            <svg class="w-6 h-6 text-brand-red" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-          </div>
-          <h4 class="text-lg font-black text-gray-900 mb-2">Сертификация и 100% Испытания</h4>
-          <p class="text-gray-600 text-sm leading-relaxed">Система качества ISO 9001:2015, продукция UL Listed / Recognized и 100% испытание корпуса и седла по GB/T13927 / EN 12266-1 перед упаковкой.</p>
-        </div>
-        <div class="p-8 rounded-2xl border border-gray-200 bg-gray-50 hover:shadow-lg transition-shadow duration-300">
-          <div class="w-12 h-12 rounded-lg bg-brand-red/10 flex items-center justify-center mb-5">
-            <svg class="w-6 h-6 text-brand-red" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <h4 class="text-lg font-black text-gray-900 mb-2">Детальная Цитата за 12 Часов</h4>
-          <p class="text-gray-600 text-sm leading-relaxed">Пришлите чертежи, спецификацию или просто фото — наши инженеры ответят детальной цитатой, наличием на складе и сроком поставки за 12 часов, 7 дней в неделю.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Product Classification Grid -->
-  <section class="py-24 bg-gray-50 border-y border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <h2 class="text-4xl font-black text-gray-900 tracking-tight uppercase">Основные категории продукции</h2>
-        <div class="h-1.5 w-20 bg-brand-red mx-auto"></div>
-        <p class="text-gray-500 font-medium italic">Точная инженерия для мировых систем пожаротушения и водоснабжения.</p>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {categories.map(cat => (
-          <a href={`/ru/products/#category=${encodeURIComponent(cat.name)}`} class="group relative bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200">
-            <div class="aspect-[4/3] overflow-hidden bg-gray-50 p-6 flex items-center justify-center">
-              <img src={cat.image} alt={cat.name} loading="lazy" class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" />
-            </div>
-            <div class="absolute bottom-0 left-0 right-0 p-6 bg-white/95 backdrop-blur-sm flex justify-between items-center group-hover:bg-brand-red group-hover:text-white transition-colors">
-              <div>
-                <h4 class="font-black text-lg">{cat.name}</h4>
-                <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Каталог доступен по запросу</p>
-              </div>
-              <span class="text-2xl font-light">→</span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Production Workflow -->
-  <section class="py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
-        <div class="space-y-4">
-          <h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Производственный процесс</h2>
-          <h3 class="text-4xl font-black text-gray-900 tracking-tight">Наш производственный цикл</h3>
-        </div>
-        <p class="text-gray-500 max-w-md text-right hidden md:block">Каждая единица проходит один и тот же контролируемый цикл — от обработки на ЧПУ до 100% испытания давлением и нанесения эпоксидного покрытия.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
-        {qualitySteps.map((step, idx) => (
-          <div class="relative group">
-            <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 space-y-4 h-full group-hover:bg-blue-50 transition-colors">
-              <div class="text-4xl font-black text-gray-200 group-hover:text-brand-blue/20 transition-colors">{step.step}</div>
-              <h4 class="font-bold text-gray-900">{step.title}</h4>
-              <p class="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
-            </div>
-            {idx < qualitySteps.length - 1 && (
-              <div class="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
-                <svg class="w-8 h-8 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Project Cases -->
-  <section class="py-24 bg-gray-50 border-t border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row justify-between items-end mb-14 gap-4">
-        <div class="space-y-4">
-          <h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Кейсы Проектов</h2>
-          <h3 class="text-4xl font-black text-gray-900 tracking-tight">Наши Проекты <span class="text-brand-red">на Объектах</span></h3>
-        </div>
-        <p class="text-gray-500 max-w-md text-right hidden md:block">Фото и видео с проекта — помещение пожарных насосов: реальный монтаж, готовый к сдаче.</p>
-      </div>
-
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
-        {projectPhotos.map(photo => (
-          <figure class="group bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
-            <div class="aspect-[4/3] overflow-hidden bg-gray-100">
-              <img src={photo.src} alt={photo.alt} loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-            </div>
-            <figcaption class="px-4 py-3 text-xs font-bold text-gray-600 leading-snug">{photo.caption}</figcaption>
-          </figure>
-        ))}
-      </div>
-
-      <div class="mt-10 grid md:grid-cols-3 gap-6 items-center">
-        <div class="flex justify-center">
-          <div class="relative rounded-xl overflow-hidden bg-gray-900 shadow-xl">
-            <video class="h-[420px] w-auto object-cover" src="/assets/projects/project-walkthrough.mp4" poster="/assets/projects/pump-room-wide.webp" muted loop autoplay playsinline preload="metadata" controls></video>
-            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-brand-red text-white text-[10px] font-black uppercase tracking-wider pointer-events-none">Видео с Объекта</span>
+    <section class="c68-hero">
+      <div class="c68-wrap c68-hero-grid">
+        <div class="c68-rv">
+          <p class="c68-eyebrow"><span class="c68-dot"></span>Производитель и экспортёр — арматура и пожаротушение</p>
+          <h1>Арматура и пожарное <br/>
+                    <span class="text-brand-red">оборудование <em>для глобальных проектов.</span></em></h1>
+          <p class="c68-rule" aria-hidden="true"></p>
+          <p class="c68-lede">Промышленные клапаны, гидранты и группы клапанов сигнализации и дренчеров: 100% опрессовка, ISO 9001, детальный коммерческий ответ в течение 12 часов.</p>
+          <div class="c68-cta">
+            <a class="c68-btn c68-btn-red" href="/ru/products/">Полный каталог</a>
+            <a class="c68-btn c68-btn-ghost" href="/ru/contact/#inquiry">Запросить цену</a>
           </div>
         </div>
-        <div class="md:col-span-2">
-          <h4 class="text-xl font-black text-gray-900 mb-5">Что Мы Установили на Объекте</h4>
-          <ul class="space-y-3 mb-8">
-            {projectScope.map(item => (
-              <li class="flex items-start gap-3">
-                <span class="mt-1 w-2 h-2 rounded-full bg-brand-red shrink-0"></span>
-                <span class="text-gray-600 text-sm leading-relaxed">{item}</span>
-              </li>
-            ))}
-          </ul>
-          <a href="/ru/contact/" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-red hover:opacity-90 text-white font-bold rounded-lg transition shadow-lg shadow-brand-red/20 transform hover:-translate-y-0.5">
-            Обсудить Ваш Проект <span aria-hidden="true">→</span>
-          </a>
-        </div>
+        <figure class="c68-frame c68-rv">
+          <span class="c68-frame-tab"></span>
+          <img src="/assets/factory/plant-exterior.webp" alt="Wanlian Fluid plant exterior in Quanzhou, Fujian" decoding="async" />
+          <figcaption>Реальные Съёмки С Нашего Завода</figcaption>
+        </figure>
       </div>
-    </div>
-  </section>
-
-  <!-- Featured Products -->
-  <section class="py-24 bg-gray-50 border-t border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-end mb-16">
-        <h2 class="text-4xl font-black text-gray-900 tracking-tight">Наши <span class="text-brand-red">бестселлеры</span></h2>
-        <a href="/ru/products/" class="text-brand-blue font-bold hover:underline">Полный каталог →</a>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {featuredProducts.map(product => (
-          <div class="group bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
-            <div class="aspect-square relative overflow-hidden bg-gray-50 p-6">
-              <img src={product.image} alt={product.name} loading="lazy" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
-              <div class="absolute top-4 left-4 flex gap-2">
-                <span class="px-2 py-1 bg-gray-900/80 text-white text-[10px] font-black uppercase tracking-widest rounded">
-                  {product.category}
-                </span>
-              </div>
-            </div>
-            <div class="p-6 space-y-4">
-              <h4 class="font-bold text-gray-900 line-clamp-2 min-h-[3rem] group-hover:text-brand-red transition-colors tracking-tight">{product.name}</h4>
-              <div class="pt-4 border-t border-gray-100 flex gap-2">
-                <a href={`/ru/products/${product.slug}/`} class="flex-1 py-2 text-center text-xs font-black border border-gray-200 rounded hover:bg-gray-50 transition">ДЕТАЛИ</a>
-                <a href={`/ru/contact/?product=${encodeURIComponent(product.name)}`} class="flex-1 py-2 text-center text-xs font-black bg-brand-red text-white rounded hover:opacity-90 transition">ЗАПРОС</a>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Complete Product Line -->
-  <section class="py-24 bg-white border-t border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-end mb-12 gap-4">
-        <h2 class="text-4xl font-black text-gray-900 tracking-tight">Полная <span class="text-brand-blue">линия продукции</span></h2>
-        <a href="/ru/products/" class="text-brand-red font-bold hover:underline shrink-0">Вся продукция →</a>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-1">
-        {productsRu.map(product => (
-          <a href={`/ru/products/${product.slug}/`} class="group flex items-center justify-between py-3 border-b border-gray-100 hover:border-brand-red transition-colors">
-            <span class="text-sm font-semibold text-gray-700 group-hover:text-brand-red transition-colors line-clamp-1 pr-3">{product.name}</span>
-            <span class="text-brand-blue opacity-0 group-hover:opacity-100 transition-opacity shrink-0">→</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- System Resources -->
-  <section class="py-24 bg-gray-50 border-t border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-14 space-y-4">
-        <h2 class="text-sm font-black tracking-[0.3em] text-brand-blue uppercase">Технические ресурсы</h2>
-        <h3 class="text-4xl font-black text-gray-900 tracking-tight">Описания систем и сертификаты</h3>
-        <div class="h-1.5 w-20 bg-brand-red mx-auto"></div>
-        <p class="text-gray-500 font-medium">Паспорта данных полезны, но инженерный контекст ценнее. Изучите детали до оформления спецификации.</p>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-        {featuredGuides.map(item => (
-          <a href={item.href} class="group flex flex-col justify-between bg-white rounded-xl border border-gray-200 p-7 hover:border-brand-red hover:shadow-lg transition-all duration-300">
-            <div>
-              <span class="text-[10px] font-black uppercase tracking-widest text-brand-red">{item.eyebrow}</span>
-              <h4 class="mt-3 text-lg font-black text-gray-900 leading-snug group-hover:text-brand-red transition-colors">{item.title}</h4>
-              <p class="mt-2 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
-            </div>
-            <span class="mt-5 inline-flex items-center gap-1 text-brand-red font-bold text-xs group-hover:gap-2 transition-all">
-              Читать руководство
-              <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-            </span>
-          </a>
-        ))}
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {systemResources.map(item => (
-          <a href={item.href} class="group flex flex-col justify-between bg-white rounded-xl border border-gray-200 p-7 hover:border-brand-red hover:shadow-lg transition-all duration-300">
-            <div>
-              <span class="text-[10px] font-black uppercase tracking-widest text-brand-blue">{item.eyebrow}</span>
-              <h4 class="mt-3 text-lg font-black text-gray-900 leading-snug group-hover:text-brand-red transition-colors">{item.title}</h4>
-              <p class="mt-2 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
-            </div>
-            <span class="mt-5 inline-flex items-center gap-1 text-brand-red font-bold text-xs group-hover:gap-2 transition-all">
-              Читать ресурс
-              <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Industry Scenarios -->
-  <section class="py-24 bg-gray-900 text-white relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 items-center">
-        <div class="space-y-6">
-          <h2 class="text-4xl font-black tracking-tight leading-tight">Созданы для <br/><span class="text-brand-blue">работы под высоким давлением.</span></h2>
-          <p class="text-gray-400">Наша инженерия сосредоточена на долговечности и надёжности в опасных и критически важных объектах инфраструктуры.</p>
-          <div class="pt-4">
-            <a href="/ru/#inquiry" class="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-lg font-bold hover:bg-white/10 transition">
-              Сертификаты и характеристики
-            </a>
-          </div>
-        </div>
-        <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {industries.map(ind => (
-            <div class="p-8 bg-white/5 border border-white/10 rounded-2xl hover:border-brand-blue/50 transition-colors">
-               <h4 class="font-bold mb-2 uppercase tracking-wide">{ind.name}</h4>
-               <p class="text-xs text-gray-400 leading-relaxed">{ind.desc}</p>
+      <div class="c68-stats">
+        <div class="c68-wrap c68-stats-grid">
+          {stats.map((s) => (
+            <div class="c68-stat">
+              <p class="c68-stat-num">{s.value}<span>{s.unit}</span></p>
+              <p class="c68-stat-label">{s.label}</p>
             </div>
           ))}
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Quick Inquiry Section -->
-  <section id="inquiry" class="py-24 bg-white scroll-mt-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-        <div class="space-y-8">
-          <div class="space-y-4">
-             <h2 class="text-4xl font-black text-gray-900 tracking-tight uppercase">Получите профессиональное предложение</h2>
-             <div class="h-1.5 w-20 bg-brand-red"></div>
-          </div>
-          <p class="text-lg text-gray-600 leading-relaxed">
-            Пришлите ваши технические чертежи или требования к продукции. Мы изучим детали и предоставим подходящую информацию о продукте и шаги по формированию цены.
-          </p>
-          <ul class="space-y-4">
-            {inquiryPoints.map(item => (
-              <li class="flex items-center gap-3 text-gray-700 font-bold">
-                <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                {item}
-              </li>
-            ))}
-          </ul>
+    <section class="c68-band c68-band-mist" id="product-lines">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Основные категории продукции</p>
+          <h2>Точная инженерия для мировых систем пожаротушения и водоснабжения.</h2>
+        </header>
+        <div class="c68-lines">
+          {categories.map((c) => (
+            <a class="c68-line c68-rv" href={c.href}>
+              <span class="c68-line-media"><img src={c.image} alt={c.leadName} loading="lazy" decoding="async" /></span>
+              <span class="c68-line-body">
+                <span class="c68-line-count">{c.count}</span>
+                <span class="c68-line-name">{c.name}</span>
+                <span class="c68-line-more">Каталог доступен по запросу <i aria-hidden="true">&rarr;</i></span>
+              </span>
+            </a>
+          ))}
+          <a class="c68-line c68-line-full c68-rv" href="/ru/products/">
+            <span class="c68-line-body">
+              <span class="c68-line-count">Вся продукция</span>
+              <span class="c68-line-name c68-line-name-inv">{products.length}</span>
+            </span>
+          </a>
         </div>
-        <InquiryForm />
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Lead Capture -->
+    <section class="c68-band">
+      <div class="c68-wrap">
+        <div class="c68-cap-grid">
+          {capability.map((c) => (
+            <article class="c68-cap c68-rv">
+              <span class="c68-ico" set:html={icons[c.icon]}></span>
+              <h3>{c.title}</h3>
+              <p>{c.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band c68-band-mist" id="about">
+      <div class="c68-wrap c68-profile-grid">
+        <div class="c68-rv">
+          <header class="c68-head">
+            <p class="c68-kicker"><span class="w-8 h-[2px] bg-brand-red"></span>
+                          О компании</p>
+            <h2>Решения по управлению потоком <br/><span <em>class="text-brand-blue">для мировых проектов.</span></em></h2>
+          </header>
+          <p class="c68-body">Компания Quanzhou Wanlian Fluid Equipment Co., Ltd., базирующаяся в Чжоушане провинции Фуцзянь — ядре китайской индустрии трубопроводов и арматуры, — производит и экспортирует промышленные клапаны, гидравлическое оборудование, компоненты гидрантов и средства противопожарной защиты для международных B2B-проектов. Производство ведётся на собственных линиях в Чжоушане, отдельные позиции выпускают квалифицированные производственные партнёры; корпуса клапанов обрабатываются на станках с ЧПУ, каждая единица проходит испытание корпуса давлением и проверку на герметичность воздухом перед отгрузкой, в рамках системы менеджмента качества ISO 9001.</p>
+          <p class="c68-profile-link"><a href="/ru/about/">Главная &rarr;</a><a href="/ru/applications/">Главная &rarr;</a></p>
+        </div>
+        <div class="c68-shots">
+          <figure class="c68-shot c68-rv">
+            <img src="/assets/factory/workshop.webp" alt="Main workshop at the Quanzhou plant" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="c68-shot c68-rv">
+            <img src="/assets/factory/powder-coating.webp" alt="Powder coating line at the Quanzhou plant" loading="lazy" decoding="async" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band" id="process">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Производственный процесс</p>
+          <h2>Наш <em>производственный цикл</em></h2>
+        </header>
+        <ol class="c68-steps">
+          {productionSteps.map((s) => (
+            <li class="c68-step c68-rv">
+              <span class="c68-step-n">{s.step}</span>
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="c68-band c68-dark" id="factory">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker c68-kicker-red">Завод в кадре</p>
+          <h2>Реальные Съёмки С <em>Нашего Завода</em></h2>
+          <p class="c68-head-sub">Без стокового видео, без постановки: площадка в Цюаньчжоу в работе — от сборки до отгрузки.</p>
+        </header>
+        <div class="c68-video-lead">
+          <figure class="c68-vid c68-rv">
+            <video src="/videos/company-intro.mp4" poster="/videos/company-intro-poster.webp" controls playsinline preload="none"></video>
+            <figcaption><strong>Wanlian Fluid за 50 Секунд</strong><span>Выставочный зал, производственные линии и контроль качества на нашем заводе в Цюаньчжоу — реальные съёмки, без стокового видео.</span></figcaption>
+          </figure>
+          <div class="c68-side">
+            <ul class="c68-video-note">
+              <li>Производитель и экспортёр оборудования для жидкостных систем</li>
+              <li>Сертификаты и характеристики</li>
+            </ul>
+            <div class="c68-side-shots">
+              <figure class="c68-sshot c68-rv">
+                <img src="/assets/factory/assembly.webp" alt="Assembly and finishing bay" loading="lazy" decoding="async" />
+                <figcaption>Сборка</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+        <div class="c68-clips">
+          {clips.map((c) => (
+            <figure class="c68-clip c68-rv">
+              <video src={c.src} poster={c.poster} controls playsinline preload="none"></video>
+              <figcaption><strong>{c.title}</strong><span>{c.desc}</span></figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band c68-band-mist">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Решения по продукции</p>
+          <h2>Созданы для <br/><span <em>class="text-brand-blue">работы под высоким давлением.</span></em></h2>
+          <p class="c68-head-sub"><a class="c68-inlink" href="/ru/applications/">Главная &rarr;</a></p>
+        </header>
+        <div class="c68-ind">
+          {industries.map((i) => (
+            <a class="c68-ind-card c68-rv" href="/ru/applications/">
+              <span class="c68-ico" set:html={icons[i.icon]}></span>
+              <h3>{i.name}</h3>
+              <p>{i.desc}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band" id="quality">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <h2>Сертифицированные UL противопожарные клапаны</h2>
+        </header>
+        <div class="c68-cert-grid">
+          {certifications.map((c) => (
+            <div class="c68-cert c68-rv">
+              <p class="c68-cert-name">{c.name}</p>
+            </div>
+          ))}
+        </div>
+        <div class="c68-chips">
+          <a class="c68-chip c68-chip-link" href="/ru/certificates/">Сертификаты и одобрения &rarr;</a>
+          <a class="c68-chip c68-chip-link" href="/ru/faq/">Часто задаваемые вопросы &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band c68-band-mist" id="resources">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Технические ресурсы</p>
+          <h2>Описания систем и сертификаты</h2>
+          <p class="c68-head-sub">Паспорта данных полезны, но инженерный контекст ценнее. Изучите детали до оформления спецификации.</p>
+        </header>
+        <div class="c68-guides">
+          {resources.map((r) => (
+            <a class="c68-guide c68-rv" href={r.href}>
+              <span class="c68-guide-eyebrow">{r.eyebrow}</span>
+              <span class="c68-guide-title">{r.title}</span>
+              <span class="c68-guide-desc">{r.desc}</span>
+              <span class="c68-guide-more">Читать руководство
+                            <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg> <i aria-hidden="true">&rarr;</i></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band" id="projects">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Кейсы Проектов</p>
+          <h2>Наши Проекты <span <em>class="text-brand-red">на Объектах</span></em></h2>
+          <p class="c68-head-sub">Фото и видео с проекта — помещение пожарных насосов: реальный монтаж, готовый к сдаче.</p>
+        </header>
+        <div class="c68-proj-grid">
+          <figure class="c68-vid c68-vid-tall c68-rv">
+            <video src={walkthroughClip.src} poster={walkthroughClip.poster} controls playsinline preload="none"></video>
+            <figcaption><strong>{walkthroughClip.title}</strong></figcaption>
+          </figure>
+          <div class="c68-proj-cards">
+            {projectPhotos.map((s) => (
+              <figure class="c68-pcard c68-rv">
+                <img src={s.src} alt={s.alt} loading="lazy" decoding="async" />
+                <figcaption>{s.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+        <ul class="c68-scope-list">
+          {projectScope.map((s) => (<li set:html={tick + '<span>' + s + '</span>'}></li>))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="c68-band c68-band-mist" id="model-index">
+      <div class="c68-wrap">
+        <header class="c68-head">
+          <p class="c68-kicker">Серии продукции</p>
+          <h2>Полная <span <em>class="text-brand-blue">линия продукции</span></em></h2>
+        </header>
+        <div class="c68-index">
+          {catalogByCategory.map((g) => (
+            <div class="c68-index-col c68-rv">
+              <p class="c68-index-head"><a href={g.href}>{g.name}</a><span>{g.items.length}</span></p>
+              <ul>
+                {g.items.map((it) => (<li><a href={it.href}>{it.name}</a></li>))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="c68-band c68-dark" id="inquiry">
+      <div class="c68-wrap c68-rfq-grid">
+        <div class="c68-rv">
+          <p class="c68-kicker c68-kicker-red">Контакты</p>
+          <h2>Получите<br /><span class="c68-plate">профессиональное предложение</span></h2>
+          <p class="c68-head-sub">Пришлите ваши технические чертежи или требования к продукции. Мы изучим детали и предоставим подходящую информацию о продукте и шаги по формированию цены.</p>
+          <div class="c68-rfq-links">
+            <a class="c68-btn c68-btn-red" href="/ru/contact/">Обсудить Ваш Проект <span aria-hidden="true">→</span></a>
+            <a class="c68-btn c68-btn-ghost" href={waCallbackHref}>Связаться с нами</a>
+          </div>
+          <p class="c68-fine">QUANZHOU WANLIAN FLUID EQUIPMENT CO., LTD. · FOB · CIF · T/T</p>
+        </div>
+        <div class="c68-rv">
+          <InquiryForm locale="ru" />
+        </div>
+      </div>
+    </section>
+
+  </div>
+
   <LeadCaptureSection />
 
-  <style is:global>
-    @keyframes hero-kenburns { from { transform: scale(1); } to { transform: scale(1.07); } }
-    .hero-kenburns { animation: hero-kenburns 26s ease-in-out infinite alternate; will-change: transform; }
-    @media (prefers-redu-motion: reduce) { .hero-kenburns { animation: none; } }
+  <script is:inline>
+    const root = document.documentElement;
+    const marks = Array.from(document.querySelectorAll('.c68-rv'));
+    root.classList.add('c68-js');
+    const showAll = () => marks.forEach((m) => m.classList.add('c68-in'));
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) { e.target.classList.add('c68-in'); io.unobserve(e.target); }
+        }
+      }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+      marks.forEach((m) => io.observe(m));
+      setTimeout(showAll, 1500);
+    } else {
+      showAll();
+    }
+  </script>
+
+  <style is:inline>
+    .c68 { --navy: #004797; --navy-deep: #00306b; --navy-ink: #00204a; --red: #cc2128; --mist: #f1f3f7; --ink: #1c2735; --muted: #5c6879; --line: #dde2ea; }
+    .c68-wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+    .c68-band { padding: 84px 0; background: #fff; }
+    .c68-band-mist { background: var(--mist); }
+    .c68-dark { background: var(--navy-ink); color: #fff; }
+    .c68-head { max-width: 680px; margin-bottom: 40px; }
+    .c68-kicker { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--red); font-weight: 700; margin: 0 0 12px; }
+    .c68-kicker::before { content: ''; display: inline-block; width: 28px; height: 2px; background: var(--red); vertical-align: middle; margin-right: 12px; }
+    .c68-head h2 { font-size: clamp(28px, 4vw, 44px); line-height: 1.08; letter-spacing: -.01em; font-weight: 800; text-transform: uppercase; margin: 0; color: var(--navy-ink); }
+    .c68-head h2 em { font-style: normal; color: var(--red); }
+    .c68-head-sub { font-size: 15px; line-height: 1.7; color: var(--muted); margin: 16px 0 0; }
+    .c68-dark .c68-head h2 { color: #fff; }
+    .c68-dark .c68-head-sub { color: #b9c6d8; }
+    .c68-kicker-red { color: #ff8b90; }
+    .c68-plate { color: #fff; background: var(--red); display: inline-block; padding: 0 10px 4px; }
+    .c68-inlink { color: var(--red); font-weight: 700; font-size: 14px; text-decoration: none; }
+    .c68-rfq-grid h2 { font-size: clamp(28px, 4vw, 44px); line-height: 1.08; font-weight: 800; text-transform: uppercase; margin: 0; color: #fff; }
+
+    .c68-hero { background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 62%, var(--navy-ink) 100%); color: #fff; }
+    .c68-hero-grid { display: grid; gap: 48px; align-items: center; padding-top: 84px; padding-bottom: 76px; }
+    .c68-eyebrow { display: inline-block; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); padding: 8px 14px; margin: 0 0 26px; }
+    .c68-dot { display: inline-block; width: 6px; height: 6px; background: var(--red); border-radius: 50%; margin-right: 10px; vertical-align: middle; }
+    .c68-hero-grid h1 { font-size: clamp(32px, 5vw, 56px); line-height: 1.05; text-transform: uppercase; letter-spacing: -.015em; font-weight: 800; margin: 0; color: #fff; }
+    .c68-hero-grid h1 em { font-style: normal; color: #fff; }
+    .c68-rule { width: 64px; height: 4px; background: var(--red); margin: 22px 0 24px; }
+    .c68-lede { font-size: 17px; line-height: 1.7; color: #d3ddea; max-width: 44ch; margin: 0 0 30px; }
+    .c68-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+    .c68-btn { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 15px 24px; text-decoration: none; }
+    .c68-btn-red { background: var(--red); color: #fff; }
+    .c68-btn-red:hover { background: #b01b21; }
+    .c68-btn-ghost { border: 1px solid rgba(255,255,255,.4); color: #fff; }
+    .c68-btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+    .c68-frame { position: relative; margin: 0; padding: 14px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16); }
+    .c68-frame-tab { position: absolute; top: -1px; left: -1px; width: 54px; height: 8px; background: var(--red); }
+    .c68-frame img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+    .c68-frame figcaption { display: block; font-size: 11px; letter-spacing: .16em; color: #b9c6d8; padding-top: 12px; }
+
+    .c68-stats { background: var(--red); }
+    .c68-stats-grid { display: grid; gap: 1px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .c68-stat { padding: 30px 24px; border-left: 1px solid rgba(255,255,255,.28); }
+    .c68-stat:first-child { border-left: 0; padding-left: 0; }
+    .c68-stat-num { font-size: 40px; font-weight: 800; line-height: 1; margin: 0 0 8px; }
+    .c68-stat-num span { font-size: 15px; font-weight: 700; margin-left: 4px; }
+    .c68-stat-label { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; line-height: 1.6; margin: 0; color: rgba(255,255,255,.9); }
+
+    .c68-lines { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); }
+    .c68-line { display: block; background: #fff; border: 1px solid var(--line); text-decoration: none; color: inherit; }
+    .c68-line:hover { box-shadow: 0 18px 40px rgba(0,32,74,.12); }
+    .c68-line-media { display: block; height: 190px; background: #fff; border-bottom: 1px solid var(--line); }
+    .c68-line-media img { width: 100%; height: 100%; object-fit: contain; padding: 14px; }
+    .c68-line-body { display: block; padding: 20px; }
+    .c68-line-count { display: block; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+    .c68-line-name { display: block; font-size: 19px; font-weight: 800; margin: 8px 0 14px; color: var(--navy-ink); }
+    .c68-line-more { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .c68-line-full { background: var(--navy); border-color: var(--navy); display: flex; align-items: center; }
+    .c68-line-name-inv { color: #fff; font-size: 26px; }
+    .c68-line-more-inv { color: #cdd9e8; text-transform: none; letter-spacing: 0; font-size: 13px; line-height: 1.6; }
+
+    .c68-cap-grid, .c68-ind { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .c68-cap { padding: 30px 26px; background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--navy); }
+    .c68-cap h3 { font-size: 18px; font-weight: 800; margin: 16px 0 10px; color: var(--navy-ink); }
+    .c68-cap p { font-size: 14px; line-height: 1.7; color: var(--muted); margin: 0; }
+    .c68-ind-card { display: block; padding: 30px 26px; background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--red); text-decoration: none; }
+    .c68-ind-card h3 { font-size: 18px; font-weight: 800; margin: 16px 0 10px; color: var(--navy-ink); }
+    .c68-ind-card p { font-size: 14px; line-height: 1.7; color: var(--muted); margin: 0; }
+    .c68-ico { display: block; width: 34px; height: 34px; color: var(--navy); }
+    .c68-ico svg { width: 100%; height: 100%; display: block; }
+
+    .c68-profile-grid { display: grid; gap: 40px; align-items: start; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+    .c68-body { font-size: 15px; line-height: 1.8; color: var(--ink); margin: 0 0 20px; }
+    .c68-profile-link { display: flex; gap: 24px; flex-wrap: wrap; margin: 0; }
+    .c68-profile-link a { color: var(--navy); font-weight: 700; font-size: 14px; text-decoration: none; }
+
+    .c68-steps { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); list-style: none; margin: 0; padding: 0; }
+    .c68-step { padding: 26px 22px; background: #fff; border: 1px solid var(--line); }
+    .c68-step-n { font-size: 13px; font-weight: 800; letter-spacing: .1em; color: var(--red); }
+    .c68-step-line { float: right; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); padding: 3px 7px; }
+    .c68-step h3 { font-size: 16px; font-weight: 800; margin: 12px 0 8px; color: var(--navy-ink); }
+    .c68-step p { font-size: 13px; line-height: 1.65; color: var(--muted); margin: 0; }
+
+    .c68-video-lead { display: grid; gap: 24px; align-items: start; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); margin-bottom: 24px; }
+    .c68-side { display: grid; gap: 18px; }
+    .c68-video-note { list-style: none; margin: 0; padding: 0; }
+    .c68-video-note li { font-size: 14px; line-height: 1.7; color: #cdd9e8; padding: 12px 0 12px 24px; border-bottom: 1px solid rgba(255,255,255,.12); position: relative; }
+    .c68-video-note li::before { content: ''; position: absolute; left: 0; top: 19px; width: 8px; height: 8px; background: var(--red); }
+    .c68-side-shots { display: grid; gap: 12px; }
+    .c68-sshot { margin: 0; }
+    .c68-sshot img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid rgba(255,255,255,.18); }
+    .c68-sshot figcaption { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #9fb0c6; padding-top: 7px; }
+    .c68-vid { margin: 0; background: #000; }
+    .c68-vid video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #00122b; }
+    .c68-vid figcaption { padding: 16px 18px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-top: 0; }
+    .c68-vid figcaption strong { display: block; font-size: 14px; color: #fff; }
+    .c68-vid figcaption span { display: block; font-size: 13px; color: #b9c6d8; margin-top: 4px; }
+    .c68-clips { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .c68-clip { margin: 0; }
+    .c68-clip video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #00122b; }
+    .c68-clip figcaption { padding-top: 11px; }
+    .c68-clip figcaption strong { display: block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #fff; }
+    .c68-clip figcaption span { display: block; font-size: 12px; color: #9fb0c6; margin-top: 4px; line-height: 1.55; }
+
+    .c68-cert-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 26px; }
+    .c68-cert { padding: 20px; background: var(--mist); border-left: 3px solid var(--navy); }
+    .c68-cert-name { font-size: 15px; font-weight: 800; color: var(--navy-ink); margin: 0 0 6px; }
+    .c68-cert-code { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+    .c68-scope { font-size: 14px; line-height: 1.75; color: var(--muted); background: var(--mist); border-left: 3px solid var(--red); padding: 16px 18px; margin: 0 0 22px; max-width: 860px; }
+    .c68-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .c68-chip { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; border: 1px solid var(--line); background: #fff; color: var(--ink); padding: 8px 12px; text-decoration: none; }
+    .c68-chip-link { border-color: var(--navy); color: var(--navy); }
+
+    .c68-guides { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .c68-guide { display: flex; flex-direction: column; gap: 8px; padding: 26px 24px; background: #fff; border: 1px solid var(--line); text-decoration: none; }
+    .c68-guide-eyebrow { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+    .c68-guide-title { font-size: 17px; font-weight: 800; color: var(--navy-ink); line-height: 1.3; }
+    .c68-guide-desc { font-size: 13px; line-height: 1.65; color: var(--muted); flex-grow: 1; }
+    .c68-guide-more { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--navy); font-weight: 700; }
+    .c68-guide-more i { font-style: normal; }
+
+    .c68-proj-grid { display: grid; gap: 22px; grid-template-columns: 290px minmax(0, 1fr); align-items: start; }
+    .c68-vid-tall { max-width: 290px; }
+    .c68-vid-tall video { aspect-ratio: 9 / 16; }
+    .c68-proj-cards { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .c68-pcard { margin: 0; background: #fff; border: 1px solid var(--line); }
+    .c68-pcard img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+    .c68-pcard figcaption { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: 10px 12px; }
+    .c68-scope-list { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); list-style: none; margin: 26px 0 0; padding: 0; }
+    .c68-scope-list li { display: flex; gap: 10px; align-items: center; font-size: 13px; line-height: 1.6; color: var(--muted); }
+    .c68-scope-list svg { flex: none; color: var(--red); }
+
+    .c68-shots { display: grid; gap: 14px; }
+    .c68-shot { margin: 0; }
+    .c68-shot img { display: block; width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover; }
+    .c68-shot figcaption { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding-top: 8px; }
+
+    .c68-index { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); }
+    .c68-index-col { background: #fff; border: 1px solid var(--line); padding: 22px; }
+    .c68-index-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin: 0 0 12px; font-weight: 800; font-size: 15px; }
+    .c68-index-head a { color: var(--navy-ink); text-decoration: none; }
+    .c68-index-head span { font-size: 12px; color: var(--red); }
+    .c68-index-col ul { list-style: none; margin: 0; padding: 0; }
+    .c68-index-col li { border-top: 1px solid var(--line); }
+    .c68-index-col a { display: block; font-size: 13px; line-height: 1.5; color: var(--muted); padding: 8px 0; text-decoration: none; }
+    .c68-index-col a:hover { color: var(--navy); }
+
+    .c68-rfq-grid { display: grid; gap: 44px; align-items: start; padding-top: 84px; padding-bottom: 84px; }
+    .c68-rfq-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .c68-fine { font-size: 11px; letter-spacing: .16em; color: #8fa2ba; margin-top: 26px; }
+
+    html.c68-js .c68-rv { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    html.c68-js .c68-rv.c68-in { opacity: 1; transform: none; }
+
+    @media (min-width: 760px) {
+      .c68-clips { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1100px) {
+      .c68-clips { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    }
+    @media (min-width: 900px) {
+      .c68-hero-grid { grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); }
+    }
+    @media (max-width: 899px) {
+      .c68-band { padding: 60px 0; }
+      .c68-hero-grid { padding-top: 56px; padding-bottom: 56px; gap: 36px; }
+      .c68-video-lead, .c68-profile-grid, .c68-proj-grid, .c68-rfq-grid { grid-template-columns: minmax(0, 1fr); }
+      .c68-vid-tall { max-width: 260px; }
+      .c68-stat { border-left: 0; padding-left: 0; border-top: 1px solid rgba(255,255,255,.28); }
+      .c68-stat:first-child { border-top: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html.c68-js .c68-rv { opacity: 1; transform: none; transition: none; }
+    }
   </style>
 </Layout>
